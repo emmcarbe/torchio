@@ -620,7 +620,9 @@
   }
 
   window.addEventListener('message', (e) => {
-    if (!e.data || !e.data.torchioNav || !S || !S.files) return;
+    // only the preview frame may steer this page
+    if (!iframe || e.source !== iframe.contentWindow) return;
+    if (!e.data || typeof e.data.torchioNav !== 'string' || !S || !S.files) return;
     const [page, fragment] = String(e.data.torchioNav).split('#');
     showPage(page || pageSelect.value, fragment ? '#' + fragment : '');
   });

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<teiHeader><fileDesc><titleStmt><title>Prova</title></titleStmt>
+<publicationStmt><p>t</p></publicationStmt>
+<sourceDesc><listPlace><place xml:id="p1"><placeName>&lt;/script&gt;&lt;script&gt;alert(3)&lt;/script&gt;</placeName><location><geo>45.4 12.3</geo></location></place></listPlace></sourceDesc></fileDesc></teiHeader>
+<text><body><p><placeName ref="#p1">luogo</placeName></p></body></text>
+</TEI>

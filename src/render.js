@@ -23,8 +23,12 @@ const BLOCKS = new Set([
   'teiHeader', 'fileDesc', 'sourceDesc', 'msDesc', 'figure', 'group', 'floatingText',
 ]);
 
+/** Escapes for both text and attribute contexts: quotes included, because
+ *  a `&quot;` in a TEI attribute would otherwise close the HTML attribute
+ *  and inject markup. Entities render identically as text. */
 export const escapeHTML = (s) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 export function renderBase(node, hooks) {
   if (node.element === 'lb') {

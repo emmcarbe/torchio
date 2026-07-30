@@ -14,6 +14,7 @@ Contents:
 [Contributions](#contributions-received-outside-the-repository) ·
 [State of the prototype](#state-of-the-prototype-30-july-2026) ·
 [Agenda](#agenda) ·
+[Audits](#audits) ·
 [Materials and rights](#materials-and-rights) ·
 [References](#references)
 
@@ -282,6 +283,48 @@ Specimen for teaching purposes.
    one).
 7. **Tests**: take the TEI of published editions and press them without
    configuration.
+
+## Audits
+
+**30 July 2026, 22:00. First machine audit**, run in parallel by three
+assistants (GPT-5.6 Sol, GPT-5.5, Claude Sonnet 5) reading the public
+repository, and verified here by reproducing each claim against the code
+before touching anything.
+
+The three reports converge on one finding, and it is real: **editorial data
+could become executable code**. Reproduced with a TEI file whose attributes
+carry a `&quot;`: the value escaped its HTML attribute and the pressed page
+gained a working event handler. The cause was one escaping function used for
+both text and attributes, escaping `&`, `<` and `>` but not the quotes. This
+had been true of every edition pressed until now.
+
+Fixed the same evening:
+
+- escaping covers quotes as well, so an attribute value cannot close its own
+  attribute (this alone closes the reproduced path);
+- data serialized into a `<script>` block has `<`, `>` and the line
+  separators neutralized, so a `</script>` inside a place name cannot close
+  the block;
+- map popups receive a text node, not a string of HTML;
+- the in-browser press runs its preview in a sandboxed frame with no
+  same-origin access, and accepts navigation messages only from that frame;
+- an XInclude or an extra page cannot point outside the edition's own
+  directory, and remote references are refused;
+- the local preview server binds to the loopback interface only and confines
+  paths by canonical root, not by string prefix;
+- two hostile fixtures joined the test suite, asserting the invariant that
+  states the matter better than any patch: **editorial data stays data,
+  never code**.
+
+What the audits raise and remains open: the XML parser is deliberately
+minimal and its supported profile should be stated rather than implied;
+validation of the TEI against the ODD belongs in the edition's CI and is not
+performed by the press; the CLI is tolerant where CI should be strict; the
+vendored assets deserve a third-party notice; the name collides with an
+unrelated medical-imaging library. These are recorded here, not resolved.
+
+The register of corrections is the standing answer: what an audit finds is a
+correction like any other, and it is filed.
 
 ## Materials and rights
 

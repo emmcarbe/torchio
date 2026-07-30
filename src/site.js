@@ -52,6 +52,14 @@ function headerLabelCSS() {
   return css;
 }
 
+/** JSON safe inside a <script> block: a `</script>` in editorial text
+ *  would otherwise close the block, and U+2028/9 break the parse. */
+function jsonForScript(value) {
+  return JSON.stringify(value)
+    .replace(/</g, '\\u003c').replace(/>/g, '\\u003e')
+    .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+}
+
 function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
   const nav = (parent ? `<a href="${escapeHTML(parent.href)}" class="up">${escapeHTML(parent.label)}</a>` : '')
     + pages
@@ -776,7 +784,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         + (next ? `<a href="${docFiles.get(next.id)}">${T.next}</a>` : '<span></span>')
         + `</nav>`;
       const alignCfg = (alignKey && manifest.align)
-        ? `window.TORCHIO_ALIGN=${JSON.stringify({
+        ? `window.TORCHIO_ALIGN=${jsonForScript({
             strip: manifest.align.strip || null,
             suffix: manifest.align.stripSuffix || null,
             apps: model.documents.filter((x) => isApparatusDoc(x)).map((x) => x.id),
@@ -952,12 +960,15 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
 var map=L.map('map',{scrollWheelZoom:false});
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,
   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
-var pts=${JSON.stringify(markers)};
+var pts=${jsonForScript(markers)};
 var group=[];
 pts.forEach(function(p){
   var m=L.circleMarker([p.lat,p.lon],{radius:7,color:'#B01E28',weight:2,
     fillColor:'#B01E28',fillOpacity:p.unconfirmed?0:0.9}).addTo(map);
-  m.bindPopup(p.label+(p.unconfirmed?' <span style="color:#888">(?)</span>':''));
+  var pc=document.createElement('span');
+  pc.textContent=p.label;
+  if(p.unconfirmed){var q=document.createElement('span');q.style.color='#888';q.textContent=' (?)';pc.appendChild(q);}
+  m.bindPopup(pc);
   group.push(m);
 });
 var lats=pts.map(function(p){return p.lat}),lons=pts.map(function(p){return p.lon});

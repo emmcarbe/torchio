@@ -174,7 +174,7 @@ that appears next.</p>
 <select id="pageselect"></select>
 <button id="download" type="button">Download the site (.zip)</button>
 </div>
-<iframe id="preview" title="Preview of the pressed edition"></iframe>
+<iframe id="preview" title="Preview of the pressed edition" sandbox="allow-scripts"></iframe>
 </section>
 <section id="github">
 <h2>Put the edition online, on GitHub</h2>

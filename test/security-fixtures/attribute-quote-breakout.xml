@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<teiHeader><fileDesc><titleStmt><title>Prova</title></titleStmt>
+<publicationStmt><p>test</p></publicationStmt><sourceDesc><p>test</p></sourceDesc></fileDesc></teiHeader>
+<text><body><p>
+<ref target="&quot; onmouseover=&quot;alert(1)">testo</ref>
+<persName ref="#x&quot; onclick=&quot;alert(2)">nome</persName>
+</p></body></text>
+</TEI>

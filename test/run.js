@@ -879,4 +879,29 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     'an edited lemma is a decision (confirmed); explicit statuses count; untouched rows stay');
 }
 
+// ---- hostile fixtures: editorial data must never become executable code ----
+{
+  const { readFileSync } = await import('node:fs');
+  const { pressSite: press } = await import('../src/site.js');
+  const hostile = [
+    'test/security-fixtures/attribute-quote-breakout.xml',
+    'test/security-fixtures/script-end-tag.xml',
+  ];
+  // editorial data may appear as escaped text (that is data); what it must
+  // never do is become code: close a script block, open an event handler,
+  // or carry a javascript: URL
+  for (const file of hostile) {
+    const model = buildModel(parseXML(readFileSync(file, 'utf-8')), buildClassMap(null, data));
+    const site = press(model, { title: 'hostile' });
+    for (const [name, page] of Object.entries(site)) {
+      if (!name.endsWith('.html')) continue;
+      const scripts = [...page.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]);
+      const clean = scripts.every((code) => !/<\/script/i.test(code))
+        && !/ on\w+\s*=\s*"/i.test(page)
+        && !/javascript:/i.test(page);
+      ok(clean, `editorial data stays data, never code: ${file.split('/').pop()} in ${name}`);
+    }
+  }
+}
+
 console.log(`\n${passed} assertions passed.`);

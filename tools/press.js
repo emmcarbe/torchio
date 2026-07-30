@@ -6,7 +6,7 @@
  * and the GitHub Action (path B), both built on the same modules.
  */
 import { readFile, writeFile, mkdir, stat, readdir, cp } from 'node:fs/promises';
-import { dirname, join, basename } from 'node:path';
+import { dirname, join, basename, resolve, sep } from 'node:path';
 import { parseXML, inTEINamespace } from '../src/xml.js';
 import { resolveIncludes } from '../src/xinclude.js';
 import { parseODD, isODD } from '../src/odd.js';
@@ -20,6 +20,18 @@ import { attachLemmas } from '../src/lemmas.js';
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const site = process.argv.includes('--site');
+/** A path an edition points to must stay inside the edition: an include or
+ *  an extra page cannot reach out of the project root. */
+function within(root, href) {
+  if (/^[a-z][a-z0-9+.-]*:/i.test(href)) throw new Error(`remote reference refused: ${href}`);
+  const base = resolve(root);
+  const abs = resolve(base, href);
+  if (abs !== base && !abs.startsWith(base + sep)) {
+    throw new Error(`path outside the edition refused: ${href}`);
+  }
+  return abs;
+}
+
 const [input, output] = args;
 if (!input) {
   console.error('usage: node tools/press.js [--site] <input.xml> [output.html | output-dir]');
@@ -71,7 +83,7 @@ if (inputStat.isDirectory()) {
     console.error('warning: root element is not in the TEI namespace; pressing anyway (nothing is invisible)');
   }
   const { resolved, unresolved } = await resolveIncludes(root, (href) =>
-    readFile(join(dirname(input), href), 'utf-8'));
+    readFile(within(dirname(input), href), 'utf-8'));
   if (resolved) console.error(`xinclude: ${resolved} resolved`);
   for (const u of unresolved) console.error(`xinclude unresolved: ${u.href} (${u.reason})`);
   roots = [root];
@@ -125,7 +137,7 @@ if (manifest && Array.isArray(manifest.extra)) {
   for (const e of manifest.extra) {
     if (!e || !e.id || !e.file) continue;
     try {
-      const raw = await readFile(join(dirname(manifestPath), e.file), 'utf-8');
+      const raw = await readFile(within(dirname(manifestPath), e.file), 'utf-8');
       const html = e.file.endsWith('.html') ? raw : markdown(raw);
       extraPages.push({ id: e.id, label: e.label || e.id, html });
     } catch (err) {

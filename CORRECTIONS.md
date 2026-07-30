@@ -74,6 +74,7 @@ editorial genre.
 | 2026-07-30 | C48 | Romualdus Salernitanus (ed. Monella), public demo | assignment | an endnotes chapter ("Adnotationes criticae") pressed as a reading page is unreadable: standoff notes follow their targets, each pressed on the page of the passage it annotates, where the margin machinery pairs them; a section left with nothing but its heading never becomes a page, and the contents no longer promise it |
 | 2026-07-30 | C49 | Eurasian Latin Archive, public demo | assignment | long indices open with an index of the indices: one line of anchors (index of names, of places...) with the count of each section, derived, shown only when there is more than one section and enough entries |
 | 2026-07-30 | C50 | Canterbury Tales Project (GP), offered by the editor | assignment | the press guessed the tokenization behind `@from`/`@to`; the edition's own model (the JSON collation overtext) declares it: standalone punctuation is not a token, a word split by line or abbreviation is one, and the declared lemma anchors the alignment where the counts drift |
+| 2026-07-30 | C51 | first machine audit (three assistants in parallel) | structural change | editorial data could become executable code: one escaping function served both text and attributes and left the quotes untouched, so an attribute value could close its own attribute. Escaping now covers quotes; data serialized into a script has its markup characters neutralized; map popups take a text node; the in-browser preview is sandboxed and accepts messages only from its own frame; includes and extra pages cannot leave the edition's directory; the preview server binds to loopback and confines paths canonically; two hostile fixtures assert the invariant |
 
-As of 30 July 2026: 50 corrections applied (34 assignments, 15 extensions, 1
-structural change), 1 open.
+As of 30 July 2026: 51 corrections applied (34 assignments, 15 extensions, 2
+structural changes), 1 open.
