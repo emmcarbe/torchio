@@ -88,5 +88,7 @@ editorial genre.
 | 2026-07-31 | C67 | third machine audit | structural change | the lemma page leaves the block as well: forms, frequencies and concordance, with the grouping strategy the edition declared, are one subject and now one module. Byte-identical, as before |
 | 2026-07-31 | C68 | third machine audit | structural change | the register of a collection leaves the block too: one row per document and a column only where the cards fill it. With the shell, the map and the lemma page already out, the pressing function is down from a thousand lines to six hundred, and each page that has a subject of its own has a module of its own. Byte-identical throughout |
 
-As of 31 July 2026: 67 corrections applied (44 assignments, 16 extensions, 7
+| 2026-07-31 | C68 | rights and weight | structural change | the demonstration editions leave the engine's repository for one of their own ([torchio-demos](https://github.com/emmcarbe/torchio-demos)): materials granted for a limited time, or under someone else's copyright, can now be added and withdrawn without touching the press. The engine keeps one constructed specimen, whose rights are its own |
+
+As of 31 July 2026: 68 corrections applied (44 assignments, 16 extensions, 8
 structural changes), 1 open.

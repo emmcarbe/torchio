@@ -287,7 +287,8 @@ export function buildInteractJS(t) {
       ev.preventDefault();ev.target.click();
     }
   });
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
   var ALIGNMAP=null;
   function withAlign(cb){
     if(ALIGNMAP){cb(ALIGNMAP);return;}
