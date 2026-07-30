@@ -194,7 +194,7 @@ the repository itself. One line per contribution.
 | Franz Fischer (VeDPH) | 30 July | the complexity question: does the class approach hold for non-standardized TEI? | principle 13 is the standing answer |
 | Paolo Monella | 30 July | the "sustainability by design" reading; the live vs one-off architecture question; a per-element rendering override request; offered Orso and Romualdo as test cases (open licence) | USAGE; desiderata; the contrast corpus |
 | Peter Robinson (Canterbury Tales Project) | 30 July | offered the [General Prologue](https://talesofcanterbury.org/GP/) transcription and collation materials; pointed to O'Donnell et al. 2019 | the contrast corpus; References |
-| Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting DiScEPT (parallel texts and aligned translations, with F. Boschetti and others) | agenda 6 |
+| Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting [DiScEPT](https://www.studigermanici.it/progetto-discept/) (parallel texts and aligned translations) | agenda 6 |
 | Giulio Quaresima | 30 July | first star; the source-exposure question; recalled [TEI Boilerplate](https://github.com/TEI-Boilerplate/TEI-Boilerplate), which [ELA](https://ela.unisi.it/) had already used | USAGE; the survey above |
 | Christian D'Agata | 30 July | endorsement of versioning and sustainability at design time | — |
 
@@ -235,8 +235,7 @@ teaching purposes.
    with grouping strategies declared per edition.
 6. **Advanced collections**: timelines, networks, witness synopses, the text
    of a single witness derived from the model, and the alignment of parallel
-   texts and translations (DiScEPT line, with T. Mancinelli, F. Boschetti
-   and others).
+   texts and translations (the [DiScEPT](https://www.studigermanici.it/progetto-discept/) line, with T. Mancinelli).
 7. **The conformance report** integrated in the CI (strict: the build fails
    on the syntactic layer, requires written confirmation on the semantic
    one).
