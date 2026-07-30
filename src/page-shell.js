@@ -50,6 +50,13 @@ export function jsonForScript(value) {
     .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
 }
 
+/** The colophon of an impression: which press, which state of it, when.
+ *  Two impressions of the same XML can then be collated, and what differs
+ *  is attributable. */
+let COLOPHON = null;
+export function setColophon(text) { COLOPHON = text; }
+function colophon() { return COLOPHON || 'v0.1.0'; }
+
 export function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
   const parentHref = parent ? safeURL(parent.href) : null;
   const nav = (parentHref ? `<a href="${escapeHTML(parentHref)}" class="up">${escapeHTML(parent.label)}</a>` : '')
@@ -158,7 +165,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <nav class="torchio-nav">${nav}</nav>
 </header>
 ${body}
-<footer class="torchio">${t.publishedWith} <span class="press">Torchio</span> v0</footer>
+<footer class="torchio">${t.publishedWith} <span class="press">Torchio</span> ${escapeHTML(colophon())}</footer>
 ${script ? `<script>${script}</script>` : ''}
 </body>
 </html>`;

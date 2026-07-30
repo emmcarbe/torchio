@@ -90,5 +90,7 @@ editorial genre.
 
 | 2026-07-31 | C68 | rights and weight | structural change | the demonstration editions leave the engine's repository for one of their own ([torchio-demos](https://github.com/emmcarbe/torchio-demos)): materials granted for a limited time, or under someone else's copyright, can now be added and withdrawn without touching the press. The engine keeps one constructed specimen, whose rights are its own |
 
-As of 31 July 2026: 68 corrections applied (44 assignments, 16 extensions, 8
+| 2026-07-31 | C69 | the philologist's reading | assignment | an impression that does not say which press produced it cannot be collated with another: every page now carries a colophon with the version of the press, the commit it was pressed from and the date. Determinism becomes verifiable by the reader, not only asserted |
+
+As of 31 July 2026: 69 corrections applied (45 assignments, 16 extensions, 8
 structural changes), 1 open.

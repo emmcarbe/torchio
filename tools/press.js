@@ -94,6 +94,19 @@ if (oddFile) {
   console.error('odd: none, read against the whole of P5 (tei_all)');
 }
 
+// the colophon of this impression: version, commit, date
+try {
+  const { execSync } = await import('node:child_process');
+  const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf-8'));
+  let commit = '';
+  try {
+    commit = execSync('git -C ' + JSON.stringify(dirname(new URL('.', import.meta.url).pathname))
+      + ' rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+  } catch { /* pressed outside a checkout */ }
+  const { setColophon } = await import('../src/page-shell.js');
+  setColophon(`v${pkg.version}${commit ? ` · ${commit}` : ''} · ${new Date().toISOString().slice(0, 10)}`);
+} catch { /* the footer keeps its default */ }
+
 const data = await loadBaseData();
 const map = buildClassMap(odd, data);
 const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, map);

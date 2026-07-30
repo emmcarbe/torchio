@@ -45,7 +45,9 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-foreign,.t-hi,.t-emph,.t-title{font-style:italic}
 .t-quote{margin:.8em 0 .8em 1.4em;color:var(--soft)}
 
-.t-del{text-decoration:line-through;color:var(--soft)}
+/* the class carries the behaviour: anything the ODD declares a member of
+   model.pPart.transcriptional is struck through like del, named or not */
+.s-3-editoriale>[data-el="del"],.s-3-editoriale.t-del,.t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
 .t-sign{color:var(--soft)}
@@ -145,6 +147,10 @@ body.notes-dense.notes-off .t-note-mark{cursor:default}
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
 body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
 body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
+/* behaviour by class, not by tag: an element that declares itself a member
+   of a TEI model class behaves like the class, whatever it is called */
+body.mode-read .s-3-editoriale [data-el="del"],body.mode-read .t-del{display:none}
+body.mode-dipl .s-3-editoriale .t-orig,body.mode-dipl .s-3-editoriale .t-abbr{display:inline}
 body.mode-read .t-del{display:none}
 body.mode-read .t-am{display:none}
 body.mode-dipl .t-ex{display:none}
@@ -342,7 +348,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       <div id="specimen:0.0.2.0" class="t-change s-7-header" data-el="change" data-when="2026-07-30">Specimen creato per la pubblicazione di Torchio.</div>
     </span>
   </div></div></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0.1.0 · 0087933 · 2026-07-30</footer>
 
 </body>
 </html>
