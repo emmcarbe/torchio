@@ -16,6 +16,12 @@ e `node tools/press.js --site demo-src/vangogh docs/vangogh`.
   dal repository [eeditiones/vangogh](https://github.com/eeditiones/vangogh),
   licenza CC BY-NC-SA 4.0. La demo derivata è distribuita alla stessa
   condizione, per soli usi non commerciali.
+- **Bellum Alexandrinum** (`demo-src/bellum/`): edizione critica di Cynthia
+  Damon et al., [Digital Latin Library](https://github.com/digitallatin/caesar-balex),
+  licenza CC BY-SA 4.0; i file sono dichiarati dagli autori versione beta in
+  attesa della peer review della Society for Classical Studies. Uso
+  temporaneo, a scopo di prova. La demo derivata è distribuita alla stessa
+  condizione (CC BY-SA 4.0).
 - **Specimen** (`demo-src/specimen/`): micro-edizione costruita a scopo
   dimostrativo (testimoni immaginari, varianti didattiche, dichiarati nel
   frontespizio); testo base: incipit dell'Odissea nella traduzione di

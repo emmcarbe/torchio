@@ -161,9 +161,10 @@ ordinabile e filtrabile e una pagina per documento; apparato a comparsa sul
 lemma; livelli di trascrizione; tre temi con contrasto verificato; interfaccia
 in italiano e inglese; export del modello, delle entità e dell'apparato;
 riconciliazione dei luoghi su gazetteer GeoNames con l'editore nel circuito.
-La suite conta 108 asserzioni. Due edizioni dimostrative con diritti
-verificati: l'Odissea (Perseus) e trenta lettere di Van Gogh (Van Gogh Museum
-e Huygens ING).
+La suite conta 108 asserzioni. Quattro edizioni dimostrative con diritti
+verificati: l'Odissea (Perseus), trenta lettere di Van Gogh (Van Gogh Museum
+e Huygens ING), il Bellum Alexandrinum (Digital Latin Library, con apparato
+critico a tre registri) e uno Specimen costruito a scopo didattico.
 
 ## Agenda
 
