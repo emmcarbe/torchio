@@ -236,6 +236,13 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
+  padding-left:1.2em}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
@@ -256,7 +263,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>P. Ludovicus Gonçalves da Camara S.I. [P. Ignatio de Loyola, Romam] [Ulyssipone, inter 28 martii et 8 aprilis 1550]</h1><p class="sub">Eurasian Latin Archive</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html">Map</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html" class="on">Text</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html">Map</a><a href="data.html">Data</a></nav>
 </header>
 <div class="torchio-bar"><div class="inner"><span class="modes" role="group" aria-label="Text"><button data-mode="read" class="active" aria-pressed="true">Reading</button><button data-mode="dipl" aria-pressed="false">Diplomatic</button></span><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-loyola-a-saverius-15491223.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-majorica-indiculus-alphabeticus-1654.html">next ›</a></nav><div id="ELA_2_2_ludovicus_goncalves_da_camara_ignatio_de_loyola_8_apr_1550:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
       <div id="ELA_2_2_ludovicus_goncalves_da_camara_ignatio_de_loyola_8_apr_1550:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
@@ -387,6 +394,14 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     }
   });
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  var ALIGNMAP=null;
+  function withAlign(cb){
+    if(ALIGNMAP){cb(ALIGNMAP);return;}
+    try{
+      fetch('alignment.json').then(function(r){return r.ok?r.json():null;})
+        .then(function(j){if(j){ALIGNMAP=j;cb(j);}})['catch'](function(){});
+    }catch(e){}
+  }
   function sigla(w){return (w||'').split(/\s+/).filter(Boolean).map(function(x){return x.replace(/^#/,'');}).join(' ');}
 
   document.addEventListener('click',function(ev){
@@ -426,6 +441,19 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         +'<div>'+esc(ent.textContent.trim())+'</div>'
         +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
+    }
+    var bw=ev.target.closest&&ev.target.closest('.app-band .bw');
+    if(bw){
+      var band=bw.closest('[data-ent]');
+      var sig=bw.getAttribute('data-sig');
+      if(band&&sig){
+        withAlign(function(map){
+          var row=map[band.getAttribute('data-ent')]||{};
+          var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
+          if(tgt)location.href=tgt;
+        });
+        ev.stopPropagation();return;
+      }
     }
     var np=ev.target.closest&&ev.target.closest('[data-notepop]');
     if(np&&!body.classList.contains('notes-off')){

@@ -9,6 +9,7 @@
 const STRINGS = {
   en: {
     edition: 'Edition', text: 'Text', indices: 'Indices', data: 'Data',
+    archive: 'Archive', dsa: 'digital archive',
     reading: 'Reading', diplomatic: 'Diplomatic', apparatus: 'Apparatus',
     aboutFile: 'About this file', notes: 'Notes',
     dse: 'digital scholarly edition',
@@ -48,6 +49,7 @@ const STRINGS = {
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
+    archive: 'Archivio', dsa: 'archivio digitale',
     reading: 'Lettura', diplomatic: 'Diplomatica', apparatus: 'Apparato',
     aboutFile: 'Scheda del file', notes: 'Note',
     dse: 'edizione scientifica digitale',

@@ -111,6 +111,13 @@ ${headerLabelCSS()}
 .reg-table th[aria-sort="ascending"]::after{content:" \\2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \\2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
+  padding-left:1.2em}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
@@ -260,7 +267,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
 
   // The markup decides existence; the manifest decides presence, order, labels.
   const DEFAULT = [
-    ['index', T.edition],
+    ['index', model.collection ? T.archive : T.edition],
     ...(frontNode ? [['front', frontLabel]] : []),
     ['text', T.text],
     ...(backNode ? [['back', backLabel]] : []),
@@ -284,6 +291,44 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const wanted = new Set(pageList.map(([id]) => id));
 
   const out = {};
+
+  // canonical entities (manifest "align"): the same key, derived from @n,
+  // identifies one passage across the documents of a collection
+  let alignKey = null, appsByKey = null;
+  if (manifest.align && isCollection) {
+    const stripRe = manifest.align.strip ? new RegExp(manifest.align.strip) : null;
+    const suffRe = manifest.align.stripSuffix ? new RegExp(manifest.align.stripSuffix) : null;
+    alignKey = (n) => {
+      let k = String(n);
+      if (stripRe) k = k.replace(stripRe, '');
+      if (suffRe) k = k.replace(suffRe, '');
+      return k;
+    };
+    const alignEls = new Set(manifest.align.elements);
+    const alignMap = {};
+    for (const d of model.documents) {
+      const file = docFiles.get(d.id);
+      for (const nd of walkModel(d.tree)) {
+        if (!alignEls.has(nd.element) || nd.atts.n == null) continue;
+        const k = alignKey(nd.atts.n);
+        if (!k) continue;
+        if (!alignMap[k]) alignMap[k] = {};
+        if (!alignMap[k][d.id]) alignMap[k][d.id] = `${file}#${nd.id}`;
+      }
+    }
+    out['alignment.json'] = JSON.stringify(alignMap);
+    appsByKey = new Map();
+    for (const reg of model.apparatus) {
+      if (reg.type === 'lac') continue;
+      for (const e of reg.entries) {
+        if (!e.n) continue;
+        const k = alignKey(e.n);
+        if (!k) continue;
+        if (!appsByKey.has(k)) appsByKey.set(k, []);
+        appsByKey.get(k).push(e);
+      }
+    }
+  }
 
   // which page contains a given node id (for occurrence links)
   const idPage = new Map();
@@ -373,7 +418,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       + `<div class="header-full">${renderBase(headerTree)}</div>`;
   }
   about += '</main>';
-  out['index.html'] = chrome({ title: t, sub: manifest.subtitle || T.dse, active: 'index.html', pages, body: about, t: T, lang, theme, parent, parent });
+  out['index.html'] = chrome({ title: t, sub: manifest.subtitle || (model.collection ? T.dsa : T.dse), active: 'index.html', pages, body: about, t: T, lang, theme, parent, parent });
   }
 
   /* ---- text.html: everything but the header ---- */
@@ -541,10 +586,32 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     for (let i = 0; i < model.documents.length; i++) {
       const d = model.documents[i];
       const c = d.card || {};
+      // the classical apparatus band: derived under the document the
+      // manifest names (align.apparatusUnder), verse by verse
+      const bandHooks = (alignKey && appsByKey && manifest.align.apparatusUnder === d.id) ? {
+        after: (nd) => {
+          if (nd.atts == null || nd.atts.n == null || nd.element === 'app') return '';
+          if (!manifest.align.elements.includes(nd.element)) return '';
+          const apps = appsByKey.get(alignKey(nd.atts.n));
+          if (!apps) return '';
+          const entries = [];
+          for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
+            const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
+            if (!others.length) continue;
+            entries.push(`<span class="band-e"><span class="band-lem">${escapeHTML(a.lemma || '')}</span>] `
+              + others.map((r) => `${escapeHTML(r.text.trim() || '(om.)')} <span class="band-wit">`
+                + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')
+                + `</span>`).join('; ')
+              + `</span>`);
+          }
+          if (!entries.length) return '';
+          return `<div class="app-band" data-ent="${escapeHTML(alignKey(nd.atts.n))}">${entries.join(' <span class="band-sep">·</span> ')}</div>`;
+        },
+      } : null;
       let docText = '';
       for (const child of d.tree.children) {
         if (typeof child === 'string') continue;
-        docText += renderBase(child); // header included: hidden, toggleable
+        docText += renderBase(child, bandHooks); // header included: hidden, toggleable
       }
       const prev = i > 0 ? model.documents[i - 1] : null;
       const next = i < model.documents.length - 1 ? model.documents[i + 1] : null;
