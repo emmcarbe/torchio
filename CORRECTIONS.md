@@ -86,6 +86,7 @@ editorial genre.
 | 2026-07-30 | C60 | third machine audit | assignment | spreadsheet formula injection in the CSV exports: a cell opening with `=`, `+`, `-` or `@` is quoted as text |
 | 2026-07-30 | C61 | third machine audit | assignment | an `elementSpec mode="change"` that adds a class membership replaced the element's whole P5 membership, stripping the behaviour it inherited: memberships now merge |
 | 2026-07-30 | C62 | third machine audit | assignment | the register's own bookkeeping was wrong: two rows carried the number C45 and the totals no longer matched the table. Numbering and totals are now derived from the table itself |
+| 2026-07-30 | C63 | third machine audit, on chapter 12 of the Guidelines | extension | only one of the three ways of tying an apparatus to a text was derived. The press now tells them apart by what the `app` declares and wires all three: parallel segmentation in place, double-end-point attachment through its two anchors (the text between them becomes the clickable span), location-referenced through the canonical place its `@loc` names. An apparatus written outside the text now reaches it |
 
-As of 30 July 2026: 62 corrections applied (44 assignments, 15 extensions, 3
+As of 30 July 2026: 63 corrections applied (44 assignments, 16 extensions, 3
 structural changes), 1 open.

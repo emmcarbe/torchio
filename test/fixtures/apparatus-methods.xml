@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader><fileDesc><titleStmt><title>The three apparatus methods</title></titleStmt>
+    <publicationStmt><p>Test fixture.</p></publicationStmt>
+    <sourceDesc><listWit><witness xml:id="A">First witness</witness><witness xml:id="B">Second witness</witness></listWit></sourceDesc>
+  </fileDesc></teiHeader>
+  <text><body>
+    <div type="text">
+      <l n="1">Arma <app><lem wit="#A">virumque</lem><rdg wit="#B">virosque</rdg></app> cano</l>
+      <l n="2">Troiae <anchor xml:id="a1"/>qui primus<anchor xml:id="a2"/> ab oris</l>
+      <l n="3">Italiam fato profugus</l>
+    </div>
+    <div type="apparatus">
+      <app from="#a1" to="#a2"><lem wit="#A">qui primus</lem><rdg wit="#B">quis primus</rdg></app>
+      <app loc="3"><lem wit="#A">Italiam</lem><rdg wit="#B">Italia</rdg><rdg source="#Heinsius">Italia</rdg></app>
+    </div>
+  </body></text>
+</TEI>

@@ -537,8 +537,14 @@ function collectApparatus(node, appByType) {
       if (child.element === 'lem') lemma = reading.text;
     }
   }
+  // the three methods of chapter 12, told apart by what the app declares
+  const from = node.atts.from || null, to = node.atts.to || null;
+  const loc = node.atts.loc || null;
+  const method = loc ? 'location-referenced'
+    : (from && /^#/.test(from)) ? 'double-end-point'
+    : 'parallel-segmentation';
   appByType.get(type).entries.push({
-    id: node.id, anchor: node.id, lemma, readings,
-    n: node.atts.n || null, from: node.atts.from || null, to: node.atts.to || null,
+    id: node.id, anchor: node.id, lemma, readings, method, loc,
+    n: node.atts.n || null, from, to,
   });
 }

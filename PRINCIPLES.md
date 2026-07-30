@@ -351,9 +351,8 @@ table (C62). Fixed, with the numbering now derived from the table.
 What the audits raise and remains open: the XML parser is deliberately
 minimal and its supported profile should be stated rather than implied;
 validation of the TEI against the ODD belongs in the edition's CI and is not
-performed by the press; the CLI is tolerant where CI should be strict; only
-one of the three apparatus methods of chapter 12 is derived (parallel
-segmentation), and facsimiles are not yet rendered; behaviour is assigned by
+performed by the press; the CLI is tolerant where CI should be strict;
+facsimiles are not yet rendered; behaviour is assigned by
 class but the section a class resolves to does not yet carry rendering of
 its own; the press has no tagged release, so an edition that presses itself
 from this repository follows the branch instead of a fixed version. These

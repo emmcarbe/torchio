@@ -879,6 +879,26 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     'an edited lemma is a decision (confirmed); explicit statuses count; untouched rows stay');
 }
 
+// ---- the three apparatus methods of chapter 12 ----
+{
+  const { readFileSync } = await import('node:fs');
+  const { pressSite: pressM } = await import('../src/site.js');
+  const model = buildModel(parseXML(readFileSync('test/fixtures/apparatus-methods.xml', 'utf-8')),
+    buildClassMap(null, data));
+  const entries = model.apparatus.flatMap((r) => r.entries);
+  const methods = entries.map((e) => e.method).sort();
+  ok(methods.join(',') === 'double-end-point,location-referenced,parallel-segmentation',
+    'the three methods of chapter 12 are told apart by what the app declares');
+  const loc = entries.find((e) => e.method === 'location-referenced');
+  ok(loc.loc === '3' && loc.readings.some((r) => (r.sources || []).includes('Heinsius')),
+    'a location-referenced app keeps its place and its conjecture keeps its author');
+  const site = pressM(model, { title: 'methods' });
+  const page = site['text.html'];
+  ok(/data-from="#a1"/.test(page) && /data-loc="3"/.test(page)
+    && /id="a1"/.test(page) && /data-el="l" data-n="3"/.test(page),
+    'anchors and canonical places survive into the page, where the reader-side wiring finds them');
+}
+
 // ---- hostile fixtures: editorial data must never become executable code ----
 {
   const { readFileSync } = await import('node:fs');
