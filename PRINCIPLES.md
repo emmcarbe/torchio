@@ -161,9 +161,13 @@ the `p5subset`, never from examples.
 Examples were collected to form a kind of **contrast corpus**: from the
 Catalogue of Digital Editions, 95 TEI editions with downloadable XML still
 online were filtered; six cases were downloaded and analysed in full
-(Faust-Edition, Shelley-Godwin Archive, the Thun correspondence, Italian
-ELTeC, Italian DraCor, the Digital Latin Library's Bellum Alexandrinum:
-7,692 files, 228 distinct elements).
+([Faust-Edition](https://faustedition.net/), [Shelley-Godwin
+Archive](http://shelleygodwinarchive.org/), the [Thun
+correspondence](https://thun-korrespondenz.acdh.oeaw.ac.at/), [Italian
+ELTeC](https://github.com/COST-ELTeC/ELTeC-ita), [Italian
+DraCor](https://dracor.org/ita), the Digital Latin Library's [Bellum
+Alexandrinum](https://github.com/digitallatin/caesar-balex): 7,692 files,
+228 distinct elements).
 
 The contrast produced thirteen corrections to the specification, among them:
 hands as a first-class dimension (the most frequent element in the whole
@@ -191,7 +195,7 @@ the repository itself. One line per contribution.
 | Paolo Monella | 30 July | the "sustainability by design" reading; the live vs one-off architecture question; a per-element rendering override request; offered Orso and Romualdo as test cases (open licence) | USAGE; desiderata; the contrast corpus |
 | Peter Robinson (Canterbury Tales Project) | 30 July | offered the [General Prologue](https://talesofcanterbury.org/GP/) transcription and collation materials; pointed to O'Donnell et al. 2019 | the contrast corpus; References |
 | Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting DiScEPT (parallel texts and aligned translations, with F. Boschetti and others) | agenda 6 |
-| Giulio Quaresima | 30 July | first star; the source-exposure question; recalled TEI Boilerplate, which ELA had already used | USAGE; the survey above |
+| Giulio Quaresima | 30 July | first star; the source-exposure question; recalled [TEI Boilerplate](https://github.com/TEI-Boilerplate/TEI-Boilerplate), which ELA had already used | USAGE; the survey above |
 | Christian D'Agata | 30 July | endorsement of versioning and sustainability at design time | — |
 
 ## State of the prototype (30 July 2026)
