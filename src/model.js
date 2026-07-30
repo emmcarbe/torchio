@@ -100,10 +100,20 @@ export function buildModel(docs, classMap) {
       if (!Number.isNaN(y)) years.push(y);
     }
     // who worked on the archive, with the number of interventions: every
-    // revisionDesc change (@who) is one intervention, every respStmt one
-    // per document; local #refs resolve to names, ORCIDs stay ORCIDs
+    // revisionDesc change is one intervention, every respStmt one per
+    // document. The change's own prose names the agent ("I. Volpi:
+    // transcription"): that declaration wins over @who, because a source
+    // may reuse an identifier across people, and an ambiguous identifier
+    // must never absorb someone else's intervention. Unambiguous
+    // name-identifier co-occurrences become aliases, so identifier-only
+    // changes still count under the person; local #refs resolve to names.
     const contributors = new Map();
     const names = new Map();
+    const changes = [];
+    const prefixName = (n) => {
+      const m = textOfModel(n).trim().match(/^([^:]{2,40}?)\s*:/);
+      return m && /\p{Lu}/u.test(m[1]) && !/\d/.test(m[1]) ? m[1].trim() : null;
+    };
     for (const doc of model.documents) {
       const h = findFirst(doc.tree, 'teiHeader');
       if (!h) continue;
@@ -114,18 +124,35 @@ export function buildModel(docs, classMap) {
           // an ORCID (or any URI) in @ref names its person: show the name
           if (n.atts.ref && label) names.set(n.atts.ref, label);
         }
-      }
-      for (const n of walkModel(h)) {
-        if (n.element === 'change' && n.atts.who) {
-          for (const w of n.atts.who.split(/\s+/)) {
-            if (w) contributors.set(w, (contributors.get(w) || 0) + 1);
-          }
-        }
+        if (n.element === 'change') changes.push(n);
         if (n.element === 'respStmt') {
           const who = findFirst(n, 'name') || findFirst(n, 'persName');
           const label = who ? textOfModel(who).trim().replace(/\s+/g, ' ') : null;
           if (label) contributors.set(label, (contributors.get(label) || 0) + 1);
         }
+      }
+    }
+    // pass 1: learn identifier -> name aliases from co-occurrence; an
+    // identifier seen with two different names is ambiguous, never trusted
+    const alias = new Map();
+    for (const n of changes) {
+      const name = prefixName(n);
+      if (!name || !n.atts.who) continue;
+      for (const w of n.atts.who.split(/\s+/)) {
+        if (!w) continue;
+        if (!alias.has(w)) alias.set(w, name);
+        else if (alias.get(w) !== name) alias.set(w, null);
+      }
+    }
+    // pass 2: count under the declared name first, then the (unambiguous)
+    // alias or a name the header gives the identifier, else the raw id
+    for (const n of changes) {
+      const name = prefixName(n);
+      if (name) { contributors.set(name, (contributors.get(name) || 0) + 1); continue; }
+      for (const w of (n.atts.who || '').split(/\s+/)) {
+        if (!w) continue;
+        const key = names.get(w) || alias.get(w) || w;
+        contributors.set(key, (contributors.get(key) || 0) + 1);
       }
     }
     model.meta = {};

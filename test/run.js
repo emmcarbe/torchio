@@ -689,6 +689,27 @@ console.log('the archive — a loose collection presents the project, not a docu
     && site['index.html'].includes('4 interventions'),
     'the contributors card: who worked on the archive, counted by intervention, ORCIDs linked');
 
+  // a source may reuse one identifier across people (the ELA Volpi case):
+  // the change's own prose names the agent and wins; unambiguous
+  // co-occurrences become aliases for identifier-only changes
+  const REUSED = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Uno</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc></fileDesc>
+    <revisionDesc>
+      <change when="2019-01-10" who="0000-0002-1022-023X">E. Bartoli: transcription</change>
+      <change when="2019-01-10" who="0000-0002-1022-023X">I. Volpi: transcription</change>
+      <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: TEI (level 2)</change>
+      <change when="2020-01-01" who="0000-0003-4347-011X">Revised encoding.</change>
+    </revisionDesc>
+  </teiHeader><text><body><p>a</p></body></text></TEI>`;
+  const OTHER = REUSED.replace('Uno', 'Due').replace(/<revisionDesc>[^]*<\/revisionDesc>/, '');
+  const m3 = buildModel([{ id: 'u', root: parseXML(REUSED) }, { id: 'd', root: parseXML(OTHER) }], map);
+  const by = Object.fromEntries(m3.collection.contributors.map((c) => [c.ref, c.count]));
+  ok(by['I. Volpi'] === 1 && by['E. Bartoli'] === 1,
+    'a reused identifier never absorbs another person’s intervention: the prose names the agent');
+  ok(by['E. Carbé'] === 2 && !by['0000-0003-4347-011X'],
+    'identifier-only changes count under the person via the unambiguous alias');
+
   const C = { id: 'c', root: parseXML(doc('Gamma', 'https://cc.org/by/', 'lat', '1300')) };
   const m2 = buildModel([A, C], map);
   ok(m2.meta.licence && m2.meta.licence.target === 'https://cc.org/by/',
