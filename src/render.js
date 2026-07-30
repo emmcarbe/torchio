@@ -129,6 +129,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-app .t-note{display:none}
 @media(min-width:1180px){.t-app .t-note{display:block}}
 .t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+.note-hi{background:rgba(176,30,40,.08)}
+.t-note.note-hi{color:var(--ink)}
 body.notes-off .t-note{display:none}
 body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){

@@ -104,30 +104,31 @@ export function buildInteractJS(t) {
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
       var app=n.closest('.t-app');
-      if(app){return app.querySelector('[data-el="lem"]')||app;}
+      if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
       var t=n.dataset.target;
       if(t){
         var id=t.split(/\s+/)[0].replace(/^#/,'');
         var el=document.getElementById(id);
-        if(el)return el;
+        if(el)return {el:el,kind:'target'};
       }
       var m=n.previousElementSibling;
-      if(m&&m.classList&&m.classList.contains('t-note-mark'))return m;
+      if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
       return null;
     }
     var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
-      var a=anchorOf(n);
+      var res=anchorOf(n);
+      var a=res?res.el:null, kind=res?res.kind:null;
       var y=flowY;
       if(a){
         var r=a.getBoundingClientRect();
         var ay=(r.width||r.height)?r.top-mr.top:null;
-        // a real anchor precedes its note in the flow; a target sitting
-        // beside the note block is no anchor at all
-        if(ay!==null&&ay<flowY-40){y=ay;}else{a=null;}
+        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
+        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
+        else{a=null;}
       }
-      return {n:n,a:a,y:y};
+      return {n:n,a:a,kind:kind,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
     items.forEach(function(it){
@@ -141,12 +142,22 @@ export function buildInteractJS(t) {
         if(ar.width||ar.height){
           var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
           var x2=colLeft-8, y2=top+8;
-          var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-          p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
-          p.setAttribute('fill','none');
-          p.setAttribute('stroke','var(--faint)');
-          p.setAttribute('stroke-width','1');
-          svg.appendChild(p);
+          // a thread only when short and meaningful; never across the page
+          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
+            var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
+            p.setAttribute('fill','none');
+            p.setAttribute('stroke','var(--faint)');
+            p.setAttribute('stroke-width','1');
+            svg.appendChild(p);
+          }
+          // hover pairing in both directions
+          (function(anchor,note){
+            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
+            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
+            note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
+            anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
+          })(it.a,n);
         }
       }
     });
@@ -214,30 +225,31 @@ export function buildInteractJS(t) {
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
       var app=n.closest('.t-app');
-      if(app){return app.querySelector('[data-el="lem"]')||app;}
+      if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
       var t=n.dataset.target;
       if(t){
         var id=t.split(/\s+/)[0].replace(/^#/,'');
         var el=document.getElementById(id);
-        if(el)return el;
+        if(el)return {el:el,kind:'target'};
       }
       var m=n.previousElementSibling;
-      if(m&&m.classList&&m.classList.contains('t-note-mark'))return m;
+      if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
       return null;
     }
     var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
-      var a=anchorOf(n);
+      var res=anchorOf(n);
+      var a=res?res.el:null, kind=res?res.kind:null;
       var y=flowY;
       if(a){
         var r=a.getBoundingClientRect();
         var ay=(r.width||r.height)?r.top-mr.top:null;
-        // a real anchor precedes its note in the flow; a target sitting
-        // beside the note block is no anchor at all
-        if(ay!==null&&ay<flowY-40){y=ay;}else{a=null;}
+        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
+        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
+        else{a=null;}
       }
-      return {n:n,a:a,y:y};
+      return {n:n,a:a,kind:kind,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
     items.forEach(function(it){
@@ -251,12 +263,22 @@ export function buildInteractJS(t) {
         if(ar.width||ar.height){
           var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
           var x2=colLeft-8, y2=top+8;
-          var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-          p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
-          p.setAttribute('fill','none');
-          p.setAttribute('stroke','var(--faint)');
-          p.setAttribute('stroke-width','1');
-          svg.appendChild(p);
+          // a thread only when short and meaningful; never across the page
+          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
+            var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
+            p.setAttribute('fill','none');
+            p.setAttribute('stroke','var(--faint)');
+            p.setAttribute('stroke-width','1');
+            svg.appendChild(p);
+          }
+          // hover pairing in both directions
+          (function(anchor,note){
+            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
+            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
+            note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
+            anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
+          })(it.a,n);
         }
       }
     });
