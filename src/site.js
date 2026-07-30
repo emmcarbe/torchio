@@ -77,6 +77,8 @@ header.torchio .tt{min-width:14rem}
 .about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
   text-transform:uppercase;color:var(--soft);margin-top:1.2em}
 .about dd{margin:0.3em 0 0}
+.about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
+  border-radius:2px;padding:0 12px;margin-top:.5em}
 .wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
 .wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
   vertical-align:baseline}
@@ -280,7 +282,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       .map((a) => `${escapeHTML(a.type)} (${a.entries.length} ${T.entries})`).join(' · ')}</dd>`;
   }
   if (model.meta.revisions) {
-    about += `<dt>${T.revisions}</dt><dd><table class="wit-table">`;
+    // long histories scroll inside a bounded window instead of taking the page
+    const box = model.meta.revisions.length > 10 ? ' class="scrollbox"' : '';
+    about += `<dt>${T.revisions}</dt><dd${box}><table class="wit-table">`;
     for (const r of model.meta.revisions) {
       about += `<tr><td class="sigla">${escapeHTML(r.when || '')}</td><td>${escapeHTML(r.what)}</td></tr>`;
     }
