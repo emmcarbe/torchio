@@ -34,6 +34,12 @@ and `node tools/press.js --site demo-src/vangogh docs/vangogh`.
   [paolomonella/ursus](https://github.com/paolomonella/ursus) repository,
   GPL 2.0. Offered by the editor as a test case. The derived demo is
   distributed under the same licence.
+- **The Canterbury Tales, General Prologue** (`demo-src/canterbury/`):
+  transcripts (Hengwrt and Ellesmere) and full collation from the
+  [Canterbury Tales Project](https://talesofcanterbury.org/GP/), ed. Peter
+  Robinson. Materials under copyright; pressed and republished here by
+  invitation of the editor as a test case. This is a temporary demo and it
+  will be removed.
 - **Specimen** (`demo-src/specimen/`): a micro-edition constructed for
   demonstration purposes (imaginary witnesses, didactic variants, declared
   as such on the title page); base text: the opening of the Odyssey in
