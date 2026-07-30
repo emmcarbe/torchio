@@ -924,6 +924,8 @@
        "isLemma": false
       }
      ],
+     "method": "parallel-segmentation",
+     "loc": null,
      "n": null,
      "from": null,
      "to": null
@@ -957,6 +959,8 @@
        "isLemma": false
       }
      ],
+     "method": "parallel-segmentation",
+     "loc": null,
      "n": null,
      "from": null,
      "to": null

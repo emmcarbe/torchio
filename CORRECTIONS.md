@@ -90,6 +90,7 @@ editorial genre.
 | 2026-07-31 | C64 | third machine audit | structural change | the press was one block: a thousand-line module with a single function inside it, which is a door closed to anyone else. The page shell (chrome, header labels, safe serialization into a script, the register's own program) now lives in its own module, and the split was made under the only condition that proves it harmless: the pressed pages are byte-identical before and after |
 | 2026-07-31 | C65 | third machine audit | structural change | the map page follows the shell out of the block: it is a page with its own subject (coordinates, provenance, a sketch that holds without scripts and a slippy map where they run), and it now lives in its own module. Same condition as before: the pressed pages are byte-identical |
 | 2026-07-31 | C66 | third machine audit | structural change | the lemma page leaves the block as well: forms, frequencies and concordance, with the grouping strategy the edition declared, are one subject and now one module. Byte-identical, as before |
+| 2026-07-31 | C67 | third machine audit | structural change | the register of a collection leaves the block too: one row per document and a column only where the cards fill it. With the shell, the map and the lemma page already out, the pressing function is down from a thousand lines to six hundred, and each page that has a subject of its own has a module of its own. Byte-identical throughout |
 
-As of 31 July 2026: 66 corrections applied (44 assignments, 16 extensions, 6
+As of 31 July 2026: 67 corrections applied (44 assignments, 16 extensions, 7
 structural changes), 1 open.

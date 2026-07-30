@@ -125,6 +125,8 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 body.has-band [data-el="l"]{cursor:pointer}
 body.has-align [data-el="l"]{cursor:pointer}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+.app-anchored{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .app-anchored{border-bottom:none;cursor:inherit}
 body.app-off .wv{border-bottom:none;cursor:inherit}
 body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
@@ -481,8 +483,65 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       }catch(e){/* one bad band must not silence the rest */}
     });
   }
-  if(document.readyState==='complete')wireWords();
-  else window.addEventListener('load',wireWords);
+  /* chapter 12 has three ways of tying an apparatus to a text. Parallel
+     segmentation carries the readings in place. The other two point:
+     double-end-point attachment names two anchors (@from/@to as #ids),
+     location-referenced names a canonical place (@loc). Both are wired
+     here, so an apparatus written outside the text still reaches it. */
+  function wirePointing(){
+    document.querySelectorAll('.t-app[data-loc],.t-app[data-from^="#"]').forEach(function(app){
+      var mark=function(el,cls){
+        if(!el||el.classList.contains('app-anchored'))return;
+        el.classList.add('app-anchored');
+        if(cls)el.classList.add(cls);
+        el.setAttribute('data-appref',app.id);
+        makeTrigger(el,null);
+      };
+      var loc=app.getAttribute('data-loc');
+      if(loc){
+        var target=document.querySelector('[data-n="'+CSS.escape(loc)+'"]');
+        mark(target);
+        return;
+      }
+      var a=document.getElementById((app.getAttribute('data-from')||'').replace(/^#/,''));
+      var b=document.getElementById((app.getAttribute('data-to')||'').replace(/^#/,''));
+      if(!a)return;
+      /* the readings belong to what lies between the two anchors: text
+         nodes are wrapped so the span between them can be clicked */
+      var node=a.nextSibling, guard=0;
+      while(node&&node!==b&&guard++<400){
+        var next=node.nextSibling;
+        if(node.nodeType===3){
+          if(node.nodeValue.trim()){
+            var w=document.createElement('span');
+            w.textContent=node.nodeValue;
+            node.parentNode.replaceChild(w,node);
+            mark(w,'app-span');
+          }
+        } else if(node.nodeType===1) mark(node,'app-span');
+        node=next;
+      }
+      mark(a);if(b)mark(b);
+    });
+  }
+  function openAppFor(el){
+    var app=document.getElementById(el.getAttribute('data-appref'));
+    if(!app)return false;
+    var rows='';
+    app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
+      var rr=r.cloneNode(true);
+      rr.querySelectorAll('[data-el="wit"],[data-el="witDetail"]').forEach(function(x){x.remove();});
+      var auth=sigla(r.dataset.wit)||(r.dataset.source?sigla(r.dataset.source):'')
+        ||(r.dataset.resp?sigla(r.dataset.resp):'')||(r.dataset.el==='lem'?'lem.':'—');
+      rows+='<div class="rdgline"><span class="sig">'+esc(auth)+'</span>'
+        +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span></div>';
+    });
+    if(!rows)return false;
+    openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'+rows,el);
+    return true;
+  }
+  if(document.readyState==='complete'){wireWords();wirePointing();}
+  else window.addEventListener('load',function(){wireWords();wirePointing();});
   var pop=null, lastTrigger=null;
   function closePop(){
     clearZone();
@@ -640,6 +699,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
       ev.stopPropagation();return;
     }
+    var anc=ev.target.closest&&ev.target.closest('[data-appref]');
+    if(anc&&!body.classList.contains('app-off')&&openAppFor(anc)){ev.stopPropagation();return;}
     var wv=ev.target.closest&&ev.target.closest('.wv');
     if(wv&&wv._be&&!body.classList.contains('app-off')){
       var wband=wv._be.closest('.app-band');
