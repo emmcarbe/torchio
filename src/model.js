@@ -191,6 +191,17 @@ function extractMeta(header) {
       });
     }
   }
+  // the edition's own version: editionStmt is the scholarly place for it
+  // ("first edition", "version 2.1"); revisionDesc below records the changes
+  const editionStmt = findFirst(header, 'editionStmt');
+  if (editionStmt) {
+    const ed = findFirst(editionStmt, 'edition');
+    if (ed) {
+      const text = textOfModel(ed).trim().replace(/\s+/g, ' ');
+      if (text || ed.atts.n) meta.edition = { n: ed.atts.n || null, text };
+    }
+  }
+
   const langUsage = findFirst(header, 'langUsage');
   if (langUsage) {
     meta.languages = [];

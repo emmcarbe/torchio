@@ -269,6 +269,10 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   /* ---- index.html: the header as a page ---- */
   if (wanted.has('index')) {
   let about = '<main id="main" class="torchio about"><dl>';
+  if (model.meta.edition) {
+    const e = model.meta.edition;
+    about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
+  }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
   if (model.meta.licence) {
     const l = model.meta.licence;

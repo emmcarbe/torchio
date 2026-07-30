@@ -504,6 +504,23 @@ console.log('path A — the press in the browser');
     'every page byte-identical between browser bundle and modular engine');
 }
 
+console.log('editionStmt — the version of the edition, declared in the TEI');
+{
+  const map = buildClassMap(null, data);
+  const src = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Prova</title></titleStmt>
+    <editionStmt><edition n="2">Seconda edizione, riveduta</edition></editionStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc></teiHeader><text><body><p>Testo.</p></body></text></TEI>`;
+  const model = buildModel(parseXML(src), map);
+  ok(model.meta.edition.n === '2' && model.meta.edition.text.includes('Seconda edizione'),
+    'editionStmt read: version number and statement');
+  const { pressSite } = await import('../src/site.js');
+  const files = pressSite(model, {});
+  ok(files['index.html'].includes('Seconda edizione, riveduta'),
+    'the version appears on the edition page (with revisionDesc it says what changed)');
+}
+
 console.log('odd — recognized on its own, wired to the press');
 {
   const { isODD } = await import('../src/odd.js');

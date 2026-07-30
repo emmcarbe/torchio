@@ -169,6 +169,29 @@ that appears next.</p>
 </div>
 <iframe id="preview" title="Preview of the pressed edition"></iframe>
 </section>
+<section id="github">
+<h2>Put the edition online, on GitHub</h2>
+<p class="note">The edition is the repository: the archive you just
+downloaded is a complete website, and GitHub hosts it for free. No
+command line involved.</p>
+<ol>
+<li>Create a free account at <a href="https://github.com">github.com</a>,
+then choose <strong>New repository</strong> (the + sign, top right). Name
+it after your edition, keep it public, press <strong>Create
+repository</strong>.</li>
+<li>Unzip the downloaded archive. On the new repository's page choose
+<strong>uploading an existing file</strong>, drag all the unzipped files
+in, press <strong>Commit changes</strong>.</li>
+<li>In the repository, open <strong>Settings &gt; Pages</strong>, and under
+Branch choose <code>main</code>, then <strong>Save</strong>. After a minute
+or two the edition is online at
+<code>https://<em>yourname</em>.github.io/<em>repository</em>/</code>.</li>
+<li>For a new version: record what changed in the TEI header
+(<code>editionStmt</code> for the version, <code>revisionDesc</code> for
+the changes: the edition page shows both), press again here, upload the
+new files the same way. GitHub keeps every previous version.</li>
+</ol>
+</section>
 <p class="note" id="foot">Torchio is
 <a href="https://github.com/emmcarbe/torchio">an experiment in static digital
 scholarly editions</a>. This page is generated from the same engine that runs

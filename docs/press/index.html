@@ -123,6 +123,29 @@ that appears next.</p>
 </div>
 <iframe id="preview" title="Preview of the pressed edition"></iframe>
 </section>
+<section id="github">
+<h2>Put the edition online, on GitHub</h2>
+<p class="note">The edition is the repository: the archive you just
+downloaded is a complete website, and GitHub hosts it for free. No
+command line involved.</p>
+<ol>
+<li>Create a free account at <a href="https://github.com">github.com</a>,
+then choose <strong>New repository</strong> (the + sign, top right). Name
+it after your edition, keep it public, press <strong>Create
+repository</strong>.</li>
+<li>Unzip the downloaded archive. On the new repository's page choose
+<strong>uploading an existing file</strong>, drag all the unzipped files
+in, press <strong>Commit changes</strong>.</li>
+<li>In the repository, open <strong>Settings &gt; Pages</strong>, and under
+Branch choose <code>main</code>, then <strong>Save</strong>. After a minute
+or two the edition is online at
+<code>https://<em>yourname</em>.github.io/<em>repository</em>/</code>.</li>
+<li>For a new version: record what changed in the TEI header
+(<code>editionStmt</code> for the version, <code>revisionDesc</code> for
+the changes: the edition page shows both), press again here, upload the
+new files the same way. GitHub keeps every previous version.</li>
+</ol>
+</section>
 <p class="note" id="foot">Torchio is
 <a href="https://github.com/emmcarbe/torchio">an experiment in static digital
 scholarly editions</a>. This page is generated from the same engine that runs
@@ -704,6 +727,17 @@ function extractMeta(header) {
       });
     }
   }
+  // the edition's own version: editionStmt is the scholarly place for it
+  // ("first edition", "version 2.1"); revisionDesc below records the changes
+  const editionStmt = findFirst(header, 'editionStmt');
+  if (editionStmt) {
+    const ed = findFirst(editionStmt, 'edition');
+    if (ed) {
+      const text = textOfModel(ed).trim().replace(/\s+/g, ' ');
+      if (text || ed.atts.n) meta.edition = { n: ed.atts.n || null, text };
+    }
+  }
+
   const langUsage = findFirst(header, 'langUsage');
   if (langUsage) {
     meta.languages = [];
@@ -1109,7 +1143,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
-body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
 body.notes-dense [data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
 
@@ -1746,12 +1780,25 @@ function markdown(src) {
   const out = [];
   let list = null; // 'ul' | 'ol'
   let para = [];
+  let table = null; // rows of cells
 
   const flushPara = () => {
     if (para.length) { out.push(`<p>${inline(para.join(' '))}</p>`); para = []; }
   };
   const flushList = () => {
     if (list) { out.push(`</${list}>`); list = null; }
+  };
+  const flushTable = () => {
+    if (!table) return;
+    let head = null, body = table;
+    if (table.length > 1 && table[1].every((c) => /^:?-{3,}:?$/.test(c))) {
+      head = table[0]; body = table.slice(2);
+    }
+    let html = '<table class="wit-table md-table">';
+    if (head) html += '<thead><tr>' + head.map((c) => `<th>${inline(c)}</th>`).join('') + '</tr></thead>';
+    html += '<tbody>' + body.map((r) => '<tr>' + r.map((c) => `<td>${inline(c)}</td>`).join('') + '</tr>').join('') + '</tbody></table>';
+    out.push(html);
+    table = null;
   };
 
   for (const raw of lines) {
@@ -1760,7 +1807,15 @@ function markdown(src) {
     const ul = line.match(/^[-*]\s+(.*)$/);
     const ol = line.match(/^\d+\.\s+(.*)$/);
     const bq = line.match(/^>\s?(.*)$/);
-    if (!line.trim()) { flushPara(); flushList(); continue; }
+    if (!line.trim()) { flushPara(); flushList(); flushTable(); continue; }
+    const tr = line.match(/^\|(.+)\|$/);
+    if (tr) {
+      flushPara(); flushList();
+      table = table || [];
+      table.push(tr[1].split(/(?<!\\)\|/).map((c) => c.replace(/\\\|/g, '|').trim()));
+      continue;
+    }
+    flushTable();
     if (h) {
       flushPara(); flushList();
       out.push(`<h${h[1].length + 1} class="sec">${inline(h[2])}</h${h[1].length + 1}>`);
@@ -1777,7 +1832,7 @@ function markdown(src) {
       para.push(line.trim());
     }
   }
-  flushPara(); flushList();
+  flushPara(); flushList(); flushTable();
   return out.join('\n');
 }
 
@@ -2127,6 +2182,10 @@ header.torchio .tt{min-width:14rem}
 .about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
   border-radius:2px;padding:0 12px;margin-top:.5em}
 .wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table th{text-align:left;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.md-table td:first-child{font-size:1.05em;white-space:nowrap}
 .wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
   vertical-align:baseline}
 .sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
@@ -2312,6 +2371,10 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   /* ---- index.html: the header as a page ---- */
   if (wanted.has('index')) {
   let about = '<main id="main" class="torchio about"><dl>';
+  if (model.meta.edition) {
+    const e = model.meta.edition;
+    about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
+  }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
   if (model.meta.licence) {
     const l = model.meta.licence;
