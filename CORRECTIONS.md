@@ -41,6 +41,7 @@ editorial genre.
 | 2026-07-30 | C20 | Ursus Beneventanus (ed. Monella), public demo | extension (open) | an edition that declares its signs in `charDecl`/`glyph` should get the table of signs derived from the header; today the Ursus demo ships it as an annex page built from the editor's CSV, which the press cannot derive |
 | 2026-07-30 | C21 | Romualdus Salernitanus (ed. Monella), public demo | assignment | the front and back matter pages were labelled with presumed genres ("Introduction", "Appendices"): a `front` can be a title page, a preface, a dedication, a cast list; the label now comes from the section's own heading when it has one, with a neutral fallback |
 | 2026-07-30 | C22 | Ursus Beneventanus (ed. Monella), public demo | extension | `choice` pairs looked interactive (dotted underline) but were not: a click now shows both levels of the pair (abbreviation and expansion, original and regularisation, error and correction), in both views |
+| 2026-07-30 | C23 | Bellum Alexandrinum (DLL), public demo | assignment | witness descriptions were truncated at 80 characters and a `ptr` with no text swallowed its URL, leaving a dangling "URL:": the register now carries the full description and pointer targets surface as links |
 
-As of 30 July 2026: 21 corrections applied (15 assignments, 6 extensions, 0
+As of 30 July 2026: 22 corrections applied (16 assignments, 6 extensions, 0
 structural changes), 1 open.
