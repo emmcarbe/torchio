@@ -719,6 +719,24 @@ console.log('authority refs — an external @ref is an identity declaration');
     'the mention is a real link, opening in its own tab');
   ok('indices.html' in files && files['indices.html'].includes('Martinus Martini'),
     'authority-linked mentions feed the indices');
+
+  // @key declares identity too: the canonical name groups the mentions
+  const KEYED = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Con chiavi</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc></teiHeader><text><body>
+    <p><persName key="Figueredo, Thomas de">Thomas</persName> venit;
+    <persName key="Figueredo, Thomas de">Figueredo</persName> scripsit apud
+    <placeName key="Pequinum">Pequini</placeName>.</p>
+  </body></text></TEI>`;
+  const m2 = buildModel(parseXML(KEYED), map);
+  const fig = m2.registries.people.find((e) => e.id === 'Figueredo, Thomas de');
+  ok(fig && fig.occurrences.length === 2 && fig.label === 'Figueredo, Thomas de',
+    'mentions sharing a @key are one entity, labelled by the canonical form');
+  const f2 = pressSite(m2, {});
+  ok(f2['indices.html'].includes('Figueredo, Thomas de')
+    && !f2['text.html'].includes('href="Figueredo'),
+    'keyed entities feed the indices; no fake link where there is no URI');
 }
 
 console.log('lemma review — errors exist, so reviewing must be cheap');

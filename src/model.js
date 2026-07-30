@@ -162,30 +162,43 @@ export function buildModel(docs, classMap) {
   // authority URI is an identity declaration of its own: mentions sharing
   // the same VIAF/Wikidata/GeoNames reference are one entity, and enter the
   // registries keyed by that URI (the markup decides, no registry needed)
+  // @key too declares identity: TEI's canonical-name key ("Figueredo,
+  // Thomas de") groups mentions the same way, label = the canonical form
   const byUri = new Map();
+  const addIdentity = (regKey, id, label, node, external) => {
+    let e = byUri.get(id);
+    if (!e) {
+      e = {
+        id,
+        label,
+        atts: external ? { ref: id } : { key: id },
+        external: !!external,
+        occurrences: [],
+      };
+      byUri.set(id, e);
+      model.registries[regKey].push(e);
+    }
+    e.occurrences.push(node.id);
+  };
   for (const doc of model.documents) {
     for (const node of walkModel(doc.tree)) {
-      const target = node.atts.ref || node.atts.key;
-      if (!target) continue;
-      for (const t of target.split(/\s+/)) {
-        const entry = byXmlId.get(t.startsWith('#') ? t.slice(1) : t);
-        if (entry) { entry.occurrences.push(node.id); continue; }
-        if (/^https?:\/\//.test(t)) {
-          const key = MENTION_REGISTRY[node.element];
-          if (!key) continue;
-          let e = byUri.get(t);
-          if (!e) {
-            e = {
-              id: t,
-              label: textOfModel(node).trim().replace(/\s+/g, ' ') || t,
-              atts: { ref: t },
-              external: true,
-              occurrences: [],
-            };
-            byUri.set(t, e);
-            model.registries[key].push(e);
+      if (node.atts.ref) {
+        for (const t of node.atts.ref.split(/\s+/)) {
+          const entry = byXmlId.get(t.startsWith('#') ? t.slice(1) : t);
+          if (entry) { entry.occurrences.push(node.id); continue; }
+          if (/^https?:\/\//.test(t) && MENTION_REGISTRY[node.element]) {
+            addIdentity(MENTION_REGISTRY[node.element], t,
+              textOfModel(node).trim().replace(/\s+/g, ' ') || t, node, true);
           }
-          e.occurrences.push(node.id);
+        }
+      }
+      if (node.atts.key) {
+        const k = node.atts.key.trim();
+        if (!k) continue;
+        const entry = byXmlId.get(k.startsWith('#') ? k.slice(1) : k);
+        if (entry) entry.occurrences.push(node.id);
+        else if (MENTION_REGISTRY[node.element]) {
+          addIdentity(MENTION_REGISTRY[node.element], k, k, node, false);
         }
       }
     }
