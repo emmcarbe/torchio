@@ -2,5 +2,15 @@
   "lang": "en",
   "title": "Ursus Beneventanus, Adbreviatio artis grammaticae",
   "subtitle": "De nomine, Codex Casanatensis 1086 · ed. Paolo Monella, ALIM Project · GPL 2.0",
-  "parent": { "href": "../", "label": "Demos" }
+  "parent": {
+    "href": "../",
+    "label": "Demos"
+  },
+  "extra": [
+    {
+      "id": "signs",
+      "label": "Table of signs",
+      "file": "segni.md"
+    }
+  ]
 }

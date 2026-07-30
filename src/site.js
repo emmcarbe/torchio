@@ -80,6 +80,10 @@ header.torchio .tt{min-width:14rem}
 .about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
   border-radius:2px;padding:0 12px;margin-top:.5em}
 .wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table th{text-align:left;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.md-table td:first-child{font-size:1.05em;white-space:nowrap}
 .wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
   vertical-align:baseline}
 .sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);

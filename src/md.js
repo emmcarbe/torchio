@@ -21,12 +21,25 @@ export function markdown(src) {
   const out = [];
   let list = null; // 'ul' | 'ol'
   let para = [];
+  let table = null; // rows of cells
 
   const flushPara = () => {
     if (para.length) { out.push(`<p>${inline(para.join(' '))}</p>`); para = []; }
   };
   const flushList = () => {
     if (list) { out.push(`</${list}>`); list = null; }
+  };
+  const flushTable = () => {
+    if (!table) return;
+    let head = null, body = table;
+    if (table.length > 1 && table[1].every((c) => /^:?-{3,}:?$/.test(c))) {
+      head = table[0]; body = table.slice(2);
+    }
+    let html = '<table class="wit-table md-table">';
+    if (head) html += '<thead><tr>' + head.map((c) => `<th>${inline(c)}</th>`).join('') + '</tr></thead>';
+    html += '<tbody>' + body.map((r) => '<tr>' + r.map((c) => `<td>${inline(c)}</td>`).join('') + '</tr>').join('') + '</tbody></table>';
+    out.push(html);
+    table = null;
   };
 
   for (const raw of lines) {
@@ -35,7 +48,15 @@ export function markdown(src) {
     const ul = line.match(/^[-*]\s+(.*)$/);
     const ol = line.match(/^\d+\.\s+(.*)$/);
     const bq = line.match(/^>\s?(.*)$/);
-    if (!line.trim()) { flushPara(); flushList(); continue; }
+    if (!line.trim()) { flushPara(); flushList(); flushTable(); continue; }
+    const tr = line.match(/^\|(.+)\|$/);
+    if (tr) {
+      flushPara(); flushList();
+      table = table || [];
+      table.push(tr[1].split(/(?<!\\)\|/).map((c) => c.replace(/\\\|/g, '|').trim()));
+      continue;
+    }
+    flushTable();
     if (h) {
       flushPara(); flushList();
       out.push(`<h${h[1].length + 1} class="sec">${inline(h[2])}</h${h[1].length + 1}>`);
@@ -52,6 +73,6 @@ export function markdown(src) {
       para.push(line.trim());
     }
   }
-  flushPara(); flushList();
+  flushPara(); flushList(); flushTable();
   return out.join('\n');
 }

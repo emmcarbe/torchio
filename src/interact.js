@@ -43,7 +43,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
-body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
 body.notes-dense [data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
 
