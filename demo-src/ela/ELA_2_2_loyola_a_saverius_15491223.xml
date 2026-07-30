@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Ignacio de Loyola a Francisco de Xavier, 23 Dec. 1549</title>
+                  <author ref="https://viaf.org/viaf/88881025">de Loyola, Ignatius S.J.<date>1491-1556</date></author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/716351646">in: Monumenta historica Japoniae, 2. Documentos del Japón, 1547-1557, edited by Juan G. Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1990, 188-189</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/monumentahistori137unse</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1549</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-10" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="188" type="page"/>
+           <p>†  
+           <lb/>Ihs
+          <lb/><persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatius de Loyola</persName>, Societatis Iesu praepositus generalis</p>  
+           
+           <p>1. Dilecto in Christo fratri <persName key="Franciscus S.J.">magistro Francisco</persName> Xavier, praeposito eiusdem Societatis in <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> regionibus serenissimo Regi Portugaliae subjectis, et ultra eas, salutem in Domino sempiternam.</p>  
+           
+           <p>2. Cum felicis recordationis Paulus papa tertius de apostolicae potestatis thesauro minimae nostrae Societati plurimum spiritualium gratiarum ad Dei gloriam et animarum edificationem, quas praepositus generalis pro tempore existens, per se et alios quos ad id idoneos iudicaret, exercere posset et dispensare benigne concesserit.</p>  
+           
+           <p>3. Nos, qui te nuper praepositum omnium fratrum nostrorum qui in praedictis <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> regionibus versantur constituimus, de tua pietate et prudentia quae est in Christo Iesu plurimum confidentes, prius collatam auctoritatem confirmando, insuper omnes eas gratias et auctoritatem, quam nobis <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedes Apostolica</placeName> quomodocumque communicavit et nos communicare possumus (duabus dumtaxat, scilicet indulgentia plenaria semel in anno concedenda et admissione ad professionem exceptis) communicamus, ut non solum eis uti ad proximorum edificationem, sed et alios ex iis qui sub obedientia tua sunt, partici<pb n="189" type="page"/>pes earundem facere, prout quemque idoneum existimaveris; quibus nos ex nunc, prout ex tunc quae tibi videbuntur concedimus, possis et valeas.</p>  
+           
+           <p>4. Si autem te in remotissimis locis a collegio <placeName key="Goa">Gouae</placeName> agere continget, illi qui ex fratribus nostris praefati collegii rector pro tempore extiterit, eandem quam tibi facultatem et auctoritatem, quam tamen minuere vel paenitus removere, prout in Domino iudicaveris expedire tibi licebit, per hasce patentes litteras, nostra manu et Societatis sigillo munitas, concedimus et indulgemus.</p>  
+           
+           <p>5. Vobis enim huiusmodi gratias ac concessiones arma iustitiae futuras esse ad animarum consolationem et auxilium Dei altissimi gloriam et honorem in eodem omino speramus.</p>  
+           
+           <p>Datum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName>, in domo Societatis Iesu, die <date when="1549-12-23">XXIII Xbris MDXLIX</date>.</p>  
+           <p><persName key="Ignatius">[Ignatius]</persName></p>  
+           <p>† Patente do padre <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> de preposito para mestre <persName key="Franciscus">Francisco</persName>.</p>   
+       </div>      
+      </body>
+  </text>
+</TEI>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola</title>
+            <author ref="http://viaf.org/viaf/316437458">Andreas de Perusio O.F.M.<date>12..-1332</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">10/09/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Sinica Franciscana, I: Itinera et relationes fratrum Minorum saeculi XIII et XIV, a cura di A. Van Den Wyngaert, Firenze, Quaracchi, 1929, 373-377 </title> 
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/151</idno>
+               <idno type="URI">https://hdl.handle.net/2027/mdp.39015012963784</idno>
+               </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1301/1400">1326</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+        <pb n="373" type="page"/>
+           <p><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Andreas de Perusio O.F.M." ref="http://viaf.org/viaf/316437458">Andreas de Perusio</persName> de Ordine Minorum fratrum divina permissione vocatus Episcopus, reverendo patri fratri Guardiano <placeName key="Perusia">Perusini Conventus</placeName> salutem et pacem in Domino sempiternam. Et infra sequitur.</p>
+           <p>1. Nam propter immensam terrarum mariumque distantiam, inter me et vos interiectam, vix sperare possum, quod littere ad vos per me transmisse ad manus vestras valeant pervenire. Et infra subsequitur. Noveritis me itaque cum bone memorie fratre Peregrino Coepiscopo, et mee peregrinationis individuo comite, post multos labores et langores, inedias, variaque incomoda, atque pericula in terra pariter et in mari, ubi fuimus rebus omnibus et etiam tunicis et habitibus spo<pb n="374" type="page" break="no"/>liati, demum, Deo iuvante, ad <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambaliensem civitatem</placeName>, que sedes est imperii <persName key="Magnus Kaam" ref="https://viaf.org/50027343">magni Chanis</persName>, <date when="1310">anno dominice incarnationis millesimo CCC° XVIII</date>, ut credo, pervenisse; ubi secundum mandatum a <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sede Apostolica</placeName> nobis datum, Archiepiscopo consecrato, moram ibi per quinquennium ferme contraximus. Infra quod temporis spatium procuravimus alafa ab Imperatore magnifico pro victu et vestitu octo personarum. Est autem alapha impense, quas <persName key="Yesün Temür Khan">Imperator</persName> tribuit nunciis magnatorum, oratoribus, bellatoribus et diversarum artium artificibus et ioculatoribus, pauperibus et diversis diversarum conditionum personis; que impense plurium latinorum Regum introitus expensasque transcendunt.</p>
+           <p>2. De divitiis, magnificentia et gloria huius magni Imperatoris, de vastitate Imperii, multitudine populorum, numerositate civitatum, et magnitudine earumdem, et de ordinatione imperii, in quo nemo adversus alium ausus est levare gladium, transeo, quia longum foret <pb n="186va" type="folio"/>scribere, et audientibus incredibilia viderentur. Nam ego ipse qui presens sum, talia audio, que vix ipse credere possum etc.</p>
+           <p>3. Est quedam magna civitas iuxta mare Occeanum, que vocatur lingua persica <placeName key="Cayton" ref="https://www.geonames.org/1797353/">Zayton</placeName>, in qua civitate una dives do<pb n="375" type="page" break="no"/>mina Armena ecclesiam erexit pulcram satis et grandem, quam quidem de ipsius voluntate per Archiepiscopum cathedralem effectam, cum competentibus dotibus, frati <persName key="Gerardus O.F.M.">Gerardo Episcopo</persName> et fratribus nostris qui cum eo erant, donavit in vita, et in morte reliquid. Qui primus eamdem cathedram suscepit. Mortuo autem dicto Episcopo, inibique sepulto, voluid Archiepiscopus in eadem ecclesia me facere successorem；sed ego huiusmodi locationi et successioni me non prebente assensum, ipsam contulit fratri Peregrino Episcopo memorato, qui illuc, habita opportunitate, se contulit, et pos[t]quam paucis annis rexid eamdem, <date when="1320-07-07">anno Domini M°CCC°XX° in crastino octave Apostolorum Petri et Pauli diem clausid extremum</date>. Ante cuius decessum per quatuor fere annos, ego, quoniam in <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Chambaliech</placeName> non eram consolatus ex aliquibus causis, procuravi quod dictum alafa, eleemosyna imperialis, mihi daretur in prefata civitate <placeName key="Cayton" ref="https://www.geonames.org/1797353/">Zayton</placeName>, que distat a <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambaliech</placeName> itinere mensium fere trium, ut dixi, sollicite procuravi; et cum octo equitaturis ab Imperatore mihi concessis, ad eamdem civitatem cum magno honore perrexi, et applicui adhuc fratre Peregrino prefato vivente, et in quodam nemore proximo civitati, ad quartam partem unius milliarii, ecclesiam convenientem et pulcram edificali feci, cum omnibus officinis sufficientibus pro XX fratribus et cum IIII cameris, quarum quelibet esset pro quocumque prelato sufficiens. In quo quidem loco moram traho continuam, et vivo de elymosina regia memorata, que iuxta mercatorum <pb n="376" type="page"/><placeName key="Genua" ref="https://pleiades.stoa.org/places/383664/">Ianuensium</placeName> extimationem, ascendere potest annuatim ad valorem C florenorum aureorum vel circa; et de hac elemosina magnam partem in hedificatione loci predicti expendi, cui similem in hermitoriis in tota nostra Provincia nullum scio quoad pulchritudinem et omnem commoditatem.</p>
+           <p>4. Denique, non longo elapso tempore post obitum <pb n="186vb" type="folio"/>fratris Peregrini, recepi decretum Archiepiscopi de locatione mea in memorata ecclesia cathedrali, cui locationi assensum prebui causa rationabili suadente, et nunc in loco vel ecclesia civitatis, nunc in hermitorio moram facio, iuxta mee libitum voluntatis. Et sum sano corpore, et quantum longevitas vite patitur vigorosus et agilis, nichil quidem preter canitiem habens de defectibus naturalibus et proprietatibus senectutis.</p>
+        <p>5. Sane in isto vasto imperio sunt gentes de omni natione quae sub coelo est, et de omni septa. Et conceditur omnibus et singulis vivere secundum septam suam. Est enim hec opinio apud eos, seu potius error, quod unusquisque in sua septa salvatur. Et nos predicare possumus libere et secure; sed de iudeis et sarracenis nemo convertitur; de ydolatris battizzantur quam plurimi, sed battizati non recte incedunt per viam christianitatis.</p>
+           <p>6. De sanctis fratribus: quatuor nostri fratres martirizati fuerunt in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndia</placeName> a sarracenis, quorum unus bis in ignem copiosum iniectus illesus evasid. Et tamen ad tam stupendum miraculum nullus est a sua perfidia permutatus.</p>
+           <pb n="377" type="page"/><p>7. Hec omnia supradicta sub brevitate vestre Paternitati destinare curavi, ut per vos ad aliorum notitiam devolvantur. Fratribus spiritualibus et amicis meis precipuis non scribo, quia qui decesserint et supersint ignoro. Unde rogo quod me habeant excusatum. Omnes saluto, meque omnibus recommendo intime quantum possum. Et vos, pater Guardiane, recommendetis me Ministro et Custodi Perusino, et aliis fratribus universis. Omnes Episcopi suffraganei facti per dominum <persName key="Clemens V" ref="https://viaf.org/84532574">Papam Clementem</persName> <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Kambaliensis sedis</placeName> migraverunt in pace ad Dominum. Ego solus remansi. Frater <persName key="Nicolaus de Banzia O.F.M.">Nicholaus de Banthra</persName> et frater <persName key="Andreuccius de Assisio O.F.M.">Andrutius de Asisio</persName> et unus alius Episcopus mortui fuerunt in ingressu <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndie</placeName> inferioris, in terra quadam caldissima  ubi et plures alii fratres mortui sunt et sepulti. Valeat in Domino vestra Paternitas nunc et semper.</p>
+           <p>Data in <placeName key="Cayton" ref="https://www.geonames.org/1797353/">Zayton</placeName> <date when="1326-01">anno Domini M°CCC°XXVI° in mense ianuarii</date>.</p>
+        </div>
+      </body>
+  </text>
+</TEI>

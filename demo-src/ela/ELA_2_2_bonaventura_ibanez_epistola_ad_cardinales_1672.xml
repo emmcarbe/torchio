@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola ad Cardinales S.C.P.F., 5 nov. 1672</title>
+            <author>Ibañez, Bonaventura O.F.M.<date>1610-1691</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-11-11">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 544-567</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+               <idno type="URI"></idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>  
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1672</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-14" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <pb n="100" type="page"/>
+           <div>
+              <head>Emi DD. Cardinales de Propaganda Fide.</head>
+              <p>1. De <placeName key="Hispania" ref="https://pleiades.stoa.org/places/1027">Hispania</placeName> ad <placeName key="Philippinas">insulas Philippinas</placeName> perventus cum meis sociis a vestris EE. DD. asignatis 6 sacerdotibus theologis et uno laico, scripsi ad VV.EE.DD. rationem dando et etiam de morte P. Fr. <persName key="Antonius de Sancta Maria" ref="http://www.viaf.org/31140267">Antonii a S. Maria</persName> qui obiit exulatus in civitate <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName>; illa[m] epistolam misi per viam occidentalem. Postea ex <placeName key="Manila">Manila</placeName> cum quatuor sociis tantum me contuli ad hanc insulam et civitatem <placeName key="Macaum">Macao</placeName> vasallis Regis Portugaliȩ populatam, ut exhinc facilior pos[s]im <placeName key="China">regnum sinicum</placeName> ingredi. Et adhuc non sum ingressus, quia, Deo teste, patres societatis Iesu nobis iter impediunt. Hoc in curia romana erit omnibus incredibile, et sic tacens non amplius de hoc loquar sperans a Deo suum auxilium.</p>
+              <pb n="101" type="page"/>
+              <p>2. In hac civitate alteram ad VV. EE. DD. scripsi epistolam, quam remisi ad illustrissimos DD. Episcopos ac vicarios apostolicos D.Petrum Lambert ac D.  <persName key="Franciscus de Palude">Franciscum Palude</persName>, qui in regno Siam persistunt, ut ipsi per viam orientalem ad VV. EE. DD. remittant. Nunc iterum per viam occidentalem ad VV. EE. DD. scribo circa quod iam notum feci in prȩteritis epistolis pro morte P. Fr. Antonii a S. Mariaasignando de meis sociis unum nomine Ioannem Marti tanquam dignum in primo loco optinendi vacuam prȩfecturam apostolicam nostrȩ sinicȩ missionis. Hic nunc quadam infirmitate prolixa iam manet inpossibilitatus ad missionem sinicam ingrediendum et ex sua complexione debilis est natura, et sic potest S. Congregatio hoc munus Fr. <persName key="Augustinus de Paschalis O.F.M.">Augustino de S. Pascual</persName>  tribuere, religioso omnibus ad hoc requisitis ornato, qui iam ipse solus in sinicam missionem abscondite ingressus est, de quo spero tam in scientia et virtute quam in zelo animarum salutis erit alter Fr. <persName key="Antonius de Sancta Maria" ref="http://www.viaf.org/31140267">Antonius a S. Maria</persName>, prȩterea habet naturam et complexionem robustam, quȩ in missionariis valde sunt necessariȩ. Huic plus similis in supra dictis requisitis Fr. <persName key="Franciscus de Conceptione">Franciscus de Conceptione</persName> tenet secundum locum et Fr. <persName key="Taurinus, Iacobus O.F.M.">Iacobus Tarin</persName> tertium locum.</p>
+              <p>3. Litterȩ apostolicȩ a S. Congregatione ad nos mittendȩ veniant per viam S. tribunalis inquisitionis usque ad <placeName key="Philippinas">insulas Philippinas</placeName> et ad manus dicti tribunalis comissarii, qui assistit in civitate <placeName key="Manila">Manilȩ</placeName> ut ipse tradat eas P. Fr. <persName key="Rodrigues, Sebastiano">Sebastiano Rodrigues</persName> nostro    <pb n="102" type="page"/>agenti, quo defuncto, nostrȩ provinciȩ S. Gregorii procuratori, ut ipse per securam viam ad nos remittat vel ipsimet comissario sanctȩ inquisitionis. Et humiliter peto quod dictȩ litterȩ veniant duplicatȩ aliȩ per viam orientalem et aliȩ per viam occidentalem, ut aliquȩ ad nos possint devenire. Interea in nostris orationibus et sanctis sacrificiis, rogamus et rogabimus Deum pro VV. EE. DD. In civitate <placeName key="Macaum">Macao</placeName> et combentu nostri ordinis, hodie <date when="1672-11-05">5 novembris anni 1672</date>.</p>
+                 <p>Vestris EE. DD. S. Congregationis de Propaganda Fide Cardinalibus subditus, 
+                    <lb/>FR. <persName key="Ibañez, Bonaventura, O.F.M.">Bonaventura Ybañes</persName>, 
+                    <lb/>Viceprȩfectus apostolicus missionis nostrȩ seraphicȩ ordinis in regno <placeName key="China">Sinȩ</placeName>. </p>  
+        </div>
+      </body>
+  </text>
+</TEI>

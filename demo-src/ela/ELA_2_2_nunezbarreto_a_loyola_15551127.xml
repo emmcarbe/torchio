@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Melchor Nuñez Barreto a Ignatius De Loyola, Lampacao, 27 de Noviembre de 1555</title>
+                  <author>Nuñez Barreto, Melchior S.J.<date>1520-1571</date></author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/716351646">in: Monumenta historica Japoniae, 2. Documentos del Japón, 1547-1557, edited by Juan G. Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1990, 610-615</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://hdl.handle.net/2027/inu.30000036701443</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1555</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-10" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="49-IV-49 236" type="folio"/>
+           <pb n="610" type="page"/>
+           
+<p>Gratia et pax Domini nostri Jesu Christi<lb/>
+habitet in cordibus nostris<lb/>
+et custodiat intelligentias nostras</p>
+           
+<p>1. Quamquam diuturna latini sermonis desuetudo simul et tabellariorum festinatio, pater colende, currus Societatis et auriga eius, prohibebant ne hasce litteras romano idiomate conscriberem, cum tamen epistolae <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romam</placeName> mittendae vel hispano vel latino stilo exarandae sint, praestat latino, licet rudi, quam hispano rediculo agere.</p>
+           
+<p>2. Anno iam elapso peregrinationem nostram marinam ad Ecclesiam iaponensem paternitati tuae enarravi, quare nunc supersedeo scribere. Simulque postquam <placeName key="Malaca">Malaca</placeName> profecti sumus, per quot pericula et casus haec nostra fiat navigatio, quia communioribus litteris narro hic praetermitto. Hoc te tamen reddere certiorem judicavi expedire, me scilicet, inter tot maris procellarumque discrimina fluctuantem, magnopere exoptasse hanc iaponensem navegationem potius ab obedientia tua missum quam intrinseco motu aggressum fuisse.</p>
+
+<p>3. Quamvis enim profectio mea nec boni desiderii nec per suadentium rationum nec consiliorum [tam] nostrorum quam extraneorum expers, tamen inter medios labores et pericula obstrepit nonnunquam dubitatio utrum haec tua fuerit voluntas, utrum item motus divinae voluntatis, et an potius debuerim <placeName key="Goa">Goae</placeName> fratrum curam agere quam in tam remotam provinciam transmigrare. Et nisi exemplum nostri patris Francisci (quem a prepositi provincialis onus nequaquam ab huiusmodi navigationibus remotis inhibebat) solaretur, profecto spiri<pb n="611" type="page"/>tualis laetitia quae in talibus periculis inveniri debuerim turbaretur.</p>
+           
+<p>4. Sed nimirum experientia compertum habeo servum Dei aut ita esse spiritualem ac perfectum ut lucide intelligat quando eum moveat divina unctio, aut ita simpliciter excaecata ratione, sanctae obedientiae subici ut nihil agat, velit, intelligat nisi quae iubet superior, et id absque ulla interpretatione.</p>
+           
+<p>5. At proinde partim haec haesitatio, partim obstacula navigationis nostrae, prope me coegissent mutare sententiam ac <placeName key="Goa">Goam</placeName> reverti, nisi multae rationes mihi persuaderent magis divinae ac tuae voluntati consentaneum fore si eorum que retro sunt obliviscens ad anteriora me extenderem.</p>
+           
+ <p>6. Prima, magna est pollicitatio regis Firandi eius litteris ac sigillo firmata, qua asserit se baptismum ac fidem suscepturum simul atque illuc appuleron. Et lusitani mercatores modo e Iapone in hunc <placeName key="China">Chinae</placeName> portum transvecti, quibus et patres nostri per epistolas suas assentiunt, omnes asseverant mirabilem fructum animarum ex nostro illuc adventu processurum, et fortasse homicida illarum animarum iudicari <pb n="236v" type="folio"/> possem si vocantibus renuissem, maxime cum iaponensis Ecclesia et firma fidei intelligentia et numerus credentium mirabiliter augmentetur.</p>
+
+ <p>7. Secunda est quod cum nostra adhuc navigatio non exiguo sumptu aliorum facta fuerit, non parvum sane scandalum noster reditus generaret. Periculum nempe esset ut inconstan<pb n="612" type="page"/>tiae ac laborum taedio potius quam iniuncti operis necessitati ascriberetur. Nec deessent qui suspicarentur me regendi ambitione et iucundioris vitae cupiditate rediisse. Absint autem ab Societate Iesu non solum hae pestes, sed et illarum suspicio.</p>
+           
+<p>8. Tertia est quoniam ex litteris iaponensium fratrum novimus multas esse in illis regnis civitates in quibus plus quam quadringenti sunt baptizati et tamen nullus est qui instruat. Nescio autem an fas sit baptizatos rudes relinquere et non potius teneamur in foro conscientiae talibus subvenire.</p>
+           
+<p>9. Quarta, licet nempe regredi vellem Indiam hoc anno, vix possem cum navis hinc profectura tam sero solvat ut dicant in aliquo portu citra Indiam hiematuram. Cumque nequeam <placeName key="Goa">Goa</placeName> rectoris officium agere, melio duxi nostrum iter peragere, Domino opitulante.</p>
+           
+ <p>10. Quinta quia ex litteris indicis mihi innotuit duodecim patres hoc septembri elapso venturos, cum tamen adhuc tibi noti non essent felices transitus nostrorum patrum, quoscum nosses plures esses missurus, parumque admodum ne<pb n="613" type="page"/>cessariam regressionem meam existimavi ubi tales columnae Societatis invenirentur.</p>
+           
+ <p>11. Hae 5 rationes me, venerande pater, impulerunt, siquidem Domino ita (ut arbitror) disponente in hoc portu <placeName key="China">Chinae</placeName> sumus, hic simul ego et fratres mei hiememus ut proximo maio iaponenses insulas, quae hinc tercentis tantum leucis distant, transvehamur si Domino placuerit. Haec ita V.P. scripsi ut si forte in aliquo, quod absit, tuam transgredior voluntatem, castiges filium ad tuos pedes provolutum. Si autem approbas, soleris animam meam expresse sub obedientia iubendo quid velis me facere: an iaponensi vineae insudare an Chinam aggredi, an Indiam reverti. Ad omnia nempe paratum cor meum, Deus, paratum cor meum.</p>
+           
+<p>12. Et quoniam forte non absonum rationi est quid sentiam de hac conversione <placeName key="China">Chinae</placeName> te certiorem reddere, dicam pro tenuitate mea. In primis haec regio est supra modum spatiosa, opulentissima, plus quam sexcentis leucis patens. Incolae eius miro pollent ingenio in artificialibus et in negociationibus lucri temporalis. In agnitione Dei, spiritualium animarum ita rudes ut etiam sua idola redicule colant. Iaciunt sortes in omnibus quae sunt incepturi, et si prospere non succedunt, idola flagellant. Si bene, immolant ungues gallinarum et alia quae ipsi edere non possunt. Suorum idolorum sacerdotes parvi faciunt.</p>
+           
+ <p>13. Per duos menses in urbe Cantonense fui ut sex vinctos nostros quos ibi crudeliter habent captivos liberarem, et mille ac quingentos ducatos posui in deposito si eos solverent. Sed adeo volunt se ostendere iustitiae tenaces ut adhuc dubitem an sint solituri eos. Summa tamen haec pecuniae ex eleemosinis lusitanorum in promptu est.</p>
+           
+<p><pb n="614" type="page"/>14. Orandum est denique ut haec gens in qua hactenus sanctissimum nomen Christi ac eius evangelium non fuit denunciatum, auxilio ex alto misso convertatur. Quantum autem (experiencia magistra) didici, duos tantum modos arbitror inveniri ut ad conversionem horum infidelium <pb n="237" type="folio"/> Deo duce accedere posset Societas.</p>
+           
+<p>15. Primus est si mittatur legatus a rege nostro vel a vicerege ut cum rege <placeName key="China">Chinae</placeName> de pace et iuribus et aliis paciscatur et patres cum eo ingrediantur et discant linguam ac petant privilegia ut libere sui possint recipere legem civitates. Tanto nempe poenarum terrore gens illa a suis iudicibus regitur ut nullo pacto videatur aliquis ausurus novam suscipere contra regem iudicumve voluntatem. Et quia legatus triennium in expedienda legatione ex more regionis insumpturus est, poterunt eo tempore patres et vitae suae sancta exempla ostendere et linguam discere et experiri interim augmentum fidei favoremque regis et regentium.</p>
+           
+<p>16. Secundus, licet non tam cursui nostrae consentaneus forsitan tamen spiritualior et divino auxilio magis innitens, ingredi duos patres et paulatim linguam discere, pia opera facere, animos hominum primum privatim, deinde publice, in vicis et plateis et tribunalibus ad fidem sanctissimam convertere, licet nempe se valde exponant periculo flagellorum et carcerum. Sic sancti, sic apostoli fidem seminarunt. Oportet nempe granum frumenti mortuum esse ut multum fructum adferat.</p>
+           
+<p>17. Credo, pater, quod tu spiritum Dei habeas. In his iubebis ac dispones prout ad honorem Dei omnipotentis magis senties expedire, quantum crescat Domini Iesu Christi gratia in  <pb n="615" type="page"/> Ecclesia iaponensi, indiensi et aliis in regionibus, ut unusquisque fructum suae villicationis quae ei incumbet, te per litteras cerciorem faciant, ut ex obedientia singulis iniunctum est. Tu interim, dominus pro servis, pastor pro ovibus, Dominum Iesum Christum tuis sanctis sacrificiis ora.</p>
+           
+<p>18. Hactenus professionem cuius mihi facultatem P.V. misit non feci quia non fuit copia nec patris professi nec episcopi. Cum fuerit, Domino adiuvante, faciam et ad te mittam vota mea.
+           
+<lb/>Iube, pater, fieri obsecrationes pro his remotis regionibus quae de dulcissimo Iesu nunquam audierunt.
+   <lb/>Facta <date when="1555-11-27">5° calendas decembris, anno 1555</date>.</p>
+          
+<p> 19. His iam litteris factis, quaedam navis coepit parari ut <placeName key="Goa">Goam</placeName> tenderet. Domini Iesu clementia me illuminet quid faciam ut obedientiae sit conformis et voluntati Dei, sive ut Indiam revertar sive ut hic hiemem Iaponem navigaturus. Hinc nempe obedientiae iniuncti officii, illinc supra dictae rationes cor meum in diversa trahunt.</p>
+           
+<p>Ex portu <placeName key="China">Chinae</placeName>, filius prodigus</p>
+           
+<p><persName key="Nuñez Barreto, Melchior">Magister Melchior</persName></p>
+           
+       </div>      
+      </body>
+  </text>
+</TEI>

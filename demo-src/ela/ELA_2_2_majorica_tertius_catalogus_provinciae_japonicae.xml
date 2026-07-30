@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Tertius catalogus Provinciae Japonicae</title>
+                  <author>Majorica, Hieronimus S.J.</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 1117-1119</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1654</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-12" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="J.25 168" type="folio"/>
+           <pb n="1117" type="page"/>
+<p>Sunt intra <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Provinciam</placeName> Japonicam de Societate omnino 44: in Collegio <placeName key="Macaum">Amacaensi</placeName> 36; sit ne quis Nostrum in <placeName key="Japonia">Japonia</placeName> non constat. In Missione Tunkinica quinque; in Cocicinica, Macasarìca, Cambogensi unus in singulis; in <placeName key="Haynanica">Haynanica</placeName> nemo. Ab <date when="1650">anno 1650</date> inclusive usque in hanc diem admissi in Societatem 19, dimissi 7, vita functi 14.</p>
+           <p>Habet haec Provincia redditus qui sequuntur: ex locatione domorum singulis annis recipit 518 argenteos, quibus alere potest ad summum sex e Nostris; nam in domorum restauratione reddituum partem insumit. Pecuniam quam vocat Orphanorum accepit mutuam ad mille et quinque argenteos. Ad haec solvit Provincia quotannis Seminario Japonico pro accepta inde pecunia 334 argenteos. Ab anno <date when="1650">anno 1650</date> ad hunc annum labentem damna in pecunia, aliisque rebus passi sumus ad 4.884 argenteos. Annui Provinciae redditus in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> fere accedunt ad quatuor mille argenteos, quos vulgo Patacas appellamus. Redditus, quos olim habebat ex negotiatione a <persName key="Papa">Summo Pontifice</persName> huic Provinciae permissa, modo sunt exigui aut pene nulli propter interclusum in <placeName key="Japonia">Japonia</placeName> et <placeName key="Manila">Manila</placeName> cum hac civitate comercium. Indiget duodecim mille argenteis ad annuam Nostrorum sustentationem. Ad 56 millia xerafinorum ascendit aes alienum ab hac Provincia contractum <placeName key="Macaum">Amacai</placeName>, in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> et <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitania</placeName>, ubi ad sumptus in <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europa</placeName> necessarios redditus habet exiguos, quos refert ex praedio Carcavelli. Nihil ex  aliena largitate nacti sumus ab anno 650 ad hunc annum. Reliquum aerarii ad septem mille argenteos fere ascendit.</p>
+           
+<pb n="1118" type="page"/>
+<p> <placeName key="Macaum">Collegium Amacaense</placeName>
+   <lb/>In <placeName key="Sinae">Sinensi Imperio</placeName> Collegium habemus <placeName key="Macaum">Amacaense</placeName>, <placeName key="Japonia">Japonicae</placeName> Provinciae caput. Sunt in eo 36 omnino e Nostris, quorum sunt sacerdotes 20, scholastici approbati duo, reliqui coadiutores, uno e sex tyronibus excepto, qui in scholasticum fuit admissus. Habet Collegium decem domos locabiles, ex quibus singulis annis recipit 313 argenteos, quibus quatuor capita vix ali possunt. Ad haec habet praedia duo ad aegrotorum levamentum et solitam recreationem. Alterum, quod Insulam Viridem appellamus, terrae fructibus, quos inde recipimus, aegre sumptus exaequat. Alterum (dicunt Oytem) gregi et armento pascua suppeditat. Collegio vero deductis expensis non amplius hactenus quam 100 argenteos. Sperant tamen rerum periti fore ut annis insequentibus, si res e voto succedat, recipiantur inde argentei 500. Non tenetur ex ulla obligatione Collegium ad docendas scientias aut litteras, quod hactenus careat fundatione, sed ex charitate dumtaxat classes olim aperuit. Hoc anno grammaticam superiorem et infimam, elementa litterarum, necnon arithmeticam, cum musicis numeris pueros docet. Octo sociorum Collegii redditibus, reliqui Provinciae aluntur impensis.</p>
+           
+<p><placeName key="Japonia">Japonia</placeName>
+   <lb/>In <placeName key="Japonia">Japonia</placeName> annis propius elapsis socii degebant duo, de his quid actum sit, vivantne, an vixerint, propter interclusam illuc navigationem plane non constat, ut eos propterea in numerum sociorum supra positum recensendos visum non fuerit.</p>
+           
+<p>Missio Cocincinica
+<lb/>Missioni Cocincinicae, quam nunc unus tantum Pater moderatur, debet Provincia Japonica <pb n="168v" type="folio"/> 2300 argenteos, quos ad illius Residentiae fundationem nobilis faemina legavit, ea lege, ut ex commercio japonico lucro augerentur, donec ad eam summam perveniet, quae praedictae fundationi sufficeret. Verum propter interclusum commercium nondum huic oneri Provincia satisfecit. Quare et summam ipsam, et, si Paternitati Vestrae videbitur, cum lucra inde cessantia, tum damna emergentia debet Missioni Cocincinicae.</p>
+           
+<p>Missio Tunkinica
+<lb/>In Missione Tunkinica quinque degunt Patres in quinque Residentiis. Nulli Missioni sunt redditus. Sumptus illi necessarios Provinciae (ut dictum est) aerarium suppeditat.</p>
+           
+<pb n="1119" type="page"/>
+<p> Missiones reliquae.
+   <lb/><placeName key="Haynanica">Haynanica</placeName>, <placeName key="Cambodja">Cambogensis</placeName> et <placeName key="Macazarica">Macazarica</placeName> Missio Provinciae aluntur impensis, quod hactenus careant fundatione. Primam nemo obtinet. Reliquarum singulas unus duntaxat excolit operarius.</p>	
+<p>† <persName key="Maiorica, Hieronymus S.J." ref="http://www.viaf.org/42085352">Hieronymus Mayorica</persName></p>
+           
+       </div>      
+      </body>
+  </text>
+</TEI>

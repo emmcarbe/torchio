@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>[P. Antonius Criminalis S.I.] P. Ignatio de Loyola, Romam, e promontorio Comorin 4 decembris 1548, secunda via</title>
+            <author>Criminalis, Antonius S.J.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 350-352</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>     
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1548</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="350" type="page"/>
+            <p>† Iesus sit sempe[r] cum omnibus</p>  
+<lb/>
+            <p>1. Tuae humanitati, Venerabi[li]s Pater, me indignum Societatis coadiutorem, benigne placuit admittere: qua in re dabo operam pro viribus, ut tuis votis respondeam, quod quidem, Domino Iesu Christo praestante, spero facturum. Non ideo ad hoc munus me idoneum iudico; nam longe me ad tanti muneris functionem distare reperio: nihilominus sicuti tibi visum est, ita censeo me ad unguem obtemperaturum. Non solum autem coadiutorem, sed et omnium bonorum atque meritorum Societatis participem facis. Insuper omnibus facultatibus, gratiis, autoritateque, non secus ac professis, uti libere concedis. Praeterea doces me, Pater, <pb n="351" type="page"/> haec omnia ad aedificationem, non ad destructionem concessa; quod mihi procul dubio ubique terrarum in eodem Domino nostro Iesu Christo persuasi secuturum, et ut melius progrediar, etsi alias <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName> charissimo in Christo domino Petro Lucensi, ut ita dicam, vota paupertatis, et castitatis, atque obedientiae tibi danda reliqui: rursus, licetque alibi idem pluries voverim, scias velim me non solum Praeposito et professis, coadiutoribusque, sive cooperatoribus, sed cuicumque Societatis nomine existenti, etiam servo, perpetuo astrictum esse.</p>  
+<p>2. Quod attinet ad illa septem, in quorum unum, si quis incidisset, ad Societatem non admitteretur, et si quoad fleri poterit (sicut Ioannes Polancus charissimus in Christo tuo nomine innuit), omnis cura, diligentiaque adhibebitur, <pb n="352" type="page"/> laudetur Dominus noster Iesus Christus, qui me ab illis protexit et eripuit.</p>  
+<p>3. Reliquum est, ut obtenta facultate a <persName key="Franciscus S.J.">magistro Francisco</persName>, quibusve expedierit ut eis in Domino utar; nam absque illa omnino abstinendum esse duxi, perinde ac si haec ad me nunquam pervenissent. Interim Domino Deo optimo maximoque gratias agam, ipsum precabor, ut omnes nos ad coelestem Hierusalem pervenire concedat.</p>  
+  <p>Ex istis regionibus <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> Commurini Caput appellatis,
+<lb/>die <date when="1548-12-04">4 Decembris 1548</date>.</p>             
+<p><pb n="136v" type="folio"/> <hi rend="italic">Inscriptio</hi>: Al molto Reverendo e charissimo Padre messer <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName>, Preposito della Compagnia de Iesus in <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Roma</placeName>.
+ <lb/>Segunda ‘’.</p>  
+            
+         </div>
+      </body>
+   </text>
+</TEI>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola ad Episcopos Tunkinenses, 5 febbr. 1674</title>
+            <author>Ibañez, Bonaventura O.F.M.<date>1610-1691</date></author>
+           
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 544-567</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+               <idno type="URI"></idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1674</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-14" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+   
+        <pb n="121" type="page"/>
+        
+        <p>Valde Illmi DD. Episcopi.</p>
+        <div>
+           <p>1. Litteras a VV. EE. DD. ad me anno prȩterito scriptas accepi ; quibus lectis valde gavisus sum de amborum salute, utilibus progressibus, animarum profectis, invincibilique animo in prosequendo versus finem, quem consequi sperant. Omnes mei socii salute <pb n="122" type="page"/> gaudent, prȩter me, qui pergens ex mea cella in chorum super tabulatum rui et femur meum dextrum in tabulam tutudit, et quamvis nulla fuit ossorum fractio magnum damnum accepi, taliter quod nullatenus, post duos menses medicamentorum, possum pedem firmare supra terram, et sic inutilis maneo ad missionem meam, et medici unanimiter mala mihi de salute annuntiant. Fiat in me Dei voluntas.</p>
+           <p>2. Postquam ex civitate <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> anno prȩterito ad vestras Illmas DD. scripsi de meo transitu cum duobus sociis ex civitate <placeName key="Macaum">Macao</placeName> in civitatem <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName>, accidit nobis quod ego non cogitavi. Nos eramus in quadam domo nobilis <placeName key="China">Sinȩ</placeName> gentilis, qui nos magno affectu interiori eius domi hospitavit abscondite quod nullus prȩter eius domus habitatores, et duo famuli nostri sciebat,  illic spectabamus opportunam occasionem ingrediendi interiora regni ; interim unus ex nostris famulis nomine Ludovicus, qui me comitatus est usque ad Indiam et civitatem <placeName key="Vasora">Vasora</placeName>, hic postquam accepit a me multa beneficia, retribuit mala pro bonis, occulte relinquens nos, et reversus est ad <placeName key="Macaum">Macao</placeName>, et notum fecit patribus societatis ubi nos reliquit.</p>
+           <p>3. Tunc visitator societatis fecit ut dux generalis scriberet epistolam ad principem gubernatorem civitatis <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName>, scilicet dictus P. visitator litteris sinicis fecit scribere dictam epistolam, et dux generalis firmavit eam nomine suo, et sigillo; adhuc in epistola erat alterius firma, nescio cuius posset esse nisi dicti visitatoris, qui per manus cuiusdam <placeName key="China">Sinȩ</placeName> christiani misit ad dictum principem gubernatorem in qua notum ei faciebat de nostro ingre[s]su et ubi eramus hospitati. Ipse ex officio excusare non poterat impedire iter <pb n="123" type="page"/> nostrum propter prohibitionem Imperatoris; tunc noluit, ut poterat, mittere de suis militibus, qui nos colligati deducerent ad suum tribunal, sed misit eumdem christianum patrum societatis, qui ei epistolam tradidit, ut nos vocaret ad suam prȩsentiam venire.</p>
+           <p>4. Venimus et humaniter nos accepit, et sedere prope se nos fecit et dixit mihi: «Non culpam inpono duobus iuvenibus ministris, qui ignorant huius regni leges et rigorem in eas observando, sed tibi magistro seni, qui per plures annos demoratus es in hoc regno, nunc urgens Imperatoris mandatum prohibens deinceps novos ministros Christi in suum regnum ingredi, quomodo ausus fuisti tale prȩceptum contraire?» Cui respondi: «Nos Summo Imperatorum Domino, qui est Deus omnium rerum Creator, debemus super omnia obedire, hic ergo imperat nos hoc regnum ingredi et suam sanctam legem prȩdicare ac docere eos qui voluerint se salvos fieri, et a pȩnis ȩternis liberari.» Tunc dixit: «Scio quod magistri Christi optimam doctrinam docetis, sed pro nunc debetis vos abstinere publice ab hoc officio et a novo ingressu in hoc regnum usque Imperatoris mandatum temperetur vel frigefiat. Sed quia iam ex civitate <placeName key="Macaum">Macao</placeName> huc transistis, manete hic mecum ; qui volunt vos reducere ad civitatem <placeName key="Macaum">Macao</placeName> non habent bonam intentionem, ego volo de vobis curam habere usque transacto tempore possitis ingredi interiora regni usque ad vestras christianitates; interea hi duo iuvenes ministri, qui adhuc nesciunt nostram linguam bene tamen adiscere possunt, ego ipsis magistros dabo. »</p>
+           <p>5.	His dictis imperavit cuidam famulo suo nos hospitare in quadam habitatione sui palatii et signavit sex servos ut nos assisterent ad servicium, et ad horam octavam noctis ipse princeps venit ad nos postquam cȩnam consumpsimus, et sedens pariter nobiscum per duas horas familiariter conversatus est, et dixit: «No<pb n="124" type="page"/>lite me hic ut princeps honorare, sed ut socium vestrum.» Et imperavit cuidam servo suo habere curam de nobis tam ad manducandum quam ad alia necessaria, interrogans nos cotidie quȩ volumus manducare, quomodo prȩparata et qua hora diei, et quid nobis deest. His dictis abivit ad suam habitationem et perseveravit pluribus vicibus venire ad supradictam conversationem familiarem.</p>
+           <p>6.	Ego ei de vero Deo notitiam et animȩ salutaria locutus sum, quamvis de his parum curabat, sed scire cupiens de variis rebus nostra <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europȩ</placeName>, supra hȩc erant suȩ interrogationes. Nos publice paravimus altare in quo collocavimus Christi imaginem, et cotidie missȩ sacrificium celebrabamus. Tribus mensibus transactis, inter nos consultavimus non esse conveniens ad nostrum intentum consequendum omnes nos esse illic, impediti ad iter nostrum prosequendum; et sic unus tantum maneret illic, et duo manerent in sua libertate. Postquam in hoc convenimus, cum principe locutus, interrogans eum si poterat mihi soli dare iter ad pergendum ad meam christianitatem, manentibus illic meis duobus sociis? Respondit non posse usque res mutarentur in melius. Tunc dixi ei: «Si ita necessarium est, sufficit ut unus ex sociis maneat hic et ego cum altero redibo ad civitatem <placeName key="Macaum">Macao</placeName> ubi in nostro conventu spectabimus tempus oportunum. » Hȩc dispositio placuit ei, et sic retento uno, nomine Fr. <persName key="Franciscus">Francisco</persName> de Conceptione, misit nos duos ad hanc civitatem <placeName key="Macaum">Macao</placeName> ubi ad prȩsens sumus; ego totaliter claudus et inutilis ad iterum ingrediendum <placeName key="China">sinicum regnum</placeName>, nisi Deus, <hi rend="italic">qui potens est</hi>, dederit mihi integram sanitatem.</p>
+              <p>7.	Patres missionarii Dominicani qui sunt intra <placeName key="China">sinicum regnum</placeName>, miserunt ad nos unum fidelem christianum ut cum illo possit unus ex nobis transire illuc. Ad hoc locutus sum cum quodam <placeName key="China">Sina</placeName> gentili — quia <pb n="125" type="page"/> iam nullam fidem facio de <placeName key="China">Sinis</placeName> christianis patrum societatis — qui promisit mihi quando revertet in sua symba versus regnum conducere secum unum socium meum qui mecum ex civitate <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> venit. Hic <placeName key="China">Sina</placeName> gentilis discedet ab hoc portu ad ultimum huius mensis, quando navis in qua mitto hanc epistolam iam erit discessus. Anno venturo, Deo placente, iterum scribam ad VV. Illmas DD. certiores faciens de omnibus quȩ nobis acciderint.</p>
+           <p>8. Anno prȩterito quidam P. Dominicarius, nomine Fr. <persName key="Varus, Franciscus">Franciscus Varo</persName>, qui adhuc erat in civitate <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> mense septembri disces[s]it ab illa civitate, petens suas christianitates in provincia <placeName key="Fokien" ref="https://www.geonames.org/1811017">Fokien</placeName> et secum conduxit nostrum religiosum Fr. <persName key="Augustinus de Paschalis O.F.M.">Augustinum de S. Pasqual</persName>, qui iam ad me scripsit quo modo illuc cum salute et sine ullo impedimento pervenit. Si non essent in hac civitate et in civitate <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> patres societatis, nullus missionarius haberet impedimentum ingrediendi <placeName key="China">sinicum regnum</placeName>. Et hoc <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedes Apostolica</placeName> non credit, nec catholicus ullus credere poterit.</p>
+              <p>9. Mense octobris misit iterum regulus civitatis <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> quemdam <placeName key="China">Sinam</placeName> mercatorem — qui annis prȩteritis tradidit patribus societatis suas et reguli merces ad plus centum millia ducatorum valoris, et antequam prȩtio convenirent absente dicto mercatore <placeName key="China">Sina</placeName>, patres oneraverunt suas naves mittentes eas ad diversa regna in quibus contractant, et nunquam voluerunt neque nunc volunt se convenire cum hoc <placeName key="China">Sina</placeName> mercatore in iusto prȩtio, sicut omnes mercatores huius civitatis emerunt et vendiderunt — petens a huius civitatis gubernatoribus adiuvent eum [ut] patres societatis reddant ei rationem de suis mercibus; hi gubernatores quantum potuerunt rogaverunt patres societatis ut se conveniant cum hoc mercatore sina sed nullatenus volunt dicentes quod hic <placeName key="China">Sina</placeName> econtra <pb n="126" type="page"/> debet eis plura ducata pecuniarum sed nolunt rationem dare. De hoc omnes huius civitatis cives scandalum patiuntur. Talis   <placeName key="China">Sina</placeName> mercator cum suis sociis publica libella in parietibus platearum fixerunt in quibus notificat omnibus patrem societatis procuratorem esse suarum mercium latronem. Et hoc in dedecus divinȩ legis redundat.</p>
+           <p>10. Quidam medicus natione Gallus ex <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> anno prȩterito cum sua navicula devenit ad hunc portum, aliquibus mercibus onerata. Huius civitatis gubernatores abstractis mercibus ad terram conpulerunt eum naviculam comburere. Hic coactus fuit manere in hac civitate excercens suum officium, curando huius civitatis infirmos. Accidit ut infirmavit et in mortis periculo constitutus, patres societatis ad suum domicilium conduxerunt, ubi brevibus diebus obiit. Reliquit in suo testamento nongenta hispanica argenta, quingenta S. <persName key="Xaverius, Franciscus" ref="http://www.viaf.org/51717999">Francisci Xabieri</persName> congregationi; quatuor centa patrum societatis necessitatibus, reliqua suorum bonorum in elemosinas distribui ordinavit ; maior pars suorum bonorum per diversas partes dispersa est; partem suarum mercium valoris considerabilis tradidit cuidam patri societatis qui ex hoc portu anno prȩterito navigavit ad <placeName key="Manila">Manilam</placeName> ut illic venderetur; partem misit ad Regem Timor, ut ibi in lignas sandalina[s] commutaretur; alia dicitur habere de suis bonis in regno Siam et in <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">India Orientali</placeName>. VV. Illmȩ DD. propter amorem Dei pro eius anima orent, et etiam pro nobis, qui in Domino confidimus videre in <placeName key="China">regno sinico</placeName> VV. Illmas DD. vel unum saltem ex discipulis suis, ut sic possint VV. Illmȩ DD. testimonium oculare <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedi Apostolicȩ</placeName> dare de domo <persName key="Confucius" ref="http://www.viaf.org/89664672">Confucii</persName>, an sit templum ubi quotannis ei duobus vicibus solemniter sacrificatur, ut patres Dominicani et nos <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedem Apostolicam</placeName> informavimus, vel an sit gymnasium ubi litterati gradum suum accipiunt, ut patres societatis <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedi Apostolicȩ</placeName> affirmarunt.</p>
+           <p>Mei socii et ego nos valde VV.DD. ac suorum discipulorum orationibus comendamus, Deum depre<pb n="127" type="page"/>cantes ad honorem suum, animarumque salutem compleat VV. DD. desideria. Amen. Ex nostro combentu <placeName key="Macaum">Macao</placeName> <date when="1674-02-05">quinto die februarii 1674 anni</date>.</p> 
+              <p>In super scriptis litteris huius epistolȩ de intento scripsi ex <placeName key="Manila">Manila</placeName>. 
+                 <lb/>Indignus discipulus vestrarum Illm. DD., 
+                 
+                 <lb/><persName key="Ibañez, Bonaventura, O.F.M.">Fr. Bonaventura Ybañes</persName>,
+                 <lb/>Comissarius apostolicus ac vicarius provincialis franciscanȩ missionis in <placeName key="Sinae">sinico regno</placeName>.</p>
+           </div>
+      </body>
+  </text>
+</TEI>

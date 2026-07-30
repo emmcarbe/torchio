@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Primus Catalogus personarum anni 1615 [Provinciae Philippinarum]</title>
+                  <author>Valerius de Ledesma S.J.</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 1102-1115</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1615</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="160" type="folio"/>
+           <pb n="1102" type="page"/>
+           <head>PRIMUS CATALOGUS PERSONARUM ANNI <date when="1615">1615</date>
+           [PROVINCIAE PHILIPPINARUM]</head>
+           
+           <p>Ex his qui ex <placeName key="Japonia">Japonia</placeName> venerunt
+           
+           <lb/>Remanent adhuc in hac Provincia
+              <lb/>P. <persName key="Melchior de Mora S.J.">Melchior de Mora</persName> 
+              <lb/>P. <persName key="Franciscus Calderón S.J.">Franciscus Calderón</persName> 
+              <lb/>P. García Garcés 
+              <lb/>P. <persName key="Suares, Bartholomeus S.J.">Bartholomeus Suárez</persName> 
+              <lb/>H.°<persName key="Vota, Agustinus S.J.">Augustinus Vota</persName> 
+              <lb/>H. <persName key="Figueredo, Thomas de">Thomas de Figueredo</persName>
+              <lb/>H. Michael Matçuda              
+              <lb/>H. <persName key="Petrus Chiquan S.J.">Petrus Chiquam</persName> 
+              <lb/>H. Román
+              <lb/>H. Georgius
+              <lb/>H. Alexius
+              <lb/>H. Thadeus
+              <lb/> 
+              <lb/>Reversi sunt in <placeName key="Japonia">Japoniam</placeName>
+              <lb/>P. <persName key="Vieyra, Sebastianus S.J.">Sebastianus Vieyra</persName> 
+              <lb/>P. <persName key="Martinus Moan S.J.">Martinus Moan</persName>
+              <lb/>P. <persName key="Yuqui, Didacus S.J.">Didacus Yuqui</persName>
+              <lb/>H. <persName key="Bartholomeus Reoxey S.J.">Bartholomeus Reoxey</persName>	
+              <lb/>H. <persName key="Amacusa, Andrés S.J.">Andrés Amacusa</persName>
+              <lb/> 
+              <lb/>Vita functus
+              <lb/>H. <persName key="Paulus Reoyn S.J.">Paulus Reoyn</persName>, <placeName key="Manila">Manilae</placeName> <date when="1615-09-17">17 Septembris anni 1615</date>.
+              <lb/> 
+              <lb/>P. <persName key="Morejón, Petrus S.J.">Petrus Morejón</persName>, Procurator <placeName key="Japonia">Japoniae</placeName> ad Urbem, navigavit in <placeName key="Hispania" ref="https://pleiades.stoa.org/places/1027">Hispaniam</placeName>.
+              <lb/>. . . . .
+              <lb/>Scriptum <placeName key="Manila">Manilae</placeName>. <date when="1616-08-12">12. die Augusti, an. 1616</date>.
+              <lb/><persName key="Valerius de Ledesma S.J.">Valerius de Ledesma</persName></p>
+           
+       </div>      
+      </body>
+  </text>
+</TEI>

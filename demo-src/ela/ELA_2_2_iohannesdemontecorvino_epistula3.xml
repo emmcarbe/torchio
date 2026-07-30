@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola III</title>
+            <author ref="https://viaf.org/viaf/59876078/">Iohannes de Montecorvino O.F.M.<date>1247-1328</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA - Eurasian Latin Archive</ref>
+            </publisher>
+            <date when="2018-09-01">01/09/2018</date>
+            <availability>
+                <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Sinica Franciscana, I: Itinera et relationes fratrum Minorum saeculi XIII et XIV, a cura di A. Van Den Wyngaert, Firenze, Quaracchi, 1929, 351-355</title> 
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/151</idno>
+               <idno type="URI">https://hdl.handle.net/2027/mdp.39015012963784</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>  
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="places">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1301/1400">1306</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+        <pb n="351" type="page"/>
+           <p>Reverendo in Christo patri fratri fratri Vicario generalis Ministri Ordinis fratrum Minorum, et Vicario fratrum et Magistri e Ordinis Predicatorum, et fratribus Ordinis utriusque in <placeName key="Persae" ref="https://www.geonames.org/130758">provincia Persarum</placeName> manentibus, frater <persName key="Iohannes de Montecorvino O.F.M." ref="http://viaf.org/viaf/59876078">Iohannes de Monte Corvino</persName> de Ordine fratrum Minorum, inutilis Christi servus, predicator fidei sacre christiane, legatus et nuntius <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedis Apostolice romane</placeName>, salutem et caritatem in eo qui est vera caritas et salus omnium.</p>
+           <p>1. Ordo exigit caritatis ut longe lateque distantes et maxime qui peregrinantur pro lege Christi, cum revelata facie se invicem videre non possunt, saltem verbis et licteris consolentur. Cogitavi vos non sine causa mirari, quod tot annis in provincia tam longinqua consistens nunquam meas licteras recepistis, sed miratus sum non minus quod nunquam, nisi anno isto, recepi ab aliquo fratre vel amico licteram vel salutationem, nec videtur quod aliquis recordatus fuerit mei, et maxime quia audivi quod rumores ad vos pervenissent quod <pb n="171 vb" type="folio"/>ego mortuus essem. Nunc autem notifico vobis quod anno <date when="1305-01">preterito in principio Ianuarii</date> per quemdam amicum nostrum, qui fuit ex sociis domini <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Cothay Canis</persName> qui venerunt ad dominum <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Chanem de Cathay</persName>, ego misi licteras patri Vicario et fratribus provincie <pb n="352" type="page"/>Gazzarie de statu et conditione mea, in paucis verbis. In quibus licteris rogavi eumdem Vicarium quod exempla illarum vobis transmicteret, et iam michi constat per bonas personas que nunc pervenerunt cum nunciis predicti domini <placeName key="Cathay">Cothay</placeName> ad dominum <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Chanem de Cathay</persName>, quod mee lictere ad vos pervenerint, et quod ille idem nuncius qui portavit licteras meas, postmodum de <placeName key="Sarai">Sara</placeName> civitate venit <placeName key="Tabriz" ref="https://pleiades.stoa.org/places/430344981">Thaurisium</placeName>; propter quod de factis et contentis in illis licteris cogitavi non facere mentionem, nec iterato scribere. Et primum est de persequtione nestorianorum; secundum de ecclesia et domibus completis, sex picturas feci fieri veteris et novi Testamenti ad doctrinam rudium, et scripta sunt licteris latinis, tursicis et persicis, ut omnes lingue legere valeant; tertium est quod ex pueris quos emi et batizavi aliqui migraverunt ad Dominum; quartum est quod a tempore quo fui in <placeName key="Thartarorum Imperium" ref="https://pleiades.stoa.org/places/897854">Tartaria</placeName> in <placeName key="Cathay">Kathay</placeName> batizavi plura millia.</p>
+           <p>2. In isto autem anno <date when="1305">Domini M° CCC° V°</date> ego incepi unum alium locum novum coram hostio <persName key="Magnus Kaam" ref="https://viaf.org/50027343">domini Chanis</persName>, et inter curiam et locum nostrum via sola est, distans per iactum lapidis a porta <persName key="Magnus Kaam" ref="https://viaf.org/50027343">domini Chanis</persName>. Dominus <persName key="Petrus de Lucalongo">Petrus de Lucalongo</persName> fidelis christianus et magnus mercator, qui fuit socius meus de <placeName key="Tabriz" ref="https://pleiades.stoa.org/places/430344981">Thaurisio</placeName>, <pb n="353" type="page"/> ipse emit terram pro loco quem dixi, et dedit mihi, amore Dei et divina gratia operante, quia utilior et congruentior locus haberi non posset in toto imperio <persName key="Magnus Kaam" ref="https://viaf.org/50027343">domini Chanis</persName> pro ecclesia catholica construenda. In principio augusti locum accepi, et assistentibus benefactoribus et iuvantibus, usque ad festum S. Francisci fuit completus cum muro in circuitu et domibus, officinis planis et oratorio, quod est capax ducentarum personarum. Sed propter yemem ecclesiam perficere non potui, sed habeo ligna congregata in domo et per misericordiam Dei perficiam in estate. Dico vobis quod mirum quoddam visum est omnibus advenientibus de civitate et aliunde, quia non habebant adhuc rumores ex hoc, et videntes locum de novo factum et crucem rubeam desuper in sublimi positam.</p>
+           <p>3. Et nos in oratorio nostro secundum usum, officium cantamus solempniter quia notas non habemus. <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Dominus Chaam</persName> in camera sua  potest audire voces nostras, et hoc mirabile factum longe lateque divulgatum est inter gentes, et pro magno erit sicut disponet <pb n="172 ra" type="folio"/>et adimplebit divina clementia.</p>
+        <p>4. A prima ecclesia et loco nostro usque ad ecclesiam secundam quam edificavi postea, sunt duo miliaria et dimidium intra civitatem que multum est magna. Et pueros divisi, et posui partem in prima et partem in secunda constitui, et faciunt officium per seipsos. Sed ego sicut cappellanus per ebdomadas celebro in utraque, quia pueri non sunt sacerdotes.</p>
+           <p>5. De magno <placeName key="Thartarorum Imperium" ref="https://pleiades.stoa.org/places/897854">imperio Tartarorum</placeName>. De regionibus orientalium vobis significo, et precipue de imperio <persName key="Magnus Kaam" ref="https://viaf.org/50027343">domini Chanis</persName> quod non sit ei maius in mundo. Et ego habeo in curia sua locum et viam ordinariam intrandi et sedendi sicut Legatus <persName key="Papa">domini Pape</persName>, et honorat me super omnes alios prelatos, quo<pb n="354" type="page" break="no"/>cumque nomine censeantur. Et licet ipse <persName key="Magnus Kaam" ref="https://viaf.org/50027343">dominus Chaam</persName> audierit multa de Curia romana et statu latinorum, dessiderat tamen multum videre nuncios venientes de partibus illis.</p>
+        <p>6. In istis partibus sunt multe septo ydolatrarum diversa credentium, et sunt multi religiosi de diversis septis, diversos habitus habentes, et sunt multo maioris austeritatis et observantie quam religiosi latini.</p>
+           <p>7. De <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndia</placeName> maiorem partem ego vidi ct quesivi de aliis partibus <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndie</placeName>, et esset magnus profectus predicare eis fidem Christi, si fratres venirent. Sed non essent mictendi nisi viri solidissimi, nam regiones sunt pulcerrime, plene aromatibus et lapidibus pretiosis, sed de fructibus nostris parum habent; et propter magnam temperiem et caliditatem aeris et regionis nudi vadunt, modico coopertorio verenda cooperientes, et propterea artibus nostris sartorum et cordonum et artificiis non indigent. Ibi est semper estas et nunquam hyemps. Battizavi ibi circa centum personas.</p>
+           <p> 8. In eadem epistula dicit ipse <choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes">Iohannes</persName> quod solempnes nuntii venerunt ad eum de <placeName key="Aethiopia" ref="https://pleiades.stoa.org/places/39274">Ethyopia</placeName>, rogantes ut illuc pergeret ad predicandum vel mitteret predicatores bonos, quia a tempore beati Mathei Evangeliste et discipulorum eius, predi<pb n="355" type="page" break="no"/>catores non habuerunt qui eos instruerent in fide Christi, et multum dessiderant ad veram Christi fidem pervenire. Et si fratres illuc mitterentur, omnes converterentur ad Christum et fierent veri christiani. Nam sunt plurimi in oriente qui solo nomine christiani dicuntur et in Christum credunt, sed de Scripturis et sanctorum doctrinis aliud nesciunt, simpliciter viventes cum non habeant predicatores et doctores.</p>
+           <p> 9. Item dicit fr. <persName key="Iohannes">Iohannes</persName> quod <date>post festum omnium Sanctorum</date> battizavit CCCC <pb n="172 rb" type="folio"/>personas. Et quia ipse audivit quod plures fratres utriusque Ordinis ad <placeName key="Persae" ref="https://www.geonames.org/130758">Persas</placeName> et ad <placeName key="Gazari">Gazzariam</placeName> accesserunt, ortatur eos ad predicandum ferventer fidem domini nostri Ihesu Christi et ad faciendum fructum animarum. Data dicebat lictera ipsa in <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambaliech</placeName> civitate regni <placeName key="Cathay">Kathay</placeName>, <date when="1306-02-15">anno Domini M° CCC° VI° in dominica quinquagesime mensis februarii</date>.</p>
+        </div>
+      </body>
+  </text>
+</TEI>

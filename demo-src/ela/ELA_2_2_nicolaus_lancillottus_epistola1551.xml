@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Nicolaus Lancillottus S.I. P. Ignatio de Loyola, Romam, Coulano 12 Ianuarii 1551, Prima via</title>
+            <author>Lancillottus, Nicolaus S.J.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490856081" key ="print-editor">in: Monumenta missionum Societatis Iesu, Missiones Orientales, Documenta Indica II (1550-1553), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1950, 169-174</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1551</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="169" type="page"/>
+<p>† Ihs.
+<lb/>Gratia Domini Nostri Iesu Christi
+<lb/>sit semper nobiscum. Amen.</p>
+<p>1. Ut Tua <choice><abbr>R.a</abbr><expan>Reverentia</expan></choice> melius possit intelligere quae sequntur, fere a principio exordiar contexere historiam. Iam scit Tua Paternitas quemadmodum coëgerunt me Magister Didacus et <persName key="Cosmus Iohanes">Cosmus Iannes</persName> ut susciperem curam collegii gouensis per eos regeo sumptu edificati, et quemadmodum <persName key="Simon S.J.">Magister Simon</persName> noster in hac provincia me confirmarit. Quam quidem provinciam cum viderem non esse mihi comodam, vel, ut melius dicam, cum viderem me ineptum et insuficientem ad illam regendam, conatus sum plurimis modis eam a me excutere, non ut labores evitarem certe, sed quia videbam me laborare incassum, et hoc plurimis de causis quae per literas significari non licet. Hanc tamen unam non tacebo, quod ego habebam nomen Rectoris, ipsi autem regebant, et utinam rexissent; sed quia studebant magis placere hominibus (ut eorummet verbis utar) quam Deo, et ideo evanuerunt in cogitationibus suis, quod sepissime eis pr[edi]xeram, nempe fore ut ipsum collegium totum destrueretur. Sed ad rem venio. Isti probi viri edificarunt illud collegium, et collegerunt ex omnibus <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> linguis quos potuerunt adolescentes usque ad numerum 70, et hos citra omnem delectum; inter quos erant multi non solum barbari, sed agresti admodum et incapaces totius doctrine ac virtutis, et erant fere viginti anni nati, et non poterant ullo pacto doceri virtutes et bonos mores, quia ignorabant nostrum idioma et tantum loquebantur ut psytachi. Ob quam rem iudicabam eos non posse continere, et ideo time<pb n="170" type="page"/>bam eos in turpitudinem lapsuros. Ob id sepenumero rogabam Magistrum Didacum et <persName key="Cosmus Iohanes">Cosmum Iannem</persName> ut dimittere[n]t eos, et alios susciperent minores qui possent doceri; sed noluerunt me audire, non quod ego scirem aliquid mali, sed quia suspicabar. Inveni postea nonnihil pravitatis, ob quam rem flagellavi nonnullos; neque hos dimittere ausus sum, erat enim tanta horum virorum et huius collegii opinio apud populum et apud Regem, quod melius ac decentius erat me omnia suferre, quam cum populi scandalo eorum amicitiam scindere. Ob id semper eis morem gessi in omnibus, expectans ut veniret alius, qui mitius vulnus curaret; sed fortasse secus evenit. Nunc Magister Didacus obiit, <persName key="Cosmus Iohanes">Cosmus Iannes</persName> autem fortuna <pb n="189v" type="folio"/> rotatur et non quievisse se meis consiliis plorat; nam <persName key="Gomes, Antonius">Antonius Gomes</persName> venit summa cum autoritate, et non servavit eius amicitiam neque vulgi opinionem, sed omnes adolescentes qui erant in collegio, magnos et parvos, expulit foras et suscepit lusitanos. Sed hoc haud scio quanta cum laude fecerit.</p>
+            <p>2. Quia iubes ut scribam quae apud nos aguntur, id non subticendum iudicavi. <persName key="Gomes, Antonius">Antonius Gomes</persName> venit a Magistro Simone ut esset omnium nostrum Superior, sed tanta cum autoritate ac gravitate ut moderatore egeret. Venerat enim ille sane probus vir adeo scientia et zelo et fervore plenus, ut sibi videretur omnes, qui erant in hac <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> ex nostris, oportere renasci denuo ad intelligendam tramitem ac Institutum Societatis. Oh quam rem coepit regere et coepit taxare nostram comestionem, potationem, dormitionem, lectionem, ora<pb n="171" type="page"/>tionem et missas in quantitate et qualitate; denique «recedant vetera, nova sint omnia», adeo ut ab omnibus in extrema incidisse iudicaretur. Et non solum hoc utebatur cum nostris, verum etiam cum indiis, quos cum videret inquietos, indevotos et sine spiritu, non poterat eos suferre; cepit eos arctare variis mandatis et constitutionibus, indicens eis horas orationis, contemplationis et examinis. Sed quia iam expertus eram eos multos annos, et sciebam eos incapaces huius doctrinae, dicebam Antonio <persName key="Gomes S.J.">Gomes</persName>: «Non est ponendum vinum novum in utres veteres. Opus est cum istis gradatim gradati[m] procedere, et satis est eos esse christianos». Nolebat me audire. Tandem ego contuli me Cochinum iussu <persName key="Franciscus S.J.">Magistri Francisci</persName>. Statim me recedente, ceperunt indi illi transilire parietes et fugere. Hinc aliquot dies <persName key="Franciscus S.J.">Magister Franciscus</persName> venit Gouam, et videns <persName key="Gomes, Antonius">Antonium Gomes</persName> non esse aptum ad regendum privavit eum autoritatibus et constituit alium Rectorem puerorum. Et statuerat mittere <persName key="Gomes, Antonius">Antonium Gomes</persName> in civitatem quae vocatur Ormus apud <placeName key="Persae" ref="https://www.geonames.org/130758">Persas</placeName>; sed quia <persName key="Gomes, Antonius">Antonius Gomes</persName> tunc temporis erat satis gratus Cosmo Ioanni, — putabat enim Cosmus posse se comendari apud Regem per <persName key="Gomes, Antonius">Antonium Gomes</persName> —. Ob quam rem summo studio fecit ne <persName key="Gomes, Antonius">Antonius Gomes</persName> mitteretur Ormuz, sed restitueretur ei administratio colegii. <persName key="Franciscus S.J.">Magister Franciscus</persName> rogatus plurimum a Cosmo Ianne morem gessit ei, sicut semper solebat, hoc pacto, ut <persName key="Gomes, Antonius">Antonius Gomes</persName> haberet curam colligii et eorum qui erant in colegio, excetto Domino Paulo, quem reliquit in eodem collegio Superiorem omnium nostrûm qui degamus extra collegium gouense, quia ibi est curia, et exhinde neccesse est multa providere aliis provinciis significans omnibus, ut cognosceremus Dominum Paulum pro Superiore, usquequo Tua Reverentia mitteret <pb n="190r" type="folio"/> aliquem professum qui haberet curam omnium, vel ipse aliud ordinaret; sed Tua Paternitas dat suas vices Magistro <persName key="Franciscus">Francisco</persName> <pb n="172" type="page"/> et, eo absente, Rectori collegii gouensis. Hinc natum est dubium utrum <persName key="Gomes, Antonius">Antonius Gomes</persName>, qui non habet autoritatem in Fratres et Patres Societatis nisi in eos quos ipse nuper peperit, an Dominus Paulus, qui habet totam autoritatem <persName key="Franciscus S.J.">Magistri Francisci</persName> in omnes Sotietatis, habendus sit pro Rectore, cui Tua Reverentia dat suas vices, absente Magistro <persName key="Franciscus">Francisco</persName>. Ad literam videtur intelligendus <persName key="Gomes, Antonius">Antonius Gomes</persName>, et ipse sic afirmat; sed alii dicunt non esse tuae intentionis destruuere decreta <persName key="Franciscus S.J.">Magistri Francisci</persName>, sed retificare ac confirmare ea. Ob quam rem, ni fallor, <persName key="Gomes, Antonius">Antonius Gomes</persName> servabit quidem privilegia, sed omnes obedient Domino Paulo usquequo <persName key="Franciscus S.J.">Magister Franciscus</persName> sit de omnibus certior factus. Credat Tua Paternitas Patres non resistere obedientiae, sed consulere Sotietati, et sic esse melius, quia sic omnes laborant in Domino ac edificant. Amore Dei Tua Reverentia hoc equi bonique faciat.</p>
+            <p>3. De ecclesia illa, quae dicitur Mater Dei in Cochino, non scribo quae dicenda erant; fortasse per alios sciet <choice><abbr>T. R.</abbr><expan>Tua Reverentia</expan></choice>. Hoc scio populum egre ferre, et Episcopum multo magis. Ipse conquestus est apud me non semel; ego certe si haberem huius negotii provinciam, videns quam coactus Episcopus eam connotulit et populi oppinionem, non solum non reciperem eam pro Societate, sed pulverem illius ecclesiae excuterem a calciamentis. <persName key="Franciscus S.J.">Magister Franciscus</persName> hoc idem sentiet, quia cavet plurimum a scandalis, ob quam rem ab omnibus adoratur.</p>
+            <p>4. <persName key="Gomes, Antonius">Antonius Gomes</persName> est probus quidem vir et satis bonus concionator necnon Societatis zelosus, sed ad regendum minime idoneus iudicio omnium. Scribet ad te literas fervore et rethorica plenas, sed non dubito te habere spiritum Domini cun[c]ta rimantem. Aduc teneo[r] mea infirmitate et valde crucior, adeo ut nec mihi nec aliis prodesse possim. Sit Dominus benedictus in secula, quandoquidem ita disponit.</p> 
+            <p><pb n="173" type="page"/>5. Collegium gouense nondum est Societatis nisi administratio tantum; habet 2.000 et 500 ducatorum redditu[s], quos redditus statuit Rex non ad utilitatem Societatis, sed ad alendos pueros nuper ad fidem conversos. <persName key="Gomes, Antonius">Antonius Gomes</persName> autem sperans Regem confirmaturum quicquid ipse statueret, expulit pueros et suscepit complures lusitanos pro Societate. Haud scio si Rex habebit hoc ratum. Collegium de Bazaim est Sotietatis, sed redditus, qui ibi sunt mille ducatorum, non sunt Sotietatis, sed ad alendos pueros et christianos pauperes, sunt a Rege dedicati. Na costa de Camorim nihil horum est.<pb n="190v" type="folio"/>
+In Coulão est collegium Societatis, sed redditus nulli. In <placeName key="Cochin">Cochim</placeName> neque collegium neque redditus, nisi disensio quedam, quam Tua Paternitas per litteras auferre debet. Scribo haec quia fortasse alio stilo scribetur de hac re per alios. Iam <persName key="Gomes, Antonius">Antonius Gomes</persName> non mittit <persName key="Gonçalves, Melchior S.J.">Melchiorem Gonsalvum</persName> in <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitaniam</placeName>, quem statuerat mittere, nes[c]io ob quid; nunc de hoc accepi literas a Cochino.	Si Tue Reverentie displicet me scribere per aliam viam quam per nostros, mihi significet Dei amore; et de hoc quod fecerim, si erravi, mihi penitentiam iniungat.
+De collegio Fratris Vicenti tuum responsum fuit divinitus, quia non est recipiendum impresentiarum. Parcat Tua Paternitas quia scribo latine et lusitane, quia italice non recordor.</p>
+            <p>6. Cum expe[c]temus Constitutiones Societatis, speramus multa declarari quae in dubium veniunt quotidie, ut de scientia ordinandorum, de scientia coadiutorum, de expulsione <pb n="174" type="page"/> recceptorum et de obligatione votorum, et multa alia de quibus interogati nescimus respondere. Non occurrit nunc quid aliud dicam nisi me plurimum commendare tuis or[a]tionibus ac sacrificiis. Dominus Noster Iesus Christus, qui nos suo sanguine redemit, ipse nobis ubique propitius esse dignetur.</p>
+ <p>De Colano, <date when="1551-01-12">12 Ianuarii 1551</date>.
+Inutilis servus in Christo,<lb/>
+<persName key="Lancillottus, Nicolaus S.J.">Nicolaus Lancilotus</persName>.</p>
+         </div>
+      </body>
+   </text>
+</TEI>

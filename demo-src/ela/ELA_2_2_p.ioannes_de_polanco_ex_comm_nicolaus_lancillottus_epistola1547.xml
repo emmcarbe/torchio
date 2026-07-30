@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Ioannes de Polanco S.I. ex Comm. [P. Nicolao Lancillotto S.I, Goam], Roma 22 Novembris 1547 (III)</title>
+            <author>de Polanco, Iohannes Alfonsus S.J.<date>1517-1576</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 211-212</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>      
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1547</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="211" type="page"/>
+<p>Ihs.</p>       
+<lb/>
+<p>Gratia et pax domini nostri Iesu Christi sit semper tecum. Amen.</p>
+<p>1. Charissime in Christo Iesu Pater. Etiamsi pro tui muneris cura, et ea prudentia, quam ab omnium bonorum auctore tibi tribuendam sperat noster in Christo Pater Ignatius, forte huiusmodi admonitione minus indigeres, tamen, quia in re seria et magni momenti nulla videtur cautio supervacanea, admonendum te duxit idem Pater, ut in omni obedientia, et Christiana disciplina, ac nostrae Societatis instituto conformi, studeres isthic omnes fratres tuae curae commissos continere, et ut eis omnem cum mulieribus conversationem et familiaritatem interdiceres, licet firmioribus, et quorum tibi magis est probata integritas, ut in publico eas adiuvent audiendis confessionibus possis permittere.</p>
+<p>2. De missionibus itidem censet, curam tibi esse debere maximam, ut scilicet id cuique commitatur, nec amplius, quam quod ferre possit; et prorsus hoc te intelligere cupit Pater Ignatius, malle se ut qui nostrae se dedunt Societati perexiguum aliquem laborum fructum, sed securum capiant, quam si uberrimos, sed cum discrimine offensionis sui vel aliorum, fructus prosequerentur. Cum delectu ergo et binos <pb n="212" type="page"/> mittendos curabis. Et hoc moris esse intellige Patri <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName>, ut eos a se non dimittat, quos imbecilliores novit; quibus autem magis fidit, eos liberius quocumque mittit, id est, quorum est ei magis explorata firmitas et integritas. Haec ergo et Deo magis placitura (cum eius sapientia universale bonum potius habeat quam particulare) et serenissimo regi Portugaliae, et ad animarum Societatisque nostrae profectum maiorem futura existimans, omnino tibi observanda esse ducit. Et hec satis.</p>
+<p>De aliis enim alibi scriptum est. Vale in Domino.</p>
+<p><placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName><date when="1547-11-22">decimo kalendas Decembris 1547</date>.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+

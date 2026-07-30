@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Catálogo tercero de la viceprovincia de Jappón para nuestro Padre General Claudio Aqua Viva del año de 1588. Roma</title>
+                  <author>Ignotus</author>
+               </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 258-263</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1588</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="J. 25 19" type="folio"/>
+           <pb n="258" type="page"/>
+           
+           <head>Communis cathalogus rerum, ac personarum totius Japponicae
+              Provinciae <date when="1588-01" >anno Domini 1588. Mense Januario</date>.</head>
+           <p>
+              In hac <placeName key="Japonia">Japonica Viceprovincia</placeName>, unicum Collegium, unicaque Domus probationis, &amp; 21 Residentiae sunt, nempe in superiori parte hujus Provinciae quinque, scilicet: in <placeName key="Yamashiro">regno Yamaxiro</placeName>, in civitate <placeName key="Miyako">Miaco</placeName>, una; in regno quod dicunt <placeName key="Tsunokuni">Zunocuni</placeName> duae, scilicet: una in civitate <placeName key="Vozaca">Vozaca</placeName>, altera in <placeName key="Tacazuqui">Tacazuqui</placeName>; in regno quod <placeName key="Izumi">Ynzumi</placeName> appellatur, in civitate <placeName key="Sakai">Sacay</placeName>, altera; in regno <placeName key="Harima">Farimae</placeName>, in oppido <placeName key="Akashi" ref="https://www.geonames.org/1847966">Acaxi</placeName>, est quinta. In parte media hujus Provinciae, scilicet : in <placeName key="Bungo">Bungo</placeName>: praeter Collegium quod est in civitate <placeName key="Funai">Funay</placeName> ejusdem regni, &amp; Domum probationis, quam habemus in civitate <placeName key="Usuqui">Usuqui</placeName> ejusdem etiam regni, sunt septem Residentiae: una in civitate Dongo <placeName key="Iyo">regni Yo</placeName> ; altera in civitate <placeName key="Yamaguchi">Yamagucci</placeName>, in regno <placeName key="Suwo">Suvó</placeName>; 3a in oppido <placeName key="Shimonoseki">Ximonoxequi</placeName>, regni <placeName key="Nagato">Nagàto</placeName>; 4a in regno <placeName key="Bugen">Bugen</placeName>, in castello <placeName key="Myòken">Meoquen</placeName>; 5a in oppido <placeName key="Yú">Yú</placeName>, regni <placeName key="Bungo">Bungi</placeName>; 6a in oppido <placeName key="Tsukumi">Zucumi</placeName>, ejusdem <placeName key="Bungo">Bungi</placeName>; 7a in castro <placeName key="Oka-jo">Voca</placeName>, etiam ejusdem regni <placeName key="Bungo">Bungi</placeName>. In parte inferiori hujus Provinciae quam <placeName key="Ximum">Ximum</placeName> appellamus novem habemus Residentias : quarum duae sunt in regno <placeName key="Higo">Fingo</placeName>, scilicet: una in insula <placeName key="Macaum">Amacusa</placeName>, altera in insula <placeName key="Voyano">Voyano</placeName>; reliquae septem sunt in regno <placeName key="Hizen">Figen</placeName>; una in insula <placeName key="Hirado">Firando</placeName>; altera in <placeName key="Nagasaqui">Nagasaqui</placeName>; 3a <placeName key="Omura">Omurae</placeName>; 4a in <placeName key="Arima">Arima</placeName>; 5a in <placeName key="Coccinozu">Coccinozu</placeName>; 6a in Ariye; 7a &amp; ultima in <placeName key="Chijiwa">Ccingiva</placeName>.</p>
+           
+           <pb n="259" type="page"/>
+           <p>De Collegio &amp; Domo probationis<lb/>
+           Fundatum &amp; erectum fuit Collegium Funacense in provincia <placeName key="Bungo">Bungi</placeName> anno <date when="1580">1580</date> a <persName key="Sebastianus, Rex Portugaliae" ref="http://www.viaf.org/263888102">rege Portugaliae, Dom Sebastiano</persName> : in quo theologia, humaniores literae, &amp; philosophiae [!] leguntur. In hoc Collegio mediocris est habitatio, &amp; hujus Collegii redditus 1000 aurei sunt, quos <persName key="Sebastianus, Rex Portugaliae" ref="http://www.viaf.org/263888102">Sebastianus Rex</persName> in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> solvendos nobis assignavit: quibus redditibus ex Nostris 18 aluntur, quorum tres sacerdotes sunt, reliqui omnes scholastici, praeter unum Coadjutorem.
+              Eodem anno erecta &amp; constructa fuit in <placeName key="Usuqui">Usuqui</placeName> Domus probationis, ad cujus sustentationem Re[ve]rendus Pater Generalis ex reditibus, qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> in pagis Basain antea ad sustentationem eorum, qui de Societate in Japonis regnis laborant in Evangelio, fuerant coempti, 500 aureos applicavit. In hac Domo est etiam communis habitatio, ecclesia vero plus quam mediocris a <persName key="Franciscus">Francisco</persName>, <persName key="Otomo Yoshishige">Bungi rege</persName>, erecta. Sunt in hac probationis domo 26 vel 27, quorum duo vel tres sacerdotes sunt, reliqui vero novitii, qui ex dictis redditibus aluntur.</p>
+           
+
+           <p>
+              De Residentiis<lb/>
+              Residentiae omnes, quamvis proprium fundatorem nullum habeant, accomodatas tamen habent habitationes &amp; ecclesias, praesertim illae, quae in superiori parte hujus Provinciae sunt; quibus Residentiis ex his, quae ad Nostrorum sustentationem tribuuntur, providentur [!]. Sunt praeterea in hac Viceprovincia duo Seminaria: alterum in suprema <placeName key="Japonia">Japonie</placeName> parte, civitate <placeName key="Ozaca">Ozaca</placeName>; alterum in ultima parte, scilicet in <placeName key="Shimo">Ximo</placeName>, in civitate ><placeName key="Harima">Arimae</placeName>: in quibus multi pueri, qui moribus &amp; litteris latinis &amp; japponicis instruuntur, alun<pb n="260" type="page"/>tur, &amp; haec omnia, quae diximus de Collegio, de Domo probationis, Residentiis atque Seminariis, intelligenda sunt <hi rend="italic">ante persecutionis tempus: quae persecutio <date when="1587-07">mense Julio [1587]</date> orta est</hi>. Nunc enim fere omnes, his derelictis domiciliis, in <placeName key="Shimo">Ximo</placeName>, quae, ut diximus, est ultima hujus Provinciae pars, congregati sumus. Hic enim in <placeName key="Shimo">Ximo</placeName> omnes fere Residentiae &amp; ecclesiae perseverant. Quoad ad alias Residentias attinet, quamvis duas vel tres esse combustas audimus, spes tamen est alias recuperandi.</p>
+           
+           <p>
+              <lb/>CATHALOGUS PERSONARUM
+                 <lb/>[QUI ULTIMA VOTA JAM NUNCUPARUNT]
+              <lb/>
+              <lb/><hi rend="italic">Professi 4or votorum</hi>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Gomezius, Petrus" ref="http://www.viaf.org/86578122">Petrus Gomezius</persName>
+              <lb/>
+              <lb/><hi rend="italic">Professi trium votorum</hi>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Coelius Casparus S.J.">Gaspar Coellius</persName>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Fróis, Ludovicus  S.J." ref="http://www.viaf.org/44369221">Ludovicus Fróes</persName>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> Organtinus 
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Gonçálves, Sebastianus S.J.">Sebastianus Gonçálvez</persName>
+              <lb/>
+              <lb/><hi rend="italic">Coadjutores Spirituales formati</hi>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Julius Piannus S.J.">Julius Piannus</persName> 
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="González, Alfonsus S.J.">Alfonssus González</persName>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Baltazar López de Villa Visoza S.J.">Baltazar López de Villa Visoza</persName>
+              <lb/>
+              <lb/><hi rend="italic">Coadjutores Temporales formati</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gerardinus, Iohannes S.J.">Joannes Gerardinus</persName>
+              <lb/>
+              <pb n="J. 25 19v" type="folio"/>
+              
+              <lb/> [QUI ULTIMA VOTA NONDUM EMISERE]
+              <lb/><hi rend="italic">Sacerdotes nondum ad gradum promoti</hi>
+              <lb/>Pe <persName key="Melchior de Mora S.J.">Melchior de Mora</persName>
+              <lb/>Pe <persName key="Franciscus Calderón S.J.">Franciscus Calderón</persName>
+              <lb/>Pe <persName key="Petrus Ramón S.J.">Petrus Ramón</persName>
+              <lb/>Pe <persName key="López, Antonius S.J.">Antonius López</persName> 
+              <lb/>Pe <persName key="López de Castello Branco, Balthazar S..J">Balthazar López de Castello Branco</persName> 
+              <lb/>Pe <persName key="Stephanoni, Iohannes Franciscus S.J.">Joannes Franciscus [Stephanoni]</persName>
+              <lb/>Pe <persName key="Aryes Sanches S.J.">Aryes Sanches</persName>
+              <lb/>
+              <lb/><hi rend="italic">Scholares</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Soares, Michael S.J.">Michael Soares</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Coellius, Petrus S.J.">Petrus Coellius</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes Rodericus Tçuzu S.J.">Joannes Rodericus[Tçuzu]</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Correa, Hieronimus S.J.">Hieronimus Correa</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Amator de Góes 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes de Milán S.J.">Joannes de Milán</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Alvares, Antonius" ref="http://www.viaf.org/98621564">Antonius Álvarez</persName>
+              <lb/>
+              <lb/><hi rend="italic"> [‘Scholares’ sine studiis]</hi>
+              <lb/>
+              <lb/><hi rend="italic">Qui licet scholarium vota emiserunt, conversionis occupationibus distenti, nunquam stud[u]erunt.</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Laurentius
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Yofus Paulus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Villela, Vicentius S.J.">Vicentius Villela</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Rochus S.J.">Rochus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Cosmas
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Ignatius
+              <lb/>
+              <pb n="261" type="page"/>
+              
+              <lb/><hi rend="italic"> [Sacerdotes nondum promoti]</hi>
+              <lb/>Pe <persName key="Céspedes, Gregorius de S.J." ref="http://www.viaf.org/231656858">Gregorius de Céspedes</persName> 
+              <lb/>Pe <persName key="Antoninus Praenestinus S.J.">Antoninus Praenestinus</persName>
+              <lb/>Pe <persName key="Carvalhal,Iorgius S.J.">Jorgius Carvalhal</persName> 
+              <lb/>Pe <persName key="Alfonsus de Lucena S.J.">Alfonssus de Lucena</persName> 
+              <lb/>Pe <persName key="Franciscus Passius S.J.">Franciscus Passius</persName>
+              <lb/>Pe <persName key="Iosephus Fornaletus S.J.">Josephus Fornaletus</persName> 
+              <lb/>Pe <persName key="Gondisalus Rebello S.J.">Gondisalus Rebello</persName>
+              <lb/>Pe <persName key="Franciscus de Laguna S.J.">Franciscus de Laguna</persName> 
+              <lb/>Pe <persName key="Franciscus Carreón S.J.">Franciscus Carreón</persName> 
+              <lb/>Pe <persName key="Morera, Christophorus S.J.">Christophorus Morera</persName> 
+              <lb/>Pe <persName key="Marín, Damianus S.J.">Damianus Marín</persName> 
+              <lb/>Pe <persName key="Díaz, Alvarus S.J.">Alvarus Díaz</persName> 
+              <lb/>Pe <persName key="Castro, Iohannes de S.J." ref="http://www.viaf.org/69120905">Joannes de Castro</persName>
+              <lb/>Pe <persName key="Christophorus de Leon S.J.">Christophorus de Leon</persName>
+              <lb/>Pe Antonius Ferdinandus 
+              <lb/>Pe <persName key="Egidius de la Mata S.J.">Egidius de la Mata</persName>
+              <lb/>Pe Celssus Confalonerus
+              <lb/>Pe <persName key="Antonius Franciscus de Critana S.J.">Antonius Franciscus [de Critana]</persName>
+              <lb/>Pe <persName key="Crassus, Iohannes Petrus  S.J.">Joannes Petrus Crassus</persName> 
+              <lb/>Pe <persName key="Iohannes Rodericus Giram S.J.">Joannes Rodericus [Giram]</persName>
+              <lb/>Pe <persName key="Marcus Ferrara S.J.">Marcus Ferrara</persName> 
+              <lb/>Pe <persName key="Petrus">Petrus</persName> Paulus [Navarro] 
+              <lb/>Pe Gregorius Fluvius
+              <lb/>Pe <persName key="Pérez, Franciscus S.J.">Franciscus Pérez</persName>
+              <lb/>
+              <lb/><hi rend="italic">[Scholares] </hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Ludovicus de Abreu S.J.">Ludovicus d’Abreu</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Borralho, Emanuel S.J.">Emanoel Borralho</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Barros, Ambrosius de S.J.">Ambrosius de Barros</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Oria, Andreas de S.J.">Andreas de Oria</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Oria, Franciscus de S.J.">Franciscus de Oria</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Franciscus Píriz S.J.">Franciscus Píriz</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gomezius, Iohannes S.J.">Joannes Gomezius</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gomesius, Philippus S.J.">Phelipus Gomezius</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Carvalho, Casparus S.J.">Gaspar Carvalho</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Jacobus de Navaes S.J.">Jacobus de Navais</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes Nicolaus S.J.">Joannes Nicolaus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Guiliermus [Pereira]
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Torres, Iohannes de S.J.">Joannes de Torres</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Giannus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Thomas 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Simon 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Sebastianus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Cosmas 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Petrus">Petrus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Sebastianus Buguensis S.J.">Sebastianus Buguensis</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Carvalho, Franciscus S.J.">Franciscus Carvalho</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Colaso, Michael S.J.">Michael Colaso</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Fabianus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Quimura, Thomas S.J.">Thomas Quimura</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Quimura, Michael S.J.">Michael Quimura</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Yama, Iohannes S.J." ref="http://www.viaf.org/120872443">Yama Joannes</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Vomi, Iohannes S.J.">Vomi Joannes</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Giannus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Mattheus">Mattheus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Simion 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Franciscus">Franciscus</persName>
+              <lb/>
+              <lb/><hi rend="italic"> [Scholares sine studiis]</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gomes S.J.">Gomes</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Fancan Leo S.J.">Fancan Leo</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Tacata Leo S.J.">Tacata Leo</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Nicolaus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gaspar">Gaspar</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Andreas
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Amacusa, Paulus">Amacusa Paulus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Michael 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Paulus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Adamus">Adamus</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Romanus
+              <lb/>
+              <lb/><hi rend="italic"> [Cat. Studiorum]</hi>
+              <lb/><hi rend="italic">Professores theologiae</hi>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Franciscus Calderón S.J.">Franciscus Calderón</persName>
+              <lb/>
+              <lb/><hi rend="italic">Auditores</hi>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Petrus">Petrus</persName> Paulus 
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Antoninus">Antoninus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Soares, Michael S.J.">Michael Soares</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Coellius, Petrus S.J.">Petrus Coellius</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes Rodericus">Joannes Rodericus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Correa, Hieronimus S.J.">Hieronimus Correa</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Ludovicus de Abreu S.J.">Ludovicus d’Abreu</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Amator de Góes
+              <lb/>
+              <lb/><hi rend="italic">Professores humanarum literarum</hi>
+              <lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Antoninus Praenestinus S.J.">Antoninus Praenestinus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes Rodericus Tçuzu S.J.">Joannes Rodericus [Tçuzu]</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Colaso, Michael S.J.">Michael Colaso</persName>
+              <lb/>
+              <lb/><hi rend="italic">Auditores</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Barros, Ambrosius de S.J.">Ambrosius de Barros</persName> 
+              <lb/>Rr. <persName key="Oria, Andreas de S.J.">Andreas de Oria</persName>
+              <lb/>
+              <pb n="262" type="page"/>
+              
+              <lb/><hi rend="italic"> [Scholares] </hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Romanus Tamura S.J">Romanus Tamora</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Ludovicus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Marinus
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Antonius	
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Michi Paulus
+              <lb/>
+              <lb/><hi rend="italic"> [Cat. Studiorum]</hi>  
+              <lb/><hi rend="italic"> [Audit. lit. hum.]</hi>
+              <lb/>F. <persName key="Oria, Franciscus de S.J.">Franciscus de Oria</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Franciscus Píriz S.J.">Franciscus Píris</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gomezius, Iohannes S.J.">Joannes Gomezius</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Carvalho, Casparus S.J.">Gaspar Carvalho</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Jacobus de Navaes S.J.">Jacobus de Navaes</persName>
+              <lb/>
+              <pb n="J. 25 20" type="folio"/>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes Nicolaus S.J.">Joannes Nicolaus</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Torres, Iohannes de S.J.">Joannes de Torres</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Thomas
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Simon 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Sebastianus
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Sebastianus Buguensis S.J.">Sebastianus Buguensis</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Cosmas
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Petrus">Petrus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Carvalho, Franciscus S.J.">Franciscus Carvalho</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Colaso, Michael S.J.">Michael Colaso</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Fabianus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Quimura, Thomas S.J.">Thomas Quimura</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Quimura, Michael S.J.">Michael Quimura</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Yama, Iohannes S.J." ref="http://www.viaf.org/120872443">Yama Joannes</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Vomi, Iohannes S.J.">Vomi Joannes</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Giannus 
+              <lb/>F. <persName key="Mattheus">Mattheus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Simion 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Franciscus">Franciscus</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Romanus Tamura S.J">Romanus Tamora</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Ludovicus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Marinus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Antonius 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Michi Paulus
+              <lb/>
+              <lb/><hi rend="italic">Coadjutores Temporales</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Gerardinus, Iohannes S.J.">Joannes Gerardinus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Bartholameus Redondo">Bartholameus Redondo</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Perera, Jacobus">Jacobus Perera</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Iohannes Bernardus">Joannes	Bernardus</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Franciscus Ferdinandus">Franciscus Ferdinandus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Correa, Balthazar">Balthazar Correa</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Ambrosius Ferdinandus">Ambrosius Ferdinandus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Diaz de Neyra, Dominicus" ref="http://viaf.org/10157340491109920966">Dominicus Díaz</persName>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Yquiccuqui, Thomas S.J.">Thomas Yquiccuqui</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Linus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Georgius
+              <lb/>
+              <lb/><hi rend="italic">Novitii</hi>
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Carvalho, Franciscus S.J.">Franciscus Carvalho</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Colaso, Michael S.J.">Michael Colaso</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Fabianus S.J.">Fabiannus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Quimura, Thomas S.J.">Thomas Quimura</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Quimura, Michael S.J.">Michael Quimura</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Yama, Iohannes S.J." ref="http://www.viaf.org/120872443">Yama Joannes</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Vomi, Iohannes S.J.">Vomi Joannes</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Giorgius">Giorgius</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Giannus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Mattheus">Mattheus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Simeon">Simeon</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Yquiccuqui, Thomas S.J.">Thomas Yquiccuqui</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Linus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Franciscus">Franciscus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Romanus Tamura S.J">Romanus Tamura</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Ludovicus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Marinus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Antonius 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Simon 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Adamus">Adamus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> <persName key="Dominicus">Dominicus</persName> 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Mihi Paulus 
+              <lb/><choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Ccucumi Paulus
+           </p>
+           <pb n="263" type="page"/>
+           <p>Sunt omnes numero ex Soci[e]tate in hac Viceprovincia 113. Si vero Seminarii pueros &amp; eos quos <hi rend="italic">dojicus</hi> appellamus, qui loco Fratrum Patres in negocio conversionis adjuvant, &amp; eos qui domesticis ministeriis insistunt computemus, ii omnes 500 numerum excedunt. Redditus autem certi quibus hi omnes aluntur, octo mille aurei sunt : horum sex mille sunt quos <persName key="Papa">Summus Pontifex</persName> nobis elargitur, mille vero Lusitaniae Rex, alii vero 1000 ex annuis censibus in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> coemptis solvuntur.</p>
+        </div>
+        
+      </body>
+  </text>
+</TEI>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. N. Trigautii Relatio de P. Gasparis Barzaei S. I. disputatione de Messia cum Iudaeis [Sociis Conimbricensibus] [Armuzia, circa 24 novembris 1550 missa]</title>
+            <author ref="https://viaf.org/viaf/2477678/">Trigault, Nicolas S.J.<date>1577-1628</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490856081" key ="print-editor">in: Monumenta missionum Societatis Iesu, Missiones Orientales, Documenta Indica II (1550-1553), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1950, 99-103</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab> "I. Auctores: Bartoli, L'Asia lib. 5, e. 6; Souza I, 5, 1, 4.; Schurhammer, Die Trinitãtspredigt Mag. Gaspars in der Sunagoge
+               von Ormuz, in : AHSI 2 (193») 284-86. — II. Textus, sive originalis sive apographus, non exstat. Partes vero maioris momenti
+               in elaborationibus Trigautii nobis servatae sunt, quibus insinuatur textum (lusitanum) saeculo etiam ineunte XVII in Lusitania
+               extitisse." (p. 98)
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Itinera et Relationes</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1550</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="99" type="page"/>
+<p>Publica Gasparis cum Iudaeis disputatio</p>
+<p>1. Difficile fuit clam semel imo saepius etiam propria confessione victis publicum certamen persuadere: sed tamen continua Gasparis provocatione lacessiti, et diutina comparatione instructi tandem annuerunt, sperantes si non vincere, saltem artibus suis Gasparis victoriam obscurare, et apud ineruditos in dubium vocare. Cum ergo diutius non possent <pb n="150" type="folio"/> incolumi vel apud suos, vel apud ceteros, quod caput erat, honore (de suis enim iam propter superius dicta parum laborabant) diem ad disserendum publice condixerunt. Advenit dies: duo, quos iam dixi Rabbini ex uno, <persName key="Gaspar">Gaspar</persName> ex altero latere, consederunt. Aderant praeter Iudaeos et Christianos prope omnes multi etiam Turcae et Mahometani, qui ex disputationis eventu facturi erant periculum Gasparis eruditionis, ut ex aliorum periculo viderent, quid de sua disputatione, ad quam iam <persName key="Gaspar">Gaspar</persName> eos saepe provocarat, statuerent. Disputationem igitur, ne variis litigantium effugiis vagaretur, visum est his limitibus circumscribere, ut <persName key="Gaspar">Gaspar</persName>, qui provocarat, haec duo confirmaret: Messiae venturi iam tempus exspirasse; alterum, Iesum, quem coleret, promissum esse Messiam, et ut Christiani vocant, Christum.</p>	
+<p>2. Eius disputationis, qua potero brevitate, capita describam, et rationum nervos contraham, non extendam. Ergo primam veritatem ex hebdomadibus Danielis pulchre demonstravit, quas, ut ex annis vel solaribus aut lunaribus constarent, ut ante, vel post paullo, vel Angelo revelante coepissent, <pb n="100" type="page"/>omnino certum erat iam quindecim et amplius sae<pb n="151" type="folio"/>culis effluxisse. Inde ad celebrem illum Genesis locum transiit, ubi Iacob ait: Non auferetur sceptrum de Iuda, et Dux de femore eius, donec veniat qui venturus est etc., quod vaticinium iam ante multa saecula completum, luce clarius ostendit. Subinde aggressus est aperire, quanto tempore ea de re inter ipsos Iudaeos sit litigatum. In Herode magno multi convenerunt, quod Idumaeus esset, sceptrum Iudae defecisse: in iis fuerunt Pharisaei, quos ea de causa Herodes iugulavit; quanquam Herodes quoque factus iam proselytus, puerorum mactator, et post annos triginta novi iuramenti exactor, se quoque id metuere declaravit. Idem confirmant ii, qui Herodem Messiam appellarunt, multorum sententia Herodiani appellati. Idem quoque sub Agrippa Aristobuli filio, Herodis magni nepote, ex Iudaea matre nato, est in controversiam adductum. Sub Vespasiano vero omnis dubitatio remota, cum alii ab imperio Romano defecerunt; alii, quorum agmen facile ducat celebris Iudaeorum historicus, Iosephus, turpissima adulatione illum ipsum pro Messia habuere. Nec sibi defuit Vespasianus, sed quoniam de tempore inter omnes constabat, id etiam conatus efficere, ne de se quispiam <pb n="152" type="folio"/> ambigeret. Hinc ut Princeps pacis crederetur. Paci aeternae templum aedificat, atque ope Apollonii Tyanaei magi paralyticum solo tactu, inspectante Alexandria, curat. Ex his omnibus aliis<pb n="101" type="page"/>que permultis colligebat, antiquorum opinione iam tum Messiae tempus advenisse; stultissimum proinde post tot elapsa saecula ne cum illis quidem velle dubitare. Itaque si probabiliter velint adhuc exspectare templum Salomonis, quod quidem ab Herode sub Christi adventum divino consilio aedificatum fuit, ut venienti Christo ex oraculis inserviret, in quod modo ingrediatur, condant; stirpem Aaron a qua excipiatur, producant; Rempublicam suam quam defecisse, antequam veniret desiderium collium aeternorum ex Iacobi vaticinio non oportet, constituant; cui notam hodie esse Davidis stirpem, e qua Messias procreetur, potissimum ex quo Vespasianus eam stirpem exstirpavit? Haec igitur ante omnia restituant, tum de Messia contendant: iam vero post tot signa, tot saecula, totius mundi voces adhuc dubitare, esse intolerabile, maxime cum iam sine lege diutius, quam cum lege fuerint; plus enim temporis a Christo ad haec tempora, 65 quam a Moyse ad Christum abiisse.<pb n="153" type="folio"/></p>
+<p>3. Ea re confirmata, ut nullis effugiis locus esset, omnibus stupentibus ad alterum locum est progressus. Nec erat difficile; iam enim tempus adventus Messiae praeterlapsum perinde erat ac Messiam advenisse, nisi sacrosanctis Prophetarum oraculis nefarie fides abrogaretur. Quaerebatur ergo, quis ille fuerit? noster, an alius quilibet? Nostrum esse sic probabat disserens, primum ea quae passim de Christo praedicantur, magis spiritu quam corpore metienda, victorias de daemone reportatas, opes esse gratiae et Sacramentorum ubertatem, vitam et imperii firmitatem in terra viventium interpretandam: alioqui cui non videri Christum illum ab immanitate, avaritia, superbia, foeditate non posse vindicari? Neque tamen egenum ita fuisse Christum, ut non haec eadem suis successoribus reliquerit, testari Ecclesiae Romanae dignitatem. Episcopatus, opima Sacerdotia, Apostolos denique, quibus ex eadem gente prognatis quid toto orbe terrarum illustrius? At vero Iudaeos, qui haec omnia iam diu exspectant <pb n="102" type="page"/> in alia omnia cecidisse nequicquam probari, cum satis constet, quam atrociter Christi mors vindicata sit, Solymorum inaudito saeculis omnibus excidio. Sed quorsum, infert, haec tam <pb n="154" type="folio"/> atrocia, tamque diuturna toleratis? abstinetis a nefario cultu Deorum; ritus vestros inter mille difficultates retinetis; legis, qua potestis, et prope qua non potestis, estis observantes: quae sane si vera est, iniustus et crudelis est Deus, qui tot tantis tamque diuturnis malis non eripiat. Sed patimini haec sane in poenam caecitatis. Contra vero, si Iesus non esset, ut est, verus Dei filius, quo pacto Deus Optimus Maximus tantam iniuriam tam diu dissimularet, imo vero promoveret ac honoraret?</p>
+<p>4. His et aliis multo pluribus Christum verum esse Messiam arguebat, siquidem iam in confesso erat advenisse, nisi forte Herodem mallent aut Vespasianum aut similem aliquem impostorem; nam de Mahomete, se hoc Saracenis, cum in arenam quoque descendere placuerit, reservare. Iam itaque <persName key="Gaspar">Gaspar</persName> et his et pluribus suo muneri satisfecerat, tanta omnium approbatione, ut Lusitanis et omnibus Christianis, ut ipse narrat et fatetur, res divinior visa sit et a Spiritu Sancto inspirata. Iam duo Rabbini sudare incipiebant, et aliqua cum conati fuissent adferre, risu et cachinnis excepti sunt, potissimum cum ad Unitatem divinam probandam ac evertendam Trinitatem <pb n="155" type="folio"/> personarum anuli conclusi similitudinem extra rem attulerunt. Quid hoc fuerit, non satis explicat <persName key="Gaspar">Gaspar</persName>, sed solum attingit. Cum itaque iam de victoria desperassent, ad solitas artes confugientes, Gasparis doctrinam ignorantiae suae compararunt, ut a doctrina stare, non a veritate, victoria videretur; sed nihil profuit effugium. Qua quaerendo, qua urgendo effecit, ut vel inviti Catholicae religionis agnoscerent veritatem. Causam deinde vel a Gaspare vel ab aliis rogati, cur non in agnitam transirent veritatem, privatim saepe responderunt duas esse eius rei causas: alteram, opes suas, quas ex usuris utique partas restituere necesse esset amplectentibus fidem Christianam; alteram, quod Christiani Iudaeos parum benigne et honorifice tractarent, licet fierent Christiani; iam porro bene nummatos urgente necessitate ab omnibus honorari. Et hoc uterque Rabbinus diserte Gaspari est confessus <pb n="103" type="page"/>alii etiam plerique Lusitanis: atque ita facile ostenderunt, quam impii essent, qui salutem suam et opibus et honori post haberent. Nihilominus ex illo congressu Iudaei compressi, Christiani elati, Saraceni etiam territi sunt: quos nihilominus ad certamen vel invitos <persName key="Gaspar">Gaspar</persName> elicuit, ut mox <pb n="156" type="folio"/> dicemus. Postmodum quoque frequenter, multis doctoribus subinde evocatis, Gasparem, quem colere ideo solitis officiis (tanta est virtutis efficacia) non cessabant, tentarunt, si quem forte reperirent, qui nominis honorem et gentis famam quoque modo resarciret: sed nihil unquam profecerunt.
+<lb/>Antequam vero a Iudaeis ad Saracenos veniamus, non omittendum puto, quod <persName key="Gaspar">Gaspar</persName> quoque narrabat: eo tempore Iudaeos non paucos in montem Sion convenisse, et toto triennio Messiam frustra exspectasse; sed certum est eos ad eum prius iudicandos devenisse, quam Messiam ad eos festinasse liberandos.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+

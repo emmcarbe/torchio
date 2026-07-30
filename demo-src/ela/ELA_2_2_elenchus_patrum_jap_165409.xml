@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Elenchus Patrum ad Congregationem Provinciae Japonicae Mense Septembri anni 1654 convocatorum</title>
+                  <author>Ignotus</author>
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 1120-1121</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+     </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1654</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-12" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+   <text>
+      <body> 
+         <div>
+            <pb n="Ajuda, Jes. na Asia, 49-IV-61, ff. 336v/337" type="folio"/>
+            <pb n="610" type="page"/>
+            <p>ACTA CONGREGATIONIS PRO <placeName key="Japonia">JAPPONICA PROVINCIA</placeName><lb/>
+               HABITAE IN <placeName key="Macaum">COLLEGIO MACAENSI</placeName> <date when="1654-09-15">ANNO DOMINI 1654,<lb/>
+                  DIE SEPTEMBRIS QUINTA SUPRA DECIMAM INCHOATAE</date>.<lb/>
+               PRAESIDE <choice><abbr>P.</abbr> <expan>Pater</expan> </choice><persName key="Maiorica, Hieronymus S.J." ref="http://www.viaf.org/42085352"> HYERONIMO MAYORICA</persName>, PROVINCIALI<lb/>
+               PRAESENTIBUS DECEM PATRIBUS IISQUE OMNIBUS<lb/>
+               QUATUOR VOTORUM PROFESSIS, VIDELICET</p>
+<p><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Iohannes Cabral S.J.">Joanne Cabral</persName>, supra numerum, quia fuit Provincialis –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Ferreira, Antonius S.J.">Antonio Ferreira</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Metellus Sacanus">Metello Saccano</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> Marlino Coelho, Rectore Collegii ac Provinciae Procuratore –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Valguarneira, Thomas S.J.">Thoma de Valguaneira</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Carolus da Rocha S.J.">Carolo da Rocha</persName>, Socio <choice><abbr>P.</abbr> <expan>Pater</expan> </choice> Provincialis –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Andreas Lubellus S.J.">Andrea Lubelli</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> Joanne Baptista Brando –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Maya, Mathia de S.J.">Mathia de Maya</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Franciscus">Francisco</persName> Rivas –
+<lb/>
+<lb/>Septem ex universa Provincia desiderati Professi, nimirum:
+<lb/>
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan> </choice> <persName key="Iohannes Maria Leria S.J.">Joannes Maria Leria</persName>, Superior  <pb n="337" type="page"/> Missionis Cambogenis –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan> </choice> <persName key="Franciscus Rangel S.J.">Franciscus Rangelis</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan> </choice> <persName key="Agnes, Ioseph S.J.">Joseph Agnes</persName> –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan> </choice> Onofrius Borges, Superior Missionis Tunkinicae –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan> </choice> Philippus Marinis –
+<lb/><choice><abbr>P.</abbr><expan>Pater</expan> </choice> <persName key="Torrente, Stanislaus S.J.">Stanislaus Torrente</persName> –</p>     
+         </div>      
+      </body>
+   </text>
+</TEI>

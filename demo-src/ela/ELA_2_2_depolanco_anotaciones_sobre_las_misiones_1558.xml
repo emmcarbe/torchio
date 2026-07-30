@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Anotaciones sobre las misiones, Roma, c. agosto de 1558</title>
+            <author>de Polanco, Iohannes Alfonsus S.J.<date>1517-1576</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">10/09/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/896610034" key ="print-editor">in: Monumenta historica Japoniae. Documentos del Japón, 1558-1562, edited by Juan G Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1995, 127-128</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://hdl.handle.net/2027/inu.30000036701443</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Adnotationes</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1558</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-09-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-10" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div><pb n="125" type="page"/>
+           <p>1. Videatur num conveniat <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName>, et etiam in <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitania</placeName> aut aliis in Iocis ut <placeName key="Goa">Goae</placeName> vel <placeName key="Cochin">Cochim</placeName>, consilium designatum habere hominum qui iuditio, rerum usu et charitatis affectu valeant rebus indicis consulere. Vel certe <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName>, asistentibus Generalis Praepositi et aliis in locis consultoribus Provincialis, ea cura demandetur, ut cogitent, inter se conferant et ad superiorem referant quae iuvare possunt ad conservationem et augmentum novorum christianorum, quae etiam media ad sinas, brasilios ac alios ad fidem trahendos conferre possint [ ].</p>
+<p>2. De episcopo iaponensi – An episcopum aliquem iapponensibus praefici conveniat ut promoveri possint aliqui ad ordines sacros; et tunc quo modo tractandum sit ea de re [ ].</p>
+           <p>3. De pueris domi tenendis – An in huiusmodi locis remotissimis retinere poterunt nostri domi suae pueros quos instituendos susceperint, ut fit <placeName key="Goa">Goae</placeName> et alibi, et si omnino id conveniet an distinctum refectorium et habitationes saeparatae nostrum et illorum esse debeant. Et statuatur quomodo Constitutiones nostrae in huiusmodi locis observari in hac parte debeant [ ].</p>
+           <p>4. De provinciali vel commisario iaponensi – An expediat iapponensibus provincialem seorsum ab <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> provinciali <pb n="126" type="page"/> praeficere, an commissarium aliquem qui subsit provinciali  <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> et praesit omnibus nostris qui in ea regione versantur, quando quidem perdifficile est commercium et rarum cum  <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> provinciali. Et ad unum aliquem recurri oportet ex locis variis eius provinciae, sic in  <placeName key="Malucas Insulas">Malucis</placeName> et  Amboino et  Moro.</p>
+           <p>5. De cantu – An permitti debeat cantus in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> et aliis in locis remotissimis, quanvis in <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europa</placeName> non sit Societatis concessus, si animadvertetur eas nationes ad Dei cultum et spiritualem profectum ex eo iuvari, ut <placeName key="Goa">Goae</placeName> observatum est, et in <placeName key="Aethiopia" ref="https://pleiades.stoa.org/places/39274">Ethiopia</placeName>.</p>
+           <p>6. De cura hospitalium – An permitti debeat illis in regionibus munus suscipere regendi hospitalia, ut <placeName key="Goa">Goae</placeName>, <placeName key="Punicalli">Punicalli</placeName> et <placeName key="Bungo">Bungi</placeName> fit, cum alii externi non sint idonei ad hoc prestandum vel cum ad aedificationem magnam id fore videtur; an quando statui oporteat, ut curent per alios haec fieri. Sed si alii non fuerint idonei, tunc ut ipsi id possint praestare [ ].</p>
+<p>7. De mortis periculis obeundis – An declarari expediat qui modus tenendus sit a nostris in vitae periculis subeundis vel declinandis, ne martirii sanctum desiderium ad mortem parum discrete et utiliter obeundam, imo cum damno probabili divini obsequii, adducat.</p>
+           <p>8. Et e contrario, ne nimia cautela sub discretionis pretextu abducat a testimonio fidei ac religionis nostrae reddendo ad Christi gloriam, vel a proximorum salute promovenda. Ac peculiariter quid censendum sit de modo illo quo pater <persName key="Criminalis, Antonius S.J.">Criminalis</persName> <pb n="127" type="page"/> se morti exposuit et de illo quem attingit pater <persName key="Nuñez Barreto, Melchior">Melchior Nunes</persName> ad sinas reducendos ad Christi fidem.</p>
+           <p>9. De Indis Societate admittendis – Videatur an ex incolis illarum regionum aliqui apti reddi possint ad Institutum nostrae Societatis suscipiendum, sive <placeName key="Goa">Goae</placeName> instituantur, sive in <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitaniam</placeName>, vel alia Europae collegia mittantur, ut postea vernacula lingua suos iuvare, et per eos Societas augeri et durare illis in locis possit, ne sit necessarium perpetuo operarios ex his locis mittere. Quod si non in omnibus, certe in quibusdam regionibus aliqui videntur eligi posse qui ingenio et indole prae caeteris pollere videantur.</p>
+<p>10. Ut nostri linguas addiscant – Nostros etiam ex <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europa</placeName> missos, linguas addiscere huiusmodi nationum oporteret, et arte ac usu ad id iuvari, siquidem indole ad id praediti censerentur.</p>
+<p>11. De indigenis ad Christi opus applicandis – Videatur an alii ex indigenis apti reddi possint ad conversionem et conservationem aliorum, licet de Societate non sint, sive ad ordines sacros promoveantur sive laici permaneant, et quomodo.</p>
+           <p>12. Ut qui praesunt benignitatem subditis exhibeant – Quandoquidem per chrisianorum qui praesunt inhumanitatem <pb n="128" type="page"/> ac charitatis defectum impedita fuit hactenus quorundam infidelium conversio et aliorum iam conversorum profectus, studendum videtur, per reginae pietatem ac zelum gloriae Dei, ut prorex <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> benignum se eis exhiberet et alios praefectos humanos ac pios eis praeficeret. Tunc enim etiam temporalia magis prospere cederent, ut sperandum est, si Christi negocium serio aferetur.</p> 
+<p>[<persName key="Polanco, Iohannes Alfonsus de S.J.">Juan de Polanco</persName>]</p>
+           
+        </div>
+      </body>
+  </text>
+</TEI>

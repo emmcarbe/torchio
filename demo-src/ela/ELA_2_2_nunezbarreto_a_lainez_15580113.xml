@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Melchor Nunes Barreto a Diego Laínez, Cochin, 13 de enero de 1558</title>
+            <author>Nuñez Barreto, Melchior S.J.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">10/09/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/896610034" key ="print-editor">in: Monumenta historica Japoniae. Documentos del Japón, 1558-1562, edited by Juan G Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1995, 104-114</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://hdl.handle.net/2027/inu.30000036701443</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1558</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-09-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-10" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div><pb n="104" type="page"/>
+<p>†
+<lb/>Iesus
+<lb/>Gratia et pax Domini nostri Iesu Christi
+<lb/>habitet semper in cordibus nostris, amen</p>
+           
+<p>1. Quamquam ita late aliis litteris communioribus totam navigationis nostrae rationem exaraverim ut propemodum epi<pb n="105" type="page"/>stolae modum excesserim, tamen non indecorum existimavi, pater plurimum venerande, si te speciatim certiorem reddam de his quae, experientia magistra, didici de regionibus synarum et gyponum, quae spes fructus, qui mores, quae ratio meae in Indiam regressionis, cupiens nihil meum celatum ei cui loco Dei omnia sapientis subiicio.</p>
+<p>2. <date when="1555">Anno Domini milessimo quingentessimo quinquagessimo quinto</date> scripsi quomodo vi temporum compulsus in regione synarum hiemaverim, in quadam statione navium juxta opulentissimam urbem Cantam, quae versus polum arcticum gradibus 22 distat a linea aequinoctiali; ubi, cum etiam quamplurimi negotiatores lusitani hiemem transegerint, non exiguum animabus emolumentum Dei bonitas exhibuit, cum tam in concionibus et confessionibus atque sacramentis administrandis, quam in plurimis discordiis tollendis, necnon in redimendis captivis admodum liberalem manum nostrae imbecillitati porrexerit.</p>
+<p>3.	Quamtum licuit experiri, Synae homines sunt non parvi intellectus, nisi eum multis vitiis haberent offuscatum. Quod si maximus synarum rex fidei catholicae jugum acciperet, absque ulla haesitatione etiam subditos id accepturos reor Ita gens illa regi tiranno <pb n="90v" type="folio"/> potentissimo obsecundat, ita duro imperio et atrocibus flagellis premitur, ita et alioqui in regimine rei publicae et in cibis nec non in familiari consuetudine, sunt lusitanis non multum absimiles.</p>
+<p>4.	Sed Satanas adeo habet occlusum regem illum, adeo longis parasangis a portubus nostrarum navium distantem, <pb n="106" type="page"/> adeo rigore legum prohibentium quemque eum alloqui, circumvallatum, ut videatur fortis armatus, custodiens atrium suum, donec fortior eo superveniens vincat eum et universa arma ejus diripiat.</p>
+<p>5. Si enim legatus regius mittatur ad eum, et cum eo aliquis ex nostris vir bonus et prudens, bonam spem concipio nonnullum praedicationi evangelicae aditum aperiendum. Deus enim dabit verbum evangelizanitibus, virtute multa. Quod si, rege eorum vel converso vel consentiente, subjugetur eorum intellectus in obsequium fidei, Deum inmortalem, quam uberes proventus faciet ecclesia Dei; cum sint homines innumeri, urbes opulentissimae, terra uberrima fluens lacte et melle, regnum inmensum, ita ut iure noster semper venerandus pater <persName key="Franciscus">Franciscus</persName> pro illius regni conversione, vel saltem ingressu, felicem mortem appetiisse videatur. Divina bonitas gratiae suae splendore illucescat eis ac densissimas cordium ipsorum tenebras expellat.</p> 
+           <p>6. Postmodum transacta hieme, <date when="1556-06-05">nonis mensis Junii anni 1556</date> flante jam austro, adnavigavimus Gyponem, et postquam maris aliquot pericula evasimus, appulimus tandem in provinciam quam <placeName key="Bungo">Bungo</placeName> appellant, ubi mirabilem fratrum nostrorum ibi commorantium in omni vitae sanctitate ac sensuum mortificatione puritatem non absque magno gaudio ac admiratione contemplatus sum.</p><pb n="107" type="page"/>
+<p> 7. Et supra omnia invictam in tolerandis pro nomine Christi innumeris injuriis ac laboribus patientiam suspexi, nec non fertiles fructus vineae quae paulatim ex tenuibus palmitibus excrescit; quoniam stulta et contemptibilia <pb n="91" type="folio"/> mundi elegit Deus et ea quae non sunt ut non glorietur omnis caro in conspectu Dei.</p>
+<p>8. Nisi tot bellis regna illa dissiderent, profecto nequissimi demonii factio miris modis pessundaretur, et divino aspirante favore suavissimum Iesu onus a pluribus susciperetur. Quamvis tot alioquim sint impii Luciferi stratagemata tot repagula contra evangelii praedicationem, ut prope impossibile esset in eorum corda irrumpere nisi benignitas Dei supra quae cogitari potest adesset. Diabolus enim adeo mentes illorum excaecavit ut enorme peccatum igne sulphureo dignissimum, apud eos tanquam licitum comprobetur atque bonzos suos, illi turpitudini deditissimos, nihilominus ut sanctos revereantur.</p>
+<p>9. Huc accedit gentem adeo superbam esse ut nobiliores patres nostros audire et alloqui dedignentur nec velint adesse concioni aut ecclesiae quae sit eis cum abiectioribus communi.</p>
+<p>10. Quod si rex propter sua temporalia commoda nostris non faveret, procul dubio iam fratres nostri aut occiderentur aut saltem cum ignominia ejicerentur. Ad hunc malorum cumulum adjicitur et tertium quod, scilicet, nulla ibi cura justitiae, nullus carcer, nullum supplicium facinorosorum hominum, nullus judex aut rex faciens judicium et justitiam, nulla pravorum hominum paenae formido.</p><pb n="108" type="page"/>
+<p>11. Unusquisque injuriam sibi illatam ulciscitur si vires suppetunt. Sin vero desunt, ille dumtaxat vincit qui pravalet. Ac proinde nihil est solidum，nihil tutum in tanta populi barbarie, ubi nullum jus, nullae leges, nullus reipsa ordo servatur, ubi nec boni praemia nec mali poenam expectant.</p>
+           <p>12. Hinc pullulat <choice><abbr>4a</abbr><expan>quarta</expan></choice> clades, indefessa scilicet bella ac discordia et combustiones domorum ex tabulis pineis compactarum, unde raro ibi reperitur pax atque quies promulgationi evangelii necessaria. Quoniam enim nullus eos rex iure haereditario moderatur (solus rex <placeName key="Miyako">Miaco</placeName> est legitimus, cui competunt regni gubernacula, ducesque <pb n="91v" type="folio"/> provinciarum ab ipso constituti, rebellione facta, dominia terrarum sibi usurparunt, illum, inani regis tamen titulo insignitum, inopem relinquentes).</p>
+<p>13. Hinc fit quod quicumque divitiis pollens valet congregare milites, insurgit in tyrannum ipsumque aggreditur, incendit, occidit, identidemque commilitones eius extrema conficit calamitate.</p>
+<p>14. Propter quod propinqui, ultionis avidi, ducis sui cladem vindicare conantes, omnia susque deque ferunt, nequaquam mutuis caedibus finem imponentes donec vicissim in extremam perniciem sese trahant.</p>
+<p>15. Ultra haec inimici tela, adiungitur et suorum pessima idololatria, quae in decem sectas dividitur, et singuli tantopere suos idolorum sacerdotes, quos Bonzos vocant, observant, quamvis scelestisimos, ut eis, utpote suorum scelerum fautoribus, omnimodam adhibeant fidem, novos gratiae Christi promulgatores ludibrio habentes, quos antiqui hostis obices postquam conspexi.</p><pb n="109" type="page"/>
+<p>16. Tunc amplius nostri optimi patris <persName key="Franciscus S.J.">Magistri Francisci</persName> animi magnitudo et charitas ac fìdes, omnia diaboli obstacula vincens, visa est mihi suspicienda; et multo magis fortitudo quinque plagarum Domini Iesu, quae paulatim cuncta satanae repagula in insulis gyponicis demolitur.</p>
+           <p>17. Nec mirum tibi <choice><abbr>dz˜</abbr><expan>deceat</expan></choice> accidere, perquam colende pater, quod gentes qui Dei notitia hallucinantur usque adeo exorbitent a via veritatis cum innumeris squammis se prementibus, pessimus Leviathan corpus habeat compactum. Regnat nempe in illis insulis serpens callidior cunctis animantibus terrae qui populos illos adversus dogmata christiana versutissima malitia circummunivit falsas illis philosophias ingerendo.</p>
+           <p>18. Bonzi enim publice edocent esse primum rerum omnium principium quod illi nuncupant fotoque <pb n="92" type="folio"/> esse itidem animam rationalem, quam dicunt tamaxe; necnon esse paradisum ac gehennam et alia id genus multa instar nostrorum dogmatum. Unde fratribus nostris in exordio conversionis saepenumero inculcabant gypones se a suo Xaqua <choice><abbr>&amp;</abbr><expan>et</expan></choice> Amida (sic enim vocant inventores suorum errorum) eandem fere doctrinam cum nostris habere comunem.</p>
+<p>19. Nec tunc temporis nostri fallacias cacodaemonis percipiebant. Bonzi enim, quorum infinitus est numerus, ad haec sua sacra significanda hujuscemodi vocabulis utuntur: ad populum quae exterius quidem et cortice tenus harum rerum veritatem prae se ferunt, sed intrinsece et ex ethymologia vocabuli omnia haec pura esse mendacia insinuant.</p><pb n="110" type="page"/>
+<p>20. Atque omnia illa quae de divinis, de spiritualibus substantiis, de rebus invisibilibus, de aeterno praemio, ac suplicio, deque animae inmortalitate dicunt, omnia illa communi nomine Fonben apellant, hoc est, utile sanctumque mendacium.</p>
+<p>21. Asseverant enim haec accommoda esse ad formidinem populis incutiendam ut regibus promptius obsequantur, ne invicem noxii sint nec omnia nefariis adulteriis, homicidiis, ac aliis malis infestent.</p>
+<p>22. Cum tamen re ipsa haec omnia nihil sint, imo quod primum rerum principium est tantummodo materia sensibilis elementorum, – illa nimirum quam dixere chaos rudem indigestamque molem – nec ullam admittunt rerum causam primam efficientem aut fìnalem; itemque animam hominis eiusdem omnino esse naturae cum anima bruti –esseque tamaxe, hoc est rei viventis formam – quam dicunt cum toto composito corrumpi ac alteri formae advenienti cedere virtute solis ac planetarum; mundumque, saltem quoad illud chaos, semper fuisse, et casu in has prodiisse species nec unquam desiturum.</p>
+<p>23. Infernumque esse vermem conscientiae quae – dum quis in sua ignorantia permanet persuasum habens aliquid esse post hanc vitam – urget hominem et affligit; tunc vero unumquemque ingredi <pb n="92v" type="folio"/> paradysum in hac vita beatum quando iam ex firma persuasione quod nihil sit post hanc vitam penitus morsum conscientiae extinxit et quantumlibet deformia scelera committat, nullum judicem post mortem formidet.</p>
+<p>24. Haec est pseudo-theologia Xaquae et Amidae, quae etiam universa synarum regna et Pegu, unde haec pestis dimanavit, quantum judicare potui, habet occupata. Hi sunt doli diaboli, hae scientiae quas in suis gynnasiis discunt bonzi et nobi<pb n="111" type="page"/>les; haec est ibi secta praecipua quam illi nominant meditantium, cuius sectatores, his daemoniacis deceptionibus sic plerumque rapiuntur ut pallescant.</p>
+<p>25. Praebent enim bonzi, magistri falsitatis, puncta quaedam illis ruminanda, in arcanis Xaquae abscondita et nulli detegenda absque secreti servandi juramento. Videlicet, dant novo discipulo primum punctum: «Abscinde caput hominis: quid remanet?». Et donec sentiant totum hominem cum anima corrumpi ac nihil post mortem manere, non dant aliud meditandum. Et ita miseri, curiosa caecitate, tandiu haec secum imaginantur, donec phantasiae tenebris – simulque inedia ac vigilia – contabescunt.</p>
+<p>26.	Hi, inanis gloriae et lucri gratia astutiam serpentinam gerentes, semper turbis apparent cogitabundi. Et cum rudis vulgus arbitret eos aliquid magni de bonis caelestibus contemplari, sub hac diabolica nequitia sanctitatem praetexunt.</p>
+<p>27.	Ac ne his Satanae cuniculis turris evangelica – quam ibi Dominus ministerio fratrum aedificat – corrueret, fecit divina bonitas ut bonzus quidam in omnibus his erroribus satis peritus, illuminatus divina gratia converteretur, ac detegeret haec serpentis antiqui exitialia venena in ipsius perniciem ac magnum fidei sanctae profectum.</p>
+<p>28. Cum enim socii nostri viderent gypones ex hujusmodi nominum corruptela, <pb n="93" type="folio"/> in omnibus divinis idiomate gyponico illis explicandis, falsos accipere conceptus, et quantumlibet de spiritualibus docerentur – partim concionibus ac disputationibus, partim libris quos eorum lingua composuerunt – semper regredi in pristinos errores, propterea quod falsum intellectum formarent iuxta interiorem vocabulorum significationem, omnia illa vocabula veluti toxica fidei catholicae respuerunt.</p><pb n="112" type="page"/>
+<p>29. Et pro fotoque deum, pro tamaxe animam seu spiritum vocant. Et etiam dum japonice loquuntur vel scribunt omniaque illa nomina rerum spiritualium et divinarum lusitano vel latino idiomate edocentes, sua ipsorum tanquam damnosam pestem evitant. Quippe orationes nostras ac simbolum apostolicum latina dictione, non japonica, docentes, ac omnia japonice – paraphrastica elocutione – explicantes, faciunt ut res intelligatur; latina tamen vocabula, tanquam sacra, inviolabiliter observentur.</p>
+<p>30. Hinc accidit ut patefactis hujuscemodi diaboli insidiis, – quamvis aliqui jam baptizati retrocesserint causantes se deceptos eo quod putaverint se accipere legem cum Xaqua et Amyda consonantem – hi qui perstiterunt, summopere in omni dei cognitione spiritualiumque rerum ac misteriorum sensu profecerunt. Gloria sit patri luminum, a quo omne bonum descendit, qui sic illuminavit abscondita tenebrarum et induit eos arma lucis.</p>
+<p>31. Porro, tametsi eo tempore quo ibi permansi tantopere regio illa mutuis caedibus conculcaretur ut vix quidque licuerit – etiam cupidis ac sitibundis – operari in vinea Dei, quamvis item ex nimia terrae sterilitate, fame ac frigore (dissidet enim a linea aequinoctiali 40 gradibus versus septentrionem) morbum contraxerim – fere iam conclamatum mensibus tribus extrema laborans valetudine, nihilominus ibi mansurus eram, expectans tempus seminandi ac metendi fructus uberiores,</p>
+<p>32. nisi me conscientia compulisset regredi Indiam, extimulatum partim cura fratrum omnium qui manserant in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName>, <pb n="113" type="page"/>ex injuncta nostri praepositi <pb n="93v" type="folio"/> patrisque Francisci, partim admonitione fratrum <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> me per literas solicitantium ut redirem –propter causas aliquot, non parvi momenti – partim etiam literis patris <persName key="Ignatius">Ignatii</persName> tunc ad patrem Franciscum scriptis et mihi delatis, quibus innuebat dedecere eum, qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> fratribus praeesset, in regionibus tam remotis peregrinari, relicta provinciae solicitudine.</p>
+<p>33. Cum ergo terra tunc non esset satis fidei praedicationi apta, et necessitas coegeret, profectus sum Indiam, ac in medio itinere compertum habui advenisse patres e regno. Quorum adventum si Gypone comperisem, procul dubio ibi mansissem. Sed iam non suppeditabat tempus nec motio ventorum regressum, nec erat navis, nec certus eram quid obedientiae plus placeret.</p>
+<p>34. Et interim erat satis utile et necessarium videre patres et de experientia earum regionum quas peragravi eos facere certiores. Inde, non absque magnis maris periculis, <placeName key="Goa">Goam</placeName> perveni ut ibi ad pedes obedientiae sisterem et in ea voluntatem Dei mihi expositam complerem, iturus quo me superior meus destinaret; ut etiam facerem professionem quam jam ab elapso quadrienio optimus pater noster Ignatius mihi injunxerat faciendam, nec aderat superior professus in cujus manibus me adstringerem.</p>
+           <p>35. Cum igitur <date when="1577-02">mense februario anno 1557</date> appulissemus Cochinum inveni reverendum patrem dominum Gonçalum, ibi multam operam praedicationibus, confessionibus, concordiis proximorum ac aliis hujusmodi ad gloriam Dei et salutem animarum navantem, qui me ea animi alacritate ac benignitate <pb n="114" type="page"/> complexus est ut longa maris taedia, ex diutina navigatione contracta, suo aspectu et suavi allocutione abegerit ab animo meo in abundanti Domini Iesu consolatione.</p>
+<p>36. Inde me misit <placeName key="Goa">Goam</placeName> ubi patrem Patriarcham et patrem <persName key="Franciscus Rodericus">Franciscum Rodericum</persName> et reliquos, tam in Ethiopiam destinato quam in Indiam, vidi et delectatus sum in Domino. Ibi concionibus, confessionibus, lectionibus theologicis et casuum conscientiae explicationi <pb n="94" type="folio"/> ex obedientiae praecepto me totum impendi, domi interim in observandis regulis, tamquam tyro, in illis exercitatus per hiemale tempus.</p>
+<p>37. Quo elapso, mense Setembris professionem feci, mendicatione triduali et conclusionibus in omnibus facultatibus et reliquis juxta Constitutionum normam servandis praemissis. Cujus formulam a me signatam tibi, plurimum reverende pater, cum hac mitto, prout praecepit mihi per epistolam colendissimus pater Ignatius, ut tu, pater mi, ores in conspectu altissimi pro tuo filio prodigo, impetraturus mihi illam gratiam qua indigeo ad talem vitam, quam coram Domino majestatis professus <hi rend="italic">sum</hi>, peragendam.</p>
+<p>38. Professione peracta misit me D. <persName key="Gonçalus Cochinum">Gonçalus Cochinum</persName>, ubi nunc sum, cum aliis fratribus. Atque utinam sit ad Domini gloriam ac proximorum salutem, ut optime voluntatem omnipotentis Dei sentiamus eandemque opere perfecto compleamus.</p>
+<p>Salutant paternitatem tuam omnes fratres, et petunt simul mecum, benedictionem salutarem.
+   <lb/>Idibus <date when="1558-01-13">Januarii anno Domini 1558</date>.
+<lb/>Indignus filius et servus in Dno.
+   <lb/><persName key="Nuñez Barreto, Melchior">Magister Melchior</persName></p>
+        </div>
+      </body>
+  </text>
+</TEI>

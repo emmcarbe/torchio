@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>
+                     Cathalogus Domorum omnium, quae Societas Iesu in India habet，anno 1594, mense Decembri, confectus. Adduntur communes Provinciae, privataeque Collegiorum expensae, annui item proventus eorundem, Socii tandem omnes censentur.
+                  </title>
+                  <author>Ignotus</author>
+               </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138" key ="print-editor">in: Catalogus rerum Indiae Orientalis. Dec. 1594, Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 341</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+     
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1594</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+      
+          <pb n="Goa 24 I f. 211" type="folio"/>
+          <pb n="341" type="page"/>
+        
+        <div>
+<p>          Cathalogus Domorum omnium, quae Societas Iesu<lb/>
+   in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName>  habet，<date when="1594-12">anno 1594, mense Decembri</date>,<lb/>
+   confectus. Adduntur communes Provinciae,<lb/>
+   privataeque Collegiorum expensae, annui<lb/>
+   item proventus eorundem, Socii tandem omnes censentur<lb/></p> 
+       
+       
+           <p>Habet Societas nostra in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> domicilia (si ea etiam quae <placeName key="Japonia">Japone</placeName>, Synisque adnumeres) omnino duo et quinquaginta : septendecim quidem pleniora, binos reliqua, ternosve alunt. Socios quadringentos sexaginta quatuor censet. Indiam citra et ultra <geogName key="Gangis">Gangem</geogName> (<placeName key="Malaca">Malacam</placeName> videlicet et <placeName key="Malucas Insulas">Malucas Insulas</placeName>) decem supra trecentos: Japonem caeteri, Synasque incolunt. Professi quatuor votorum quinque et viginti in tota Provincia numerantur, quatuordecim in  <pb n="342" type="page"/> <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName>, undecim in altera Provinciae parie. Professi vero trium, ratione ordinum, tres. Constitutionum non plures. Coadjutores formati, quos Spirituales vocant, undetriginta, Temporales decem. Quod ad domos et collegia attinet, ut de iis seorsim expediam, degunt in Goana Professorum Domo triginta novem: tres in regio nosocomio, in Divini Pauli Collegio, Chorani et suburbano praedio centum. In Probationis Domo viginti sex; quindecim Salseti. Baçayni duodeviginti, in aliis Baçaynensis Collegii sedibus quatuordecim. Damani quinque, Chauli sex, undetriginta Cochini, Vaipicottae quatuor. Duo in Divi Andreae <pb n="211v" type="folio"/> et Jacobi aedibus, <placeName key="Coulani">Coulani</placeName> quatuor, non plures in ora Travancoris, Tutocorimi quatuor, in reliquis Piscarii littoris domiciliis quindecim, in Domo Sancti Thomae quatuor. <placeName key="Malaca">Malacae</placeName> septem. Decem <placeName key="Malucas Insulas">Maluci</placeName>. Atque haec de <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName>.</p>
+           <p> Porro Synensis Domus socios censet undeviginti. <placeName key="Xauchinum">Xauchinum</placeName> tres. In Japoniorum vero insulis per domos tributi socii plane centum quadraginta duo. <placeName key="Nangasaci">Nangasaci</placeName> septem, uno plus in domo Omnium Sanctorum. <placeName key="Macaum">Amacusae</placeName>, ubi Collegium et Probationis Domus, quinquaginta. Decem in Seminariio Fachyroesi. Reliqui in caeteris domiciliis, quae, quia paucos e Nostris numerant, omittimus，recensituri suis locis. Demissi hoc sexennio in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> duntaxat viginti sex. In <placeName key="Japonia">Japone</placeName> vero et <placeName key="Sinae">Synis</placeName>, omnino latet nos demissorum numerus, quod illum Pater Visitator in suis Cathalogis reticuerit. Vita functi unus et quadraginta, quorum jacturam octo et quinquaginta in Nostrorum adscripti comilitium compensavere.</p>
+           <p> Expensum quotannis, ut in Procuratorum rationibus et nominibus ad nos fertur, tum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName>, tum in <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitania</placeName>, cum iis vel maxime, qui ex <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europa</placeName> in Indiam mittuntur, ad duo fere aureorum millia, quo aere Provincia universa, quod maxima semper laboret inopia, vehementer premitur, ac pene conficitur. Hinc frequens illa mutuandi necessitudo, mutuique dissolvendi improbus labor. Denique, quod non raro fallendi periculum urgeat capita saepius censere, graviori imperato tributo, quam res familiares, annuaeque collegiorum obventiones suppetant, necesse est.</p></div>
+             <pb n="218" type="folio"/>  
+        <div>  <p>Synarum et Japonis domicilia.</p>
+           <p>Quae mihi nunc de <placeName key="Sinae">Synis</placeName> et <placeName key="Japonia">Japone</placeName> expedienda seorsum erant, ea sequens Cathalogus, quem ad nos Pater Visitator misit, praestabit; labori igitur novi conficiendi, ne in maximo negotio abundare otio videar, supersedebo.</p> 
+ </div>
+      </body>
+  </text>
+</TEI>

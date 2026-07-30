@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Nicolaus Lancillottus S.I. P. Ignatio de Loyola, Romam, Coulano 8 Ianuari 1550</title>
+            <author>Lancillottus, Nicolaus S.J.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-02">02/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490856081" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica II (1550-1553), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1950, 1-3</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>   
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1550</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   <text>
+      <body> 
+         <div><pb n="1" type="page"/>
+            <p>1. Iam nescio quot anni transiere ex quo Tuae Paternitati literis insto, petens ut a <persName key="Papa">Summo Pontifice</persName> obtinere cone<pb n="2" type="page"/>tur speciale quo[d]dam privilegium, quo nobis concedantur, qui apud indos agimus negotium christianum, omnes casus <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedi Apostolicae</placeName> reservati et etiam qui im procesu Caenae Domini Suae Sanctitati reservari solent. Impraesentiarum autem non solum hos casus dico esse pernecessarios, sed etiam facultatem dispensandi a qualibet censura ex his casibus resultanti et etiam ab omni censura eclesiastica, in quam quivis nostrum incurrere posset. Nam sunt tot ocasiones totve causae quae ad hos casus compellunt, ut non solum ingnari sed etiam et gnari et periti passim ac passim incurrant ac labantur: quamobrem Tua Paternitas omni studio ac diligentia efficere debet, ut Societati nostrae, quae apud indos est, consulatur ac subveniatur de ipso sacrosanctae Eclesiae tezauro, quandoquidem diu noctuque isti optimi Patres nostrae Societatis inexhaustos subeunt labores ut boni Eclesiae filii et Christi milites. Certe, mi Pater Reverende, si Sua Sanctitas sentiret aut saltem plene informaretur ac certior fieret de laboribus, quos nostra Societas suscipit, et de periculis in quibus eadem assidue versatur ob animarum salutem et Eclesiae augmentum, nihil difficultatis inveniret ad hoc concedendum. Tanta est necessitas huius privilegii obtinendi ut cogar scribere quae nollem.</p>
+<p>2. Tua Paternitas sciat his in partibus conditas esse multas lusitanorum civitates ac opida, qui quidem lusitani totum suum comertium habent cum infidelibus tum mauris tum gentilibus, et omnes vendunt equos et arma et alia prohibita per canonem his infidelibus. Caetanus, si ipsum bene intellexi, ait istum canonem obligare omnes et ubique, sed confessores harum regionum et praelati aliqui dicunt ipsum canonem non se extendere ad has partes, alii dicunt aboletum propter disimulationem praelatorum ac principum, <pb n="177v" type="folio"/>alii transeunt <pb n="3" type="page"/>per silentium, alii clamitant, sed frustra, sed nemo ad optinendam absolutionem mittitur <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romam</placeName>, sed ut paucis omnia dicam: omnes absolvimus, Deus autem scit, quo iure.</p>
+<p>3. Accidit ad haec, quod matrimonia harum gentium <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> non fiant prout canon iubet, sed, ni falor, multa sunt clandestina, quia recipiuntur ubique et sacerdotes recipiunt absque bannis in propriis domibus. Aliqui opinantur hos novos christianos non aligari sanctionibus et constitutionibus Eclesiae. Sunt multa alia his quam similima ob quae cogor has tibi exarare. Ego quidem multum iucunditatis ac gaudii reciperem, si antequam morerer, ad me veniret hoc privilegium, propterea plus omnibus hoc desidero quia omnibus me ignorantiorem video, sed quia puto ex his paucis Tuam Paternitatem multa intelligere et ideo haec missa facio optans Tuae Paternitati plurimam felicitatem et Christum op. m. semper orans ut te incolumem per multos annos praeservet ad doctrinam et consolationem animarum nostrarum, quas tibi comittere dignatus est.</p>
+<p>4. Cura igitur, mi Pater in Christo, tuam valetudinem et omnium nostrum cumunem salutem, ut semper fecisti et me praecipue habeas comendatum in tuis orationibus et sanctissimis sacrificiis, quandoquidem imperfectum meum viderunt oculi tui.</p>
+<p><placeName key="Colonia" ref="https://pleiades.stoa.org/places/108751">Coloni</placeName>, vi idus <date when="1550-01-08">Ianuarii 1550</date>.	
+<lb/>[<hi rend="italic">Manu propria:</hi>] Indignus servus
+<lb/>Nicolaus Lancilottus.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+

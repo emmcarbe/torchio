@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola</title>
+            <author>Paschalis De Victoria vel de Hispania O.F.M.<date></date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">10/09/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Sinica Franciscana, I: Itinera et relationes fratrum Minorum saeculi XIII et XIV, a cura di A. Van Den Wyngaert, Firenze, Quaracchi, 1929, 501-506</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/151</idno>
+               <idno type="URI">https://hdl.handle.net/2027/mdp.39015012963784</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Itinera et Relationes</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1301/1400">1338</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1),TEI encoding (level 1)</change>
+        <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: text revision (level 2),TEI encoding (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+        <pb n="501" type="page"/>
+           <p>Reverendis in Christo et dilectis Guardiano et aliis fratribus conventus Victoriensis ac totius Custodiae patribus et dilectissimis fratribus frater <persName key="Paschalis de Victoria vel de Hispania O.F.M.">Paschalis</persName> eiusdem salutem cum omni benedictione; non etiam immemor aliis nostris parentibus ac notis et amicis reverentiam filialem.</p>
+           <p>1. Noverit vestra sanctitas, patres dilectissimi, quod cum a vobis recessimus cum caro P. Fr.  <persName key="Gondisalvus Transtorna O.F.M.">Gonsalvo Transtorna</persName>, profecti sumus usque ad <placeName key="Avenio" ref="http://pleiades.stoa.org/places/148004">Avinionem</placeName>. Inde Generalis reverendi benedictione accepta, ivimus ad indulgentiam <placeName key="Assisium" ref="https://pleiades.stoa.org/places/413037">Assisii</placeName> et post Vene<pb n="502" type="page" break="no"/>tiis ascendentes quamdam carracam transivimus per <geogName key="Adriaticum" ref="https://pleiades.stoa.org/places/1004" type="mare">mare Adriaticum</geogName> et post permare Pontum ad sinistram dimittentes <placeName key="Sclavonia">Sclavoniam</placeName> et ad dexteram <placeName key="Turkya" ref="https://www.geonames.org/298795/">Turquiam</placeName> applicuimus <placeName key="Graecia" ref="https://www.geonames.org/390903">Graeciam</placeName>, scilicet <placeName key="Galatas" ref="https://www.geonames.org/262143/">Galatas</placeName> iuxta <placeName key="Constantinopolis" ref="http://pleiades.stoa.org/places/520998">Constantinopolim</placeName>, et ibi invenimus P. Vicarium de <placeName key="Cathay">Cathay</placeName> in vicaria orientali. Inde ascendentes unum lignum per <geogName key="Maurum mare">mare Nigrum</geogName>, cuius profunditas est abyssus, profecti sumus usque ad <placeName key="Gazari">Gazariam</placeName> in vicaria aquilonari in <placeName key="Thartarorum Imperium" ref="https://pleiades.stoa.org/places/897854">imperio Tartarorum</placeName>. Inde per aliud mare, cuius non est fundus, applicuimus <placeName key="Tana (Asov)">Thanam</placeName>.</p>
+           <p>2.	Et quia ego citius accessi quam socius meus, cum Graecis in curribus equorum usque in <placeName key="Sarai">Saray</placeName> sum directus; socius autem meus cum quibusdam aliis fratribus usque ad <placeName key="Urgandj">Urganthum</placeName> delatus est. Ego vero volebam secum ire, sed consilio habito, <pb n="503" type="page"/>prius linguam terrae illius volui addiscere et per Dei gratiam didici linguam camanicam et litteram viguricam, qua quidem lingua et littera utuntur per omnia ista regna seu <placeName key="Thartarorum Imperium" ref="https://pleiades.stoa.org/places/897854">imperia Tartarorum</placeName>, <placeName key="Persae" ref="https://www.geonames.org/130758">Persarum</placeName>, Chaldaeorum, <placeName key="Medorum Imperium">Medorum</placeName> et <placeName key="Cathay">Cathay</placeName>.</p>
+           <p>3.	Sed socius meus reversus de <placeName key="Urgandj">Urganth</placeName> ivit ad vos; ego autem ad vomitum abhorrens redire et gratiam <persName key="Papa">Summi Pontificis</persName> desiderans obtinere, redire nolui, quia omnes fratres qui ad istas partes venimus, habemus indulgentiam illam quam habent euntes cum licentia <placeName key="Ierusalem" ref="https://pleiades.stoa.org/places/687928">Ierusalem</placeName>, scilicet plenariam seu a poena et culpa, et perseverantibus <hi rend="italic">usque</hi> ad <hi rend="italic">finem</hi> corona dabitur vitae. Idcirco, patres mei, ex quo scivi linguam per Dei gratiam saepius praedicavi sine interprete verbum Dei tam saracenis quam etiam christianis schismaticis et haereticis. Et habui mandatum a Vicario meo qui praecedebat, quod visa littera, in meritum obedientiae salutaris perficerem peregrinationem quam ceperam.</p>
+           <p>4. Et cum iam ultra annum demoratus fuissem in praedicta <placeName key="Sarai">Saray</placeName>, civitate saracenorum <placeName key="Thartarorum Imperium" ref="https://pleiades.stoa.org/places/897854">imperii Tartarorum</placeName> in vicaria aquilonari — ubi ante per annum quidam frater noster, Stephanus nomine, fuit passus venerabile martyrium per saracenos — inde ascendens in quoddam navigium cum Armenis per fluvium qui vocatur <geogName key="Tigris" ref="https://pleiades.stoa.org/places/912964">Tigris</geogName> et per ripam maris, <geogName key="Vatuk mare">Vatuk</geogName> nomine, <pb n="504" type="page"/>usque <placeName key="Saraichik">Saraschuk</placeName> deveni per XII dietas. Inde ascendens currum camelorum, cuius equitatus terribilis est, 50a die in <placeName key="Urgandj">Urganth</placeName> deveni, quae est civitas in fine <placeName key="Thartarorum Imperium" ref="https://pleiades.stoa.org/places/897854">imperii Tartarorum</placeName> et imperii <placeName key="Persae" ref="https://www.geonames.org/130758">Persarum</placeName>; quae civitas alio nomine vocatur Us, ubi est corpus beati Iob. Inde ascendens currus camelorum cum Agarenis, maledicti <persName key="Mahometus" ref="https://viaf.org/97245226">Machometi</persName> sequacibus, solus ego christianus inter ipsos cum quodam servitore, Ziquo natione, usque ad <placeName key="Medorum Imperium">imperium Medorum</placeName> veni Deo dirigente; ubi quae, qualia et quanta sum passus, <hi rend="italic">Deus</hi> ipse <hi rend="italic">scit</hi> et longum esset enarrare per litteram.</p>
+        <p>5.	Quia enim <persName key="Yesün Temür Khan">Imperator</persName> <placeName key="Medorum Imperium">Medorum</placeName> per fratrem suum carnalem est interfectus, caravana saracenorum, cum qua ibam, detenta est per viam in civitatibus saracenorum timentibus guerram et suorum exspoliationem. Quapropter magnam traxi moram inter saracenos, quibus per dies plurimos praedicavi manifeste et aperte nomen Iesu Christi et eius Evangelium; et falsi eorum prophetae deceptiones et falsitates et caecitates explicando, detegendo et publica et alta voce latratus eorum confundendo; sed confidens in domino nostro Iesu Christo mo<pb n="504" type="page" break="no"/>dicum eos timebam, Spiritu Sancto confortante et illuminante; ubi ipsi observantes coram eorum mesquita me posuerunt in paschate eorum, ad quam mesquitam propter pascha de diversis partibus quam plures sunt congregati Cadini, Episcopi eorum, talisimani, id est ipsorum sacerdotes, cum quibus, Spiritu Sancto docente, de divinis et de falso suo Alcorano et doctrina per dies XXV in eodem loco, scilicet coram ianuis mesquitae, quam plurimum disputavi, ita ut semel in die panem cum aqua VIX comedere valebam. Sed Deo tribuente, Trinitas revelata praedicata fuit et ad ultimum per ipsos malis gratibus suis concessa, et gratias omnipotenti Deo, victoriam in omnibus habui ad laudem et honorem Iesu Christi et sanctae matris Ecclesiae. Ubi filii diaboli me primo tentaverunt promittentes feminas, virgines, aurum et argentum, possessiones, equos et boves et alia quaeque delectabilia huius mundi, ut me perverterent. Sed me omnes suas promissiones omnibus modis spernentem per duos dies lapidaverunt, ignem faciei et pedibus apposuerunt, barbam meam extraxerunt, contumelias, vituperia et opprobria quam plurima et diu intulerunt. Deus scit, qui est benedictus, per quem ego pauper sum gaudens et exultans in domino nostro Iesu Christo, quia sua pietate admirabili dignus fui talia pati pro nomine eius.</p>
+           <pb n="505" type="page"/><p>6.	Ecce gratiose ductus sum in <placeName key="Almaligh">Amalech</placeName> civitatem in medio <placeName key="Medorum Imperium">imperio Medorum</placeName> in vicaria <placeName key="Cathay">Cathay</placeName>. Et sic incipiens ab <placeName key="Urgandj">Urganth</placeName>, quae est civitas ultima <placeName key="Persae" ref="https://www.geonames.org/130758">Persarum</placeName> et Tartarorum, usque <placeName key="Almaligh">Amalech</placeName> per viam V mensium moram gessi inter saracenos solus, verbo et exemplo et habitu publice nomen Iesu Christi portando, a quibus saepe toxicum recepi, in aqua positus fui, percussiones et alia, quae littera non contineret, passus fui. Sed Deo gratias in omnibus reddo, quia maiora horum exspecto pro nomine eius pati in remissionem meorum peccatorum, ut securus vadam ad regnum coelorum pietate divina. Amen.</p>
+        <p>7.	Valete in domino Iesu Christo et orate pro me et pro his qui istam peregrinationem intendunt facere vel faciunt, quia Deo mediante peregrinatio haec utilis est ad profectum et fructum animarum multarum, et non curetis me videre nisi in istis partibus vel in paradiso, ubi est requies, consolatio et visitatio hereditaria nostra dominus noster Iesus Christus. Et quia ipse dixit : “Cum fuerit praedicatum Evangelium per universum mundum <hi rend="italic">est consummatio saeculi</hi>”. Ergo fratres carissimi, meum est praedicare inter diversas nationes et peccatori reatum suum ostendere et viam salutis manifestare, sed Dei omnipotentis est gratiam suae conversionis infundere.</p>
+           <p>Datum in <placeName key="Almaligh">Amalech</placeName> in festo S. Laurentii, <date when="1338">anno Domini MCCCXXXVIII</date>, in <placeName key="Medorum Imperium">imperio Medorum</placeName>.</p>      
+        </div>
+      </body>
+  </text>
+</TEI>

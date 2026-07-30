@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Epistola ad Episcopos Tunkinenses, 29 Ian. 1675</title>
+                  <author>Ibañez, Bonaventura O.F.M.<date>1610-1691</date></author>
+               </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-11-11">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 544-567</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+               <idno type="URI"></idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1675</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-14" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="139" type="page"/>
+           <p>Circa nostram missionem dicam quid nobis accidit. Postquam ad VV. Illmas Dominationes anno prȩterito scripsi, iam mentionem feci de nostro infortunio quomodo fuimus per christianos europȩos apud iudicem gentilem accusati ac coram eo prȩsentati, quorum intentio erat impedire nos ad interiora <placeName key="China">regni sinici</placeName> progredi et extra regnum expellere, non curantes si iudex gentilis vellet secundum leges regni nos punire. Estne <pb n="140" type="page"/> hoc de hominibus catholicis credendum ? Sed Deus qui nos per suum Vicarium misit ad in hac vinea laborandum, auxilium prȩstitit nobis, mutando lupum iudicem in pastorem erga nos. In principio ut iudex sic nos arguit: «Quomodo ausi fuistis hoc regnum ingredi contra regni leges ac Imperatoris mandatum.» Ego sic respondi: «Inferior non potest impedire quod superior iubet. Deus omnium Creator ac Rex Regum iubet nos hoc regnum ingredi et in eo prȩcepta sua evangelizare, cui ergo nos debemus obedire.» Respondit: «Scio quod lex Dei est optima et vos vultis nos omnes ad bene operandum reducere, sed tunc non convenit in interiora regni introire. Cognosco quod qui vos apud me accusant, malam intentionem habent, nolo vos extra regnum eiicere sed intra meum palatium hospitari.» Et ita fecit sicut locutus est. Iamque nocte ad locum ubi hospitati eramus venit, et sedens nobiscum interrogabat familiariter nos de rebus patriȩ nostrȩ civilibus ac de aliis diversis quia subtilis est ingenio cum sit huius provinciȩ reguli filius qui ideo vocatur princeps. Sed ego intra colloquia res divinas ipsi scitu credituque necessarias notas faciebam. Sic per quinque menses nos tres simul demorati sumus. Quibus transactis petii ab eo ut saltem mihi permitteret ad nostram ecclesiam ire. Qui respondit: «Nondum est tempus opportunum, adhuc patienter sustinete.» Tunc ego ei dixi: «Ergo melius erit ad civitatem <placeName key="Macaum">Makau</placeName> nos redire et in nostro conventu tempus expectare conveniens ad iterum ingrediendum, quam hic molestias vestrȩ maiestati dare.» Respondit: «Nullam molestiam mihi datis, sed si ire vultis, duo ire potestis et unus hic remaneat ut sit ad manus quando occasio offeratur interiora regni ingrediendi, et quando ingredi non possit ego vobis in hac civitate ecclesiam dabo.» Reddidi ei gratias pro favore, quamvis intra me nullam eius verbis fidem darem. Tunc cum uno <pb n="141" type="page"/> socio, relicto ibi altero, me huc contuli cum intentione <placeName key="China">regnum sinicum</placeName> adhuc secrete ingrediendi et recta via sine mansione ad interiora regni progredì, antequam veteres inimici iterum nos apud principem gubernatorem accusarent. Huc nos perventi, cito cum duobus neophytis conveni ut secum adducerent meum socium usque ad nostram <placeName key="China">Sinȩ</placeName> ecclesiam, quȩ est in provincia <placeName key="Chantong">Xantung</placeName> metropoli. Cumque iter quam proxime per mare essemus aggressuri notitia certa huc pervenit quod <placeName key="China">regnum sinicum</placeName> in magno bello positum erat, quia quidem regulus cum quatuor provinciis contra Imperatorem bellum gerebat volens ex hoc <placeName key="China">regno sinico</placeName> tartaricam expellere dominationem et naturalem erigere Imperatorem. Hȩc regni perturbatio impedivit nostram deliberationem, quia dum bellum hoc permanet, non datur transitus de una ad aliam provinciam.</p>
+           <p>2. Supradictus princeps videns quod dum in regno bellum geritur, non poterat socium meum ad nostram conducere ecclesiam, decrevit nobis ut promiserat in hac metropoli novam donare ecclesiam. Ad hoc misit quatuor servos suos in magna cymba, postulans a me alterum religiosum ex meis ut qui apud ipsum erat, socium haberet, ego continuo misi in dicta cymba unum ex meis religiosis quem magis ad intentum mitti oportebat. Princeps accepit eum hilariter et convivium ei fecit et sequenti die ostendit ambobus quandam domum circa eius palatium ut eam viderent num aptam sibi iudicarent ad habitationem suam. Mei socii visa domo dixerunt ei quȩ deerant in ea necessaria. Princeps tunc imperavit officialibus cito manus imponere ad opus. Quo finito idem princeps dixit meis sociis ut assignarent locum, eiusque longitudinem ac latitudinem et formam ad nostram ecclesiam construendam. Sic mei socii fecerunt et princeps voluit ut operarii <pb n="142" type="page"/> sine mora manus imponerent et non cessarunt usque ad eius consummationem. Hodie parum est ut finis ei imponatur.</p>
+              <p>3.	Videant nunc VV. Illmȩ Dominationes quomodo Christus Redemptor noster a persecutoribus nos defendit et ad quem ii recurrerunt ut ipse nos ex <placeName key="Sinae">sinico regno</placeName> eiiceret, Deus ipse mutavit eum ex iudice in protectorem et patrem erga nos; et quoniam nostri inimici nos impedierunt ad nostram ecclesiam ire, <hi rend="italic">Deus iustus iudex</hi> fecit quod in eadem civitate ubi ipsi ecclesiam habent, ibi nos habeamus quod est contra eorum voluntatem, tamen pro nunc non audent os aperire quia principis auxilio indigent et ideo nolunt eum molestia afficere.</p>
+           <p>4. In hoc Deus ostendit PP. societatis quod ipsi non sunt domini huius vineȩ sed tantum in ea operarii a Domino vineȩ vocati ad operandum; et sicut vocavit eos, vocat etiam et alios quos ipse vult; et sic intelligant dicti PP. quod extra regna catholica, omnia regna gentilia sunt etiam vinea dominica ad quam colendam vocat operarios quos conducit ad in ea laborandum. Qua ergo ratione aut iustitia alii ex vocatis et conductis operariis possunt expellere alios extra vineam, qui etiam ut ipsi sunt ex vocatis conductis et missis? Nonne tales operarii sunt de illorum parabolȩ evangelicȩ numero qui servos a Domino vineȩ missos expulerunt foras ac occiderunt? Sic PP. quantum potuerunt fecerunt ad nos extra vineam dominicam expellendos et quamvis non nos occiderunt, saltem in iudicis gentilis manus tradiderunt, ut ad suam voluntatem et secundum leges regni ac prȩcepta regia nos condemnaret, quasi cum pontificibus ac pharisaeis dicerent Pilato <hi rend="italic">nobis non licet occidere quemquam</hi>, in quibus verbis volebant se apud mundum iustificari et similiter hi.</p>
+           <p>5. Illmi Domini dum PP. societatis erunt in his gentilium missionibus, cȩteri missionarii difficillime in eas ingredientur ob causam iam in alia epistola a me annis prȩteritis scriptam. Ideo hi PP. societatis nullatenus possunt cum cȩteris missionariis coniungi seu uniri. Precor Deum vivum eiusque filium Christum ut ipse pro sua pietate remedium efficax tribuat ut a <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sede Apostolica</placeName> operarii in has missiones missi, possint sine impedimento in vineam dominicam ingredi ac in ea sine contentione inter se laborare; interea Christi oves quae disperse sunt in his desertis, qualia sunt gentilium regna, necessariis pastoribus carebunt et sub potestate luporum ambulabunt. Ego et socii mei genuflexi manusque osculantes humiliter petimus vestram sanctam benedictionem ac pro nobis orare ad Dominum qui VV. Illmas Dominationes ad maiorem gloriam suam animarumque salutem servet per plurimos annos.</p>
+              <p>Ex nostro seraphico conventu civitatis <placeName key="Macaum">Makan</placeName> <date when="1675-01-29">29 ianuarii an. 1675</date>.</p>              
+           </div>
+      </body>
+  </text>
+</TEI>

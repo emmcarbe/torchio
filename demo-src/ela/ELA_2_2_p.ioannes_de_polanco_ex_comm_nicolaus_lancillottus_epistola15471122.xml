@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P.P. Ioannes de Polanco S.I. ex Comm. P. Nicolao Lancillotto S.I, Goam, Roma 22 Novembris 1547</title>
+            <author>de Polanco, Iohannes Alfonsus S.J.<date>1517-1576</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 198-204</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1547</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="198" type="page"/>
+<p>Gratia <choice><abbr>D.N.</abbr><expan>Domini Nostri</expan></choice> Iesu Christi per veram cognitionem et amorem ipsius in nobis omnibus augeatur.</p>
+            <p>1. Litteras quas ad nos dedisti <date when="1546-11">mense Novembri anni 1546</date> scriptas accepimus, Pater in Iesu Christo charissime, quibus diligenter exponis initia, progressum, presentemque statum collegii gouensis, aliaque non pauca quae ut intellecta esse Patri nostro D. <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> oportebat, ita videris opere precium in eis scribendis non modicum fecisse. Quae ergo responsum exigunt hisce litteris prosequar, prout a Patre nostro <choice><abbr>D.no</abbr><expan>Domino</expan></choice> <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> mihi est iniunctum.</p>
+            <p>2. Ac primo quidem quod ad munus attinet tibi a domino Simone comissum, Pater Ignatius non tantum ratum id <pb n="199" type="page"/> habet sed et pergratum; ad Dei enim honorem ac gloriam id faturum multorumque auxilium confidit, optimoque esse animo te iubet, cum Deo (cui servis) inniti, et non tuis viribus (quae oneri forte succumberent) oporteat. Quod de valetudine tua, tam accisa, scribis, ut minori nos afficiat molestia, facit spes eadem in servatore et salutis ac vite fonte Iesu, in quo confidimus quod tibi, ad ipsius honorem et fratrum consolationem et plurimarum profectum animarum, tantum sanitatis ac virium restituet, quantum opus sit et te non debeat penitere. Consulere te tamen oportebit tue valetudini quantum fieri possit, ac proinde labor tuus in alios dividendos videtur, quorum te opera et labore, ex parte quidem certe exoneres, ac subleves; deligi autem a te possent (prout in Domino expedire censeres) quibus oneris tui partem imponeres. Qua in re suo etiam consilio <choice><abbr>R.dus</abbr><expan>Reverendus</expan></choice> magister Didacus te adiuvare posset.</p>
+<p>3. Quod de D. <persName key="Criminalis, Antonius S.J.">Antonio Criminali</persName> et D. <persName key="Vera, Ioannes de">Ioanne de Vera</persName> scribis, aliisque fratribus, qui isthuc nuperrime pervenerunt, intelleximus. Augeat Deus (ad cuius gloriam ubique gentium et terrarum querendam ac propagandam nos totos impendi par est) in omnibus donorum suorum divitias ac spirituales thesauros, ut primo vitae exemplo, deinde prout dividet cuique Spiritus Sanctus, vel predicatione vel aliis salutis instrumentis, animarum vacent utilitati.</p>
+            <p>4. Hic tamen occurrit mihi scrupulus ille tuus quem inicit bulla vel diploma Pontificis ad vos transmissum, et eximi <pb n="200" type="page"/> aequum est, quod nimirum vobis, qui professionem in hac Societate n[on] emissistis, gratiae Sumi Pontificis communicatae non videantur. Quattuor ergo animadvertas velim, ut et praecedentes praecidas, et secuturos excludas scrupulos.</p>
+            <p>5. Primum est quod praeter indulta <persName key="Papa">Summi Pontificis</persName>, quae quidem per bullam vel breve expedita vidisti, et professis in hac Societate condonata, alia quaedam et ex eisdem nonnulla, concessa sunt vive vocis oraculo a <persName key="Papa">Summo Pontifice</persName> Patri nostro domino <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> et, ut ea quibuslibet adherentibus huic Societati cum voto castitatis et paupertatis, ac proposito intrandae Societatis, praedictae communicare posset, qui quidem eius arbitrio apti censerentur ad omnia vel partem eor[um] suscipiendam ac probe exercendam, est ei condonatum. Itaque cum tibi sit concessum, quod vive vocis oracul[o], non quod per breve <persName key="Papa">Summus Pontifex</persName> indulsit, de praeteritis bono esto animo.</p> 
+            <p>6. Ne tamen in futurum te vel quempiam ex fratribus solicitet aliqua dubitatio, secundum quod dico omnes intelligant: hanc scilicet esse mentem Patris nostri D. <persName key="Ignatius">Ignatii</persName> ut nemo prorsus vestrum in posterum his <pb n="76v" type="folio"/> utatur concessionibus quae vivae vocis oraculo sunt Societati condonate, etiam si hactenus usi fuerint nonnulli ex vobis.</p><pb n="201" type="page"/>
+ <p>7. Ut tamen tuo satisfiat desiderio, et ut magis proximorum saluti sit consultum, tertium accipe, quod scilicet <persName key="Papa">Summus Pontifex</persName> per breve quoddam concessit Societati, ut coadiutores vel cooperatores sibi posset asciscere, quorum opera in spiritualibus vel etiam corporalibus uteretur, et ut quibusdam ex eis posset huius Societatis Praepositus easdem gratias communicare quas professis, ad maiorem ecclesiae edificationem; et hoc breve, vel potius exemplum eius sive transumptum,ad vos iam mittemus.</p>
+            <p>8. Quartum est quod idem Pater noster et Praepositus te, D. Nicolae, in coadiutorem iam ex nunc cooptat, et admittit, easdem tibi gratias conferendo quibus, si professionem emississes, frui poteras, [non] tantum eas quas continet breve, sed et aliam insignem vive vocis oraculo concessam Duci Gandie pro Societate nostra, cuius itidem transsumptum hic videbis. Ex omnibus tamen facultatibus unam censet esse limitandam Pater Ignatius, nimirum quae concionari permittit. Videtur enim ei ut, ne id ullibi obeas (ubi quidem christiani fuerint mininime rudes) munus ni obtenta facultate ab <pb n="202" type="page"/>episcopo vel eius vicario si inibi fuerit. Quodsi accideret ut infidelibus vel rudibus admodum Christum evangelizare vel christiana rudimenta edocere vellis, tunc non necesse erit facultatem ab alio quoppiam petere, sed hac contentus, proximorum saluti consule.</p>
+            <p>9. Iam expectabis (credo) an aliqui ex aliis in coadiutores itidem admittantur et quidem, si Pater in Christo noster omnes alios novisset, ut quid eis comittendum esset, posset hinc iudicare, libenter hoc ipsum eis contulisset, nunc vero cum tantum ex eis noverit D. Paulum, D. Ciprianum, D. Antonium Criminalem, eos dumtaxat in coadiutores spirituales (sicut te ipsum) admittit, eisdemque facultatibus preditos esse ad edificationem vult proximorum. Vos ergo quattuor his iam ex nunc fruimini concessionibus. De caeteris autem fratribus cura ut ad nos scribas, quibus morum et doctrinae et aliis spiritualibus dotibus sint ornati ut eis, pro singulorum captu, quod convenerit gratiarum indulgeatur. Ut tamen et ipsi et vos quattuor intelligatis, num aliquo impedimento arceamini ab hac Societate, septem ad vos transmittimus, in quorum aliquod si quis incidisset, intelligat secundum institutum Societatis se minime admitti, ne in coadiutorem <pb n="203" type="page"/> quidem, posse. Non tamen animo concidat vel frangatur si quis isthic agit qui in aliquod ex his inciderit: curabit enim Pater Ignatius ut benigne, quantum fieri possit, remedium ei adhibeatur. Sed de his quidem satis.</p>
+<p>10. Quod vero ais pernecessariam tibi videri facultatem absolvendi a casibus reservatis in bulla Cene Domini, et nobis id ipsum videtur, et curabitur ut ea facultas obtineatur, licet nondum sit attentatum; comodius tamen procul dubio id fiet si aliquis a vobis ad nos mittatur qui ea quae pernecessaria istis in regionibus sunt, norit exponere.</p>
+<p>11. Sed non ulterius progrediar. Reliqua quae de nostrae Societatis progressibus in Domino intelligere voletis, ad consolationem edificationemque scripta, fratribus qui sunt in Portugalia, ab ipsismet accipietis, quibus hoc negocii est iniunctum, ut nostras litteras vel earum exempla ad vos transmitterent.
+   <lb/>Vale in Domino cum omnibus fratibus in Christo charissimis, qui isthic<pb n="77r" type="folio"/>agunt, quorum orationibus nos omnes commendamus.
+   <lb/>Iesus Christus caput nostrum, arctissimo charitatis vinculo in semetipso nos omnes teneat quam maxime coniunc<pb n="204" type="page"/>tos et in omnibus nobis clarificetur et laudetur in sempiternum. Amen.<lb/></p>
+            
+            <p><placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName> <date when="1547-11-22">10 calendas Decembris 1547</date>
+<lb/>Servus in Domino
+<lb/>[De commissione Patris <persName key="Ignatius">Ignatii</persName>]
+<lb/>Ioannes de <persName key="Polancus, Iohannes S.J." ref="http://www.viaf.org/54197290">Polanco</persName>
+<lb/>[In originali deperdito manu <persName key="Ignatius">Ignatii</persName>: I.]</p>           
+         </div>
+      </body>
+   </text>
+</TEI>

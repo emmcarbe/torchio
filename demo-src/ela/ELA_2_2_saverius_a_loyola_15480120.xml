@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Francisco de Xavier a Ignacio de Loyola, Cochín, 20 de Enero de 1548</title>
+                  <author ref="https://viaf.org/viaf/51717999">Saverius, Franciscus S.J.<date>1506-1552</date></author>   
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/716351646">in: Monumenta historica Japoniae, 2. Documentos del Japón, 1547-1557, edited by Juan G. Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1990, 31-32</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/monumentahistori137unse</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1548</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="31" type="page"/>
+           <p>
+              1. Quos praeterea e Societate missurus es ut evangelii causa ethnicorum vicos peragrent, hos tam spectata probitate oportet esse ut tuto et comitati ire possint et soli, quocunque eos christiana res vocet, velut in Molucum, in <placeName key="Sinae">Sinas</placeName>, in <placeName key="Japonia">Japoniam</placeName>. <pb n="32" type="page"/> Vel ex <placeName key="Sinae">Sinarum</placeName> et <placeName key="Japonia">Japoniae</placeName> earumque gentium descriptione quam his inclusam li<hi rend="italic">t</hi>teris ad te mitto, facile intelliges cuiusmodi tandem ipsa res expetat viros.</p> 
+           <p>[...]</p>   
+           <p>2. Nondum plane constitui utrum ego ipse cum uno aut altero e Societate <placeName key="Japonia">Japoniam</placeName> post sesquiannum petam, an eo duos e Societate praemittam. Nam certum est mihi aut ire aut alios mittere. Atque ut nunc est, inclinat animus in consilium eundi. Deum oro ut quod magis ei cordi est id liquido praescribat mihi.</p>
+<p>[...]</p> 
+           <p><date when="1548-01-20">XIII kal<hi rend="italic">endas</hi> feb<hi rend="italic">ruarias</hi> anni a Christo nato MDXLVIII</date>.</p>
+<p><placeName key="Cochin">Cocini</placeName>.</p>
+<p><persName key="Franciscus">Franciscus</persName></p>
+       </div>      
+      </body>
+  </text>
+</TEI>

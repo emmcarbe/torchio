@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P. Nic. Lancillottus S.I. P. Ignatio de Loyola, Goa 5 Novembris [1546]</title>
+<style>:root{--ground:#FFFFFF;--paper:#FFFFFF;--ink:#1B1B1B;--soft:#6A6A66;--hair:#E5E2D9;--faint:#CFCCC2;--accent:#B01E28;--accent-soft:#9a5a52;--link:#B01E28;--reading:"EB Garamond",Iowan Old Style,Palatino,"Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--serif:var(--reading);--measure:44rem}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","onum","pnum"}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.torchio{max-width:var(--measure);margin:0 auto;padding:26px 20px 14px;
+  border-bottom:1px solid var(--hair)}
+header.torchio h1{margin:0;font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.01em}
+header.torchio .sub{margin:6px 0 0;color:var(--soft);font-family:var(--mono);
+  font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+
+main.torchio{max-width:var(--measure);margin:0 auto;padding:10px 20px 0}
+
+.t-teiHeader{display:none}
+body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
+  border-radius:2px;padding:14px 16px;font-size:.85em;color:var(--soft)}
+
+.t-head{font-weight:600;margin:1.3em 0 .4em}
+.t-p,.t-ab{margin:.65em 0}
+.t-lg{margin:.8em 0 .8em 1.6em}
+.t-l{display:block;position:relative}
+.t-lg{padding-left:3em}
+.t-l.ln5::before{content:attr(data-n);position:absolute;left:-3em;top:.35em;
+  font-family:var(--mono);font-size:10px;color:var(--soft);user-select:none}
+.t-sp{margin:.65em 0}
+.t-speaker{font-family:var(--mono);font-size:.72em;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);display:inline-block;margin-right:.5em}
+.t-stage{font-style:italic;color:var(--soft)}
+.t-opener,.t-closer{color:var(--soft);margin:.65em 0}
+.t-salute,.t-dateline,.t-signed{font-style:italic}
+
+.t-persName,.t-placeName,.t-orgName{border-bottom:1px dotted var(--accent-soft)}
+.t-foreign,.t-hi,.t-emph,.t-title{font-style:italic}
+.t-quote{margin:.8em 0 .8em 1.4em;color:var(--soft)}
+
+.t-del{text-decoration:line-through;color:var(--soft)}
+.t-add{vertical-align:super;font-size:.82em}
+.t-unclear{background:#F5F4EF}
+.t-supplied::before{content:'[';color:var(--faint)}
+.t-supplied::after{content:']';color:var(--faint)}
+.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-abbr{border-bottom:1px dotted var(--faint)}
+
+.t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  color:var(--accent);vertical-align:super;margin:0 .18em;user-select:none}
+
+.t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
+  padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
+.t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
+.t-app .t-note{display:none}
+@media(min-width:1180px){.t-app .t-note{display:block}}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+.note-hi{background:rgba(176,30,40,.13);border-radius:2px;transition:background .15s}
+.t-note.note-hi{color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
+@media(min-width:1180px){
+  .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
+    font-size:.78em;line-height:1.4;border-left:0;padding-left:0}
+  .header-full .t-note,.t-teiHeader .t-note{float:none;width:auto;margin:.5em 0;
+    border-left:2px solid var(--hair);padding-left:.7em}
+  .t-note.placed{font-size:.78em;line-height:1.4}
+}
+
+.t-app .t-rdg{display:none}
+.t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+  border-bottom:none;margin-right:.5em;vertical-align:.08em}
+.t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+
+footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
+  border-top:1px solid var(--hair);color:var(--soft);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+footer.torchio .press{color:var(--accent)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+.torchio-bar{position:sticky;top:0;z-index:40;background:var(--ground);
+  border-bottom:1px solid var(--hair);font-family:var(--mono)}
+.torchio-bar .inner{max-width:var(--measure);margin:0 auto;padding:8px 20px;
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.torchio-bar .modes{display:inline-flex;border:1px solid var(--hair);
+  border-radius:2px;overflow:hidden}
+.torchio-bar button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);background:none;border:none;
+  cursor:pointer;padding:6px 14px}
+.torchio-bar .modes button.active{background:var(--accent);color:#fff}
+.torchio-bar .sw.off{text-decoration:line-through;opacity:.6}
+
+.t-lem{cursor:pointer}
+.t-choice{cursor:pointer}
+body.app-off .t-lem{border-bottom:none;cursor:inherit}
+[data-ref]{cursor:pointer}
+
+.torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
+  border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
+  box-shadow:0 12px 28px -18px rgba(27,27,27,.45);font-size:15px;line-height:1.45}
+.torchio-pop .k{font-family:var(--mono);font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--soft);display:block;
+  margin-bottom:6px}
+.torchio-pop .rdgline{display:flex;gap:10px;align-items:baseline;padding:3px 0}
+.torchio-pop .sig{font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--accent);min-width:2.2em}
+.torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
+.torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
+
+/* transcription levels: reading is the default */
+.t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
+body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
+body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
+body.mode-read .t-del{display:none}
+body.mode-read .t-am{display:none}
+body.mode-dipl .t-ex{display:none}
+body.mode-read .t-lb br{display:none}
+body.mode-read .t-lb::after{content:" "}
+body.mode-read .t-lb[data-break="no"]::after{content:none}
+body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
+
+.torchio-nav{display:flex;gap:22px;margin-left:auto}
+.torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+  color:var(--soft);text-transform:uppercase}
+.torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
+.torchio-nav a:hover{color:var(--ink);text-decoration:none}
+header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
+header.torchio .tt{min-width:14rem}
+.about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);margin-top:1.2em}
+.about dd{margin:0.3em 0 0}
+.about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
+  border-radius:2px;padding:0 12px;margin-top:.5em}
+.wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table th{text-align:left;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.md-table td:first-child{font-size:1.05em;white-space:nowrap}
+.wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
+  vertical-align:baseline}
+.sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
+  white-space:nowrap}
+.occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
+.occ a{color:var(--accent);margin-right:.5em}
+h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+.header-full .t-teiHeader{display:block;border:0;padding:0;color:var(--ink);font-size:1em}
+.header-full div[data-el]::before{content:attr(data-el);display:block;
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
+.header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
+  font-size:.92em;overflow-x:auto}
+.header-full span[data-el]+span[data-el],.t-teiHeader span[data-el]+span[data-el]{margin-left:.3em}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
+.reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
+  border:1px solid var(--hair);border-radius:2px;background:var(--paper);
+  color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
+.reg-table th{font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:left;
+  padding:6px 10px 6px 0;border-bottom:2px solid var(--hair);cursor:pointer}
+.reg-table th[aria-sort="ascending"]::after{content:" \2191"}
+.reg-table th[aria-sort="descending"]::after{content:" \2193"}
+.reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
+  font-family:var(--mono);font-size:11px}
+ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+ol.toc li{margin:.3em 0;break-inside:avoid}
+.lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
+details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
+details.lemma summary{cursor:pointer;list-style-position:outside}
+.lem-forms{color:var(--soft);font-size:.9em}
+.kwic{margin:.5em 0 .3em}
+.kwic td{border-bottom:0;padding:2px 8px 2px 0}
+.kwic .kb{text-align:right;color:var(--soft);width:40%}
+.kwic .kf{white-space:nowrap;text-align:center}
+.kwic .kf a{font-weight:600}
+.kwic .ka{color:var(--soft);width:40%}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="torchio">
+<div class="tt"><h1>P. Nic. Lancillottus S.I. P. Ignatio de Loyola, Goa 5 Novembris [1546]</h1><p class="sub">Eurasian Latin Archive</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html">Map</a><a href="data.html">Data</a></nav>
+</header>
+<div class="torchio-bar"><div class="inner"><span class="modes" role="group" aria-label="Text"><button data-mode="read" class="active" aria-pressed="true">Reading</button><button data-mode="dipl" aria-pressed="false">Diplomatic</button></span><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-lainez-normas-155807.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-loyola-a-saverius-15491010.html">next ›</a></nav><div id="ELA_2_2_lancillottus_epistola_15461105:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+      <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.0.0" class="t-title s-1-inline" data-el="title">P. Nic. Lancillottus S.I. P. Ignatio de Loyola, Goa 5 Novembris [1546]</span>
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Lancillottus, Nicolaus S.J.</span>
+         </span>
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.1" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.1.0" class="t-publisher s-1-bibliografia" data-el="publisher">
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.1.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="www.ela.unisi.it">ELA</span>
+            </span>
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.1.1" class="t-date s-2-date" data-el="date" data-when="2019-01-10">10/01/2019</span>
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.1.2" class="t-availability s-1-bibliografia" data-el="availability">
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.1.2.0" class="t-licence s-7-licenza" data-el="licence" data-target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</span>
+            </span>
+         </span>
+         <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.2" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.2.0" class="t-bibl s-1-bibliografia" data-el="bibl">
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.2.0.0" class="t-title s-1-inline" data-el="title" data-ref="https://www.worldcat.org/oclc/7503970" data-key="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 131-147</span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.2.0.1" class="t-idno s-2-entita" data-el="idno" data-type="SINICA"></span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.2.0.2" class="t-idno s-2-entita" data-el="idno" data-type="CCT"></span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.0.2.0.3" class="t-idno s-2-entita" data-el="idno" data-type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</span>
+            </div>
+         </div>
+      </div>
+      <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</div>
+         </span>
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">
+            </div>
+         </span>
+      </span>
+      <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.0.0" class="t-language s-7-header" data-el="language">Latin</span>
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.0.1" class="t-language s-7-header" data-el="language">Italian</span>
+         </span>
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.1" class="t-textClass s-7-header" data-el="textClass">
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.1.0" class="t-keywords s-7-header" data-el="keywords">
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.1.0.0" class="t-term s-1-inline" data-el="term" data-type="form">Prosa</span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.1.0.1" class="t-term s-1-inline" data-el="term" data-type="source">Documenta Indica</span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.1.0.2" class="t-term s-1-inline" data-el="term" data-type="genre">Epistolae</span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.1.0.3" class="t-term s-1-inline" data-el="term" data-type="place">Indiae</span>
+            </span>
+         </span>
+         <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.2" class="t-creation s-7-header" data-el="creation">
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.2.2.0" class="t-date s-2-date" data-el="date">1546</span>
+         </span>
+      </span>
+      <span id="ELA_2_2_lancillottus_epistola_15461105:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
+         <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="2019-01-02">E. Carbé: OCR (level 1), TEI (level 1)</div>
+         <div id="ELA_2_2_lancillottus_epistola_15461105:0.0.3.1" class="t-change s-7-header" data-el="change" data-when="2020-01-04">E. Carbé: text revision (level 2), TEI (level 2)</div>
+      </span>
+   </div><div id="ELA_2_2_lancillottus_epistola_15461105:0.1" class="t-text s-7-struttura-documento" data-el="text">
+      <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0" class="t-body s-1-struttura" data-el="body"> 
+         <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0" class="t-div s-1-struttura" data-el="div"><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.0" class="t-pb" role="separator" title="page break">[131]</span>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">† Ihs.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Pater mi in Christo Iesu.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">Gratia et pax Domini nostri Iesu Christi perpetuam mansionem in cordibus nostris habeat. Amen.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">1. Puto enim anno praeterito satis abunde me scripsisse, quid de hoc collegio tunc sentiebamus omnes, qui hic aderamus, per literas quas <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Petro Codarzo">Petro Codarzo</span> scripsi. Veram quoniam ignoro, an ad vos delatae fuerint literae, eadem maiori cum intelligentia et patrie et domus experientia, quo brevius potero repetam. Ne igitur longum faciam, Tua Reverentia sciat: antequam magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.1" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span> noster ad has partes <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.2" class="t-pb" role="separator" title="page break">[132]</span>venisset, magister Didacus lusitanus, vir magna doctrina ac probitate, hac in urbe <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Goa">Gouae</span> vitam degebat, qui sua doctrina et vitae exemplo quotidie aliquos gentiles ad Christi gregem adducebat. Nam est ille satis bonus concionator； et cum hoc officio uteretur, cepit sumere secum aliquos puerulos nuper baptizatos, et eos docere doctrinam christianam, prima elementa et grammaticam, quorum aliqui recte capiebant lusitanum sermonem, quibus interpretibus magister Didacus anunciabat verbum Dei gentilibus huius patriae, et ita magnum numerum eorum ad Christi fidem adduxit. Et cum magister Didacus videret tales pueros posse magnum adiumentum esse in predicatione verbi Dei, non solum in hac patria, verum etiam ubique gentium, putavit non alienum fore si institueretur collegium, ubi pueri diversarum linguarum sacrosantam Christi religionem edocerentur. Sed cum ipse magister Didacus parum sunptus haberet et non posset intentionem operi mandare, quemdam Micaelem Vaz, virum omnium iudicio probum ac doctum, qui vicarii ecclesiastici officio totius <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.4" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">Indie</span> fungebatur, et Cosmum Iohanem, huius civitatis nobilem et Regis officialem, et alios probos viros sibi univit, qui quidem, hanc optimam intentionem divinam esse probarunt, et totis viribus operi incubuerunt. Itaque caeperunt construere, partim proprio sumptu, partim etiam elemosinis, domum, in quam magister Didecus cum suis discipulis se recepit, et paulatim paulatim amplam domum fecere, et deinde templum <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.5" class="t-pb" role="separator" title="page break">[133]</span>satis comodum et hortum non parvum; in quo edificio ingens consumpta est peccunia. Deinde cum in hac insula essent quaedam indolorum templa, curarunt ut diruerentur et eorum census huic collegio donarentur quousque Rex eos confirmaret vel ex alio loco provideret. Nunc Micael Vaz, vicarius generalis, qui e <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.6" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/981529" data-key="Lusitania">Lusitania</span> venit, de Cochino scripsit Regem decrevisse duo millia ducatorum reditus huic collegio assignari super redditus <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.7" class="t-placeName s-2-entita" data-el="placeName" data-key="Goa">Goae</span>, et hoc et non amplius redditus habet hoc collegium. Et hoc fuit initium <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.4.8" class="t-pb" role="separator" title="page break">[19v]</span>illius usque modo.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">2. Pueri qui in hoc collegio docentur sunt novem linguarum et sunt in numero omnes sexaginta, grammatici triginta, quorum aliqui satis bene latinum sermonem intelligere incipiunt, et alii sunt incipientes. Alii triginta discunt legere et scribere.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6" class="t-p s-1-struttura" data-el="p">3. Sed ut revertar unde defluxit oratio: in principio huius edificii magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span> pervenit huc, et statim contraxit amicitiam cum istis aedificatoribus et mansit hic aliquot dies. Sed cum consideraret posse se maiorem fructum facere in alio loco quam hic, statim discessit et ubicumque versabatur omnium oculos et mentes in admirationem sui trahebat; nam semper, ubicumque occurrebat oportunitas, docebat parvulos et rudes et audiebat confessiones et predicabat, unde magnum nomen sibi paravit in tota ista <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6.1" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</span>. Et cum <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6.2" class="t-pb" role="separator" title="page break">[134]</span>] isti edificatores intuerentur in eo tantum doctrinae et vitae santimoniae, optabant admodum ut ipse susciperet hoc collegium nomine Sotietatis. Ipse autem, cum solus esset, putavit non hoc oneris eo tempore humeris imponendum suis, nam dominus Paulus, qui cum eo venerat, remanserat in Mozambicho causa curandi multos infirmos. Itaque cum videret posse se in partem aliquam ire, ubi suum officium melius exerceret, statim hinc ducentum leucas sese contulit, quae patria dicitur Caput Camorini, ubi fere inumerabiles gentiles baptizavit, et ibi per annum vel circa mansit. Deinde nescio ad quid huc revertit, et invenit dominum Paulum et Franciscum de Mansilla, qui iam venerant Gouam et voluit eos secum ducere ambos ad illas partes ubi converterat magnam multitudinem gentilium, sed rogatus per huius Hindie Gubernatorem, qui non minimo adiumento fuerat huic collegio, et per alios edificatores, dominum Paulum in hoc collegio causa instruendi hos pueros et eorum audiendi confessiones reliquit. Abiit itaque et duxit secum Franciscum de Mansilla ad illas partes, unde venerat, ubi alterum annum mansit non sine maximo Dei servitio. Deinde, nescio ob quam causam, reliquit illic Franciscum de Mansilla, qui eorum christianorum curam haberet, et se ipsum ad alias terras contulit, quae hino distant duo millia leucarum, quae patria vocatur Maluco, ex quo loco non possumus recipere literas nisi de anno in annum quemadmodum a vobis,<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6.3" class="t-foreign s-1-inline" data-el="foreign">perchè non se po navigare quello <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6.3.0" class="t-pb" role="separator" title="page break">[135]</span>mare se no in certo tempo</span>. Ex medio itineris scripsit nobis magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.6.4" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span> et postea nunquam accepimus eius literas.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7" class="t-p s-1-struttura" data-el="p">4. <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7.0" class="t-date s-2-date" data-el="date" data-when="1545-03-25">Anno 1545 die 25 Martii</span> <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7.1" class="t-persName s-2-entita" data-el="persName" data-key="Criminalis, Antonius S.J.">Antonius Criminalis</span>, et <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7.2" class="t-persName s-2-entita" data-el="persName" data-key="Iohannes de Bera">Iohannes de Bera</span> et ego ascendimus navim Ulisìpone et <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7.3" class="t-date s-2-date" data-el="date" data-when="1545-10-02">secundo die Otobris eiusdem anni</span> appulimus Gouam, Christi ope, incolumes, ubi per magistrum Didacum et per dominum Paulum et alios huius collegii edificatores summa cum benignitate ac animi charitate suscepti fuimus. Putabant enim isti boni viri nos esse et doctrina et vite santimonia praeditos veluti magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7.4" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span>, qui possemus et vite exemplo et doctrina hoc eorum opus augumentare. Sed cum nostram imbecilitatem ac ignorationem perspexere, frigidi et fere exangaus remanserunt. Nos autem，ut potuimus，adhortati sumus eos ad patientiam dicentes venturos alios doctiores <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.7.5" class="t-date s-2-date" data-el="date" data-when="1546">anno 1546</span>, sed evanuit spes nostra, ut dicam suo loco, Deo favente.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.0" class="t-pb" role="separator" title="page break">[20r]</span>5. Eadem hebdomeda qua nos huc appulimus, discederunt hin[c] naves quae ibant ad <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Malaca">Malacam</span>, et eodem tempore discedebat magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.2" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span> a Capite Camorini, ut etiam in <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Malaca">Malacam</span> iret. Nos antem, cum audivissemus ipsum eo navigaturum, literas illuc ad ipsum misimus, ex quo responsum accepimus infra spatium quinque mensium, id est, in <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.4" class="t-date s-2-date" data-el="date" data-when="1546-02">Februario 1546</span>. Interim nos mansimus hic in hoc collegio totum hoc tempus, et ego sumpsi munus ad quod missus fueram, hoc est, officium docendi grammaticam, et pro meo posse eo fungi conatus sum hoc anno, licet supra vires meas esset la<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.5" class="t-pb" role="separator" title="page break">[136]</span>bor. Interpretatus enim sum hoc anno istis iuvenibus Andriam Terretii et magnam partem Eunuchi, et omnes eglogas Vergilii et aliquot fabulas Ovidii et eiusdem duas epistolas, et Catonem, et tempore quadragesimali epistola[m] divi Hieronimi ad Eliodorum, necnon copiam verborum Erasmi, singulis sabbat[is] totius anni. Sed quam insulse haec omnia interpretatus fuerim, viderint illi quibus ex officio incumbit. Hoc tantum scio, si iuenes isti haberent bonum preceptorem, brevi in doctos evaderent viros. <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.6" class="t-pb" role="separator" title="page break">[137]</span><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.8.7" class="t-date s-2-date" data-el="date" data-when="1546-07-01">Calendis Iulii 1546</span> incidi in febrim, et caepi spuere sanguinem in magna quantitate, ob quam causam ex eo tempore non docui, neque studui quicquam. Medici aiunt si possem etiam breviarium dimittere, hoc est, si possem evitare ne persolverem officium divinum, bonum esset, propter suspitionem thisicae.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9" class="t-p s-1-struttura" data-el="p">6. <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.0" class="t-persName s-2-entita" data-el="persName" data-key="Criminalis, Antonius S.J.">Antonius Chriminalis</span> et <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.1" class="t-persName s-2-entita" data-el="persName" data-key="Iohannes de Bera">Iohannes de Bera</span> manserunt hic nobiscum sex menses usque recepimus literas a <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.2" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus S.J.">magistro Francisco</span>, qui iverat in <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Malaca">Malacam</span>, ut dixi, et ibi invenit literas nostras quas una cum vestris a nobis latas eo miseramus, et eodem tempore erant in ea insula, naves paratae ut Gouam venirent, per quas statim magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.4" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span> misit ad nos literas, quibus iubebat ut docerem hos iuenes, et <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.5" class="t-persName s-2-entita" data-el="persName" data-key="Iohannes de Bera">Iohannes de Bera</span> et <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.9.6" class="t-persName s-2-entita" data-el="persName" data-key="Criminalis, Antonius S.J.">Antonius Chriminalis</span> irent ad Caput Camorini, unde ipse discesserat. Qui illico se eo contulerunt, ubi iam manserunt novem vel decem menses et non sine magno animarum fructu et Dei servitio.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.10" class="t-p s-1-struttura" data-el="p">7. Patria enim illa est nimis horrida ac sterilis et gentes illius sunt veluti pecora campi, et quotidie inter se invicem seviunt more ferarum, prop[t]er quod inquieti sunt Fratres et in perpetuo periculo ac labore versantur. Vescuntur in illa patria lacte, oriza, carnibus; panem autem minime habent. Sed quoniam puto Antonium difuse scribere de hoc, non dicam aliud.</div><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.11" class="t-pb" role="separator" title="page break">[138]</span>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.12" class="t-p s-1-struttura" data-el="p">8. Duo principes Silani qui Gonuae manebant, et iam baptizati erant, ex quibus multa bona sperabam, ambo mortui sunt. Quidam eorum consanguineus rex patriae quae dicitur Candia, in christianam sese dedit religionem una magna cum sui regni parte, ob quam rem inexhaustae gratiae Domino sunt referendae, nam omnium iudicio, hoc est principium maximi boni, quia dificilius est iacere fundamenta fidei in uno regno, postea omnes facile audient doctrinam nostram, cum viderint maiores suos incipere suscipere eam.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.13" class="t-p s-1-struttura" data-el="p">9. <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.13.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Mansilla">Franciscus de Mansilla</span> est vir bonae mentis ac intentionis, sed penitus ineruditus, neque scit legere officium quod quotidie persolvere tenetur, neque videtur posse discere tantum ut aliquando sciat celebrare. Nescio quo titulo premotus [!] fuerit ad ordines sacros, est enim iam sacerdos et habet facultatem celebrandi. Dominus parcat illis qui illi dederunt ordines. Bene dixi ego Episcopo, quomodo ordinabat homines tam rudes? Dixit ille: «non sunt doctiores, quid remediit» Satis.</div><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.14" class="t-pb" role="separator" title="page break">[139]</span>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.15" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.15.0" class="t-pb" role="separator" title="page break">[20v]</span>10. Illa patria quo se contulit magister <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.15.1" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus">Franciscus</span>, ut multi dicunt qui illinc venerunt, est optime parata ad recipiendum verbum Dei. Expetamus literas a <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.15.2" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus S.J.">magistro Francisco</span> ut certiores nos faciat de omnibus quae illic aguntur: recipiemus enim, Deo favente, hoc mense <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.15.3" class="t-date s-2-date" data-el="date" data-when="1547-01">Ianuarii proximi</span>; et si ipse iusserit, mittemus aliquos Fratres ad eum.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.16" class="t-p s-1-struttura" data-el="p">11. Convalueram iam aliquantulum ex mea infirmitate predicta et eram fere ab omni labore expeditus; volebam enim me aliquo recipere ubi cum interprete possem aliquid sic suaviter docere sine magno labore, sed ecce magister Simon mittit novem Fratres tamquam gregem sine pastore et iubet ut suscipiam curam huius domus et eorum obedientias, quod munus quantum sit supra vires meas, puto non te latere. Verum cum vidissem non posse me cum aliorum edificatione recusare, ingentem sarcinam humeris meis imposui, et si aliquis magis idoneus non venerit anno venturo, haud scio si potero perferre laborem cum omnium edificatione. Sepenumero espuo aliquid sanguinis; nescio quid erit de me. Admodum angor videns me ad omnia inabilem, non quod non sim contentus et quietus in meo animo de omnibus quae eveniunt, sive prospera sive adversa； nam ita iam me Domino obtuli hac lege ut etiam, si opus fuerit, semper in tormento me esse non recusem, dummodo voluntas eius fiat. Sed quoniam video messem Domini copiosam, messores autem nullos, non possum non exoptare scientiam quam iam neglexi, et vitae perfectionem quam oporteret habere omnes quicumque ad has partes <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.16.0" class="t-pb" role="separator" title="page break">[140]</span> sese conferre optarent. Et non possum non mirari quare magister Simon miserit huc homines ita debiles et inexpertos, ut sumus nos. Deus faxit ne priusquam nostra Sotietas in hac patria aliquid fame bone accipiat, aliqua aspergatur labe, sed haec missa faciamus.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.17" class="t-p s-1-struttura" data-el="p">12. Hoc unum tantum Christi amore a Tua Reverentia hisce literis contendo, ut si nos, quos in Christo genuisti, amas, mittas aliquem probum virum ac literatum professum in Societate ad has partes cui omnes nos obediamus, ut tenemur, et ad quem recurrere possimus ad quascumque dificultates decidendas ac determinandas, qui habeat plenam authoritatem Reverentiae Tuae, et si posset fieri, haberet omnes casus, etiam «in Cena Domini» servatos, cum authoritate etiam conferendi cuicumque vellet. Nam quotidie non pauci ocurrunt casus servati in Cena Domini, propter assiduam consuetudinem quam habent hic christiani cum mauris et ceteris infidelibus: vendunt enim lusitani omnia armorum genera et equos et alias merces quotidie absque respectu (quamvis sit continuum bellum) mauris et ceteris infidelibus; tamen nemo venit <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.17.0" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Romam</span> petitum absolutionem. Multae etiam personae neccessitatis tempore promittunt ire Hierusalem, Ro<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.17.1" class="t-pb" role="separator" title="page break">[141]</span>mam, Compustellam, et postea perpetuo laborant scrupolo.<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.17.2" class="t-lb"><br/></span>Quis enim duodecim millia leucarum iret causa satisfaciendi votum, nisi esset ardentissimus in caritate et Christi amore? et certe non pauci sunt hoc nodo detenti. Quid mali esset si Sua Sanctitas cum istis dispensaret? Fortasse loquor quod non debeo, neque scio: necessitatem certe video, ius autem ignoro. Propterea Tua Reverentia aequi bonique consulat hoc, quia ex optimo animo scripsi propter timoratas conscientias.</div><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.18" class="t-pb" role="separator" title="page break">[21r]</span>
+ <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.19" class="t-p s-1-struttura" data-el="p">13. <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.19.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus S.J.">Magister Franciscus</span> ita potest hic providere ex loco ubi est, ut esset <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.19.1" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Rome</span>; et de hoc collegio parum scit, nunquam potuit hic manere. Puto enim agatur a spiritu Domini ad illas partes. Haec Hindia tam magna non sufficerent centum millia hominum doctissimorum ad eam convertendam; et amore Dei ne mittantur huc nisi homines per omnia experti ac probati, et fortes et animo et corpore<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.19.2" class="t-lb"><br/></span>Multa sunt quae quotidie eveniunt et non licet per literas mittere; non esset fortasse alienum, si aliquando revocaretur aliquis hinc <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.19.3" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Romam</span>, ut plene intelligere posset Tua Reve<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.19.4" class="t-pb" role="separator" title="page break">[142]</span>rentia et huius patrie leges, mores ac ritus et locorum temperies et alia hoc genus.</div>
+<div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.20" class="t-p s-1-struttura" data-el="p">14. Ut igitur ad ea veniamus quae prae manibus quotidie habemus, ut supra dixisse me puto: edificatores huius collegii inter alia quae statuerunt, decreverunt, ne quis reciperetur in hoc collegio nisi ex patre et matre indis natus fuisset, neque volunt recipiantur filii lusitanorum ex matribus indis, et hoc non sine causa. De lusitanis dicunt: «Si recipimus lusitanos cum istis nigris, semper erunt in contentionibus, dicentes: ‘Tu es niger et albus, tu es captivus et ego ingenuus’» etc. Mistitii autem huius patrie laborant non bona fama, propterea nemo est qui aliquid boni ex illis speret. Quam obrem optaremus omnes esset hic aliquis, ut dixi, vir bonus de Sotietate qui hoc collegium vel nomine Sotietatis reciperet et secundum nostram normam vivendi ordinaret, vel dimitteret si ad nostrum negotium non esset acomodatum, vel saltem iuberet ut in omnibus et per omnia acomodaremus nos ad volutates fundatorum collegii. Hoc dico non sine causa; nam huius patrie moris est complures facere processiones in anno, et <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.20.0" class="t-persName s-2-entita" data-el="persName" data-key="Cosmus Iohanes">Cosmus Iannes</span> qui, ut supra dixi, plurimum laboravit in hoc opere, vellet isti infantes et nos simul iremus ad has processiones, quod nunquam Fratribus placuit, nec voluerunt in hoc illi asentire, nam cum nostra precipuua sit intentio docere hos pueros literas et virtutes, quae non parantur nisi magno studio ac assiduitate, inconveniens visum est nobis mittere illos quotidie per civitatem suplicantes, et precipue in hac civitate ubi sunt tot <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.20.1" class="t-pb" role="separator" title="page break">[143]</span> fratres et canonici et clerici qui faciunt has processiones ad populi libitum. Precipua tamen causa ob quam nolumus ire ad illas, est quia videmus nostram Societatem imunem ab istis publicis officiis, et propterea iudicavimus bonum esse si non reciperemus hoc oneris sine Tuae Reverentiae facultate, et non fecimus sine consilio proborum. Cosmiannes autem non potest hoc concoquere. Accedit his etiam quod ipse vellet susciperemus sepeliendi munus in hac eclesia, quae omnia sunt impedimenta non minima studentibus et non carent invidia et clericorum et cinobitarum, qui nos plurimum amant modo; at si inciperemus auferre ab eis elemosinas, brevi nos odio haberent, quod evitare, pro viribus, elaborabimus donec veniat qui nos dirigat ad tutiorem partem. Si in hoc exordio susciperemus has obligationes, dificilius esset eas auferre si Sotietas postea eas non probaret. Quotidie aliqui relinquunt si volumus eos hic sepelire, dentur nobis tot pecuniae et totidem missarum trentaria et alia, sed nos omnia refellimus, et ipsi ad divum Franciscum se conferunt, vel ad ecclesiam cathedralem; prop[t]er quod clerici et cinobite deosculantur nobis pedes, et aiunt nos esse sanctos. Sed haec missa faciamus, et liceat mihi proferre, quid de his sentiam, quamvis imbecilli iudicio sim.</div><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.21" class="t-pb" role="separator" title="page break">[144]</span>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.22" class="t-p s-1-struttura" data-el="p">15. Quanta virorum doctorum pariter et bonorum neccessitas in his partibus sit, calamo consequi non valeo, et cum nostrae religionis praecipua sit intentio docendi doctrinam christianam，et cum pauci admodum sint qui ad hoc <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.22.0" class="t-pb" role="separator" title="page break">[21v]</span> se dicare vellint, et cum haec patria sit admodum horrida ac aspera nobis qui in <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.22.1" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/991376" data-key="Europa">Europa</span> nati sumus, et non possimus sustinere propter celi intemperiem huius labores in histis partibus neccessarios, puto convenientissimum et necessariissimum esse constituere domos vel collegia in hac patria, in quibus erudiantur homines huius patriae in omni scientiae genere, qui aptiores sunt ad perferendum calorem huius patriae, qui est fere intolerabilis; et quoniam magni non inveniuntur iuenes qui relictis omnibus sese religioni consecrent, opus est parvulos suscipere, et eos et in literis et in vitae santimonia exercere, donec ad etatis maturitatem perveniant, ut possint et bonum et malum sibi eligere, et tunc qui voluerit nostrum et Christi tramitem sequi, eum amplecti et recipere in nostra Congregatione; et cum hoc non possit comodius fieri quam si eorum magna multitudo congregetur, et erudiatur per perfectos preceptores, crederem convenientissimum esset si nostra Societas sese dispositioni huius terre acommodaret et huius collegii curam susciperet, et procuraret ut Rex illud adaugeret ut complures edoceri possent. Et si professi in Societate <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.22.2" class="t-pb" role="separator" title="page break">[145]</span> non possent servire collegio, ex aliis non professis, docti m[a]gistri et confessores et predicatores eligerentur, qui tantum opus corruere non sinerent sed in dies magis et doctrina et vitae exemplo adaugerent. Sunt enim gentes huius terre non secus ac pecora campi, et tamen cum erudiri incipiuntur, optima ingenia habent. Non possum quidem non deflere eorum miseram sortem, cum considero tot secula tot millia milium hominum veritatis lumine caruisse; ob quam rem si possem eorum indigentiae, propriae vitae dispendio, aliquo pacto consulere, minime recusarem； et hoc me excruciat quod video me nihil illis prodesse posse.</div>
+ <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.23" class="t-p s-1-struttura" data-el="p">16. Excitentur igitur qui apud nos sunt idonei ad hoc opus capessendum, et sese praecingant, et ne patiantur tot animulas Iesu Christi sanguine redemptas a sevissimis demonibus devorari, qui praecipue in his partibus nefandissimam suam exercent tiranidem, nam sub cuiusvis creaturae specie adorantur ab istis miserimis homunculis. Caeterum spero quidem brevi temporis spatio fore (si Tua Reverentia huic operi incumbere decreverit) ut demon magnam tiranidem, quam in nostros sevissime exercet proximos, Christi ope, amittat.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24" class="t-p s-1-struttura" data-el="p">17. In hoc collegio sunt multi iuenes bonae indolis qui et ingenio et memoria pollent, et iam satis bene intelligere incipiunt latinum sermonem et componunt iam mediocriter; nunquam habuerunt doctum magistrum nec habent, et certe magnam ex illis concipio spem. Dominus faxit ne fallar, sed meis et eorum votis aspiret ac faveat propter suam misericordiam.
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24.0" class="t-lb"><br/></span>Cum istis qui hoc anno venerunt a <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24.1" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/981529" data-key="Lusitania">Lusitania</span>, venit quidam bonus vir, noster Frater, ut doceret hos grammaticos, et docet iam; sed non satisfacit in omnibus circa hoc. Non opor<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24.2" class="t-pb" role="separator" title="page break">[146]</span>teret esset sacerdos magister qui vult hic docere, sed vir probus et doctus et fortis corpore et animo. Nam cum haec terra sit in medio toridae zone, est admodum calida et non licet suscipere tantum laboris ut apud nostrates.<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24.3" class="t-lb"><br/></span>Isti edificatores collegii constituerunt etiam quasdam constitutiuculas ac formulam vivendi in hoc collegio, quas a verbo ad verbum curavi ad te mittendas, ut Tua Reverentia melius possit intelligere quid de hoc faciendum sit. Nos habemus hic modum aedificandi collegia quem misit Tua Reverentia, <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24.4" class="t-pb" role="separator" title="page break">[22r]</span> sed ut dixi, homines huius patriae non sunt impresentiarum capaces tantae perfectionis. Quamobrem opus est matare mutanda pro loco et tempore, ut omnes lucrifaciamus ad Omnipotentis gloriam et onorem.<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.24.5" class="t-lb"><br/></span>Nil aliud nunc mihi venit in mentem, quod scribam Tuae Reverentiae, nisi quod rogo Christum, redemptorem nostrum, dirigat nos per vias suas, qui est benedictus in secula. Amen.</div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.25" class="t-p s-1-struttura" data-el="p">
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.25.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Goa">Gouae</span>, <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.25.1" class="t-date s-2-date" data-el="date" data-when="1546-11-09">Nonis Novembris 1546</span>. 
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.25.2" class="t-lb"><br/></span>Tuae Reverentiae indignus servus, 
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.25.3" class="t-lb"><br/></span>Nicolaus Lancilottus.    
+            </div>
+            <div id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.0" class="t-pb" role="separator" title="page break">[147]</span><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.1" class="t-pb" role="separator" title="page break">[22v]</span>
+               <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.2" class="t-hi s-1-inline" data-el="hi">Inscriptio</span>: Al molto <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.3" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.3.0" class="t-abbr s-3-editoriale" data-el="abbr">Rdo</span><span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.3.1" class="t-expan s-3-editoriale" data-el="expan">Reverendo</span></span> Padre, al Padre M. <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.4" class="t-persName s-2-entita" data-el="persName" data-ref="http://viaf.org/88881025" data-key="Loyola, Ignatius de S.J.">Hignatio de Loiola</span>, Preposito della Compagnia de Jesù in Sancta Maria dalla Strada, in <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.5" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Roma</span>.<span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.6" class="t-lb"><br/></span>
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.7" class="t-lb"><br/></span>A <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.8" class="t-placeName s-2-entita" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Roma</span>
+            <span id="ELA_2_2_lancillottus_epistola_15461105:0.1.0.0.26.9" class="t-lb"><br/></span>Ipsi.</div> 
+         </div>
+      </div>
+   </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-lainez-normas-155807.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-loyola-a-saverius-15491010.html">next ›</a></nav></main>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
+<script>
+(function(){
+  var body=document.body; body.classList.add('mode-read');
+  var pop=null, lastTrigger=null;
+  function closePop(){
+    clearZone();
+    if(pop){pop.remove();pop=null;}
+    if(lastTrigger){lastTrigger.setAttribute('aria-expanded','false');
+      if(document.activeElement===document.body)lastTrigger.focus();
+      lastTrigger=null;}
+  }
+  function openPop(html,near){
+    closePop();
+    pop=document.createElement('div');pop.className='torchio-pop';pop.innerHTML=html;
+    pop.setAttribute('role','dialog');pop.tabIndex=-1;
+    document.body.appendChild(pop);
+    var r=near.getBoundingClientRect();
+    var x=Math.min(r.left+window.scrollX, window.scrollX+document.documentElement.clientWidth-pop.offsetWidth-16);
+    pop.style.left=Math.max(16,x)+'px';
+    pop.style.top=(r.bottom+window.scrollY+6)+'px';
+    lastTrigger=near;near.setAttribute('aria-expanded','true');
+    pop.focus();
+  }
+  /* keyboard access: every trigger is focusable and reacts to Enter/Space */
+  function makeTrigger(el,label){
+    el.setAttribute('tabindex','0');el.setAttribute('role','button');
+    el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-expanded','false');
+    if(label)el.setAttribute('aria-label',label);
+  }
+  /* the zone of text a note refers to: declared targets first, then the
+     word or block just before its mark */
+  var hiZone=[];
+  function clearZone(){hiZone.forEach(function(e){e.classList.remove('note-hi');});hiZone=[];}
+  function zoneOf(n){
+    var app=n.closest('.t-app');
+    if(app)return [app];
+    var t=n.dataset.target;
+    if(t){
+      var els=t.split(/s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
+      if(els.length)return els;
+    }
+    var m=n.previousElementSibling;
+    if(m&&m.classList&&m.classList.contains('t-note-mark')){
+      var prev=m.previousElementSibling;
+      if(prev&&prev.nodeType===1&&!prev.classList.contains('t-note')&&(prev.textContent||'').length<400)return [prev];
+      var par=m.parentElement;
+      if(par&&par!==document.body&&(par.textContent||'').length<400)return [par];
+    }
+    return [];
+  }
+  function showZone(n){clearZone();zoneOf(n).forEach(function(e){e.classList.add('note-hi');hiZone.push(e);});}
+  document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
+    makeTrigger(el,'apparatus entry: '+el.textContent.trim());
+  });
+  document.querySelectorAll('[data-ref]').forEach(function(el){
+    if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
+      makeTrigger(el,null);
+  });
+
+  document.addEventListener('keydown',function(ev){
+    if((ev.key==='Enter'||ev.key===' ')&&ev.target.getAttribute&&ev.target.getAttribute('role')==='button'
+       &&!ev.target.closest('.torchio-bar')){
+      ev.preventDefault();ev.target.click();
+    }
+  });
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function sigla(w){return (w||'').split(/\s+/).filter(Boolean).map(function(x){return x.replace(/^#/,'');}).join(' ');}
+
+  document.addEventListener('click',function(ev){
+    if(pop&&pop.contains(ev.target))return;
+    var app=ev.target.closest&&ev.target.closest('.t-app');
+    if(app&&!body.classList.contains('app-off')){
+      var rows='';
+      app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
+        rows+='<div class="rdgline"><span class="sig">'+esc(sigla(r.dataset.wit)||(r.dataset.el==='lem'?'lem.':'—'))+'</span>'
+          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
+          +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
+      });
+      var extra='';
+      app.querySelectorAll('.t-note').forEach(function(nn){
+        extra+='<div class="meta">'+esc(nn.textContent.replace(/s+/g,' ').trim())+'</div>';
+      });
+      openPop('<span class="k">apparatus'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
+      ev.stopPropagation();return;
+    }
+    var ch=ev.target.closest&&ev.target.closest('.t-choice');
+    if(ch&&!ch.closest('.t-app')){
+      var kinds={abbr:'Diplomatic',orig:'Diplomatic',sic:'Diplomatic',expan:'Reading',reg:'Reading',corr:'Reading'};
+      var rows='';
+      [].slice.call(ch.children).forEach(function(c){
+        var k=c.dataset&&c.dataset.el; if(!kinds[k])return;
+        rows+='<div class="rdgline"><span class="sig">'+esc(k)+'</span>'
+          +'<span>'+esc(c.textContent.trim())+'</span>'
+          +'<span class="meta">'+esc(kinds[k].toLowerCase())+'</span></div>';
+      });
+      if(rows){openPop(rows,ch);ev.stopPropagation();return;}
+    }
+    var ent=ev.target.closest&&ev.target.closest('[data-ref]');
+    if(ent&&!body.classList.contains('ent-off')&&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
+      var ref=ent.dataset.ref;
+      var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
+      openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
+        +'<div>'+esc(ent.textContent.trim())+'</div>'
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    var np=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(np&&!body.classList.contains('notes-off')){
+      var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
+      if(nn){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        showZone(nn);
+        ev.stopPropagation();return;
+      }
+    }
+    closePop();
+  });
+  /* margin notes: position each note beside its anchor (data-target for
+     standoff notes, the preceding mark otherwise), stack on collision,
+     and draw a faint leader to the exact point */
+  function leaders(){
+    var old=document.getElementById('note-leaders'); if(old)old.remove();
+    var main=document.querySelector('main.torchio'); if(!main)return;
+    var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
+      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
+    function anchorOf(n){
+      var app=n.closest('.t-app');
+      if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
+      var t=n.dataset.target;
+      if(t){
+        var id=t.split(/s+/)[0].replace(/^#/,'');
+        var el=document.getElementById(id);
+        if(el)return {el:el,kind:'target'};
+      }
+      var m=n.previousElementSibling;
+      if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
+      return null;
+    }
+
+    /* economy rule: past this density the margin cannot carry the notes;
+       they collapse to their marks and open on click, like the apparatus */
+    var dense=notes.length>12;
+    body.classList.toggle('notes-dense',dense);
+    if(dense){
+      notes.forEach(function(n,i){
+        if(n.dataset.npi)return;
+        n.dataset.npi=String(i);
+        var res=anchorOf(n);
+        if(res){res.el.setAttribute('data-notepop',String(i));
+          res.el.removeAttribute('aria-hidden');makeTrigger(res.el,null);}
+      });
+    }
+    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
+      return;
+    }
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var colLeft=main.clientWidth+26;
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='note-leaders';
+    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
+    var lastBottom=0;
+    var items=notes.map(function(n){
+      var flowY=n.getBoundingClientRect().top-mr.top;
+      var res=anchorOf(n);
+      var a=res?res.el:null, kind=res?res.kind:null;
+      var y=flowY;
+      if(a){
+        var r=a.getBoundingClientRect();
+        var ay=(r.width||r.height)?r.top-mr.top:null;
+        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
+        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
+        else{a=null;}
+      }
+      return {n:n,a:a,kind:kind,y:y};
+    });
+    items.sort(function(p,q){return p.y-q.y;});
+    items.forEach(function(it){
+      var n=it.n;
+      n.classList.add('placed');
+      var top=Math.max(it.y,lastBottom+10);
+      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
+      lastBottom=top+n.offsetHeight;
+      if(it.a){
+        var ar=it.a.getBoundingClientRect();
+        if(ar.width||ar.height){
+          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
+          var x2=colLeft-8, y2=top+8;
+          // a thread only when short and meaningful; never across the page
+          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
+            var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
+            p.setAttribute('fill','none');
+            p.setAttribute('stroke','var(--faint)');
+            p.setAttribute('stroke-width','1');
+            svg.appendChild(p);
+          }
+          // hover pairing in both directions
+          (function(anchor,note){
+            var els=null;
+            function on(){if(!els)els=zoneOf(note);els.concat([anchor]).forEach(function(e){e.classList.add('note-hi');});note.classList.add('note-hi');}
+            function off(){(els||[]).concat([anchor]).forEach(function(e){e.classList.remove('note-hi');});note.classList.remove('note-hi');}
+            note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
+            anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
+            note.addEventListener('click',function(ev){on();if(els&&els[0])els[0].scrollIntoView({block:'nearest'});ev.stopPropagation();});
+          })(it.a,n);
+        }
+      }
+    });
+    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
+    main.appendChild(svg);
+  }
+  if(document.readyState==='complete')leaders();
+  else window.addEventListener('load',leaders);
+  window.addEventListener('resize',leaders);
+
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape')closePop();});
+
+  var bar=document.querySelector('.torchio-bar');
+  if(bar){
+    bar.addEventListener('click',function(ev){
+      var b=ev.target.closest('button'); if(!b)return;
+      if(b.dataset.mode){
+        body.classList.toggle('mode-dipl',b.dataset.mode==='dipl');
+        body.classList.toggle('mode-read',b.dataset.mode==='read');
+        bar.querySelectorAll('[data-mode]').forEach(function(x){x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});
+      }
+      if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
+      if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();leaders();}
+      if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
+    });
+  }
+})();
+</script>
+</body>
+</html>

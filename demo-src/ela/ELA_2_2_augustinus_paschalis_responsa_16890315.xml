@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Responsa ad D. Carolum Maigrot, 15 et 22 Mart. 1689</title>
+                  <author>Augustinus Sancti Paschali O.F.M.</author>
+               </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-11-11">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 544-567</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+               <idno type="URI"></idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1689</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-14" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="703" type="page"/>  
+           <p>1. Ego infrascriptus presbyter provicarius apostolicus provinciarum <placeName key="Quangtung">Quangtung</placeName>, <placeName key="Fokien" ref="https://www.geonames.org/1811017">Fokien</placeName>, <placeName key="Kiang si" ref="https://www.geonames.org/1806222">Kiangsi</placeName>, etc. <pb n="703" type="page"/>missionis <placeName key="Sinae">Sinarum</placeName> viceadministrator generalis: Lecta R. A. P.  <persName key="Augustinus de Paschalis O.F.M.">Augustini a S. Paschali</persName> ordinis S. Francisci in <placeName key="China">China</placeName> comissarii responsione, super facta illi exhibitione, tam authographi litterarum quibus ab Illmo Episcopo Methelopolitano provicarius apostolicus, sede vacante, in memoratis provinciis et missionis <placeName key="Sinae">Sinarum</placeName> viceadministrator generalis respective sum constitutus, quam autentici instrumenti quo IIlmus ac Rmus Episcopus Argolicensis iuxta memoratas litteras me in provicarium apostolicum et viceadministratorem recognovit. Est autem responsio tenoris sequentis: R. P. comissarius respondit, se esse subiectum mandatis R. P. provincialis provinciae S. Gregorii Philippinarum; idcirco ad respondendum indiget termino ultramarino, etiamque transcripto autentico — quod illi datum est — de omnibus litteris sibi praesentatis dicto suo praelato <placeName key="Manila">Manilae</placeName> degenti mittendo. </p>
+           <p>2. Quae responsio manifeste recogit in contemptum S. Congregationis et illius ministrorum, eoque tendit, ut memoratus pater contra districtam S. Congregationis prohibitionem non emisso iuramento, missionarii functiones exercere securius perseveret; quare ne dictus R. P. ex mala responsione fructum aliquem coligere sibi videretur, iterum illi, et per illum caeteris eiusdem ordinis missionariis denuntio, omnes et singulas facultates missionarii functiones his in locis exercendi quolibet modo obtentas nullas et irritas esse, ac si non emanassent, non emisso scilicet iuramento a S. Congregatione praescripto, et sub poenis in decreto S. Congregationis contentis districte prohibeo ne vel ille, vel quivis ex illius subditis missionarii functiones exerceat, donec me et provicarium, et viceadministratorem recognoscat, et iuramentum a S. Congregatione praescriptum emittat, quod si his non obstantibus dictus R. P. <pb n="704" type="page"/> comissarius S. Congregationis imperium detrectare perseveret, me omni canonica via adversus illum processurum esse denuntio. Datum in seminario <placeName key="Canton" ref="https://www.geonames.org/5149222">Cantonensi</placeName> die <date when="1689-03-14">14 martii 1689</date>. Carolus Maigrot provicarius apostolicus <placeName key="Canton" ref="https://www.geonames.org/5149222">Cantonensis</placeName>, ac viceadministrator missionis <placeName key="Sinae">Sinarum</placeName>. — Per me notificatimi praedicto A. R. P. comissario eodem die et anno ut supra. <persName key="Quemener, Ludovicus">Ludovicus Quemener</persName> presbyter missionarius apostolicus ad hoc missus.</p>
+              <p>3. Ad intimationem mihi factam per A. R. D. D. <persName key="Quemener, Ludovicus">Ludovicum Quemener</persName> <date when="1689-03-14">14 martii anno 1689</date>, dico me et meos religiosos semper obtemperavisse S. Congregationis mandatis, et nullam rationem video, propter quam possim argui ut quid observo mandata meorum praelatorum <placeName key="Manila">Manilae</placeName> degentium; neque quia negavi umquam auctoritatem proadministratori et provicario quam tenet. Si eam negavissem, non ad intimationem die <date when="1689-01-28">28 ianuarii eiusdem anni</date> per relatum A. R. D. factam responderem, nec supplicarem terminum et transcriptum ad respondendum, ut constat de mea responsione in ista secunda intimatione citata, et qui admittit intimationem et petit terminum ad respondendum ab eo, qui ei intimat, et datum admittit, ut de aucto relata die <date when="1689-01-28">28</date> facto constat, non negat, nec negare praesumit eius et S. Congregationis ministrorum auctoritatem. Praeterea extraiudicialia semper verbo et epistolis feci et facio D. V. proadministratorem et provicarium et relatae actiones idem probant.</p>
+              <p>4. Quantum ad administrationem, ego et mei religiosi administramus in virtute facultatum in scriptis a vicariis apostolicis datarum et non solum in hoc relatam administrationem iustifico coram Deo et S. Congregatione cuius mandatis semper studui et studio obtemperare, ut noster modus procedendi usque <pb n="705" type="page"/>modo attestat; at etiam quia mihi est notorium, vicarios apostolicos apellavisse, seu supplicavisse a lege decreti; et apellatio sive supplicatio facta secundum ius suspendit legem. An vero dicta supplicatio habeat vigorem necne, <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedes</placeName> et EE.DD. Cardinales usque nunc mihi non comisserunt authoritatem ad examinandum actiones vicariorum apostolicorum; et quia in his temporibus et terris, ubi de quadam novitate scandala inter christianos apostasiae et damna urgentissima missioni minantia, propter neophitorum imbecillitatem facillime oriantur, ut iam experti fuimus in illo tempore in quo lis ista originem habuit; quae omnia fuerunt in causa, ut vicarii apostolici ad occurrendum relatis malis, de lege decreti supplicaverunt; a quorum supplicatione prosperus evenit effectus, cum pace et incremento, quod modo missio habet.</p>
+              <p>5. Et si aliquid in presenti missionis pacifico statu V.D. innovare voluerit, ex parte Dei et eius divinae iustititae requiro etiamque ex parte S. Congregationis iterum atque iterum protestor, et quoties mihi ius divinum et humanum permisserit nihil contra pacem et bonum missionis, quod in presenti possedimus, praeiudicare poterit; cum iam ipsamet litigatio pendeat immediate a <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sede Apostolica</placeName> et dum ab ea non venerit decisio, nullus iudex eiusdem Sedis inferior, iuste innovare aliquid poterit, super eosdem punctos, in quibus dictum litigium pendet. Et si in ista protestatione quam cum debita reverentia et veneratione ante V.D. facio, aliqua clausula sive conditio secundum ius necessario declaranda ad eius vigorem deserit pro suposita et expressa, in meliori forma iuris qua possum, pro suposita et expressa habeatur. Et ut semper constet de ista mea responsione et protestatione, reverenter et <pb n="706" type="page"/>humiliter V.D. supplico, ut acceptet et actuari iubeat, et actuata authographum mihi reddat ad mei iuris securitatem. Data in hac ecclesia seraphici Patris Francisci extra muros civitatis <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName>, die 15 martii eiusdem anni.
+                 <lb/>Fr. <persName key="Augustinus de Paschalis O.F.M.">Augustinus a S. Paschali</persName> comissarius provincialis seraphicae missionis.</p>
+              <p>6. Si R. P. provincialis <placeName key="Manila">Manilae</placeName> R.V. mandatum dedit ne pareret <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Apostolicae Sedis</placeName> decretis, neve <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedis</placeName> ministros recognosceret, nisi prius ab illo R.V. licentiam impetraret, mandatum hoc nullum est et <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedi</placeName> iniuriosum si non accepto tali mandato R. V. nec decretis parere, nec <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedis</placeName> ministros recognoscere velit, donec R. P. provincialis licentiam rogaverit, R.V. et provinciali et <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedi</placeName> iniuriam facit. De nullitate tam facultatum non emisso iuramento obtentarum cum facto apellationis, relegat si placet R.V. epistolam meam circularem, si res dubia esset — en iam clara et evidens — de ea R.V. ut optime notat, iudicare non potest, possent vero duo administratores Illmus Heliopolitanus et Illmus Methelopolitanus, quorum ego, licet indignus, vices gero, ab illis primum et ad me deinde emittendi iuramenti necessitas declarata et aserta est, contra quam declarationem authenticam agere, vergit in contemptum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedis</placeName> et S. Congregationis. Ex emissione iuramenti scandalum multum oriri potest, certe scandalum oriretur, si scirent christiani decreta apostolica et <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedis</placeName> ministrorum iurisdictionem suspensam esse donec R. P. provincialis annuerit. Quare velim R.V. conscientiae suae consulat, ego vero officio meo fungar. In seminario <placeName key="Canton" ref="https://www.geonames.org/5149222">Cantonensi</placeName>, die <date when="1689-03-16">16 martii 1689</date>. Carolus Maigrot provicarius apostolicus et viceadministrator generalis <placeName key="Sinae">Sinarum</placeName>.</p>
+              <pb n="707" type="page"/>
+              <p>7. Adm. R.D. viceadministrator in ipsomet die <date when="1689-03-16">16 martii</date> in quo D.V. ab hac civitate discesit, Adm. R.D.D. <persName key="Quemener, Ludovicus">Ludovicus Quemener</persName> humanissimam, doctissimamque responsionem mihi tradidit. Lecta et mature considerata, ultimas duas propositiones notavi. Unam videlicet « ex emissione iuramenti scandalum multum oriri potest, certe scandalum oriretur si scirent christiani decreta apostolica et <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sedis</placeName> ministrorum iurisdictionem suspensam esse donec R.P. provincialis annuerit. » Domine mi, sumus sacerdotes et per singulos dies in altari SS. Christi Corpus propriis manibus accipimus; verba mea in responsionibus datis, sine aliqua ambiguitate clarissima sunt et numquam scripsi vel dixi: « Ex emissione iuramenti scandalum multum oriri potest. » Ut sciremus causas propter quas ortum fuit scandalum, deberemus rogare scandalizatos, ut hanc quaestionem ipsi nobis deciderent, qui de ministrorum S. Congregationis iurisdictione nec de R.P. provincialis iure aliquid sciunt. R.P. provincialis non intendit, imo nec potest dictorum ministrorum auctoritatem suspendere, solum autem suum ius manutenere et defendere.</p>
+              <p>8. Video in S. Congregationis instructione vicariis apostolicis data, EE.DD. Cardinales abhorrere et detestare scandala, pro quacumque causa eveniant, idcirco eis ea fugere praecipit. Ibi sic dicitur: «hoc vobis in universum praeceptum sit, satius multo esse vobis hoc rerum statu, si vestrum ius ab illis laedi sinatis, quam si cum scandalo vindicetis,1 vel minimum quid eorum quae vobis iure debentur. » Et R.P. provincialis usque modo adhuc non laesit nec praetendit laedere D.V. vel alterius alcuius ex S. Congregationis ministris ius, at suo utitur. Alia est, nempe « Quare velim R.V. conscientiae suae consulat, » quia eam magnifacio, molestissima meditatione punctum hoc examinavi, et a <date when="1685-02-04">4 die februarii 1685</date>, <pb n="708" type="page"/>in qua facultas administrandi ab Illmo D. Episcopo Argolicensi vicario apostolico mihi data fuit usque nunc, conscientiam meam dubium — vel positivum, vel negativum — sed adhuc minimum scrupulum in toto isto tempore unquam habuisse reminiscor; cogitabam enim me in solidissima petra esse fundatum, nempe habere facultatem administrandi a vicario apostolico licite emanatam, et assertive censebam apellationem habere vigorem.</p>
+                 <p>9. Iubet D.V. videri epistolam circularem; diu eam videram, notaveramque doctissimas rationes quas portat in D.V. existimatione evidentes; at quia iudicia hominum varia, videbatur mihi non urgere; nam quaestionem illam, quae totius litis est clavis, videlicet, an executor decreti excedit modum, vel non, nesciebam Illmos DD. administratores solvere posse; quia in bulla <hi rend="italic">
+                    Onerosa pastoralis officii</hi>, in qua tota jurisdictio administratoris circumscripta et determinata est, solummodo legi cognoscendi et decidendi causas et controversias, quae oriri poterunt inter vicarios apostolicos, et numquam cognoscendi eas quae inter vicarios apostolicos et administratorem orirentur. Et assertio ista faciebat conscientiam meam certam et securam, ac multo magis quando vidi S. Congregationis decretum <date when="1685-03-20">die 20 Martii anno 1685</date> emanatum.</p>
+                       <p>10. Nunc D.V. contra vicarios apostolicos opinatur et vicarii apostolici econtra. Quaestionesque istas et lites, ego et mei religiosi ex nostra parte semper vitare conamur, habemus enim conscientiam valde tenuem et nolumus inter opinionum incertitudines fluctuare; sed quia toto corde et animo pacem diligimus, pro eius<pb n="709" type="page"/>que conservatione non sumus aversi administrationem relinquere; etiamque quia valde cupio D.V. in omnibus facere satis, cogito si tuta conscientia potero missionarii functiones desinere et quia in hoc mihi est scrupulum propter rationes datas in protestatione facta die <date when="1689-03-15">15 martii</date>, etiamque discurro quomodo illud deponam, et non aliud medium occurrit, nisi D.V. auctum et meam responsionem ad vicarios apostolicos mittere et Illmis DD. Episcopis rogare et petere et protestari, ut nobis datas facultates revocent et in illomet instanti in quo revocatas esse sciam, statim sine mora — iam coram Deo in conscientia tutus —  ego et mei religiosi suspensi ut antea remanebimus. Cumque responsio veniat, de ea quanto citius monebo D.V., cui Deus optimam salutem praestet etc. <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> in ecclesia seraphici S. P. Francisci, die <date when="1689-03-22">22 martii 1689</date>.</p>
+                       <p>R. Adm. D.V. studiosissimus et addictissimus in Domino servus, <lb/>
+                          Fr. <persName key="Augustinus de Paschalis O.F.M.">Augustinus a S. Paschali</persName>.</p>        
+           </div>
+      </body>
+  </text>
+</TEI>

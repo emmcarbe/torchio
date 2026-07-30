@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Ioannes de Polanco S.I. ex Comm. P. Nicolao Lancillotto S.I, Goam, Roma 22 Novembris 1547 (II)</title>
+            <author>de Polanco, Iohannes Alfonsus S.J.<date>1517-1576</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud Monumenta historica Soc. Iesu, 1956, 205-209</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1547</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="205" type="page"/>
+<p>Ihs.</p>       
+<p>Gratia et pax domini nostri Iesu Christi cum omnibus vobis. Amen.</p>
+            <p> 1. Charissime in domino Iesu Christo Pater. Per alias litteras responsum fit tuis, <date when="1546-11">Novembri mense anni 1546</date> ad nos transmissis; his porro adiiciam quaedam de commissione Patris nostri in Iesu Christo D. <persName key="Ignatius">Ignatii</persName>, quae ad Dei gloriam, ac vestram et collegii spiritualem consolationem et profectum, imo et <placeName key="Goa">Gouae</placeName> totiusque <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> non mediocre emolumentum <pb n="206" type="page"/> futura speramus; cogit enim Iesu Christi charitas R. P. Ignatium, ut vestris de rebus sollicite cogitet. Nec vero tam longo terrae marisque tractu interiecto fit, ut minus arcto amoris complexu vos stringat, imo, quo estis corporibus magis seiuncti, eo affectibus tenet coniunctiores in Christo Iesu, in quo omnes unum efficimur corpus, ubicumque terrarum simus constituti.</p>
+            <p>2. Expedire ergo videretur Patri nostro, ut istinc ad nos aliquem industrium virum mitteretis, qui de vestris et <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Indie</placeName> rebus rationem probe apud pontificem summum et proceres huius romanae curiae redderet, quo adveniente, occasionem haberet <choice><abbr>P.</abbr><expan>Pater</expan></choice> Ignatius ex ecclesiae thesauris tantum vobis curandi, ut non solum collegium vel civitas vestra, sed et magna pars <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> spiritualibus divitiis ad Conditoris nostri et Reparatoris gloriam, et animaram plurimarum auxilium posset abundare. Imprimis ergo virum aliquem eligendum vobis censet ad hoc muneris idoneum, qui et retinere et exponere quae oportebit sciat. Deinde curate ut, de rebus vestris instructus, scriptum etiam copiose ad nos deferat quicquid scire precium opere sit，ut vestris et <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Indie</placeName> rebus consulatur, puta de aëris temperie, victu, moribus et ingeniis locorum ac hominum, tum de his, quae vobis necessaria ad Dei cultum et animarum auxilium istic viderentur, et tota in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName>: quae omnia diligenter scripta et ordinate veniant, et cum attestatione reverendis<pb n="207" type="page"/>simi Patris Episcopi, vel vicarii eius, et aliorum, qui precipua isthic auctoritate fuerint.</p>
+            <p>3. Preterea curandae sunt vobis litterae ab eodem reverendissimo Patre Episcopo et aliis primariis viris, et aliae vestro etiam et collegii nomine scriptae, ad sanctitatem summi pontificis Pauli <choice><abbr>3i</abbr><expan>tertii</expan></choice>, quibus petatis humiliter et instanter omnes eas gratias, quae vobis opportune videbuntur, et inter caetera facultatem absolvendi in casibus reservatis in bulla coene Domini <choice><abbr>etc.</abbr><expan>et cetera</expan></choice>, imo et reliquias sanctorum, et alia, si quae sunt, quae isthic fovere religionem ac pietatem christianam possint, et collegio civitatique <pb n="33v" type="folio"/> vestrae et regionibus istis expedire indicabitis.</p>	
+            <p>4. Preter hasce autem litteras ad summum pontificem, alias itidem ad <choice><abbr>Rmos.</abbr><expan>Reverendissimos</expan></choice> cardinales, quorum nomina ad vos mitto, scribendas curabitis; et preter hos ad R. Mapheum, epi<pb n="208" type="page"/>scopum massensem, id ab eis enixe petendo per vestras litteras (quae eiusdem exempli, tantum mutatis nominibus, esse possunt), ut faveant apud sanctitatem D. N. papae vestrae causae. Mittetis etiam ad Patrem Ignatium litteras ab eisdem, ut ipse earum occasione cum prelatis his et cum summo etiam pontifice vestram causam commodius possit agere. Cum autem in Portugalliae regnum perventum erit, a serenissimo etiam rege litterae commendatitiae ad omnes, de quibus supra, curandae erunt.</p>
+<p>5. Iuverit etiam non parum, tum ut ingenia indorum melius cognoscamus, tum ut moveantur magis hi, penes quos summa rerum hic est； ut ille, qui huc est venturus, secum quinque vel sex iuvenes ex indis adducat, qui optima specie et inter ceteros magis visendi erunt, ex quibus duo tresve <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romam</placeName> veniant, reliqui in Portugallia subsistant in collegio nostrae Societatis, quo et duo illi redire poterunt, qui <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romam</placeName> venerint, confectis negociis vestris, ut inter nostros excolantur et litteris et christianae disciplinae, virtutumque ornamentis, ut sic demum, ad suos redeundo, exemplo vitae ac doctrinae eis et aliis <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Indie</placeName> regionibus sint utiliores.</p>
+            <p>6. Quod attinent ad modum suscipiendi pueros in collegio, quodque ad supplicationes vel processiones publicas, et funera, et ipsas demum constitutiones fundatorum ad nos <pb n="209" type="page"/> transmissas suspendenda erit sententia, donec ab eo, qui huc mittetur, exactius vestris de rebus instruamur, simulque quae mens sit regis Portugaliae inteligamus. Poteritis interim eundem modum, quem hactenus tenuistis, tenere.</p>
+<p>7. Haec ergo si a vobis sedulo curentur, sperat noster in Christo Pater Ignatius, quod multum emolumenti, tum collegii, tum <placeName key="Goa">Gouae</placeName> Indieque totius rebus ad animarum profectum, indeque etiam multim ad Dei honorem et servitium, simulque regis Portugaliae, et ad nostrae Societatis (in regionibus istis) progressum sit accesurum.</p>
+<p>Perficiat id bonitas infinita domini nostri Iesu Christi, qui suae dignetur voluntatis cognitione nos omnes implere, et suum in nobis omnibus nomen et gloriam augere. Amen.</p>
+<p><placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Rome</placeName> <date when="1547-11-22">decimo kalendas Decembris</date>.
+            
+<lb/>Servus in Christo Iesu.
+   <lb/>Ex Commissione P. <persName key="Ignatius">Ignatii</persName>
+<lb/>            
+   <lb/>Ioannes de <persName key="Polancus, Iohannes S.J." ref="http://www.viaf.org/54197290">Polanco</persName>
+<lb/>[Manu <persName key="Ignatius">Ignatii</persName>:] <choice><abbr>I.</abbr><expan>Ignatius</expan></choice>
+<lb/>            
+   <lb/>[Manu P. Poanci]: † <choice><abbr>Rdo</abbr><expan>Reverendo</expan></choice> In Iesu Christo Patri D. <persName key="Lancillottus, Nicolaus S.J.">Nicolao Lancilotto</persName>. Goue.</p>       
+         </div>
+      </body>
+   </text>
+</TEI>

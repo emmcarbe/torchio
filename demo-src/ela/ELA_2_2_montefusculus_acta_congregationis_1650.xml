@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Acta Congregationis habitae pro Japonica Provincia. Anno jubilei 1650</title>
+                  <author>Franciscus Montefusculus S.J.</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 1084-1087</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>  
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1650</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="358" type="folio"/>
+           <pb n="1084" type="page"/>
+          <p> In nomine Sanctissimae Trinitatis, Patris, et Filii, et Spiritus Sancti. Amen.
+             Anno a partu Virginis <date when="1650-08-16">1650, die 16. Augusti</date>, quae ad inchoandam Congregationem praestituta est; affixis de more duobus Catalogis, altero Congregandorum, Eligendorum altero. In urbe <placeName key="Macaum">Amacaensi</placeName>, in Collegio Societatis JESU, convenerunt inprimis P. <persName key="Iohannes Cabral S.J.">Joannes Cabral</persName>, Provincialis <placeName key="Japonia">Japonicae</placeName> Provinciae; ad ejus dexteram sederunt Professi 4 votorum, hoc ordine:
+           <lb/>
+             <lb/>P. <persName key="Taveira, Franciscus S.J." ref="Trigautius">Franciscus Taveyra</persName>.
+             <lb/>P. <persName key="Iohannes Maria Leria S.J.">Joannes Maria Leria</persName>, Superior Missionis Laorum.
+             <lb/> P. <persName key="Fereira, Antonius S.J.">Antonius Ferreyra</persName>.
+             <lb/>P. <persName key="Balthassar Citadellius S.J.">Balthasar Cittadelli</persName>, Rector Collegii <placeName key="Macaum">Amacaensis</placeName>.
+             <lb/> P. <persName key="Balthassar Caldeira S.J.">Balthasar Caldeyra</persName>.
+             <pb n="1085" type="page"/>
+             <lb/> P. <persName key="Agnes, Ioseph S.J.">Joseph Agnes</persName>.
+                <lb/> P. <persName key="Metellus Sacanus">Metellus Sacanus</persName>, Superior Cocincinensis Missionis.
+             <lb/>P. <persName key="Felix Morelli S.J.">Felix Morelli</persName>.
+             <lb/>P. <persName key="Valguarneira, Thomas S.J.">Thomas Valguarnera</persName>, Socius P. Provincialis.
+             <lb/> P. Carolus da Rocha.	
+             <lb/> P. <persName key="Iohannes Andreas Lobelli S.J.">Joannes Andreas Lobelli</persName>.
+             <lb/> P. <persName key="Matthias de Amaya S.J.">Matthias d’Amaya</persName>, Socius P. Visitatoris.
+             <lb/> P. <persName key="Figueira, Franciscus S.J.">Franciscus Figueira</persName>.
+             <lb/> P. <persName key="Franciscus Montefuscolus">Franciscus Montefusculus</persName>.
+                <lb/> P. <persName key="Franciscus Rivas S.J.">Franciscus Rivas</persName>, Superior <placeName key="Cambodja">Cambogensis</placeName> Missionis.	
+             <lb/>Ad sinistram vero P. <persName key="Núnez, Georgius">Georgius Nunes</persName>, Procurator Provinciae.</p>
+           
+<p>Quibus omnibus congregatis, ac dicto alternatim hymno ‘Veni Creator’ cum sua oratione : P. <persName key="Iohannes Cabral S.J.">Joannes Cabral</persName> Provincialis sermonem habuit quo paucis exposuit, cur coacta fuerit Congregatio, proposuitque ea, de quibus agendum esset; atque omnes, ut magna cum aedificatione ac synceritate in omnibus se gererent, adhortatus est.</p>
+<p>Deinde idem P. Provincialis quaesiit ab omnibus, num censenda esset legitima Congregatio? Responsum est ab omnibus: legitima. Quaesiit etiam, num supplendi essent defectus (si qui forte surrepsissent) circa omnia quae ad ipsam Congregationem, aut congregandi formam, pertinent? Responsum est ab omnibus: supplendi.</p>
+           <p>Denique petiit, num hoc anno mittendus <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romam</placeName> esset Procurator? Dubitationem enim faciebat, tum quia P. <persName key="Antonius Cardinius S.J.">Antonius Cardinius</persName>, in praecedenti Congregatione Procurator electus, nondum <placeName key="Macaum">Amacaum</placeName> reversus fuerat; tum, quia praesens hujus Provinciae inopia tam magnos sumptus in tam longinqua navigatione non patiebatur impendere. Attamen, nemine discrepante, Congregationi visum est, hoc anno Procuratorem mittere  <pb n="358v" type="folio"/> ob duplicem praecipue causam: Prima, quia servanda erat Formula Congregationis Provincialis, in qua praescribitur, sexto quoque anno mittendum Procuratorem; licet postea per concessionem peculia <pb n="1086" type="page"/>rem dilatum fuerit spatium ad nonum quemlibet annum. Cum igitur ex ultima Congregatione elapsi sint duodecim, nulla inerat caussa, cur ulterius protraheretur. <choice><abbr>2a</abbr><expan>Secunda</expan></choice>, quia multa prae manibus erant, eaque gravia negotia, quae cum Reverendo Patre Nostro [Generali] coram agenda erant.</p>
+           <p>Eadem die, videlicet <date when="1650-08-16">16. Augusti</date>, mane P. <persName key="Franciscus">Franciscus</persName> Montefuscolus ad plura secreta suffragia electus est in Secretarium, primo scrutinio. Eodemque modo in ejus Adjutorem primo scrutinio electus est P. Mathias d’Amaya, ambo Professi 4 votorum. Electi itidem sunt ad plura secreta suffragia, e primariis Patribus Professis 4 votorum, Deputati duo, hoc est: P. <persName key="Fereira, Antonius S.J.">Antonius Ferreira</persName> et Pater <persName key="Balthassar Citadellius S.J.">Balthasar Cittadelli</persName>, ambo in primo scrutinio.</p>
+<p>His ita peractis, omnium consensione indictus est dies ab inchoata Congregatione tertius ad Procuratoris electionem, et ad informationes interim de more capiendas.</p>
+           <p>Quincta igitur feria, quae fuit <date when="1650-08-18">18. Augusti</date>, convenerunt Patres ad locum praefixum, et fusa brevi oratione, primo, ut omnia legitime procederent, recitata sunt, quae in Formula Congregationis Provincialis continentur. Deinde lecta sunt omnia consultiva suffragia Patrum professorum in Missionibus degentium. Denique ad plura medietate suffragia electus est in Procuratorem 2° scrutinio P. <persName key="Balthassar Citadellius S.J.">Balthasar Cittadelli</persName>, Rector hujus collegii; eodemque modo electus est in Substi[tu]tum 5° scrutinio P. <persName key="Emmanuel Cardosus">Emmanuel Cardosus</persName>, Superior Missionis Tumquinensis, ubi ea tempestate versabatur, ambo Professi 4 votorum.</p>
+           <p>Et quoniam P. <persName key="Balthassar Citadellius S.J.">Balthasar Cittadelli</persName> tria impedimenta proposuit de suo itinere Romano: primum scilicet, quia maris agitatione sentiebat se solito plus vexari; <choice><abbr>2um</abbr><expan>secundum</expan></choice>，quia dotes illae, quae ad pertractanda negotia requiruntur, sibi deerant; <choice><abbr>3um</abbr><expan>tertium</expan></choice>, quia nuperrime per litteras acceperat, P. <persName key="Iohannes Maracium S.J.">Joannem Maracium</persName>, Procuratorem in Goana Congregatione electum, ad <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitaniam</placeName> pervenisse, ejusque adventum Serenissimo Regi minime gratum fuisse, eo nomine tantum, quia <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitanus</placeName> non erat. Insuper edicto regio prohibitum fuisse, ne Religiosus ullus, praeter <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitanos</placeName>, ad <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Indias</placeName> trajiceret. — Quae impedimenta juxta decretum 49. 7. Congr. post Substituti electionem audita sunt, atque omnium suffragiis  <pb n="1087" type="page"/> (excluso a Congregatione tantisper praedicto Patre) admissa non sunt. Revocatus postea P. <persName key="Balthasar">Balthasar</persName> congregatorum Patrum sententiis acquievit, suamque electionem illico accepit.</p>
+<p><persName key="Franciscus">Franciscus</persName> Montefuscolus, Secretarius
+<lb/>Sigillum
+   <pb n="365" type="folio"/>
+<lb/>........
+   <lb/>His in hunc modum ritè peractis, dictoque alternatim ac submissa voce hymno ‘Te Deum Laudamus’, dimissa est Congregatio die <date when="1650-08-29">29. Augusti anno 1650</date>.
+   <lb/><persName key="Franciscus">Franciscus</persName> Montefuscolus, Secretarius
+<lb/>Sigillum
+          </p>
+       </div>      
+      </body>
+  </text>
+</TEI>

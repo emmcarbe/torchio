@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola Fr. Peregrini Episcopi Zaytunensis</title>
+            <author ref="https://www.wikidata.org/wiki/Q3898931">Peregrinus da Castello O.F.M.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-08-25">15/12/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">Epistola Fr. Peregrini Episcopi Zaytunensis, in: Sinica Franciscana, I: Itinera et relationes fratrum Minorum saeculi XIII et XIV, a cura di A. Van Den Wyngaert, Firenze, Quaracchi, 1929, 365-368</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/151</idno>
+               <idno type="URI">https://hdl.handle.net/2027/mdp.39015012963784</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+             Nec videmus.... (sic) 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="places">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1301/1400">1318</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-25" who="0000-0003-4347-011X">E. Carbé: OCR (level 1),TEI (level 1)</change>
+        <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: text revision (level 2),TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+        <pb n="365" type="page"/>
+           <p>Reverendis in Christo patribus fratri N. Vicario generalis Ministri ceterisque fratribus Vicarie orientis <choice><abbr>Fr.</abbr><expan>Frater</expan></choice> Peregrinus paupertatis Episcopus in mundo alio constitutus, reverentiam et salutem cum desiderio nova de mundo fidelium audiendi.</p>
+           <p>1. Et si sicut prodigus filius fecissemus ego et sotii mei fugientes ad terram longinquam sicut ceteri, debuisset saltem pia mater religio recordari de filiis quos ad inauditum exilium destinavit. Materna enim viscera contra filium rigorem iusticie non admictunt. Et infra: Episcopus sum licet indignus. Et infra: Et pater frater <persName key="Andreas de Perusio O.F.M." ref="http://viaf.org/viaf/316437458">Andreas de Perusio</persName> Episcopus et ego pervenimus <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Ga[m]balech</placeName>.</p>
+           <p>2. Dico igitur primo de Archiepiscopo fratre Iohanne. Vita eius exterior bona et dura et aspera. De illo vero Rege Georgio certum est quod ipsum plene et laudabiliter convertit ad veram fidem, cum ante cum nestorianis misceretur. Et ipse Rex una die de suo populo plura milia convertit. Et si vixisset vere totum populum eius et regnum humiliassemus ad Christum, et etiam <persName key="Magnus Kaam" ref="https://viaf.org/50027343">magni Canis</persName> mutatio facta fuisset. Ante vero quod Fr. Iohan<pb n="366" type="page" break="no"/>nes Archiepiscopus predictus veniret ad imperium <persName key="Magnus Kaam" ref="https://viaf.org/50027343">magni Canis</persName>, nullus christianus cuiuscumque conditionis et nationis esset, prevalere poterat erigere quantumcumque parvum oratorium et signum Christi, propter potentiam nestorianorum prohibentium. Et sic vel eos sequi cogebantur in ritu scismatico et erroneo vel quasi viam infidelium capere. Postquam vero venit Fr. <persName key="Iohannes">Iohannes</persName>, Deo ipsum iuvante, malo velle nestorianorum, ecclesias plures erexit. Et alie nationes christianorum, qui odiunt nestorianos scismaticos ipsum Fr.  Iohannem secute sunt et precipue Armeni, qui sibi nunc notabilem construunt ecclesiam et dare illi intendunt. Unde et ipse continue est apud eos, relicta ecclesia latinorum aliis fratribus. Item quidam christiani boni qui dicuntur Alani XXX milibus a Rege maximo stipendia accipientes ipsi et familie eorum ad Fr. Iohannem recurrunt. Et ipse eos confortat et predicat.</p>
+        <p>3. Nec videmus.... et istis predicare possumus et sacramenta Ecclesie ministrare. Circa infideles vero libere possumus predicare et in moscheta saracenorum pluries predicavimus ut convertantur; ydolatris vero similiter in magnis civitatibus eorum per duos medios interpretes. Multi congregantur et valde mirantur et diligenter inquirunt de istis. Et quia nunc inceptum est, spem bonam habemus videntes populos intentos ad audiendum et currendum ubi nos predicamus. Vere credimus quod si linguas eorum haberemus, mirabilia Dei apparerent.</p>
+        <p>4. <hi rend="italic">Messis multa</hi> valde sed <hi rend="italic">operarii pauci</hi> et sine falce. Nam pauci fratres sumus et senes admodum et inabiles ad discenda <pb n="367" type="page"/> linguas. Parcat Deus illis qui fratres impediunt ne veniant. Vere credo quod inimicus hoc operatur, ne invadamus eius imperium, quod sine molestia possidet.</p>
+           <p>5. In <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambaliech</placeName> sunt Archiepiscopus et Fr. <persName key="Andreas de Perusio O.F.M." ref="http://viaf.org/viaf/316437458">Andreas de Perusio</persName> et Fr. <persName key="Petrus de Florentia O.F.M.">Petrus de Florentia</persName> Episcopi; et eis nil deficit in temporalibus. In spiritualibus vero credo quod nunquam tantum habuerint. <hi rend="italic">Irruit</hi> enim et venit <hi rend="italic">Spiritus</hi> Sanctus in istos duos Episcopos et in tantum orationibus insistunt et sanctis meditationibus, et Spiritus Dei qui eos visitat et consolatur et fovet in tantum quod omniun videntur esse obliti, die ac nocte in sanctis vigiliis Domino assistentes.</p>
+           <p>6. Ego autem Caytonensis Episcopus> factus, ibi cum tribus fratribus devotis pacifice et tranquille Deo vacare possum. Et ipsi servi Dei Fr. <persName key="Iohannes de Grimaldi O.F.M.">Iohannes Grimaldi</persName>, Fr. <persName key="Emmanuel de Monticulo O.F.M.">Emanuel de Monticulo</persName> et Fr. <persName key="Ventura de Sarezana O.F.M.">Ventura de Sarezana</persName>, qui in istis partibus est frater factus, qui in omni virtute bene fortificati, Deus honoratur per eos. Utinam tales haberemus centum nobiscum ! In civitate <placeName key="Cayton" ref="https://www.geonames.org/1797353/">Cayton</placeName> bonam habemus ecclesiam cum loco, quam quedam domina <placeName key="Armenia" ref="https://pleiades.stoa.org/places/981507">Armenie</placeName> nobis reliquit, et necessaria vite pro nobis et pro aliis si venerint assignavit. Et extra civitatem locum pulcrum habemus cum silva, ubi cellas facere cupimus et <pb n="368" type="page"/> oratorium. Nulla alia re indigemus quantum fratribus quos desideramus. Fr. <persName key="Gerardus O.F.M.">Gerardus Episcopus</persName> mortuus est, et alii fratres non possumus diu vivere, nec alii venerunt. Remanebit ecclesia sine baptismo et sine habitatoribus.</p>
+           <p>7. Nova et conditiones istius magni imperii si scriberem non crederentur, quanta sit potentia ipsius, quanti exercitus, latitudo terre, quot redditus, quot expense, quot elimosinas faciunt. Comparaverunt eam nostri latini in hiis ad omnes alios reges mundi, set excessum non scribo. Civitas maxima <placeName key="Cayton" ref="https://www.geonames.org/1797353/">Cayton</placeName>, ubi sumus, super mare est, et distat a maxima <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambalieth</placeName> itinere fere trium mensium.</p>
+           <p>Datum in <placeName key="Cayton" ref="https://www.geonames.org/1797353/">Zayton</placeName> <date when="1318-10-03">III Kalendis ianuarii anno Domini 1318</date>.</p>
+        </div>
+      </body>
+  </text>
+</TEI>

@@ -341,6 +341,10 @@
       + '<p class="note">Decisions taken here are written to a small file, '
       + '<code>torchio.json</code>, shipped inside the archive: keep it next '
       + 'to your XML and every future pressing repeats them.</p>'
+      + (S.model.documents && S.model.documents.length > 1
+        ? '<p class="note">A collection borrows the title of its first document '
+          + 'until you give it one of its own, below.</p>'
+        : '')
       + '<div class="frow"><label for="c-title">Title</label>'
       + '<input id="c-title" type="text" value="' + esc(ui.title) + '" placeholder="'
       + esc(S.model.meta.title || '') + '"></div>'

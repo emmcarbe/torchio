@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>[Catalogus informatiunum Provinciae Philippinarum 20. Julii 1618]</title>
+                  <author>Ignotus</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 789</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1618</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="15v" type="folio"/>
+           <pb n="789" type="page"/>
+           <p>
+           <lb/>Patres,	Fratresque Japonici
+           <lb/>
+              <lb/> P. García Garcés in domo suburbana Sancti Michaelis praeest Fratribus, qui ibi degunt more japonico. Dico autem morem japonicum in comedendo et sedendo et caet., nam vita quidem religiosa ad modum est et ad nostrum Institutum accomodata. Exules etiam pro fide Japonicos, viros et faeminas, illic prope habitantes, ministeriis spiritualibus adjuvat et consolatur. Ibi sunt qui secuntur: <pb n="16" type="folio"/>
+              <lb/>F. Romanus, valde senex.
+              <lb/> F. <persName key="Matzuda, Michael S.J.">Michael Matzuda</persName>.	
+                 <lb/> F. <persName key="Vota, Agustinus S.J.">Agustinus Vota</persName>.
+           <lb/>
+              <lb/>F. Alexius
+              <lb/>F. Thaedus
+                    <lb/>Hi duo modo in <placeName key="Japonia">Japoniam</placeName> proficiscuntur, quia ita Pater Visitator <persName key="Franciscus Calderón S.J.">Franciscus Calderón</persName> et P. García Garcés convenire judicarunt
+                    
+                    <lb/>
+                    <lb/> F. <persName key="Petrus Chiquan S.J.">Petrus Chiquan</persName>, in <placeName key="Silan">residentia Silan</placeName> habitat.
+              <lb/>F. Georgius, in <placeName key="Manila">Manilano Collegio</placeName>.	
+                    <lb/> F. <persName key="Figueredo, Thomas de">Thomas Figueredo</persName>, in Residentia Antipoli.
+           <lb/> 
+              <lb/>  En tibi tuorum imagines filiorum. Tu, Pater, enixe a Deo precare, ut quod deest istorum, ipse usque perficiat et novis nos semper benedictionibus augeat. <placeName key="Manila">Manilae</placeName>, <date when="1618-07-20">20 Iulii anni 1618</date>.
+           <lb/>VALERIUS DE 
+              <lb/> LEDESMA
+           </p>
+           
+       </div>      
+      </body>
+  </text>
+</TEI>

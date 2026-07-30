@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Ignatius De Loyola Francisco Xaverio et superioribus S.I. in Oriente, Roma 7 Iulii 1550</title>
+            <author ref="https://viaf.org/viaf/88881025">de Loyola, Ignatius S.J.<date>1491-1556</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490856081" key ="print-editor">in: Monumenta missionum Societatis Iesu, Missiones Orientales, Documenta Indica II (1550-1553), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1950, 43-44</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>   
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1550</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="43" type="page"/>
+            <p>Jubilaei anni sancti <date when="1550">1550</date> plenissima concessio pontificia, pro Oriente.</p>
+            <p>Dilecto in Christo fratri, Magistro <persName key="Xaverius, Franciscus" ref="http://www.viaf.org/51717999">Francisco Xavier</persName>, praeposito generali eiusdem Societatis in <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> regionibus, serenissimo regi Portugaliae subiectis, et ultra eas; necnon aliis omnibus et singulis praepositis particularibus vel aliorum curam gerentibus ab eodem <persName key="Franciscus">Francisco</persName> in dictis regionibus constitutis, salutem in Domino sempiternam.</p>
+            <p>Cum hoc <date when="1550">anno MDL</date> de divitibus Domini nostri Iesu Christi et sponsae eius Ecclesiae ac <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedis Apostolicae</placeName> thesauris quattuor ecclesias <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName> invisentibus iubilei gratia, id est, peccatorum plenissima remissio condonetur; cumque vos ac reliquos christianos, quibus ad hanc almam urbem, tot terrae ac maris tractibus disiunctam, venire non permittitur, ah huiusmodi gratia non excludi aequum censeremus, sanctissimo <choice><abbr>D.N.</abbr><expan>Domino Nostro</expan></choice> Domino Iulio, divina providentia Papae tertio, ut vobis, absentibus corpore, praesentibus tamen animi devotione, eandem gratiam impertiri dignaretur, supplicavimus et obtinuimus; eam tamen proprio motu adiecit conditionem, ut qui de nostra Societate isthic laboratis in vinea Domini, cum omni, ea in parte, <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedis Apostolicae</placeName> auctoritate, gratiam hanc, quibus in Domino videretur, et ea imponendo, quae vi[p. 44]derentur, dispensaretis. Nos igitur te, cuius prudenti et piae dispensationi tantum thesaurum committi posse confidimus, et eos, quos ipse tu, non sine delectu virtutis (ut indubitanter credimus) in variis locis aliis praeposuisti, vel eos de Societate, qui curam aliorum gerunt quocumque modo, ad huiusmodi gratiae ministrationem per se vel alios, quos idoneos iudicaverint, designamus, et potestatem a <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sede Apostolica</placeName> habere conferendi iubileum omnibus, sub obedientia Societatis degentibus, et Christianis aliis, incolis istarum regionum ad fidem conversis, seu advenis quocumque modo ibi agentibus, qui, vere confessi, ea fecerint, quae vos eisdem imponetis, declaramus, et ut non tantum fideles, sed et prudentes dispensatores tantae gratiae ad Dei gloriam et animarum salutem vos exhibeatis, et in Domino plurimum exhortamur.</p>
+            <p>Datum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName>, in aedibus Societatis Iesu, <date when="1550-07-09">nonis Iulii 1550</date>.</p>
+            
+         </div>
+      </body>
+   </text>
+</TEI>
+

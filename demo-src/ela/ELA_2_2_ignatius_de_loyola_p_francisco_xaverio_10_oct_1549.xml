@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Ingnàtius De Loyola P. Francisco Xaverio, in Indiam, Roma 10 Octobris 1549</title>
+            <author ref="https://viaf.org/viaf/88881025">de Loyola, Ignatius S.J.<date>1491-1556</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 509-510</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>   
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1549</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="350" type="page"/>
+            <p><persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatius de Loyola</persName>, Societatis Iesu praepositus generalis.
+<lb/>Dilecto in Christo fratri <persName key="Franciscus S.J.">magistro Francisco</persName> Xavier, presbitero eiusdem Societatis, salutem in Domino sempiternam.</p>
+            <p>1. Cum, crescente in dies diversis in regionibus numero eorum, qui nostrum institutum sequuntur, per domini nostri Iesu Christi gratiam, crescat etiam rebus multis providendi et consequenter hoc onus cum aliis partiendi necessitas, visum est in Domino expedire, ut aliquem ex fratribus nostris nobis substituendo, et praepositum omnium illorum, qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> et aliis trasmarinis regionibus, serenissimo regi Portugaliae io subiectis, et ultra eas, sub obedientia Societatis nostrae vivunt, constituendo, eidem caetera omnia, quae nostri officii essent, committeremus.</p>
+            <p>2. Nos ergo, cum de tua pietate et prudentia, quae est in Christo Iesu, plurimum in eodem confidamus, te in praepositum provincialem omnium nostrorum, qui in praedictis regionibus versantur, cum omni ea auctoritate, quam sedes apostolica nobis concessit et constitutiones nostrae Societatis nobis tribuunt, creamus et instituimus. Ac in virtute sanctae obedientiae [iniungimus] ut, hanc curae nostrae par<pb n="510" type="page"/>et auctoritatis suscipiendo, eadem ad inquirendum, ordinandum, reformandum, iubendum, prohibendum, admittendum in Societatem ad probationem, et ab eadem repellendum, quos videbitur; constituendum etiam in quovis officio et deponendum, et in summa, ad disponendum de omnibus, quae nos, si praesentes essemus, circa loca, res et personas, quae ad Societatem pertinent, possemus disponere, et ad Dei gloriam facere iudicabis, plenissime utaris.</p>
+<p>3. Hoc enim, gratiam Dei in te considerantes, ad ipsius honorem et ad eorum spiritualem profectum, qui nostrae curae sunt commissi, et ad communem animarum salutem fore in Domino speramus.</p>
+<p>Datum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName> <date when="1549-10-10">sexto idus Octobris 1549</date>
+   <lb/><persName key="Ignatius">[Ignatius]</persName></p>
+            
+            
+            
+         </div>
+      </body>
+   </text>
+</TEI>
+

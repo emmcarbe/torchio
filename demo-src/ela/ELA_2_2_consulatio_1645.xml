@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Consultatio Macaensis anno 1645 habita de forma baptismi annamitici</title>
+                  <author>Ignotus</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 1043-1045</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>  </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1645</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="1043" type="page"/>
+           <p>Nomina Patrum, qui ex mandato Patris <persName key="Emanuel de Azevedo S.J.">Emanuelis de Azevedo</persName>, Visitatoris <placeName key="Japonia">Provinciae Japonensis</placeName> et <placeName key="Sinae">Viceprovinciae Sinensis</placeName>, interfuere consultationi et formam Baptismi lingua Annamica prolatam legitimam esse et validam affirmarunt. Anno <date when="1645">1645</date>.
+           <lb/>
+              <lb/>P. <persName key="Iohannes Cabral S.J.">Jo. Cabrai</persName>, Viceprovincialis. Prof. theol. Praefuit [Consult.].
+              <pb n="1044" type="page"/>
+              <lb/>P. <persName key="Semedo, Alvarus S.J.">Alvarus Semedus</persName>, Viceprovincialis <placeName key="Sinae">Sinarum</placeName>.
+              <lb/>P. <persName key="Monterus, Iohanes S.J.">Jo. Monterus</persName>, Missionis <placeName key="Sinae">Sinensis</placeName>. Prof. theol.
+              <lb/>P. <persName key="Riberus, Vincentius S.J.">Vincentius Riberus</persName>. Prof. theol.
+              <lb/>P. <persName key="Taveira, Franciscus S.J." ref="Trigautius">Franciscus Taveira</persName>. Prof. theol.
+              <lb/>P. <persName key="Fereira, Antonius S.J.">Antonius Ferreira</persName>. Prof. theol.
+              <lb/>P. <persName key="Franciscus Rangel S.J.">Franciscus Rangel</persName>. Prof. theol.
+              <lb/>P. <persName key="Valguarneira, Thomas S.J.">Thomas Valguarneira</persName>. Prof. theol.
+              <lb/>P. <persName key="Gregorius de Magalhaens S.J.">Gregorius de Magalhaens</persName>. Prof. theol.
+              <lb/>P. <persName key="Antonius Barbosa S.J.">Antonius Barbosa</persName>, peritus linguae. Prof. theol.
+              <lb/>P. <persName key="Balthassar Caldeira S.J.">Balthassar Caldeira</persName>, peritus linguae. Prof. theol.
+              <lb/>P. <persName key="Emmanuel Pachecus S.J.">Emmanuel Pachecus</persName>, peritus linguae. Prof. theol.
+              <lb/>P. <persName key="Gaspar d’Amaral S.J.">Gaspar d’Amaral</persName>, quondam Viceprovincialis, peritissimus linguae.
+              <lb/> P. <persName key="Petrus">Petrus</persName> Albertus, peritus linguae.
+              <lb/> P. <persName key="Franciscus Rivas S.J.">Franciscus Rivas</persName>. Magister in Artibus.
+              <lb/>P. <persName key="Emmanuel de Miranda S.J.">Emmanuel de Miranda</persName>. Magister in Artibus.
+              <lb/>P. <persName key="Núnez, Iohannes S.J." ref="http://www.viaf.org/77146111">Joannes Nunius</persName>. Magister in Artibus.
+              <lb/>P. <persName key="Balthassar Citadellius S.J.">Balthassar Citadellius</persName>.
+              <lb/>P. <persName key="Carvallius, Raphael S.J.">Raphael Carvallius</persName>.
+              <lb/>P. Michael [Boym], Polaccus.
+              <lb/> P. <persName key="Franciscus Montefuscolus">Franciscus Montefuscoli</persName>.
+              <lb/>P. <persName key="Andreas Lubellus S.J.">Andreas Lubellus</persName>.
+              <lb/>P. <persName key="Ruidas, Ascanius S.J.">Ascanius Ruidas</persName>. — Indiff.
+              <lb/>P. <persName key="Correa, Lucas">Lucas Correa</persName>.
+              <lb/>P. <persName key="Carvallius, Dominicus S.J.">Dominicus Carvallius</persName>.
+              <lb/> P. <persName key="Ambrosius de Abreu  S.J.">Ambrosius de Abreu</persName>.
+              <pb n="1045" type="page"/>
+              <lb/>P. Joannes <persName key="Ignatius">Ignatii</persName>.
+              <lb/>P. <persName key="Antonius Constantinus S.J.">Antonius Constantinus</persName>.
+              <lb/> P. <persName key="Pestana, Adrianus">Adrianus Pestana</persName>.
+              <lb/>P. Carolus de Rocha. — Indiff.
+              <lb/>P. <persName key="Nugueira, Valentinus S.J.">Valentinus Nugueira</persName>.
+              <lb/> P. <persName key="Figueira, Franciscus S.J.">Franciscus Figueira</persName>.
+              <lb/>P. <persName key="Philippus de Marinis S.J.">Philippus de Marinis</persName>.
+              <lb/>
+              <lb/> Ex alia parte:
+              <lb/>P. <persName key="Rhodes, Alexandro S.J.">Alexander Rhodius</persName>. Prof. theol. (quondam Superior Missionis Cocincinensis)
+              <lb/> P. <persName key="Metellus Sacanus">Metellus Saccanus</persName>. Magister in Artibus.</p>
+           
+           <p><hi rend="italic">In multitudine Presbiterorum <lb/>
+              prudentium sta, et sapientiae<lb/>
+              illorum ex corde conjungere.<lb/>
+           Eccles. cap. 6°.</hi></p>
+           
+           <p>[Praeter eos, qui supra nominantur, adjungendi sunt:
+              <lb/>Fr. <persName key="Siqueira, Gaspar">Gaspar Siqueira</persName> 
+              <lb/>Fr. <persName key="Acosta, Thomas de S.J.">Thomas de Acosta</persName> 
+              <lb/>Fr. <persName key="Correa, Iohannes">Joannes Correa</persName> 
+              <lb/>Fr. <persName key="Petro Marchio S.J.">Petrus Márquez</persName> [jun.].
+              <lb/>
+                          <lb/>Hi quadriennium theologiae absolverant, sed cum tunc nullus in civitate Macaensi adesset Episcopus, nondum ad Sacerdotium promoti erant.] 
+          </p>
+       </div>      
+      </body>
+  </text>
+</TEI>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Ignacio de Loyola a Francisco de Xavier, Roma, 10 de Octubre de 1549</title>
+                  <author ref="https://viaf.org/viaf/88881025">de Loyola, Ignatius S.J.<date>1491-1556</date></author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/716351646">in: Monumenta historica Japoniae, 2. Documentos del Japón, 1547-1557, edited by Juan G. Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1990, 129</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/monumentahistori137unse</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1549</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-10" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="129" type="page"/>
+<p>1. Cum, crescente in dies diversis in regionibus numero eorum qui nostrum institutum sequuntur, per Domini nostri Iesu Christi gratiam, crescat etiam rebus multis providendi et consequenter hoc onus cum aliis partiendi necessitas, visum est in Domino expedire ut aliquem ex fratribus nostris nobis substituendo, et praepositum omnium illorum qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> et aliis transmarinis regionibus serenissimo regi Portugalliae subiectis et ultra eas, sub obedientia Societatis nostrae vivunt, constituendo, eidem caetera omnia quae nostri officii essent committeremus.</p>
+<p>2. Nos ergo, cum de tua pietate et prudentia quae est in Christo Iesu plurimum confidamus, te in praepositum provincialem omnium nostrorum qui in praedictis regionibus versantur, cum omni ea auctoritate quam <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedes Apostolica</placeName> nobis concessit et constitutiones nostrae Societatis nobis tribuunt, creamus et instituimus. Ac in virtute sanctae obedientiae [iniungi<pb n="130" type="page"/>mus] ut hanc curae nostrae partem et auctoritatis suscipiendo, eadem ad inquirendum, ordinandum, reformandum, iubendum, prohibendum, admittendum in Societatem ad probationem 4 et ab eadem repellendum quos videbitur; constituendum etiam in quovis officio et deponendum, et in summa, ad disponendum de omnibus quae nos, si praesentes essemus, circa loca, res et personas quae ad Societatem pertinent possemus disponere, et ad Dei gloriam facere iudicabis, plenissime utaris.</p>      
+<p>3. Hoc enim, gratiam Dei in te considerantes, ad ipsius honorem et ad eorum spiritualem profectum qui nostrae curae sunt commissi, et ad communem animarum salutem fore in Domino speramus.</p>
+<p>Datum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName>, <date when="1549-10-10">sexto idus octobris 1549</date>.</p>
+<p><persName key="Ignatius">[Ignatius]</persName></p>
+       </div>      
+      </body>
+  </text>
+</TEI>

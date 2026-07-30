@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Martyrium Fr. Minorum Almaligh</title>
+            <author>Ignotus</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-08-20">20/08/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/7503970" key ="print-editor">in: Sinica Franciscana, I: Itinera et relationes fratrum Minorum saeculi XIII et XIV, a cura di A. Van Den Wyngaert, Firenze, Quaracchi, 1929, 373-377 </title> 
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/151</idno>
+               <idno type="URI">https://hdl.handle.net/2027/mdp.39015012963784</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY Fine Reader, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Passio</term>
+              <term type="places">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1301/1400">1339</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-16" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+  <text>
+     <body> 
+        <div>
+        <pb n="510" type="page"/>
+           <p>Fr. vero <persName key="Iohannes de Marignollis O.F.M." ref="http://viaf.org/viaf/90635332">Iohannes [de Marignolli]</persName> cum aliis fratribus suam legationem complevit. Et dum fuit prope <placeName key="Almaligh">Amalech</placeName>, audivit de novo [quod] decesserat <persName key="Yesün Temür Khan">Imperator</persName>, qui fratres Minores in tantum diligebat, ut Fr. <persName key="Franciscus de Alexandria O.F.M.">Franciscum de Alexandria</persName>, qui ipsum a cancro et fistula miraculose curaverat, patrem suum vocaret et sibi proprium filium tradidisset ad nutriendum et postea baptizandum. Audivit etiam nova, quod quidam religiosus saracenus, Alisoldani nomine, factus fuerat <persName key="Yesün Temür Khan">Imperator</persName>. Qui primam crudelitatem in christianos ostendens, ferali edicto praecepit quod omnes christiani occiderentur, nisi vellent effici saraceni, fide catholica abnegata. Tunc fuerunt capti omnes fratres, qui erant in conventu <placeName key="Almaligh">Amalech</placeName>, videlicet : Fr. <persName key="Franciscus de Alexandria O.F.M.">Franciscus de Alexandria</persName>, praefatus pater Imperatoris, Fr. <persName key="Richardus de Burgundia O.F.M.">Richardus de Burgundia</persName>, Episcopus, Fr. <persName key="Raymundus Ruphi de Provincia O.F.M.">Raymundus Ruphi</persName>, provincialis, Fr. Pa<pb n="511" type="page" break="no"/>schalis Hispanus de Victoria, sacerdotes; necnon Fr. <persName key="Laurentius de Alexandria vel de Ancona O.F.M.">Laurentius de Alexandria</persName> et Fr. <persName key="Petrus Martelli de Provincia O.F.M.">Petrus Martelli de Provincia</persName>, laici, qui aedificabant ecclesiam, quam eis concesserat <persName key="Yesün Temür Khan">Imperator</persName> defunctus.</p>
+         <p>Qui inducti et multipliciter examinati, ut saltem unirni verbum negationis fidei proferrent, in fide invictissimi, ab illa se nunquam velle recedere, sed potius pro illa mori clamantes, traditi sunt sarecenorum furiae populari. Qui primo fratres sanctos gladiolis parvis in diversis partibus corporis pungentes et vulnerantes, cum adhuc fidem Christi confiterentur constanter, irruentes contra eos in furia saraceni, cum gladiis eos lacerantes crudeliter occiderunt. Et sic glorioso martyrio Deo suas animas reddiderunt.</p>
+           <p> Martyrizatus etiam tunc fuit interpres Episcopi Cambaliensis et <persName key="Guglielmus de Mutina">Guglielmus de Mutina</persName>, mercator <placeName key="Genua" ref="https://pleiades.stoa.org/places/383664/">Ianuensis</placeName>. Omnes alii christiani qui erant ibi, fidem negantes timore mortis, facti sunt saraceni.</p>
+         <p> Tunc locum fratrum destruxerunt, et libros et alia vel rapuerunt vel igne combusserunt. Post modicum vero temporis, dictus <persName key="Yesün Temür Khan">Imperator</persName> Alisoldani, clamante sanctorum fratrum sanguine, fuit crudeliter interfectus et omnia sua combusta, ut secundum quantitatem culpae esset et plagarum modus.</p>
+      </div>
+     </body>
+  </text>
+</TEI>

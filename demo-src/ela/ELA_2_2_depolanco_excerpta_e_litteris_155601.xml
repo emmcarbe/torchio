@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Ioannis De Polanco S.I. Excerpta e litteris indicis de electione patris quadros in provincialem [Goa Ianuario 1556] SCRIPTIS</title>
+            <author>de Polanco, Iohannes Alfonsus S.J.<date>1517-1576</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490866522" key ="print-editor">in: Monumenta missionum Societatis Iesu, Missiones Orientales, Documenta Indica III (1553-1557), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1954, 456-460</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab> 
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1556</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="456" type="page"/>
+<p>1. Haec mense Decembri 1553 transacta sunt. At P. <persName key="Nuñez Barreto, Melchior">Melchior</persName> bona, ut diximus, fide anno 1554, ut sequeretur vestigia P. Francisci Xavier, in Iaponem, ut praediximus, profectus est, et sibi substituit in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> P. Balthasarem Diaz; et cum admoneretur Cochini a P. <persName key="Franciscus">Francisco</persName> Perez, quod electio celebranda erat ut cum legitima autoritate res transigerentur, ille, qui cum prima commoditate Malacham navigaturus erat, nec expectare commode poterat, dixit, si eo anno Provincialis ex <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europa</placeName> non mitteretur, ut ipsi, qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> manebant, congregarentur et eligerent Provincialem quem vellent, cui se libenter obediturum dixit.</p>
+            <p>2. Nullus autem Provincialis eo anno venit in Indiam, nec etiam sequenti anno 1555 ; quamvis enim in Portugalia iam constabat de morte P. Francisci, cum classis proficisceretur nondum P. <pb n="457" type="page"/> Ignatius Provincialem quemquam elegerat; sed P. Miron scripsit in proximum annum expectari hanc electionem a P. <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> vel confirmationem eius, qui interim a nostris in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> iuxta Litteras Apostolicas electus est. Admonitus ergo ab his Patribus, qui hoc anno in Indiam venerant, P. <persName key="Balthasar">Balthasar</persName> significavit nostris, qui in variis <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> praesidiis residebant, ut si eis videretur electionem factam bonam <pb n="541" type="folio"/> esse, non convenirent <placeName key="Goa">Goam</placeName> ; si autem legitimam non esse existimarent, ut convenirent, vel sua suffragia ad novam electionem faciendam mitterent.</p>
+<p>3. Aliqui ergo eorum venerunt, inter quos fuerunt Patres <persName key="Lancillottus, Nicolaus S.J.">Nicolaus Lancilotus</persName> et <persName key="Franciscus">Franciscus</persName> Perez, alii sua suffragia in scriptis miserunt. Congregatis ergo his, qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> versabantur, cum aliis, qui ex <placeName key="Europa" ref="https://pleiades.stoa.org/places/991376">Europa</placeName> advenerant hoc anno, decreverunt in primis Provincialem esse eligendum, ne sine capite ea esset Provincia, et ut facultatibus Societati concessis uti et aliis eas communicare possent.</p>
+            <p> 4. Actum fuit in Congregatione an canonice electus esset P. <persName key="Nuñez Barreto, Melchior">Melchior</persName>, et responsum est non fuisse canonicam electionem ob superius dictas rationes. Petitum est deinde qui deberent habere suffragium ad hanc electionem, quandoquidem nec in Litteris Apostolicis nec in Constitutionibus quicquam ea in re praescriptum erat, et ius commune sequendum esse decreverunt; et quia tam sacerdotes quam alii Fratres in votis aequales erant, nec ullus professionem solennem in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> emiserat, ut omnes aequaliter suffragium haberent, qui vota simplicia emiserant. Sed communi consensu tredecim electores elegerunt, quibus tota au[cto]ritas eligendi Provincialem est commissa.</p>
+            <p>5. Hi autem fuerunt: Patres Antonius de Quadros, <persName key="Nuñez Barreto, Melchior">Melchior</persName> Carnero, <persName key="Franciscus">Franciscus</persName> Perez (et hi ad scrutinia facienda deputati etiam fuerunt), <persName key="Balthasar">Balthasar</persName> Diaz, Paulus, <persName key="Lancillottus, Nicolaus S.J.">Nicolaus Lancilotus</persName>, <pb n="458" type="page"/> Emanuel Fernandez, <persName key="Franciscus">Franciscus</persName> Enriquez et <persName key="Franciscus">Franciscus</persName> Lopez; et ex non sacerdotibus Marcus Nugnez, Christoforus de Acosta, Alexius Diaz, <persName key="Balthasar">Balthasar</persName> Nugnez. Quod ad suffragium passivum attinet, videbatur quibusdam elegi non debere quenquam illorum, qui in Ethiopiam erant destinati, cum velut hospites essent, et anno sequente cum Patriarca, ut credebatur, recessuri, et tunc alia electio esset celebranda ; et ita aliquem ex his eligendum <pb n="542" type="folio"/> censebant qui in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> prius versabantur et eius mores et negocia perspecta habebant; sed fortioribus rationibus nitebantur alii, quod scilicet ex omnibus eligi posset Provincialis, cum professus esse deberet iuxta Constitutiones, et nullus erat huiusmodi, ut diximus, in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName>, praeter dessignatos ad Ethiopiam, inter quos <choice><abbr>4.or</abbr><expan>quattuor</expan></choice> erant professi et in theologia docti, quod deerat aliis, quos in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> invenerunt; et non esse separanda videbantur a corpore praecipua eius membra. Et demum constitutum est ut prima die Ianuarii anni 1556 celebraretur electio. Missis interim et orationibus praecedentibus, et ut eligi posset quivis ex his, qui in Ethiopiam erant destinati.</p>
+<p>6. Primo ergo die Ianuarii omnibus congregatis ad campanae pulsum in chorum superiorem ecclesiae, postulatum est an vellent <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> Provincialem, per 13 prius nominatos eligi, in quos iam compromiserant. Illis autem affirmantibus, tunc, adhibito iuramento, suffragia collata sunt, et P. Antonius de Quadros et P. <persName key="Nuñez Barreto, Melchior">Melchior</persName> Carnero totidem, P. <persName key="Franciscus">Franciscus</persName> Perez unicum habuit. Et cum nihil effectum esset, repetitis suffragiis, septem habuit P. Antonius de Quadros, quinque P. Carnero, unum P. <persName key="Nuñez Barreto, Melchior">Melchior Nunes</persName> absens.</p>
+<p>7. Surgens autem P. <persName key="Nuñez Barreto, Melchior">Melchior</persName> Carnero dixit se nomine Societatis in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> se eligere in Provincialem P. Antonium de Quadros. Omnes autem cum magna consolatione eum in praelatum et superiorem suum admiserunt. At P. Quadros iussit ut omnes quiescerent, et, prout ipse sentiebat, dixit se minime teneri ad acceptandam huiusmodi electionem, et ita eam non acceptavit.</p>
+            <p>8. Reddidit autem non acceptandi rationes, quas superius attigimus, scilicet quod hospes esset in Ethiopiam iturus, etc. ; nec alioqui lectiones, quas susceperat, prosequi se posse cum hoc novo onere se minime posse, et alia quaedam, inter quae fuit illud, quod in rerum executione remissus esset, quodque, cum in <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitania</placeName> curam haberet, cordis dolorem ex eo contraxit, a quo iam liber erat, <pb n="543" type="folio"/> sed recidere in ipsum facile poterat. Se etiam aetate <pb n="459" type="page"/> iuvenem esse, cum non accederet 27 annos, et iuniorem etiam quam esset videri. Has rationes dedit in <choice><abbr>2a</abbr><expan>secunda</expan></choice> Congregatione, quae sub noctem eodem die habita fuit. In diem autem sequentem indicta est Congregatio ad vesperam, et ut interim rem Domino commendarent praescriptum est.</p>
+<p>9. Sequenti ergo die, id est, <choice><abbr>2a</abbr><expan>secunda</expan></choice> Ianuarii, sub noctem, easdem rationes adducens P. Quadros, se non admissurum esse affirmavit et hanc addidit rationem, quod P. <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> existimabat gratum futurum ne ipse eam curam susciperet; quia, cum ei scripsisset P. Quadros Eborae se aegritudinem corporis ex ea cura contraxisse, responderat ei quod sublevandus esset ab eo labore et, si necesse esset, omnino eo onere liberare, quod id etiam concessurus esset, in eo sequens formam divinae providentiae, quae iuxta rerum naturas et propensiones, quae malae non sunt, eas gubernat; et alios regere, prorsus contra eius erat propensionem : sed omnes fere ei contradixerunt.</p>
+<p>10. Proposuit autem medium hoc idem P. Quadros, ut scilicet tres ipse eligeret cum omnium beneplacito, et quod illi constituerent se facturum ; et quamvis multi repugnarent quia id derogabat factae electioni, tamen suffragia singulorum postulans ad id, plures censuerunt id illi esse permittendum.</p>
+<p> 11. Elegit ergo Patres Ioannem Bochium et Michaelem Barul, qui eius erat confessarius, et quendam alium ex Fratribus laicis. Hos enim ille existimabat minus in alterutram partem propensos esse quam caeteros ; sed tam sacerdotes quam reliqui hanc trium electionem non approbandam censuerunt. Et cum urgeret ut ipse admitteret officium, ad quod electus erat, tandem admisit.</p>
+            <p>12. Prius tamen votum coram Deo et omnibus emisit, quandoquidem ipse se ineptum ad eam curam existimabat quod quandocumque illi constituissent non convenire ut ipse regeret <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Provinciam</placeName> <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName>, substituturus erat suo loco aliquem ab ipsis electum, cui suas vices et autoritatem committeret quodque non valde convenire existimabat; et P. Ignatium per litteras urgebat ut mitteret quem missurus erat ad eius Provinciae curam <pb n="544" type="folio"/> suscipiendam et exercendam. Et exinde officio suo fungi coepit cum magno humilitatis ac etiam prudentiae exemplo.</p>
+            <p> 13. Suggessit autem P. <persName key="Loyola, Ignatius de S.J." ref="http://viaf.org/88881025">Ignatio</persName> suis litteris, quod cum <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> tam esset a Praeposito Generali remota, ut aliquando tribus et <pb n="460" type="page"/> quatuor annis responsum litterarum esset expectandum, expedire videbatur, ut Praepositus Provincialis officio suo in quibusdam casibus privari a subditis posset, quemadmodum Prepositus Generalis privari poterat. Suggessit etiam ut in Constitutionibus vel regulis forma Praepositi Provincialis in remotissimis locis constitueretur; nihil enim esse praescriptum in ea parte non parum negotii nostris in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">India</placeName> exhibuerat.</p>
+<p> 14. Idem proposuit de cantu divinorum officiorum in <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> regionibus tolerando, ut rudes illi homines in religione ad Dei cultum ea ratione magis allicerentur. Et perfacile <placeName key="Goa">Goae</placeName> id fieri poterat, ubi pueri cantandi officio fungebantur, quibus unicus sacerdos in cantanda Missa per mediam horam prolixius quam in privatis immoraretur : et id probatum fuisse a P. <persName key="Xaverius, Franciscus" ref="http://www.viaf.org/51717999">Francisco Xavier</persName> ; nec difficile erat cantores docere, cum provectiores in cantu pueri reliquos docerent.</p>
+         </div>
+      </body>
+   </text>
+</TEI>

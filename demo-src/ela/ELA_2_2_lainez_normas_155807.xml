@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Normas particulares para la India (Roma, Agosto de 1558)</title>
+            <author>Laínez, Didacus S.J.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">10/09/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/896610034" key ="print-editor">in: Monumenta historica Japoniae. Documentos del Japón, 1558-1562, edited by Juan G Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1995, 129-130</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://hdl.handle.net/2027/inu.30000036701443</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>[sin firma]
+            </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Adnotationes</term>
+              <term type="place">India</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1558</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-10-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-10" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div><pb n="129" type="page"/>
+           <p>De rebus particularibus <placeName key="Portugalliae provinciae">provinciae Portugalliae</placeName> quae a praeposito generali in privata congregatione fuerunt constituta</p>
+           <p>1. Constituit [<hi rend="italic">praepositus generalis</hi>] ut provincialis Portugalliae curam haberet rerum indicarum et superintendentiam, <pb n="130" type="page"/> non quasi ex officio ordinario sed commissario, ad id praecipue ut res transmarinas, tam <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> et <placeName key="Aethiopia" ref="https://pleiades.stoa.org/places/39274">Aethiopiae</placeName> quam Brasiliae, et si quae aliae fuerint regi Portugaliae subditae, promoveat cum principibus et cum commissario <placeName key="Hispaniae provinciae">provinciarum Hispaniae</placeName> et cum ipso praeposito generali [ ].</p>
+           <p>2. Primo ex parte Praepositi Generalis et totius Congregationis supplicetur serenissimae Reginae Portugaliae ut suo favore impensius faveat novam conversionem <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> commendando serio gubernatoribus ut novarum plantationum peculiarem habeant curam [ ].</p>
+           <p>3. Pater <persName key="Nuñez Barreto, Melchior">Melchior Nunes</persName>, si non emissit professionem votorum, emittat eam.</p>
+           <p>4. Quod attinet ad Patrem <persName key="Cosimus de Torres">Cosmum de Torres</persName> committitur eidem Patri <persName key="Nuñez Barreto, Melchior">Melchiori Nunes</persName> ut statuat quo in gradu sit ille constituendus, an scilicet inter professos 4 vel trium votorum an inter coadiutores spirituales, visis Constitutionibus.</p>
+           <p>5. Pater Nicolaus Lancillotus professionem emittat trium votorum [ ].</p>
+           <p>6. Pater <persName key="Dies, Balthasar">Balthasar Dies</persName> admittatur in coadiutorem spiritualem formatum.</p>
+           <p>7. Pater <persName key="Balthasar Gago">Balthasar Gago</persName> emittat professionem 4 vel trium votorum, vel sit coadiutor spiritualis, prout videbitur Patri <persName key="Nuñez Barreto, Melchior">Melchiori Nunes</persName> [ ].</p>
+           <p>8. De <persName key="Villela, Gasparo">Gasparo Villela</persName> idem.</p>    
+        </div>
+      </body>
+  </text>
+</TEI>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Syllabus Alphabeticus Patrum et Fratrum qui sunt intra Catalogi Provinciae Japonicae [Catalogi Provinciae Japonicae anni 1654]</title>
+                  <author>Ignotus</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 1100-1101</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1654</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="159v" type="folio"/>
+           <pb n="1101" type="page"/>   
+             <p>SYLLABUS ALPHABETICUS PATRUM ET FRATRUM<lb/>
+                QUI SUNT INTRA PROVINCIAM JAPONICAM<lb/>
+                ET CONTINENTUR IN PRIMO CATALOGO.</p>
+<lb/>
+<p>
+1. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Aloysius Piñerius">Aloysius Pinherius</persName> Pag. 3 n. 26<lb/>
+2. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Fereira, Antonius S.J.">Antonius Ferreira</persName> Pag. 1 n. 7<lb/>
+3. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="López, Antonius S.J.">Antonius López</persName> Pag. 3 n. 25<lb/>
+4. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Barnabas de Oliveira S.J.">Barnabas de Oliveira</persName>	Pag. 3 n. 24<lb/>
+5. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Benedictus de Matos S.J.">Benedictus de Mattos</persName>	Pag. 1 n. 6<lb/>
+6. <choice><abbr>P.</abbr><expan>Pater</expan></choice> Carolus da Rocha Pag. 2 n. 14<lb/>
+7. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Emmanuel de Miranda S.J.">Emmanuel de Miranda</persName> Pag. 2 n. 12<lb/>
+8. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Franciscus Rangel S.J.">Franciscus Rangelus</persName> Pag. 1 n. 8<lb/>
+9. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Franciscus Rivas S.J.">Franciscus Rivas</persName> Pag. 3 n. 18<lb/>
+10. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Núnez, Georgius">Georgius Nunes</persName> Pag. 1 n. 4<lb/>
+11. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Maiorica, Hieronymus S.J." ref="http://www.viaf.org/42085352">Hieronymus Mayorica</persName> Pag. 1 n. 2<lb/>
+12. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Agnes, Ioseph S.J.">Joseph Agnes</persName> P Pag. 2 n. 9<lb/>
+13. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Iohannes Andreas Lobelli S.J.">Joannes Andreas Lubelli</persName> Pag. 2 n. 15<lb/>
+14. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Brando, Iohannes Baptista S.J.">Joannes Baptista Brando</persName> Pag. 2 n. 16<lb/>
+15. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Iohannes Maria Leria S.J.">Joannes Maria Leria</persName> Pag. 1 n. 5<lb/>
+16. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Nogheira, Iohannes S.J.">Joannes Nogheira</persName> Pag. 3 n. 23<lb/>
+17. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Núnez, Iohannes S.J." ref="http://www.viaf.org/77146111">Joannes Nunes</persName>	Pag. 3 n. 21<lb/>
+18. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Coelho, Martinus S.J.">Martinus Coelho</persName> Pag. 1 n. 3<lb/>
+19. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Matthias de Amaya S.J.">Matthias d'Amaya</persName> [!] Pag. 2 n. 17<lb/>
+20. <choice><abbr>P.</abbr><expan>Pater</expan></choice><persName key="Metellus Sacanus">Metellus Saccanus</persName> Pag. 2 n. 10<lb/>
+21. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Borges, Onufrius S.J.">Onufrius Borges</persName> Pag. 2 n. 11<lb/>
+22. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Petro Marchio S.J.">Petrus Márquez</persName> Pag. 3 n. 22<lb/>
+23. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Philippus de Marinis S.J.">Philippus Marinus</persName> Pag. 3 n. 19<lb/>
+24. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Sebastianus de Amaya S.J.">Sebastianus d’Amaya</persName> Pag. 1 n. 1<lb/>
+25. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Torrente, Stanislaus S.J.">Stanislaus Torrente</persName> Pag. 3 n. 20<lb/>
+26. <choice><abbr>P.</abbr><expan>Pater</expan></choice> <persName key="Valguarneira, Thomas S.J.">Thomas Valguarneira</persName> Pag. 2 n. 13<lb/>      
+27. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Mendes, Antonius S.J." ref="https://www.wikidata.org/wiki/Q611205">Antonius Méndez</persName> Pag. 6 n. 48<lb/>
+28. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Rodriguez, Antonius S.J.">Antonius Rodríguez</persName> Pag. 6 n. 50<lb/>
+29. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Simõis, Antonius S.J.">Antonius Simõis</persName> Pag. 5 n. 40<lb/>
+30. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Torres, Antonius de">Antonius de Torres</persName> Pag. 5 n. 39<lb/>
+31. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Ribeiro, Belchior S.J.">Belchior Ribeiro</persName> Pag. 5 n. 38<lb/>
+32. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Costa, Bartholomeus da S.J.">Bartholomeus da Costa</persName> Pag. 5 n. 35<lb/><pb n="1101" type="page"/>
+33. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Cottinius, Didacus S.J.">Didacus Cottinius</persName> Pag. 6 n. 49<lb/>
+34. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Suares, Didacus S.J.">Didacus Suares</persName> Pag. 6 n. 47<lb/>
+35. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Correa, Dominicus S.J.">Dominicus Correa</persName> Pag. 6 n. 45<lb/>
+36. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Nobrega, Dominicus S.J.">Dominicus Nobrega</persName> Pag. 6 n. 51<lb/>
+37. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Ferreira, Emmanuel S.J." ref="http://www.viaf.org/11311063">Emmanuel Ferreira</persName> Pag. 6 n. 52<lb/>
+38. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Figheredo, Emmanuel S.J.">Emmanuel Figheredo</persName> Pag. 5 n. 37<lb/>
+39. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Emmanuel da Sylva S.J.">Emmanuel da Silva</persName> Pag. 5 n. 44<lb/>
+40. <choice><abbr>F.</abbr><expan>Frater</expan></choice> lgnatius Sanga Pag. 5 n. 36<lb/>
+41. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Pereira, Iohannes S.J.">Joannes Pereira</persName> Pag. 6 n. 46<lb/>
+42. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Vaz, Mattheus S.J.">Mattheus Vaz</persName> Pag. 5 n. 41<lb/>
+43. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Monterius, Michael S.J.">Michael Monterius</persName> Pag. 5 n. 42<lb/>
+44. <choice><abbr>F.</abbr><expan>Frater</expan></choice> <persName key="Pasqualis Fernandez S.J.">Pasqualis Fernández</persName> Pag. 6 n. 43<lb/></p>
+       </div>      
+      </body>
+  </text>
+</TEI>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Primus catalogus personarum Provinciae Philippinarum (1 Maji 1621)</title>
+                  <author>Marquez, Petrus S.J.</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1621</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+<pb n="367" type="folio"/>
+           
+<p>«Congregatio Provincialis Japonica in <placeName key="Macaum">Collegio Machaoensi</placeName>
+<lb/>inchoata die <date when="1638-09-05">nona Septembris Anni Domini 1638</date>, Praeside
+<lb/>P.<persName key="Gaspare Luis">Gaspare Luis</persName>, Viceprovinciali, praesentibus Patribus
+<lb/>qui subsequuntur</p> 
+<p>
+   <lb/>P. <persName key="Morejón, Petrus S.J.">Petro Morejón</persName> 
+   <lb/>P. <persName key="Rubinus, Antonius S.J." ref="http://www.viaf.org/67637998">Antonio Rubino</persName> 
+   <lb/>P. Vincentio Rubino 
+   <lb/>P. Petro Marchio 
+   <lb/> P. <persName key="Franciscus Buzomi S.J.">Francisco Buzomi</persName> 
+   <lb/>P. <persName key="Taveira, Franciscus S.J." ref="Trigautius">Francisco Taveira</persName>
+   <lb/> P. <persName key="Rhodes, Alexandro S.J.">Alexandro Rhodes</persName> 
+   <lb/> P. <persName key="Cardim, Antonius Franciscus S.J." ref="http://www.viaf.org/25034699">Antonio Cardim</persName> 
+   <lb/> P. <persName key="Raymundus de Gouvea S.J.">Raymundo de Gouvea</persName> 
+   <lb/>P. <persName key="Siqueira, Bartholomeus S.J.">Bartholomaeo Siqueira</persName> 
+   <lb/> P. <persName key="Gaspar d’Amaral S.J.">Gaspare do Amaral</persName>.
+</p> 
+<p>Quatuor ex universa Provincia desiderati Professi, quos legitime censuit impeditos Congregatio, quia apud Tunquinenses et <placeName key="Cochin">Coccicinenses</placeName> gravissimis ad animarum salutem negotiis ac laboribus adeo impliciti distentique fuere, ut nec paratam, qua sua ad nos suffragia transmitterent, opportunitatem, nedum expeditum, ut viae se committerent, aditum invenire potuerint. Hi fuere: Pater Hyeronimus Maiórica, Pater <persName key="Bonellus, Iohannes Baptista  S.J." ref="http://www.viaf.org/32241613">Joannes Baptista Bonellus</persName>, Pater <persName key="Antonius de Fontes S.J.">Antonius de Fontes</persName>, Pater <persName key="Iohannes Maria Leria S.J.">Joannes Maria Leria</persName>».</p> 
+           <p>[Ex Actione Prima, <date when="1638-09-09">9. Septembris 1638</date>] «Primo ad plura igitur suffragia Pater <persName key="Petrus">Petrus</persName> Marchius in secretarium delectus est, allectusque in socium，particeps consiliorum, Pater <persName key="Gaspar d’Amaral S.J.">Gaspar do Amaral</persName>. Deputati ad plura itidem suffragia Pater <persName key="Rubinus, Antonius S.J." ref="http://www.viaf.org/67637998">Antonius Rubinus</persName> primo loco, secundo Pater <persName key="Morejón, Petrus S.J.">Petrus Morejón</persName>. Actum denique de Procuratoris electione, statutumque, ut electio fieret die undecima ejusdem mensis».</p> 	
+           <p>[Ex Actione <choice><abbr>2a</abbr><expan>secunda</expan></choice>, <date when="1638-09-11">11. Septembris 1638</date>] «Condicta die... ad plura medietate suffragia, scrutinio sexto, P. Antonius Cardim Provinciae <placeName key="Japonia">Japoniae</placeName> Procurator est dictus. Secundus a primo ad plura medietate suffragia, sed scrutinio primo, P. <persName key="Raymundus de Gouvea S.J.">Raymundus de Gouvea</persName> substitutus, subrogatusve. Ad plura demum medietate suffragia, scrutinio 3°, tertius a primo, Pater <persName key="Gaspar d’Amaral S.J.">Gaspar do Amaral</persName> ».</p> 
+           <p><pb n="373" type="folio"/> [Ex Actione nona] «Congregationi finis imponitur die <date when="1638-09-22">22. Septembris</date>, vespertinis horis, ab inch[oata] 13., in Collegio <placeName key="Macaum">Amacaensi</placeName>, <date when="1638">Anno Domini 1638</date>.</p> 
+<p>Sigillum
+   Pr <persName key="Petrus">Petrus</persName> Màrquez Secretarius»</p>
+   </div>    
+        
+      </body>
+  </text>
+</TEI>

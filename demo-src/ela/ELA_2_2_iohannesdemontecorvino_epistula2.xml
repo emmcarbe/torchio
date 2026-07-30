@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Epistola II</title>
+            <author ref="https://viaf.org/viaf/59876078/">Iohannes de Montecorvino O.F.M.<date>1247-1328</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">10/09/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Sinica Franciscana, I: Itinera et relationes fratrum Minorum saeculi XIII et XIV, a cura di A. Van Den Wyngaert, Firenze, Quaracchi, 1929, 345-351</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/151</idno>
+               <idno type="URI">https://hdl.handle.net/2027/mdp.39015012963784</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1301/1400">1305</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2) adding Place/Person/Dates</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+        <pb n="345" type="page"/>
+           <p>1. Ego frater <persName key="Iohannes de Montecorvino O.F.M." ref="http://viaf.org/viaf/59876078">Iohannes de Monte Corvino</persName> de Ordine fratrum Minorum, recessi de <placeName key="Tabriz" ref="https://pleiades.stoa.org/places/430344981">Thaurisio</placeName> civitate <placeName key="Persae" ref="https://www.geonames.org/130758">Persarum</placeName> <date when="1291">anno Domini M° CC° LXXXXI</date>, et intravi in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndiam</placeName> et fui in contrada <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndie</placeName> et ind ecclesia S. Thome Apostoli mensibus XIII. Et ibi battizavi circa centum personas in diversis locis; et socius fuit vie mee frater <persName key="Nicolaus de Pistoria O.P.">Nicholaus de Pistorio</persName> de Ordine <pb n="346" type="page"/>fratrum Predicatorum, qui mortuus est ibi et sepultus in eadem ecclesia. Et ego ulterius procedens perveni in <placeName key="Cathay">Kathay</placeName> regnum Imperatoris Tartarorum, qui dicitur  <persName key="Magnus Kaam" ref="https://viaf.org/50027343">magnus Cham</persName>. Ipsum vero Imperatorem cum litteris <persName key="Papa">domini Pape</persName> ad fidem domini nostri Ihesu Christi catholicam invitavi ; qui tamen nimis inveteratus est in ydolatria, sed multa benefitia prestat christianis ; et ego sum apud eum iam est annus duodecimus. Nestoriani quidem christianitatis tytulum preferentes, sed a christiana religione plurimum deviantes, tantum invaluerunt in partibus istis quod non permiserunt quempiam christianum alterius ritus habere quantu[m]libet parvum oratorium, nec aliam quam nestorianam publicare doctrinam.</p>
+           <p><pb n="347" type="page"/>Ad has siquidem terras nec aliquis Apostolus, nec Apostolorum discipulus pervenit, et ideo prefati nestorini per se et per alios pecunia corruptos, persecuciones michi gravissimas intulerunt, asserentes quod non essem missus a domino <persName key="Papa">Papa</persName> sed essem explorator, magus et dementator hominum. Et facto aliquo intervallo temporis, produxerunt alios falsos testes dicentes <pb n="171ra" type="folio"/>quod alius nuntius fuerat missus, deferens Imperatori maximum thesaurum et quod ego illum occiderim in <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndia</placeName> et abstulerim que portabat. Et duravit hec machynatio circiter quinque annis, ita quod sepe ad judicium fui tractus cum ignominia mortis. Tandem per quorumdam confessionem, Deo disponente, <persName key="Yesün Temür Khan">Imperator</persName> cognovit meam innocentiam et malitiam emulorum, et ipsos cum uxoribus et liberis exilio relegavit.</p>
+           <p>2. Ego vero solus in hac peregrinatione fui sine confessione annis undecim, donec venit ad me frater <persName key="Arnoldus de Colonia O.F.M.">Arnoldus Alamannus</persName> de provincia <placeName key="Colonia" ref="https://pleiades.stoa.org/places/108751">Colonie</placeName>, nunc est annus secundus. Unam ecclesiam edificavi in civitate <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambaliech</placeName>, ubi est precipua residentia Regis, quam ante sex annos complevi, ubi etiam feci campanile et ibi tres campanas posui. Battizavi etiam ibidem, ut existimo, usque hodie, circa sex millia personarum. Et nisi fuissent supradicte infamationes, battizassem ultra XXX milia, et sum frequenter in battizando.</p>
+        <p>3. Item emi successive XL pueros, filios paganorum etatis infra VII et XI annorum, qui nullam adhuc cognoscebant legem, et battizavi eos, et informavi eos licteris latinis et ritu nostro, et scripsi pro eis psalteria cum ymnariis XXX et duo breviaria, ex quibus XI pueri iam sciunt officium nostrum.
+           <pb n="348" type="page"/>Et tenent chorum et ebdomadas sicut in conventu, sive sim presens sive non. Et plures ex eis scribunt psalteria et alia opportuna. Et dominus <persName key="Yesün Temür Khan">Imperator</persName> delectatur multum in cantu eorum. Campanas ad omnes horas pulso et cum conventu <hi rend="italic">infantium et lactentium</hi> divinum officium facio. Tamen secundum usum cantamus, quia notatum officium non habemus.</p>
+           <p>4. De bono Rege Georgio. Quidam Rex illius regionis de septa nestorianorum christianorum, qui erat de genere illius magni Regis qui dictus fuit Presbiter <persName key="Iohannes">Iohannes</persName> de <placeName key="India" ref="https://pleiades.stoa.org/places/50004">Yndia</placeName>, primo anno quo huc ego veni michi adhesid et ad veritatem vere fidei catholice per me conversus, minores ordines suscepit, michique celebranti sacris vestibus indutus ministravit, ita quod alii nestoriani ipsum de apostasia accusaverunt. Tamen ipse magnam populi sui partem ad veram fidem catholicam adduxit, et ecclesiam pulchram secundum regiam magnificentiam construxit ad honorem Dei nostri, Sancte Trinitatis et <persName key="Papa">domini Pape</persName> et nomine meo vocans eam ecclesiam romanam. Qui Rex Georgius ante VI annos migravit ad Dominum verus christianus, relicto filio herede in cunabulis, qui nunc est annorum novem. Fratres tamen ipsius Regis Georgii cum essent perfidi in erroribus Nestorii, omnes quos ille converterat, <pb n="349" type="page"/>post Regis obitum, subverterunt, ad scisma pristinum reducendo. Et quia ego <pb n="171rb" type="folio"/>fui solus nec potui recedere ab <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Imperatore Chaam</persName>, ire non potui ad illam ecclesiam que distat ad XX dietas. Tamen si venerint aliqui boni coadiutores et cooperatores, spero in Deo quod totum poterit reformari ; nam adhuc habeo privilegium predicti Regis Georgii defuncti.</p>
+           <p>5. Iterum dico quod si non fuissent infamationes supradicte, magnus fructus fuisset secutus. Si habuissem etiam duos vel tres socios coadiutores meos, forte  <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Imperator Chaam</persName> fuisset battizatus. Rogo ut tales fratres veniant, si venire aliqui volunt, quod studeant se in exemplum dare et non suas fimbrias magnificare.</p>
+           <p>6. De via notifico quod per terram <placeName key="Cathay">Cothay</placeName> Imperatoris aquilonarium Tartarorum est via brevior et securior, ita quod cum nunciis infra V vel VI menses poterunt pervenire; via autem alia est longissima et periculosissima, habens duas navigationes quarum prima est secundum distantiam inter <placeName key="Achon">Achon</placeName> et provinciam Provincie, alia vero est secundum distantiam inter <placeName key="Achon">Achon</placeName> et <placeName key="Anglia" ref="https://www.geonames.org/6269131">Angliam</placeName>, et posset contingere quod in biennio VIX perficerent viam illam. Quia prima via secura non fuit a multo tempore propter guerras, ideo sunt XII anni quod de Curia romana et de nostro Ordine et statu occidentis non suscepi nova.</p>
+        <p>7. Iam sunt duo anni, quod venit quidam medicus cyrurgicus Lombardus qui de romana Curia et nostro Ordine et  <pb n="350" type="page"/>statu occidentis istas partes incredibilibus blasphemiis infecit. Propter quod multum desidero percipere veritatem.</p>
+        <p>8. Rogo fratres ad quos hec littera pervenerit, ut ita studeant quod eius continentia possid pervenire ad notitiam <persName key="Papa">domini Pape</persName> et Cardinalium et Procuratoris Ordinis nostri in Curia romana. Ministro generali Ordinis nostri supplico pro antiphonario et legendis sanctorum, graduali et psalterio cum nota pro exemplari, quia non habeo nisi breviarium portatile cum lectionibus brevibus et parvum missale. Si habuero exemplar, pueri predicti scribent.</p>
+           <p>9. Modo sum in actu edificandi aliam ecclesiam ad dividendum pueros in pluribus locis. Ego iam senui et canus factus sum potius laboribus et tribulationibus quam etate, sum enim annorum quinquaginta octo. Didici competenter linguam et licteram tartaricham, que lingua usualis Tartarorum est, et iam transtuli in lingua illa et lictera totum novum Testamentum et psalterium, que feci scribi in pulcerrima lictera eorum. Et teneo et lego et predico in patenti et manifesto testimonium legis Christi. Et tractavi cum supradicto Rege Georgio, si vixisset, totum officium latinum transferre ut per totam terram cantaretur in dominio suo. Et eo vivente in ecclesia sua celebrabatur missa secundum ritum latinum <pb n="171va" type="folio"/> in lictera et lingua illa, tam verba canonis quam prefationis. Et filius dicti Regis vocatur <persName key="Iohannes">Iohannes</persName> propter nomen meum, et spero in Deo quod ipse imitabitur vestigia patris sui. Secundum vero audita et visa, credo quod nullus Rex aut princeps in mundo possid  <pb n="350" type="page"/> equari domino <persName key="Magnus Kaam" ref="https://viaf.org/50027343">Chaam</persName> in latitudine terre, in multitudine populi et magnitudine divitiarum. Finis.</p>
+           <p>Data in civitate <placeName key="Khanbaliq" ref="https://www.geonames.org/1816670/">Cambaliech</placeName> regni <placeName key="Cathay">Kathay</placeName>, <date when="1305-01-08">anno Domini M° CCC° V°, die VIII mensis ianuarii</date>.</p>
+        </div>
+      </body>
+  </text>
+</TEI>

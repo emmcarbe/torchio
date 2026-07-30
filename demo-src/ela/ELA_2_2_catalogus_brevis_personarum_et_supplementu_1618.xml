@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Catalogus brevis personarum et supplementu primi et secundi catalogi. [Jul./Aug. 1618]</title>
+                  <author>Ignotus</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>cata
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/title/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat" usage="99">Latin</language>
+           <language ident="es" usage="1">Spanish</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1618</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="5v" type="folio"/>
+           <p>
+              <lb/>P. <persName key="Franciscus Calderón S.J.">Franciscus Calderón</persName>, Visitator huius provinciae.
+              <lb/>. . . . . . . . . .
+              <lb/> <pb n="7" type="folio"/>	Patres, Fratresque Japonici.
+              <lb/>
+                 <lb/> P. <persName key="García Garcés S.J." ref="http://www.viaf.org/70544515">Garcia Garcés</persName> preest aliquibus Fratribus japonicis Domi Sancti Michaelis, condonatur et adjuvat Japonios in spiritu.
+              <lb/>
+                 <lb/>F. Román
+                 <lb/>F. Michael
+              <lb/>exercent ministeria domestica.
+              <lb/>
+              <lb/>F. Georgius, socius est Procuratoris Provinciae.
+              <lb/>F. <persName key="Vota, Agustinus S.J.">Augustinos Vota</persName>, in Cavitensi Missione socius, domestica exercet ministeria.
+              <lb/>F. <persName key="Figueredo, Thomas de">Thomas Figueredo</persName>, in domo Taytay exercet domestica ministeria.
+              <lb/>F. <persName key="Petrus Chiquan S.J.">Petrus Chiquam</persName>, in <placeName key="Silangl">domo Silang</placeName> exercet domestica ministeria. 
+               <lb/>
+              <lb/>F. Thadeus 
+              <lb/>F. Alexius
+              <lb/>In <placeName key="Japonia">Japoniam</placeName> missi.
+              <lb/><foreign xml:lang="es">  <pb n="Inscriptio, f. 8v:" type="folio"/>« † Nuestro Pe</foreign> <choice><abbr>etc.</abbr><expan>et cetera</expan></choice>
+              <lb/>1a v.a			8° »
+           </p>
+           
+       </div>      
+      </body>
+  </text>
+</TEI>

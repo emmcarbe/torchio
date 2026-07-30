@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc>
+   <titleStmt>
+   <title>Epistola ad Cardinales S.C.P.F., mense Iulio 1672</title>
+   <author>Ibañez, Bonaventura O.F.M.<date>1610-1691</date></author>
+   </titleStmt>
+   <publicationStmt>
+   <publisher>
+    <ref target="www.ela.unisi.it">ELA</ref>
+   </publisher>
+   <date when="2018-11-11">11/11/2018</date>
+   <availability>
+    <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+   </availability>
+   </publicationStmt>
+   <sourceDesc>
+      <bibl>
+        <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 97-101</title>
+        <idno type="SINICA"></idno>
+        <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+        <idno type="URI"></idno>
+      </bibl>
+     </sourceDesc>
+   </fileDesc>
+   <encodingDesc>
+    <projectDesc>
+      <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+    </projectDesc>
+    <editorialDecl>
+      <ab> 
+      </ab>
+    </editorialDecl>
+   </encodingDesc>
+   <profileDesc>
+    <langUsage>
+      <language ident="lat">Latin</language>
+    </langUsage>
+    <textClass>
+      <keywords>
+       <term type="form">Prosa</term>
+       <term type="source">Sinica Franciscana</term>
+       <term type="genre">Epistolae</term>
+       <term type="place">China</term>
+      </keywords>
+    </textClass>
+    <creation>
+      <date when-iso="1601/1700">1672</date>
+    </creation>
+   </profileDesc>
+   <revisionDesc>
+    <change when="2018-08-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+    <change when="2019-12-14" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+   </revisionDesc>
+ </teiHeader>
+  
+ <text>
+   <body> 
+    <pb n="97" type="page"/>
+      <div>
+<p>Emi DD. N. Cardinales de Propaganda Fide.</p>
+       <p>1. Acceptis literis apostolicis in <placeName key="Hispania" ref="https://pleiades.stoa.org/places/1027">Hispaniam</placeName> me contuli, ubi septem religiosos theologos ordinis Mi<pb n="99" type="page"/>norum Discalceatorum, virtutibus, cȩterisque requisitis ornatos mihi sociavi, cum quibus mare transfretans ad Indiam Occidentalem deveni exindeque anno transacto ad <placeName key="Philippinas">insulas Philippinas</placeName> pervenimus, ibi spectantes opportunam occasionem iter nostrum prosequendi, per annum demoravimus.</p>
+       <p>2. Tandem in quadam symba cum quatuor tantum meis sociis, ceteris ibi relictis ad aliam ocasionem, ad hanc civitatem <placeName key="Macaum">Macao</placeName> <placeName key="Lusitania" ref="https://pleiades.stoa.org/places/981529">Lusitaniȩnatione</placeName> populatam transivi; ubi benevolentia ac familiaritate a huius civitatis gubernatoribus et magnatibus fuimus recepti, prȩterquam a patribus societatis, cuius superior visitator nobis dixit quod per hanc ianuam non erat nobis locus in <placeName key="China">sinicum regnum</placeName> ingrediendi et sic aliam quȩreremus ianuam. Cui respondi: «Quod Deus, qui hucusque nos conduxit a S. Congregatione de Propaganda Fide missos, ipse nobis ianuam pandet.» Qui pater videns nostram constantiam animos huius civitatis gubernatorum variis terroribus movit ad nos impediendum viam in <placeName key="China">regnum sinicum</placeName> ingredi. Quibus vanis timoribus huius civitatis dux generalis motus iuridico decreto nobis per hanc viam sinici regni ingressum prohibuit, et adhuc nos cogere tentavit ad <placeName key="Philippinas">insulas Philippinas</placeName> in quadam navicula iam ad navigandum disposita redire. Cui respondi quod nos eramus indispositi pro nunc ad iterum maris calamitates pati et indigebamus hic in nostri ordinis conventu requiescere. Hac mea responsione dux generalis tacuit et nullam aliam nobis molestiam intulit. Pater vero societatis supra dictus corda <placeName key="Sinae">Sinarum</placeName>, qui nos possunt ad <placeName key="China">sinicum regnum</placeName> conduc[ere], terroribus avertit; nihilominus Deo auxiliante a quibusdam huius civitatis <pb n="99" type="page"/> magnatibus adiuti <placeName key="China">regnum sinicum</placeName> confidimus ingredi, ad Dominum continuo clamantes ne ad longum permittat talia scandalosa impedimenta suos corde operarios pati.</p>
+    <p>3. In <placeName key="Philippinas">insulis Philippinis</placeName> certam notitiam habui de morte Fr. <persName key="Antonius de Sancta Maria" ref="http://www.viaf.org/31140267">Antonii a S. Maria</persName> in sinica civitate <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName>, ubi exul cum aliis missionariis erat, cuius prȩfecturam Sacra Congregatio de Propaganda Fide potest tribui cuidam ex meis sociis ex quibus unus nomine Fr. Augustinus de S. Pascual habet primum locum, c[uius] in alia epistola oblitus sum. Est theologus consumatus qui cathedram optinuit et est prudentia et virtutibus ornatus; post hunc Fr. Ioannes Marti lector theologicus secundum locum occupat, religiosus similiter exemplaris. Ego ad hoc officium non sum aptus et iam ad senectutem deveni ac aliquibus infirmitatibus laboro, et sic nullatenus possum hunc officium occupare.</p>
+    <p>4. Litterȩ a S. Congregatio de Propaganda Fide ad nos mittendȩ per viam occidentalem et per tribunalis inquisitionis dominos inquisitores de <placeName key="Hispania" ref="https://pleiades.stoa.org/places/1027">Hispania</placeName> ad <placeName key="Nova Hispania">Novam Hispaniam</placeName>, et exinde ad civitatem <placeName key="Manila">Manilȩ</placeName> in <placeName key="Philippinas">insulis Philippinis</placeName> ad nos deveniant; nam per aliam viam et per alias manus raro ad nos pervenient. Quȩ vero mittendȩ sunt per viam orientalem deveniant ad manus illustrium DD. Episcoporum <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Sedis Apostolicȩ</placeName> vicariorum, qui sunt in regno Siam, quia ipsi personam fide dignam ad nos remittent; interea EE. DD. Cardinales dignentur nobis a Deo auxilium impetrare ut tot opposita suferentes invicti possimus animarum salute usque in finem perseverare. Amen.</p> <pb n="100" type="page"/>
+    <p>5. Primam epistolam scripsi in civitate <placeName key="Manila">Manilȩ</placeName> et tradidi eam commissario S. inquisitionis ut per manus DD. inquisitorum per viam occidentalem ad vestras Eminentias devenire possit; hanc vero duplicatam ad illustrissimos Episcopos seu vicarios apostolicos qui sunt in regno Siam mitto ut ipsi una cum suis per viam orientalem securam ad VV. Eminentias remittant. In hoc nostrȩ religionis seraphicȩ conventu civitatis <placeName key="Macaum">Macao</placeName>, <date when="1672-07">iulii anni 1672</date>.</p>
+<p>Vestrorum EE. DD. N. Cardinalium subditus,
+ <lb/>Fr. Bonaventura Ivañez,
+ <lb/>Comissarius ac viceprefȩctus apostolicus sinicȩ missionis</p>
+         
+  </div>
+  </body>
+ </text>
+</TEI>

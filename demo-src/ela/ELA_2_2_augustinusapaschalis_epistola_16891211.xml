@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Responsum ad Procuratorem Generalem, 11 Dec. 1689</title>
+                  <author>Augustinus Sancti Paschali O.F.M.</author>
+               </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-11-11">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 787-788</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+               <idno type="URI"></idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1689</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-10" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-15" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="787" type="page"/>
+           <p>Pax Christi. — Admodum R. P. Procurator generalis: Missio nostra seraphica in hoc <placeName key="Sinae">sinico imperio</placeName> ab <date when="1684">anno 84</date> usque <date when="1689">ad 89</date> valde fatigata est. Quidam presbyter natione Gallus a S. Congregatione vicarius apostolicus provinciae <placeName key="Fokien" ref="https://www.geonames.org/1811017">Fokiensis</placeName> constitutus, firmavit frontem contra eam ac contra animas Christi redemptas; praetendit, quod mihi est impossibile, nempe me valedicere praecepto patris provincialis <placeName key="Manila">Manilensis</placeName>, et suo acquiescere, dico suo, non Ecclesiae; Ecclesia enim in omnibus suis decretis, et constitutionibus ponit subditos sub cura suorum praelatorum; at relatus dominus cum potestate Ecclesiae armatus, invadit omnes, insultat in nos. Hoc anno mense martii primum cum R. P. visitatore societatis Iesu absque ratione et iusticia contendit; atque etiam mecum super administrationem sine iuramento; nostrae missionis religiosi tunc administrabamus, in virtute appellationis decreti iuramenti ab <choice><abbr>Illo</abbr><expan>Illustrissimo</expan></choice> <choice><abbr>Dmum</abbr><expan>Domino</expan></choice> Episcopo Argolisense vicario apostolico factae, etiamque cum sua in scriptis facultate, relati litigii instrumenta per viam <placeName key="Manila">Manilensem</placeName> ad P. V. missi; duo vicarii apostolici videlicet <choice><abbr>Illmum</abbr><expan>Illustrissimus</expan></choice> <choice><abbr>Dmum</abbr><expan>Dominus</expan></choice> <pb n="788" type="page"/> Argolisensis, et Illmus Dnus Basilitanus, ab eo me defenderunt, et omne quod fecit anullaverunt.</p>
+           <p>2. <date when="1689-11">Mense novembris praesentis anni</date> instauravit litigium, usurpans sibi huius <placeName key="Canton" ref="https://www.geonames.org/5149222">provinciae Cantonensis</placeName> administrationem, quin de hoc primum monuit <choice><abbr>Illmum</abbr><expan>Illustrissimum</expan></choice> <choice><abbr>Dmum</abbr><expan>Dominum</expan></choice> Argolisensem, qui actu est in possessione relatae administrationis, in mea ad bullam sui vicariatus responsione P. V. videbit clare hoc negotium. Praeterea breve mihi praesentatum valde est suspectum, tum quia per fere unius anni tempus id accepit, nonque publicavit, in quo tempore non vicarium apostolicum at solummodo Episcopum se faciebat, modo iam non Episcopum sed vicarium apostolicum, tum quia sigillum est valde ofuscatum; et secundum ius in <hi rend="italic">cap. Inter dilectos, § sed contra de fide instrumenti glos, dimidia</hi> dicit: <hi rend="italic">Sigillum ad hoc ut sit authenticum debet apparere character et orbita, et glosa ignota</hi> ibidem ait: <hi rend="italic">Sigilla ofuscata reddunt instrumentum suspectum</hi>. De hoc in responsione ad intimationem non curavi, res ista ad me non pertinet. Petivi terminum competentem meum praelatum monere, suamque determinationem spectare cum qua respondere possim. Et respondi in dicta forma, non solum propter praemissa, at etiam propter sanctae obedientiae praeceptum legitime a <placeName key="Manila">provincia Manilensi</placeName> impossitum omnibus suis religiosis. Litigium istud, si bene perpendatur, non est in substantia obedientiae, at in modo pretendo ego obedire Ecclesiae secundum mentem mei praelati, et meo iudicio iuxta mentem Ecclesiae.</p><pb n="789" type="page"/> 
+           <p>3. Relatus D. non ita, at iuxta suam mentem; si sequutus fuissem suum dictamen animae neophitorum a pastoris ope destitutae manerent, missio perderet omnes religiosos per viam <placeName key="Manila">Manilensem</placeName> ventos, non sunt alii qui supplere possint, peccarem etiam contra praeceptum legitime impossitum. Quid ergo agendum? Appellationi ad Sacram Congregationem, et neque terminum petitum concedere, neque rationem audire, neque appellationem admittere voluit. Recurri ad <choice><abbr>Illmum</abbr><expan>Illustrissimum</expan></choice> <choice><abbr>Dmum</abbr><expan>Dominum</expan></choice> Argolisensem, missique instrumenta authentica, et scripsi epistolam cuius transcriptum mitto, ut P. V. possit meam iusticiam et rationem clarius cognocere, instrumenta etiam mitto praesentanda ad S. Congregationem. P. V. per vicera Christi et per S. P. N. Francisci vulnera agat cum Eminentissimis Dominis quomodo in vinea Domini cum pace laborare possimus; valde enim honerosa sunt, imo et periculosissima in missione litigia ista quae nunquam vidi per viginti annorum tempus, quo in isto regno laboravi, et ab ipsomet die in quo relati domini galli venerunt, neque horam unam possedimus cum pace. Laus Deo qui permittit tribulationem nostram. Parcat P. V. misereaturque mei et missionis nostrae, in cuius orationibus multum me commendo.</p>
+<p> <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName>, die <date when="1689-12-11">11 decembris 1689</date>.<lb/>
+P. V. A. R.<lb/>
+humillimus et obsequentissimus in Christo servus,<lb/>
+   Fr. Augustinus a <choice><abbr>S.</abbr><expan>Sancti</expan></choice><persName key="Augustinus de Paschalis O.F.M."> Paschali</persName>.<lb/></p>
+        </div>
+      </body>
+  </text>
+</TEI>

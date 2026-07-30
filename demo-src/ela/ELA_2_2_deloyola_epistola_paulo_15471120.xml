@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Ignatius De Loyola P. Paulo S.I, Goam, Roma 20 Novembris 1547</title>
+            <author ref="https://viaf.org/viaf/88881025">de Loyola, Ignatius S.J.<date>1491-1556</date></author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/7503970" key ="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 195-196</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>
+              
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1547</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="195" type="page"/>
+<p>Ihs. Dilecto in Christo Iesu D. N. filio Paulo, salutem in Domino et benedictionem sempiternam.</p>
+<p>1. Cum hi, qui professionem in minima nostra Societate emittunt, ob diuturna stadia et probationes conditionesqne alias requisitas, pauciores sint quam ut possint desiderio nostro in excolenda latissima Domini vinea, et multis operariis indigente, satisfacere, placuit sanctitati domini nostri, supremi pontificis ac Christi vicarii, facultatem nobis admittendi coadiutores, quorum opera, tum in spiritualibus ad plurium animarum auxilium, tum in temporalibus ad Societatis sublevationem, uteremur, de benignitate apostolica concedere atque indulgere. Nec tantum ut admittere (modo in litteris apostolicis expresso) et participes operum omnium et meritorum huius Societatis facere possemus, verum ut quibusdam ex eis, qui ad hoc idonei viderentur, facultates, gratias, auctoritatemque omnem, ab apostolica sede huic Societati con<pb n="196" type="page"/>cessam, in toto vel in parte, perinde ac si professi essent, communicare valeamus.</p>
+<p>2. Cum ergo eadem nos sitis urgeat divini honoris ac salutis animarum, cui et operariorum copia et eorumdem auctoritas (istis precipue in locis, in quibus versaris) est pernecessaria, cumque plurimum in Domino confidamus quod tu christianae vitae exemplo et pia atque catholica doctrina divinam gloriam proximorumque spiritualem profectum sis promoturus: statuimus in eodem domino nostro Iesu Christo, te in coadiutorem spiritualem iuxta constitutiones Societatis admittere, tibique omnium et operum et meritorum participationem, sed et gratiarum ac facultatum auctoritatisque omnis eidem nostrae Societati per Prepositi ipsius dispensationem, a sede apostolica concessae, privilegia, conferre, ut eis ad edifficationem, non ad destructionem, utaris. Quod ut et tibi et aliis rationem exigentibus certius constet, hasce litteras, mea subscriptione et Societatis sigillo fultas, dedi.</p>
+            <p><placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Romae</placeName> <date when="1547-11-20">anno Domini millesimo quingentesimo quadragesimo septimo, duodecimo kalendas Decembris</date>.
+               <lb/><persName key="Ignatius">[Ignatius]</persName>
+            <lb/><hi rend="italic">Manet cera sigilli magni</hi>.</p>
+            
+         </div>
+      </body>
+   </text>
+</TEI>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Primus catalogus personarum, an 1618 [Provinciae Philippinarum] [20 Febr. 1619]</title>
+                  <author>Valerius de Ledesma S.J.</author>  
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490017138">in: Monumenta Historica Japonae I. Textus catalogorum Japoniae : aliaeque de personis domibusque S. J. in Japonia informationes et relationes 1549-1654 / editionem criticam, introductiones ad singula documenta, commentarios historicos proposuit Josef Franz Schutte, Romae : apud Monumenta Historica Soc. Iesu, 1975, 791</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/mhsi111</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    non inseriti numeri di f. e p.
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Catalogi</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1619</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-09-01" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+<pb n="118" type="folio"/>
+<pb n="791" type="page"/>
+<p>Qui ex Iaponia venerunt</p>
+<table rend="boxed" rows="8" cols="8">
+   <row>
+      <cell role="label">Nomen</cell>   
+      <cell>P. García Garcés</cell>
+      <cell>G. <persName key="Ruan, Georgius">Georgius Ruan</persName></cell>
+      <cell>F. <persName key="Román Taraura">Román Taraura</persName></cell>
+      <cell>F. <persName key="Matzuda, Michael S.J.">Michael Matzuda</persName></cell>
+      <cell>F. <persName key="Figueredo, Thomas de">Thomas de Figueredo</persName></cell>
+      <cell>F. <persName key="Petrus Chiquan S.J.">Petrus Chiquam</persName></cell>
+      <cell>F. <persName key="Vota, Agustinus S.J.">Augustinus Vota</persName></cell>
+   </row>
+   <row>
+      <cell role="label">Patria</cell>
+      <cell><placeName key="Molina">Molina</placeName>,  <placeName key="Siguntinae">diaecesis Siguntinae</placeName></cell>
+      <cell><placeName key="Arima">Arima</placeName> in <placeName key="Japonia">Japonia</placeName></cell>
+      <cell><placeName key="Bungo">Bungo</placeName> in <placeName key="Japonia">Japonia</placeName></cell>
+      <cell><placeName key="Higo">Fingo</placeName> in <placeName key="Japonia">Japonia</placeName></cell>
+      <cell><placeName key="Hirado">Firando</placeName> in  <placeName key="Japonia">Japonia</placeName></cell>
+      <cell>Figem in  <placeName key="Japonia">Japonia</placeName></cell>
+      <cell><placeName key="Nangasaci">Nangasaqui</placeName> in  <placeName key="Japonia">Japonia</placeName></cell>   
+   </row>
+   <row>
+      <cell role="label">Aetas</cell>
+      <cell><date when="1558">1558</date></cell>
+      <cell><date when="1574">1574</date></cell>
+      <cell><date when="1554">1554</date></cell>
+      <cell><date when="1578">1578</date></cell>
+      <cell><date when="1552">1552</date></cell>
+      <cell><date when="1566">1566</date></cell>
+      <cell><date when="1574">1574</date></cell>
+   </row>
+   <row>
+      <cell role="label">Valetudo</cell>
+      <cell>Bona</cell>
+      <cell>Bona</cell>
+      <cell>Firma</cell>
+      <cell>Bona</cell>
+      <cell>Firma</cell>
+      <cell>Bona</cell>
+      <cell>Bona</cell>
+   </row>        
+   <row>
+   <cell role="label">Tempus Societatis</cell>
+      <cell><date when="1572">1572</date></cell>
+      <cell><date when="1607">1607</date></cell>
+      <cell><date when="1593">1593</date></cell>
+      <cell><date when="1588">1588</date></cell>
+      <cell><date when="1582">1582</date></cell>
+      <cell><date when="1585">1585</date></cell>
+      <cell><date when="1604-11-01">1604, 1. Novembris</date></cell>
+      
+   </row>  
+   <row>
+   <cell role="label">Studia &amp; gradus</cell>
+      <cell>3 annos philosophiae, 4 annos theologiae</cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+   </row>  
+   <row>
+   <cell role="label">Ministeria</cell>
+      <cell>Concionator Hispanorum,</cell> <!-- sic -->
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+      <cell></cell>
+   </row>  
+   <row>
+   <cell role="label">Gradus in Societate</cell>
+      <cell>Professus 4 votorum <date when="1601-07-10">1601, 10. Iulii</date>.</cell> 
+      <cell>Coadiutor</cell>
+      <cell>Coadiutor Temporalis formatus anno <date when="1608">1608</date>.</cell>
+      <cell>Coadiutor.</cell>
+      <cell>Coadiutor.</cell>
+      <cell>Coadiutor.</cell>
+      <cell>Coadiutor.</cell>
+   </row>  
+   </table> 
+           <p>Defuncti.
+              <lb/>P. <persName key="Franciscus Calderón S.J.">Franciscus Calderón</persName>, <placeName key="Manila">Manilae</placeName> <date when="1618-12-04">4 Decembris anni 1618</date>.
+              <lb/>(Sigillum)</p>
+           <p>. . . . . . . .       
+              Scriptum <placeName key="Manila">Manilae</placeName>, <date when="1619-02-20">20. Februarii anni 1619</date>.
+              <lb/> <persName key="Valerius de Ledesma S.J.">VALERIUS DE LEDESMA</persName></p>
+           
+           
+   </div>    
+        
+      </body>
+  </text>
+</TEI>

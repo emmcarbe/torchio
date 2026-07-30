@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Francisco de Xavier a Ignacio de Loyola, Cochín, 14 de Enero de 1549</title>
+                  <author ref="https://viaf.org/viaf/51717999">Saverius, Franciscus S.J.<date>1506-1552</date></author>   
+               </titleStmt> 
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-22">22/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/716351646">in: Monumenta historica Japoniae, 2. Documentos del Japón, 1547-1557, edited by Juan G. Ruiz de Medina, Roma : Instituto historico de la Compania de Jesus, 1990, 86</title>h
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://archive.org/details/monumentahistori137unse</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p></p>
+        </projectDesc>
+        <editorialDecl>
+           <ab>    
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>    
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Monumenta historica Japoniae</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">Japonia</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1501/1600">1549</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2019-01-22" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-10-12" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+           <pb n="86" type="page"/>
+<p>[…]</p>          
+<p> 1. Mitto ad te Iaponicarum litterarum notas. Iapones quippe ab aliis in scribendi ratione differunt plurimum. Nam a summo orsi directo ad ima descendunt. Quaerenti mihi ex Paulo iapone cur nostro more non scriberent, quin vos, inquit ille, potius more nostro? Etenim ut hominis caput summum est, pedes imi, sic par est homines cum scribunt, a summo deorsum directo ferri.</p>            
+<p>2. Descriptionem item Iaponiae et morum illius gentis a Paulo, summae religionis ac fidei viro, acceptam tibi mitto.</p>            
+<p>3. Post duos menses ego cum P. Cosmo Turriano, Paulo et aliis iaponibus duobus solvam (si Deo cordi erit) in <placeName key="Japonia">Iaponiam</placeName>. Inde quid eorum litteris contineatur ad te perscribam, nam ex Paulo, homine idiota, cognoscere non potui, quod nunquam attigerit iaponica litterarum monumenta quae similiter ut apud nos libri scripti latine, aliena quasi quadam lingua loquuntur.</p>
+<p>Iesus Dominus noster doceat nos facere voluntatem suam et huius vitae laboribus perfunctos ad beatam illam aeternamque transferat sedem, amen.</p>
+<p><date when="1540-01-14">XVIII kalendas februarias.</date><placeName key="Cochin">Cocini</placeName>.</p>
+<p>[<persName key="Franciscus">Francisco</persName>]</p>
+       </div>      
+      </body>
+  </text>
+</TEI>

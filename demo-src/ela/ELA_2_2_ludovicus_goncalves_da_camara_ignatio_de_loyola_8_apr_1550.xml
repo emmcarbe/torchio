@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>P. Ludovicus Gonçalves da Camara S.I. [P. Ignatio de Loyola, Romam] [Ulyssipone, inter 28 martii et 8 aprilis 1550]</title>
+            <author>Gonçalves de Câmara, Ludovicus S.J.</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2019-01-10">10/01/2019</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/490856081" key ="print-editor">in: Monumenta missionum Societatis Iesu, Missiones Orientales, Documenta Indica II (1550-1553), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1950, 35-36</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT"></idno>
+               <idno type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+         </projectDesc>
+         <editorialDecl>
+            <ab>   
+            </ab>
+         </editorialDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="lat">Latin</language>
+         </langUsage>
+         <textClass>
+            <keywords>
+               <term type="form">Prosa</term>
+               <term type="source">Documenta Indica</term>
+               <term type="genre">Epistolae</term>
+               <term type="place">Indiae</term>
+            </keywords>
+         </textClass>
+         <creation>
+            <date when-iso="1501/1600">1550</date>
+         </creation>
+      </profileDesc>
+      <revisionDesc>
+         <change when="2019-01-02" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+         <change when="2020-01-04" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+      </revisionDesc>
+   </teiHeader>
+   
+   <text>
+      <body> 
+         <div><pb n="35" type="page"/>
+            <p>1. In Indiam Brasilinam quattuor Patres profecti sunt, Indiam vero <placeName key="Goa">Goae</placeName> tres, <hi rend="italic">qui tres Reverendissimi Cardinalis precibus illuc missi sunt. Concionatur etiam unus in Prioratu Crati, alter in civitate Coviglian, quos Dominus Ludovicus Infans impetravit. Necnon et in aliis locis</hi> concionantur, Louriçali unus, Ancroi unus, et unus Coymbrae, cum magno omnium favore et satisfactione. Itaque scholastici multi auditis eius concionibus ad meliorem vitam se convertunt, ac iam in huiusce quadragesimae principio collegium nostrum ingressi sunt.</p>
+            <pb n="36" type="page"/><p>2. <choice><abbr>D.</abbr><expan>Dominus</expan></choice> Alphonsus de Cepta brevi in Indiam est iturus ubi <hi rend="italic">Viceregis</hi> fungetur officio. Hic magnopere desiderat duos nostrae Societatis Patres ad Presbiterum Iohannem mittere, quod ita facturum credimus.</p>
+            <p>3. Superioribus diebus Rex Portugaliae de <placeName key="Indiae Orientalis" ref="https://pleiades.stoa.org/places/50004">Indiae</placeName> rebus, quae ad Christianam relligionem pertinent, concilium fieri iussit ubi cum magno totius concilii consensu et applausu decretum est, ut ex hac Societate Patres deligerentur, quibus collegiorum indianorum cura imponeretur; iisque qui deligendi essent omnimoda rerum spiritualium et reformationis morum potestas collata est. Praeterea omnibus rectoribus ac ducibus edictum est, ut in rebus quae ad mores corrigendos pertinent Patribus ubique morem gerant, et ubicumque locorum fuerint illis liberum transitum praebeant, necessariaque omnia subministrent. Quod privilegium inviolabile ac perpetuum <hi rend="italic">concilii decreto sancitum est</hi>.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+

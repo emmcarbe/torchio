@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+               <titleStmt>
+                  <title>Responsum ad intimationem D. Maigrot 30 nov. 1689</title>
+                  <author>Augustinus Sancti Paschali O.F.M.</author>
+               </titleStmt>
+         <publicationStmt>
+            <publisher>
+               <ref target="www.ela.unisi.it">ELA</ref>
+            </publisher>
+            <date when="2018-09-10">11/11/2018</date>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://www.worldcat.org/oclc/64969065" key ="print-editor">in: Sinica Franciscana, III: Relationes et epistolas fratrum minorum saeculi XVII, Firenze, Quaracchi, 1936, 544-567</title>
+               <idno type="SINICA"></idno>
+               <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/165</idno>
+               <idno type="URI"></idno>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+     <encodingDesc>
+        <projectDesc>
+           <p>Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
+        </projectDesc>
+        <editorialDecl>
+           <ab> 
+           </ab>
+        </editorialDecl>
+      </encodingDesc>
+     <profileDesc>
+        <langUsage>
+           <language ident="lat">Latin</language>
+        </langUsage>
+        <textClass>
+           <keywords>
+              <term type="form">Prosa</term>
+              <term type="source">Sinica Franciscana</term>
+              <term type="genre">Epistolae</term>
+              <term type="place">China</term>
+           </keywords>
+        </textClass>
+        <creation>
+           <date when-iso="1601/1700">1689</date>
+        </creation>
+     </profileDesc>
+     <revisionDesc>
+        <change when="2018-08-09" who="0000-0003-4347-011X">E. Carbé: OCR (level 1), TEI (level 1)</change>
+        <change when="2019-12-14" who="0000-0003-4347-011X">E. Carbé: text revision (level 2), TEI (level 2)</change>
+     </revisionDesc>
+  </teiHeader>
+   
+  <text>
+     <body> 
+        <div>
+
+           <pb n="772" type="page"/>
+           
+           <p>1. Frater <persName key="Augustinus de Paschalis O.F.M.">Augustinus a S. Paschali</persName>
+              commissarius provincialis seraphicae missionis in <placeName key="Sinae">regno Sinarum</placeName> etc. Dico me vidisse et audivisse D.<persName key="Maigrot, Carolus">Carolum Maigrot</persName>
+              legere  <pb n="773" type="page"/>bullam, quae incipit <hi rend="italic">
+                 Dilecte fili</hi> datam <date when="1687-02-05">5 februarii 1687</date>, in qua dictus D. Carolus Maigrot
+              constituitur vicarius apostolicus <placeName key="Fokien" ref="https://www.geonames.org/1811017">Fokiensis</placeName>; bullaque ista non habet sigillum pendens, at loco sigilli tantum habet portionem cerae bracteatae — hispanice chapada — absque aliquo sigilli signo in ea depicto vel impresso neque per manus alicuius personae in dignitate ecclesiastica constitutae refrendata est, eamque talem qualem sicut et alias a <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">S. Sede</placeName> emanatas, super caput meum venerationis causa pono. Atamen quia sum religiosus subditus mandatis R. P. provincialis provinciae S. Gregorii Filipinarum, indigeo termino competente et relatae bullae transcripto authentico, meo prelato <placeName key="Manila">Manilae</placeName> degenti mittendo, cum cuius responsione paratus sum eam admittere et pro nunc ista est mea responsio:</p> 
+           <p>2. In actu suae intimationis relatus D. Carolus Maigrot dicit: <hi rend="italic">
+                 Provinciae <placeName key="Canton" ref="https://www.geonames.org/5149222">Cantonensis</placeName> administratorem,  <pb n="774" type="page"/>seu provicarium cuius authenticae litterae</hi> etc. Ad hoc claritatis causa dico me habere litteras authenticas a D. Episcopo Argolicensi quas dictus D. Carolus Maigrot iam vidit et eas legere audivit, in eisque memoratus D. Episcopus et vicarius apostolicus <placeName key="Chekiang">Chekiang</placeName>, <placeName key="Houkuang">Hukuang</placeName>, <placeName key="Suchuen">Suchuen</placeName>, <placeName key="Koueitcheou" ref="https://www.geonames.org/1809445">Kueicheu</placeName>, coeterarumque australium provinciarum se facit administratorem. Praeterea postquam dictus D. Carolus Maigrot legit sui vicariatus bullam, etiam transcriptum unius epistolae a S. Congregatione missae D. Episcopo <placeName key="Basilitano">Basilitano</placeName> vicario apostolico <placeName key="Nanking" ref="https://www.geonames.org/1799962/">Nankinensi</placeName> legit; in eaque S. Congregatio relato D. Episcopo praecipit ut contra missionarios <placeName key="Canton" ref="https://www.geonames.org/5149222">provinciae Cantonensis</placeName>, qui iuramentum non emisserunt procedat; igitur S. Congregationem istius provinciae iurisdictioem ei tribuere videtur. Relati tres Domini inter se conveniant, ut ego certo sciam, quisnam est istius provinciae verus administrator et de veri administratoris determinatione in ista provincia <placeName key="Canton" ref="https://www.geonames.org/5149222">Cantonensi</placeName> authografum authenticum peto, meo superiori prelato mittendum.</p> 
+           <p>3. Si vero dictus Carolus Maigrot terminum petitum, actum istud in <placeName key="Manila">Manilam</placeName> mittendum concedere noluerit, uti de certa sciencia mihi persuadeo, iterum  <pb n="775" type="page"/>dico quod neque Deus neque Ecclesia ad impossibile obligant, omnesque sancti et doctores chatolici in hoc dogmate chatolico sistunt, omnesque etiam dicunt: Omne quod sine peccato mortali perpetrare non potest, moraliter est impossible. Et dictus D. Carolus Maigrot ad istius impossibilitatis genus me vult cogere, quia me comprimit ut alio modo respondeam, quod absque peccato mortali facere non possum; habeo enim a prelato meo <placeName key="Manila">Manilensi</placeName> sanctae obedientiae praeceptum, ne alio modo respondeam, praeceptumque istud si opus fuerit authenticum praesentabo. Idcirco si dictus D. Carolus Maigrot post istam meam responsionem contra me vel contra meam missionem aliquid attentaverit, de violentia mihi facta ad S. Congregationem appello, quia in exequendo transit modum, tum propter rationem datam quam sicut legitimam admitere debet, tum quia dictus D. Carolus Maigrot mihi est suspectus de mala voluntate quam contra me et meam missionem habet, quia ut ipsemet dixit Fr. <persName key="Basilius a Glemona" ref="http://www.viaf.org/61957240">Basilius a Glemona</persName> illum acusavit in <placeName key="Roma" ref="https://pleiades.stoa.org/places/423025">Roma</placeName> de quibusdam propositionibus suspectis in fide et contra bonos mores. Propositionemque istam ab ipsiusmet ore quatuor Europei religiosi audierunt, de eaque in quolibet tempore testimonium dicent. At quia contra dictum P. Fr. <persName key="Basilius">Basilium</persName> contendere non audet, in me — quia etiam sum Franciscanus — se vertit.</p> 
+           <p>4. Malaque ista voluntas hoc anno mense martii pululavit, quando mecum contendit super administrationem sine iuramento et legitimas excusationis causas a me datas non admissit, quod litigium non posuit contra quinque patres societatis Iesu, qui licet sint in  <pb n="776" type="page"/>partibus borealibus tamquam proadministrator generalis eos compellere potest ad iuramentum, et non compelit, quia sunt Galli, neque contra patres Dominicanos et Augustinianos qui omnes sumus sub eodem scopo. Et nunc iterum venit contendere mecum, licet non habeam domisilium in sui vicariatus territorio. Patribus vero Dominicanis et Iesuitis qui in suo vicariatu laborant, in fere unius anni tempore numerato a die in qua bullam sui vicariatus accepit, usque nunc, neque bullam praesentavit, neque cum patribus Dominicanis super administrationem sine iuramento litigavit, neque in sua ecclesia <placeName key="Fokien" ref="https://www.geonames.org/1811017">Fokiensi</placeName> bullam istam publicavit.</p> 
+           <p>5. Propter has rationes et grabamina istam meam appellationem facio; si vero in ea aliqua clausula sive conditio secundum ius necessario declaranda ad eius vigorem deserit, pro supposita et expressa in meliori forma iuris, qua possum pro supposita et expressa habentur. De ista mea responsione et appellatione etiam authographum authenticum et actum peto. Totum hoc actum fuit coram R. P. Fr. <persName key="Iohannes de las Llagas">Ioanne de las Llagas</persName> ordinis S. Augustini et coram P. Fr. <persName key="Lucas Estevan O.F.M.">Luca Estevan</persName> et coram P. Fr. <persName key="Blasius Garcia O.F.M.">Blasio Garcia</persName> testibus ad hoc vocatis in ista ecclesia extra muros <placeName key="Canton" ref="https://www.geonames.org/5149222">Canton</placeName> S. Francisci, die <date when="1689-11-30">30 novembris anno 1689</date>.</p> 
+<p>Fr. Augustinus a <choice><abbr>S.</abbr><expan>Sancti</expan></choice><persName key="Augustinus de Paschalis O.F.M."> Paschali</persName>,<lb/>
+commissarius provincialis.<lb/>
+           Pro bulla legendum est Breve.</p>      
+           </div>
+      </body>
+  </text>
+</TEI>

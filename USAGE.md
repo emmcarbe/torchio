@@ -112,6 +112,20 @@ branch, `main`, `/docs`). From that moment every push of the XML presses
 and publishes the edition again; the site's address appears in the Pages
 settings.
 
+## An archive, not only an edition
+
+A folder of TEI files is a collection, and a collection can be a whole
+digital library in the shape of ALIM, ELA or Biblioteca Italiana: press
+the folder and the site is the archive (register of documents with
+sorting and filtering, one page per document, corpus-wide indices, map,
+lemmas and concordance across the whole corpus, the token table of
+everything). Both roads carry it: the browser press takes the same
+folder as a drop (63 documents press in about two seconds), and on path
+B the archive is a repository that presses itself on every push, so
+adding a text is committing a file. The collection borrows the title of
+its first document until the manifest (or the panel) gives it one of
+its own.
+
 ## Where the ODD goes
 
 Next to the TEI, like everything else. An edition without an ODD is read
