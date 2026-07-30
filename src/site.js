@@ -746,7 +746,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            const lemNorm = (a.lemma || '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '').slice(0, 16);
+            const lemNorm = (a.lemma || '').toLowerCase()
+              .replace(/[^\p{L}\p{N}]/gu, '').replace(/[\p{Lm}\p{M}]/gu, '').slice(0, 16);
             entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}" data-check="${escapeHTML(lemNorm)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
               + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')

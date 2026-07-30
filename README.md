@@ -69,6 +69,7 @@ MIT. Geographic lookups use data derived from
 
 Torchio is designed and maintained by
 [Emmanuela Carbé](https://www.unive.it/persone/emmanuela.carbe)
-(Ca' Foscari University of Venice, Venice Centre for Digital and Public
-Humanities). Contributions received outside the repository are recorded in
-[PRINCIPLES.md](PRINCIPLES.md).
+(Ca' Foscari University of Venice,
+[DSU-VeDPH](https://www.unive.it/pag/39287)). Contributions received
+outside the repository are recorded in [PRINCIPLES.md](PRINCIPLES.md).
+Anyone who wants to collaborate or give feedback is welcome.
