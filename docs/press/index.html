@@ -551,23 +551,26 @@ function lemmasCSV(model) {
  * Assemble the export files for an edition.
  * @returns {Object<string,string>} path (relative to the site root) -> content
  */
-function buildExports(model, { sourceXML = null } = {}) {
+function buildExports(model, { sourceXML = null, only = null } = {}) {
+  // `only` is the manifest's exports object: each piece defaults to true
+  // and is switched off explicitly ("exports": {"model": false})
+  const want = (k) => !only || only[k] !== false;
   const files = {};
-  files['data/model.json'] = modelJSON(model);
+  if (want('model')) files['data/model.json'] = modelJSON(model);
   const reg = model.registries;
-  if (reg.people.length + reg.places.length + reg.orgs.length > 0) {
+  if (want('entities') && reg.people.length + reg.places.length + reg.orgs.length > 0) {
     files['data/entities.csv'] = entitiesCSV(model);
   }
-  if (model.apparatus.length) {
+  if (want('apparatus') && model.apparatus.length) {
     files['data/apparatus.csv'] = apparatusCSV(model);
   }
-  if (model.lemmas && model.lemmas.entries.length) {
+  if (want('lemmas') && model.lemmas && model.lemmas.entries.length) {
     files['data/lemmas.csv'] = lemmasCSV(model);
   }
-  if (model.tokens && model.tokens.length) {
+  if (want('tokens') && model.tokens && model.tokens.length) {
     files['data/tokens.csv'] = tokensCSV(model, model.tokens);
   }
-  if (sourceXML) files['data/source.xml'] = sourceXML;
+  if (want('source') && sourceXML) files['data/source.xml'] = sourceXML;
   return files;
 }
 
@@ -646,11 +649,81 @@ function buildModel(docs, classMap) {
     });
   }
 
-  // meta: the corpus header if there is one, else the first document's
+  // meta: the corpus header if there is one; the first document's for a
+  // single-document edition. A loose collection (many files, no corpus
+  // header) is an ARCHIVE: no document's header speaks for the whole, so
+  // the meta is aggregated (languages, uniform licence) and the identity
+  // comes from the manifest. The archive grammar of ALIM / ELA / BibIt:
+  // the home is the project, every document keeps its own card.
   const firstHeader = findFirst(model.documents[0]?.tree, 'teiHeader');
-  model.meta = corpusMeta || (firstHeader ? extractMeta(firstHeader) : {});
+  const loose = model.documents.length > 1 && !corpusMeta;
+  if (loose) {
+    const langs = new Set();
+    const licences = new Map();
+    let years = [];
+    for (const doc of model.documents) {
+      const h = findFirst(doc.tree, 'teiHeader');
+      if (!h) continue;
+      const lu = findFirst(h, 'langUsage');
+      if (lu) for (const n of walkModel(lu)) {
+        if (n.element === 'language' && n.atts.ident) langs.add(n.atts.ident);
+      }
+      const lic = findFirst(h, 'licence');
+      if (lic) {
+        const text = textOfModel(lic).trim().replace(/\s+/g, ' ') || null;
+        licences.set(lic.atts.target || text, { target: lic.atts.target || null, text });
+      }
+      const y = parseInt(doc.card?.date?.when || '', 10);
+      if (!Number.isNaN(y)) years.push(y);
+    }
+    // who worked on the archive, with the number of interventions: every
+    // revisionDesc change (@who) is one intervention, every respStmt one
+    // per document; local #refs resolve to names, ORCIDs stay ORCIDs
+    const contributors = new Map();
+    const names = new Map();
+    for (const doc of model.documents) {
+      const h = findFirst(doc.tree, 'teiHeader');
+      if (!h) continue;
+      for (const n of walkModel(h)) {
+        if (n.atts['xml:id'] && (n.element === 'persName' || n.element === 'name')) {
+          names.set('#' + n.atts['xml:id'], textOfModel(n).trim().replace(/\s+/g, ' '));
+        }
+      }
+      for (const n of walkModel(h)) {
+        if (n.element === 'change' && n.atts.who) {
+          for (const w of n.atts.who.split(/\s+/)) {
+            if (w) contributors.set(w, (contributors.get(w) || 0) + 1);
+          }
+        }
+        if (n.element === 'respStmt') {
+          const who = findFirst(n, 'name') || findFirst(n, 'persName');
+          const label = who ? textOfModel(who).trim().replace(/\s+/g, ' ') : null;
+          if (label) contributors.set(label, (contributors.get(label) || 0) + 1);
+        }
+      }
+    }
+    model.meta = {};
+    if (langs.size) model.meta.languages = [...langs];
+    if (licences.size === 1) model.meta.licence = [...licences.values()][0];
+    model.collection = {
+      count: model.documents.length,
+      years: years.length ? [Math.min(...years), Math.max(...years)] : null,
+      licenceVaries: licences.size > 1,
+      contributors: [...contributors.entries()]
+        .map(([ref, count]) => ({ ref: names.get(ref) || ref, count }))
+        .sort((a, b) => b.count - a.count || String(a.ref).localeCompare(String(b.ref))),
+    };
+  } else {
+    model.meta = corpusMeta || (firstHeader ? extractMeta(firstHeader) : {});
+  }
 
-  // registries and apparatus from all documents
+  // registries and apparatus from all documents; the corpus header too
+  // declares registry entries (C29: a collection's listWit lives there)
+  if (model.corpusHeaderTree) {
+    for (const node of walkModel(model.corpusHeaderTree)) {
+      collectRegistries(node, model.registries, byXmlId);
+    }
+  }
   for (const doc of model.documents) {
     for (const node of walkModel(doc.tree)) {
       collectRegistries(node, model.registries, byXmlId);
@@ -836,11 +909,11 @@ function extractCard(header, tree, docId) {
     if (!card.date) {
       const creation = findFirst(header, 'creation');
       const d = creation && findFirst(creation, 'date');
-      if (d) card.date = { when: d.atts.when || d.atts.from || null, text: clean(d) };
+      if (d) card.date = { when: d.atts.when || d.atts['when-iso'] || d.atts.from || d.atts.notBefore || null, text: clean(d) };
     }
     if (!card.date) {
       const od = findFirst(header, 'origDate');
-      if (od) card.date = { when: od.atts.when || od.atts.notBefore || null, text: clean(od) };
+      if (od) card.date = { when: od.atts.when || od.atts['when-iso'] || od.atts.notBefore || null, text: clean(od) };
     }
     if (!card.place) {
       const op = findFirst(header, 'origPlace');
@@ -1114,6 +1187,9 @@ const STRINGS = {
     descrApparatus: 'every apparatus reading with its witnesses, one row per reading',
     descrSource: 'the unmodified TEI source file',
     lemmas: 'Lemmas', lemmaCoverage: 'Coverage', tokensWord: 'tokens',
+    languagesLabel: 'Languages', yearsLabel: 'Years', contributorsLabel: 'Contributors',
+    interventionsWord: 'interventions',
+    licenceVariesNote: 'each document declares its own licence, shown on its page',
     lemmaFromMarkup: 'from the markup (w/@lemma)',
     lemmaFromFile: 'from lemmas.json',
     lemmaPending: 'types awaiting the editor’s review',
@@ -1150,6 +1226,9 @@ const STRINGS = {
     descrApparatus: 'ogni lezione di apparato con i suoi testimoni, una riga per lezione',
     descrSource: 'il file TEI sorgente, senza modifiche',
     lemmas: 'Lemmi', lemmaCoverage: 'Copertura', tokensWord: 'token',
+    languagesLabel: 'Lingue', yearsLabel: 'Anni', contributorsLabel: 'Contributori',
+    interventionsWord: 'interventi',
+    licenceVariesNote: 'ogni documento dichiara la propria licenza, mostrata sulla sua pagina',
     lemmaFromMarkup: 'dal markup (w/@lemma)',
     lemmaFromFile: "da lemmas.json",
     lemmaPending: "voci in attesa di revisione dell'editore",
@@ -1958,7 +2037,8 @@ function normalizeManifest(raw = {}) {
     extra: [],
     pages: null,
     pieces: { apparatus: true, entities: true, choice: true, ...(raw.pieces || {}) },
-    exports: raw.exports !== false,
+    exports: raw.exports === false ? false
+      : (raw.exports && typeof raw.exports === 'object' ? raw.exports : true),
     warnings: [],
   };
   if (typeof raw.theme === 'string' && !isTheme(raw.theme)) {
@@ -2804,7 +2884,9 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const hasMap = geoPlaces.length > 0;
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
   const hasLemmas = !!(model.lemmas && model.lemmas.entries.length);
-  const exports_ = manifest.exports ? buildExports(model, { sourceXML }) : {};
+  const exports_ = manifest.exports
+    ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
+    : {};
   const hasData = Object.keys(exports_).length > 0;
 
   // front and back matter name themselves when the markup gives them a
@@ -2867,6 +2949,33 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   /* ---- index.html: the header as a page ---- */
   if (wanted.has('index')) {
   let about = '<main id="main" class="torchio about"><dl>';
+  // an archive (loose collection) presents the project, never a document's
+  // header: count, span, languages, licence policy — the ALIM/ELA/BibIt shape
+  if (model.collection) {
+    about += `<dt>${T.register}</dt><dd><a href="text.html">${model.collection.count} ${T.documentsN}</a></dd>`;
+    if (model.collection.years) {
+      const [a, b] = model.collection.years;
+      about += `<dt>${T.yearsLabel}</dt><dd>${a === b ? a : `${a}-${b}`}</dd>`;
+    }
+    if (model.meta.languages && model.meta.languages.length) {
+      about += `<dt>${T.languagesLabel}</dt><dd>${model.meta.languages.map(escapeHTML).join(' · ')}</dd>`;
+    }
+    if (model.tokens && model.tokens.length) {
+      about += `<dt>${T.tokensWord}</dt><dd>${model.tokens.length}</dd>`;
+    }
+    if (model.collection.contributors && model.collection.contributors.length) {
+      const isOrcid = (s) => /^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/.test(s);
+      about += `<dt>${T.contributorsLabel}</dt><dd>` + model.collection.contributors
+        .map((c) => (isOrcid(c.ref)
+          ? `<a href="https://orcid.org/${escapeHTML(c.ref)}">${escapeHTML(c.ref)}</a>`
+          : escapeHTML(c.ref))
+          + ` <span class="occ">${c.count} ${T.interventionsWord}</span>`)
+        .join(' · ') + '</dd>';
+    }
+    if (model.collection.licenceVaries) {
+      about += `<dt>${T.licence}</dt><dd>${T.licenceVariesNote}</dd>`;
+    }
+  }
   if (model.meta.edition) {
     const e = model.meta.edition;
     about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
@@ -2901,9 +3010,12 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   about += `<dt>${T.generator}</dt><dd class="occ">Torchio v0 · TEI ${escapeHTML(model.generator.tei.split('.').slice(0, 2).join('.'))}</dd>`;
   about += '</dl>';
   // curation above, completeness here: the WHOLE header, auto-labelled from
-  // data-el — new metadata appear with zero interface work
+  // data-el — new metadata appear with zero interface work. In an archive
+  // no single header speaks for the whole: each document carries its own
+  // (the file card on its page), and the home shows none.
   const headerTree = model.corpusHeaderTree
-    || (model.documents[0] && [...walkModel(model.documents[0].tree)].find((n) => n.element === 'teiHeader'));
+    || (model.collection ? null
+      : model.documents[0] && [...walkModel(model.documents[0].tree)].find((n) => n.element === 'teiHeader'));
   if (headerTree) {
     about += `<h2 class="sec">${T.fullHeader}</h2><p class="occ">${T.fullHeaderNote}</p>`
       + `<div class="header-full">${renderBase(headerTree)}</div>`;

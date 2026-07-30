@@ -656,6 +656,45 @@ console.log('lemmas — concordances and frequencies, only where lemmas exist');
     'confirmed entries are never overwritten; mere suggestions are refreshed');
 }
 
+console.log('the archive — a loose collection presents the project, not a document');
+{
+  const { pressSite } = await import('../src/site.js');
+  const map = buildClassMap(null, data);
+  const doc = (title, lic, lang, when) => `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>${title}</title></titleStmt>
+    <publicationStmt><availability><licence target="${lic}">${lic}</licence></availability></publicationStmt>
+    <sourceDesc><p/></sourceDesc></fileDesc>
+    <profileDesc><langUsage><language ident="${lang}">x</language></langUsage>
+    <creation><date when="${when}">${when}</date></creation></profileDesc>
+    <revisionDesc><change who="0000-0003-4347-011X" when="${when}">Rivisto.</change>
+    <change who="0000-0003-4347-011X" when="${when}">Codificato.</change></revisionDesc>
+  </teiHeader><text><body><p>Testo di ${title}.</p></body></text></TEI>`;
+
+  const A = { id: 'a', root: parseXML(doc('Alpha', 'https://cc.org/by/', 'lat', '1250')) };
+  const B = { id: 'b', root: parseXML(doc('Beta', 'https://cc.org/by-nc/', 'ita', '1654')) };
+  const m = buildModel([A, B], map);
+  ok(m.collection && m.collection.count === 2 && !m.meta.title,
+    'a loose collection is an archive: no document header speaks for the whole');
+  ok(m.collection.years[0] === 1250 && m.collection.years[1] === 1654
+    && m.meta.languages.length === 2 && m.collection.licenceVaries,
+    'the archive aggregates: span of years, union of languages, licence policy');
+  const site = pressSite(m, { manifest: { title: 'Archivio di prova' } });
+  ok(!site['index.html'].includes('<div class="header-full">'),
+    'the archive home shows no document header (each document keeps its own file card)');
+  ok(site['index.html'].includes('2 documents') && site['index.html'].includes('1250-1654')
+    && site['index.html'].includes('its own licence'),
+    'the archive home: register link, years, languages, licence policy');
+  ok(m.collection.contributors[0].count === 4
+    && site['index.html'].includes('https://orcid.org/0000-0003-4347-011X')
+    && site['index.html'].includes('4 interventions'),
+    'the contributors card: who worked on the archive, counted by intervention, ORCIDs linked');
+
+  const C = { id: 'c', root: parseXML(doc('Gamma', 'https://cc.org/by/', 'lat', '1300')) };
+  const m2 = buildModel([A, C], map);
+  ok(m2.meta.licence && m2.meta.licence.target === 'https://cc.org/by/',
+    'a uniform licence across the archive surfaces on the home');
+}
+
 console.log('lemma review — errors exist, so reviewing must be cheap');
 {
   const { reviewCSV, parseReviewCSV, applyReview } = await import('../src/lemmas.js');

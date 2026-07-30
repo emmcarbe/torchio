@@ -72,9 +72,73 @@ export function buildModel(docs, classMap) {
     });
   }
 
-  // meta: the corpus header if there is one, else the first document's
+  // meta: the corpus header if there is one; the first document's for a
+  // single-document edition. A loose collection (many files, no corpus
+  // header) is an ARCHIVE: no document's header speaks for the whole, so
+  // the meta is aggregated (languages, uniform licence) and the identity
+  // comes from the manifest. The archive grammar of ALIM / ELA / BibIt:
+  // the home is the project, every document keeps its own card.
   const firstHeader = findFirst(model.documents[0]?.tree, 'teiHeader');
-  model.meta = corpusMeta || (firstHeader ? extractMeta(firstHeader) : {});
+  const loose = model.documents.length > 1 && !corpusMeta;
+  if (loose) {
+    const langs = new Set();
+    const licences = new Map();
+    let years = [];
+    for (const doc of model.documents) {
+      const h = findFirst(doc.tree, 'teiHeader');
+      if (!h) continue;
+      const lu = findFirst(h, 'langUsage');
+      if (lu) for (const n of walkModel(lu)) {
+        if (n.element === 'language' && n.atts.ident) langs.add(n.atts.ident);
+      }
+      const lic = findFirst(h, 'licence');
+      if (lic) {
+        const text = textOfModel(lic).trim().replace(/\s+/g, ' ') || null;
+        licences.set(lic.atts.target || text, { target: lic.atts.target || null, text });
+      }
+      const y = parseInt(doc.card?.date?.when || '', 10);
+      if (!Number.isNaN(y)) years.push(y);
+    }
+    // who worked on the archive, with the number of interventions: every
+    // revisionDesc change (@who) is one intervention, every respStmt one
+    // per document; local #refs resolve to names, ORCIDs stay ORCIDs
+    const contributors = new Map();
+    const names = new Map();
+    for (const doc of model.documents) {
+      const h = findFirst(doc.tree, 'teiHeader');
+      if (!h) continue;
+      for (const n of walkModel(h)) {
+        if (n.atts['xml:id'] && (n.element === 'persName' || n.element === 'name')) {
+          names.set('#' + n.atts['xml:id'], textOfModel(n).trim().replace(/\s+/g, ' '));
+        }
+      }
+      for (const n of walkModel(h)) {
+        if (n.element === 'change' && n.atts.who) {
+          for (const w of n.atts.who.split(/\s+/)) {
+            if (w) contributors.set(w, (contributors.get(w) || 0) + 1);
+          }
+        }
+        if (n.element === 'respStmt') {
+          const who = findFirst(n, 'name') || findFirst(n, 'persName');
+          const label = who ? textOfModel(who).trim().replace(/\s+/g, ' ') : null;
+          if (label) contributors.set(label, (contributors.get(label) || 0) + 1);
+        }
+      }
+    }
+    model.meta = {};
+    if (langs.size) model.meta.languages = [...langs];
+    if (licences.size === 1) model.meta.licence = [...licences.values()][0];
+    model.collection = {
+      count: model.documents.length,
+      years: years.length ? [Math.min(...years), Math.max(...years)] : null,
+      licenceVaries: licences.size > 1,
+      contributors: [...contributors.entries()]
+        .map(([ref, count]) => ({ ref: names.get(ref) || ref, count }))
+        .sort((a, b) => b.count - a.count || String(a.ref).localeCompare(String(b.ref))),
+    };
+  } else {
+    model.meta = corpusMeta || (firstHeader ? extractMeta(firstHeader) : {});
+  }
 
   // registries and apparatus from all documents; the corpus header too
   // declares registry entries (C29: a collection's listWit lives there)
@@ -268,11 +332,11 @@ function extractCard(header, tree, docId) {
     if (!card.date) {
       const creation = findFirst(header, 'creation');
       const d = creation && findFirst(creation, 'date');
-      if (d) card.date = { when: d.atts.when || d.atts.from || null, text: clean(d) };
+      if (d) card.date = { when: d.atts.when || d.atts['when-iso'] || d.atts.from || d.atts.notBefore || null, text: clean(d) };
     }
     if (!card.date) {
       const od = findFirst(header, 'origDate');
-      if (od) card.date = { when: od.atts.when || od.atts.notBefore || null, text: clean(od) };
+      if (od) card.date = { when: od.atts.when || od.atts['when-iso'] || od.atts.notBefore || null, text: clean(od) };
     }
     if (!card.place) {
       const op = findFirst(header, 'origPlace');

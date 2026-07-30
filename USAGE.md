@@ -122,9 +122,17 @@ lemmas and concordance across the whole corpus, the token table of
 everything). Both roads carry it: the browser press takes the same
 folder as a drop (63 documents press in about two seconds), and on path
 B the archive is a repository that presses itself on every push, so
-adding a text is committing a file. The collection borrows the title of
-its first document until the manifest (or the panel) gives it one of
-its own.
+adding a text is committing a file.
+
+An archive presents the project, never one text's header: its home page
+is an aggregated card (number of documents, span of years, languages,
+token count, contributors with their number of interventions from the
+headers' `respStmt` and `revisionDesc`, ORCIDs linked) plus the licence
+policy: a licence shared by every document surfaces once; otherwise
+each document declares its own, on its own page, where its full header
+always travels. The archive's name and description come from the
+manifest (or the corpus header of a `teiCorpus`), never from the first
+file that happens to sort first.
 
 ## Where the ODD goes
 

@@ -301,6 +301,33 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   /* ---- index.html: the header as a page ---- */
   if (wanted.has('index')) {
   let about = '<main id="main" class="torchio about"><dl>';
+  // an archive (loose collection) presents the project, never a document's
+  // header: count, span, languages, licence policy — the ALIM/ELA/BibIt shape
+  if (model.collection) {
+    about += `<dt>${T.register}</dt><dd><a href="text.html">${model.collection.count} ${T.documentsN}</a></dd>`;
+    if (model.collection.years) {
+      const [a, b] = model.collection.years;
+      about += `<dt>${T.yearsLabel}</dt><dd>${a === b ? a : `${a}-${b}`}</dd>`;
+    }
+    if (model.meta.languages && model.meta.languages.length) {
+      about += `<dt>${T.languagesLabel}</dt><dd>${model.meta.languages.map(escapeHTML).join(' · ')}</dd>`;
+    }
+    if (model.tokens && model.tokens.length) {
+      about += `<dt>${T.tokensWord}</dt><dd>${model.tokens.length}</dd>`;
+    }
+    if (model.collection.contributors && model.collection.contributors.length) {
+      const isOrcid = (s) => /^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/.test(s);
+      about += `<dt>${T.contributorsLabel}</dt><dd>` + model.collection.contributors
+        .map((c) => (isOrcid(c.ref)
+          ? `<a href="https://orcid.org/${escapeHTML(c.ref)}">${escapeHTML(c.ref)}</a>`
+          : escapeHTML(c.ref))
+          + ` <span class="occ">${c.count} ${T.interventionsWord}</span>`)
+        .join(' · ') + '</dd>';
+    }
+    if (model.collection.licenceVaries) {
+      about += `<dt>${T.licence}</dt><dd>${T.licenceVariesNote}</dd>`;
+    }
+  }
   if (model.meta.edition) {
     const e = model.meta.edition;
     about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
@@ -335,9 +362,12 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   about += `<dt>${T.generator}</dt><dd class="occ">Torchio v0 · TEI ${escapeHTML(model.generator.tei.split('.').slice(0, 2).join('.'))}</dd>`;
   about += '</dl>';
   // curation above, completeness here: the WHOLE header, auto-labelled from
-  // data-el — new metadata appear with zero interface work
+  // data-el — new metadata appear with zero interface work. In an archive
+  // no single header speaks for the whole: each document carries its own
+  // (the file card on its page), and the home shows none.
   const headerTree = model.corpusHeaderTree
-    || (model.documents[0] && [...walkModel(model.documents[0].tree)].find((n) => n.element === 'teiHeader'));
+    || (model.collection ? null
+      : model.documents[0] && [...walkModel(model.documents[0].tree)].find((n) => n.element === 'teiHeader'));
   if (headerTree) {
     about += `<h2 class="sec">${T.fullHeader}</h2><p class="occ">${T.fullHeaderNote}</p>`
       + `<div class="header-full">${renderBase(headerTree)}</div>`;
