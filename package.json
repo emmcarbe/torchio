@@ -1,0 +1,13 @@
+{
+  "name": "torchio",
+  "version": "0.0.1",
+  "description": "The edition is the repository. TEI P5 editions pressed into static digital scholarly editions.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test/run.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vincent van Gogh, le lettere</title>
+<style>:root{--ground:#FFFFFF;--paper:#FFFFFF;--ink:#1B1B1B;--soft:#6A6A66;--hair:#E5E2D9;--faint:#CFCCC2;--accent:#B01E28;--accent-soft:#9a5a52;--link:#B01E28;--reading:"EB Garamond",Iowan Old Style,Palatino,"Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--serif:var(--reading);--measure:44rem}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","onum","pnum"}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.torchio{max-width:var(--measure);margin:0 auto;padding:26px 20px 14px;
+  border-bottom:1px solid var(--hair)}
+header.torchio h1{margin:0;font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.01em}
+header.torchio .sub{margin:6px 0 0;color:var(--soft);font-family:var(--mono);
+  font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+
+main.torchio{max-width:var(--measure);margin:0 auto;padding:10px 20px 0}
+
+.t-teiHeader{display:none}
+body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
+  border-radius:2px;padding:14px 16px;font-size:.85em;color:var(--soft)}
+
+.t-head{font-weight:600;margin:1.3em 0 .4em}
+.t-p,.t-ab{margin:.65em 0}
+.t-lg{margin:.8em 0 .8em 1.6em}
+.t-l{display:block}
+.t-sp{margin:.65em 0}
+.t-speaker{font-family:var(--mono);font-size:.72em;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);display:inline-block;margin-right:.5em}
+.t-stage{font-style:italic;color:var(--soft)}
+.t-opener,.t-closer{color:var(--soft);margin:.65em 0}
+.t-salute,.t-dateline,.t-signed{font-style:italic}
+
+.t-persName,.t-placeName,.t-orgName{border-bottom:1px dotted var(--accent-soft)}
+.t-foreign,.t-hi,.t-emph,.t-title{font-style:italic}
+.t-quote{margin:.8em 0 .8em 1.4em;color:var(--soft)}
+
+.t-del{text-decoration:line-through;color:var(--soft)}
+.t-add{vertical-align:super;font-size:.82em}
+.t-unclear{background:#F5F4EF}
+.t-supplied::before{content:'[';color:var(--faint)}
+.t-supplied::after{content:']';color:var(--faint)}
+.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-abbr{border-bottom:1px dotted var(--faint)}
+
+.t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  color:var(--accent);vertical-align:super;margin:0 .18em;user-select:none}
+
+.t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
+  padding-left:.7em;margin:.5em 0}
+
+.t-app .t-rdg{display:none}
+.t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+
+footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
+  border-top:1px solid var(--hair);color:var(--soft);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+footer.torchio .press{color:var(--accent)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+.torchio-bar{position:sticky;top:0;z-index:40;background:var(--ground);
+  border-bottom:1px solid var(--hair);font-family:var(--mono)}
+.torchio-bar .inner{max-width:var(--measure);margin:0 auto;padding:8px 20px;
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.torchio-bar .modes{display:inline-flex;border:1px solid var(--hair);
+  border-radius:2px;overflow:hidden}
+.torchio-bar button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);background:none;border:none;
+  cursor:pointer;padding:6px 14px}
+.torchio-bar .modes button.active{background:var(--accent);color:#fff}
+.torchio-bar .sw.off{text-decoration:line-through;opacity:.6}
+
+.t-lem{cursor:pointer}
+body.app-off .t-lem{border-bottom:none;cursor:inherit}
+[data-ref]{cursor:pointer}
+
+.torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
+  border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
+  box-shadow:0 12px 28px -18px rgba(27,27,27,.45);font-size:15px;line-height:1.45}
+.torchio-pop .k{font-family:var(--mono);font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--soft);display:block;
+  margin-bottom:6px}
+.torchio-pop .rdgline{display:flex;gap:10px;align-items:baseline;padding:3px 0}
+.torchio-pop .sig{font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--accent);min-width:2.2em}
+.torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
+.torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+
+/* transcription levels: reading is the default */
+.t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
+body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
+body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
+body.mode-read .t-del{display:none}
+body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
+
+.torchio-nav{display:flex;gap:22px;margin-left:auto}
+.torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+  color:var(--soft);text-transform:uppercase}
+.torchio-nav a.on{color:var(--accent)}
+.torchio-nav a:hover{color:var(--ink);text-decoration:none}
+header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
+header.torchio .tt{min-width:14rem}
+.about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);margin-top:1.2em}
+.about dd{margin:0.3em 0 0}
+.wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
+  vertical-align:baseline}
+.sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
+  white-space:nowrap}
+.occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
+.occ a{color:var(--accent);margin-right:.5em}
+h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+.header-full .t-teiHeader{display:block;border:0;padding:0;color:var(--ink);font-size:1em}
+.header-full div[data-el]::before{content:attr(data-el);display:block;
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
+.header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
+  font-size:.92em;overflow-x:auto}
+.reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
+  border:1px solid var(--hair);border-radius:2px;background:var(--paper);
+  color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
+.reg-table th{font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:left;
+  padding:6px 10px 6px 0;border-bottom:2px solid var(--hair);cursor:pointer}
+.reg-table th[aria-sort="ascending"]::after{content:" \2191"}
+.reg-table th[aria-sort="descending"]::after{content:" \2193"}
+.reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
+  font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<header class="torchio">
+<div class="tt"><h1>Vincent van Gogh, le lettere</h1><p class="sub">30 documenti</p></div>
+<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="data.html">Dati</a></nav>
+</header>
+<main id="main" class="torchio" style="max-width:64rem"><input class="reg-filter" type="search" placeholder="Filtra…" aria-label="Filtra…"><span class="reg-count">30 / 30</span><table class="reg-table idx-table"><thead><tr><th scope="col">Titolo</th><th scope="col">Segn.</th></tr></thead><tbody><tr data-search="to theo van gogh. the hague, sunday, 29 september 1872. 001"><td><a href="doc-let001.html">To Theo van Gogh. The Hague, Sunday, 29 September 1872.</a></td><td>001</td></tr><tr data-search="to hendrik verzijl. the hague, saturday, 26 october 1872. 001a"><td><a href="doc-let001a.html">To Hendrik Verzijl. The Hague, Saturday, 26 October 1872.</a></td><td>001a</td></tr><tr data-search="to theo van gogh. the hague, friday, 13 december 1872. 002"><td><a href="doc-let002.html">To Theo van Gogh. The Hague, Friday, 13 December 1872.</a></td><td>002</td></tr><tr data-search="to theo van gogh. the hague, mid-january 1873. 003"><td><a href="doc-let003.html">To Theo van Gogh. The Hague, mid-January 1873.</a></td><td>003</td></tr><tr data-search="to theo van gogh. the hague, tuesday, 28 january 1873. 004"><td><a href="doc-let004.html">To Theo van Gogh. The Hague, Tuesday, 28 January 1873.</a></td><td>004</td></tr><tr data-search="to theo van gogh. the hague, monday, 17 march 1873. 005"><td><a href="doc-let005.html">To Theo van Gogh. The Hague, Monday, 17 March 1873.</a></td><td>005</td></tr><tr data-search="to theo van gogh. the hague, monday, 24 march 1873. 006"><td><a href="doc-let006.html">To Theo van Gogh. The Hague, Monday, 24 March 1873.</a></td><td>006</td></tr><tr data-search="to theo van gogh. the hague, monday, 5 may 1873. 007"><td><a href="doc-let007.html">To Theo van Gogh. The Hague, Monday, 5 May 1873.</a></td><td>007</td></tr><tr data-search="to theo van gogh. the hague, friday, 9 may 1873. 008"><td><a href="doc-let008.html">To Theo van Gogh. The Hague, Friday, 9 May 1873.</a></td><td>008</td></tr><tr data-search="to theo van gogh. london, friday, 13 june 1873. 009"><td><a href="doc-let009.html">To Theo van Gogh. London, Friday, 13 June 1873.</a></td><td>009</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, wednesday, 2 july 1873. 010"><td><a href="doc-let010.html">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</a></td><td>010</td></tr><tr data-search="to theo van gogh. london, sunday, 20 july 1873. 011"><td><a href="doc-let011.html">To Theo van Gogh. London, Sunday, 20 July 1873.</a></td><td>011</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, thursday, 7 august 1873. 012"><td><a href="doc-let012.html">To Willem and Caroline van Stockum-Haanebeek. London, Thursday, 7 August 1873.</a></td><td>012</td></tr><tr data-search="to theo van gogh. london, saturday, 13 september 1873. 013"><td><a href="doc-let013.html">To Theo van Gogh. London, Saturday, 13 September 1873.</a></td><td>013</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, between about thursday, 16 october and friday, 31 october 1873. 014"><td><a href="doc-let014.html">To Willem and Caroline van Stockum-Haanebeek. London, between about Thursday, 16 October and Friday, 31 October 1873.</a></td><td>014</td></tr><tr data-search="to theo van gogh. london, wednesday, 19 november 1873. 015"><td><a href="doc-let015.html">To Theo van Gogh. London, Wednesday, 19 November 1873.</a></td><td>015</td></tr><tr data-search="to caroline van stockum-haanebeek. london, thursday, 20 november 1873. 016"><td><a href="doc-let016.html">To Caroline van Stockum-Haanebeek. London, Thursday, 20 November 1873.</a></td><td>016</td></tr><tr data-search="to theo van gogh. london, beginning of january 1874. 017"><td><a href="doc-let017.html">To Theo van Gogh. London, beginning of January 1874.</a></td><td>017</td></tr><tr data-search="to caroline van stockum-haanebeek. london, monday, 9 february 1874. 018"><td><a href="doc-let018.html">To Caroline van Stockum-Haanebeek. London, Monday, 9 February 1874.</a></td><td>018</td></tr><tr data-search="to theo van gogh. london, friday, 20 february 1874. 019"><td><a href="doc-let019.html">To Theo van Gogh. London, Friday, 20 February 1874.</a></td><td>019</td></tr><tr data-search="to caroline and willem van stockum-haanebeek. london, tuesday, 3 march 1874. 020"><td><a href="doc-let020.html">To Caroline and Willem van Stockum-Haanebeek. London, Tuesday, 3 March 1874.</a></td><td>020</td></tr><tr data-search="to theo van gogh. london, monday, 30 march 1874. 021"><td><a href="doc-let021.html">To Theo van Gogh. London, Monday, 30 March 1874.</a></td><td>021</td></tr><tr data-search="to theo van gogh. london, thursday, 30 april 1874. 022"><td><a href="doc-let022.html">To Theo van Gogh. London, Thursday, 30 April 1874.</a></td><td>022</td></tr><tr data-search="to theo van gogh. london, tuesday, 16 june 1874. 023"><td><a href="doc-let023.html">To Theo van Gogh. London, Tuesday, 16 June 1874.</a></td><td>023</td></tr><tr data-search="to betsy tersteeg. helvoirt, tuesday, 7 july 1874. 024"><td><a href="doc-let024.html">To Betsy Tersteeg. Helvoirt, Tuesday, 7 July 1874.</a></td><td>024</td></tr><tr data-search="to theo van gogh. helvoirt, friday, 10 july 1874. 025"><td><a href="doc-let025.html">To Theo van Gogh. Helvoirt, Friday, 10 July 1874.</a></td><td>025</td></tr><tr data-search="to theo van gogh. london, tuesday, 21 july 1874. 026"><td><a href="doc-let026.html">To Theo van Gogh. London, Tuesday, 21 July 1874.</a></td><td>026</td></tr><tr data-search="to theo van gogh. london, friday, 31 july 1874. 027"><td><a href="doc-let027.html">To Theo van Gogh. London, Friday, 31 July 1874.</a></td><td>027</td></tr><tr data-search="to theo van gogh. london, monday, 10 august 1874. 028"><td><a href="doc-let028.html">To Theo van Gogh. London, Monday, 10 August 1874.</a></td><td>028</td></tr><tr data-search="to theo van gogh. london, between monday, 4 january and friday, 5 march 1875. 029"><td><a href="doc-let029.html">To Theo van Gogh. London, between Monday, 4 January and Friday, 5 March 1875.</a></td><td>029</td></tr></tbody></table></main>
+<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+<script>
+(function(){
+  var input=document.querySelector('.reg-filter');
+  var rows=[].slice.call(document.querySelectorAll('.reg-table tbody tr'));
+  var count=document.querySelector('.reg-count');
+  if(input){input.addEventListener('input',function(){
+    var q=input.value.toLowerCase();var n=0;
+    rows.forEach(function(r){var hit=!q||r.getAttribute('data-search').indexOf(q)>-1;
+      r.style.display=hit?'':'none';if(hit)n++;});
+    if(count)count.textContent=n+' / '+rows.length;
+  });}
+  document.querySelectorAll('.reg-table th').forEach(function(th,idx){
+    th.addEventListener('click',function(){
+      var tbody=th.closest('table').querySelector('tbody');
+      var dir=th.getAttribute('aria-sort')==='ascending'?-1:1;
+      document.querySelectorAll('.reg-table th').forEach(function(x){x.removeAttribute('aria-sort');});
+      th.setAttribute('aria-sort',dir===1?'ascending':'descending');
+      var rs=[].slice.call(tbody.querySelectorAll('tr'));
+      rs.sort(function(a,b){
+        var ka=a.children[idx].getAttribute('data-k')||a.children[idx].textContent;
+        var kb=b.children[idx].getAttribute('data-k')||b.children[idx].textContent;
+        return dir*ka.localeCompare(kb,undefined,{numeric:true});
+      });
+      rs.forEach(function(r){tbody.appendChild(r);});
+    });
+  });
+})();
+</script>
+</body>
+</html>

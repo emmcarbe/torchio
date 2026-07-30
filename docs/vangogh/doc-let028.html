@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>To Theo van Gogh. London, Monday, 10 August 1874.</title>
+<style>:root{--ground:#FFFFFF;--paper:#FFFFFF;--ink:#1B1B1B;--soft:#6A6A66;--hair:#E5E2D9;--faint:#CFCCC2;--accent:#B01E28;--accent-soft:#9a5a52;--link:#B01E28;--reading:"EB Garamond",Iowan Old Style,Palatino,"Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--serif:var(--reading);--measure:44rem}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","onum","pnum"}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.torchio{max-width:var(--measure);margin:0 auto;padding:26px 20px 14px;
+  border-bottom:1px solid var(--hair)}
+header.torchio h1{margin:0;font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.01em}
+header.torchio .sub{margin:6px 0 0;color:var(--soft);font-family:var(--mono);
+  font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+
+main.torchio{max-width:var(--measure);margin:0 auto;padding:10px 20px 0}
+
+.t-teiHeader{display:none}
+body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
+  border-radius:2px;padding:14px 16px;font-size:.85em;color:var(--soft)}
+
+.t-head{font-weight:600;margin:1.3em 0 .4em}
+.t-p,.t-ab{margin:.65em 0}
+.t-lg{margin:.8em 0 .8em 1.6em}
+.t-l{display:block}
+.t-sp{margin:.65em 0}
+.t-speaker{font-family:var(--mono);font-size:.72em;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);display:inline-block;margin-right:.5em}
+.t-stage{font-style:italic;color:var(--soft)}
+.t-opener,.t-closer{color:var(--soft);margin:.65em 0}
+.t-salute,.t-dateline,.t-signed{font-style:italic}
+
+.t-persName,.t-placeName,.t-orgName{border-bottom:1px dotted var(--accent-soft)}
+.t-foreign,.t-hi,.t-emph,.t-title{font-style:italic}
+.t-quote{margin:.8em 0 .8em 1.4em;color:var(--soft)}
+
+.t-del{text-decoration:line-through;color:var(--soft)}
+.t-add{vertical-align:super;font-size:.82em}
+.t-unclear{background:#F5F4EF}
+.t-supplied::before{content:'[';color:var(--faint)}
+.t-supplied::after{content:']';color:var(--faint)}
+.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-abbr{border-bottom:1px dotted var(--faint)}
+
+.t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  color:var(--accent);vertical-align:super;margin:0 .18em;user-select:none}
+
+.t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
+  padding-left:.7em;margin:.5em 0}
+
+.t-app .t-rdg{display:none}
+.t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+
+footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
+  border-top:1px solid var(--hair);color:var(--soft);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+footer.torchio .press{color:var(--accent)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+.torchio-bar{position:sticky;top:0;z-index:40;background:var(--ground);
+  border-bottom:1px solid var(--hair);font-family:var(--mono)}
+.torchio-bar .inner{max-width:var(--measure);margin:0 auto;padding:8px 20px;
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.torchio-bar .modes{display:inline-flex;border:1px solid var(--hair);
+  border-radius:2px;overflow:hidden}
+.torchio-bar button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);background:none;border:none;
+  cursor:pointer;padding:6px 14px}
+.torchio-bar .modes button.active{background:var(--accent);color:#fff}
+.torchio-bar .sw.off{text-decoration:line-through;opacity:.6}
+
+.t-lem{cursor:pointer}
+body.app-off .t-lem{border-bottom:none;cursor:inherit}
+[data-ref]{cursor:pointer}
+
+.torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
+  border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
+  box-shadow:0 12px 28px -18px rgba(27,27,27,.45);font-size:15px;line-height:1.45}
+.torchio-pop .k{font-family:var(--mono);font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--soft);display:block;
+  margin-bottom:6px}
+.torchio-pop .rdgline{display:flex;gap:10px;align-items:baseline;padding:3px 0}
+.torchio-pop .sig{font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--accent);min-width:2.2em}
+.torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
+.torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+
+/* transcription levels: reading is the default */
+.t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
+body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
+body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
+body.mode-read .t-del{display:none}
+body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
+
+.torchio-nav{display:flex;gap:22px;margin-left:auto}
+.torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+  color:var(--soft);text-transform:uppercase}
+.torchio-nav a.on{color:var(--accent)}
+.torchio-nav a:hover{color:var(--ink);text-decoration:none}
+header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
+header.torchio .tt{min-width:14rem}
+.about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);margin-top:1.2em}
+.about dd{margin:0.3em 0 0}
+.wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
+  vertical-align:baseline}
+.sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
+  white-space:nowrap}
+.occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
+.occ a{color:var(--accent);margin-right:.5em}
+h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+.header-full .t-teiHeader{display:block;border:0;padding:0;color:var(--ink);font-size:1em}
+.header-full div[data-el]::before{content:attr(data-el);display:block;
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
+.header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
+  font-size:.92em;overflow-x:auto}
+.reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
+  border:1px solid var(--hair);border-radius:2px;background:var(--paper);
+  color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
+.reg-table th{font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:left;
+  padding:6px 10px 6px 0;border-bottom:2px solid var(--hair);cursor:pointer}
+.reg-table th[aria-sort="ascending"]::after{content:" \2191"}
+.reg-table th[aria-sort="descending"]::after{content:" \2193"}
+.reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
+  font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<header class="torchio">
+<div class="tt"><h1>To Theo van Gogh. London, Monday, 10 August 1874.</h1><p class="sub">Vincent van Gogh, le lettere</p></div>
+<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="data.html">Dati</a></nav>
+</header>
+<div class="torchio-bar"><div class="inner"><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Registro"><a href="doc-let027.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let029.html">successivo ›</a></nav><div id="let028:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+        <div id="let028:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+<span id="let028:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+<span id="let028:0.0.0.0.0" class="t-title s-1-inline" data-el="title">To Theo van Gogh. London, Monday, 10 August 1874.</span>
+<span id="let028:0.0.0.0.1" class="t-editor s-1-bibliografia" data-el="editor">Leo Jansen</span>
+<span id="let028:0.0.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Hans Luijten</span>
+<span id="let028:0.0.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">Nienke Bakker</span>
+            </span>
+<span id="let028:0.0.0.1" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+<span id="let028:0.0.0.1.0" class="t-publisher s-1-bibliografia" data-el="publisher">
+                    <span id="let028:0.0.0.1.0.0" class="t-name s-2-entita" data-el="name">Huygens Instituut voor Nederlandse Geschiedenis (KNAW)</span>
+                    <span id="let028:0.0.0.1.0.1" class="t-email s-2-entita" data-el="email">info@huygens.knaw.nl</span>
+                </span>
+<span id="let028:0.0.0.1.1" class="t-publisher s-1-bibliografia" data-el="publisher">Van Gogh Museum</span>
+<span id="let028:0.0.0.1.2" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Amsterdam</span>
+<span id="let028:0.0.0.1.3" class="t-date s-2-date" data-el="date" data-type="first" data-when="2009">2009</span>
+<span id="let028:0.0.0.1.4" class="t-availability s-1-bibliografia" data-el="availability">
+<span id="let028:0.0.0.1.4.0" class="t-licence s-7-licenza" data-el="licence" data-target="http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
+<div id="let028:0.0.0.1.4.0.0" class="t-p s-1-struttura" data-el="p">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) </div>
+                    </span>
+                </span>
+<span id="let028:0.0.0.1.5" class="t-ptr s-2-corrispondenza" data-el="ptr" data-target="http://vangoghletters.org/orig/let028"></span>
+            </span>
+            <div id="let028:0.0.0.2" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+                <span id="let028:0.0.0.2.0" class="t-letDesc s-base" data-el="letDesc">
+                    <span id="let028:0.0.0.2.0.0" class="t-letIdentifier s-base" data-el="letIdentifier">
+<span id="let028:0.0.0.2.0.0.0" class="t-idno s-2-entita" data-el="idno" data-type="jlb">028</span>
+<span id="let028:0.0.0.2.0.0.1" class="t-idno s-2-entita" data-el="idno" data-type="collectedletters">21</span>
+<span id="let028:0.0.0.2.0.0.2" class="t-idno s-2-entita" data-el="idno" data-type="brieven1990">028</span>
+                    </span>
+                    <span id="let028:0.0.0.2.0.1" class="t-letHeading s-base" data-el="letHeading">
+                        <span id="let028:0.0.0.2.0.1.0" class="t-author s-1-bibliografia" data-el="author">Vincent van Gogh</span>
+                        <span id="let028:0.0.0.2.0.1.1" class="t-addressee s-base" data-el="addressee">Theo van Gogh</span>
+                        <span id="let028:0.0.0.2.0.1.2" class="t-placeLet s-base" data-el="placeLet">London</span>
+                        <span id="let028:0.0.0.2.0.1.3" class="t-dateLet s-base" data-el="dateLet">Monday, 10 August 1874</span>
+                    </span>
+                    <span id="let028:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
+<div id="let028:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. London, Monday, 10 August 1874.</div>
+                    </span>
+<div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
+<div id="let028:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
+                    </div>
+<div id="location" class="t-note s-1-note" data-el="note" data-type="location">
+<div id="let028:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b21 a V/1962</div>
+                    </div>
+<div id="date" class="t-note s-1-note" data-el="note" data-type="date">
+<div id="let028:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 10 Aug. 1874’.</div>
+                    </div>
+<div id="arrangement" class="t-note s-1-note" data-el="note" data-type="arrangement">
+<div id="let028:0.0.0.2.0.6.0" class="t-p s-1-struttura" data-el="p">In <span id="let028:0.0.0.2.0.6.0.0" class="t-hi s-1-inline" data-el="hi">De brieven</span> 1990 a sheet bearing two poems, one by Longfellow and one by Rossetti, was appended to this letter. The paper, writing medium and handwriting differ from that of this letter, which makes no mention of an appendix. These poems are therefore not included here; it remains unclear to what letter they were appended. See RM3.</div>
+                    </div>
+<div id="additionalDetail" class="t-note s-1-note" data-el="note" data-type="additionalDetail">
+<div id="let028:0.0.0.2.0.7.0" class="t-p s-1-struttura" data-el="p">The address ‘Mr. Th. van Gogh’ written on the letter itself indicates that it was enclosed in a shipment sent from Goupil’s.</div>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div><span id="let028:0.1" class="t-facsimile s-7-struttura-documento" data-el="facsimile">
+<span id="surf-pb-1r" class="t-surface s-5-documentario" data-el="surface" data-n="b 0021 a">
+            <span id="let028:0.1.0.0" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            <span id="let028:0.1.0.1" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            <span id="let028:0.1.0.2" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            <span id="zone-pb-1r-1" class="t-zone s-2-standoff" data-el="zone">
+<span id="let028:0.1.0.3.0" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+                <span id="let028:0.1.0.3.1" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+                <span id="let028:0.1.0.3.2" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            </span>
+</span>
+<span id="surf-pb-1v" class="t-surface s-5-documentario" data-el="surface" data-n="b 0021 a">
+            <span id="let028:0.1.1.0" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            <span id="let028:0.1.1.1" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            <span id="let028:0.1.1.2" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            <span id="zone-pb-1v-2" class="t-zone s-2-standoff" data-el="zone">
+<span id="let028:0.1.1.3.0" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+                <span id="let028:0.1.1.3.1" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+                <span id="let028:0.1.1.3.2" class="t-graphic s-1-paratesti" data-el="graphic"></span>
+            </span>
+</span>
+    </span><div id="let028:0.2" class="t-text s-7-struttura-documento" data-el="text">
+        <div id="let028:0.2.0" class="t-body s-1-struttura" data-el="body">
+<div id="let028:0.2.0.0" class="t-div s-1-struttura" data-el="div" data-type="original">
+<span class="t-pb" role="separator" title="page break">[1]</span>
+                <br/>
+<div id="let028:0.2.0.0.2" class="t-ab s-1-struttura" data-el="ab">Londen 10 Aug. 1874</div>
+<span id="let028:0.2.0.0.3" class="t-whiteline s-base" data-el="whiteline"></span>
+                <br/>
+<div id="let028:0.2.0.0.5" class="t-ab s-1-struttura" data-el="ab">Waarde Theo,</div>
+                <br/>
+<div id="let028:0.2.0.0.7" class="t-ab s-1-struttura" data-el="ab">“Gij oordeelt naar het vleesch. Ik oordeel <br/>niemand”<span id="let028:0.2.0.0.7.1" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
+                    <span id="note-o-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span>
+                </div>
+                <br/>
+<div id="let028:0.2.0.0.9" class="t-ab s-1-struttura" data-el="ab">“Wie van U zonder zonde is, werpe het <br/>eerst den steen op haar.”<span id="note-o-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span>
+                </div>
+                <br/>
+<div id="let028:0.2.0.0.11" class="t-ab s-1-struttura" data-el="ab">Blijf dus bij je eigen idées &amp; als je <br/>twijfelt of die wel goed zijn<span id="let028:0.2.0.0.11.1" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> toets <br/>ze dan aan die van hem die zeg<span id="let028:0.2.0.0.11.3" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <br/>gen durfde “Ik ben de waarheid”<span id="note-o-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span> of <br/>aan die van een of ander humaan <br/>mensch<span id="let028:0.2.0.0.11.8" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> Michelet b.v.─</div>
+                <br/>
+<div id="let028:0.2.0.0.13" class="t-ab s-1-struttura" data-el="ab">Virginité de l’âme &amp; impureté du <br/>corps kunnen samengaan.─<span id="note-o-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span>
+                    <br/>
+Je kent de Marguerite à la fontaine <br/>van Ary Scheffer,<span id="note-o-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> is er een reiner <br/>wezen dan dat meisje “dat zooveel <br/>heeft liefgehad”.─<span id="note-o-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span>
+                </div>
+                <br/>
+<div id="let028:0.2.0.0.15" class="t-ab s-1-struttura" data-el="ab">“Leys n’est pas un imitateur <br/>mais un semblable” is een <br/>waar woord dat mij ook getrof<span id="let028:0.2.0.0.15.2" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <br/>fen had.─<span id="note-o-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> Men zou ’t zelfde kun<span id="let028:0.2.0.0.15.5" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <br/>nen zeggen van sommigen van <br/>Tissot’s schilderijen, van zijn Prome<span id="let028:0.2.0.0.15.8" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <br/>nade dans la neige, Promenade 
+<span class="t-pb" role="separator" title="page break">[2]</span>
+                    <br/>sur les remparts, Marguérite <br/>à l’église &amp;c.<span id="note-o-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span>
+                </div>
+                <br/>
+<div id="let028:0.2.0.0.17" class="t-ab s-1-struttura" data-el="ab">Wat is ’t sujet van de Leys van <br/>Fagel.─<span id="note-o-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span>
+                </div>
+                <br/>
+<div id="let028:0.2.0.0.19" class="t-ab s-1-struttura" data-el="ab">Koop van ’t geld dat je van mij <br/>hebt Alphonse Karr “Voyage au<span id="let028:0.2.0.0.19.1" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <br/>tour de mon jardin”,<span id="note-o-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span> doe dat <br/>bepaald, ik wil dat je dat <br/>leest.</div>
+                <br/>
+<div id="let028:0.2.0.0.21" class="t-ab s-1-struttura" data-el="ab">Anna &amp; ik wandelen iederen <br/>avond, ’t begint reeds herfst <br/>te worden &amp; dat maakt de <br/>natuur nog ernstiger &amp; <br/>inniger.─</div>
+                <br/>
+<div id="let028:0.2.0.0.23" class="t-ab s-1-struttura" data-el="ab">Wij gaan verhuizen &amp; wonen <br/>in een huis geheel met klimop <br/>begroeid<span id="note-o-11" class="t-anchor s-1-milestone" data-el="anchor" data-n="11"></span> waarvan we je <br/>spoedig meer schrijven.─</div>
+                <br/>
+<div id="let028:0.2.0.0.25" class="t-ab s-1-struttura" data-el="ab">Groeten aan allen die naar <br/>mij vragen.─</div>
+<span id="let028:0.2.0.0.26" class="t-whiteline s-base" data-el="whiteline"></span>
+                <br/>
+<div id="let028:0.2.0.0.28" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
+<span id="let028:0.2.0.0.29" class="t-whiteline s-base" data-el="whiteline"></span>
+<div id="let028:0.2.0.0.30" class="t-div s-1-struttura" data-el="div" data-type="textualNotes">
+<div id="let028:0.2.0.0.30.0" class="t-note s-1-note" data-el="note" data-n="-">
+                        <span id="let028:0.2.0.0.30.0.0" class="t-hi s-1-inline" data-el="hi">On p. [1r:1] underlined:</span> ‘Mr. Th. van Gogh’.</div>
+<div id="let028:0.2.0.0.30.1" class="t-note s-1-note" data-el="note" data-n="19" data-target="l-19">“Leys &lt; Leys</div>
+                </div>
+            </div>
+<div id="let028:0.2.0.1" class="t-div s-1-struttura" data-el="div" data-type="translation">
+<span class="t-pb" role="separator" title="page break">[1]</span>
+<div id="let028:0.2.0.1.1" class="t-ab s-1-struttura" data-el="ab">London, 10 Aug. 1874</div>
+<span id="let028:0.2.0.1.2" class="t-whiteline s-base" data-el="whiteline"></span>
+<div id="let028:0.2.0.1.3" class="t-ab s-1-struttura" data-el="ab">My dear Theo,</div>
+<div id="let028:0.2.0.1.4" class="t-ab s-1-struttura" data-el="ab">‘Ye judge after the flesh; I judge no man.’<span id="note-t-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span>
+                </div>
+<div id="let028:0.2.0.1.5" class="t-ab s-1-struttura" data-el="ab">‘He that is without sin among you, let him first cast a stone at her.’<span id="note-t-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span>
+                </div>
+<div id="let028:0.2.0.1.6" class="t-ab s-1-struttura" data-el="ab">So stick to your own ideas, and if you doubt the goodness of them, test them against those of him who dared to say ‘I am the truth’,<span id="note-t-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span> or against those of some humane person, such as <span id="let028:0.2.0.1.6.1" class="t-rs s-2-entita" data-el="rs" data-key="707" data-type="pers">Michelet</span>.</div>
+  <div id="let028:0.2.0.1.7" class="t-ab s-1-struttura" data-el="ab">Purity of soul and impurity of body can go together.<span id="note-t-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> You know the Margaret at the fountain by <span id="let028:0.2.0.1.7.1" class="t-rs s-2-entita" data-el="rs" data-key="1339" data-type="pers">Ary Scheffer</span>;<span id="note-t-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> is there a purer being than that girl ‘who loved so much’?<span id="note-t-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span>
+                </div>
+<div id="let028:0.2.0.1.8" class="t-ab s-1-struttura" data-el="ab">‘<span id="let028:0.2.0.1.8.0" class="t-rs s-2-entita" data-el="rs" data-key="1176" data-type="pers">Leys</span> is not an imitator, but a kindred spirit’ is a true saying that touched me as well.<span id="note-t-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> One could say the same of some of <span id="let028:0.2.0.1.8.2" class="t-rs s-2-entita" data-el="rs" data-key="1394" data-type="pers">Tissot</span>’s paintings, of his Walk in the snow, Walk 
+<span class="t-pb" role="separator" title="page break">[2]</span> on the ramparts, Margaret in church, &amp;c.<span id="note-t-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span>
+                </div>
+<div id="let028:0.2.0.1.9" class="t-ab s-1-struttura" data-el="ab">What is the subject of <span id="let028:0.2.0.1.9.0" class="t-rs s-2-entita" data-el="rs" data-key="375" data-type="pers">Fagel</span>’s <span id="let028:0.2.0.1.9.1" class="t-rs s-2-entita" data-el="rs" data-key="1176" data-type="pers">Leys</span>?<span id="note-t-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span>
+                </div>
+<div id="let028:0.2.0.1.10" class="t-ab s-1-struttura" data-el="ab">Buy <span id="let028:0.2.0.1.10.0" class="t-rs s-2-entita" data-el="rs" data-key="677" data-type="pers">Alphonse Karr</span>’s ‘Voyage autour de mon jardin’ with the money I gave you.<span id="note-t-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span> Be sure to do it, I want you to read it.</div>
+<div id="let028:0.2.0.1.11" class="t-ab s-1-struttura" data-el="ab">
+                    <span id="let028:0.2.0.1.11.0" class="t-rs s-2-entita" data-el="rs" data-key="412" data-type="pers">Anna</span> and I take a walk every evening; it’s already the beginning of autumn, and that makes nature even more serious and intimate.</div>
+<div id="let028:0.2.0.1.12" class="t-ab s-1-struttura" data-el="ab">We’re going to move and will live in a house completely overgrown with ivy;<span id="note-t-11" class="t-anchor s-1-milestone" data-el="anchor" data-n="11"></span> we’ll write to you again soon from there. </div> <div id="let028:0.2.0.1.13" class="t-ab s-1-struttura" data-el="ab">Regards to everyone who asks after me.</div>
+<span id="let028:0.2.0.1.14" class="t-whiteline s-base" data-el="whiteline"></span>
+<div id="let028:0.2.0.1.15" class="t-ab s-1-struttura" data-el="ab">Vincent </div>
+            </div>
+<div id="let028:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
+<div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
+<div id="let028:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">
+  <span id="let028:0.2.0.2.0.0.0" class="t-bibleref s-base" data-el="bibleref">John 8:15</span>.</div>
+                </div>
+<div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
+<div id="let028:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">
+  <span id="let028:0.2.0.2.1.0.0" class="t-bibleref s-base" data-el="bibleref">John 8:7</span>.</div>
+                </div>
+<div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
+<div id="let028:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">
+  <span id="let028:0.2.0.2.2.0.0" class="t-bibleref s-base" data-el="bibleref">John 14:6</span>.</div>
+                </div>
+<div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
+  <div id="let028:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">In this part of the letter Vincent pursues several questions that Theo touched upon in an earlier letter, one of which was how purity of spirit can go together with impurity of body, which is an allusion to Mary Magdalene (see the rest of the paragraph, as well as <span id="let028:0.2.0.2.3.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#n-5">nn. 5</span> and <span id="let028:0.2.0.2.3.0.1" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#n-6">6</span> below). The use of French might mean that Theo was quoting these words.</div>
+                </div>
+<div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
+<div id="let028:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let028:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1339" data-type="pers">Ary Scheffer</span>, <span id="let028:0.2.0.2.4.0.1" class="t-hi s-1-inline" data-el="hi">Margaret at the fountain</span>, 1858 (London, The Wallace Collection). <span id="let028:0.2.0.2.4.0.2" class="t-rs s-2-entita" data-el="rs" data-key="1663" data-type="ill">Ill. 1663</span>. A print made after this by <span id="let028:0.2.0.2.4.0.3" class="t-rs s-2-entita" data-el="rs" data-key="1625" data-type="pers">William Hollidge</span> appeared in <span id="let028:0.2.0.2.4.0.4" class="t-hi s-1-inline" data-el="hi">The Illustrated London News</span> of 21 December 1872, p. 581. Goupil published a photograph in the ‘Galerie Photographique’ series (no. 277) under the title <span id="let028:0.2.0.2.4.0.5" class="t-hi s-1-inline" data-el="hi">Marguerite à la fontaine</span>, the same title used by Van Gogh (see Ewals 1987, p. 339 and fig. 57; exhib. cat. London<span id="let028:0.2.0.2.4.0.6" class="t-hi s-1-inline" data-el="hi"> </span>1992, pp. 13 (ill. 4), 47, cat. no. 24; and exhib. cat. London 1998, pp. 16-19, figs. 14-19).</div>
+<div id="let028:0.2.0.2.4.1" class="t-ab s-1-struttura" data-el="ab">This depiction of an episode from Faust by <span id="let028:0.2.0.2.4.1.0" class="t-rs s-2-entita" data-el="rs" data-key="611" data-type="pers">Johann Wolfgang von Goethe</span> shows Gretchen hearing the news that her unmarried girlfriend is pregnant. She realizes that at one time she would have condemned such behaviour but that she herself is no longer free of sin (Faust, 1, 5).</div>
+                </div>
+<div id="n-6" class="t-note s-1-note" data-el="note" data-n="6" data-target="#note-t-6">
+<div id="let028:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">Cf. Christ’s words when he forgives the sinful woman: ‘she loved much’ (<span id="let028:0.2.0.2.5.0.0" class="t-bibleref s-base" data-el="bibleref">Luke 7:47</span>).</div>
+                </div>
+<div id="n-7" class="t-note s-1-note" data-el="note" data-n="7" data-target="#note-t-7">
+  <div id="let028:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">Presumably Van Gogh knew this quotation about <span id="let028:0.2.0.2.6.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1176" data-type="pers">Henri Leys</span> – to which Theo evidently referred – from the article ‘<span id="let028:0.2.0.2.6.0.1" class="t-rs s-2-entita" data-el="rs" data-key="581" data-type="lit">Artistes contemporains. M. Henri Leys</span>’ by <span id="let028:0.2.0.2.6.0.2" class="t-rs s-2-entita" data-el="rs" data-key="700" data-type="pers">Paul Mantz</span>, who wrote in the <span id="let028:0.2.0.2.6.0.3" class="t-hi s-1-inline" data-el="hi">Gazette des Beaux-Arts</span>: ‘Profitons du moment où Théophile Gautier a le dos tourné pour lui prendre un mot charmant. “M. Leys, a-t-il dit, n’est pas un imitateur, mais un semblable”’ (Let’s profit from Théophile Gautier’s turning his back for a moment by making use of one of his witty remarks. “Mr Leys”, he said, “is not an imitator, but a kindrid spirit”’). See Mantz 1866, p. 316. The statement was taken from <span id="let028:0.2.0.2.6.0.4" class="t-rs s-2-entita" data-el="rs" data-key="607" data-type="pers">Théophile Gautier</span>, <span id="let028:0.2.0.2.6.0.5" class="t-hi s-1-inline" data-el="hi">
+                            <span id="let028:0.2.0.2.6.0.5.0" class="t-rs s-2-entita" data-el="rs" data-key="567" data-type="lit">Les Beaux-Arts en Europe: 1855</span>
+                        </span>. Second series. Paris 1856, p. 214.</div>
+                </div>
+<div id="n-8" class="t-note s-1-note" data-el="note" data-n="8" data-target="#note-t-8">
+<div id="let028:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let028:0.2.0.2.7.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1394" data-type="pers">James Tissot</span>, <span id="let028:0.2.0.2.7.0.1" class="t-hi s-1-inline" data-el="hi">Walk in the snow</span>, 1858 (Paul Touzet) was exhibited at the 1859 Paris Salon (<span id="let028:0.2.0.2.7.0.2" class="t-hi s-1-inline" data-el="hi">Promenade dans la neige</span>) and at the London International Exhibition of 1862 (Ill. in Wentworth 1984, pl. 1). <span id="let028:0.2.0.2.7.0.3" class="t-rs s-2-entita" data-el="rs" data-key="1382" data-type="ill">Ill. 1382</span>.</div>
+<div id="let028:0.2.0.2.7.1" class="t-ab s-1-struttura" data-el="ab">
+      Walk on the ramparts of 1864 (Stanford, University Museum of Art, Gift of Mr Robert Sumpf) was included in Goupil’s ‘Galerie photographique’, Promenade sur les remparts, no. 429 (Paris, BNF, Cabinet des Estampes). <span id="let028:0.2.0.2.7.1.0" class="t-rs s-2-entita" data-el="rs" data-key="1664" data-type="ill">Ill. 1664</span>.</div>
+<div id="let028:0.2.0.2.7.2" class="t-ab s-1-struttura" data-el="ab">There are two versions of Margaret in church: one dating from 1860 (present whereabouts unknown) and one from 1861 (Dublin, National Gallery of Ireland). At the time the work was photographed by <span id="let028:0.2.0.2.7.2.0" class="t-rs s-2-entita" data-el="rs" data-key="877" data-type="pers">Bingham</span> for Goupil’s ‘Galerie photographique’, Marguerite à l‘église, no. 76 (Paris, BNF, Cabinet des Estampes). <span id="let028:0.2.0.2.7.2.1" class="t-rs s-2-entita" data-el="rs" data-key="1662" data-type="ill">Ill. 1662</span>.</div>
+                </div>
+<div id="n-9" class="t-note s-1-note" data-el="note" data-n="9" data-target="#note-t-9">
+<div id="let028:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">This person has not been identified; nor is it known to which of <span id="let028:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1176" data-type="pers">Henri Leys</span>’s works this refers.</div>
+                </div>
+<div id="n-10" class="t-note s-1-note" data-el="note" data-n="10" data-target="#note-t-10">
+<div id="let028:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let028:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="677" data-type="pers">Alphonse Karr</span>, <span id="let028:0.2.0.2.9.0.1" class="t-rs s-2-entita" data-el="rs" data-key="19" data-type="lit">
+                            <span id="let028:0.2.0.2.9.0.1.0" class="t-hi s-1-inline" data-el="hi">Voyage autour de mon jardin</span>
+                        </span> (1845), a novel well known at the time, was based on natural history and written in the form of diary-like letters containing descriptions of plants and insects alternating with philosophical, religious and moral reflections.</div>
+                </div>
+<div id="n-11" class="t-note s-1-note" data-el="note" data-n="11" data-target="#note-t-11">
+<div id="let028:0.2.0.2.10.0" class="t-ab s-1-struttura" data-el="ab">Van Gogh and his sister <span id="let028:0.2.0.2.10.0.0" class="t-rs s-2-entita" data-el="rs" data-key="412" data-type="pers">Anna</span> moved to the home of <span id="let028:0.2.0.2.10.0.1" class="t-rs s-2-entita" data-el="rs" data-key="560 561" data-type="pers">John and Mrs Parker</span>, Ivy Cottage, 395 Kennington Road in Kennington (FR b2715). A while later, on 18 November 1874, <span id="let028:0.2.0.2.10.0.2" class="t-rs s-2-entita" data-el="rs" data-key="524 526" data-type="pers">Mr and Mrs van Gogh</span> voiced their concerns to Theo. Mr van Gogh wrote that Anna had said ‘that one should just let Vincent quietly go his own way, and that he would come round of his own accord. It is, she says – a fit of pique. At any rate, it seems nothing can be done about it.’ And Mrs van Gogh said: ‘Our Vincent cannot but feel unhappy now. He has strayed from the true path, to which alone our blessed Lord attaches happiness and the joy of living. We hope it’s not for ever, but as long as it lasts, there’s every reason to be worried, and we cannot stop doing so. Have you written to him? If not, please do write again. He loves you so much’ (FR b2733 and b2734).</div>
+                </div>
+            </div>
+        </div>
+    </div><nav class="prevnext" aria-label="Registro"><a href="doc-let027.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let029.html">successivo ›</a></nav></main>
+<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+<script>
+(function(){
+  var body=document.body; body.classList.add('mode-read');
+  var pop=null, lastTrigger=null;
+  function closePop(){
+    if(pop){pop.remove();pop=null;}
+    if(lastTrigger){lastTrigger.setAttribute('aria-expanded','false');
+      if(document.activeElement===document.body)lastTrigger.focus();
+      lastTrigger=null;}
+  }
+  function openPop(html,near){
+    closePop();
+    pop=document.createElement('div');pop.className='torchio-pop';pop.innerHTML=html;
+    pop.setAttribute('role','dialog');pop.tabIndex=-1;
+    document.body.appendChild(pop);
+    var r=near.getBoundingClientRect();
+    var x=Math.min(r.left+window.scrollX, window.scrollX+document.documentElement.clientWidth-pop.offsetWidth-16);
+    pop.style.left=Math.max(16,x)+'px';
+    pop.style.top=(r.bottom+window.scrollY+6)+'px';
+    lastTrigger=near;near.setAttribute('aria-expanded','true');
+    pop.focus();
+  }
+  /* keyboard access: every trigger is focusable and reacts to Enter/Space */
+  function makeTrigger(el,label){
+    el.setAttribute('tabindex','0');el.setAttribute('role','button');
+    el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-expanded','false');
+    if(label)el.setAttribute('aria-label',label);
+  }
+  document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
+    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+  });
+  document.querySelectorAll('[data-ref]').forEach(function(el){
+    if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
+      makeTrigger(el,null);
+  });
+  document.addEventListener('keydown',function(ev){
+    if((ev.key==='Enter'||ev.key===' ')&&ev.target.getAttribute&&ev.target.getAttribute('role')==='button'
+       &&!ev.target.closest('.torchio-bar')){
+      ev.preventDefault();ev.target.click();
+    }
+  });
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function sigla(w){return (w||'').split(/\s+/).filter(Boolean).map(function(x){return x.replace(/^#/,'');}).join(' ');}
+
+  document.addEventListener('click',function(ev){
+    if(pop&&pop.contains(ev.target))return;
+    var app=ev.target.closest&&ev.target.closest('.t-app');
+    if(app&&!body.classList.contains('app-off')){
+      var rows='';
+      app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
+        rows+='<div class="rdgline"><span class="sig">'+esc(sigla(r.dataset.wit)||(r.dataset.el==='lem'?'lem.':'—'))+'</span>'
+          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
+          +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
+      });
+      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
+      ev.stopPropagation();return;
+    }
+    var ent=ev.target.closest&&ev.target.closest('[data-ref]');
+    if(ent&&!body.classList.contains('ent-off')&&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
+      var ref=ent.dataset.ref;
+      var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
+      openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
+        +'<div>'+esc(ent.textContent.trim())+'</div>'
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occorrenza':'occorrenze')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    closePop();
+  });
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape')closePop();});
+
+  var bar=document.querySelector('.torchio-bar');
+  if(bar){
+    bar.addEventListener('click',function(ev){
+      var b=ev.target.closest('button'); if(!b)return;
+      if(b.dataset.mode){
+        body.classList.toggle('mode-dipl',b.dataset.mode==='dipl');
+        body.classList.toggle('mode-read',b.dataset.mode==='read');
+        bar.querySelectorAll('[data-mode]').forEach(function(x){x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});
+      }
+      if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
+      if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+ "sources": "places: GeoNames cities1000 (CC BY 4.0). People and organisations: fill in viaf / wikidata / gnd / isil.",
+ "howto": "review each entry: set status to \"confirmed\" (correcting data if needed) or \"rejected\"; fill in data for \"missing\". Your edits survive re-runs.",
+ "entities": {
+  "place": {},
+  "person": {},
+  "org": {}
+ }
+}

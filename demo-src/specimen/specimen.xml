@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Specimen</title>
+        <author>Omero, nella traduzione di Ippolito Pindemonte (1822)</author>
+      </titleStmt>
+      <publicationStmt>
+        <availability>
+          <licence target="https://creativecommons.org/publicdomain/zero/1.0/">CC0: nessun diritto riservato su questa codifica dimostrativa.</licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Esempio costruito per mostrare i pezzi di Torchio. Il testo base è
+        l'incipit dell'Odissea nella traduzione di Ippolito Pindemonte
+        (pubblico dominio). I testimoni A, B e C sono immaginari e le
+        varianti sono didattiche: nessuna pretesa filologica.</p>
+        <listWit>
+          <witness xml:id="A">Testimone A, immaginario: la stampa di riferimento.</witness>
+          <witness xml:id="B">Testimone B, immaginario: una copia con lezioni proprie.</witness>
+          <witness xml:id="C">Testimone C, immaginario: un apografo tardo.</witness>
+        </listWit>
+      </sourceDesc>
+    </fileDesc>
+    <profileDesc>
+      <langUsage><language ident="it">italiano</language></langUsage>
+      <particDesc>
+        <listPerson>
+          <person xml:id="odisseo"><persName>Odisseo</persName></person>
+          <person xml:id="musa"><persName>La Musa</persName></person>
+        </listPerson>
+      </particDesc>
+      <settingDesc>
+        <listPlace>
+          <place xml:id="troia"><placeName>Troia</placeName><location><geo>39.9570 26.2390</geo></location></place>
+          <place xml:id="itaca"><placeName>Itaca</placeName><location><geo>38.4381 20.6903</geo></location></place>
+        </listPlace>
+      </settingDesc>
+      <handNotes>
+        <handNote xml:id="m1" scope="major">Mano principale, immaginaria.</handNote>
+        <handNote xml:id="m2" scope="minor">Mano di revisione, immaginaria.</handNote>
+      </handNotes>
+    </profileDesc>
+    <revisionDesc>
+      <change when="2026-07-30">Specimen creato per la pubblicazione di Torchio.</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div type="specimen">
+        <head>L'incipit, con apparato dimostrativo</head>
+        <lg>
+          <l><persName ref="#musa">Musa</persName>, quell'uom di
+            <app><lem wit="#A #C">multiforme</lem><rdg wit="#B">moltiforme</rdg></app>
+            ingegno</l>
+          <l>dimmi, che molto errò, poich'ebbe a terra</l>
+          <l>gittate d'<placeName ref="#troia">Ilïòn</placeName> le sacre torri;</l>
+          <l>che città vide molte, e delle genti</l>
+          <l>l'<app><lem wit="#A">indol</lem><rdg wit="#B #C" type="ortografica">indole</rdg></app> conobbe; che sovr'esso il mare</l>
+          <l>molti dentro del cor sofferse affanni,</l>
+          <l>mentre a <del hand="#m1">salvar</del><add hand="#m2" place="above">redimer</add> cercava a sé la vita,</l>
+          <l>e il ritorno a' compagni.</l>
+        </lg>
+        <p>Nel testo in prosa lo specimen mostra anche la
+          <choice><abbr>sig.ra</abbr><expan>signora</expan></choice> abbreviazione
+          col suo scioglimento, un passo
+          <unclear>di lettura incerta</unclear>, una parola
+          <supplied reason="damage">integrata</supplied>, e il nome di
+          <persName ref="#odisseo">Odisseo</persName> che punta al registro,
+          come <placeName ref="#itaca">Itaca</placeName> alla mappa.
+          <note type="editorial">Le note editoriali si mostrano così.</note></p>
+      </div>
+    </body>
+  </text>
+</TEI>

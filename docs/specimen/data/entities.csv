@@ -1,0 +1,5 @@
+type,id,label,occurrences,lat,lon
+person,odisseo,Odisseo,1,,
+person,musa,La Musa,1,,
+place,troia,Troia,1,39.957,26.239
+place,itaca,Itaca,1,38.4381,20.6903

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt><title>Test ODD: a customized edition with legitimate extensions</title></titleStmt>
+      <publicationStmt><p>Test fixture.</p></publicationStmt>
+      <sourceDesc><p>Born digital.</p></sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <schemaSpec ident="test-edition" start="TEI">
+        <moduleRef key="tei"/>
+        <moduleRef key="core" except="said"/>
+        <moduleRef key="textstructure"/>
+        <moduleRef key="header"/>
+        <moduleRef key="namesdates"/>
+        <moduleRef key="transcr"/>
+        <!-- Legitimate TEI extensions (Guidelines ch. 23): own namespace,
+             declared class membership, and — decisively — phenomena that
+             P5 does NOT already cover. An extension duplicating an existing
+             element (e.g. a <cancellatura> that means <del>) would be a
+             semantic conformance violation: that is the suggester's check. -->
+        <elementSpec ident="salvataggio" mode="add" ns="http://example.org/ns">
+          <desc>An autosave stratum in a born-digital draft: a save event
+          recorded by the writing software, not by the author. No P5 element
+          covers this phenomenon.</desc>
+          <classes>
+            <memberOf key="model.pPart.transcriptional"/>
+            <memberOf key="att.global"/>
+            <memberOf key="att.datable.w3c"/>
+          </classes>
+        </elementSpec>
+        <elementSpec ident="softwareName" mode="add" ns="http://example.org/ns">
+          <desc>The name of a piece of software as an entity of the edition
+          (writing tools, converters): P5 has no dedicated element for it.</desc>
+          <classes>
+            <memberOf key="model.nameLike"/>
+          </classes>
+        </elementSpec>
+        <elementSpec ident="table" mode="delete"/>
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>

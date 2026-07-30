@@ -1,0 +1,950 @@
+{
+ "meta": {
+  "title": "Specimen",
+  "licence": {
+   "target": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "text": "CC0: nessun diritto riservato su questa codifica dimostrativa."
+  },
+  "responsibility": [
+   {
+    "role": "author",
+    "name": "Omero, nella traduzione di Ippolito Pindemonte (1822)"
+   }
+  ],
+  "languages": [
+   "it"
+  ],
+  "revisions": [
+   {
+    "when": "2026-07-30",
+    "who": null,
+    "what": "Specimen creato per la pubblicazione di Torchio."
+   }
+  ]
+ },
+ "documents": [
+  {
+   "id": "doc0",
+   "tree": {
+    "id": "doc0:0",
+    "element": "TEI",
+    "section": "1-struttura",
+    "atts": {
+     "xmlns": "http://www.tei-c.org/ns/1.0"
+    },
+    "children": [
+     "\n  ",
+     {
+      "id": "doc0:0.0",
+      "element": "teiHeader",
+      "section": "7-header",
+      "atts": {},
+      "children": [
+       "\n    ",
+       {
+        "id": "doc0:0.0.0",
+        "element": "fileDesc",
+        "section": "7-header",
+        "atts": {},
+        "children": [
+         "\n      ",
+         {
+          "id": "doc0:0.0.0.0",
+          "element": "titleStmt",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           "\n        ",
+           {
+            "id": "doc0:0.0.0.0.0",
+            "element": "title",
+            "section": "1-inline",
+            "atts": {},
+            "children": [
+             "Specimen"
+            ]
+           },
+           "\n        ",
+           {
+            "id": "doc0:0.0.0.0.1",
+            "element": "author",
+            "section": "1-bibliografia",
+            "atts": {},
+            "children": [
+             "Omero, nella traduzione di Ippolito Pindemonte (1822)"
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n      ",
+         {
+          "id": "doc0:0.0.0.1",
+          "element": "publicationStmt",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           "\n        ",
+           {
+            "id": "doc0:0.0.0.1.0",
+            "element": "availability",
+            "section": "1-bibliografia",
+            "atts": {},
+            "children": [
+             "\n          ",
+             {
+              "id": "doc0:0.0.0.1.0.0",
+              "element": "licence",
+              "section": "7-licenza",
+              "atts": {
+               "target": "https://creativecommons.org/publicdomain/zero/1.0/"
+              },
+              "children": [
+               "CC0: nessun diritto riservato su questa codifica dimostrativa."
+              ]
+             },
+             "\n        "
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n      ",
+         {
+          "id": "doc0:0.0.0.2",
+          "element": "sourceDesc",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           "\n        ",
+           {
+            "id": "doc0:0.0.0.2.0",
+            "element": "p",
+            "section": "1-struttura",
+            "atts": {},
+            "children": [
+             "Esempio costruito per mostrare i pezzi di Torchio. Il testo base è\n        l'incipit dell'Odissea nella traduzione di Ippolito Pindemonte\n        (pubblico dominio). I testimoni A, B e C sono immaginari e le\n        varianti sono didattiche: nessuna pretesa filologica."
+            ]
+           },
+           "\n        ",
+           {
+            "id": "doc0:0.0.0.2.1",
+            "element": "listWit",
+            "section": "1-liste",
+            "atts": {},
+            "children": [
+             "\n          ",
+             {
+              "id": "A",
+              "element": "witness",
+              "section": "4-apparato",
+              "atts": {
+               "xml:id": "A"
+              },
+              "children": [
+               "Testimone A, immaginario: la stampa di riferimento."
+              ]
+             },
+             "\n          ",
+             {
+              "id": "B",
+              "element": "witness",
+              "section": "4-apparato",
+              "atts": {
+               "xml:id": "B"
+              },
+              "children": [
+               "Testimone B, immaginario: una copia con lezioni proprie."
+              ]
+             },
+             "\n          ",
+             {
+              "id": "C",
+              "element": "witness",
+              "section": "4-apparato",
+              "atts": {
+               "xml:id": "C"
+              },
+              "children": [
+               "Testimone C, immaginario: un apografo tardo."
+              ]
+             },
+             "\n        "
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n    "
+        ]
+       },
+       "\n    ",
+       {
+        "id": "doc0:0.0.1",
+        "element": "profileDesc",
+        "section": "7-header",
+        "atts": {},
+        "children": [
+         "\n      ",
+         {
+          "id": "doc0:0.0.1.0",
+          "element": "langUsage",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           {
+            "id": "doc0:0.0.1.0.0",
+            "element": "language",
+            "section": "7-header",
+            "atts": {
+             "ident": "it"
+            },
+            "children": [
+             "italiano"
+            ]
+           }
+          ]
+         },
+         "\n      ",
+         {
+          "id": "doc0:0.0.1.1",
+          "element": "particDesc",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           "\n        ",
+           {
+            "id": "doc0:0.0.1.1.0",
+            "element": "listPerson",
+            "section": "1-liste",
+            "atts": {},
+            "children": [
+             "\n          ",
+             {
+              "id": "odisseo",
+              "element": "person",
+              "section": "2-entita",
+              "atts": {
+               "xml:id": "odisseo"
+              },
+              "children": [
+               {
+                "id": "doc0:0.0.1.1.0.0.0",
+                "element": "persName",
+                "section": "2-entita",
+                "atts": {},
+                "children": [
+                 "Odisseo"
+                ]
+               }
+              ]
+             },
+             "\n          ",
+             {
+              "id": "musa",
+              "element": "person",
+              "section": "2-entita",
+              "atts": {
+               "xml:id": "musa"
+              },
+              "children": [
+               {
+                "id": "doc0:0.0.1.1.0.1.0",
+                "element": "persName",
+                "section": "2-entita",
+                "atts": {},
+                "children": [
+                 "La Musa"
+                ]
+               }
+              ]
+             },
+             "\n        "
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n      ",
+         {
+          "id": "doc0:0.0.1.2",
+          "element": "settingDesc",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           "\n        ",
+           {
+            "id": "doc0:0.0.1.2.0",
+            "element": "listPlace",
+            "section": "1-liste",
+            "atts": {},
+            "children": [
+             "\n          ",
+             {
+              "id": "troia",
+              "element": "place",
+              "section": "2-entita",
+              "atts": {
+               "xml:id": "troia"
+              },
+              "children": [
+               {
+                "id": "doc0:0.0.1.2.0.0.0",
+                "element": "placeName",
+                "section": "2-entita",
+                "atts": {},
+                "children": [
+                 "Troia"
+                ]
+               },
+               {
+                "id": "doc0:0.0.1.2.0.0.1",
+                "element": "location",
+                "section": "2-entita",
+                "atts": {},
+                "children": [
+                 {
+                  "id": "doc0:0.0.1.2.0.0.1.0",
+                  "element": "geo",
+                  "section": "1-inline",
+                  "atts": {},
+                  "children": [
+                   "39.9570 26.2390"
+                  ]
+                 }
+                ]
+               }
+              ]
+             },
+             "\n          ",
+             {
+              "id": "itaca",
+              "element": "place",
+              "section": "2-entita",
+              "atts": {
+               "xml:id": "itaca"
+              },
+              "children": [
+               {
+                "id": "doc0:0.0.1.2.0.1.0",
+                "element": "placeName",
+                "section": "2-entita",
+                "atts": {},
+                "children": [
+                 "Itaca"
+                ]
+               },
+               {
+                "id": "doc0:0.0.1.2.0.1.1",
+                "element": "location",
+                "section": "2-entita",
+                "atts": {},
+                "children": [
+                 {
+                  "id": "doc0:0.0.1.2.0.1.1.0",
+                  "element": "geo",
+                  "section": "1-inline",
+                  "atts": {},
+                  "children": [
+                   "38.4381 20.6903"
+                  ]
+                 }
+                ]
+               }
+              ]
+             },
+             "\n        "
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n      ",
+         {
+          "id": "doc0:0.0.1.3",
+          "element": "handNotes",
+          "section": "7-header",
+          "atts": {},
+          "children": [
+           "\n        ",
+           {
+            "id": "m1",
+            "element": "handNote",
+            "section": "7-header",
+            "atts": {
+             "xml:id": "m1",
+             "scope": "major"
+            },
+            "children": [
+             "Mano principale, immaginaria."
+            ]
+           },
+           "\n        ",
+           {
+            "id": "m2",
+            "element": "handNote",
+            "section": "7-header",
+            "atts": {
+             "xml:id": "m2",
+             "scope": "minor"
+            },
+            "children": [
+             "Mano di revisione, immaginaria."
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n    "
+        ]
+       },
+       "\n    ",
+       {
+        "id": "doc0:0.0.2",
+        "element": "revisionDesc",
+        "section": "7-header",
+        "atts": {},
+        "children": [
+         "\n      ",
+         {
+          "id": "doc0:0.0.2.0",
+          "element": "change",
+          "section": "7-header",
+          "atts": {
+           "when": "2026-07-30"
+          },
+          "children": [
+           "Specimen creato per la pubblicazione di Torchio."
+          ]
+         },
+         "\n    "
+        ]
+       },
+       "\n  "
+      ]
+     },
+     "\n  ",
+     {
+      "id": "doc0:0.1",
+      "element": "text",
+      "section": "7-struttura-documento",
+      "atts": {},
+      "children": [
+       "\n    ",
+       {
+        "id": "doc0:0.1.0",
+        "element": "body",
+        "section": "1-struttura",
+        "atts": {},
+        "children": [
+         "\n      ",
+         {
+          "id": "doc0:0.1.0.0",
+          "element": "div",
+          "section": "1-struttura",
+          "atts": {
+           "type": "specimen"
+          },
+          "children": [
+           "\n        ",
+           {
+            "id": "doc0:0.1.0.0.0",
+            "element": "head",
+            "section": "1-struttura",
+            "atts": {},
+            "children": [
+             "L'incipit, con apparato dimostrativo"
+            ]
+           },
+           "\n        ",
+           {
+            "id": "doc0:0.1.0.0.1",
+            "element": "lg",
+            "section": "1-struttura",
+            "atts": {},
+            "children": [
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.0",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               {
+                "id": "doc0:0.1.0.0.1.0.0",
+                "element": "persName",
+                "section": "2-entita",
+                "atts": {
+                 "ref": "#musa"
+                },
+                "children": [
+                 "Musa"
+                ]
+               },
+               ", quell'uom di\n            ",
+               {
+                "id": "doc0:0.1.0.0.1.0.1",
+                "element": "app",
+                "section": "4-apparato",
+                "atts": {},
+                "children": [
+                 {
+                  "id": "doc0:0.1.0.0.1.0.1.0",
+                  "element": "lem",
+                  "section": "4-apparato",
+                  "atts": {
+                   "wit": "#A #C"
+                  },
+                  "children": [
+                   "multiforme"
+                  ]
+                 },
+                 {
+                  "id": "doc0:0.1.0.0.1.0.1.1",
+                  "element": "rdg",
+                  "section": "4-apparato",
+                  "atts": {
+                   "wit": "#B"
+                  },
+                  "children": [
+                   "moltiforme"
+                  ]
+                 }
+                ]
+               },
+               "\n            ingegno"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.1",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "dimmi, che molto errò, poich'ebbe a terra"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.2",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "gittate d'",
+               {
+                "id": "doc0:0.1.0.0.1.2.0",
+                "element": "placeName",
+                "section": "2-entita",
+                "atts": {
+                 "ref": "#troia"
+                },
+                "children": [
+                 "Ilïòn"
+                ]
+               },
+               " le sacre torri;"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.3",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "che città vide molte, e delle genti"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.4",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "l'",
+               {
+                "id": "doc0:0.1.0.0.1.4.0",
+                "element": "app",
+                "section": "4-apparato",
+                "atts": {},
+                "children": [
+                 {
+                  "id": "doc0:0.1.0.0.1.4.0.0",
+                  "element": "lem",
+                  "section": "4-apparato",
+                  "atts": {
+                   "wit": "#A"
+                  },
+                  "children": [
+                   "indol"
+                  ]
+                 },
+                 {
+                  "id": "doc0:0.1.0.0.1.4.0.1",
+                  "element": "rdg",
+                  "section": "4-apparato",
+                  "atts": {
+                   "wit": "#B #C",
+                   "type": "ortografica"
+                  },
+                  "children": [
+                   "indole"
+                  ]
+                 }
+                ]
+               },
+               " conobbe; che sovr'esso il mare"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.5",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "molti dentro del cor sofferse affanni,"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.6",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "mentre a ",
+               {
+                "id": "doc0:0.1.0.0.1.6.0",
+                "element": "del",
+                "section": "3-trascrizionale",
+                "atts": {
+                 "hand": "#m1"
+                },
+                "children": [
+                 "salvar"
+                ]
+               },
+               {
+                "id": "doc0:0.1.0.0.1.6.1",
+                "element": "add",
+                "section": "3-trascrizionale",
+                "atts": {
+                 "hand": "#m2",
+                 "place": "above"
+                },
+                "children": [
+                 "redimer"
+                ]
+               },
+               " cercava a sé la vita,"
+              ]
+             },
+             "\n          ",
+             {
+              "id": "doc0:0.1.0.0.1.7",
+              "element": "l",
+              "section": "1-versi",
+              "atts": {},
+              "children": [
+               "e il ritorno a' compagni."
+              ]
+             },
+             "\n        "
+            ]
+           },
+           "\n        ",
+           {
+            "id": "doc0:0.1.0.0.2",
+            "element": "p",
+            "section": "1-struttura",
+            "atts": {},
+            "children": [
+             "Nel testo in prosa lo specimen mostra anche la\n          ",
+             {
+              "id": "doc0:0.1.0.0.2.0",
+              "element": "choice",
+              "section": "3-editoriale",
+              "atts": {},
+              "children": [
+               {
+                "id": "doc0:0.1.0.0.2.0.0",
+                "element": "abbr",
+                "section": "3-editoriale",
+                "atts": {},
+                "children": [
+                 "sig.ra"
+                ]
+               },
+               {
+                "id": "doc0:0.1.0.0.2.0.1",
+                "element": "expan",
+                "section": "3-editoriale",
+                "atts": {},
+                "children": [
+                 "signora"
+                ]
+               }
+              ]
+             },
+             " abbreviazione\n          col suo scioglimento, un passo\n          ",
+             {
+              "id": "doc0:0.1.0.0.2.1",
+              "element": "unclear",
+              "section": "3-editoriale",
+              "atts": {},
+              "children": [
+               "di lettura incerta"
+              ]
+             },
+             ", una parola\n          ",
+             {
+              "id": "doc0:0.1.0.0.2.2",
+              "element": "supplied",
+              "section": "3-editoriale",
+              "atts": {
+               "reason": "damage"
+              },
+              "children": [
+               "integrata"
+              ]
+             },
+             ", e il nome di\n          ",
+             {
+              "id": "doc0:0.1.0.0.2.3",
+              "element": "persName",
+              "section": "2-entita",
+              "atts": {
+               "ref": "#odisseo"
+              },
+              "children": [
+               "Odisseo"
+              ]
+             },
+             " che punta al registro,\n          come ",
+             {
+              "id": "doc0:0.1.0.0.2.4",
+              "element": "placeName",
+              "section": "2-entita",
+              "atts": {
+               "ref": "#itaca"
+              },
+              "children": [
+               "Itaca"
+              ]
+             },
+             " alla mappa.\n          ",
+             {
+              "id": "doc0:0.1.0.0.2.5",
+              "element": "note",
+              "section": "1-note",
+              "atts": {
+               "type": "editorial"
+              },
+              "children": [
+               "Le note editoriali si mostrano così."
+              ]
+             }
+            ]
+           },
+           "\n      "
+          ]
+         },
+         "\n    "
+        ]
+       },
+       "\n  "
+      ]
+     },
+     "\n"
+    ]
+   },
+   "card": {
+    "id": "doc0",
+    "title": "Specimen",
+    "date": null,
+    "from": [],
+    "to": [],
+    "author": "Omero, nella traduzione di Ippolito Pindemonte (1822)",
+    "place": null,
+    "idno": null
+   }
+  }
+ ],
+ "registries": {
+  "people": [
+   {
+    "id": "odisseo",
+    "label": "Odisseo",
+    "atts": {
+     "xml:id": "odisseo"
+    },
+    "occurrences": [
+     "doc0:0.1.0.0.2.3"
+    ]
+   },
+   {
+    "id": "musa",
+    "label": "La Musa",
+    "atts": {
+     "xml:id": "musa"
+    },
+    "occurrences": [
+     "doc0:0.1.0.0.1.0.0"
+    ]
+   }
+  ],
+  "places": [
+   {
+    "id": "troia",
+    "label": "Troia",
+    "atts": {
+     "xml:id": "troia"
+    },
+    "occurrences": [
+     "doc0:0.1.0.0.1.2.0"
+    ],
+    "geo": {
+     "lat": 39.957,
+     "lon": 26.239
+    }
+   },
+   {
+    "id": "itaca",
+    "label": "Itaca",
+    "atts": {
+     "xml:id": "itaca"
+    },
+    "occurrences": [
+     "doc0:0.1.0.0.2.4"
+    ],
+    "geo": {
+     "lat": 38.4381,
+     "lon": 20.6903
+    }
+   }
+  ],
+  "orgs": [],
+  "witnesses": [
+   {
+    "id": "A",
+    "label": "Testimone A, immaginario: la stampa di riferimento.",
+    "atts": {
+     "xml:id": "A"
+    },
+    "occurrences": []
+   },
+   {
+    "id": "B",
+    "label": "Testimone B, immaginario: una copia con lezioni proprie.",
+    "atts": {
+     "xml:id": "B"
+    },
+    "occurrences": []
+   },
+   {
+    "id": "C",
+    "label": "Testimone C, immaginario: un apografo tardo.",
+    "atts": {
+     "xml:id": "C"
+    },
+    "occurrences": []
+   }
+  ],
+  "hands": [
+   {
+    "id": "m1",
+    "label": "Mano principale, immaginaria.",
+    "atts": {
+     "xml:id": "m1",
+     "scope": "major"
+    },
+    "occurrences": [],
+    "scope": "major"
+   },
+   {
+    "id": "m2",
+    "label": "Mano di revisione, immaginaria.",
+    "atts": {
+     "xml:id": "m2",
+     "scope": "minor"
+    },
+    "occurrences": [],
+    "scope": "minor"
+   }
+  ],
+  "layers": [
+   {
+    "id": "doc0:0.0.2.0",
+    "label": "Specimen creato per la pubblicazione di Torchio.",
+    "atts": {
+     "when": "2026-07-30"
+    },
+    "occurrences": [],
+    "order": 0
+   }
+  ]
+ },
+ "apparatus": [
+  {
+   "type": "critical",
+   "entries": [
+    {
+     "id": "doc0:0.1.0.0.1.0.1",
+     "anchor": "doc0:0.1.0.0.1.0.1",
+     "lemma": "multiforme",
+     "readings": [
+      {
+       "text": "multiforme",
+       "witnesses": [
+        "A",
+        "C"
+       ],
+       "type": null,
+       "isLemma": true
+      },
+      {
+       "text": "moltiforme",
+       "witnesses": [
+        "B"
+       ],
+       "type": null,
+       "isLemma": false
+      }
+     ]
+    },
+    {
+     "id": "doc0:0.1.0.0.1.4.0",
+     "anchor": "doc0:0.1.0.0.1.4.0",
+     "lemma": "indol",
+     "readings": [
+      {
+       "text": "indol",
+       "witnesses": [
+        "A"
+       ],
+       "type": null,
+       "isLemma": true
+      },
+      {
+       "text": "indole",
+       "witnesses": [
+        "B",
+        "C"
+       ],
+       "type": "ortografica",
+       "isLemma": false
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "generator": {
+  "name": "torchio",
+  "tei": "P5 Version 4.12.0. Last updated on\n        28th July 2026, revision 113e933e2"
+ }
+}

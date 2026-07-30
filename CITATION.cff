@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use Torchio, please cite it as below."
+title: "Torchio"
+type: software
+authors:
+  - family-names: "Carbé"
+    given-names: "Emmanuela"
+  - family-names: "Boschetti"
+    given-names: "Federico"
+  - family-names: "Del Grosso"
+    given-names: "Angelo Mario"
+license: MIT
+repository-code: "https://github.com/emmcarbe/torchio"
+abstract: "Torchio turns a TEI P5 encoded edition into a published digital scholarly edition, with the repository itself as the edition."
