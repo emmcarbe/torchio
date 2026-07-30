@@ -2,8 +2,17 @@
 
 # How to use Torchio
 
-The current prototype runs from the command line with Node (version 18 or
-later). There is nothing to install: no dependencies, no `npm install`.
+There are two roads to a pressed edition, with one engine behind both:
+
+- **In your hands.** Press on your machine (command line, Node 18 or later,
+  nothing to install) or directly
+  [in the browser](https://emmcarbe.github.io/torchio/press/), with no
+  machine setup at all. You get a folder of static files to open, keep or
+  host anywhere.
+- **In the repository.** The edition lives in a GitHub repository; on every
+  push, GitHub Actions presses it again and GitHub Pages publishes the
+  result. Nobody runs anything by hand: the repository is the edition. See
+  [the repository presses itself](#the-repository-presses-itself) below.
 
 ## Quick start
 
@@ -67,6 +76,40 @@ that is a gap of the tool, to be filed in
 | `l` elements with `@n` | verse numbers |
 
 Unknown or custom elements are never dropped: they receive a base rendering.
+
+## The repository presses itself
+
+The edition can be a GitHub repository that presses its own site. Put the
+TEI files (and `torchio.json`, if any) in a folder called `edition/`, then
+add this workflow as `.github/workflows/press.yml`:
+
+    name: press
+    on:
+      push:
+        branches: [main]
+    permissions:
+      contents: write
+    jobs:
+      press:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - uses: actions/checkout@v4
+            with:
+              repository: emmcarbe/torchio
+              path: torchio
+          - run: node torchio/tools/press.js edition --site --out docs
+          - run: |
+              git config user.name github-actions
+              git config user.email github-actions@users.noreply.github.com
+              git add docs
+              git commit -m "Press" || echo "nothing new"
+              git push
+
+Then enable Pages in the repository settings (Settings, Pages, deploy from
+branch, `main`, `/docs`). From that moment every push of the XML presses
+and publishes the edition again; the site's address appears in the Pages
+settings.
 
 ## Where the ODD goes
 
