@@ -68,6 +68,7 @@ editorial genre.
 | 2026-07-30 | C44 | Eurasian Latin Archive, public demo | assignment | keyed mentions were underlined but mute: the entity card now opens on `@key` too, led by the canonical form the key declares ("Figueredo, Thomas de"), with the text's own form and the occurrence count below; mentions whose `@ref` is an external URI stay plain links (C37), never a double behaviour |
 | 2026-07-30 | C45 | Eurasian Latin Archive, public demo | assignment | the register wore the correspondence shape (from-to) on an archive of works: two shapes now exist and the majority of the markup decides (documents with authors read author-title-year); a collection's text page is called Texts; the manifest (and the browser panel) chooses the register's columns among the fields the headers populate, and the title column, the way into the documents, always stays |
 | 2026-07-30 | C45 | Canterbury Tales Project (GP), offered by the editor | extension | the apparatus is reachable from every witness page: a verse aligned by the canonical key opens its variant entry, fetched from the collation document, in the same small window; nothing is added to the witness pages themselves |
+| 2026-07-30 | C46 | Canterbury Tales Project (GP), offered by the editor | assignment | with word-level triggers in place, the band printed under every verse duplicated the apparatus and buried the text: the band stays in the page as the data the popups read, invisible; the apparatus opens on the word or on the verse, and the toolbar switch silences it |
 
-As of 30 July 2026: 45 corrections applied (29 assignments, 15 extensions, 1
+As of 30 July 2026: 46 corrections applied (30 assignments, 15 extensions, 1
 structural change), 1 open.

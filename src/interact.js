@@ -46,6 +46,8 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 body.has-band [data-el="l"]{cursor:pointer}
 body.has-align [data-el="l"]{cursor:pointer}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -275,7 +277,7 @@ export function buildInteractJS(t) {
       ev.stopPropagation();return;
     }
     var wv=ev.target.closest&&ev.target.closest('.wv');
-    if(wv&&wv._be){
+    if(wv&&wv._be&&!body.classList.contains('app-off')){
       var wband=wv._be.closest('.app-band');
       openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);

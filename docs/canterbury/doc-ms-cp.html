@@ -126,6 +126,8 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 body.has-band [data-el="l"]{cursor:pointer}
 body.has-align [data-el="l"]{cursor:pointer}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -257,8 +259,8 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
-.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
-  padding-left:1.2em}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
 .app-band .bw{color:var(--accent);cursor:pointer}
 .app-band .bw:hover{text-decoration:underline}
@@ -514,7 +516,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       ev.stopPropagation();return;
     }
     var wv=ev.target.closest&&ev.target.closest('.wv');
-    if(wv&&wv._be){
+    if(wv&&wv._be&&!body.classList.contains('app-off')){
       var wband=wv._be.closest('.app-band');
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);

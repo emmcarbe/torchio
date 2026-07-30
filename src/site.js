@@ -122,8 +122,8 @@ ${headerLabelCSS()}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
-.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
-  padding-left:1.2em}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
 .app-band .bw{color:var(--accent);cursor:pointer}
 .app-band .bw:hover{text-decoration:underline}
