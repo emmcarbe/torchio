@@ -95,14 +95,22 @@ positions, one representative each, not every existing tool.
    inversion this project exists to oppose (tools dictating editorial
    practice: see Why, 1), moved from the encoding to the reading surface.
    Hence the rule, stated first because every other principle answers to
-   it: the tool adapts to the tradition, never the reverse. In practice:
-   interface defaults are declared per interface language and follow that
-   language’s own tradition; an edition whose tradition diverges renames
-   its levels in the manifest; nothing tradition-bound is ever built into
-   the core as if it were universal (the lemma, principle 11; a presumed
-   “Introduction” over a front matter, correction C21); and where the tool
-   cannot yet speak a tradition’s language, that is a correction to file
-   in the register, never a constraint on the edition.
+   it: the tool adapts to the tradition, never the reverse. This is not
+   neutrality, which does not exist here: it is a discipline the tool
+   imposes on itself. Whatever it renders, names or derives must be
+   answerable to the tradition the edition belongs to, and nothing
+   tradition-bound may enter the core disguised as universal. Where a
+   generic surface cannot do a tradition justice, the tool must go
+   further and decline itself into that tradition: a declension for
+   Italian textual criticism, another for documentary and genetic
+   editing, others for the communities that claim their own forms — and
+   every declension is explicit and declared, in the interface and in
+   the record of the edition, never assumed silently. Universality, here,
+   does not mean one form for everyone: it means the capacity to take
+   the form of each tradition, saying openly which form is being worn;
+   and where the tool cannot yet speak a tradition’s language, that is a
+   correction to file in the register, never a constraint on the
+   edition.
 2. **Nothing is ever invisible.** Every well-formed TEI document must be
    preserved in the visualization too, because every sign represents a
    precise choice. Unknown constructs fall back on a guaranteed base
