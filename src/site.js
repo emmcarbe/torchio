@@ -277,11 +277,34 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const frontLabel = sectionLabel(frontNode, T.front);
   const backLabel = sectionLabel(backNode, T.back);
 
+  // a document whose body is entries of bare app elements IS an apparatus:
+  // it renders as a variant map (C41) and lives under its own page
+  const isApparatusDoc = (doc) => {
+    const tn = doc.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
+    const bd = tn && tn.children.find((c) => typeof c !== 'string' && c.element === 'body');
+    if (!bd) return false;
+    let hasAb = false, ok = true;
+    const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
+    const chk = (nd) => {
+      for (const c of nd.children) {
+        if (!ok) return;
+        if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
+        if (c.element === 'app') continue;
+        if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; chk(c); continue; }
+        ok = false;
+      }
+    };
+    chk(bd);
+    return ok && hasAb;
+  };
+  const hasAppDocs = isCollection && model.documents.some(isApparatusDoc);
+
   // The markup decides existence; the manifest decides presence, order, labels.
   const DEFAULT = [
     ['index', model.collection ? T.archive : T.edition],
     ...(frontNode ? [['front', frontLabel]] : []),
     ['text', isCollection ? T.texts : T.text],
+    ...(hasAppDocs ? [['apparatus', T.apparatus]] : []),
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
@@ -289,7 +312,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
-  const EXISTS = { index: true, front: !!frontNode, text: true, back: !!backNode,
+  const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, back: !!backNode,
     indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
@@ -547,27 +570,6 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       });
     }
   } else {
-    // a document whose body is entries of bare app elements IS an
-    // apparatus: it renders expanded as a variant map (C41), and the
-    // register lists it apart from the texts
-    const isApparatusDoc = (doc) => {
-      const textNode = doc.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
-      const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
-      if (!body) return false;
-      let hasAb = false, ok = true;
-      const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
-      const check = (nd) => {
-        for (const c of nd.children) {
-          if (!ok) return;
-          if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
-          if (c.element === 'app') continue;
-          if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
-          ok = false;
-        }
-      };
-      check(body);
-      return ok && hasAb;
-    };
     // the register: columns exist only if the markup populates them
     const cards = model.documents.map((d) => d.card || { id: d.id });
     const has = {
@@ -622,15 +624,18 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         .filter(Boolean).join(' ').toLowerCase();
       reg += `<tr data-search="${escapeHTML(search)}">${cells}</tr>`;
     }
-    reg += '</tbody></table>';
-    if (appDocs.length) {
-      reg += `<h2 class="sec">${T.apparatus}</h2><table class="wit-table">`;
+    reg += '</tbody></table></main>';
+    if (appDocs.length && wanted.has('apparatus')) {
+      let ap = `<main id="main" class="torchio"><table class="wit-table">`;
       for (const d of appDocs) {
-        reg += `<tr><td><a href="${docFiles.get(d.id)}">${escapeHTML((d.card && d.card.title) || d.id)}</a></td></tr>`;
+        ap += `<tr><td><a href="${docFiles.get(d.id)}">${escapeHTML((d.card && d.card.title) || d.id)}</a></td></tr>`;
       }
-      reg += '</table>';
+      ap += '</table></main>';
+      out['apparatus.html'] = chrome({
+        title: t, sub: T.apparatus.toLowerCase(), active: 'apparatus.html', pages,
+        body: ap, t: T, lang, theme, parent,
+      });
     }
-    reg += '</main>';
     out['text.html'] = chrome({
       title: t, sub: `${model.documents.length} ${T.documentsN}`, active: 'text.html',
       pages, body: reg, script: registerJS, t: T, lang, theme, parent,
@@ -731,7 +736,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           })};`
         : '';
       out[docFiles.get(d.id)] = chrome({
-        title: c.title || d.id, sub: t, active: 'text.html', pages, bodyClass: offClasses,
+        title: c.title || d.id, sub: t, active: isAppDoc ? 'apparatus.html' : 'text.html', pages, bodyClass: offClasses,
         body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
         script: alignCfg + buildInteractJS(T), t: T, lang, theme, parent,
       });

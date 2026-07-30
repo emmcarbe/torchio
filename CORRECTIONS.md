@@ -69,6 +69,7 @@ editorial genre.
 | 2026-07-30 | C45 | Eurasian Latin Archive, public demo | assignment | the register wore the correspondence shape (from-to) on an archive of works: two shapes now exist and the majority of the markup decides (documents with authors read author-title-year); a collection's text page is called Texts; the manifest (and the browser panel) chooses the register's columns among the fields the headers populate, and the title column, the way into the documents, always stays |
 | 2026-07-30 | C45 | Canterbury Tales Project (GP), offered by the editor | extension | the apparatus is reachable from every witness page: a verse aligned by the canonical key opens its variant entry, fetched from the collation document, in the same small window; nothing is added to the witness pages themselves |
 | 2026-07-30 | C46 | Canterbury Tales Project (GP), offered by the editor | assignment | with word-level triggers in place, the band printed under every verse duplicated the apparatus and buried the text: the band stays in the page as the data the popups read, invisible; the apparatus opens on the word or on the verse, and the toolbar switch silences it |
+| 2026-07-30 | C47 | Canterbury Tales Project (GP), offered by the editor | assignment | apparatus documents are not texts: they leave the register and live under their own page in the navigation |
 
-As of 30 July 2026: 46 corrections applied (30 assignments, 15 extensions, 1
+As of 30 July 2026: 47 corrections applied (31 assignments, 15 extensions, 1
 structural change), 1 open.
