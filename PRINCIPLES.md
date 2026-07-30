@@ -60,7 +60,7 @@ A first survey, to be deepened and corrected. It records architectural
 positions, one representative each, not every existing tool.
 
 - **[EVT 2](https://evt.labcd.unipi.it/)** is the most widely used tool in Italy and among the best known
-  internationally. It rests on AngularJS, unsupported since 2021. **EVT 3**
+  internationally. It rests on AngularJS, unsupported since 2021. **[EVT 3](https://github.com/evt-project/evt-viewer-angular)**
   is published as a pre-release (currently 1.0.0-beta), with the migration
   to Angular under way. The tool is continuously
   developed and remains one of the most important visualization projects.
