@@ -320,8 +320,8 @@ What the audits raise and remains open: the XML parser is deliberately
 minimal and its supported profile should be stated rather than implied;
 validation of the TEI against the ODD belongs in the edition's CI and is not
 performed by the press; the CLI is tolerant where CI should be strict; the
-vendored assets deserve a third-party notice; the name collides with an
-unrelated medical-imaging library. These are recorded here, not resolved.
+vendored assets deserve a third-party notice. These are recorded here, not
+resolved.
 
 The register of corrections is the standing answer: what an audit finds is a
 correction like any other, and it is filed.
