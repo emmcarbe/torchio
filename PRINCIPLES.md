@@ -256,8 +256,10 @@ reproducible.
 
 ## References
 
-Works pointed out by early readers, cited with gratitude:
-
+- Zenzaro, Simone, Angelo Mario Del Grosso, Federico Boschetti, and Graziano
+  Ranocchia. 2025. "CoPhiEditor: The DSL-Based DSE Methodology within the
+  ERC Advanced Grant 885222-GreekSchools." *Umanistica Digitale* 9 (20):
+  31-56. https://doi.org/10.6092/issn.2532-8816/21231.
 - O'Donnell, Daniel Paul, Gurpreet Singh, Dot Porter, et al. 2019.
   *Publishing (and Forgetting) the Small or Medium-Sized Scholarly Edition
   or Cultural Heritage Collection as Linked Open Data: Using Zenodo and
