@@ -111,6 +111,14 @@ Prima ricognizione, da approfondire e correggere.
     compaiono senza toccare l'interfaccia.
 12. **Tutto è reversibile e attribuito.** Codice MIT, citazione con
     CITATION.cff, fonti dei dati dichiarate, contributi riconosciuti.
+13. **La tesi è falsificabile.** Il progetto scommette che le correzioni
+    richieste dalle edizioni nuove calino con l'uso, genere per genere, e che
+    restino assegnazioni dentro una tabella finita o estensioni additive, mai
+    chirurgia sul motore. Non serve crederci: si misura. Ogni correzione è
+    registrata in [CORREZIONI.md](CORREZIONI.md) con data, edizione che l'ha
+    imposta e natura. Se dopo un numero ragionevole di edizioni di un genere
+    le correzioni per quel genere non calano, o se diventa ricorrente la
+    chirurgia sul motore, la tesi è falsificata, e sarà scritto qui.
 
 ## Il metodo
 
