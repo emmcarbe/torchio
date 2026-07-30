@@ -76,7 +76,13 @@ export function buildModel(docs, classMap) {
   const firstHeader = findFirst(model.documents[0]?.tree, 'teiHeader');
   model.meta = corpusMeta || (firstHeader ? extractMeta(firstHeader) : {});
 
-  // registries and apparatus from all documents
+  // registries and apparatus from all documents; the corpus header too
+  // declares registry entries (C29: a collection's listWit lives there)
+  if (model.corpusHeaderTree) {
+    for (const node of walkModel(model.corpusHeaderTree)) {
+      collectRegistries(node, model.registries, byXmlId);
+    }
+  }
   for (const doc of model.documents) {
     for (const node of walkModel(doc.tree)) {
       collectRegistries(node, model.registries, byXmlId);

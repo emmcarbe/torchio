@@ -7,11 +7,105 @@
       <respStmt><resp>edition and transcripts</resp><name>Peter Robinson and the Canterbury Tales Project</name></respStmt>
     </titleStmt>
     <publicationStmt><p>Demonstration pressing of materials from talesofcanterbury.org, offered by the editor as a test case. The source files are included verbatim. Materials under copyright: this is a temporary demo, it will be removed.</p></publicationStmt>
-    <sourceDesc><p>Transcripts of all 54 witnesses and the full collation of the General Prologue, from the Canterbury Tales Project, https://talesofcanterbury.org/GP/</p></sourceDesc>
+    <sourceDesc>
+      <p>Transcripts of all witnesses and the full collation of the General Prologue, from the Canterbury Tales Project, https://talesofcanterbury.org/GP/. Witness names from the edition's own list of sigils.</p>
+      <listWit>
+      <witness xml:id="Edition">Edited text</witness>
+      <witness xml:id="Ad1">London, British Library, Additional MS 5140</witness>
+      <witness xml:id="Ad3">London, British Library, Additional MS 35286</witness>
+      <witness xml:id="Ad4">London, British Library, Additional MS 10340</witness>
+      <witness xml:id="Bo1">Oxford, Bodleian Library, MS. Bodl. 414</witness>
+      <witness xml:id="Bo2">Oxford, Bodleian Library, MS. Bodl. 686</witness>
+      <witness xml:id="Bw">Oxford, Bodleian Library, MS. Barlow 20</witness>
+      <witness xml:id="Ch">Oxford, Christ Church MS. 152</witness>
+      <witness xml:id="Cn">Austin, University of Texas, Harry Ransom Humanities Research Center HRC Pre-1700 MS 143</witness>
+      <witness xml:id="Cp">Oxford, Corpus Christi College MS 198</witness>
+      <witness xml:id="Cx1">London, British Library 167.c.26, IB. 55009 (the Royal Copy)</witness>
+      <witness xml:id="Cx2">London, British Library G.11586, IB. 55094 (the Grenville Copy)</witness>
+      <witness xml:id="Dd">Cambridge, Cambridge University Library MS Dd.4.24</witness>
+      <witness xml:id="Dl">New Haven, Beinecke Library Takamiya Deposit, MS 32</witness>
+      <witness xml:id="Do">Oxford, Bodleian Library, MS. Douce d.4</witness>
+      <witness xml:id="Ds1">New Haven, Beinecke Library Takamiya Deposit, MS 24</witness>
+      <witness xml:id="El">San Marino, Huntington Library El 26 C 9</witness>
+      <witness xml:id="En1">London, British Library Egerton MS 2726</witness>
+      <witness xml:id="En3">London, British Library Egerton MS 2864</witness>
+      <witness xml:id="Fi">Cambridge, Fitzwilliam Museum McLean MS 181</witness>
+      <witness xml:id="Gg">Cambridge, Cambridge University Library MS Gg.4.27</witness>
+      <witness xml:id="Gl">Glasgow, University of Glasgow, Hunterian Library MS 197</witness>
+      <witness xml:id="Ha2">London, British Library Harley MS 1758</witness>
+      <witness xml:id="Ha3">London, British Library Harley MS 7333</witness>
+      <witness xml:id="Ha4">London, British Library Harley MS 7344</witness>
+      <witness xml:id="Hg">Aberystwyth, National Library of Wales Peniarth 392 D</witness>
+      <witness xml:id="Ht">Oxford, Bodleian Library, Hatton donat. 1</witness>
+      <witness xml:id="Ii">Cambridge, Cambridge University Library MS Ii.3.26</witness>
+      <witness xml:id="La">London, British Library Lansdowne MS 851</witness>
+      <witness xml:id="Lc">Staffordshire, Lichfield Cathedral Library MS 29 (olim MS 2)</witness>
+      <witness xml:id="Ld1">Oxford, Bodleian Library, MS. Laud Misc. 600</witness>
+      <witness xml:id="Ld2">Oxford, Bodleian Library, MS. Laud Misc. 739</witness>
+      <witness xml:id="Ln">Lincoln, Cathedral Library MS 110=A.4.18</witness>
+      <witness xml:id="Ma">Manchester, John Rylands Library English MS 113</witness>
+      <witness xml:id="Mg">New York, Pierpont Morgan Library MS 249</witness>
+      <witness xml:id="Mm">Cambridge, Cambridge University Library MS Mm.2.5</witness>
+      <witness xml:id="Ne">Oxford, Bodleian Library, New College MS 314</witness>
+      <witness xml:id="Nl">Alnwick, Northumberland, Alnwick Castle, Duke of Northumberland MS 455</witness>
+      <witness xml:id="Ph2">Geneva (Coligny), Foundation Martin Bodmer Cod. Bodmer 48</witness>
+      <witness xml:id="Pn">Oxford, Bodleian Library, Douce 218 (Richard Pynson)</witness>
+      <witness xml:id="Ps">Paris, Bibliothèque Nationale Fonds anglais MS 39</witness>
+      <witness xml:id="Pw">Sussex, Petworth House Leconfield MS 7</witness>
+      <witness xml:id="Py">London, Royal College of Physicians MS 388</witness>
+      <witness xml:id="Ra2">Oxford, Bodleian Library MS. Rawlinson poet. 149</witness>
+      <witness xml:id="Ra3">Oxford, Bodleian Library MS. Rawlinson poet. 223</witness>
+      <witness xml:id="Ry1">London, British Library Royal MS 17.d.xv</witness>
+      <witness xml:id="Ry2">London, British Library Royal MS 18.c.ii</witness>
+      <witness xml:id="Se">Oxford, Bodleian Library MS. Arch. Selden. B. 14</witness>
+      <witness xml:id="Sl1">London, British Library Sloane MS 1685</witness>
+      <witness xml:id="Sl2">London, British Library Sloane MS 1686</witness>
+      <witness xml:id="Tc1">Cambridge, Trinity College MS R.3.3</witness>
+      <witness xml:id="Tc2">Cambridge, Trinity College MS R.3.15e</witness>
+      <witness xml:id="To1">Oxford, Bodleian Library, Trinity College MS 49</witness>
+      <witness xml:id="Wy">London, British Library G.11587 (1)=IB.55210 (Wynkyn de Worde)</witness>
+      </listWit>
+    </sourceDesc>
   </fileDesc>
 </teiHeader>
-<TEI xml:id="Ad1">
-<teiHeader><fileDesc><titleStmt><title>Ad1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Edition">
+<teiHeader><fileDesc><titleStmt><title>The edited text (Edition)</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Edition/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Edition/1.xml"/>
+    <xi:include href="transcripts/Edition/10.xml"/>
+    <xi:include href="transcripts/Edition/11.xml"/>
+    <xi:include href="transcripts/Edition/12.xml"/>
+    <xi:include href="transcripts/Edition/13.xml"/>
+    <xi:include href="transcripts/Edition/14.xml"/>
+    <xi:include href="transcripts/Edition/15.xml"/>
+    <xi:include href="transcripts/Edition/16.xml"/>
+    <xi:include href="transcripts/Edition/17.xml"/>
+    <xi:include href="transcripts/Edition/18.xml"/>
+    <xi:include href="transcripts/Edition/19.xml"/>
+    <xi:include href="transcripts/Edition/2.xml"/>
+    <xi:include href="transcripts/Edition/20.xml"/>
+    <xi:include href="transcripts/Edition/21.xml"/>
+    <xi:include href="transcripts/Edition/22.xml"/>
+    <xi:include href="transcripts/Edition/23.xml"/>
+    <xi:include href="transcripts/Edition/24.xml"/>
+    <xi:include href="transcripts/Edition/25.xml"/>
+    <xi:include href="transcripts/Edition/26.xml"/>
+    <xi:include href="transcripts/Edition/27.xml"/>
+    <xi:include href="transcripts/Edition/28.xml"/>
+    <xi:include href="transcripts/Edition/29.xml"/>
+    <xi:include href="transcripts/Edition/3.xml"/>
+    <xi:include href="transcripts/Edition/30.xml"/>
+    <xi:include href="transcripts/Edition/31.xml"/>
+    <xi:include href="transcripts/Edition/4.xml"/>
+    <xi:include href="transcripts/Edition/5.xml"/>
+    <xi:include href="transcripts/Edition/6.xml"/>
+    <xi:include href="transcripts/Edition/7.xml"/>
+    <xi:include href="transcripts/Edition/8.xml"/>
+    <xi:include href="transcripts/Edition/9.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="ms-Ad1">
+<teiHeader><fileDesc><titleStmt><title>Ad1 · London, British Library, Additional MS 5140</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ad1/1r.xml"/>
     <xi:include href="transcripts/Ad1/1v.xml"/>
@@ -40,8 +134,8 @@
     <xi:include href="transcripts/Ad1/13r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ad3">
-<teiHeader><fileDesc><titleStmt><title>Ad3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad3/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ad3">
+<teiHeader><fileDesc><titleStmt><title>Ad3 · London, British Library, Additional MS 35286</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad3/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ad3/3r.xml"/>
     <xi:include href="transcripts/Ad3/3v.xml"/>
@@ -59,14 +153,14 @@
     <xi:include href="transcripts/Ad3/11v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ad4">
-<teiHeader><fileDesc><titleStmt><title>Ad4: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad4/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ad4">
+<teiHeader><fileDesc><titleStmt><title>Ad4 · London, British Library, Additional MS 10340</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad4/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ad4/41r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Bo1">
-<teiHeader><fileDesc><titleStmt><title>Bo1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bo1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Bo1">
+<teiHeader><fileDesc><titleStmt><title>Bo1 · Oxford, Bodleian Library, MS. Bodl. 414</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bo1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Bo1/2r.xml"/>
     <xi:include href="transcripts/Bo1/2v.xml"/>
@@ -91,8 +185,8 @@
     <xi:include href="transcripts/Bo1/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Bo2">
-<teiHeader><fileDesc><titleStmt><title>Bo2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bo2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Bo2">
+<teiHeader><fileDesc><titleStmt><title>Bo2 · Oxford, Bodleian Library, MS. Bodl. 686</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bo2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Bo2/1r.xml"/>
     <xi:include href="transcripts/Bo2/1v.xml"/>
@@ -118,8 +212,8 @@
     <xi:include href="transcripts/Bo2/11v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Bw">
-<teiHeader><fileDesc><titleStmt><title>Bw: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bw/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Bw">
+<teiHeader><fileDesc><titleStmt><title>Bw · Oxford, Bodleian Library, MS. Barlow 20</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bw/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Bw/9r.xml"/>
     <xi:include href="transcripts/Bw/9v.xml"/>
@@ -131,8 +225,8 @@
     <xi:include href="transcripts/Bw/12v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ch">
-<teiHeader><fileDesc><titleStmt><title>Ch: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ch/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ch">
+<teiHeader><fileDesc><titleStmt><title>Ch · Oxford, Christ Church MS. 152</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ch/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ch/1r.xml"/>
     <xi:include href="transcripts/Ch/1v.xml"/>
@@ -159,8 +253,8 @@
     <xi:include href="transcripts/Ch/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Cn">
-<teiHeader><fileDesc><titleStmt><title>Cn: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cn/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Cn">
+<teiHeader><fileDesc><titleStmt><title>Cn · Austin, University of Texas, Harry Ransom Humanities Research Center HRC Pre-1700 MS 143</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cn/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Cn/4r.xml"/>
     <xi:include href="transcripts/Cn/4v.xml"/>
@@ -182,8 +276,8 @@
     <xi:include href="transcripts/Cn/12v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Cp">
-<teiHeader><fileDesc><titleStmt><title>Cp: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cp/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Cp">
+<teiHeader><fileDesc><titleStmt><title>Cp · Oxford, Corpus Christi College MS 198</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cp/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Cp/2r.xml"/>
     <xi:include href="transcripts/Cp/2v.xml"/>
@@ -209,8 +303,8 @@
     <xi:include href="transcripts/Cp/12v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Cx1">
-<teiHeader><fileDesc><titleStmt><title>Cx1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cx1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Cx1">
+<teiHeader><fileDesc><titleStmt><title>Cx1 · London, British Library 167.c.26, IB. 55009 (the Royal Copy)</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cx1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Cx1/2r.xml"/>
     <xi:include href="transcripts/Cx1/2v.xml"/>
@@ -244,8 +338,8 @@
     <xi:include href="transcripts/Cx1/16v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Cx2">
-<teiHeader><fileDesc><titleStmt><title>Cx2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cx2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Cx2">
+<teiHeader><fileDesc><titleStmt><title>Cx2 · London, British Library G.11586, IB. 55094 (the Grenville Copy)</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cx2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Cx2/a2r.xml"/>
     <xi:include href="transcripts/Cx2/a2v.xml"/>
@@ -289,8 +383,8 @@
     <xi:include href="transcripts/Cx2/c5v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Dd">
-<teiHeader><fileDesc><titleStmt><title>Dd: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Dd/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Dd">
+<teiHeader><fileDesc><titleStmt><title>Dd · Cambridge, Cambridge University Library MS Dd.4.24</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Dd/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Dd/6r.xml"/>
     <xi:include href="transcripts/Dd/6v.xml"/>
@@ -303,8 +397,8 @@
     <xi:include href="transcripts/Dd/13r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Dl">
-<teiHeader><fileDesc><titleStmt><title>Dl: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Dl/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Dl">
+<teiHeader><fileDesc><titleStmt><title>Dl · New Haven, Beinecke Library Takamiya Deposit, MS 32</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Dl/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Dl/26r.xml"/>
     <xi:include href="transcripts/Dl/26v.xml"/>
@@ -314,15 +408,15 @@
     <xi:include href="transcripts/Dl/28v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Do">
-<teiHeader><fileDesc><titleStmt><title>Do: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Do/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Do">
+<teiHeader><fileDesc><titleStmt><title>Do · Oxford, Bodleian Library, MS. Douce d.4</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Do/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Do/1r.xml"/>
     <xi:include href="transcripts/Do/1v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ds1">
-<teiHeader><fileDesc><titleStmt><title>Ds1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ds1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ds1">
+<teiHeader><fileDesc><titleStmt><title>Ds1 · New Haven, Beinecke Library Takamiya Deposit, MS 24</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ds1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ds1/1r.xml"/>
     <xi:include href="transcripts/Ds1/1v.xml"/>
@@ -347,44 +441,8 @@
     <xi:include href="transcripts/Ds1/11r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Edition">
-<teiHeader><fileDesc><titleStmt><title>Edition: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Edition/</p></sourceDesc></fileDesc></teiHeader>
-<text><body>
-    <xi:include href="transcripts/Edition/1.xml"/>
-    <xi:include href="transcripts/Edition/10.xml"/>
-    <xi:include href="transcripts/Edition/11.xml"/>
-    <xi:include href="transcripts/Edition/12.xml"/>
-    <xi:include href="transcripts/Edition/13.xml"/>
-    <xi:include href="transcripts/Edition/14.xml"/>
-    <xi:include href="transcripts/Edition/15.xml"/>
-    <xi:include href="transcripts/Edition/16.xml"/>
-    <xi:include href="transcripts/Edition/17.xml"/>
-    <xi:include href="transcripts/Edition/18.xml"/>
-    <xi:include href="transcripts/Edition/19.xml"/>
-    <xi:include href="transcripts/Edition/2.xml"/>
-    <xi:include href="transcripts/Edition/20.xml"/>
-    <xi:include href="transcripts/Edition/21.xml"/>
-    <xi:include href="transcripts/Edition/22.xml"/>
-    <xi:include href="transcripts/Edition/23.xml"/>
-    <xi:include href="transcripts/Edition/24.xml"/>
-    <xi:include href="transcripts/Edition/25.xml"/>
-    <xi:include href="transcripts/Edition/26.xml"/>
-    <xi:include href="transcripts/Edition/27.xml"/>
-    <xi:include href="transcripts/Edition/28.xml"/>
-    <xi:include href="transcripts/Edition/29.xml"/>
-    <xi:include href="transcripts/Edition/3.xml"/>
-    <xi:include href="transcripts/Edition/30.xml"/>
-    <xi:include href="transcripts/Edition/31.xml"/>
-    <xi:include href="transcripts/Edition/4.xml"/>
-    <xi:include href="transcripts/Edition/5.xml"/>
-    <xi:include href="transcripts/Edition/6.xml"/>
-    <xi:include href="transcripts/Edition/7.xml"/>
-    <xi:include href="transcripts/Edition/8.xml"/>
-    <xi:include href="transcripts/Edition/9.xml"/>
-</body></text>
-</TEI>
-<TEI xml:id="El">
-<teiHeader><fileDesc><titleStmt><title>El: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/El/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-El">
+<teiHeader><fileDesc><titleStmt><title>El · San Marino, Huntington Library El 26 C 9</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/El/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/El/1r.xml"/>
     <xi:include href="transcripts/El/1v.xml"/>
@@ -406,8 +464,8 @@
     <xi:include href="transcripts/El/9v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="En1">
-<teiHeader><fileDesc><titleStmt><title>En1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/En1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-En1">
+<teiHeader><fileDesc><titleStmt><title>En1 · London, British Library Egerton MS 2726</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/En1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/En1/1r.xml"/>
     <xi:include href="transcripts/En1/1v.xml"/>
@@ -433,8 +491,8 @@
     <xi:include href="transcripts/En1/11v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="En3">
-<teiHeader><fileDesc><titleStmt><title>En3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/En3/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-En3">
+<teiHeader><fileDesc><titleStmt><title>En3 · London, British Library Egerton MS 2864</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/En3/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/En3/1r.xml"/>
     <xi:include href="transcripts/En3/1v.xml"/>
@@ -464,8 +522,8 @@
     <xi:include href="transcripts/En3/13v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Fi">
-<teiHeader><fileDesc><titleStmt><title>Fi: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Fi/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Fi">
+<teiHeader><fileDesc><titleStmt><title>Fi · Cambridge, Fitzwilliam Museum McLean MS 181</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Fi/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Fi/2r.xml"/>
     <xi:include href="transcripts/Fi/2v.xml"/>
@@ -497,8 +555,8 @@
     <xi:include href="transcripts/Fi/15v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Gg">
-<teiHeader><fileDesc><titleStmt><title>Gg: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Gg/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Gg">
+<teiHeader><fileDesc><titleStmt><title>Gg · Cambridge, Cambridge University Library MS Gg.4.27</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Gg/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Gg/132r.xml"/>
     <xi:include href="transcripts/Gg/132v.xml"/>
@@ -522,8 +580,8 @@
     <xi:include href="transcripts/Gg/141v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Gl">
-<teiHeader><fileDesc><titleStmt><title>Gl: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Gl/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Gl">
+<teiHeader><fileDesc><titleStmt><title>Gl · Glasgow, University of Glasgow, Hunterian Library MS 197</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Gl/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Gl/3r.xml"/>
     <xi:include href="transcripts/Gl/3v.xml"/>
@@ -533,8 +591,8 @@
     <xi:include href="transcripts/Gl/5v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ha2">
-<teiHeader><fileDesc><titleStmt><title>Ha2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ha2">
+<teiHeader><fileDesc><titleStmt><title>Ha2 · London, British Library Harley MS 1758</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ha2/1r.xml"/>
     <xi:include href="transcripts/Ha2/1v.xml"/>
@@ -556,8 +614,8 @@
     <xi:include href="transcripts/Ha2/9v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ha3">
-<teiHeader><fileDesc><titleStmt><title>Ha3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha3/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ha3">
+<teiHeader><fileDesc><titleStmt><title>Ha3 · London, British Library Harley MS 7333</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha3/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ha3/69r.xml"/>
     <xi:include href="transcripts/Ha3/69v.xml"/>
@@ -571,8 +629,8 @@
     <xi:include href="transcripts/Ha3/73v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ha4">
-<teiHeader><fileDesc><titleStmt><title>Ha4: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha4/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ha4">
+<teiHeader><fileDesc><titleStmt><title>Ha4 · London, British Library Harley MS 7344</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha4/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ha4/1r.xml"/>
     <xi:include href="transcripts/Ha4/1v.xml"/>
@@ -599,8 +657,8 @@
     <xi:include href="transcripts/Ha4/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Hg">
-<teiHeader><fileDesc><titleStmt><title>Hg: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Hg/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Hg">
+<teiHeader><fileDesc><titleStmt><title>Hg · Aberystwyth, National Library of Wales Peniarth 392 D</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Hg/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Hg/1r.xml"/>
     <xi:include href="transcripts/Hg/1v.xml"/>
@@ -626,8 +684,8 @@
     <xi:include href="transcripts/Hg/11v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ht">
-<teiHeader><fileDesc><titleStmt><title>Ht: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ht/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ht">
+<teiHeader><fileDesc><titleStmt><title>Ht · Oxford, Bodleian Library, Hatton donat. 1</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ht/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ht/1r.xml"/>
     <xi:include href="transcripts/Ht/1v.xml"/>
@@ -650,8 +708,8 @@
     <xi:include href="transcripts/Ht/10r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ii">
-<teiHeader><fileDesc><titleStmt><title>Ii: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ii/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ii">
+<teiHeader><fileDesc><titleStmt><title>Ii · Cambridge, Cambridge University Library MS Ii.3.26</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ii/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ii/1r.xml"/>
     <xi:include href="transcripts/Ii/1v.xml"/>
@@ -674,8 +732,8 @@
     <xi:include href="transcripts/Ii/10r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="La">
-<teiHeader><fileDesc><titleStmt><title>La: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/La/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-La">
+<teiHeader><fileDesc><titleStmt><title>La · London, British Library Lansdowne MS 851</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/La/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/La/1r.xml"/>
     <xi:include href="transcripts/La/1v.xml"/>
@@ -700,8 +758,8 @@
     <xi:include href="transcripts/La/11r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Lc">
-<teiHeader><fileDesc><titleStmt><title>Lc: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Lc/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Lc">
+<teiHeader><fileDesc><titleStmt><title>Lc · Staffordshire, Lichfield Cathedral Library MS 29 (olim MS 2)</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Lc/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Lc/2r.xml"/>
     <xi:include href="transcripts/Lc/2v.xml"/>
@@ -727,8 +785,8 @@
     <xi:include href="transcripts/Lc/1av.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ld1">
-<teiHeader><fileDesc><titleStmt><title>Ld1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ld1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ld1">
+<teiHeader><fileDesc><titleStmt><title>Ld1 · Oxford, Bodleian Library, MS. Laud Misc. 600</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ld1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ld1/4r.xml"/>
     <xi:include href="transcripts/Ld1/4v.xml"/>
@@ -758,8 +816,8 @@
     <xi:include href="transcripts/Ld1/3av.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ld2">
-<teiHeader><fileDesc><titleStmt><title>Ld2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ld2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ld2">
+<teiHeader><fileDesc><titleStmt><title>Ld2 · Oxford, Bodleian Library, MS. Laud Misc. 739</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ld2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ld2/1r.xml"/>
     <xi:include href="transcripts/Ld2/1v.xml"/>
@@ -789,8 +847,8 @@
     <xi:include href="transcripts/Ld2/13v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ln">
-<teiHeader><fileDesc><titleStmt><title>Ln: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ln/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ln">
+<teiHeader><fileDesc><titleStmt><title>Ln · Lincoln, Cathedral Library MS 110=A.4.18</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ln/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ln/6r.xml"/>
     <xi:include href="transcripts/Ln/6v.xml"/>
@@ -807,8 +865,8 @@
     <xi:include href="transcripts/Ln/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ma">
-<teiHeader><fileDesc><titleStmt><title>Ma: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ma/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ma">
+<teiHeader><fileDesc><titleStmt><title>Ma · Manchester, John Rylands Library English MS 113</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ma/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ma/6r.xml"/>
     <xi:include href="transcripts/Ma/6v.xml"/>
@@ -829,8 +887,8 @@
     <xi:include href="transcripts/Ma/14r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Mg">
-<teiHeader><fileDesc><titleStmt><title>Mg: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Mg/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Mg">
+<teiHeader><fileDesc><titleStmt><title>Mg · New York, Pierpont Morgan Library MS 249</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Mg/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Mg/1r.xml"/>
     <xi:include href="transcripts/Mg/1v.xml"/>
@@ -857,8 +915,8 @@
     <xi:include href="transcripts/Mg/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Mm">
-<teiHeader><fileDesc><titleStmt><title>Mm: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Mm/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Mm">
+<teiHeader><fileDesc><titleStmt><title>Mm · Cambridge, Cambridge University Library MS Mm.2.5</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Mm/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Mm/2r.xml"/>
     <xi:include href="transcripts/Mm/2v.xml"/>
@@ -879,8 +937,8 @@
     <xi:include href="transcripts/Mm/10r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ne">
-<teiHeader><fileDesc><titleStmt><title>Ne: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ne/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ne">
+<teiHeader><fileDesc><titleStmt><title>Ne · Oxford, Bodleian Library, New College MS 314</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ne/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ne/9r.xml"/>
     <xi:include href="transcripts/Ne/9v.xml"/>
@@ -892,8 +950,8 @@
     <xi:include href="transcripts/Ne/12v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Nl">
-<teiHeader><fileDesc><titleStmt><title>Nl: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Nl/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Nl">
+<teiHeader><fileDesc><titleStmt><title>Nl · Alnwick, Northumberland, Alnwick Castle, Duke of Northumberland MS 455</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Nl/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Nl/3r.xml"/>
     <xi:include href="transcripts/Nl/3v.xml"/>
@@ -916,8 +974,8 @@
     <xi:include href="transcripts/Nl/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ph2">
-<teiHeader><fileDesc><titleStmt><title>Ph2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ph2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ph2">
+<teiHeader><fileDesc><titleStmt><title>Ph2 · Geneva (Coligny), Foundation Martin Bodmer Cod. Bodmer 48</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ph2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ph2/2r.xml"/>
     <xi:include href="transcripts/Ph2/2v.xml"/>
@@ -944,8 +1002,8 @@
     <xi:include href="transcripts/Ph2/13r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Pn">
-<teiHeader><fileDesc><titleStmt><title>Pn: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Pn/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Pn">
+<teiHeader><fileDesc><titleStmt><title>Pn · Oxford, Bodleian Library, Douce 218 (Richard Pynson)</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Pn/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Pn/a2r.xml"/>
     <xi:include href="transcripts/Pn/a2v.xml"/>
@@ -986,8 +1044,8 @@
     <xi:include href="transcripts/Pn/c4r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ps">
-<teiHeader><fileDesc><titleStmt><title>Ps: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ps/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ps">
+<teiHeader><fileDesc><titleStmt><title>Ps · Paris, Bibliothèque Nationale Fonds anglais MS 39</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ps/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ps/1r.xml"/>
     <xi:include href="transcripts/Ps/1v.xml"/>
@@ -1001,8 +1059,8 @@
     <xi:include href="transcripts/Ps/5v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Pw">
-<teiHeader><fileDesc><titleStmt><title>Pw: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Pw/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Pw">
+<teiHeader><fileDesc><titleStmt><title>Pw · Sussex, Petworth House Leconfield MS 7</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Pw/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Pw/1r.xml"/>
     <xi:include href="transcripts/Pw/1v.xml"/>
@@ -1029,8 +1087,8 @@
     <xi:include href="transcripts/Pw/12r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Py">
-<teiHeader><fileDesc><titleStmt><title>Py: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Py/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Py">
+<teiHeader><fileDesc><titleStmt><title>Py · London, Royal College of Physicians MS 388</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Py/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Py/1r.xml"/>
     <xi:include href="transcripts/Py/1v.xml"/>
@@ -1065,8 +1123,8 @@
     <xi:include href="transcripts/Py/16r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ra2">
-<teiHeader><fileDesc><titleStmt><title>Ra2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ra2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ra2">
+<teiHeader><fileDesc><titleStmt><title>Ra2 · Oxford, Bodleian Library MS. Rawlinson poet. 149</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ra2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ra2/6r.xml"/>
     <xi:include href="transcripts/Ra2/6v.xml"/>
@@ -1079,8 +1137,8 @@
     <xi:include href="transcripts/Ra2/10r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ra3">
-<teiHeader><fileDesc><titleStmt><title>Ra3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ra3/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ra3">
+<teiHeader><fileDesc><titleStmt><title>Ra3 · Oxford, Bodleian Library MS. Rawlinson poet. 223</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ra3/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ra3/8r.xml"/>
     <xi:include href="transcripts/Ra3/8v.xml"/>
@@ -1105,8 +1163,8 @@
     <xi:include href="transcripts/Ra3/18r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ry1">
-<teiHeader><fileDesc><titleStmt><title>Ry1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ry1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ry1">
+<teiHeader><fileDesc><titleStmt><title>Ry1 · London, British Library Royal MS 17.d.xv</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ry1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ry1/2r.xml"/>
     <xi:include href="transcripts/Ry1/2v.xml"/>
@@ -1134,8 +1192,8 @@
     <xi:include href="transcripts/Ry1/13v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Ry2">
-<teiHeader><fileDesc><titleStmt><title>Ry2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ry2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Ry2">
+<teiHeader><fileDesc><titleStmt><title>Ry2 · London, British Library Royal MS 18.c.ii</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ry2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Ry2/1r.xml"/>
     <xi:include href="transcripts/Ry2/1v.xml"/>
@@ -1161,8 +1219,8 @@
     <xi:include href="transcripts/Ry2/11v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Se">
-<teiHeader><fileDesc><titleStmt><title>Se: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Se/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Se">
+<teiHeader><fileDesc><titleStmt><title>Se · Oxford, Bodleian Library MS. Arch. Selden. B. 14</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Se/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Se/1r.xml"/>
     <xi:include href="transcripts/Se/1v.xml"/>
@@ -1190,8 +1248,8 @@
     <xi:include href="transcripts/Se/12v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Sl1">
-<teiHeader><fileDesc><titleStmt><title>Sl1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Sl1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Sl1">
+<teiHeader><fileDesc><titleStmt><title>Sl1 · London, British Library Sloane MS 1685</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Sl1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Sl1/10r.xml"/>
     <xi:include href="transcripts/Sl1/10v.xml"/>
@@ -1201,8 +1259,8 @@
     <xi:include href="transcripts/Sl1/12v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Sl2">
-<teiHeader><fileDesc><titleStmt><title>Sl2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Sl2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Sl2">
+<teiHeader><fileDesc><titleStmt><title>Sl2 · London, British Library Sloane MS 1686</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Sl2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Sl2/2r.xml"/>
     <xi:include href="transcripts/Sl2/2v.xml"/>
@@ -1231,8 +1289,8 @@
     <xi:include href="transcripts/Sl2/15r.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Tc1">
-<teiHeader><fileDesc><titleStmt><title>Tc1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Tc1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Tc1">
+<teiHeader><fileDesc><titleStmt><title>Tc1 · Cambridge, Trinity College MS R.3.3</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Tc1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Tc1/1r.xml"/>
     <xi:include href="transcripts/Tc1/1v.xml"/>
@@ -1246,8 +1304,8 @@
     <xi:include href="transcripts/Tc1/5v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Tc2">
-<teiHeader><fileDesc><titleStmt><title>Tc2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Tc2/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Tc2">
+<teiHeader><fileDesc><titleStmt><title>Tc2 · Cambridge, Trinity College MS R.3.15e</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Tc2/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Tc2/3r.xml"/>
     <xi:include href="transcripts/Tc2/3v.xml"/>
@@ -1282,8 +1340,8 @@
     <xi:include href="transcripts/Tc2/a4v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="To1">
-<teiHeader><fileDesc><titleStmt><title>To1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/To1/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-To1">
+<teiHeader><fileDesc><titleStmt><title>To1 · Oxford, Bodleian Library, Trinity College MS 49</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/To1/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/To1/1v.xml"/>
     <xi:include href="transcripts/To1/2r.xml"/>
@@ -1308,8 +1366,8 @@
     <xi:include href="transcripts/To1/2a1v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="Wy">
-<teiHeader><fileDesc><titleStmt><title>Wy: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Wy/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="ms-Wy">
+<teiHeader><fileDesc><titleStmt><title>Wy · London, British Library G.11587 (1)=IB.55210 (Wynkyn de Worde)</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Wy/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Wy/a3r.xml"/>
     <xi:include href="transcripts/Wy/a3v.xml"/>
