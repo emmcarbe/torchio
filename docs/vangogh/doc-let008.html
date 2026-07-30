@@ -30,7 +30,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-head{font-weight:600;margin:1.3em 0 .4em}
 .t-p,.t-ab{margin:.65em 0}
 .t-lg{margin:.8em 0 .8em 1.6em}
-.t-l{display:block}
+.t-l{display:block;position:relative}
+.t-lg{padding-left:3em}
+.t-l.ln5::before{content:attr(data-n);position:absolute;left:-3em;top:.35em;
+  font-family:var(--mono);font-size:10px;color:var(--soft);user-select:none}
 .t-sp{margin:.65em 0}
 .t-speaker{font-family:var(--mono);font-size:.72em;letter-spacing:.1em;
   text-transform:uppercase;color:var(--soft);display:inline-block;margin-right:.5em}
@@ -55,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+@media(min-width:1180px){
+  .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
+    font-size:.78em;line-height:1.4}
+}
 
 .t-app .t-rdg{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
@@ -143,6 +150,8 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
+ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>

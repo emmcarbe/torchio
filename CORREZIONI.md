@@ -29,6 +29,8 @@ Nature possibili:
 | 2026-07-30 | C12 | Shelley-Godwin | estensione | risoluzione XInclude (`xi:include`) |
 | 2026-07-30 | C13 | Shelley-Godwin | estensione | radici TEI non canoniche (`surface` come radice) |
 | 2026-07-30 | C14 | Odissea (Perseus), demo pubblica | assegnazione | i numeri di verso (`@n` su `l`) non venivano mostrati: ora ogni quinto verso porta il numero a margine |
+| 2026-07-30 | C15 | Odissea (Perseus), demo pubblica | assegnazione | le partizioni strutturali del corpo (`div` di libro o sezione) diventano pagine con indice e navigazione, invece di una pagina unica |
+| 2026-07-30 | C16 | Bellum Alexandrinum (DLL), demo pubblica | assegnazione | le note (`note`) interrompevano la prosa come blocchi: ora sono postille nel margine destro dove lo schermo lo consente |
 
-Bilancio al 30 luglio 2026: quattordici correzioni, di cui nove assegnazioni
+Bilancio al 30 luglio 2026: sedici correzioni, di cui undici assegnazioni
 e cinque estensioni. Chirurgia: zero.

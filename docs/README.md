@@ -26,7 +26,9 @@ e `node tools/press.js --site demo-src/vangogh docs/vangogh`.
   dimostrativo (testimoni immaginari, varianti didattiche, dichiarati nel
   frontespizio); testo base: incipit dell'Odissea nella traduzione di
   Ippolito Pindemonte (pubblico dominio); codifica CC0.
-- Le ricerche geografiche usano dati derivati da [GeoNames](https://www.geonames.org/) (CC BY 4.0).
+- Le ricerche geografiche usano dati derivati da [GeoNames](https://www.geonames.org/) (CC BY 4.0); le coste della mappa da [Natural Earth](https://www.naturalearthdata.com/) (pubblico dominio). La pagina Mappa usa [Leaflet](https://leafletjs.com/)
+  (BSD-2, incluso nel sito) e tile © OpenStreetMap contributors (ODbL),
+  caricati dai server OSM alla consultazione.
 
 Il codice di Torchio resta MIT; le licenze qui sopra riguardano i contenuti
 delle demo.

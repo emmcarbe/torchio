@@ -5,7 +5,7 @@
  * This is a development tool; the real paths are the browser engine (path A)
  * and the GitHub Action (path B), both built on the same modules.
  */
-import { readFile, writeFile, mkdir, stat, readdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, stat, readdir, cp } from 'node:fs/promises';
 import { dirname, join, basename } from 'node:path';
 import { parseXML, inTEINamespace } from '../src/xml.js';
 import { resolveIncludes } from '../src/xinclude.js';
@@ -104,7 +104,12 @@ if (site) {
     await mkdir(dirname(join(out, name)), { recursive: true });
     await writeFile(join(out, name), content);
   }
-  console.error(`pressed site: ${out}/ (${Object.keys(files).join(', ')})`);
+  if ('map.html' in files) {
+    await cp(new URL('../data-assets/leaflet', import.meta.url),
+      join(out, 'assets', 'leaflet'), { recursive: true });
+    console.error('assets: leaflet copied');
+  }
+  console.error(`pressed site: ${out}/ (${Object.keys(files).length} files)`);
 } else {
   out = output || basename(input).replace(/\.xml$/i, '') + '.html';
   await writeFile(out, pressPage(model));

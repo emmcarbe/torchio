@@ -13,13 +13,14 @@
  * the manifest will later let the editor add, remove and rename them.
  */
 
-import { walkModel } from './model.js';
+import { walkModel, textOfModel } from './model.js';
 import { renderBase, structuralCSS, escapeHTML } from './render.js';
 import { interactCSS, buildInteractJS, toolbarHTML } from './interact.js';
 import { normalizeManifest } from './manifest.js';
 import { buildExports } from './exports.js';
 import { i18n, resolveLang } from './i18n.js';
 import { themeCSS } from './themes.js';
+import { WORLD } from './world-data.js';
 
 function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme }) {
   const nav = pages
@@ -72,6 +73,8 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
+ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
@@ -125,6 +128,21 @@ function docFileName(id, taken) {
   return name;
 }
 
+function chunkLabel(div, i, T) {
+  const sub = (div.atts.subtype || div.atts.type || '').toLowerCase();
+  const n = div.atts.n;
+  const head = div.children.find((c) => typeof c !== 'string' && c.element === 'head');
+  if (sub === 'book' && n) return `${T.bookLabel} ${n}`;
+  if (head) {
+    let t = '';
+    for (const c of head.children) if (typeof c === 'string') t += c;
+    t = t.replace(/\s+/g, ' ').trim();
+    if (t) return t.slice(0, 60);
+  }
+  if (n) return `${T.sectionOne} ${n}`;
+  return `${T.sectionOne} ${i + 1}`;
+}
+
 export function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages = [] } = {}) {
   const manifest = normalizeManifest(rawManifest || {});
   const lang = resolveLang(manifest.lang, model);
@@ -132,13 +150,28 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const theme = manifest.theme || 'savi';
   const isCollection = model.documents.length > 1;
   // single document: front and back matter get their own pages
-  let frontNode = null, backNode = null;
+  let frontNode = null, backNode = null, bodyNode = null, chunks = null;
   if (!isCollection && model.documents[0]) {
     const textNode = model.documents[0].tree.children.find(
       (c) => typeof c !== 'string' && c.element === 'text');
     if (textNode) {
       frontNode = textNode.children.find((c) => typeof c !== 'string' && c.element === 'front') || null;
       backNode = textNode.children.find((c) => typeof c !== 'string' && c.element === 'back') || null;
+      bodyNode = textNode.children.find((c) => typeof c !== 'string' && c.element === 'body') || null;
+    }
+    // the markup's own partition: when the body holds several structural
+    // divisions and real bulk, each division gets its page (C15)
+    if (bodyNode) {
+      let container = bodyNode;
+      for (;;) {
+        const divs = container.children.filter((c) => typeof c !== 'string' && /^div\d?$/.test(c.element));
+        if (divs.length === 1 && container.children.filter((c) => typeof c !== 'string').length === 1) {
+          container = divs[0];
+          continue;
+        }
+        if (divs.length >= 2 && textOfModel(bodyNode).length > 40000) chunks = divs;
+        break;
+      }
     }
   }
   const taken = new Set();
@@ -252,7 +285,38 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     manifest.pieces.entities === false ? 'ent-off' : '',
   ].filter(Boolean).join(' ');
 
-  if (!isCollection) {
+  if (!isCollection && chunks) {
+    const frontOnOwnPage = !!frontNode && wanted.has('front');
+    const backOnOwnPage = !!backNode && wanted.has('back');
+    const header = model.documents[0].tree.children.find((c) => typeof c !== 'string' && c.element === 'teiHeader');
+    const files = chunks.map((d, i) => `text-${d.atts.n && /^[\w.-]+$/.test(d.atts.n) ? d.atts.n : i + 1}.html`);
+    // contents page
+    let toc = `<main id="main" class="torchio"><ol class="toc">`;
+    chunks.forEach((d, i) => { toc += `<li><a href="${files[i]}">${escapeHTML(chunkLabel(d, i, T))}</a></li>`; });
+    toc += '</ol>';
+    if (!frontOnOwnPage && frontNode) toc = `<main id="main" class="torchio">${renderBase(frontNode)}` + '<ol class="toc">' + chunks.map((d, i) => `<li><a href="${files[i]}">${escapeHTML(chunkLabel(d, i, T))}</a></li>`).join('') + '</ol>';
+    if (!backOnOwnPage && backNode) toc += renderBase(backNode);
+    toc += '</main>';
+    out['text.html'] = chrome({
+      title: t, sub: `${chunks.length} ${T.sectionsN}`, active: 'text.html', pages,
+      body: toc, t: T, lang, theme,
+    });
+    chunks.forEach((d, i) => {
+      for (const n of walkModel(d)) idPage.set(n.id, files[i]);
+    });
+    chunks.forEach((d, i) => {
+      const nav = `<nav class="prevnext" aria-label="${T.contents}">`
+        + (i > 0 ? `<a href="${files[i - 1]}">${T.prev}</a>` : '<span></span>')
+        + `<a href="text.html">${T.contents}</a>`
+        + (i < chunks.length - 1 ? `<a href="${files[i + 1]}">${T.next}</a>` : '<span></span>')
+        + `</nav>`;
+      out[files[i]] = chrome({
+        title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${nav}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme,
+      });
+    });
+  } else if (!isCollection) {
     // reading page: the body (and the hidden header for the toggle);
     // front and back matter live on their own pages
     const frontOnOwnPage = !!frontNode && wanted.has('front');
@@ -425,11 +489,58 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         dots += `<text x="${(+x + 7).toFixed(1)}" y="${(+y + 3).toFixed(1)}" font-size="11" fill="var(--soft)" font-family="var(--mono)">${escapeHTML(pl.label)}</text>`;
       }
     }
+    let land = '';
+    for (const ring of WORLD) {
+      let minx = 999, maxx = -999, miny = 999, maxy = -999;
+      for (const [x, y] of ring) {
+        if (x < minx) minx = x; if (x > maxx) maxx = x;
+        if (y < miny) miny = y; if (y > maxy) maxy = y;
+      }
+      if (maxx < minLon || minx > maxLon || maxy < minLat || miny > maxLat) continue;
+      land += 'M' + ring.map(([x, y]) => `${px(x).toFixed(1)} ${py(y).toFixed(1)}`).join('L') + 'Z';
+    }
+    const landPath = land
+      ? `<path d="${land}" fill="var(--hair)" fill-opacity=".45" stroke="var(--faint)" stroke-width="1" fill-rule="evenodd"/>`
+      : '';
     let grid = '';
     for (let lon = Math.ceil(minLon); lon <= maxLon; lon++) grid += `<line x1="${px(lon)}" y1="0" x2="${px(lon)}" y2="${H}" stroke="var(--hair)" stroke-width="1"/>`;
     for (let lat = Math.ceil(minLat); lat <= maxLat; lat++) grid += `<line x1="0" y1="${py(lat)}" x2="${W}" y2="${py(lat)}" stroke="var(--hair)" stroke-width="1"/>`;
-    let mapBody = `<main id="main" class="torchio">`
-      + `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:auto;border:1px solid var(--hair);border-radius:2px;background:var(--paper)">${grid}${dots}</svg>`
+    const markers = geoPlaces.map((pl) => ({
+      lat: pl.geo.lat, lon: pl.geo.lon,
+      label: pl.label, unconfirmed: pl.geoSource === 'geonames',
+    }));
+    const leafletInit = `
+var map=L.map('map',{scrollWheelZoom:false});
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,
+  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+var pts=${JSON.stringify(markers)};
+var group=[];
+pts.forEach(function(p){
+  var m=L.circleMarker([p.lat,p.lon],{radius:7,color:'#B01E28',weight:2,
+    fillColor:'#B01E28',fillOpacity:p.unconfirmed?0:0.9}).addTo(map);
+  m.bindPopup(p.label+(p.unconfirmed?' <span style="color:#888">(?)</span>':''));
+  group.push(m);
+});
+var lats=pts.map(function(p){return p.lat}),lons=pts.map(function(p){return p.lon});
+var cLat=(Math.min.apply(null,lats)+Math.max.apply(null,lats))/2;
+var cLon=(Math.min.apply(null,lons)+Math.max.apply(null,lons))/2;
+var spanLat=Math.max(Math.max.apply(null,lats)-Math.min.apply(null,lats),0.05)*1.5;
+var spanLon=Math.max(Math.max.apply(null,lons)-Math.min.apply(null,lons),0.05)*1.5;
+function fit(){
+  var s=map.getSize();
+  if(!s.x||!s.y){setTimeout(fit,100);return;}
+  var z=Math.floor(Math.min(
+    Math.log2(s.x/256*360/spanLon),
+    Math.log2(s.y/256*170/spanLat)));
+  map.setView([cLat,cLon],Math.max(2,Math.min(12,z)));
+}
+fit();
+`;
+    let mapBody = `<main id="main" class="torchio" style="max-width:64rem">`
+      + `<link rel="stylesheet" href="assets/leaflet/leaflet.css">`
+      + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px" role="region" aria-label="${T.mapAria}"></div>`
+      + `<script src="assets/leaflet/leaflet.js"></script><script>${leafletInit}</script>`
+      + `<noscript><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:auto;border:1px solid var(--hair);border-radius:2px;background:var(--paper)">${landPath}${grid}${dots}</svg></noscript>`
       + `<p class="occ">${T.mapNote}</p><table class="idx-table">`;
     for (const pl of [...geoPlaces].sort((a, b) => a.label.localeCompare(b.label))) {
       mapBody += `<tr><td>${escapeHTML(pl.label)}${pl.geoSource === 'geonames' ? ' <span class="occ">?</span>' : ''}</td>`
