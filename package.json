@@ -1,7 +1,7 @@
 {
   "name": "torchio",
-  "version": "0.0.1",
-  "description": "The edition is the repository. TEI P5 editions pressed into static digital scholarly editions.",
+  "version": "0.1.0",
+  "description": "Presses TEI P5 files into static digital scholarly editions",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -9,5 +9,18 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "bin": {
+    "torchio": "./tools/press.js"
+  },
+  "files": [
+    "src",
+    "tools",
+    "data",
+    "data-assets",
+    "README.md",
+    "USAGE.md",
+    "PRINCIPLES.md",
+    "LICENSE"
+  ]
 }
