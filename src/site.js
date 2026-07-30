@@ -130,6 +130,9 @@ ${headerLabelCSS()}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -728,12 +731,18 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
             const isLac = (app.atts.type || '') === 'lac';
             v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}" id="${escapeHTML(app.id)}">`;
             if (!isLac) v += `<span class="vmap-lem">${escapeHTML(abbrev(lem ? cleanText(lem).trim() : ''))}</span>`;
+            const edited = manifest.align && manifest.align.apparatusUnder
+              ? String(manifest.align.apparatusUnder).replace(/^ms-/, '') : null;
             for (const r of rdgs) {
               const wits = (r.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, ''));
+              const isEdited = edited && wits.includes(edited);
               const rt = cleanText(r).trim();
-              v += `<div class="vmap-rdg">${isLac ? `<span class="vmap-lem">${escapeHTML(T.lacking)}</span>` : escapeHTML(rt || '(om.)')}`
-                + ` <span class="vmap-wit">${wits.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')}</span>`
-                + ` <span class="vmap-count">(${wits.length})</span></div>`;
+              const shown = isEdited ? wits.filter((w) => w !== edited) : wits;
+              v += `<div class="vmap-rdg${isEdited ? ' vmap-edited' : ''}">`
+                + `${isLac ? `<span class="vmap-lem">${escapeHTML(T.lacking)}</span>` : escapeHTML(rt || '(om.)')}`
+                + `${isEdited ? ` <span class="vmap-mark">${escapeHTML(T.editedText)}</span>` : ''}`
+                + ` <span class="vmap-wit">${shown.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')}</span>`
+                + `${shown.length ? ` <span class="vmap-count">(${shown.length})</span>` : ''}</div>`;
             }
             v += `</div>`;
           }
@@ -752,7 +761,14 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           if (!apps) return '';
           const entries = [];
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
-            const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
+            // the edited text is not one witness among the others: its own
+            // siglum is not a variant of itself (C52)
+            const self = manifest.align.apparatusUnder
+              ? String(manifest.align.apparatusUnder).replace(/^ms-/, '') : null;
+            const others = a.readings
+              .filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim())
+              .map((r) => ({ ...r, witnesses: self ? r.witnesses.filter((w) => w !== self) : r.witnesses }))
+              .filter((r) => r.witnesses.length);
             if (!others.length) continue;
             const lemNorm = (a.lemma || '').toLowerCase()
               .replace(/[^\p{L}\p{N}]/gu, '').replace(/[\p{Lm}\p{M}]/gu, '').slice(0, 16);
