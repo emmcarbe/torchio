@@ -298,7 +298,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   if (reg.witnesses.length) {
     about += `<dt>${T.witnesses}</dt><dd><table class="wit-table">`;
     for (const w of reg.witnesses) {
-      about += `<tr><td class="sigla">${escapeHTML(w.id)}</td><td>${escapeHTML(w.label)}</td></tr>`;
+      const wtext = escapeHTML(w.full || w.label)
+        .replace(/(https?:\/\/[^\s<]*[^\s<.,;)])/g, '<a href="$1">$1</a>');
+      about += `<tr><td class="sigla">${escapeHTML(w.id)}</td><td>${wtext}</td></tr>`;
     }
     about += `</table></dd>`;
   }

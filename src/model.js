@@ -316,10 +316,31 @@ function collectRegistries(node, reg, byXmlId) {
       if (Number.isFinite(lat) && Number.isFinite(lon)) entry.geo = { lat, lon };
     }
   }
+  if (key === 'witnesses') {
+    // the register page can carry the full description, untruncated
+    entry.full = pointersText(node).trim().replace(/\s+/g, ' ');
+  }
   if (key === 'hands') entry.scope = node.atts.scope || null;
   if (key === 'layers') entry.order = reg.layers.length;
   reg[key].push(entry);
   if (node.atts['xml:id']) byXmlId.set(node.atts['xml:id'], entry);
+}
+
+/** Text with pointers surfaced: a ptr or an empty ref yields its @target,
+ *  so bibliographic entries never end in a dangling "URL:" (nothing is
+ *  invisible). */
+function pointersText(node) {
+  let out = '';
+  for (const c of node.children) {
+    if (typeof c === 'string') { out += c; continue; }
+    if (c.element === 'ptr' || c.element === 'ref') {
+      const inner = pointersText(c);
+      out += inner.trim() ? inner : (c.atts.target || '');
+      continue;
+    }
+    out += pointersText(c);
+  }
+  return out;
 }
 
 function registryLabel(node) {
