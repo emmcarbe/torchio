@@ -141,6 +141,7 @@ export function buildInteractJS(t) {
         }
       }
     });
+    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
@@ -241,6 +242,7 @@ export function buildInteractJS(t) {
         }
       }
     });
+    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();

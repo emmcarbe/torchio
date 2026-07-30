@@ -27,16 +27,20 @@ export const escapeHTML = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export function renderBase(node) {
-  if (node.element === 'lb') return '<br/>';
+  if (node.element === 'lb') return `<br id="${escapeHTML(node.id)}"/>`;
   if (node.element === 'pb') {
     const n = node.atts.n ? escapeHTML(node.atts.n) : '';
-    return `<span class="t-pb" role="separator" title="page break">${n ? `[${n}]` : ''}</span>`;
+    return `<span id="${escapeHTML(node.id)}" class="t-pb" role="separator" title="page break">${n ? `[${n}]` : ''}</span>`;
   }
   if (node.element === 'note') {
     // anchor marker in the text, tied to the floated margin note
     const inner = node.children.map((c) => typeof c === 'string' ? escapeHTML(c) : renderBase(c)).join('');
+    let nd = '';
+    for (const a of DATA_ATTS) {
+      if (node.atts[a] != null) nd += ` data-${a}="${escapeHTML(node.atts[a])}"`;
+    }
     return `<span class="t-note-mark" aria-hidden="true">°</span>`
-      + `<div id="${escapeHTML(node.id)}" class="t-note s-${node.section}" data-el="note">${inner}</div>`;
+      + `<div id="${escapeHTML(node.id)}" class="t-note s-${node.section}" data-el="note"${nd}>${inner}</div>`;
   }
   const tag = BLOCKS.has(node.element) ? 'div' : 'span';
   let cls = `t-${node.element} s-${node.section}`;

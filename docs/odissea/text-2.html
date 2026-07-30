@@ -932,6 +932,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
         }
       }
     });
+    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
@@ -1032,6 +1033,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
         }
       }
     });
+    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
