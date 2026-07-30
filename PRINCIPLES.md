@@ -92,6 +92,18 @@ positions, one representative each, not every existing tool.
   interface comes from templates to be adapted, and there is no reusable
   data model.
 
+## The wager
+
+Bauman (2011) argued that interoperability of arbitrary TEI documents is
+impossible in the general case, and that position has held the field for
+fifteen years. This project is an empirical answer to it: what cannot be
+recovered at the level of elements may be recoverable at the level of model
+classes, because a class is where the Guidelines already say what a
+construct is like. The measure is stated and not yet taken: the share of
+the 95 editions of the contrast corpus that press without configuration.
+A high number is a partial refutation with figures; a low one is a negative
+result, and nobody has measured it either way.
+
 ## The principles
 
 1. **No tradition is the default.** A scholarly edition is not a neutral
@@ -124,9 +136,11 @@ positions, one representative each, not every existing tool.
    and where the tool cannot yet speak a tradition’s language, that is a
    correction to file in the register, never a constraint on the
    edition.
-2. **Nothing is ever invisible.** Every well-formed TEI document must be
-   preserved in the visualization too, because every sign represents a
-   precise choice. Unknown constructs fall back on a guaranteed base
+2. **Nothing is lost a second time.** Transcription is necessarily
+   selective: where to stop is the editor's decision, taken while encoding
+   (Pierazzo 2011). The press does not get to lower that threshold again.
+   Whatever the edition chose to record must survive into the pages, because
+   every sign there represents a decision already taken. Unknown constructs fall back on a guaranteed base
    rendering, and yet they are not discarded. On an invalid document the
    engine degrades, it does not break: validation belongs to the CI of the
    edition's repository (CI, continuous integration: the automated checks
@@ -375,6 +389,11 @@ reproducible.
 
 ## References
 
+- Bauman, Syd. 2011. "Interchange vs. Interoperability." *Proceedings of
+  Balisage: The Markup Conference* 7. https://doi.org/10.4242/BalisageVol7.Bauman01.
+- Pierazzo, Elena. 2011. "A Rationale of Digital Documentary Editions."
+  *Literary and Linguistic Computing* 26 (4): 463-77.
+  https://doi.org/10.1093/llc/fqr033.
 - Turska, Magdalena, James Cummings, and Sebastian Rahtz. 2016. "Challenging
   the Myth of Presentation in Digital Editions." *Journal of the Text
   Encoding Initiative* 9. https://doi.org/10.4000/jtei.1453.
