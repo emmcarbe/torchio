@@ -27,6 +27,7 @@
 import { isTheme } from './themes.js';
 
 const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas', 'map', 'data'];
+const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 export function normalizeManifest(raw = {}) {
   const m = {
@@ -39,6 +40,11 @@ export function normalizeManifest(raw = {}) {
       : null,
     // interface labels the edition's tradition wants otherwise (principle
     // 14): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
+    // the register's columns, chosen by the editor among the card fields
+    // the headers populate; unknown names are ignored with a warning
+    register: (raw.register && Array.isArray(raw.register.columns))
+      ? { columns: raw.register.columns.filter((c) => REGISTER_COLUMNS.includes(c)) }
+      : null,
     labels: (raw.labels && typeof raw.labels === 'object')
       ? Object.fromEntries(Object.entries(raw.labels)
           .filter(([, v]) => typeof v === 'string' && v.trim()))
@@ -58,6 +64,11 @@ export function normalizeManifest(raw = {}) {
   };
   if (typeof raw.theme === 'string' && !isTheme(raw.theme)) {
     m.warnings.push(`unknown theme ignored: ${raw.theme}`);
+  }
+  if (raw.register && Array.isArray(raw.register.columns)) {
+    for (const c of raw.register.columns) {
+      if (!REGISTER_COLUMNS.includes(c)) m.warnings.push(`unknown register column ignored: ${c}`);
+    }
   }
   if (Array.isArray(raw.extra)) {
     for (const e of raw.extra) {

@@ -107,7 +107,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -124,6 +124,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -282,7 +283,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>Eurasian Latin Archive</h1><p class="sub">data</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html">Text</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html">Map</a><a href="data.html" class="on">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html">Texts</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html">Map</a><a href="data.html" class="on">Data</a></nav>
 </header>
 <main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">38.6 MB</td></tr><tr><td class="sigla"><a href="data/entities.csv">entities.csv</a></td><td>people, places and organisations with occurrence counts and coordinates</td><td class="occ">32.3 KB</td></tr><tr><td class="sigla"><a href="data/lemmas.csv">lemmas.csv</a></td><td>every lemma with its forms and counts, one row per form</td><td class="occ">596.6 KB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>the token stream of the reading text: position, language, form, lemma, anchor</td><td class="occ">12.3 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>

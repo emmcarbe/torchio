@@ -1245,7 +1245,7 @@ function applyGeoref(model, georefPlaces) {
 const STRINGS = {
   en: {
     edition: 'Edition', text: 'Text', indices: 'Indices', data: 'Data',
-    archive: 'Archive', dsa: 'digital archive',
+    archive: 'Archive', dsa: 'digital archive', texts: 'Texts',
     reading: 'Reading', diplomatic: 'Diplomatic', apparatus: 'Apparatus',
     aboutFile: 'About this file', notes: 'Notes',
     dse: 'digital scholarly edition',
@@ -1259,6 +1259,7 @@ const STRINGS = {
     mapNote: 'Positional sketch. Filled dots: coordinates declared in the TEI or confirmed by the editor. Hollow dots: gazetteer suggestions awaiting review. Each place links to OpenStreetMap. Coastlines: Natural Earth (public domain).',
     front: 'Front matter', back: 'Back matter',
     lacking: 'lacking in',
+    openPage: 'open the page',
     sectionsN: 'sections', sectionOne: 'Section', contents: 'Contents',
     bookLabel: 'Book',
     register: 'Register', documentsN: 'documents',
@@ -1286,7 +1287,7 @@ const STRINGS = {
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
-    archive: 'Archivio', dsa: 'archivio digitale',
+    archive: 'Archivio', dsa: 'archivio digitale', texts: 'Testi',
     // the canonical pair of the Italian tradition (diplomatica /
     // interpretativa), not a calque of the English "reading text"
     reading: 'Interpretativa', diplomatic: 'Diplomatica', apparatus: 'Apparato',
@@ -1302,6 +1303,7 @@ const STRINGS = {
     mapNote: 'Schizzo posizionale. Punti pieni: coordinate dichiarate nel TEI o confermate dall\u2019editore. Punti vuoti: suggerimenti del gazetteer in attesa di revisione. Ogni luogo rimanda a OpenStreetMap. Coste: Natural Earth (pubblico dominio).',
     front: 'Pagine iniziali', back: 'Pagine finali',
     lacking: 'manca in',
+    openPage: 'apri la pagina',
     sectionsN: 'sezioni', sectionOne: 'Sezione', contents: 'Indice delle sezioni',
     bookLabel: 'Libro',
     register: 'Registro', documentsN: 'documenti',
@@ -1370,7 +1372,7 @@ const interactCSS = `
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -1387,6 +1389,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -1417,6 +1420,50 @@ function buildInteractJS(t) {
 (function(){
   var body=document.body; body.classList.add('mode-read');
   if(document.querySelector('.app-band'))body.classList.add('has-band');
+  /* words covered by an apparatus entry become triggers: the reader clicks
+     the word and sees its variants (positions from the declared @from/@to) */
+  function wireWords(){
+    document.querySelectorAll('.app-band').forEach(function(band){
+      try{
+      var l=band.previousElementSibling;
+      if(!l||l.getAttribute('data-el')!=='l')return;
+      if(l.querySelector('.wv'))return;
+      var entries=[].slice.call(band.querySelectorAll('.band-e[data-from]'));
+      if(!entries.length)return;
+      var map={};
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        for(var w=Math.ceil(f/2); w<=Math.floor(t/2); w++){ if(map[w]==null)map[w]=e; }
+      });
+      var walker=document.createTreeWalker(l,NodeFilter.SHOW_TEXT,null);
+      var nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+      var idx=0, carry=false;
+      nodes.forEach(function(tn){
+        var v=tn.nodeValue;
+        if(!/\\S/.test(v)){ if(/\\s/.test(v))carry=false; return; }
+        var parts=v.split(/(\\s+)/);
+        var frag=document.createDocumentFragment();
+        var continuing=carry&&!/^\\s/.test(v);
+        parts.forEach(function(pt){
+          if(!pt)return;
+          if(/^\\s+$/.test(pt)){continuing=false;frag.appendChild(document.createTextNode(pt));return;}
+          /* a word split across inline elements is one token */
+          if(continuing){continuing=false;}
+          else idx++;
+          var e=map[idx];
+          if(!e){frag.appendChild(document.createTextNode(pt));return;}
+          var sp=document.createElement('span');
+          sp.className='wv';sp.textContent=pt;sp._be=e;
+          frag.appendChild(sp);
+        });
+        tn.parentNode.replaceChild(frag,tn);
+        carry=!/\\s$/.test(v);
+      });
+      }catch(e){/* one bad band must not silence the rest */}
+    });
+  }
+  if(document.readyState==='complete')wireWords();
+  else window.addEventListener('load',wireWords);
   var pop=null, lastTrigger=null;
   function closePop(){
     clearZone();
@@ -1468,7 +1515,8 @@ function buildInteractJS(t) {
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
     makeTrigger(el,'${t.appEntry}: '+el.textContent.trim());
   });
-  document.querySelectorAll('[data-ref]').forEach(function(el){
+  document.querySelectorAll('[data-ref],[data-key]').forEach(function(el){
+    if(el.classList.contains('ent-ext'))return; /* external links stay links */
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
@@ -1499,7 +1547,25 @@ function buildInteractJS(t) {
         withAlign(function(map){
           var row=map[bandk.getAttribute('data-ent')]||{};
           var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
-          if(tgt)location.href=tgt;
+          if(!tgt)return;
+          var file=tgt.split('#')[0], id=tgt.split('#')[1];
+          /* the witness's passage in a small window: the reader stays put */
+          try{
+            fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+              if(!html){location.href=tgt;return;}
+              var doc=new DOMParser().parseFromString(html,'text/html');
+              var el=doc.getElementById(id);
+              var txt='';
+              if(el){
+                var cl=el.cloneNode(true);
+                cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
+                txt=cl.textContent.replace(/\s+/g,' ').trim();
+              }
+              openPop('<span class="k">'+esc(sig)+'</span>'
+                +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
+                +'<div class="meta"><a href="'+tgt+'">${t.openPage}</a></div>',bw);
+            })['catch'](function(){location.href=tgt;});
+          }catch(e){location.href=tgt;}
         });
         ev.stopPropagation();return;
       }
@@ -1534,13 +1600,28 @@ function buildInteractJS(t) {
       });
       if(rows){openPop(rows,ch);ev.stopPropagation();return;}
     }
-    var ent=ev.target.closest&&ev.target.closest('[data-ref]');
-    if(ent&&!body.classList.contains('ent-off')&&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
-      var ref=ent.dataset.ref;
-      var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
+    var ent=ev.target.closest&&ev.target.closest('[data-ref],[data-key]');
+    if(ent&&!ent.classList.contains('ent-ext')&&!body.classList.contains('ent-off')
+       &&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
+      /* the normalized name leads the card: @key IS the canonical form */
+      var ref=ent.dataset.ref||'';var key=ent.dataset.key||'';
+      var sel=ref?('[data-ref="'+CSS.escape(ref)+'"]'):('[data-key="'+CSS.escape(key)+'"]');
+      var all=document.querySelectorAll(sel);
+      var head=key||ent.textContent.trim();
+      var meta=[];
+      if(key&&ent.textContent.trim()!==key)meta.push(esc(ent.textContent.trim()));
+      if(ref)meta.push(esc(ref));
+      meta.push(all.length+' '+(all.length===1?'${t.occurrenceOne}':'${t.occurrenceMany}'));
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
-        +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'${t.occurrenceOne}':'${t.occurrenceMany}')+'</div>',ent);
+        +'<div>'+esc(head)+'</div>'
+        +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    var wv=ev.target.closest&&ev.target.closest('.wv');
+    if(wv&&wv._be){
+      var wband=wv._be.closest('.app-band');
+      openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
     }
     var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');
@@ -2155,6 +2236,7 @@ function isTheme(name) {
 
 
 const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas', 'map', 'data'];
+const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 function normalizeManifest(raw = {}) {
   const m = {
@@ -2167,6 +2249,11 @@ function normalizeManifest(raw = {}) {
       : null,
     // interface labels the edition's tradition wants otherwise (principle
     // 14): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
+    // the register's columns, chosen by the editor among the card fields
+    // the headers populate; unknown names are ignored with a warning
+    register: (raw.register && Array.isArray(raw.register.columns))
+      ? { columns: raw.register.columns.filter((c) => REGISTER_COLUMNS.includes(c)) }
+      : null,
     labels: (raw.labels && typeof raw.labels === 'object')
       ? Object.fromEntries(Object.entries(raw.labels)
           .filter(([, v]) => typeof v === 'string' && v.trim()))
@@ -2186,6 +2273,11 @@ function normalizeManifest(raw = {}) {
   };
   if (typeof raw.theme === 'string' && !isTheme(raw.theme)) {
     m.warnings.push(`unknown theme ignored: ${raw.theme}`);
+  }
+  if (raw.register && Array.isArray(raw.register.columns)) {
+    for (const c of raw.register.columns) {
+      if (!REGISTER_COLUMNS.includes(c)) m.warnings.push(`unknown register column ignored: ${c}`);
+    }
   }
   if (Array.isArray(raw.extra)) {
     for (const e of raw.extra) {
@@ -3095,7 +3187,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const DEFAULT = [
     ['index', model.collection ? T.archive : T.edition],
     ...(frontNode ? [['front', frontLabel]] : []),
-    ['text', T.text],
+    ['text', isCollection ? T.texts : T.text],
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
@@ -3111,7 +3203,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     pageList = manifest.pages
       .filter((p) => EXISTS[p.id])
       .map((p) => [p.id, p.label || DEFAULT.find(([id]) => id === p.id)?.[1] || p.id]);
-    if (!pageList.some(([id]) => id === 'text')) pageList.push(['text', T.text]);
+    if (!pageList.some(([id]) => id === 'text')) pageList.push(['text', isCollection ? T.texts : T.text]);
   }
   const pages = pageList.map(([id, label]) => [`${id}.html`, label]);
   const wanted = new Set(pageList.map(([id]) => id));
@@ -3361,6 +3453,27 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       });
     }
   } else {
+    // a document whose body is entries of bare app elements IS an
+    // apparatus: it renders expanded as a variant map (C41), and the
+    // register lists it apart from the texts
+    const isApparatusDoc = (doc) => {
+      const textNode = doc.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
+      const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
+      if (!body) return false;
+      let hasAb = false, ok = true;
+      const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
+      const check = (nd) => {
+        for (const c of nd.children) {
+          if (!ok) return;
+          if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
+          if (c.element === 'app') continue;
+          if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
+          ok = false;
+        }
+      };
+      check(body);
+      return ok && hasAb;
+    };
     // the register: columns exist only if the markup populates them
     const cards = model.documents.map((d) => d.card || { id: d.id });
     const has = {
@@ -3371,22 +3484,35 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       place: cards.some((c) => c.place),
       idno: cards.some((c) => c.idno),
     };
-    const cols = [
-      ...(has.date ? [['date', T.dateCol]] : []),
-      ['title', T.titleCol],
-      ...(has.from ? [['from', T.fromCol]] : []),
-      ...(has.to ? [['to', T.toCol]] : []),
-      ...(!has.from && has.author ? [['author', T.authorCol]] : []),
-      ...(has.place ? [['place', T.placeCol]] : []),
-      ...(has.idno ? [['idno', T.idnoCol]] : []),
-    ];
+    // two shapes of register, decided by the majority of the markup: a
+    // correspondence reads from-to-date, an archive of works reads
+    // author-title-year; the manifest chooses otherwise when it wants
+    const COL_LABELS = {
+      date: T.dateCol, title: T.titleCol, from: T.fromCol, to: T.toCol,
+      author: T.authorCol, place: T.placeCol, idno: T.idnoCol,
+    };
+    const corr = cards.filter((c) => c.from && c.from.length).length
+      > cards.filter((c) => c.author).length;
+    let colKeys = corr
+      ? ['date', 'title', 'from', 'to', 'place', 'idno']
+      : ['author', 'title', 'date', 'place', 'idno'];
+    if (manifest.register && manifest.register.columns && manifest.register.columns.length) {
+      colKeys = manifest.register.columns;
+      // the title column is the way into the documents: it always stays
+      if (!colKeys.includes('title')) colKeys = ['title', ...colKeys];
+    }
+    const cols = colKeys
+      .filter((k) => k === 'title' || has[k])
+      .map((k) => [k, COL_LABELS[k]]);
     let reg = `<main id="main" class="torchio" style="max-width:64rem">`
       + `<input class="reg-filter" type="search" placeholder="${T.filter}" aria-label="${T.filter}">`
-      + `<span class="reg-count">${cards.length} / ${cards.length}</span>`
+      + `<span class="reg-count">${model.documents.filter((d) => !isApparatusDoc(d)).length} ${T.documentsN}</span>`
       + `<table class="reg-table idx-table"><thead><tr>`
       + cols.map(([, label]) => `<th scope="col">${escapeHTML(label)}</th>`).join('')
       + `</tr></thead><tbody>`;
-    for (const d of model.documents) {
+    const textDocs = model.documents.filter((d) => !isApparatusDoc(d));
+    const appDocs = model.documents.filter((d) => isApparatusDoc(d));
+    for (const d of textDocs) {
       const c = d.card || {};
       const cells = cols.map(([key]) => {
         if (key === 'title') {
@@ -3402,7 +3528,15 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
         .filter(Boolean).join(' ').toLowerCase();
       reg += `<tr data-search="${escapeHTML(search)}">${cells}</tr>`;
     }
-    reg += '</tbody></table></main>';
+    reg += '</tbody></table>';
+    if (appDocs.length) {
+      reg += `<h2 class="sec">${T.apparatus}</h2><table class="wit-table">`;
+      for (const d of appDocs) {
+        reg += `<tr><td><a href="${docFiles.get(d.id)}">${escapeHTML((d.card && d.card.title) || d.id)}</a></td></tr>`;
+      }
+      reg += '</table>';
+    }
+    reg += '</main>';
     out['text.html'] = chrome({
       title: t, sub: `${model.documents.length} ${T.documentsN}`, active: 'text.html',
       pages, body: reg, script: registerJS, t: T, lang, theme, parent,
@@ -3412,27 +3546,12 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     for (let i = 0; i < model.documents.length; i++) {
       const d = model.documents[i];
       const c = d.card || {};
-      // a document whose body is entries of bare app elements IS an
-      // apparatus: it renders expanded, every reading with its witnesses
-      // and count, not only the lemmata (C32)
-      const isAppDoc = (() => {
-        const textNode = d.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
-        const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
-        if (!body) return false;
-        let hasAb = false, ok = true;
-        const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
-        const check = (nd) => {
-          for (const c of nd.children) {
-            if (!ok) return;
-            if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
-            if (c.element === 'app') continue;
-            if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
-            ok = false;
-          }
-        };
-        check(body);
-        return ok && hasAb;
-      })();
+      const isAppDoc = isApparatusDoc(d);
+      // the classical convention for long lemmata: first words, dots, last words
+      const abbrev = (txt, head = 4, tail = 3, max = 12) => {
+        const w = txt.split(/\s+/).filter(Boolean);
+        return w.length > max ? `${w.slice(0, head).join(' ')} … ${w.slice(-tail).join(' ')}` : txt;
+      };
       const cleanText = (nd) => {
         let outT = '';
         for (const ch of nd.children) {
@@ -3456,7 +3575,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
             const rdgs = app.children.filter((c) => typeof c !== 'string' && c.element === 'rdg');
             const isLac = (app.atts.type || '') === 'lac';
             v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}">`;
-            if (!isLac) v += `<span class="vmap-lem">${escapeHTML(lem ? cleanText(lem).trim() : '')}</span>`;
+            if (!isLac) v += `<span class="vmap-lem">${escapeHTML(abbrev(lem ? cleanText(lem).trim() : ''))}</span>`;
             for (const r of rdgs) {
               const wits = (r.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, ''));
               const rt = cleanText(r).trim();
@@ -3483,8 +3602,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            entries.push(`<span class="band-e"><span class="band-lem">${escapeHTML(a.lemma || '')}</span>] `
-              + others.map((r) => `${escapeHTML(r.text.trim() || '(om.)')} <span class="band-wit">`
+            entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
+              + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')
                 + `</span>`).join('; ')
               + `</span>`);
@@ -4202,8 +4321,28 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       pages: null,
       pagesFromManifest: Array.isArray(raw.pages) ? raw.pages : null,
       extra: droppedExtra.map((e) => ({ id: e.id, label: e.label, md: e.md, html: e.html })),
+      // register columns: null = derived by the engine; an array = chosen
+      registerColumns: (raw.register && Array.isArray(raw.register.columns))
+        ? raw.register.columns.slice() : null,
     };
     return ui;
+  }
+
+  /** Which card fields the headers actually populate (collections only). */
+  function availableColumns() {
+    const docs = S.model.documents || [];
+    if (docs.length < 2) return [];
+    const cards = docs.map((d) => d.card || {});
+    const hasIt = {
+      author: cards.some((c) => c.author),
+      title: true,
+      date: cards.some((c) => c.date),
+      from: cards.some((c) => c.from && c.from.length),
+      to: cards.some((c) => c.to && c.to.length),
+      place: cards.some((c) => c.place),
+      idno: cards.some((c) => c.idno),
+    };
+    return ['author', 'title', 'date', 'from', 'to', 'place', 'idno'].filter((k) => hasIt[k]);
   }
 
   /** The manifest the interface writes: only what deviates, never noise. */
@@ -4226,6 +4365,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
           .map((id) => (ui.pages[id].label ? { id, label: ui.pages[id].label } : id));
       }
     }
+    if (ui.registerColumns) m.register = { columns: ui.registerColumns };
     if (!ui.pieces.apparatus || !ui.pieces.entities || !ui.pieces.choice) {
       m.pieces = {};
       for (const k of ['apparatus', 'entities', 'choice']) {
@@ -4386,6 +4526,28 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + 'written in Markdown, part of the site navigation</span></p>'
       + '</fieldset>';
 
+    // the register's columns, for collections: chosen among the fields the
+    // headers populate; the engine's default follows the majority (a
+    // correspondence reads from-to, an archive of works author-title-year)
+    const avail = availableColumns();
+    if (avail.length) {
+      const cards = S.model.documents.map((d) => d.card || {});
+      const corr = cards.filter((c) => c.from && c.from.length).length
+        > cards.filter((c) => c.author).length;
+      const engineDefault = (corr
+        ? ['date', 'title', 'from', 'to', 'place', 'idno']
+        : ['author', 'title', 'date', 'place', 'idno']).filter((k) => avail.includes(k));
+      const current = ui.registerColumns || engineDefault;
+      html += '<fieldset><legend>Register columns</legend>';
+      for (const k of avail) {
+        html += '<label><input type="checkbox" data-regcol="' + esc(k) + '"'
+          + (current.includes(k) ? ' checked' : '') + (k === 'title' ? ' disabled' : '')
+          + '> ' + esc(k) + '</label> ';
+      }
+      html += '<p class="note">Fields come from each document’s teiHeader; '
+        + 'the title stays: it is the way into the documents.</p></fieldset>';
+    }
+
     html += '<fieldset><legend>Pieces and data</legend>'
       + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
       + '> apparatus popups</label> '
@@ -4445,6 +4607,16 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     for (const field of composeBox.querySelectorAll('[data-pagelabel]')) {
       field.addEventListener('input', () => {
         ui.pages[field.dataset.pagelabel].label = field.value;
+        recompose();
+      });
+    }
+    for (const box of composeBox.querySelectorAll('[data-regcol]')) {
+      box.addEventListener('input', () => {
+        const order = ['author', 'title', 'date', 'from', 'to', 'place', 'idno'];
+        const chosen = [...composeBox.querySelectorAll('[data-regcol]')]
+          .filter((b) => b.checked || b.dataset.regcol === 'title')
+          .map((b) => b.dataset.regcol);
+        ui.registerColumns = order.filter((k) => chosen.includes(k));
         recompose();
       });
     }

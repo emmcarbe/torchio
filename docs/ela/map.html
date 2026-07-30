@@ -107,7 +107,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -124,6 +124,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -282,7 +283,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>Eurasian Latin Archive</h1><p class="sub">map</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html">Text</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html" class="on">Map</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html">Texts</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html" class="on">Map</a><a href="data.html">Data</a></nav>
 </header>
 <main id="main" class="torchio" style="max-width:64rem"><link rel="stylesheet" href="assets/leaflet/leaflet.css"><div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px" role="region" aria-label="Map of the places of the edition"></div><script src="assets/leaflet/leaflet.js"></script><script>
 var map=L.map('map',{scrollWheelZoom:false});

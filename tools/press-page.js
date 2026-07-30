@@ -213,8 +213,28 @@
       pages: null,
       pagesFromManifest: Array.isArray(raw.pages) ? raw.pages : null,
       extra: droppedExtra.map((e) => ({ id: e.id, label: e.label, md: e.md, html: e.html })),
+      // register columns: null = derived by the engine; an array = chosen
+      registerColumns: (raw.register && Array.isArray(raw.register.columns))
+        ? raw.register.columns.slice() : null,
     };
     return ui;
+  }
+
+  /** Which card fields the headers actually populate (collections only). */
+  function availableColumns() {
+    const docs = S.model.documents || [];
+    if (docs.length < 2) return [];
+    const cards = docs.map((d) => d.card || {});
+    const hasIt = {
+      author: cards.some((c) => c.author),
+      title: true,
+      date: cards.some((c) => c.date),
+      from: cards.some((c) => c.from && c.from.length),
+      to: cards.some((c) => c.to && c.to.length),
+      place: cards.some((c) => c.place),
+      idno: cards.some((c) => c.idno),
+    };
+    return ['author', 'title', 'date', 'from', 'to', 'place', 'idno'].filter((k) => hasIt[k]);
   }
 
   /** The manifest the interface writes: only what deviates, never noise. */
@@ -237,6 +257,7 @@
           .map((id) => (ui.pages[id].label ? { id, label: ui.pages[id].label } : id));
       }
     }
+    if (ui.registerColumns) m.register = { columns: ui.registerColumns };
     if (!ui.pieces.apparatus || !ui.pieces.entities || !ui.pieces.choice) {
       m.pieces = {};
       for (const k of ['apparatus', 'entities', 'choice']) {
@@ -397,6 +418,28 @@
       + 'written in Markdown, part of the site navigation</span></p>'
       + '</fieldset>';
 
+    // the register's columns, for collections: chosen among the fields the
+    // headers populate; the engine's default follows the majority (a
+    // correspondence reads from-to, an archive of works author-title-year)
+    const avail = availableColumns();
+    if (avail.length) {
+      const cards = S.model.documents.map((d) => d.card || {});
+      const corr = cards.filter((c) => c.from && c.from.length).length
+        > cards.filter((c) => c.author).length;
+      const engineDefault = (corr
+        ? ['date', 'title', 'from', 'to', 'place', 'idno']
+        : ['author', 'title', 'date', 'place', 'idno']).filter((k) => avail.includes(k));
+      const current = ui.registerColumns || engineDefault;
+      html += '<fieldset><legend>Register columns</legend>';
+      for (const k of avail) {
+        html += '<label><input type="checkbox" data-regcol="' + esc(k) + '"'
+          + (current.includes(k) ? ' checked' : '') + (k === 'title' ? ' disabled' : '')
+          + '> ' + esc(k) + '</label> ';
+      }
+      html += '<p class="note">Fields come from each document’s teiHeader; '
+        + 'the title stays: it is the way into the documents.</p></fieldset>';
+    }
+
     html += '<fieldset><legend>Pieces and data</legend>'
       + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
       + '> apparatus popups</label> '
@@ -456,6 +499,16 @@
     for (const field of composeBox.querySelectorAll('[data-pagelabel]')) {
       field.addEventListener('input', () => {
         ui.pages[field.dataset.pagelabel].label = field.value;
+        recompose();
+      });
+    }
+    for (const box of composeBox.querySelectorAll('[data-regcol]')) {
+      box.addEventListener('input', () => {
+        const order = ['author', 'title', 'date', 'from', 'to', 'place', 'idno'];
+        const chosen = [...composeBox.querySelectorAll('[data-regcol]')]
+          .filter((b) => b.checked || b.dataset.regcol === 'title')
+          .map((b) => b.dataset.regcol);
+        ui.registerColumns = order.filter((k) => chosen.includes(k));
         recompose();
       });
     }

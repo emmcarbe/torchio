@@ -77,6 +77,9 @@ body.notes-off .t-note-mark{opacity:.25}
 
 .t-app .t-rdg{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+  border-bottom:none;margin-right:.5em;vertical-align:.08em}
 .t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
 
 footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
@@ -130,6 +133,8 @@ body.notes-dense.notes-off .t-note-mark{cursor:default}
 body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
 body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
 body.mode-read .t-del{display:none}
+body.mode-read .t-am{display:none}
+body.mode-dipl .t-ex{display:none}
 body.mode-read .t-lb br{display:none}
 body.mode-read .t-lb::after{content:" "}
 body.mode-read .t-lb[data-break="no"]::after{content:none}
@@ -253,7 +258,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div class="tt"><h1>Vincent van Gogh, the letters</h1><p class="sub">data</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html">Text</a><a href="data.html" class="on">Data</a></nav>
 </header>
-<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">2.6 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
+<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">2.6 MB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>the token stream of the reading text: position, language, form, lemma, anchor</td><td class="occ">888.1 KB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 
 </body>

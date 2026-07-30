@@ -716,6 +716,31 @@ console.log('the archive — a loose collection presents the project, not a docu
     'a uniform licence across the archive surfaces on the home');
 }
 
+console.log('the register — two shapes, and the editor chooses the columns');
+{
+  const { pressSite } = await import('../src/site.js');
+  const map = buildClassMap(null, data);
+  const work = (title, author, when) => `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>${title}</title><author>${author}</author></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc></fileDesc>
+    <profileDesc><creation><date when="${when}">${when}</date></creation></profileDesc>
+  </teiHeader><text><body><p>${title}.</p></body></text></TEI>`;
+  const m = buildModel([
+    { id: 'a', root: parseXML(work('Historia', 'Martini', '1654')) },
+    { id: 'b', root: parseXML(work('Relatio', 'Carpini', '1247')) },
+  ], map);
+  const site = pressSite(m, { manifest: { title: 'Opere' } });
+  const head = site['text.html'].match(/<thead>[^]*?<\/thead>/)[0];
+  ok(/Author[^]*Title[^]*Date/.test(head) && !head.includes('From'),
+    'an archive of works reads author-title-year, not from-to: the majority of the markup decides');
+  ok(site['text.html'].includes('>Texts<') || site['index.html'].includes('>Texts<'),
+    'a collection calls the register page Texts, not Text');
+  const chosen = pressSite(m, { manifest: { title: 'Opere', register: { columns: ['date', 'author'] } } });
+  const head2 = chosen['text.html'].match(/<thead>[^]*?<\/thead>/)[0];
+  ok(/Title[^]*Date[^]*Author/.test(head2) && !head2.includes('Place'),
+    'the manifest chooses columns and order; the title column always stays (the way in)');
+}
+
 console.log('authority refs — an external @ref is an identity declaration');
 {
   const { pressSite } = await import('../src/site.js');
