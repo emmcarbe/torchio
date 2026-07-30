@@ -345,7 +345,16 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         var continuing=carry&&!/^\s/.test(v);
         parts.forEach(function(pt){
           if(!pt)return;
-          if(/^\s+$/.test(pt)){continuing=false;frag.appendChild(document.createTextNode(pt));return;}
+          if(/^\s+$/.test(pt)){
+            continuing=false;
+            /* a space inside one variant site keeps the underline running */
+            if(map[idx]&&map[idx]===map[idx+1]){
+              var ss=document.createElement('span');
+              ss.className='wv';ss.textContent=pt;ss._be=map[idx];
+              frag.appendChild(ss);
+            } else frag.appendChild(document.createTextNode(pt));
+            return;
+          }
           /* a word split across inline elements is one token */
           if(continuing){continuing=false;}
           else idx++;
