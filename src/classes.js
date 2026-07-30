@@ -11,12 +11,13 @@
  *   3. "base" — the guaranteed fallback: rendered, never invisible.
  */
 
-import { readFile } from 'node:fs/promises';
-
 let P5 = null;
 let SECTIONS = null;
 
 async function loadJSON(rel) {
+  // Dynamic import keeps this module loadable in the browser (path A),
+  // where loadBaseData is never called: the page embeds the data instead.
+  const { readFile } = await import('node:fs/promises');
   const url = new URL(`../data/${rel}`, import.meta.url);
   return JSON.parse(await readFile(url, 'utf-8'));
 }

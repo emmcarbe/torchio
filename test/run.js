@@ -432,4 +432,76 @@ console.log('collections — the register of anything');
   ok(sf['index.html'].includes('header-full'), 'full header also on single-document editions');
 }
 
+console.log('zip.js — the archive of path A');
+{
+  const { crc32, buildZip } = await import('../src/zip.js');
+  const vector = new TextEncoder().encode('123456789');
+  ok(crc32(vector) === 0xCBF43926, 'crc32 matches the reference vector');
+
+  const zip = buildZip({ 'index.html': '<p>ciao</p>', 'data/model.json': '{}' });
+  ok(zip[0] === 0x50 && zip[1] === 0x4B && zip[2] === 3 && zip[3] === 4,
+    'archive starts with a local file header');
+  const view = new DataView(zip.buffer, zip.byteOffset, zip.byteLength);
+  // end of central directory: signature + entry count
+  let eocd = -1;
+  for (let i = zip.length - 22; i >= 0; i--) {
+    if (view.getUint32(i, true) === 0x06054B50) { eocd = i; break; }
+  }
+  ok(eocd >= 0 && view.getUint16(eocd + 10, true) === 2,
+    'end record found, two entries declared');
+  // first entry: name and stored content readable back
+  const nameLen = view.getUint16(26, true);
+  const extraLen = view.getUint16(28, true);
+  const name = new TextDecoder().decode(zip.slice(30, 30 + nameLen));
+  const size = view.getUint32(22, true);
+  const content = new TextDecoder().decode(
+    zip.slice(30 + nameLen + extraLen, 30 + nameLen + extraLen + size));
+  ok(name === 'index.html' && content === '<p>ciao</p>',
+    'stored entry readable back, content intact');
+  const again = buildZip({ 'index.html': '<p>ciao</p>', 'data/model.json': '{}' });
+  ok(zip.length === again.length && zip.every((b, i) => b === again[i]),
+    'same input, same archive, byte for byte (D1 for path A)');
+}
+
+console.log('path A — the press in the browser');
+{
+  const { execFileSync } = await import('node:child_process');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const built = join(tmpdir(), `torchio-press-test-${process.pid}.html`);
+  execFileSync(process.execPath, [new URL('../tools/build-browser.js', import.meta.url).pathname, built]);
+  const page = await readFile(built, 'utf-8');
+  ok(page.includes('<title>Torchio · the press</title>'), 'the page is built');
+  ok(!page.includes("from 'node:"), 'no Node import survives in the page');
+
+  // the engine inside the page must press exactly like the modular engine
+  const start = page.indexOf('/* ==== torchio engine');
+  const end = page.indexOf('/* ==== torchio harness');
+  ok(start > 0 && end > start, 'engine and harness markers present');
+  const engineText = page.slice(start, end);
+  const sandbox = new Function(
+    engineText
+    + '\nreturn { buildClassMap, buildModel, pressSite, buildZip, TORCHIO_BASE_DATA };')();
+  ok(Object.keys(sandbox.TORCHIO_BASE_DATA.p5.elements).length > 500,
+    'base data embedded in the page');
+
+  const specimenXML = await readFile(new URL('../demo-src/specimen/specimen.xml', import.meta.url), 'utf-8');
+  const specimenManifest = JSON.parse(
+    await readFile(new URL('../demo-src/specimen/torchio.json', import.meta.url), 'utf-8'));
+
+  const modularMap = buildClassMap(null, data);
+  const modularModel = buildModel(parseXML(specimenXML), modularMap);
+  const { pressSite } = await import('../src/site.js');
+  const modularFiles = pressSite(modularModel, { manifest: specimenManifest, sourceXML: specimenXML });
+
+  const bundledMap = sandbox.buildClassMap(null, sandbox.TORCHIO_BASE_DATA);
+  const bundledModel = sandbox.buildModel(parseXML(specimenXML), bundledMap);
+  const bundledFiles = sandbox.pressSite(bundledModel, { manifest: specimenManifest, sourceXML: specimenXML });
+
+  ok(Object.keys(bundledFiles).join(',') === Object.keys(modularFiles).join(','),
+    'bundled engine presses the same pages as the modular engine');
+  ok(Object.entries(modularFiles).every(([n, c]) => bundledFiles[n] === c),
+    'every page byte-identical between browser bundle and modular engine');
+}
+
 console.log(`\n${passed} assertions passed.`);

@@ -23,6 +23,20 @@ page exists.
 Without `--site`, a single standalone HTML page is produced instead of a
 multi-page site.
 
+## In the browser, without installing anything
+
+The same engine runs in a single self-contained page:
+[the press in the browser](https://emmcarbe.github.io/torchio/press/).
+Choose the files of an edition (one or more TEI XML files, with
+`torchio.json`, `reconcile.json` and the extra pages it declares, if you
+have them), read the report, preview the pages, download the site as a
+`.zip`. Everything happens on your machine: nothing is uploaded anywhere.
+The page also works offline, saved locally and opened from `file://`.
+
+The page is generated from the engine modules by
+`node tools/build-browser.js`; the suite proves that the generated engine
+presses byte-identically to the modular one.
+
 ## What the press derives
 
 The direction matters: the edition declares, the press derives. Nothing in
