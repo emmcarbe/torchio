@@ -87,6 +87,7 @@ editorial genre.
 | 2026-07-30 | C61 | third machine audit | assignment | an `elementSpec mode="change"` that adds a class membership replaced the element's whole P5 membership, stripping the behaviour it inherited: memberships now merge |
 | 2026-07-30 | C62 | third machine audit | assignment | the register's own bookkeeping was wrong: two rows carried the number C45 and the totals no longer matched the table. Numbering and totals are now derived from the table itself |
 | 2026-07-30 | C63 | third machine audit, on chapter 12 of the Guidelines | extension | only one of the three ways of tying an apparatus to a text was derived. The press now tells them apart by what the `app` declares and wires all three: parallel segmentation in place, double-end-point attachment through its two anchors (the text between them becomes the clickable span), location-referenced through the canonical place its `@loc` names. An apparatus written outside the text now reaches it |
+| 2026-07-31 | C64 | third machine audit | structural change | the press was one block: a thousand-line module with a single function inside it, which is a door closed to anyone else. The page shell (chrome, header labels, safe serialization into a script, the register's own program) now lives in its own module, and the split was made under the only condition that proves it harmless: the pressed pages are byte-identical before and after |
 
-As of 30 July 2026: 63 corrections applied (44 assignments, 16 extensions, 3
+As of 31 July 2026: 64 corrections applied (44 assignments, 16 extensions, 4
 structural changes), 1 open.
