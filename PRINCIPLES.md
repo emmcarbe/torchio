@@ -61,7 +61,8 @@ positions, one representative each, not every existing tool.
 
 - **[EVT 2](https://evt.labcd.unipi.it/)** is the most widely used tool in Italy and among the best known
   internationally. It rests on AngularJS, unsupported since 2021. **EVT 3**
-  is in beta, with the migration under way. The tool is continuously
+  is published as a pre-release (currently 1.0.0-beta), with the migration
+  to Angular under way. The tool is continuously
   developed and remains one of the most important visualization projects.
 - **[CETEIcean](https://github.com/TEIC/CETEIcean)** (TEI-C) renders every TEI element as a custom element in the
   browser, without conversion: guaranteed rendering, with some limits: no
