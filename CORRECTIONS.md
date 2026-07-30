@@ -71,5 +71,8 @@ editorial genre.
 | 2026-07-30 | C46 | Canterbury Tales Project (GP), offered by the editor | assignment | with word-level triggers in place, the band printed under every verse duplicated the apparatus and buried the text: the band stays in the page as the data the popups read, invisible; the apparatus opens on the word or on the verse, and the toolbar switch silences it |
 | 2026-07-30 | C47 | Canterbury Tales Project (GP), offered by the editor | assignment | apparatus documents are not texts: they leave the register and live under their own page in the navigation |
 
-As of 30 July 2026: 47 corrections applied (31 assignments, 15 extensions, 1
+| 2026-07-30 | C48 | Romualdus Salernitanus (ed. Monella), public demo | assignment | an endnotes chapter ("Adnotationes criticae") pressed as a reading page is unreadable: standoff notes follow their targets, each pressed on the page of the passage it annotates, where the margin machinery pairs them; a section left with nothing but its heading never becomes a page, and the contents no longer promise it |
+| 2026-07-30 | C49 | Eurasian Latin Archive, public demo | assignment | long indices open with an index of the indices: one line of anchors (index of names, of places...) with the count of each section, derived, shown only when there is more than one section and enough entries |
+
+As of 30 July 2026: 49 corrections applied (33 assignments, 15 extensions, 1
 structural change), 1 open.

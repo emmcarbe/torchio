@@ -133,6 +133,10 @@ ${headerLabelCSS()}
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -488,6 +492,44 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     const frontOnOwnPage = !!frontNode && wanted.has('front');
     const backOnOwnPage = !!backNode && wanted.has('back');
     const header = model.documents[0].tree.children.find((c) => typeof c !== 'string' && c.element === 'teiHeader');
+
+    // standoff notes follow their targets: a note whose @target lives in
+    // another section is pressed on that section's page, where the margin
+    // machinery can pair it with its passage; a section left with nothing
+    // but a heading of relocated notes never becomes a reading page (the
+    // Romualdo "Adnotationes" case: endnotes are apparatus, not a chapter)
+    const idsOf = chunks.map((d) => {
+      const s = new Set();
+      for (const n of walkModel(d)) { s.add(n.id); if (n.atts['xml:id']) s.add(n.atts['xml:id']); }
+      return s;
+    });
+    const movedNotes = new Set();
+    const notesFor = chunks.map(() => []);
+    chunks.forEach((d, from) => {
+      for (const n of walkModel(d)) {
+        if (n.element !== 'note' || !n.atts.target) continue;
+        const tid = n.atts.target.split(/\s+/)[0].replace(/^#/, '');
+        if (!tid || idsOf[from].has(tid)) continue;
+        const to = idsOf.findIndex((s) => s.has(tid));
+        if (to >= 0) { notesFor[to].push(n); movedNotes.add(n.id); }
+      }
+    });
+    const pruneMoved = (node) => ({
+      ...node,
+      children: node.children
+        .filter((c) => typeof c === 'string' || !movedNotes.has(c.id))
+        .map((c) => (typeof c === 'string' ? c : pruneMoved(c))),
+    });
+    const pruned = chunks.map(pruneMoved);
+    // a chunk is empty when, past its own heading, no text remains
+    const keep = pruned.map((d) => {
+      const head = [...walkModel(d)].find((n) => n.element === 'head');
+      const total = textOfModel(d).trim().length;
+      return total > (head ? textOfModel(head).trim().length : 0);
+    });
+    chunks = pruned.filter((_, i) => keep[i]);
+    const keptNotes = notesFor.filter((_, i) => keep[i]);
+
     const files = chunks.map((d, i) => `text-${d.atts.n && /^[\w.-]+$/.test(d.atts.n) ? d.atts.n : i + 1}.html`);
     // contents page
     let toc = `<main id="main" class="torchio"><ol class="toc">`;
@@ -509,9 +551,12 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         + `<a href="text.html">${T.contents}</a>`
         + (i < chunks.length - 1 ? `<a href="${files[i + 1]}">${T.next}</a>` : '<span></span>')
         + `</nav>`;
+      const relocated = keptNotes[i].length
+        ? `<section class="standoff-notes">${keptNotes[i].map((n) => renderBase(n)).join('')}</section>`
+        : '';
       out[files[i]] = chrome({
         title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${nav}</main>`,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     });
@@ -701,7 +746,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
+            const lemNorm = (a.lemma || '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '').slice(0, 16);
+            entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}" data-check="${escapeHTML(lemNorm)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
               + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')
                 + `</span>`).join('; ')
@@ -747,10 +793,23 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   if (hasIndices && wanted.has('indices')) {
     let idx = '<main id="main" class="torchio">';
     const sections = [[T.people, reg.people], [T.places, reg.places], [T.orgs, reg.orgs]];
+    // long indices open with an index of the indices: one line of anchors
+    // (index of names, of places...) with the count of each
+    const shown = sections.filter(([, entries]) => hasOcc(entries));
+    const totalEntries = shown.reduce((s, [, entries]) => s + entries.length, 0);
+    if (shown.length > 1 && totalEntries > 30) {
+      idx += '<nav class="idx-toc" aria-label="' + T.indices + '">'
+        + shown.map(([label, entries], i) =>
+          `<a href="#idx-${i}">${escapeHTML(label)}</a> <span class="reg-count">${entries.length}</span>`)
+          .join(' · ')
+        + '</nav>';
+    }
+    let secIdx = -1;
     for (const [label, entries] of sections) {
       if (!hasOcc(entries)) continue; // an authority list without resolved
                                       // occurrences stays in the data exports
-      idx += `<h2 class="sec">${label}</h2><table class="idx-table">`;
+      secIdx++;
+      idx += `<h2 class="sec" id="idx-${secIdx}">${label}</h2><table class="idx-table">`;
       for (const e of [...entries].sort((a, b) => a.label.localeCompare(b.label))) {
         const occ = e.occurrences.slice(0, 12)
           .map((id, i) => `<a href="${pageFor(id)}#${escapeHTML(id)}">${i + 1}</a>`).join('');

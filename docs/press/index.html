@@ -1389,7 +1389,10 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -1420,6 +1423,7 @@ function buildInteractJS(t) {
 (function(){
   var body=document.body; body.classList.add('mode-read');
   if(document.querySelector('.app-band'))body.classList.add('has-band');
+  if(window.TORCHIO_ALIGN)body.classList.add('has-align');
   /* words covered by an apparatus entry become triggers: the reader clicks
      the word and sees its variants (positions from the declared @from/@to) */
   function wireWords(){
@@ -1437,27 +1441,50 @@ function buildInteractJS(t) {
       });
       var walker=document.createTreeWalker(l,NodeFilter.SHOW_TEXT,null);
       var nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
-      var idx=0, carry=false;
+      /* pass 1: tokens (standalone punctuation is not a token) */
+      var toks=[]; var idx=0, carry=false;
       nodes.forEach(function(tn){
         var v=tn.nodeValue;
         if(!/\\S/.test(v)){ if(/\\s/.test(v))carry=false; return; }
         var parts=v.split(/(\\s+)/);
-        var frag=document.createDocumentFragment();
         var continuing=carry&&!/^\\s/.test(v);
         parts.forEach(function(pt){
           if(!pt)return;
-          if(/^\\s+$/.test(pt)){continuing=false;frag.appendChild(document.createTextNode(pt));return;}
-          /* a word split across inline elements is one token */
-          if(continuing){continuing=false;}
-          else idx++;
-          var e=map[idx];
-          if(!e){frag.appendChild(document.createTextNode(pt));return;}
+          if(/^\\s+$/.test(pt)){continuing=false;toks.push({sp:true,node:tn,text:pt,i:idx});return;}
+          var punct=!/[\\p{L}\\p{N}]/u.test(pt);
+          if(continuing){continuing=false;toks.push({node:tn,text:pt,i:idx,cont:true});return;}
+          if(punct){toks.push({node:tn,text:pt,i:idx,punct:true});return;}
+          idx++;
+          toks.push({node:tn,text:pt,i:idx});
+        });
+        carry=!/\\s$/.test(v);
+      });
+      function norm(x){return x.toLowerCase().replace(/[^\\p{L}\\p{N}]/gu,'');}
+      /* pass 2: each entry claims its range only if the words match the lemma */
+      var claim={};
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        var a=Math.ceil(f/2), b=Math.floor(t/2);
+        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
+        var chk=e.getAttribute('data-check')||'';
+        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
+        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+      });
+      /* pass 3: wrap, spaces inside one site keep the line running */
+      var byNode=new Map();
+      toks.forEach(function(tk){ if(!byNode.has(tk.node))byNode.set(tk.node,[]); byNode.get(tk.node).push(tk); });
+      byNode.forEach(function(list,tn){
+        var frag=document.createDocumentFragment(); var wrapped=false;
+        list.forEach(function(tk){
+          var e=null;
+          if(tk.sp){ if(claim[tk.i]&&claim[tk.i]===claim[tk.i+1])e=claim[tk.i]; }
+          else if(!tk.punct){ e=claim[tk.i]; }
+          if(!e){frag.appendChild(document.createTextNode(tk.text));return;}
           var sp=document.createElement('span');
-          sp.className='wv';sp.textContent=pt;sp._be=e;
-          frag.appendChild(sp);
+          sp.className='wv';sp.textContent=tk.text;sp._be=e;
+          frag.appendChild(sp);wrapped=true;
         });
         tn.parentNode.replaceChild(frag,tn);
-        carry=!/\\s$/.test(v);
       });
       }catch(e){/* one bad band must not silence the rest */}
     });
@@ -1618,10 +1645,35 @@ function buildInteractJS(t) {
       ev.stopPropagation();return;
     }
     var wv=ev.target.closest&&ev.target.closest('.wv');
-    if(wv&&wv._be){
+    if(wv&&wv._be&&!body.classList.contains('app-off')){
       var wband=wv._be.closest('.app-band');
       openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
+      ev.stopPropagation();return;
+    }
+    var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')
+       &&!(lw.nextElementSibling&&lw.nextElementSibling.classList&&lw.nextElementSibling.classList.contains('app-band'))){
+      var CFG=window.TORCHIO_ALIGN;
+      var key=String(lw.getAttribute('data-n'));
+      try{ if(CFG.strip)key=key.replace(new RegExp(CFG.strip),''); if(CFG.suffix)key=key.replace(new RegExp(CFG.suffix),''); }catch(e){}
+      withAlign(function(map){
+        var row=map[key]; if(!row)return;
+        var tgt=null;
+        (CFG.apps||[]).some(function(a){ if(row[a]){tgt=row[a];return true;} return false; });
+        if(!tgt)return;
+        var file=tgt.split('#')[0], id=tgt.split('#')[1];
+        fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+          if(!html)return;
+          var doc=new DOMParser().parseFromString(html,'text/html');
+          var el=doc.getElementById(id);
+          var sec=el&&el.closest?el.closest('.vmap')||el:el;
+          if(!sec)return;
+          openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+            +'<div class="popband" data-ent="'+esc(key)+'">'+sec.innerHTML+'</div>'
+            +'<div class="meta"><a href="'+tgt+'">${t.openPage}</a></div>',lw);
+        })['catch'](function(){});
+      });
       ev.stopPropagation();return;
     }
     var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');
@@ -3028,8 +3080,8 @@ ${headerLabelCSS()}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
-.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
-  padding-left:1.2em}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
 .app-band .bw{color:var(--accent);cursor:pointer}
 .app-band .bw:hover{text-decoration:underline}
@@ -3039,6 +3091,10 @@ ${headerLabelCSS()}
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -3183,11 +3239,34 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const frontLabel = sectionLabel(frontNode, T.front);
   const backLabel = sectionLabel(backNode, T.back);
 
+  // a document whose body is entries of bare app elements IS an apparatus:
+  // it renders as a variant map (C41) and lives under its own page
+  const isApparatusDoc = (doc) => {
+    const tn = doc.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
+    const bd = tn && tn.children.find((c) => typeof c !== 'string' && c.element === 'body');
+    if (!bd) return false;
+    let hasAb = false, ok = true;
+    const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
+    const chk = (nd) => {
+      for (const c of nd.children) {
+        if (!ok) return;
+        if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
+        if (c.element === 'app') continue;
+        if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; chk(c); continue; }
+        ok = false;
+      }
+    };
+    chk(bd);
+    return ok && hasAb;
+  };
+  const hasAppDocs = isCollection && model.documents.some(isApparatusDoc);
+
   // The markup decides existence; the manifest decides presence, order, labels.
   const DEFAULT = [
     ['index', model.collection ? T.archive : T.edition],
     ...(frontNode ? [['front', frontLabel]] : []),
     ['text', isCollection ? T.texts : T.text],
+    ...(hasAppDocs ? [['apparatus', T.apparatus]] : []),
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
@@ -3195,7 +3274,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
-  const EXISTS = { index: true, front: !!frontNode, text: true, back: !!backNode,
+  const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, back: !!backNode,
     indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
@@ -3371,6 +3450,44 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     const frontOnOwnPage = !!frontNode && wanted.has('front');
     const backOnOwnPage = !!backNode && wanted.has('back');
     const header = model.documents[0].tree.children.find((c) => typeof c !== 'string' && c.element === 'teiHeader');
+
+    // standoff notes follow their targets: a note whose @target lives in
+    // another section is pressed on that section's page, where the margin
+    // machinery can pair it with its passage; a section left with nothing
+    // but a heading of relocated notes never becomes a reading page (the
+    // Romualdo "Adnotationes" case: endnotes are apparatus, not a chapter)
+    const idsOf = chunks.map((d) => {
+      const s = new Set();
+      for (const n of walkModel(d)) { s.add(n.id); if (n.atts['xml:id']) s.add(n.atts['xml:id']); }
+      return s;
+    });
+    const movedNotes = new Set();
+    const notesFor = chunks.map(() => []);
+    chunks.forEach((d, from) => {
+      for (const n of walkModel(d)) {
+        if (n.element !== 'note' || !n.atts.target) continue;
+        const tid = n.atts.target.split(/\s+/)[0].replace(/^#/, '');
+        if (!tid || idsOf[from].has(tid)) continue;
+        const to = idsOf.findIndex((s) => s.has(tid));
+        if (to >= 0) { notesFor[to].push(n); movedNotes.add(n.id); }
+      }
+    });
+    const pruneMoved = (node) => ({
+      ...node,
+      children: node.children
+        .filter((c) => typeof c === 'string' || !movedNotes.has(c.id))
+        .map((c) => (typeof c === 'string' ? c : pruneMoved(c))),
+    });
+    const pruned = chunks.map(pruneMoved);
+    // a chunk is empty when, past its own heading, no text remains
+    const keep = pruned.map((d) => {
+      const head = [...walkModel(d)].find((n) => n.element === 'head');
+      const total = textOfModel(d).trim().length;
+      return total > (head ? textOfModel(head).trim().length : 0);
+    });
+    chunks = pruned.filter((_, i) => keep[i]);
+    const keptNotes = notesFor.filter((_, i) => keep[i]);
+
     const files = chunks.map((d, i) => `text-${d.atts.n && /^[\w.-]+$/.test(d.atts.n) ? d.atts.n : i + 1}.html`);
     // contents page
     let toc = `<main id="main" class="torchio"><ol class="toc">`;
@@ -3392,9 +3509,12 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
         + `<a href="text.html">${T.contents}</a>`
         + (i < chunks.length - 1 ? `<a href="${files[i + 1]}">${T.next}</a>` : '<span></span>')
         + `</nav>`;
+      const relocated = keptNotes[i].length
+        ? `<section class="standoff-notes">${keptNotes[i].map((n) => renderBase(n)).join('')}</section>`
+        : '';
       out[files[i]] = chrome({
         title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${nav}</main>`,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     });
@@ -3453,27 +3573,6 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       });
     }
   } else {
-    // a document whose body is entries of bare app elements IS an
-    // apparatus: it renders expanded as a variant map (C41), and the
-    // register lists it apart from the texts
-    const isApparatusDoc = (doc) => {
-      const textNode = doc.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
-      const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
-      if (!body) return false;
-      let hasAb = false, ok = true;
-      const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
-      const check = (nd) => {
-        for (const c of nd.children) {
-          if (!ok) return;
-          if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
-          if (c.element === 'app') continue;
-          if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
-          ok = false;
-        }
-      };
-      check(body);
-      return ok && hasAb;
-    };
     // the register: columns exist only if the markup populates them
     const cards = model.documents.map((d) => d.card || { id: d.id });
     const has = {
@@ -3528,15 +3627,18 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
         .filter(Boolean).join(' ').toLowerCase();
       reg += `<tr data-search="${escapeHTML(search)}">${cells}</tr>`;
     }
-    reg += '</tbody></table>';
-    if (appDocs.length) {
-      reg += `<h2 class="sec">${T.apparatus}</h2><table class="wit-table">`;
+    reg += '</tbody></table></main>';
+    if (appDocs.length && wanted.has('apparatus')) {
+      let ap = `<main id="main" class="torchio"><table class="wit-table">`;
       for (const d of appDocs) {
-        reg += `<tr><td><a href="${docFiles.get(d.id)}">${escapeHTML((d.card && d.card.title) || d.id)}</a></td></tr>`;
+        ap += `<tr><td><a href="${docFiles.get(d.id)}">${escapeHTML((d.card && d.card.title) || d.id)}</a></td></tr>`;
       }
-      reg += '</table>';
+      ap += '</table></main>';
+      out['apparatus.html'] = chrome({
+        title: t, sub: T.apparatus.toLowerCase(), active: 'apparatus.html', pages,
+        body: ap, t: T, lang, theme, parent,
+      });
     }
-    reg += '</main>';
     out['text.html'] = chrome({
       title: t, sub: `${model.documents.length} ${T.documentsN}`, active: 'text.html',
       pages, body: reg, script: registerJS, t: T, lang, theme, parent,
@@ -3574,7 +3676,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
             const lem = app.children.find((c) => typeof c !== 'string' && c.element === 'lem');
             const rdgs = app.children.filter((c) => typeof c !== 'string' && c.element === 'rdg');
             const isLac = (app.atts.type || '') === 'lac';
-            v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}">`;
+            v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}" id="${escapeHTML(app.id)}">`;
             if (!isLac) v += `<span class="vmap-lem">${escapeHTML(abbrev(lem ? cleanText(lem).trim() : ''))}</span>`;
             for (const r of rdgs) {
               const wits = (r.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, ''));
@@ -3602,7 +3704,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
+            const lemNorm = (a.lemma || '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '').slice(0, 16);
+            entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}" data-check="${escapeHTML(lemNorm)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
               + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')
                 + `</span>`).join('; ')
@@ -3629,10 +3732,17 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
         + `<a href="text.html">${T.register}</a>`
         + (next ? `<a href="${docFiles.get(next.id)}">${T.next}</a>` : '<span></span>')
         + `</nav>`;
+      const alignCfg = (alignKey && manifest.align)
+        ? `window.TORCHIO_ALIGN=${JSON.stringify({
+            strip: manifest.align.strip || null,
+            suffix: manifest.align.stripSuffix || null,
+            apps: model.documents.filter((x) => isApparatusDoc(x)).map((x) => x.id),
+          })};`
+        : '';
       out[docFiles.get(d.id)] = chrome({
-        title: c.title || d.id, sub: t, active: 'text.html', pages, bodyClass: offClasses,
+        title: c.title || d.id, sub: t, active: isAppDoc ? 'apparatus.html' : 'text.html', pages, bodyClass: offClasses,
         body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme, parent,
+        script: alignCfg + buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
   }
@@ -3641,10 +3751,23 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   if (hasIndices && wanted.has('indices')) {
     let idx = '<main id="main" class="torchio">';
     const sections = [[T.people, reg.people], [T.places, reg.places], [T.orgs, reg.orgs]];
+    // long indices open with an index of the indices: one line of anchors
+    // (index of names, of places...) with the count of each
+    const shown = sections.filter(([, entries]) => hasOcc(entries));
+    const totalEntries = shown.reduce((s, [, entries]) => s + entries.length, 0);
+    if (shown.length > 1 && totalEntries > 30) {
+      idx += '<nav class="idx-toc" aria-label="' + T.indices + '">'
+        + shown.map(([label, entries], i) =>
+          `<a href="#idx-${i}">${escapeHTML(label)}</a> <span class="reg-count">${entries.length}</span>`)
+          .join(' · ')
+        + '</nav>';
+    }
+    let secIdx = -1;
     for (const [label, entries] of sections) {
       if (!hasOcc(entries)) continue; // an authority list without resolved
                                       // occurrences stays in the data exports
-      idx += `<h2 class="sec">${label}</h2><table class="idx-table">`;
+      secIdx++;
+      idx += `<h2 class="sec" id="idx-${secIdx}">${label}</h2><table class="idx-table">`;
       for (const e of [...entries].sort((a, b) => a.label.localeCompare(b.label))) {
         const occ = e.occurrences.slice(0, 12)
           .map((id, i) => `<a href="${pageFor(id)}#${escapeHTML(id)}">${i + 1}</a>`).join('');

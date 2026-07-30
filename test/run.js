@@ -716,6 +716,53 @@ console.log('the archive — a loose collection presents the project, not a docu
     'a uniform licence across the archive surfaces on the home');
 }
 
+console.log('standoff notes follow their targets; long indices open with their own index');
+{
+  const { pressSite } = await import('../src/site.js');
+  const map = buildClassMap(null, data);
+  // a long two-section body plus an endnotes div: the note targets a word
+  // in section one, so it must be pressed there, and the endnotes div,
+  // left with nothing but its heading, must not become a reading page
+  const pad = 'Lorem ipsum dolore magna aliqua. '.repeat(700);
+  const NOTED = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Cronaca</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc></teiHeader><text><body>
+    <div n="1"><head>Liber primus</head><p>Initium <seg xml:id="pass1">clarum</seg>. ${pad}</p></div>
+    <div n="2"><head>Liber secundus</head><p>${pad}</p></div>
+    <div type="notes"><head>Adnotationes critice</head>
+      <note target="#pass1" type="textcrit">Lectio dubia: clarum an carum.</note>
+    </div>
+  </body></text></TEI>`;
+  const site = pressSite(buildModel(parseXML(NOTED), map), {});
+  ok(!('text-notes.html' in site) && !Object.keys(site).some((k) => /text-(3|notes)/.test(k)),
+    'an endnotes div emptied by relocation never becomes a reading page');
+  ok(site['text-1.html'].includes('Lectio dubia')
+    && site['text-1.html'].includes('data-target="#pass1"')
+    && !site['text-2.html'].includes('Lectio dubia'),
+    'a standoff note is pressed on the page of its target, ready for the margin machinery');
+  ok(!site['text.html'].includes('Adnotationes'),
+    'the contents page no longer promises the endnotes chapter');
+
+  // the index of the indices: two sections and many entries open with anchors
+  let people = '';
+  let mentions = '';
+  for (let i = 0; i < 20; i++) {
+    people += `<person xml:id="p${i}"><persName>Persona ${i}</persName></person>`;
+    mentions += `<persName ref="#p${i}">P${i}</persName> in <placeName key="Locus ${i}">loco</placeName>. `;
+  }
+  const MANY = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Indici</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc></fileDesc>
+    <profileDesc><particDesc><listPerson>${people}</listPerson></particDesc></profileDesc>
+  </teiHeader><text><body><p>${mentions}</p></body></text></TEI>`;
+  const site2 = pressSite(buildModel(parseXML(MANY), map), {});
+  ok(site2['indices.html'].includes('class="idx-toc"')
+    && site2['indices.html'].includes('href="#idx-0"') && site2['indices.html'].includes('href="#idx-1"')
+    && site2['indices.html'].includes('id="idx-1"'),
+    'long indices open with an index of the indices, one anchor per section with its count');
+}
+
 console.log('the register — two shapes, and the editor chooses the columns');
 {
   const { pressSite } = await import('../src/site.js');
