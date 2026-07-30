@@ -535,6 +535,7 @@ function fit(){
   map.setView([cLat,cLon],Math.max(2,Math.min(12,z)));
 }
 fit();
+window.addEventListener('resize',function(){map.invalidateSize();fit();});
 `;
     let mapBody = `<main id="main" class="torchio" style="max-width:64rem">`
       + `<link rel="stylesheet" href="assets/leaflet/leaflet.css">`

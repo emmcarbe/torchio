@@ -1,17 +1,21 @@
 # Registro delle correzioni
 
-Il principio 13 di [PRINCIPI.md](PRINCIPI.md) reso operativo: ogni correzione
-imposta da un'edizione reale viene registrata qui, con la sua natura.
+Registro previsto dal principio 13 di [PRINCIPI.md](PRINCIPI.md). Ogni
+correzione richiesta da un'edizione reale viene registrata con data, edizione
+e tipo.
 
-Nature possibili:
+Tipi:
 
-- **assegnazione**: una cella della tabella classi verso comportamenti riceve
-  il valore giusto (classe dimenticata, priorità sbagliata, comportamento
-  promesso e non reso);
-- **estensione**: una capacità additiva entra nel motore o nei pezzi, senza
-  modificare comportamenti esistenti;
-- **chirurgia**: un comportamento esistente del motore va modificato. È la
-  natura che, se ricorrente, falsifica la tesi.
+- **assegnazione**: aggiunta o correzione di una voce nella tabella
+  classi-comportamenti;
+- **estensione**: aggiunta di una funzione, senza modifiche a quelle
+  esistenti;
+- **modifica strutturale**: modifica di un comportamento esistente del
+  motore.
+
+Condizioni di falsificazione della tesi (principio 13): modifiche
+strutturali frequenti, o correzioni che non diminuiscono con l'uso a parità
+di genere editoriale.
 
 | Data | # | Imposta da | Natura | Correzione |
 |---|---|---|---|---|
@@ -32,5 +36,5 @@ Nature possibili:
 | 2026-07-30 | C15 | Odissea (Perseus), demo pubblica | assegnazione | le partizioni strutturali del corpo (`div` di libro o sezione) diventano pagine con indice e navigazione, invece di una pagina unica |
 | 2026-07-30 | C16 | Bellum Alexandrinum (DLL), demo pubblica | assegnazione | le note (`note`) interrompevano la prosa come blocchi: ora sono postille nel margine destro dove lo schermo lo consente |
 
-Bilancio al 30 luglio 2026: sedici correzioni, di cui undici assegnazioni
-e cinque estensioni. Chirurgia: zero.
+Al 30 luglio 2026: 16 correzioni (11 assegnazioni, 5 estensioni, 0
+modifiche strutturali).
