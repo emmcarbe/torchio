@@ -61,6 +61,7 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
 .t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
 .t-app .t-note{display:none}
+@media(min-width:1180px){.t-app .t-note{display:block}}
 .t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
 body.notes-off .t-note{display:none}
 body.notes-off .t-note-mark{opacity:.25}
@@ -149,6 +150,7 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full span[data-el]+span[data-el],.t-teiHeader span[data-el]+span[data-el]{margin-left:.3em}
 .header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
 .header-full div[data-el="fileDesc"]::before{content:"File Description"}
 .header-full div[data-el="titleStmt"]::before{content:"Title"}
@@ -246,7 +248,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
             <span id="doc0:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
          </span>
          <span id="doc0:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
-            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note">Text scanned at U. Chicago in 1989. Basic SGML
+            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
                tagging by Lauren Burka and Chiara Thayer.</div>
          </span>
          <div id="doc0:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
@@ -763,7 +765,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader')&&!n.closest('.t-app');});
+      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
     if(window.innerWidth<1180||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
@@ -775,6 +777,8 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
+      var app=n.closest('.t-app');
+      if(app){return app.querySelector('[data-el="lem"]')||app;}
       var t=n.dataset.target;
       if(t){
         var id=t.split(/s+/)[0].replace(/^#/,'');
@@ -787,9 +791,16 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     }
     var lastBottom=0;
     var items=notes.map(function(n){
+      var flowY=n.getBoundingClientRect().top-mr.top;
       var a=anchorOf(n);
-      var y=0;
-      if(a){var r=a.getBoundingClientRect();if(r.width||r.height)y=r.top-mr.top;}
+      var y=flowY;
+      if(a){
+        var r=a.getBoundingClientRect();
+        var ay=(r.width||r.height)?r.top-mr.top:null;
+        // a real anchor precedes its note in the flow; a target sitting
+        // beside the note block is no anchor at all
+        if(ay!==null&&ay<flowY-40){y=ay;}else{a=null;}
+      }
       return {n:n,a:a,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
@@ -813,7 +824,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
         }
       }
     });
-    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
+    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
@@ -864,7 +875,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader')&&!n.closest('.t-app');});
+      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
     if(window.innerWidth<1180||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
@@ -876,6 +887,8 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
+      var app=n.closest('.t-app');
+      if(app){return app.querySelector('[data-el="lem"]')||app;}
       var t=n.dataset.target;
       if(t){
         var id=t.split(/s+/)[0].replace(/^#/,'');
@@ -888,9 +901,16 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     }
     var lastBottom=0;
     var items=notes.map(function(n){
+      var flowY=n.getBoundingClientRect().top-mr.top;
       var a=anchorOf(n);
-      var y=0;
-      if(a){var r=a.getBoundingClientRect();if(r.width||r.height)y=r.top-mr.top;}
+      var y=flowY;
+      if(a){
+        var r=a.getBoundingClientRect();
+        var ay=(r.width||r.height)?r.top-mr.top:null;
+        // a real anchor precedes its note in the flow; a target sitting
+        // beside the note block is no anchor at all
+        if(ay!==null&&ay<flowY-40){y=ay;}else{a=null;}
+      }
       return {n:n,a:a,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
@@ -914,7 +934,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
         }
       }
     });
-    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
+    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();

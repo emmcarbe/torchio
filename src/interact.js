@@ -91,7 +91,7 @@ export function buildInteractJS(t) {
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader')&&!n.closest('.t-app');});
+      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
     if(window.innerWidth<1180||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
@@ -103,6 +103,8 @@ export function buildInteractJS(t) {
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
+      var app=n.closest('.t-app');
+      if(app){return app.querySelector('[data-el="lem"]')||app;}
       var t=n.dataset.target;
       if(t){
         var id=t.split(/\s+/)[0].replace(/^#/,'');
@@ -115,9 +117,16 @@ export function buildInteractJS(t) {
     }
     var lastBottom=0;
     var items=notes.map(function(n){
+      var flowY=n.getBoundingClientRect().top-mr.top;
       var a=anchorOf(n);
-      var y=0;
-      if(a){var r=a.getBoundingClientRect();if(r.width||r.height)y=r.top-mr.top;}
+      var y=flowY;
+      if(a){
+        var r=a.getBoundingClientRect();
+        var ay=(r.width||r.height)?r.top-mr.top:null;
+        // a real anchor precedes its note in the flow; a target sitting
+        // beside the note block is no anchor at all
+        if(ay!==null&&ay<flowY-40){y=ay;}else{a=null;}
+      }
       return {n:n,a:a,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
@@ -141,7 +150,7 @@ export function buildInteractJS(t) {
         }
       }
     });
-    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
+    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
@@ -192,7 +201,7 @@ export function buildInteractJS(t) {
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader')&&!n.closest('.t-app');});
+      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
     if(window.innerWidth<1180||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
@@ -204,6 +213,8 @@ export function buildInteractJS(t) {
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
+      var app=n.closest('.t-app');
+      if(app){return app.querySelector('[data-el="lem"]')||app;}
       var t=n.dataset.target;
       if(t){
         var id=t.split(/\s+/)[0].replace(/^#/,'');
@@ -216,9 +227,16 @@ export function buildInteractJS(t) {
     }
     var lastBottom=0;
     var items=notes.map(function(n){
+      var flowY=n.getBoundingClientRect().top-mr.top;
       var a=anchorOf(n);
-      var y=0;
-      if(a){var r=a.getBoundingClientRect();if(r.width||r.height)y=r.top-mr.top;}
+      var y=flowY;
+      if(a){
+        var r=a.getBoundingClientRect();
+        var ay=(r.width||r.height)?r.top-mr.top:null;
+        // a real anchor precedes its note in the flow; a target sitting
+        // beside the note block is no anchor at all
+        if(ay!==null&&ay<flowY-40){y=ay;}else{a=null;}
+      }
       return {n:n,a:a,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
@@ -242,7 +260,7 @@ export function buildInteractJS(t) {
         }
       }
     });
-    if(lastBottom>main.scrollHeight){main.style.minHeight=(lastBottom+32)+'px';}
+    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();

@@ -61,6 +61,7 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
 .t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
 .t-app .t-note{display:none}
+@media(min-width:1180px){.t-app .t-note{display:block}}
 .t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
 body.notes-off .t-note{display:none}
 body.notes-off .t-note-mark{opacity:.25}
@@ -149,6 +150,7 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full span[data-el]+span[data-el],.t-teiHeader span[data-el]+span[data-el]{margin-left:.3em}
 .header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
 .header-full div[data-el="fileDesc"]::before{content:"File Description"}
 .header-full div[data-el="titleStmt"]::before{content:"Title"}
@@ -246,7 +248,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
             <span id="doc0:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
          </span>
          <span id="doc0:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
-            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note">Text scanned at U. Chicago in 1989. Basic SGML
+            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
                tagging by Lauren Burka and Chiara Thayer.</div>
          </span>
          <div id="doc0:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">

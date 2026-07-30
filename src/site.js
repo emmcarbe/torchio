@@ -94,6 +94,7 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full span[data-el]+span[data-el],.t-teiHeader span[data-el]+span[data-el]{margin-left:.3em}
 ${headerLabelCSS()}
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
