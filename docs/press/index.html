@@ -685,8 +685,11 @@ function buildModel(docs, classMap) {
       const h = findFirst(doc.tree, 'teiHeader');
       if (!h) continue;
       for (const n of walkModel(h)) {
-        if (n.atts['xml:id'] && (n.element === 'persName' || n.element === 'name')) {
-          names.set('#' + n.atts['xml:id'], textOfModel(n).trim().replace(/\s+/g, ' '));
+        if (n.element === 'persName' || n.element === 'name') {
+          const label = textOfModel(n).trim().replace(/\s+/g, ' ');
+          if (n.atts['xml:id']) names.set('#' + n.atts['xml:id'], label);
+          // an ORCID (or any URI) in @ref names its person: show the name
+          if (n.atts.ref && label) names.set(n.atts.ref, label);
         }
       }
       for (const n of walkModel(h)) {
@@ -732,14 +735,35 @@ function buildModel(docs, classMap) {
   }
   model.apparatus = [...appByType.values()];
 
-  // occurrences: nodes pointing into registries via @ref/@key
+  // occurrences: nodes pointing into registries via @ref/@key. An external
+  // authority URI is an identity declaration of its own: mentions sharing
+  // the same VIAF/Wikidata/GeoNames reference are one entity, and enter the
+  // registries keyed by that URI (the markup decides, no registry needed)
+  const byUri = new Map();
   for (const doc of model.documents) {
     for (const node of walkModel(doc.tree)) {
       const target = node.atts.ref || node.atts.key;
       if (!target) continue;
       for (const t of target.split(/\s+/)) {
         const entry = byXmlId.get(t.startsWith('#') ? t.slice(1) : t);
-        if (entry) entry.occurrences.push(node.id);
+        if (entry) { entry.occurrences.push(node.id); continue; }
+        if (/^https?:\/\//.test(t)) {
+          const key = MENTION_REGISTRY[node.element];
+          if (!key) continue;
+          let e = byUri.get(t);
+          if (!e) {
+            e = {
+              id: t,
+              label: textOfModel(node).trim().replace(/\s+/g, ' ') || t,
+              atts: { ref: t },
+              external: true,
+              occurrences: [],
+            };
+            byUri.set(t, e);
+            model.registries[key].push(e);
+          }
+          e.occurrences.push(node.id);
+        }
       }
     }
   }
@@ -945,6 +969,13 @@ const REGISTRY_ELEMENTS = {
   change: 'layers',
 };
 
+/** Mention elements whose external @ref declares an entity's identity. */
+const MENTION_REGISTRY = {
+  persName: 'people', author: 'people',
+  placeName: 'places', settlement: 'places', geogName: 'places', origPlace: 'places',
+  orgName: 'orgs', institution: 'orgs', repository: 'orgs',
+};
+
 function collectRegistries(node, reg, byXmlId) {
   const key = REGISTRY_ELEMENTS[node.element];
   if (!key) return;
@@ -1001,6 +1032,17 @@ function registryLabel(node) {
 
 /* ---------------------------------------------------------------- */
 
+/** Reading text without the embedded witness lists (wit/idno inside rdg). */
+function textOfReading(node) {
+  let out = '';
+  for (const c of node.children) {
+    if (typeof c === 'string') { out += c; continue; }
+    if (c.element === 'wit' || c.element === 'witDetail') continue;
+    out += textOfReading(c);
+  }
+  return out;
+}
+
 function collectApparatus(node, appByType) {
   if (node.element !== 'app') return;
   const type = node.atts.type || 'critical';
@@ -1011,7 +1053,7 @@ function collectApparatus(node, appByType) {
     if (typeof child === 'string') continue;
     if (child.element === 'lem' || child.element === 'rdg') {
       const reading = {
-        text: textOfModel(child).trim(),
+        text: textOfReading(child).trim(),
         witnesses: (child.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, '')),
         type: child.atts.type || null,
         isLemma: child.element === 'lem',
@@ -1401,8 +1443,10 @@ function buildInteractJS(t) {
     if(app&&!body.classList.contains('app-off')){
       var rows='';
       app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
+        var rr=r.cloneNode(true);
+        rr.querySelectorAll('[data-el="wit"],[data-el="witDetail"]').forEach(function(x){x.remove();});
         rows+='<div class="rdgline"><span class="sig">'+esc(sigla(r.dataset.wit)||(r.dataset.el==='lem'?'lem.':'—'))+'</span>'
-          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
+          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
       var extra='';
@@ -2176,8 +2220,19 @@ function renderBase(node, hooks) {
     prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
   const after = hooks && hooks.after ? hooks.after(node) : '';
+  // a mention whose @ref is an external authority URI (VIAF, Wikidata,
+  // GeoNames...) is a real link: it opens in its own tab, markup decides
+  if (tag === 'span' && MENTION_ELEMENTS.has(node.element)
+      && /^https?:\/\//.test(node.atts.ref || '')) {
+    return `<a${id} class="${cls} ent-ext" href="${escapeHTML(node.atts.ref)}"`
+      + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
+  }
   return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>${after}`;
 }
+
+/** Entity mentions that may carry an authority reference. */
+const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
+  'settlement', 'geogName', 'institution', 'repository', 'author', 'rs']);
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
 const DATA_ATTS = ['wit', 'ref', 'key', 'type', 'n', 'place', 'hand', 'target', 'when'];

@@ -71,8 +71,19 @@ export function renderBase(node, hooks) {
     prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
   const after = hooks && hooks.after ? hooks.after(node) : '';
+  // a mention whose @ref is an external authority URI (VIAF, Wikidata,
+  // GeoNames...) is a real link: it opens in its own tab, markup decides
+  if (tag === 'span' && MENTION_ELEMENTS.has(node.element)
+      && /^https?:\/\//.test(node.atts.ref || '')) {
+    return `<a${id} class="${cls} ent-ext" href="${escapeHTML(node.atts.ref)}"`
+      + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
+  }
   return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>${after}`;
 }
+
+/** Entity mentions that may carry an authority reference. */
+const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
+  'settlement', 'geogName', 'institution', 'repository', 'author', 'rs']);
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
 const DATA_ATTS = ['wit', 'ref', 'key', 'type', 'n', 'place', 'hand', 'target', 'when'];

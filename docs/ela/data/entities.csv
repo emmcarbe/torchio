@@ -1,4 +1,107 @@
 type,id,label,occurrences,lat,lon
+person,http://viaf.org/viaf/316437458,Andreas de Perusio O.F.M.12..-1332,4,,
+person,https://viaf.org/50027343,magni Chanis,16,,
+person,https://viaf.org/84532574,Papam Clementem,1,,
+person,http://www.viaf.org/61957240,Basilius a Glemona,1,,
+person,http://www.viaf.org/305517661,Innocentio Papa XI,1,,
+person,http://www.viaf.org/221148389131610710312,Clemente Papa IX,1,,
+person,http://www.viaf.org/7525513,Sixti V,2,,
+person,http://www.viaf.org/25406668,Ioanni Rivera,1,,
+person,https://viaf.org/viaf/161819465,Benedictus Polonus O.F.M.1200-1280,1,,
+person,https://viaf.org/viaf/239502727,"Iohannes de Ordine Minorum fratrum, dictus de Plano Carpini",1,,
+person,https://viaf.org/161819465/,Benedictus,3,,
+person,https://viaf.org/14095295,Cuy[u]cchan,3,,
+person,http://www.viaf.org/88342447,Ovidius de Ponto,1,,
+person,https://viaf.org/97245226,Machometi,2,,
+person,https://viaf.org/100172770/,Cyngis-Chan,2,,
+person,https://viaf.org/4257767/,Ochoday-Chan,1,,
+person,http://www.viaf.org/31140267,Antonii a S. Maria,13,,
+person,http://www.viaf.org/51717999,Francisci Xabieri,10,,
+person,http://www.viaf.org/89664672,Confucii,1,,
+person,http://www.viaf.org/2477678,Trigautio,5,,
+person,http://www.viaf.org/76327169,Emmanuele d’Azevedo,1,,
+person,http://www.viaf.org/32241613,Joannes Baptista Bonellus,2,,
+person,http://www.viaf.org/67637998,Antonius Rubinus,3,,
+person,http://viaf.org/88881025,Ignatio,14,,
+person,http://www.viaf.org/25034699,Antonius Franciscus Cardim,2,,
+person,http://www.viaf.org/263888102,"rege Portugaliae, Dom Sebastiano",5,,
+person,http://www.viaf.org/86578122,Petrus Gomezius,1,,
+person,http://www.viaf.org/44369221,Ludovicus Fróes,1,,
+person,http://www.viaf.org/98621564,Antonius Álvarez,1,,
+person,http://www.viaf.org/231656858,Gregorius de Céspedes,1,,
+person,http://www.viaf.org/69120905,Joannes de Castro,1,,
+person,http://www.viaf.org/120872443,Yama Joannes,3,,
+person,http://viaf.org/10157340491109920966,Dominicus Díaz,1,,
+person,http://www.viaf.org/70544515,Garcia Garcés,1,,
+person,http://www.viaf.org/77146111,Joannes Nunius,3,,
+person,https://viaf.org/viaf/88881025,"de Loyola, Ignatius S.J.1491-1556",5,,
+person,http://www.viaf.org/42085352,HYERONIMO MAYORICA,5,,
+person,http://www.viaf.org/54576295,Antonius Govea,1,,
+person,http://www.viaf.org/215405431,Martinus de Loyola,1,,
+person,https://viaf.org/88888319,Philippo 2° Rege Hispaniarum,1,,
+person,https://viaf.org/viaf/59876078/,Iohannes de Montecorvino O.F.M.1247-1328,2,,
+person,http://viaf.org/viaf/59876078,Iohannes de Monte Corvino,2,,
+person,http://viaf.org/viaf/42085352,"Majorica, Hieronimus S.J.",1,,
+person,https://viaf.org/viaf/12554068,"Martini, Martinus S.J.1614-1661",2,,
+person,http://www.viaf.org/69722279,Matthaeus Ricci,4,,
+person,http://www.viaf.org/61295927,Franciscus Furtado,1,,
+person,http://www.viaf.org/12554068,Martinus Martini,2,,
+person,http://www.viaf.org/77044131,Michael Boym,1,,
+person,http://www.viaf.org/76359221,Alexander Valignanus,4,,
+person,http://www.viaf.org/76459377,Nicolaus Longobardus,1,,
+person,http://viaf.org/viaf/90635332,Iohannes [de Marignolli],1,,
+person,http://www.viaf.org/54197290,Polanco,2,,
+person,https://www.wikidata.org/wiki/Q3898931,Peregrinus da Castello O.F.M.,1,,
+person,https://www.wikidata.org/wiki/Q611205,Antonius Mendes,2,,
+person,http://www.viaf.org/11311063,Emmanuel Ferreira,2,,
+person,https://viaf.org/viaf/51717999,"Saverius, Franciscus S.J.1506-1552",2,,
+person,https://viaf.org/viaf/2477678/,"Trigault, Nicolas S.J.1577-1628",1,,
+person,https://viaf.org/viaf/76359221,"Valignanus, Alexander S.J.1539-1606",4,,
+person,http://www.viaf.org/233555495,Aquaviva,2,,
+person,https://viaf.org/viaf/76359221/,"Valignanus, Alexander S.J.1539-1606",1,,
+person,https://viaf.org/viaf/45107415,Prospero Intorcetta1625-1696,1,,
+place,https://www.geonames.org/1816670/,Cambaliensem civitatem,19,,
+place,https://pleiades.stoa.org/places/423025,Sede Apostolica,92,,
+place,https://www.geonames.org/1797353/,Zayton,6,24.9139,118.5858
+place,https://pleiades.stoa.org/places/383664/,Ianuensium,3,,
+place,https://pleiades.stoa.org/places/50004,Yndia,103,22,79
+place,https://www.geonames.org/1811017,Fokien,22,26.1,117.98
+place,https://www.geonames.org/1806222,Kiangsi,6,27.6,115.7
+place,https://www.geonames.org/5149222,Cantonensi,28,,
+place,https://www.geonames.org/1809445,Kueicheu,2,,
+place,https://www.geonames.org/1799962/,Nankinensi,9,,
+place,https://www.geonames.org/1668284,insularum Formosae,2,,
+place,https://www.geonames.org/1809054/,Hainan,3,,
+place,https://pleiades.stoa.org/places/993,Gallia,8,46.6,2.4
+place,https://pleiades.stoa.org/places/167717,Lugduno,2,,
+place,https://www.geonames.org/798544/,Poloniam,2,,
+place,https://pleiades.stoa.org/places/128475,Wratislavia,1,,
+place,https://pleiades.stoa.org/places/897854,Thartarorum,14,,
+place,https://pleiades.stoa.org/places/863772,Comanie,5,,
+place,https://www.geonames.org/719819,Ungariam,1,,
+place,https://pleiades.stoa.org/places/834296,Volga,1,48.7,44.5
+place,https://www.geonames.org/298795/,Turkyam,5,,
+place,https://pleiades.stoa.org/places/884130,Caspium mare,1,,
+place,https://pleiades.stoa.org/places/108751,Coloniam,3,,
+place,https://pleiades.stoa.org/places/1027,Hispania,8,40.2,-3.7
+place,https://pleiades.stoa.org/places/981529,Lusitaniȩnatione,77,,
+place,https://pleiades.stoa.org/places/991376,Europȩ,16,,
+place,https://www.geonames.org/1847966,Acaxi,1,,
+place,https://pleiades.stoa.org/places/39274,Ethiopia,3,,
+place,https://pleiades.stoa.org/places/430344981,Thaurisio,3,,
+place,https://www.geonames.org/130758,Persarum,7,,
+place,https://www.geonames.org/6269131,Angliam,1,,
+place,http://pleiades.stoa.org/places/148004,Avinionem,1,,
+place,https://pleiades.stoa.org/places/413037,Assisii,1,,
+place,https://pleiades.stoa.org/places/1004,mare Adriaticum,1,,
+place,https://www.geonames.org/390903,Graeciam,1,,
+place,https://www.geonames.org/262143/,Galatas,1,,
+place,http://pleiades.stoa.org/places/520998,Constantinopolim,1,,
+place,https://pleiades.stoa.org/places/687928,Ierusalem,1,31.769,35.2163
+place,https://pleiades.stoa.org/places/912964,Tigris,1,,
+place,https://pleiades.stoa.org/places/981507,Armenie,1,40.1,45
+place,https://www.geonames.org/3067696,PRAGAE,1,50.088,14.4208
+place,https://rbms.info/lpn/v/vlysipone/,Olyssipone,1,,
 place,place:molina,Molina,1,38.0546,-1.2076
 place,place:arima,Arima,5,32.65,130.33
 place,place:japonia,Japonia,30,36.2,138.25
@@ -7,14 +110,10 @@ place,place:fingo,Fingo,4,32.8,130.7
 place,place:firando,Firando,7,33.37,129.55
 place,place:nangasaqui,Nangasaqui,1,32.75,129.87
 place,place:manilae,Manilae,11,14.6042,120.9822
-place,place:zayton,Zayton,4,24.9139,118.5858
 place,place:chambaliech,Chambaliech,1,39.9075,116.3972
 place,place:cambaliech,Cambaliech,5,39.9075,116.3972
-place,place:yndia,Yndia,4,22,79
 place,place:yndie,Yndie,3,22,79
 place,place:quangtung,Quangtung,14,23.4,113.5
-place,place:fokien,Fokien,15,26.1,117.98
-place,place:kiangsi,Kiangsi,11,27.6,115.7
 place,place:sinarum,Sinarum,27,35,103
 place,place:china,China,8,35,103
 place,place:canton,Canton,15,23.1167,113.25
@@ -24,12 +123,9 @@ place,place:nanking,Nanking,21,32.0617,118.7778
 place,place:peking,Peking,42,39.9075,116.3972
 place,place:honan,Honan,6,34.6735,112.4368
 place,place:macao,Macao,18,22.2006,113.5461
-place,place:gallia,Gallia,7,46.6,2.4
 place,place:don,Don,1,47.27,39.8
-place,place:volga,Volga,2,48.7,44.5
 place,place:rehno,Rehno,1,50,7.5
 place,place:lugdunum,Lugdunum,1,45.7491,4.8479
-place,place:hispania,Hispania,3,40.2,-3.7
 place,place:manila,Manila,4,14.6042,120.9822
 place,place:sine,Sinȩ,8,35.315,46.9988
 place,place:vasora,Vasora,1,30.5085,47.7804
@@ -47,14 +143,11 @@ place,place:luzon,Luzon,1,16,121
 place,place:colonie,Colonie,1,50.94,6.96
 place,place:rome,Rome,2,41.8919,12.5113
 place,place:malaca,Malaca,3,2.2,102.25
-place,place:ierusalem,Ierusalem,1,31.769,35.2163
 place,place:cayton,Cayton,2,24.91,118.59
-place,place:armenie,Armenie,1,40.1,45
 place,place:lamego,Lamego,1,41.0974,-7.8099
 place,place:torres vedras,Torres Vedras,1,39.0911,-9.2586
 place,place:fontanarosa,Fontanarosa,1,41.0181,15.0206
 place,place:barcellos,Barcellos,1,41.53,-8.62
-place,place:pragae,PRAGAE,1,50.088,14.4208
 place,place:pequini,Pequini,4,39.9075,116.3972
 place,place:hamburgum,Hamburgum,1,53.5507,9.993
 place,place:kienning,Kienning,1,27.0415,118.319

@@ -108,8 +108,11 @@ export function buildModel(docs, classMap) {
       const h = findFirst(doc.tree, 'teiHeader');
       if (!h) continue;
       for (const n of walkModel(h)) {
-        if (n.atts['xml:id'] && (n.element === 'persName' || n.element === 'name')) {
-          names.set('#' + n.atts['xml:id'], textOfModel(n).trim().replace(/\s+/g, ' '));
+        if (n.element === 'persName' || n.element === 'name') {
+          const label = textOfModel(n).trim().replace(/\s+/g, ' ');
+          if (n.atts['xml:id']) names.set('#' + n.atts['xml:id'], label);
+          // an ORCID (or any URI) in @ref names its person: show the name
+          if (n.atts.ref && label) names.set(n.atts.ref, label);
         }
       }
       for (const n of walkModel(h)) {
@@ -155,14 +158,35 @@ export function buildModel(docs, classMap) {
   }
   model.apparatus = [...appByType.values()];
 
-  // occurrences: nodes pointing into registries via @ref/@key
+  // occurrences: nodes pointing into registries via @ref/@key. An external
+  // authority URI is an identity declaration of its own: mentions sharing
+  // the same VIAF/Wikidata/GeoNames reference are one entity, and enter the
+  // registries keyed by that URI (the markup decides, no registry needed)
+  const byUri = new Map();
   for (const doc of model.documents) {
     for (const node of walkModel(doc.tree)) {
       const target = node.atts.ref || node.atts.key;
       if (!target) continue;
       for (const t of target.split(/\s+/)) {
         const entry = byXmlId.get(t.startsWith('#') ? t.slice(1) : t);
-        if (entry) entry.occurrences.push(node.id);
+        if (entry) { entry.occurrences.push(node.id); continue; }
+        if (/^https?:\/\//.test(t)) {
+          const key = MENTION_REGISTRY[node.element];
+          if (!key) continue;
+          let e = byUri.get(t);
+          if (!e) {
+            e = {
+              id: t,
+              label: textOfModel(node).trim().replace(/\s+/g, ' ') || t,
+              atts: { ref: t },
+              external: true,
+              occurrences: [],
+            };
+            byUri.set(t, e);
+            model.registries[key].push(e);
+          }
+          e.occurrences.push(node.id);
+        }
       }
     }
   }
@@ -366,6 +390,13 @@ const REGISTRY_ELEMENTS = {
   witness: 'witnesses',
   handNote: 'hands',
   change: 'layers',
+};
+
+/** Mention elements whose external @ref declares an entity's identity. */
+const MENTION_REGISTRY = {
+  persName: 'people', author: 'people',
+  placeName: 'places', settlement: 'places', geogName: 'places', origPlace: 'places',
+  orgName: 'orgs', institution: 'orgs', repository: 'orgs',
 };
 
 function collectRegistries(node, reg, byXmlId) {

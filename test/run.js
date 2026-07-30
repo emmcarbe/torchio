@@ -695,6 +695,32 @@ console.log('the archive — a loose collection presents the project, not a docu
     'a uniform licence across the archive surfaces on the home');
 }
 
+console.log('authority refs — an external @ref is an identity declaration');
+{
+  const { pressSite } = await import('../src/site.js');
+  const map = buildClassMap(null, data);
+  const SRC = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Con autorità</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc></teiHeader><text><body>
+    <p><persName ref="https://viaf.org/viaf/12554068">Martinus Martini</persName> scripsit;
+    idem <persName ref="https://viaf.org/viaf/12554068">Martini</persName> narrat de
+    <placeName ref="https://www.geonames.org/1816670">Pequino</placeName>.</p>
+  </body></text></TEI>`;
+  const model = buildModel(parseXML(SRC), map);
+  const p = model.registries.people.find((e) => e.id === 'https://viaf.org/viaf/12554068');
+  ok(p && p.occurrences.length === 2 && p.label === 'Martinus Martini',
+    'mentions sharing a VIAF reference are one entity, no registry needed');
+  ok(model.registries.places.some((e) => e.id === 'https://www.geonames.org/1816670'),
+    'a GeoNames reference makes a place entry the same way');
+  const files = pressSite(model, {});
+  ok(files['text.html'].includes('href="https://viaf.org/viaf/12554068"')
+    && files['text.html'].includes('target="_blank" rel="noopener"'),
+    'the mention is a real link, opening in its own tab');
+  ok('indices.html' in files && files['indices.html'].includes('Martinus Martini'),
+    'authority-linked mentions feed the indices');
+}
+
 console.log('lemma review — errors exist, so reviewing must be cheap');
 {
   const { reviewCSV, parseReviewCSV, applyReview } = await import('../src/lemmas.js');
