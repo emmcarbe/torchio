@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Canterbury Tales: The General Prologue</title>
+<style>:root{--ground:#FFFFFF;--paper:#FFFFFF;--ink:#1B1B1B;--soft:#6A6A66;--hair:#E5E2D9;--faint:#CFCCC2;--accent:#B01E28;--accent-soft:#9a5a52;--link:#B01E28;--reading:"EB Garamond",Iowan Old Style,Palatino,"Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--serif:var(--reading);--measure:44rem}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","onum","pnum"}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.torchio{max-width:var(--measure);margin:0 auto;padding:26px 20px 14px;
+  border-bottom:1px solid var(--hair)}
+header.torchio h1{margin:0;font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.01em}
+header.torchio .sub{margin:6px 0 0;color:var(--soft);font-family:var(--mono);
+  font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+
+main.torchio{max-width:var(--measure);margin:0 auto;padding:10px 20px 0}
+
+.t-teiHeader{display:none}
+body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
+  border-radius:2px;padding:14px 16px;font-size:.85em;color:var(--soft)}
+
+.t-head{font-weight:600;margin:1.3em 0 .4em}
+.t-p,.t-ab{margin:.65em 0}
+.t-lg{margin:.8em 0 .8em 1.6em}
+.t-l{display:block;position:relative}
+.t-lg{padding-left:3em}
+.t-l.ln5::before{content:attr(data-n);position:absolute;left:-3em;top:.35em;
+  font-family:var(--mono);font-size:10px;color:var(--soft);user-select:none}
+.t-sp{margin:.65em 0}
+.t-speaker{font-family:var(--mono);font-size:.72em;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);display:inline-block;margin-right:.5em}
+.t-stage{font-style:italic;color:var(--soft)}
+.t-opener,.t-closer{color:var(--soft);margin:.65em 0}
+.t-salute,.t-dateline,.t-signed{font-style:italic}
+
+.t-persName,.t-placeName,.t-orgName{border-bottom:1px dotted var(--accent-soft)}
+.t-foreign,.t-hi,.t-emph,.t-title{font-style:italic}
+.t-quote{margin:.8em 0 .8em 1.4em;color:var(--soft)}
+
+.t-del{text-decoration:line-through;color:var(--soft)}
+.t-add{vertical-align:super;font-size:.82em}
+.t-unclear{background:#F5F4EF}
+.t-supplied::before{content:'[';color:var(--faint)}
+.t-supplied::after{content:']';color:var(--faint)}
+.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-abbr{border-bottom:1px dotted var(--faint)}
+
+.t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  color:var(--accent);vertical-align:super;margin:0 .18em;user-select:none}
+
+.t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
+  padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
+.t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
+.t-app .t-note{display:none}
+@media(min-width:1180px){.t-app .t-note{display:block}}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+.note-hi{background:rgba(176,30,40,.13);border-radius:2px;transition:background .15s}
+.t-note.note-hi{color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
+@media(min-width:1180px){
+  .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
+    font-size:.78em;line-height:1.4;border-left:0;padding-left:0}
+  .header-full .t-note,.t-teiHeader .t-note{float:none;width:auto;margin:.5em 0;
+    border-left:2px solid var(--hair);padding-left:.7em}
+  .t-note.placed{font-size:.78em;line-height:1.4}
+}
+
+.t-app .t-rdg{display:none}
+.t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+  border-bottom:none;margin-right:.5em;vertical-align:.08em}
+.t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+
+footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
+  border-top:1px solid var(--hair);color:var(--soft);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+footer.torchio .press{color:var(--accent)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+.torchio-bar{position:sticky;top:0;z-index:40;background:var(--ground);
+  border-bottom:1px solid var(--hair);font-family:var(--mono)}
+.torchio-bar .inner{max-width:var(--measure);margin:0 auto;padding:8px 20px;
+  display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.torchio-bar .modes{display:inline-flex;border:1px solid var(--hair);
+  border-radius:2px;overflow:hidden}
+.torchio-bar button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);background:none;border:none;
+  cursor:pointer;padding:6px 14px}
+.torchio-bar .modes button.active{background:var(--accent);color:#fff}
+.torchio-bar .sw.off{text-decoration:line-through;opacity:.6}
+
+.t-lem{cursor:pointer}
+.t-choice{cursor:pointer}
+body.app-off .t-lem{border-bottom:none;cursor:inherit}
+[data-ref]{cursor:pointer}
+
+.torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
+  border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
+  box-shadow:0 12px 28px -18px rgba(27,27,27,.45);font-size:15px;line-height:1.45}
+.torchio-pop .k{font-family:var(--mono);font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--soft);display:block;
+  margin-bottom:6px}
+.torchio-pop .rdgline{display:flex;gap:10px;align-items:baseline;padding:3px 0}
+.torchio-pop .sig{font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--accent);min-width:2.2em}
+.torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
+.torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
+
+/* transcription levels: reading is the default */
+.t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
+body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
+body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
+body.mode-read .t-del{display:none}
+body.mode-read .t-am{display:none}
+body.mode-dipl .t-ex{display:none}
+body.mode-read .t-lb br{display:none}
+body.mode-read .t-lb::after{content:" "}
+body.mode-read .t-lb[data-break="no"]::after{content:none}
+body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
+
+.torchio-nav{display:flex;gap:22px;margin-left:auto}
+.torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+  color:var(--soft);text-transform:uppercase}
+.torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
+.torchio-nav a:hover{color:var(--ink);text-decoration:none}
+header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
+header.torchio .tt{min-width:14rem}
+.about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);margin-top:1.2em}
+.about dd{margin:0.3em 0 0}
+.about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
+  border-radius:2px;padding:0 12px;margin-top:.5em}
+.wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table th{text-align:left;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.md-table td:first-child{font-size:1.05em;white-space:nowrap}
+.wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
+  vertical-align:baseline}
+.sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
+  white-space:nowrap}
+.occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
+.occ a{color:var(--accent);margin-right:.5em}
+h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
+.skip:focus{left:0}
+.header-full .t-teiHeader{display:block;border:0;padding:0;color:var(--ink);font-size:1em}
+.header-full div[data-el]::before{content:attr(data-el);display:block;
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
+.header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
+  font-size:.92em;overflow-x:auto}
+.header-full span[data-el]+span[data-el],.t-teiHeader span[data-el]+span[data-el]{margin-left:.3em}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
+.reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
+  border:1px solid var(--hair);border-radius:2px;background:var(--paper);
+  color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
+.reg-table th{font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:left;
+  padding:6px 10px 6px 0;border-bottom:2px solid var(--hair);cursor:pointer}
+.reg-table th[aria-sort="ascending"]::after{content:" \2191"}
+.reg-table th[aria-sort="descending"]::after{content:" \2193"}
+.reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
+  font-family:var(--mono);font-size:11px}
+ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+ol.toc li{margin:.3em 0;break-inside:avoid}
+.lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
+details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
+details.lemma summary{cursor:pointer;list-style-position:outside}
+.lem-forms{color:var(--soft);font-size:.9em}
+.kwic{margin:.5em 0 .3em}
+.kwic td{border-bottom:0;padding:2px 8px 2px 0}
+.kwic .kb{text-align:right;color:var(--soft);width:40%}
+.kwic .kf{white-space:nowrap;text-align:center}
+.kwic .kf a{font-weight:600}
+.kwic .ka{color:var(--soft);width:40%}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="torchio">
+<div class="tt"><h1>The Canterbury Tales: The General Prologue</h1><p class="sub">data</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html">Text</a><a href="data.html" class="on">Data</a></nav>
+</header>
+<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/apparatus.csv">apparatus.csv</a></td><td>every apparatus reading with its witnesses, one row per reading</td><td class="occ">2.2 MB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>the token stream of the reading text: position, language, form, lemma, anchor</td><td class="occ">11.7 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
+
+</body>
+</html>

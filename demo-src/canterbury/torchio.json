@@ -6,5 +6,8 @@
     "href": "../",
     "label": "Home"
   },
-  "exports": false
+  "exports": {
+    "model": false,
+    "source": false
+  }
 }

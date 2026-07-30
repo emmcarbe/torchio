@@ -236,7 +236,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const hasMap = geoPlaces.length > 0;
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
   const hasLemmas = !!(model.lemmas && model.lemmas.entries.length);
-  const exports_ = manifest.exports ? buildExports(model, { sourceXML }) : {};
+  const exports_ = manifest.exports
+    ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
+    : {};
   const hasData = Object.keys(exports_).length > 0;
 
   // front and back matter name themselves when the markup gives them a

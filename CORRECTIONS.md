@@ -46,6 +46,7 @@ editorial genre.
 | 2026-07-30 | C25 | Ursus Beneventanus (ed. Monella), public demo | assignment | manuscript lineation (`lb`) belongs to the diplomatic level: the reading view flows the prose and `@break="no"` rejoins words split across lines; the base rendering without JavaScript keeps every line break |
 | 2026-07-30 | C26 | Canterbury Tales Project (GP), offered by the editor | assignment | `am` and `ex` mark the diplomatic and the reading level even without a `choice` wrapper: the transcription toggle now counts them and shows each on its level |
 | 2026-07-30 | C27 | Canterbury Tales Project (GP), offered by the editor | assignment | segment apparatus: adjacent `app` elements with declared token ranges (`@from`/`@to`) render glued; disjoint ranges now imply a separator, derived from the declared positions; apparatus entries typed `lac` read their editorial lemma as a compact scope label |
+| 2026-07-30 | C28 | Canterbury Tales Project (GP), offered by the editor | extension | exports become granular in the manifest: each piece (model, entities, apparatus, lemmas, tokens, source) defaults to on and can be switched off alone, for editions whose full model outweighs the site |
 
-As of 30 July 2026: 26 corrections applied (20 assignments, 6 extensions, 0
+As of 30 July 2026: 27 corrections applied (20 assignments, 7 extensions, 0
 structural changes), 1 open.

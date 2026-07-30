@@ -40,7 +40,8 @@ export function normalizeManifest(raw = {}) {
     extra: [],
     pages: null,
     pieces: { apparatus: true, entities: true, choice: true, ...(raw.pieces || {}) },
-    exports: raw.exports !== false,
+    exports: raw.exports === false ? false
+      : (raw.exports && typeof raw.exports === 'object' ? raw.exports : true),
     warnings: [],
   };
   if (typeof raw.theme === 'string' && !isTheme(raw.theme)) {

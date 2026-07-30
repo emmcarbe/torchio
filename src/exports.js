@@ -71,22 +71,25 @@ export function lemmasCSV(model) {
  * Assemble the export files for an edition.
  * @returns {Object<string,string>} path (relative to the site root) -> content
  */
-export function buildExports(model, { sourceXML = null } = {}) {
+export function buildExports(model, { sourceXML = null, only = null } = {}) {
+  // `only` is the manifest's exports object: each piece defaults to true
+  // and is switched off explicitly ("exports": {"model": false})
+  const want = (k) => !only || only[k] !== false;
   const files = {};
-  files['data/model.json'] = modelJSON(model);
+  if (want('model')) files['data/model.json'] = modelJSON(model);
   const reg = model.registries;
-  if (reg.people.length + reg.places.length + reg.orgs.length > 0) {
+  if (want('entities') && reg.people.length + reg.places.length + reg.orgs.length > 0) {
     files['data/entities.csv'] = entitiesCSV(model);
   }
-  if (model.apparatus.length) {
+  if (want('apparatus') && model.apparatus.length) {
     files['data/apparatus.csv'] = apparatusCSV(model);
   }
-  if (model.lemmas && model.lemmas.entries.length) {
+  if (want('lemmas') && model.lemmas && model.lemmas.entries.length) {
     files['data/lemmas.csv'] = lemmasCSV(model);
   }
-  if (model.tokens && model.tokens.length) {
+  if (want('tokens') && model.tokens && model.tokens.length) {
     files['data/tokens.csv'] = tokensCSV(model, model.tokens);
   }
-  if (sourceXML) files['data/source.xml'] = sourceXML;
+  if (want('source') && sourceXML) files['data/source.xml'] = sourceXML;
   return files;
 }

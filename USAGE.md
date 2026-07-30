@@ -163,6 +163,10 @@ optional:
       "parent": { "href": "../", "label": "Home" }
     }
 
+- `exports`: `true`, `false`, or an object switching off single pieces,
+  each true by default: `"exports": { "model": false, "source": false }`
+  (pieces: `model`, `entities`, `apparatus`, `lemmas`, `tokens`, `source`).
+  Useful when one export outweighs the site: the rest of the data stays.
 - `lang`: `en` or `it` (interface language; otherwise derived from the
   edition's `langUsage`).
 - `theme`: `savi` (default), `pergamena`, `moderno`.
