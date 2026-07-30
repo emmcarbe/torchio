@@ -237,7 +237,7 @@ cases (the Chronicon of Romualdus Salernitanus and the graphematic
 transcription of Ursus Beneventanus, with its table of signs), the General
 Prologue of the Canterbury Tales (54 witnesses and the full collation,
 offered by Peter Robinson as a temporary test case), texts from the
-Eurasian Latin Archive (suggested by Giulio Quaresima) and a constructed
+Eurasian Latin Archive (University of Siena) and a constructed
 Specimen for teaching purposes.
 
 ## Agenda
