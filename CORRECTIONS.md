@@ -40,6 +40,7 @@ editorial genre.
 | 2026-07-30 | C19 | Ursus Beneventanus (ed. Monella), public demo | assignment | margin notes (C16) do not scale past a density the margin can carry: above a threshold per page they collapse to their anchor marks and open on click, like the apparatus |
 | 2026-07-30 | C20 | Ursus Beneventanus (ed. Monella), public demo | extension (open) | an edition that declares its signs in `charDecl`/`glyph` should get the table of signs derived from the header; today the Ursus demo ships it as an annex page built from the editor's CSV, which the press cannot derive |
 | 2026-07-30 | C21 | Romualdus Salernitanus (ed. Monella), public demo | assignment | the front and back matter pages were labelled with presumed genres ("Introduction", "Appendices"): a `front` can be a title page, a preface, a dedication, a cast list; the label now comes from the section's own heading when it has one, with a neutral fallback |
+| 2026-07-30 | C22 | Ursus Beneventanus (ed. Monella), public demo | extension | `choice` pairs looked interactive (dotted underline) but were not: a click now shows both levels of the pair (abbreviation and expansion, original and regularisation, error and correction), in both views |
 
-As of 30 July 2026: 20 corrections applied (15 assignments, 5 extensions, 0
+As of 30 July 2026: 21 corrections applied (15 assignments, 6 extensions, 0
 structural changes), 1 open.

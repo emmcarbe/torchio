@@ -25,6 +25,7 @@ export const interactCSS = `
 .torchio-bar .sw.off{text-decoration:line-through;opacity:.6}
 
 .t-lem{cursor:pointer}
+.t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
 [data-ref]{cursor:pointer}
 
@@ -140,6 +141,18 @@ export function buildInteractJS(t) {
       });
       openPop('<span class="k">${t.apparatus.toLowerCase()}'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
       ev.stopPropagation();return;
+    }
+    var ch=ev.target.closest&&ev.target.closest('.t-choice');
+    if(ch&&!ch.closest('.t-app')){
+      var kinds={abbr:'${t.diplomatic}',orig:'${t.diplomatic}',sic:'${t.diplomatic}',expan:'${t.reading}',reg:'${t.reading}',corr:'${t.reading}'};
+      var rows='';
+      [].slice.call(ch.children).forEach(function(c){
+        var k=c.dataset&&c.dataset.el; if(!kinds[k])return;
+        rows+='<div class="rdgline"><span class="sig">'+esc(k)+'</span>'
+          +'<span>'+esc(c.textContent.trim())+'</span>'
+          +'<span class="meta">'+esc(kinds[k].toLowerCase())+'</span></div>';
+      });
+      if(rows){openPop(rows,ch);ev.stopPropagation();return;}
     }
     var ent=ev.target.closest&&ev.target.closest('[data-ref]');
     if(ent&&!body.classList.contains('ent-off')&&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
