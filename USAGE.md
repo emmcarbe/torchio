@@ -200,7 +200,7 @@ optional:
   string overrides of the interface keys: `"labels": { "reading":
   "Costituito" }`. The defaults already follow each interface language's
   own tradition (English: Reading / Diplomatic; Italian: Interpretativa /
-  Diplomatica); no tradition is the default (principle 14).
+  Diplomatica); no tradition is the default (principle 1).
 - `theme`: `savi` (default), `pergamena`, `moderno`.
 - `pages`: which pages appear, in which order, with which labels. Known ids:
   `index`, `front`, `text`, `back`, `indices`, `map`, `data`, plus the ids of

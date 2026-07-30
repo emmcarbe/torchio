@@ -832,7 +832,7 @@ console.log('authority refs — an external @ref is an identity declaration');
     'keyed entities feed the indices; no fake link where there is no URI');
 }
 
-console.log('traditions — no tradition is the default (principle 14)');
+console.log('traditions — no tradition is the default (principle 1)');
 {
   const { pressSite } = await import('../src/site.js');
   const map = buildClassMap(null, data);

@@ -81,70 +81,92 @@ positions, one representative each, not every existing tool.
 
 ## The principles
 
-1. **Nothing is ever invisible.** Every well-formed TEI document must be
+1. **No tradition is the default.** A scholarly edition is not a neutral
+   object: it is the product of an editorial tradition, a community with
+   its own method, its own vocabulary, and its own idea of what an edition
+   is. The levels a tradition distinguishes are theoretical positions, not
+   synonyms: the Italian tradition opposes *edizione diplomatica* and
+   *edizione interpretativa*; anglophone documentary and genetic editing
+   speaks of *diplomatic transcription* and *reading text*; between and
+   beyond them live semi-diplomatic transcriptions, *Lesetexte*,
+   constituted texts, and the distinct apparatus cultures that come with
+   them. A viewer that silently imposes one vocabulary imports one
+   tradition’s theory into every edition it renders: it is the same
+   inversion this project exists to oppose (tools dictating editorial
+   practice: see Why, 1), moved from the encoding to the reading surface.
+   Hence the rule, stated first because every other principle answers to
+   it: the tool adapts to the tradition, never the reverse. In practice:
+   interface defaults are declared per interface language and follow that
+   language’s own tradition; an edition whose tradition diverges renames
+   its levels in the manifest; nothing tradition-bound is ever built into
+   the core as if it were universal (the lemma, principle 11; a presumed
+   “Introduction” over a front matter, correction C21); and where the tool
+   cannot yet speak a tradition’s language, that is a correction to file
+   in the register, never a constraint on the edition.
+2. **Nothing is ever invisible.** Every well-formed TEI document must be
    preserved in the visualization too, because every sign represents a
    precise choice. Unknown constructs fall back on a guaranteed base
    rendering, and yet they are not discarded. On an invalid document the
    engine degrades, it does not break: validation belongs to the CI of the
    edition's repository (CI, continuous integration: the automated checks
    a repository runs at every change).
-2. **Behaviour lives on classes, not on tags.** The TEI has more than 500
+3. **Behaviour lives on classes, not on tags.** The TEI has more than 500
    elements but organizes them into a few dozen model classes. Rendering
    rules are written per class; elements inherit. The map is generated from
    the official [`p5subset`](https://tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml) (P5 4.12.0: 588 elements, 127 model classes, 86
    attribute classes, 35 datatypes) and full coverage is an automated test,
    re-runnable at every TEI release. Never example-driven development:
    examples are test cases, not the specification.
-3. **The ODD decides, not the tool.** The edition's ODD customization is its
+4. **The ODD decides, not the tool.** The edition's ODD customization is its
    configuration: the modules included, the elements excluded, and above all
    the custom elements, which, once declared `memberOf` a TEI class, inherit
    its behaviour without a line of code. Conformance has two layers: the
    syntactic one can be decided mechanically; the semantic one (an extension
    is legitimate only for phenomena P5 does not cover) requires judgement,
    and the tool must flag it.
-4. **The edition is the model.** The engine turns the TEI into a documented
+5. **The edition is the model.** The engine turns the TEI into a documented
    data model (documents, entity registries, witnesses, hands, layers, typed
    apparatuses); every page and every export (XML, CSV, JSON) is a
    projection of the model. Same XML, same model, byte for byte.
-5. **No backend.** The repository is the edition: git for versions, CI for
+6. **No backend.** The repository is the edition: git for versions, CI for
    validation, static hosting for publication, an archive with a DOI for
    preservation. The same code runs in the browser and in Node. Whoever
    publishes can of course clone.
-6. **The markup decides existence; the manifest decides the optional
+7. **The markup decides existence; the manifest decides the optional
    settings.** Pages and functions exist if the markup substantiates them
    (an edition without an apparatus has no apparatus button; a registry
    without occurrences generates no index). A small optional `torchio.json`
    decides presence, order, labels, theme, language, free pages in Markdown.
-7. **The ladder of four rungs.** The visualizations of all possible TEI
+8. **The ladder of four rungs.** The visualizations of all possible TEI
    universes cannot be established in advance. The system holds because it
    degrades: base rendering (guaranteed), class behaviour (most cases),
    designed pieces (apparatus, indices, maps...), and, for the tail, a
    suggester that proposes. Every automatic proposal materializes into an
    explicit rule approved by the editor, with declared provenance: never
    decisions at reading time.
-8. **The editor in the loop.** Entity reconciliation (places with GeoNames,
+9. **The editor in the loop.** Entity reconciliation (places with GeoNames,
    people and institutions with authority identifiers) produces a file of
    proposals next to the TEI: the machine proposes, the editor confirms,
    corrects or rejects, and editorial decisions survive regeneration.
    Coordinates declared in the TEI always win; every datum carries its
    provenance, visibly too.
-9. **Accessibility.** WCAG AA contrast asserted in the test suite for every
+10. **Accessibility.** WCAG AA contrast asserted in the test suite for every
    theme, keyboard access to every function, landmarks and dialog semantics.
    A generated edition must be publishable by a public institution as it is.
-10. **Forms before categories.** Built-in analyses operate on attested
+11. **Forms before categories.** Built-in analyses operate on attested
     forms (concordances, frequencies), which exist in every written
     tradition. Grouping forms into more abstract units (lemma, stem, root,
     normalized spelling) depends on the language and on editorial choices,
     so it is not built in: each edition declares its own grouping strategy,
     and the press applies it as an adapter.
-11. **Curation above, completeness below.** Pages expose curated summaries
+12. **Curation above, completeness below.** Pages expose curated summaries
     (the edition record, the register of documents), but the full data
     always remains reachable: the TEI header is rendered in its entirety,
     with labels derived from the markup, so that new metadata appear without
     any change to the interface.
-12. **Everything is reversible and attributed.** MIT code, data sources
+13. **Everything is reversible and attributed.** MIT code, data sources
     declared, contributions acknowledged.
-13. **The thesis is falsifiable.** The project bets that the corrections
+14. **The thesis is falsifiable.** The project bets that the corrections
     required by new editions will decrease with use, genre by genre, and
     that they will remain assignment corrections or extensions, without
     repeated changes to existing engine behaviour. There is no need to
@@ -153,18 +175,6 @@ positions, one representative each, not every existing tool.
     a reasonable number of editions of a genre, the corrections for that
     genre do not decrease, or if structural changes become frequent, the
     thesis is falsified, and it will be written here.
-14. **No tradition is the default.** Philological traditions differ not
-    only in method but in vocabulary, and in the very levels they
-    distinguish: the Italian tradition opposes *edizione diplomatica* and
-    *edizione interpretativa*; anglophone documentary and genetic editing
-    speaks of *diplomatic transcription* and *reading text*; between them
-    live semi-diplomatic transcriptions, *Lesetexte*, constituted texts.
-    The interface never presumes one tradition's vocabulary as universal:
-    its defaults are declared per interface language and follow that
-    language's own tradition, and where an edition's tradition diverges
-    further, the manifest gives it its own labels. This is the same rule
-    that keeps lemmatization out of the core (principle 10): the tool
-    adapts to the tradition, never the reverse.
 
 ## The method
 
@@ -204,8 +214,8 @@ the repository itself. One line per contribution.
 | Who | Date | Contribution | Where it landed |
 |---|---|---|---|
 | Federico Boschetti (CNR-ILC) | 29-30 July | the founding remark; early feedback | Origin; the apparatus DSL in the agenda |
-| Angelo Mario Del Grosso (CNR-ILC) | 30 July | two remarks: web components at the level of fruition behaviours, not TEI elements; extensions only for phenomena the Guidelines do not cover (which led to replacing the test example: `cancellatura`, duplicating `del`, gave way to `salvataggio`) | principle 3; agenda 2 and 6; the test suite |
-| Franz Fischer (VeDPH) | 30 July | the complexity question: does the class approach hold for non-standardized TEI? | principle 13 is the standing answer |
+| Angelo Mario Del Grosso (CNR-ILC) | 30 July | two remarks: web components at the level of fruition behaviours, not TEI elements; extensions only for phenomena the Guidelines do not cover (which led to replacing the test example: `cancellatura`, duplicating `del`, gave way to `salvataggio`) | principle 4; agenda 2 and 6; the test suite |
+| Franz Fischer (VeDPH) | 30 July | the complexity question: does the class approach hold for non-standardized TEI? | principle 14 is the standing answer |
 | Paolo Monella | 30 July | the "sustainability by design" reading; the live vs one-off architecture question; a per-element rendering override request; offered Orso and Romualdo as test cases (open licence) | USAGE; desiderata; the contrast corpus |
 | Peter Robinson (Canterbury Tales Project) | 30 July | offered the [General Prologue](https://talesofcanterbury.org/GP/) transcription and collation materials; pointed to O'Donnell et al. 2019 | the contrast corpus; References |
 | Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting [DiScEPT](https://istituto-italiano-di-studi-germanici.github.io/DiScEPT/) (parallel texts and aligned translations) | agenda 5 |

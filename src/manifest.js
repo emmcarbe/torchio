@@ -38,13 +38,13 @@ export function normalizeManifest(raw = {}) {
     parent: raw.parent && typeof raw.parent.href === 'string'
       ? { href: raw.parent.href, label: String(raw.parent.label || '\u2039') }
       : null,
-    // interface labels the edition's tradition wants otherwise (principle
-    // 14): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
     // the register's columns, chosen by the editor among the card fields
     // the headers populate; unknown names are ignored with a warning
     register: (raw.register && Array.isArray(raw.register.columns))
       ? { columns: raw.register.columns.filter((c) => REGISTER_COLUMNS.includes(c)) }
       : null,
+    // interface labels the edition's tradition wants otherwise (principle
+    // 1): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
     labels: (raw.labels && typeof raw.labels === 'object')
       ? Object.fromEntries(Object.entries(raw.labels)
           .filter(([, v]) => typeof v === 'string' && v.trim()))

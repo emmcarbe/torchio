@@ -218,7 +218,7 @@ function chunkLabel(div, i, T) {
 export function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages = [] } = {}) {
   const manifest = normalizeManifest(rawManifest || {});
   const lang = resolveLang(manifest.lang, model);
-  // the edition's tradition may name things its own way (principle 14)
+  // the edition's tradition may name things its own way (principle 1)
   const T = { ...i18n(lang), ...manifest.labels };
   const theme = manifest.theme || 'savi';
   const parent = manifest.parent;

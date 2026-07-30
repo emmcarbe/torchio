@@ -1459,16 +1459,35 @@ function buildInteractJS(t) {
         });
         carry=!/\\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\\p{L}\\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\\p{L}\\p{N}]/gu,'').replace(/[\\p{Lm}\\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -2299,13 +2318,13 @@ function normalizeManifest(raw = {}) {
     parent: raw.parent && typeof raw.parent.href === 'string'
       ? { href: raw.parent.href, label: String(raw.parent.label || '\u2039') }
       : null,
-    // interface labels the edition's tradition wants otherwise (principle
-    // 14): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
     // the register's columns, chosen by the editor among the card fields
     // the headers populate; unknown names are ignored with a warning
     register: (raw.register && Array.isArray(raw.register.columns))
       ? { columns: raw.register.columns.filter((c) => REGISTER_COLUMNS.includes(c)) }
       : null,
+    // interface labels the edition's tradition wants otherwise (principle
+    // 1): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
     labels: (raw.labels && typeof raw.labels === 'object')
       ? Object.fromEntries(Object.entries(raw.labels)
           .filter(([, v]) => typeof v === 'string' && v.trim()))
@@ -3176,7 +3195,7 @@ function chunkLabel(div, i, T) {
 function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages = [] } = {}) {
   const manifest = normalizeManifest(rawManifest || {});
   const lang = resolveLang(manifest.lang, model);
-  // the edition's tradition may name things its own way (principle 14)
+  // the edition's tradition may name things its own way (principle 1)
   const T = { ...i18n(lang), ...manifest.labels };
   const theme = manifest.theme || 'savi';
   const parent = manifest.parent;
@@ -3704,7 +3723,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            const lemNorm = (a.lemma || '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '').slice(0, 16);
+            const lemNorm = (a.lemma || '').toLowerCase()
+              .replace(/[^\p{L}\p{N}]/gu, '').replace(/[\p{Lm}\p{M}]/gu, '').slice(0, 16);
             entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}" data-check="${escapeHTML(lemNorm)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
               + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')

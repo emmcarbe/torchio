@@ -2,7 +2,7 @@
 
 # Corrections register
 
-Register required by principle 13 of [PRINCIPLES.md](PRINCIPLES.md). Every
+Register required by principle 14 of [PRINCIPLES.md](PRINCIPLES.md). Every
 correction demanded by a real edition is recorded with date, edition and
 type.
 
@@ -13,7 +13,7 @@ Types:
 - **extension**: addition of a function, with no changes to existing ones;
 - **structural change**: modification of an existing engine behaviour.
 
-Falsification conditions for the thesis (principle 13): frequent structural
+Falsification conditions for the thesis (principle 14): frequent structural
 changes, or corrections that do not decrease with use within the same
 editorial genre.
 
