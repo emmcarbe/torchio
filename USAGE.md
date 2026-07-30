@@ -1,3 +1,5 @@
+<img src="docs/torchio-lockup.svg" alt="Torchio" width="400">
+
 # How to use Torchio
 
 The current prototype runs from the command line with Node (version 18 or
@@ -21,21 +23,27 @@ page exists.
 Without `--site`, a single standalone HTML page is produced instead of a
 multi-page site.
 
-## What appears, and why
+## What the press derives
 
-Pages and functions exist only if the markup provides the data:
+The direction matters: the edition declares, the press derives. Nothing in
+this table prescribes how to encode: encoding is governed by the TEI
+Guidelines and by your own editorial tradition. The table only documents
+what the current prototype knows how to derive from what an edition already
+declares; where it derives nothing from something your edition declares,
+that is a gap of the tool, to be filed in
+[CORRECTIONS.md](CORRECTIONS.md).
 
-| You get | If the TEI has |
+| The edition declares | The press derives |
 |---|---|
-| critical apparatus (popup on the lemma, margin notes, `apparatus.csv`) | `app` / `lem` / `rdg`, `listWit` |
-| reading / diplomatic toggle | `choice` (`orig`/`reg`, `abbr`/`expan`, `sic`/`corr`), `add`/`del` |
-| indices of persons, places, organisations | `listPerson` / `listPlace` / `listOrg` entries referenced from the text (`ref="#id"`) |
-| map page | `geo` coordinates inside `place`/`location` (or a reviewed `reconcile.json`, see below) |
-| margin notes with leader lines | `note` in the text, inline or standoff (`@target`) |
-| register of documents | many input files, or a `teiCorpus` |
-| one page per book or section, with a table of contents | several structural `div`s in the body of a long text |
-| Introduction and Appendices pages | `front` and `back` matter |
-| verse numbers | `l` elements with `@n` |
+| `app` / `lem` / `rdg`, `listWit` | critical apparatus (popup on the lemma, margin notes, `apparatus.csv`) |
+| `choice` (`orig`/`reg`, `abbr`/`expan`, `sic`/`corr`), `add`/`del` | reading / diplomatic toggle |
+| `listPerson` / `listPlace` / `listOrg` entries referenced from the text (`ref="#id"`) | indices of persons, places, organisations |
+| `geo` coordinates inside `place`/`location` (or a reviewed `reconcile.json`, see below) | map page |
+| `note` in the text, inline or standoff (`@target`) | margin notes with leader lines |
+| many input files, or a `teiCorpus` | register of documents |
+| several structural `div`s in the body of a long text | one page per book or section, with a table of contents |
+| `front` and `back` matter | Introduction and Appendices pages |
+| `l` elements with `@n` | verse numbers |
 
 Unknown or custom elements are never dropped: they receive a base rendering.
 Custom elements declared `memberOf` a TEI class in the edition's ODD inherit

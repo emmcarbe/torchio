@@ -1,3 +1,5 @@
+<img src="docs/torchio-lockup.svg" alt="Torchio" width="400">
+
 # Desiderata
 
 Wishes, requests and ideas for Torchio, from anyone. To add yours: edit this

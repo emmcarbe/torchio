@@ -1,3 +1,5 @@
+<img src="docs/torchio-lockup.svg" alt="Torchio" width="400">
+
 # Corrections register
 
 Register required by principle 13 of [PRINCIPLES.md](PRINCIPLES.md). Every

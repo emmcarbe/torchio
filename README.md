@@ -31,7 +31,8 @@ recorded in [CORRECTIONS.md](CORRECTIONS.md); wishes go in
    (XML, CSV, JSON) are generated from the model, not from ad hoc
    transformations of the XML.
 5. No runtime services. The same code runs in the browser and in Node;
-   hosting, versioning and CI belong to the edition's repository.
+   hosting, versioning and CI (continuous integration, the automated checks
+   a repository runs at every change) belong to the edition's repository.
 6. The markup decides which pages and functions exist; the optional manifest
    (`torchio.json`) decides their presence, order and labels.
 7. Generated pages meet WCAG AA contrast (asserted per theme in the test
