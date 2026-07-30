@@ -33,7 +33,11 @@ export function renderBase(node) {
     return `<span class="t-pb" role="separator" title="page break">${n ? `[${n}]` : ''}</span>`;
   }
   const tag = BLOCKS.has(node.element) ? 'div' : 'span';
-  const cls = `t-${node.element} s-${node.section}`;
+  let cls = `t-${node.element} s-${node.section}`;
+  // verse numbering: mark every fifth line so the theme can show its number
+  if (node.element === 'l' && /^\d+$/.test(node.atts.n || '') && Number(node.atts.n) % 5 === 0) {
+    cls += ' ln5';
+  }
   const id = ` id="${escapeHTML(node.id)}"`;
   let data = ` data-el="${escapeHTML(node.element)}"`;
   for (const a of DATA_ATTS) {
@@ -82,7 +86,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-head{font-weight:600;margin:1.3em 0 .4em}
 .t-p,.t-ab{margin:.65em 0}
 .t-lg{margin:.8em 0 .8em 1.6em}
-.t-l{display:block}
+.t-l{display:block;position:relative}
+.t-lg{padding-left:3em}
+.t-l.ln5::before{content:attr(data-n);position:absolute;left:-3em;top:.35em;
+  font-family:var(--mono);font-size:10px;color:var(--soft);user-select:none}
 .t-sp{margin:.65em 0}
 .t-speaker{font-family:var(--mono);font-size:.72em;letter-spacing:.1em;
   text-transform:uppercase;color:var(--soft);display:inline-block;margin-right:.5em}
