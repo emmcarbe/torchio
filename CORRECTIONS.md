@@ -62,5 +62,7 @@ editorial genre.
 | 2026-07-30 | C40 | demanded by the supervising editor | assignment | the Italian interface called the edited level "Lettura", a calque of the English "reading text": the canonical pair of the Italian philological tradition is diplomatica / interpretativa, and the toggle now says so (the English pair, current in documentary and genetic editing, stands) |
 | 2026-07-30 | C41 | Canterbury Tales Project (GP), offered by the editor | assignment | a document whose body consists of collation entries (`ab` holding only `app`) is an apparatus, and rendering only its lemmata hid its content: it now renders expanded as a variant map, every reading with its witnesses and count, lacunae declared with their sigla |
 
-As of 30 July 2026: 40 corrections applied (26 assignments, 13 extensions, 1
+| 2026-07-30 | C42 | Eurasian Latin Archive, public demo | assignment | the source reuses one ORCID across two people's changes (and a placeholder across more): counting interventions by `@who` mis-attributed one person's work to another. The change's own prose names its agent ("I. Volpi: transcription") and that declaration wins; unambiguous name-identifier co-occurrences become aliases for identifier-only changes; an identifier seen with two names is never trusted |
+
+As of 30 July 2026: 41 corrections applied (27 assignments, 13 extensions, 1
 structural change), 1 open.
