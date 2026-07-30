@@ -13657,6 +13657,12 @@
     "status": "confirmed",
     "source": "orcid",
     "orcid": "0000-0003-4347-011X"
+   },
+   "0000-0000-0000-0000": {
+    "label": "S. Bettella, C. Marzucchi, E. Bartoli (no ORCID in the source)",
+    "status": "confirmed",
+    "source": "editor",
+    "note": "placeholder ORCID 0000-0000-0000-0000 used in the source files for contributors without one; names from the change notes"
    }
   },
   "org": {}
