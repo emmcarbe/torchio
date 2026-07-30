@@ -9,6 +9,7 @@ import { readFile, writeFile, mkdir, stat, readdir, cp } from 'node:fs/promises'
 import { dirname, join, basename } from 'node:path';
 import { parseXML, inTEINamespace } from '../src/xml.js';
 import { resolveIncludes } from '../src/xinclude.js';
+import { parseODD, isODD } from '../src/odd.js';
 import { loadBaseData, buildClassMap } from '../src/classes.js';
 import { buildModel } from '../src/model.js';
 import { pressPage } from '../src/render.js';
@@ -24,16 +25,32 @@ if (!input) {
   process.exit(1);
 }
 
+// the edition's ODD: --odd=file, or recognized on its own in directory input
+// (a document carrying schemaSpec is a schema, not a text)
+const oddArg = process.argv.find((a) => a.startsWith('--odd='));
+let odd = null;
+let oddFile = null;
+if (oddArg) {
+  oddFile = oddArg.slice('--odd='.length);
+  odd = parseODD(await readFile(oddFile, 'utf-8'));
+}
+
 // input: one TEI file, a teiCorpus, or a whole directory of TEI files
 const inputStat = await stat(input);
 let roots = [];
 let xml = null;
 if (inputStat.isDirectory()) {
-  const names = (await readdir(input)).filter((n) => n.endsWith('.xml')).sort();
+  const names = (await readdir(input)).filter((n) => /\.(xml|odd)$/i.test(n)).sort();
   for (const n of names) {
     try {
       const src = await readFile(join(input, n), 'utf-8');
       const r = parseXML(src);
+      if (isODD(r)) {
+        if (odd) { if (!oddFile || n !== basename(oddFile)) console.error(`second ODD ignored: ${n}`); continue; }
+        odd = parseODD(r);
+        oddFile = n;
+        continue;
+      }
       if (!inTEINamespace(r)) continue;
       await resolveIncludes(r, (href) => readFile(join(input, href), 'utf-8'));
       roots.push({ id: n.replace(/\.xml$/i, ''), root: r });
@@ -45,6 +62,10 @@ if (inputStat.isDirectory()) {
 } else {
   xml = await readFile(input, 'utf-8');
   const root = parseXML(xml);
+  if (isODD(root)) {
+    console.error('the input is an ODD: a schema, not an edition (pass it with --odd= next to a TEI input)');
+    process.exit(1);
+  }
   if (!inTEINamespace(root)) {
     console.error('warning: root element is not in the TEI namespace; pressing anyway (nothing is invisible)');
   }
@@ -54,9 +75,14 @@ if (inputStat.isDirectory()) {
   for (const u of unresolved) console.error(`xinclude unresolved: ${u.href} (${u.reason})`);
   roots = [root];
 }
+if (oddFile) {
+  console.error(`odd: ${oddFile} (${odd.customElements.length} custom elements, ${odd.deletedElements.size} deleted)`);
+} else {
+  console.error('odd: none, read against the whole of P5 (tei_all)');
+}
 
 const data = await loadBaseData();
-const map = buildClassMap(null, data);
+const map = buildClassMap(odd, data);
 const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, map);
 
 const baseDir = inputStat.isDirectory() ? input : dirname(input);

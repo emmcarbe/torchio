@@ -27,11 +27,18 @@ multi-page site.
 
 The same engine runs in a single self-contained page:
 [the press in the browser](https://emmcarbe.github.io/torchio/press/).
-Choose the files of an edition (one or more TEI XML files, with
-`torchio.json`, `reconcile.json` and the extra pages it declares, if you
-have them), read the report, preview the pages, download the site as a
-`.zip`. Everything happens on your machine: nothing is uploaded anywhere.
-The page also works offline, saved locally and opened from `file://`.
+Choose the files of an edition (one or more TEI XML files; include the ODD
+if the edition has one, it is recognized automatically), read the report,
+then take every
+composition decision in the panel: title, language, theme, which pages and
+which labels, pieces on or off, and your own simple pages written in
+Markdown right there (an introduction, credits, a bibliography). The page
+writes `torchio.json` for you and ships it inside the archive, next to the
+pressed site: keep it with your XML and every future pressing, browser or
+command line, repeats your decisions.
+
+Everything happens on your machine: nothing is uploaded anywhere. The page
+also works offline, saved locally and opened from `file://`.
 
 The page is generated from the engine modules by
 `node tools/build-browser.js`; the suite proves that the generated engine
@@ -60,9 +67,21 @@ that is a gap of the tool, to be filed in
 | `l` elements with `@n` | verse numbers |
 
 Unknown or custom elements are never dropped: they receive a base rendering.
-Custom elements declared `memberOf` a TEI class in the edition's ODD inherit
-that class's behaviour (loading the ODD from the CLI is being wired; the
-engine already supports it).
+
+## Where the ODD goes
+
+Next to the TEI, like everything else. An edition without an ODD is read
+against the whole of P5 (that is, `tei_all`). An edition with one gets it
+recognized on its own: a document carrying a `schemaSpec` is a schema, not
+a text, so in directory input (and in the browser drop) the ODD is simply
+picked up from among the files. With a single-file input, pass it
+explicitly:
+
+    node tools/press.js --site edition.xml out --odd=schema.odd.xml
+
+Custom elements declared `memberOf` a TEI class in the ODD inherit that
+class's behaviour with zero code; deleted elements and modules narrow the
+schema, never the rendering (nothing becomes invisible).
 
 ## The manifest (optional)
 

@@ -504,4 +504,41 @@ console.log('path A — the press in the browser');
     'every page byte-identical between browser bundle and modular engine');
 }
 
+console.log('odd — recognized on its own, wired to the press');
+{
+  const { isODD } = await import('../src/odd.js');
+  const oddSrc = await readFile(new URL('./fixtures/custom.odd.xml', import.meta.url), 'utf-8');
+  ok(isODD(parseXML(oddSrc)), 'a document carrying schemaSpec is an ODD');
+  ok(!isODD(parseXML('<TEI xmlns="http://www.tei-c.org/ns/1.0"><text><body><p/></body></text></TEI>')),
+    'a plain TEI text is not an ODD');
+
+  // the CLI: the ODD sits next to the TEI in the same folder, nothing to declare
+  const { spawnSync } = await import('node:child_process');
+  const { mkdtemp, writeFile, cp, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const dir = await mkdtemp(join(tmpdir(), 'torchio-odd-'));
+  await writeFile(join(dir, 'doc.xml'),
+    `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+      <titleStmt><title>Prova ODD</title></titleStmt>
+      <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+    </fileDesc></teiHeader><text><body>
+      <p>Bozza con <salvataggio xmlns="http://example.org/ns" when="2026-07-30">strato di autosalvataggio</salvataggio>.</p>
+    </body></text></TEI>`);
+  await cp(new URL('./fixtures/custom.odd.xml', import.meta.url), join(dir, 'schema.odd.xml'));
+  const out = join(dir, 'pressed');
+  const run = spawnSync(process.execPath,
+    [new URL('../tools/press.js', import.meta.url).pathname, '--site', dir, out],
+    { encoding: 'utf-8' });
+  ok(run.status === 0 && run.stderr.includes('odd: schema.odd.xml'),
+    'directory input: the ODD alongside is recognized and reported');
+  const html = await readFile(join(out, 'text.html'), 'utf-8')
+    .catch(() => readFile(join(out, 'doc-doc.html'), 'utf-8'));
+  ok(html.includes('data-el="salvataggio"') && html.includes('s-3-trascrizionale'),
+    'custom element inherits its behaviour in the pressed page (memberOf, zero code)');
+  ok(!html.includes('data-el="salvataggio"') || !/data-el="salvataggio"[^>]*class="[^"]*s-base/.test(html),
+    'custom element does not degrade to base when the ODD travels along');
+  await rm(dir, { recursive: true, force: true });
+}
+
 console.log(`\n${passed} assertions passed.`);

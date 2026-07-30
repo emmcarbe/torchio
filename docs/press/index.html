@@ -12,22 +12,36 @@ a{color:#B01E28;text-decoration:none}
 a:hover{text-decoration:underline}
 .lockup{max-width:420px;width:100%;height:auto;margin:0 0 1.4rem;display:block}
 .note{font-size:14px;color:#6A6A66}
-.drop{border:1px solid #C9C5B8;padding:2.2rem 1.5rem;text-align:center;margin:1.5rem 0;background:#FCFBF8}
-.drop.over{border-color:#B01E28;background:#FBF4F2}
+.drop{border:1px solid #E5E2D9;padding:2.2rem 1.5rem;text-align:center;margin:1.5rem 0;background:#fff}
+.drop.over{border-color:#B01E28}
 .drop p{margin:.4rem 0}
 button{font:inherit;font-size:16px;padding:.45em 1.1em;border:1px solid #1B1B1B;
   background:#fff;color:#1B1B1B;cursor:pointer}
 button:hover{border-color:#B01E28;color:#B01E28}
 button:focus-visible,.drop:focus-within{outline:2px solid #B01E28;outline-offset:2px}
-#report{border-top:1px solid #E5E2D9;margin-top:2rem;padding-top:1rem}
+#report,#composebox,#previewbox{border-top:1px solid #E5E2D9;margin-top:2rem;padding-top:1rem}
 #report dl{display:grid;grid-template-columns:max-content 1fr;gap:.15rem 1.2rem;margin:.8rem 0}
 #report dt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
-  letter-spacing:.08em;text-transform:uppercase;color:#6A6A66;padding-top:.25em}
+  letter-spacing:.08em;text-transform:uppercase;color:#1B1B1B;padding-top:.25em}
 #report dd{margin:0}
 .warn{color:#B01E28}
+input,select,textarea{accent-color:#B01E28}
+input[type=text],textarea,select{font:inherit;font-size:16px;color:#1B1B1B;
+  border:1px solid #E5E2D9;background:#fff;padding:.3em .5em;max-width:100%}
+input[type=text]:focus,textarea:focus,select:focus{outline:2px solid #B01E28;outline-offset:1px}
+textarea{width:100%;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px}
+fieldset{border:1px solid #E5E2D9;margin:1.2rem 0;padding:.8rem 1rem}
+legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;padding:0 .4em}
+.frow{display:flex;align-items:baseline;gap:.8rem;margin:.5rem 0;flex-wrap:wrap}
+.frow>label:first-child{min-width:7.5rem}
+.frow input[type=text]{flex:1;min-width:12rem}
+.pagerow>label{min-width:9rem}
+.pageoff{min-width:9rem;color:#6A6A66}
+#pageeditor{border:1px solid #E5E2D9;padding:.8rem 1rem;margin:1rem 0}
 #pages{margin:.8rem 0}
 #pageselect{font:inherit;font-size:16px;padding:.25em;max-width:100%}
-iframe{width:100%;height:60vh;border:1px solid #C9C5B8;background:#fff;margin-top:.6rem}
+iframe{width:100%;height:60vh;border:1px solid #E5E2D9;background:#fff;margin-top:.6rem}
 [hidden]{display:none !important}
 </style>
 </head>
@@ -91,13 +105,15 @@ The same result, from the command line, is described in
 <div class="drop" id="drop">
 <p><strong>Drop files here</strong>, or</p>
 <p><button id="pick" type="button">choose files</button></p>
-<p class="note">One or more TEI XML files (several files form a collection),
-with <code>torchio.json</code>, <code>reconcile.json</code> and the pages it
-declares, if you have them.</p>
+<p class="note">One or more TEI XML files: several files form a collection.
+If the edition has an ODD, add it to the selection: it is recognized
+automatically. Title, language, theme and pages are decided in the panel
+that appears next.</p>
 <input type="file" id="fileinput" multiple
-  accept=".xml,.tei,.json,.md,.markdown,.html" hidden>
+  accept=".xml,.tei,.odd,.json,.md,.markdown,.html" hidden>
 </div>
 <section id="report" hidden aria-live="polite"></section>
+<section id="composebox" hidden></section>
 <section id="previewbox" hidden>
 <h2>Preview</h2>
 <div id="pages">
@@ -610,12 +626,33 @@ function convert(node, docId, path, classMap) {
     children: [],
   };
   let i = 0;
+  const wordInternal = WORD_INTERNAL.has(element);
   for (const child of node.children) {
-    if (typeof child === 'string') out.children.push(child);
-    else out.children.push(convert(child, docId, `${path}.${i++}`, classMap));
+    if (typeof child === 'string') {
+      if (wordInternal) {
+        // C20: inside word-level elements, whitespace is source formatting,
+        // not text; word separation comes from pc and element boundaries
+        const s = child.replace(/\s+/g, '');
+        if (s) out.children.push(s);
+      } else if (ELEMENT_ONLY.has(element) && !child.trim()) {
+        // C20: these content models admit no character data, so
+        // whitespace-only nodes can only be source formatting
+        continue;
+      } else {
+        out.children.push(child);
+      }
+    } else out.children.push(convert(child, docId, `${path}.${i++}`, classMap));
   }
   return out;
 }
+
+/** Elements whose direct text content is a single word or smaller (TEI
+ *  model.segLike, sub-word members): internal whitespace is indentation. */
+const WORD_INTERNAL = new Set(['w', 'm', 'c']);
+
+/** Elements whose P5 content model is element-only (alternations and
+ *  groupings, no character data): whitespace between children is indentation. */
+const ELEMENT_ONLY = new Set(['choice', 'subst', 'app', 'rdgGrp']);
 
 function* walkModel(node) {
   if (!node) return;
@@ -1068,6 +1105,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -1083,6 +1127,7 @@ function buildInteractJS(t) {
   var body=document.body; body.classList.add('mode-read');
   var pop=null, lastTrigger=null;
   function closePop(){
+    clearZone();
     if(pop){pop.remove();pop=null;}
     if(lastTrigger){lastTrigger.setAttribute('aria-expanded','false');
       if(document.activeElement===document.body)lastTrigger.focus();
@@ -1106,6 +1151,28 @@ function buildInteractJS(t) {
     el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-expanded','false');
     if(label)el.setAttribute('aria-label',label);
   }
+  /* the zone of text a note refers to: declared targets first, then the
+     word or block just before its mark */
+  var hiZone=[];
+  function clearZone(){hiZone.forEach(function(e){e.classList.remove('note-hi');});hiZone=[];}
+  function zoneOf(n){
+    var app=n.closest('.t-app');
+    if(app)return [app];
+    var t=n.dataset.target;
+    if(t){
+      var els=t.split(/\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
+      if(els.length)return els;
+    }
+    var m=n.previousElementSibling;
+    if(m&&m.classList&&m.classList.contains('t-note-mark')){
+      var prev=m.previousElementSibling;
+      if(prev&&prev.nodeType===1&&!prev.classList.contains('t-note')&&(prev.textContent||'').length<400)return [prev];
+      var par=m.parentElement;
+      if(par&&par!==document.body&&(par.textContent||'').length<400)return [par];
+    }
+    return [];
+  }
+  function showZone(n){clearZone();zoneOf(n).forEach(function(e){e.classList.add('note-hi');hiZone.push(e);});}
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
     makeTrigger(el,'${t.appEntry}: '+el.textContent.trim());
   });
@@ -1113,89 +1180,6 @@ function buildInteractJS(t) {
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
-  /* margin notes: position each note beside its anchor (data-target for
-     standoff notes, the preceding mark otherwise), stack on collision,
-     and draw a faint leader to the exact point */
-  function leaders(){
-    var old=document.getElementById('note-leaders'); if(old)old.remove();
-    var main=document.querySelector('main.torchio'); if(!main)return;
-    var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
-    if(window.innerWidth<1180||body.classList.contains('notes-off')){
-      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
-      return;
-    }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='note-leaders';
-    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
-    function anchorOf(n){
-      var app=n.closest('.t-app');
-      if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
-      var t=n.dataset.target;
-      if(t){
-        var id=t.split(/\s+/)[0].replace(/^#/,'');
-        var el=document.getElementById(id);
-        if(el)return {el:el,kind:'target'};
-      }
-      var m=n.previousElementSibling;
-      if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
-      return null;
-    }
-    var lastBottom=0;
-    var items=notes.map(function(n){
-      var flowY=n.getBoundingClientRect().top-mr.top;
-      var res=anchorOf(n);
-      var a=res?res.el:null, kind=res?res.kind:null;
-      var y=flowY;
-      if(a){
-        var r=a.getBoundingClientRect();
-        var ay=(r.width||r.height)?r.top-mr.top:null;
-        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
-        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
-        else{a=null;}
-      }
-      return {n:n,a:a,kind:kind,y:y};
-    });
-    items.sort(function(p,q){return p.y-q.y;});
-    items.forEach(function(it){
-      var n=it.n;
-      n.classList.add('placed');
-      var top=Math.max(it.y,lastBottom+10);
-      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
-      lastBottom=top+n.offsetHeight;
-      if(it.a){
-        var ar=it.a.getBoundingClientRect();
-        if(ar.width||ar.height){
-          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
-          var x2=colLeft-8, y2=top+8;
-          // a thread only when short and meaningful; never across the page
-          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
-            var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
-            p.setAttribute('fill','none');
-            p.setAttribute('stroke','var(--faint)');
-            p.setAttribute('stroke-width','1');
-            svg.appendChild(p);
-          }
-          // hover pairing in both directions
-          (function(anchor,note){
-            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
-            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
-            note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
-            anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
-          })(it.a,n);
-        }
-      }
-    });
-    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
-    main.appendChild(svg);
-  }
-  if(document.readyState==='complete')leaders();
-  else window.addEventListener('load',leaders);
-  window.addEventListener('resize',leaders);
 
   document.addEventListener('keydown',function(ev){
     if((ev.key==='Enter'||ev.key===' ')&&ev.target.getAttribute&&ev.target.getAttribute('role')==='button'
@@ -1232,6 +1216,15 @@ function buildInteractJS(t) {
         +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'${t.occurrenceOne}':'${t.occurrenceMany}')+'</div>',ent);
       ev.stopPropagation();return;
     }
+    var np=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(np&&!body.classList.contains('notes-off')){
+      var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
+      if(nn){
+        openPop('<span class="k">'+'${t.notes}'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        showZone(nn);
+        ev.stopPropagation();return;
+      }
+    }
     closePop();
   });
   /* margin notes: position each note beside its anchor (data-target for
@@ -1242,16 +1235,6 @@ function buildInteractJS(t) {
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
       .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
-    if(window.innerWidth<1180||body.classList.contains('notes-off')){
-      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
-      return;
-    }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='note-leaders';
-    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
       var app=n.closest('.t-app');
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
@@ -1265,6 +1248,30 @@ function buildInteractJS(t) {
       if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
       return null;
     }
+
+    /* economy rule: past this density the margin cannot carry the notes;
+       they collapse to their marks and open on click, like the apparatus */
+    var dense=notes.length>12;
+    body.classList.toggle('notes-dense',dense);
+    if(dense){
+      notes.forEach(function(n,i){
+        if(n.dataset.npi)return;
+        n.dataset.npi=String(i);
+        var res=anchorOf(n);
+        if(res){res.el.setAttribute('data-notepop',String(i));
+          res.el.removeAttribute('aria-hidden');makeTrigger(res.el,null);}
+      });
+    }
+    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
+      return;
+    }
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var colLeft=main.clientWidth+26;
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='note-leaders';
+    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
@@ -1303,10 +1310,12 @@ function buildInteractJS(t) {
           }
           // hover pairing in both directions
           (function(anchor,note){
-            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
-            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
+            var els=null;
+            function on(){if(!els)els=zoneOf(note);els.concat([anchor]).forEach(function(e){e.classList.add('note-hi');});note.classList.add('note-hi');}
+            function off(){(els||[]).concat([anchor]).forEach(function(e){e.classList.remove('note-hi');});note.classList.remove('note-hi');}
             note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
             anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
+            note.addEventListener('click',function(ev){on();if(els&&els[0])els[0].scrollIntoView({block:'nearest'});ev.stopPropagation();});
           })(it.a,n);
         }
       }
@@ -1629,7 +1638,7 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-app .t-note{display:none}
 @media(min-width:1180px){.t-app .t-note{display:block}}
 .t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
-.note-hi{background:rgba(176,30,40,.08)}
+.note-hi{background:rgba(176,30,40,.13);border-radius:2px;transition:background .15s}
 .t-note.note-hi{color:var(--ink)}
 body.notes-off .t-note{display:none}
 body.notes-off .t-note-mark{opacity:.25}
@@ -1843,6 +1852,16 @@ function parseODD(source) {
   }
 
   return { includedModules, deletedElements, customElements, customClasses };
+}
+
+/**
+ * An ODD is recognized on its own: a document carrying a schemaSpec is a
+ * schema, not a text. The ODD travels next to the TEI, in the same folder
+ * or the same drop, and the press tells the two apart.
+ */
+function isODD(root) {
+  for (const node of walk(root)) if (local(node.name) === 'schemaSpec') return true;
+  return false;
 }
 
 function memberships(spec) {
@@ -2105,6 +2124,8 @@ header.torchio .tt{min-width:14rem}
 .about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
   text-transform:uppercase;color:var(--soft);margin-top:1.2em}
 .about dd{margin:0.3em 0 0}
+.about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
+  border-radius:2px;padding:0 12px;margin-top:.5em}
 .wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
 .wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
   vertical-align:baseline}
@@ -2308,7 +2329,9 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       .map((a) => `${escapeHTML(a.type)} (${a.entries.length} ${T.entries})`).join(' · ')}</dd>`;
   }
   if (model.meta.revisions) {
-    about += `<dt>${T.revisions}</dt><dd><table class="wit-table">`;
+    // long histories scroll inside a bounded window instead of taking the page
+    const box = model.meta.revisions.length > 10 ? ' class="scrollbox"' : '';
+    about += `<dt>${T.revisions}</dt><dd${box}><table class="wit-table">`;
     for (const r of model.meta.revisions) {
       about += `<tr><td class="sigla">${escapeHTML(r.when || '')}</td><td>${escapeHTML(r.what)}</td></tr>`;
     }
@@ -2386,6 +2409,20 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     });
+    if (frontOnOwnPage) {
+      out['front.html'] = chrome({
+        title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
+        body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
+      });
+    }
+    if (backOnOwnPage) {
+      out['back.html'] = chrome({
+        title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
+        body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
+      });
+    }
   } else if (!isCollection) {
     // reading page: the body (and the hidden header for the toggle);
     // front and back matter live on their own pages
@@ -2906,14 +2943,21 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 /**
  * The browser harness of path A. Not a module: this file is inlined by
  * tools/build-browser.js after the engine, in the same script scope, and
- * mirrors tools/press.js step by step (parse, xinclude, class map, model,
- * manifest, reconciliation, extra pages, site, exports).
+ * mirrors tools/press.js step by step (parse, xinclude, ODD, class map,
+ * model, manifest, reconciliation, extra pages, site, exports).
+ *
+ * The composition manifest is written BY the interface: the user takes
+ * decisions in the panel (title, language, theme, pages, pieces, simple
+ * pages in Markdown) and the page generates torchio.json, shipping it in
+ * the archive next to the pressed site. Nobody has to know what a
+ * manifest is in order to compose an edition.
  *
  * Everything happens in the page: no upload, no server, no dependencies.
  */
 
-/* global parseXML, inTEINamespace, resolveIncludes, buildClassMap, buildModel,
-   pressSite, analyze, applyReconciliation, markdown, buildZip,
+/* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
+   buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
+   markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -2921,12 +2965,16 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   const input = document.getElementById('fileinput');
   const pick = document.getElementById('pick');
   const report = document.getElementById('report');
+  const composeBox = document.getElementById('composebox');
   const previewBox = document.getElementById('previewbox');
   const pageSelect = document.getElementById('pageselect');
   const iframe = document.getElementById('preview');
   const downloadBtn = document.getElementById('download');
 
-  let pressed = null; // { files, hasMap, slug }
+  // everything the last pressing established
+  let S = null;
+  // S = { model, analysis, sourceXML, notes, unresolved, odd, oddInfo,
+  //       droppedManifest, droppedExtra, slug, ui, files }
 
   pick.addEventListener('click', () => input.click());
   input.addEventListener('change', () => { if (input.files.length) press(input.files); });
@@ -2939,11 +2987,13 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   });
 
   function esc(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   function fail(message) {
     report.hidden = false;
+    composeBox.hidden = true;
     previewBox.hidden = true;
     report.innerHTML = '<h2>Not pressed</h2><p class="warn">' + esc(message) + '</p>';
   }
@@ -2957,19 +3007,15 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   }
 
   async function doPress(fileList) {
-    // read everything the user handed over, by name
     const texts = new Map();
     for (const f of fileList) texts.set(f.name, await f.text());
 
     const notes = [];
 
-    // the TEI documents: one file is an edition, several form a collection
-    const xmlNames = [...texts.keys()]
-      .filter((n) => /\.(xml|tei)$/i.test(n))
-      .sort();
+    const xmlNames = [...texts.keys()].filter((n) => /\.(xml|tei|odd)$/i.test(n)).sort();
     if (!xmlNames.length) throw new Error('No XML file among the chosen files.');
 
-    // xinclude: hrefs are looked up among the dropped files, by path then by name
+    // xinclude: hrefs are looked up among the chosen files, by path then by name
     const byBase = new Map();
     for (const n of texts.keys()) byBase.set(n.split('/').pop(), n);
     const loadText = async (href) => {
@@ -2979,40 +3025,45 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       return hit;
     };
 
-    let roots = [];
-    let unresolvedIncludes = [];
-    const included = new Set(); // files consumed as xinclude targets
-    if (xmlNames.length === 1) {
-      const root = parseXML(texts.get(xmlNames[0]));
-      if (!inTEINamespace(root)) {
-        notes.push('The root element is not in the TEI namespace; pressed anyway (nothing is invisible).');
+    // parse everything, set the ODD apart (the ODD travels next to the TEI
+    // and is recognized on its own: a schemaSpec is a schema, not a text)
+    const parsed = [];
+    let odd = null;
+    let oddInfo = null;
+    for (const n of xmlNames) {
+      try {
+        const root = parseXML(texts.get(n));
+        if (isODD(root)) {
+          if (odd) { notes.push('A second ODD was ignored: ' + n); continue; }
+          odd = parseODD(root);
+          oddInfo = { file: n, custom: odd.customElements.length, deleted: odd.deletedElements.size };
+        } else {
+          parsed.push({ id: n.replace(/\.(xml|tei)$/i, ''), name: n, root });
+        }
+      } catch (err) {
+        notes.push('Skipped ' + n + ': ' + err.message);
       }
-      const r = await resolveIncludes(root, async (href) => {
+    }
+    if (!parsed.length) throw new Error('No TEI document among the chosen files (an ODD alone is a schema, not an edition).');
+
+    const included = new Set();
+    let unresolved = [];
+    for (const p of parsed) {
+      const r = await resolveIncludes(p.root, async (href) => {
         const t = await loadText(href);
         included.add(href.split('#')[0].split('/').pop());
         return t;
       });
-      unresolvedIncludes = r.unresolved;
-      roots = [root];
+      unresolved.push(...r.unresolved);
+    }
+
+    let roots;
+    if (parsed.length === 1) {
+      if (!inTEINamespace(parsed[0].root)) {
+        notes.push('The root element is not in the TEI namespace; pressed anyway (nothing is invisible).');
+      }
+      roots = [parsed[0].root];
     } else {
-      // several XML files: resolve includes first, then keep the TEI roots
-      const parsed = [];
-      for (const n of xmlNames) {
-        try {
-          const root = parseXML(texts.get(n));
-          parsed.push({ id: n.replace(/\.(xml|tei)$/i, ''), name: n, root });
-        } catch (err) {
-          notes.push('Skipped ' + n + ': ' + err.message);
-        }
-      }
-      for (const p of parsed) {
-        const r = await resolveIncludes(p.root, async (href) => {
-          const t = await loadText(href);
-          included.add(href.split('#')[0].split('/').pop());
-          return t;
-        });
-        unresolvedIncludes.push(...r.unresolved);
-      }
       roots = parsed
         .filter((p) => inTEINamespace(p.root))
         .filter((p) => !included.has(p.name))
@@ -3021,13 +3072,13 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       if (roots.length === 1) roots = [roots[0].root];
     }
 
-    const map = buildClassMap(null, TORCHIO_BASE_DATA);
+    const map = buildClassMap(odd, TORCHIO_BASE_DATA);
     const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, map);
 
-    // the manifest and the editor's decisions, if they travelled along
-    let manifest = null;
+    // a manifest that travelled along seeds the panel; the panel owns it from here
+    let droppedManifest = null;
     if (texts.has('torchio.json')) {
-      try { manifest = JSON.parse(texts.get('torchio.json')); }
+      try { droppedManifest = JSON.parse(texts.get('torchio.json')); }
       catch (err) { notes.push('torchio.json ignored: ' + err.message); }
     }
     if (texts.has('reconcile.json')) {
@@ -3037,63 +3088,366 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       } catch (err) { notes.push('reconcile.json ignored: ' + err.message); }
     }
 
-    // the editor's simple pages, declared in the manifest
-    const extraPages = [];
-    if (manifest && Array.isArray(manifest.extra)) {
-      for (const e of manifest.extra) {
+    // extra pages declared by a dropped manifest, resolved among the files
+    const droppedExtra = [];
+    if (droppedManifest && Array.isArray(droppedManifest.extra)) {
+      for (const e of droppedManifest.extra) {
         if (!e || !e.id || !e.file) continue;
         const raw = texts.get(e.file) || texts.get(byBase.get(e.file.split('/').pop()));
         if (raw === undefined) {
           notes.push('Extra page skipped (' + e.file + '): not among the chosen files.');
           continue;
         }
-        extraPages.push({
+        droppedExtra.push({
           id: e.id,
           label: e.label || e.id,
+          md: e.file.endsWith('.html') ? null : raw,
           html: e.file.endsWith('.html') ? raw : markdown(raw),
         });
       }
     }
 
     const analysis = analyze(roots.map((r) => r.root || r), map);
-    const sourceXML = xmlNames.length === 1 ? texts.get(xmlNames[0]) : null;
-    const files = pressSite(model, { manifest, sourceXML, extraPages });
-    const hasMap = 'map.html' in files;
+    const teiNames = parsed.map((p) => p.name);
 
-    pressed = {
-      files,
-      hasMap,
-      slug: xmlNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
+    S = {
+      model,
+      analysis,
+      sourceXML: teiNames.length === 1 ? texts.get(teiNames[0]) : null,
+      notes,
+      unresolved,
+      oddInfo,
+      droppedManifest,
+      slug: teiNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
+      ui: seedUI(model, droppedManifest, droppedExtra),
+      files: null,
     };
 
-    renderReport({ model, analysis, files, unresolvedIncludes, notes, manifest });
-    renderPreview(files);
+    compose();
+    renderPanel();
   }
 
-  function renderReport({ model, analysis, files, unresolvedIncludes, notes, manifest }) {
-    const regs = Object.entries(model.registries || {})
+  // ---- the composition state: what the panel edits, torchio.json records ----
+
+  function seedUI(model, raw, droppedExtra) {
+    raw = raw || {};
+    const ui = {
+      title: typeof raw.title === 'string' ? raw.title : '',
+      subtitle: typeof raw.subtitle === 'string' ? raw.subtitle : '',
+      lang: raw.lang === 'it' || raw.lang === 'en' ? raw.lang : '',
+      theme: typeof raw.theme === 'string' ? raw.theme : '',
+      exports: raw.exports !== false,
+      pieces: {
+        apparatus: !(raw.pieces && raw.pieces.apparatus === false),
+        entities: !(raw.pieces && raw.pieces.entities === false),
+        choice: !(raw.pieces && raw.pieces.choice === false),
+      },
+      // pages: id -> {on, label}; filled after the first pressing, when the
+      // derived pages are known
+      pages: null,
+      pagesFromManifest: Array.isArray(raw.pages) ? raw.pages : null,
+      extra: droppedExtra.map((e) => ({ id: e.id, label: e.label, md: e.md, html: e.html })),
+    };
+    return ui;
+  }
+
+  /** The manifest the interface writes: only what deviates, never noise. */
+  function buildManifest() {
+    const ui = S.ui;
+    const m = {};
+    if (ui.title.trim()) m.title = ui.title.trim();
+    if (ui.subtitle.trim()) m.subtitle = ui.subtitle.trim();
+    if (ui.lang) m.lang = ui.lang;
+    if (ui.theme) m.theme = ui.theme;
+    if (ui.extra.length) {
+      m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
+    }
+    if (ui.pages) {
+      const ids = Object.keys(ui.pages);
+      const deviates = ids.some((id) => !ui.pages[id].on || ui.pages[id].label);
+      if (deviates) {
+        m.pages = ids
+          .filter((id) => ui.pages[id].on)
+          .map((id) => (ui.pages[id].label ? { id, label: ui.pages[id].label } : id));
+      }
+    }
+    if (!ui.pieces.apparatus || !ui.pieces.entities || !ui.pieces.choice) {
+      m.pieces = {};
+      for (const k of ['apparatus', 'entities', 'choice']) {
+        if (!ui.pieces[k]) m.pieces[k] = false;
+      }
+    }
+    if (!ui.exports) m.exports = false;
+    return m;
+  }
+
+  /** Press the site with the current panel state. */
+  function compose() {
+    const extraPages = S.ui.extra.map((e) => ({
+      id: e.id,
+      label: e.label,
+      html: e.html !== null && e.md === null ? e.html : markdown(e.md || ''),
+    }));
+    const manifest = buildManifest();
+    S.files = pressSite(S.model, { manifest, sourceXML: S.sourceXML, extraPages });
+
+    // first pressing: learn which pages the markup activates, seed the page list
+    if (!S.ui.pages) {
+      const ids = Object.keys(S.files)
+        .filter((n) => n.endsWith('.html') && !n.startsWith('doc-'))
+        .map((n) => n.replace(/\.html$/, ''));
+      S.ui.pages = {};
+      const fromManifest = new Map();
+      if (S.ui.pagesFromManifest) {
+        for (const p of S.ui.pagesFromManifest) {
+          const id = typeof p === 'string' ? p : p && p.id;
+          if (id) fromManifest.set(id, (typeof p === 'object' && p.label) || '');
+        }
+      }
+      for (const id of ids) {
+        S.ui.pages[id] = S.ui.pagesFromManifest
+          ? { on: fromManifest.has(id), label: fromManifest.get(id) || '' }
+          : { on: true, label: '' };
+      }
+      for (const e of S.ui.extra) {
+        if (!(e.id in S.ui.pages)) S.ui.pages[e.id] = { on: true, label: '' };
+      }
+      // re-press once if the dropped manifest already deviated
+      if (S.ui.pagesFromManifest) { S.ui.pagesFromManifest = null; compose(); return; }
+      S.ui.pagesFromManifest = null;
+    }
+
+    renderReport();
+    renderPreview();
+  }
+
+  // ---- the report ----
+
+  function renderReport() {
+    const regs = Object.entries(S.model.registries || {})
       .filter(([, v]) => v.length)
       .map(([k, v]) => k + ': ' + v.length)
       .join(' · ');
     const rows = [
-      ['title', model.meta.title || '(none)'],
-      ['documents', String(model.documents ? model.documents.length : 1)],
-      ['elements', analysis.distinctElements + ' distinct'],
-      ['fallbacks', analysis.fallback.length ? analysis.fallback.join(', ') : 'none'],
+      ['title', S.model.meta.title || '(none)'],
+      ['documents', String(S.model.documents ? S.model.documents.length : 1)],
+      ['elements', S.analysis.distinctElements + ' distinct'],
+      ['fallbacks', S.analysis.fallback.length ? S.analysis.fallback.join(', ') : 'none'],
+      ['odd', S.oddInfo
+        ? S.oddInfo.file + ': ' + S.oddInfo.custom + ' custom elements, ' + S.oddInfo.deleted + ' deleted'
+        : 'none: read against the whole of P5 (tei_all)'],
       ['registries', regs || 'none'],
-      ['manifest', manifest ? 'torchio.json read' : 'none (everything derived)'],
-      ['pages', Object.keys(files).filter((n) => n.endsWith('.html')).length
-        + ' html, ' + Object.keys(files).length + ' files in total'],
+      ['pages', Object.keys(S.files).filter((n) => n.endsWith('.html')).length
+        + ' html, ' + Object.keys(S.files).length + ' files in total'],
     ];
     let html = '<h2>Pressed</h2><dl>'
       + rows.map(([k, v]) => '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>').join('')
       + '</dl>';
-    for (const u of unresolvedIncludes) {
+    for (const u of S.unresolved) {
       html += '<p class="warn">xinclude unresolved: ' + esc(u.href) + ' (' + esc(u.reason) + ')</p>';
     }
-    for (const n of notes) html += '<p class="note">' + esc(n) + '</p>';
+    for (const n of S.notes) html += '<p class="note">' + esc(n) + '</p>';
     report.innerHTML = html;
     report.hidden = false;
+  }
+
+  // ---- the composition panel: decisions here, torchio.json written by us ----
+
+  function pageDefaultLabel(id) {
+    const lang = S.ui.lang || resolveLang(null, S.model);
+    const T = i18n(lang);
+    const known = {
+      index: T.edition, front: T.front, text: T.text, back: T.back,
+      indices: T.indices, map: T.map, data: T.data,
+    };
+    if (known[id]) return known[id];
+    const extra = S.ui.extra.find((e) => e.id === id);
+    return extra ? extra.label : id;
+  }
+
+  function renderPanel() {
+    const ui = S.ui;
+    let html = '<h2>Composition</h2>'
+      + '<p class="note">Decisions taken here are written to a small file, '
+      + '<code>torchio.json</code>, shipped inside the archive: keep it next '
+      + 'to your XML and every future pressing repeats them.</p>'
+      + '<div class="frow"><label for="c-title">Title</label>'
+      + '<input id="c-title" type="text" value="' + esc(ui.title) + '" placeholder="'
+      + esc(S.model.meta.title || '') + '"></div>'
+      + '<div class="frow"><label for="c-subtitle">Subtitle</label>'
+      + '<input id="c-subtitle" type="text" value="' + esc(ui.subtitle) + '"></div>'
+      + '<div class="frow"><label for="c-lang">Language</label><select id="c-lang">'
+      + '<option value=""' + (ui.lang === '' ? ' selected' : '') + '>from the edition</option>'
+      + '<option value="it"' + (ui.lang === 'it' ? ' selected' : '') + '>italiano</option>'
+      + '<option value="en"' + (ui.lang === 'en' ? ' selected' : '') + '>English</option>'
+      + '</select></div>'
+      + '<div class="frow"><label for="c-theme">Theme</label><select id="c-theme">'
+      + ['', 'savi', 'pergamena', 'moderno'].map((t) =>
+        '<option value="' + t + '"' + (ui.theme === t ? ' selected' : '') + '>'
+        + (t || 'savi (default)') + '</option>').join('')
+      + '</select></div>';
+
+    // pages the markup did not activate: shown off, with their source named
+    // (the markup decides existence; the panel decides presence)
+    const DERIVED_FROM = {
+      front: 'appears when the TEI has front matter',
+      back: 'appears when the TEI has back matter',
+      indices: 'appears when a registry entry is referenced from the text',
+      map: 'appears when places carry coordinates, from the TEI or from a reviewed reconcile.json',
+    };
+
+    html += '<fieldset><legend>Pages</legend>';
+    for (const id of Object.keys(ui.pages)) {
+      const p = ui.pages[id];
+      html += '<div class="frow pagerow"><label><input type="checkbox" data-page="' + esc(id) + '"'
+        + (p.on ? ' checked' : '') + '> ' + esc(id) + '</label>'
+        + '<input type="text" data-pagelabel="' + esc(id) + '" value="' + esc(p.label)
+        + '" placeholder="' + esc(pageDefaultLabel(id)) + '" aria-label="Label of the page '
+        + esc(id) + '">'
+        + (ui.extra.some((e) => e.id === id)
+          ? ' <button type="button" data-editpage="' + esc(id) + '">edit</button>'
+            + ' <button type="button" data-removepage="' + esc(id) + '">remove</button>'
+          : '')
+        + '</div>';
+    }
+    for (const id of Object.keys(DERIVED_FROM)) {
+      if (!(id in ui.pages)) {
+        html += '<div class="frow pagerow"><span class="pageoff">' + esc(id)
+          + ' (' + esc(pageDefaultLabel(id)) + ')</span>'
+          + '<span class="note">' + esc(DERIVED_FROM[id]) + '</span></div>';
+      }
+    }
+    html += '<p><button type="button" id="c-addpage">Add a simple page</button> '
+      + '<span class="note">your own prose (an introduction, credits, a bibliography), '
+      + 'written in Markdown, part of the site navigation</span></p>'
+      + '</fieldset>';
+
+    html += '<fieldset><legend>Pieces and data</legend>'
+      + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
+      + '> apparatus popups</label> '
+      + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
+      + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
+      + '> reading/diplomatic toggle</label> '
+      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
+      + '> data files (model, CSV, source)</label>'
+      + '<p class="note">Switching a piece off disables its interactive layer, '
+      + 'never the base rendering: nothing becomes invisible.</p>'
+      + '</fieldset>';
+
+    // the simple-page editor, hidden until needed
+    html += '<div id="pageeditor" hidden>'
+      + '<h3 id="pe-title">New page</h3>'
+      + '<div class="frow"><label for="pe-label">Title of the page</label>'
+      + '<input id="pe-label" type="text"></div>'
+      + '<div class="frow"><label for="pe-md">Text (Markdown)</label>'
+      + '<textarea id="pe-md" rows="10" placeholder="# Heading&#10;&#10;Plain paragraphs, *emphasis*, [links](https://…), lists."></textarea></div>'
+      + '<p><button type="button" id="pe-save">Save the page</button> '
+      + '<button type="button" id="pe-cancel">Cancel</button></p>'
+      + '</div>';
+
+    composeBox.innerHTML = html;
+    composeBox.hidden = false;
+    wirePanel();
+  }
+
+  let recomposeTimer = null;
+  function recompose() {
+    clearTimeout(recomposeTimer);
+    recomposeTimer = setTimeout(() => { compose(); }, 250);
+  }
+
+  function wirePanel() {
+    const ui = S.ui;
+    const bind = (id, fn) => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => { fn(el); recompose(); });
+    };
+    bind('c-title', (el) => { ui.title = el.value; });
+    bind('c-subtitle', (el) => { ui.subtitle = el.value; });
+    bind('c-lang', (el) => { ui.lang = el.value; renderPanelSoon(); });
+    bind('c-theme', (el) => { ui.theme = el.value; });
+    bind('c-apparatus', (el) => { ui.pieces.apparatus = el.checked; });
+    bind('c-entities', (el) => { ui.pieces.entities = el.checked; });
+    bind('c-choice', (el) => { ui.pieces.choice = el.checked; });
+    bind('c-exports', (el) => { ui.exports = el.checked; });
+
+    for (const box of composeBox.querySelectorAll('[data-page]')) {
+      box.addEventListener('input', () => {
+        ui.pages[box.dataset.page].on = box.checked;
+        recompose();
+      });
+    }
+    for (const field of composeBox.querySelectorAll('[data-pagelabel]')) {
+      field.addEventListener('input', () => {
+        ui.pages[field.dataset.pagelabel].label = field.value;
+        recompose();
+      });
+    }
+    for (const btn of composeBox.querySelectorAll('[data-removepage]')) {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.removepage;
+        ui.extra = ui.extra.filter((e) => e.id !== id);
+        delete ui.pages[id];
+        renderPanel();
+        recompose();
+      });
+    }
+    for (const btn of composeBox.querySelectorAll('[data-editpage]')) {
+      btn.addEventListener('click', () => openPageEditor(btn.dataset.editpage));
+    }
+    document.getElementById('c-addpage').addEventListener('click', () => openPageEditor(null));
+    document.getElementById('pe-save').addEventListener('click', savePage);
+    document.getElementById('pe-cancel').addEventListener('click', () => {
+      document.getElementById('pageeditor').hidden = true;
+    });
+  }
+
+  let panelTimer = null;
+  function renderPanelSoon() {
+    // language change refreshes the default page labels shown as placeholders
+    clearTimeout(panelTimer);
+    panelTimer = setTimeout(renderPanel, 400);
+  }
+
+  let editingPage = null;
+  function openPageEditor(id) {
+    editingPage = id;
+    const editor = document.getElementById('pageeditor');
+    const existing = id ? S.ui.extra.find((e) => e.id === id) : null;
+    document.getElementById('pe-title').textContent = existing ? 'Edit the page' : 'New page';
+    document.getElementById('pe-label').value = existing ? existing.label : '';
+    document.getElementById('pe-md').value = existing ? (existing.md || '') : '';
+    editor.hidden = false;
+    document.getElementById('pe-label').focus();
+  }
+
+  function slugify(label) {
+    const s = label.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').replace(/^[0-9-]+/, '');
+    return s || 'page';
+  }
+
+  function savePage() {
+    const label = document.getElementById('pe-label').value.trim();
+    const md = document.getElementById('pe-md').value;
+    if (!label) { document.getElementById('pe-label').focus(); return; }
+    if (editingPage) {
+      const e = S.ui.extra.find((x) => x.id === editingPage);
+      e.label = label;
+      e.md = md;
+      e.html = null;
+    } else {
+      let id = slugify(label);
+      const taken = new Set([...Object.keys(S.ui.pages), 'index', 'front', 'text', 'back', 'indices', 'map', 'data']);
+      let n = 2;
+      while (taken.has(id)) id = slugify(label) + '-' + n++;
+      S.ui.extra.push({ id, label, md, html: null });
+      S.ui.pages[id] = { on: true, label: '' };
+    }
+    document.getElementById('pageeditor').hidden = true;
+    renderPanel();
+    recompose();
   }
 
   // ---- preview: one page at a time, internal links switch the page ----
@@ -3113,7 +3467,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   }
 
   function previewHTML(name) {
-    let html = pressed.files[name];
+    let html = S.files[name];
     if (name === 'map.html') {
       // the archive carries the real assets; the preview needs live URLs
       html = html
@@ -3126,7 +3480,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   }
 
   function showPage(name, fragment) {
-    if (!(name in pressed.files)) return;
+    if (!S || !(name in S.files)) return;
     pageSelect.value = name;
     iframe.srcdoc = previewHTML(name);
     if (fragment) {
@@ -3138,29 +3492,39 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   }
 
   window.addEventListener('message', (e) => {
-    if (!e.data || !e.data.torchioNav || !pressed) return;
+    if (!e.data || !e.data.torchioNav || !S || !S.files) return;
     const [page, fragment] = String(e.data.torchioNav).split('#');
     showPage(page || pageSelect.value, fragment ? '#' + fragment : '');
   });
 
-  function renderPreview(files) {
-    const pages = Object.keys(files).filter((n) => n.endsWith('.html'));
+  function renderPreview() {
+    const current = pageSelect.value;
+    const pages = Object.keys(S.files).filter((n) => n.endsWith('.html'));
     pageSelect.innerHTML = pages
       .map((n) => '<option value="' + esc(n) + '">' + esc(n) + '</option>')
       .join('');
     previewBox.hidden = false;
-    showPage(pages.includes('index.html') ? 'index.html' : pages[0], '');
+    const keep = pages.includes(current) ? current
+      : pages.includes('index.html') ? 'index.html' : pages[0];
+    showPage(keep, '');
   }
 
   pageSelect.addEventListener('change', () => showPage(pageSelect.value, ''));
 
-  // ---- download: the pressed site as one archive ----
+  // ---- download: the pressed site, its manifest and its pages, one archive ----
 
   downloadBtn.addEventListener('click', () => {
-    if (!pressed) return;
+    if (!S || !S.files) return;
     const entries = {};
-    for (const [name, content] of Object.entries(pressed.files)) entries[name] = content;
-    if (pressed.hasMap) {
+    for (const [name, content] of Object.entries(S.files)) entries[name] = content;
+    const manifest = buildManifest();
+    if (Object.keys(manifest).length) {
+      entries['torchio.json'] = JSON.stringify(manifest, null, 2) + '\n';
+    }
+    for (const e of S.ui.extra) {
+      if (e.md !== null) entries['pages/' + e.id + '.md'] = e.md;
+    }
+    if ('map.html' in S.files) {
       for (const [name, b64] of Object.entries(TORCHIO_LEAFLET_B64)) {
         const bin = atob(b64);
         const bytes = new Uint8Array(bin.length);
@@ -3172,7 +3536,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     const url = URL.createObjectURL(new Blob([zip], { type: 'application/zip' }));
     const a = document.createElement('a');
     a.href = url;
-    a.download = pressed.slug + '.zip';
+    a.download = S.slug + '.zip';
     document.body.appendChild(a);
     a.click();
     a.remove();

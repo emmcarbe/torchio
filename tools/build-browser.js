@@ -108,22 +108,36 @@ a{color:#B01E28;text-decoration:none}
 a:hover{text-decoration:underline}
 .lockup{max-width:420px;width:100%;height:auto;margin:0 0 1.4rem;display:block}
 .note{font-size:14px;color:#6A6A66}
-.drop{border:1px solid #C9C5B8;padding:2.2rem 1.5rem;text-align:center;margin:1.5rem 0;background:#FCFBF8}
-.drop.over{border-color:#B01E28;background:#FBF4F2}
+.drop{border:1px solid #E5E2D9;padding:2.2rem 1.5rem;text-align:center;margin:1.5rem 0;background:#fff}
+.drop.over{border-color:#B01E28}
 .drop p{margin:.4rem 0}
 button{font:inherit;font-size:16px;padding:.45em 1.1em;border:1px solid #1B1B1B;
   background:#fff;color:#1B1B1B;cursor:pointer}
 button:hover{border-color:#B01E28;color:#B01E28}
 button:focus-visible,.drop:focus-within{outline:2px solid #B01E28;outline-offset:2px}
-#report{border-top:1px solid #E5E2D9;margin-top:2rem;padding-top:1rem}
+#report,#composebox,#previewbox{border-top:1px solid #E5E2D9;margin-top:2rem;padding-top:1rem}
 #report dl{display:grid;grid-template-columns:max-content 1fr;gap:.15rem 1.2rem;margin:.8rem 0}
 #report dt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
-  letter-spacing:.08em;text-transform:uppercase;color:#6A6A66;padding-top:.25em}
+  letter-spacing:.08em;text-transform:uppercase;color:#1B1B1B;padding-top:.25em}
 #report dd{margin:0}
 .warn{color:#B01E28}
+input,select,textarea{accent-color:#B01E28}
+input[type=text],textarea,select{font:inherit;font-size:16px;color:#1B1B1B;
+  border:1px solid #E5E2D9;background:#fff;padding:.3em .5em;max-width:100%}
+input[type=text]:focus,textarea:focus,select:focus{outline:2px solid #B01E28;outline-offset:1px}
+textarea{width:100%;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px}
+fieldset{border:1px solid #E5E2D9;margin:1.2rem 0;padding:.8rem 1rem}
+legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;padding:0 .4em}
+.frow{display:flex;align-items:baseline;gap:.8rem;margin:.5rem 0;flex-wrap:wrap}
+.frow>label:first-child{min-width:7.5rem}
+.frow input[type=text]{flex:1;min-width:12rem}
+.pagerow>label{min-width:9rem}
+.pageoff{min-width:9rem;color:#6A6A66}
+#pageeditor{border:1px solid #E5E2D9;padding:.8rem 1rem;margin:1rem 0}
 #pages{margin:.8rem 0}
 #pageselect{font:inherit;font-size:16px;padding:.25em;max-width:100%}
-iframe{width:100%;height:60vh;border:1px solid #C9C5B8;background:#fff;margin-top:.6rem}
+iframe{width:100%;height:60vh;border:1px solid #E5E2D9;background:#fff;margin-top:.6rem}
 [hidden]{display:none !important}
 </style>
 </head>
@@ -137,13 +151,15 @@ The same result, from the command line, is described in
 <div class="drop" id="drop">
 <p><strong>Drop files here</strong>, or</p>
 <p><button id="pick" type="button">choose files</button></p>
-<p class="note">One or more TEI XML files (several files form a collection),
-with <code>torchio.json</code>, <code>reconcile.json</code> and the pages it
-declares, if you have them.</p>
+<p class="note">One or more TEI XML files: several files form a collection.
+If the edition has an ODD, add it to the selection: it is recognized
+automatically. Title, language, theme and pages are decided in the panel
+that appears next.</p>
 <input type="file" id="fileinput" multiple
-  accept=".xml,.tei,.json,.md,.markdown,.html" hidden>
+  accept=".xml,.tei,.odd,.json,.md,.markdown,.html" hidden>
 </div>
 <section id="report" hidden aria-live="polite"></section>
+<section id="composebox" hidden></section>
 <section id="previewbox" hidden>
 <h2>Preview</h2>
 <div id="pages">

@@ -1,14 +1,21 @@
 /**
  * The browser harness of path A. Not a module: this file is inlined by
  * tools/build-browser.js after the engine, in the same script scope, and
- * mirrors tools/press.js step by step (parse, xinclude, class map, model,
- * manifest, reconciliation, extra pages, site, exports).
+ * mirrors tools/press.js step by step (parse, xinclude, ODD, class map,
+ * model, manifest, reconciliation, extra pages, site, exports).
+ *
+ * The composition manifest is written BY the interface: the user takes
+ * decisions in the panel (title, language, theme, pages, pieces, simple
+ * pages in Markdown) and the page generates torchio.json, shipping it in
+ * the archive next to the pressed site. Nobody has to know what a
+ * manifest is in order to compose an edition.
  *
  * Everything happens in the page: no upload, no server, no dependencies.
  */
 
-/* global parseXML, inTEINamespace, resolveIncludes, buildClassMap, buildModel,
-   pressSite, analyze, applyReconciliation, markdown, buildZip,
+/* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
+   buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
+   markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -16,12 +23,16 @@
   const input = document.getElementById('fileinput');
   const pick = document.getElementById('pick');
   const report = document.getElementById('report');
+  const composeBox = document.getElementById('composebox');
   const previewBox = document.getElementById('previewbox');
   const pageSelect = document.getElementById('pageselect');
   const iframe = document.getElementById('preview');
   const downloadBtn = document.getElementById('download');
 
-  let pressed = null; // { files, hasMap, slug }
+  // everything the last pressing established
+  let S = null;
+  // S = { model, analysis, sourceXML, notes, unresolved, odd, oddInfo,
+  //       droppedManifest, droppedExtra, slug, ui, files }
 
   pick.addEventListener('click', () => input.click());
   input.addEventListener('change', () => { if (input.files.length) press(input.files); });
@@ -34,11 +45,13 @@
   });
 
   function esc(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   function fail(message) {
     report.hidden = false;
+    composeBox.hidden = true;
     previewBox.hidden = true;
     report.innerHTML = '<h2>Not pressed</h2><p class="warn">' + esc(message) + '</p>';
   }
@@ -52,19 +65,15 @@
   }
 
   async function doPress(fileList) {
-    // read everything the user handed over, by name
     const texts = new Map();
     for (const f of fileList) texts.set(f.name, await f.text());
 
     const notes = [];
 
-    // the TEI documents: one file is an edition, several form a collection
-    const xmlNames = [...texts.keys()]
-      .filter((n) => /\.(xml|tei)$/i.test(n))
-      .sort();
+    const xmlNames = [...texts.keys()].filter((n) => /\.(xml|tei|odd)$/i.test(n)).sort();
     if (!xmlNames.length) throw new Error('No XML file among the chosen files.');
 
-    // xinclude: hrefs are looked up among the dropped files, by path then by name
+    // xinclude: hrefs are looked up among the chosen files, by path then by name
     const byBase = new Map();
     for (const n of texts.keys()) byBase.set(n.split('/').pop(), n);
     const loadText = async (href) => {
@@ -74,40 +83,45 @@
       return hit;
     };
 
-    let roots = [];
-    let unresolvedIncludes = [];
-    const included = new Set(); // files consumed as xinclude targets
-    if (xmlNames.length === 1) {
-      const root = parseXML(texts.get(xmlNames[0]));
-      if (!inTEINamespace(root)) {
-        notes.push('The root element is not in the TEI namespace; pressed anyway (nothing is invisible).');
+    // parse everything, set the ODD apart (the ODD travels next to the TEI
+    // and is recognized on its own: a schemaSpec is a schema, not a text)
+    const parsed = [];
+    let odd = null;
+    let oddInfo = null;
+    for (const n of xmlNames) {
+      try {
+        const root = parseXML(texts.get(n));
+        if (isODD(root)) {
+          if (odd) { notes.push('A second ODD was ignored: ' + n); continue; }
+          odd = parseODD(root);
+          oddInfo = { file: n, custom: odd.customElements.length, deleted: odd.deletedElements.size };
+        } else {
+          parsed.push({ id: n.replace(/\.(xml|tei)$/i, ''), name: n, root });
+        }
+      } catch (err) {
+        notes.push('Skipped ' + n + ': ' + err.message);
       }
-      const r = await resolveIncludes(root, async (href) => {
+    }
+    if (!parsed.length) throw new Error('No TEI document among the chosen files (an ODD alone is a schema, not an edition).');
+
+    const included = new Set();
+    let unresolved = [];
+    for (const p of parsed) {
+      const r = await resolveIncludes(p.root, async (href) => {
         const t = await loadText(href);
         included.add(href.split('#')[0].split('/').pop());
         return t;
       });
-      unresolvedIncludes = r.unresolved;
-      roots = [root];
+      unresolved.push(...r.unresolved);
+    }
+
+    let roots;
+    if (parsed.length === 1) {
+      if (!inTEINamespace(parsed[0].root)) {
+        notes.push('The root element is not in the TEI namespace; pressed anyway (nothing is invisible).');
+      }
+      roots = [parsed[0].root];
     } else {
-      // several XML files: resolve includes first, then keep the TEI roots
-      const parsed = [];
-      for (const n of xmlNames) {
-        try {
-          const root = parseXML(texts.get(n));
-          parsed.push({ id: n.replace(/\.(xml|tei)$/i, ''), name: n, root });
-        } catch (err) {
-          notes.push('Skipped ' + n + ': ' + err.message);
-        }
-      }
-      for (const p of parsed) {
-        const r = await resolveIncludes(p.root, async (href) => {
-          const t = await loadText(href);
-          included.add(href.split('#')[0].split('/').pop());
-          return t;
-        });
-        unresolvedIncludes.push(...r.unresolved);
-      }
       roots = parsed
         .filter((p) => inTEINamespace(p.root))
         .filter((p) => !included.has(p.name))
@@ -116,13 +130,13 @@
       if (roots.length === 1) roots = [roots[0].root];
     }
 
-    const map = buildClassMap(null, TORCHIO_BASE_DATA);
+    const map = buildClassMap(odd, TORCHIO_BASE_DATA);
     const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, map);
 
-    // the manifest and the editor's decisions, if they travelled along
-    let manifest = null;
+    // a manifest that travelled along seeds the panel; the panel owns it from here
+    let droppedManifest = null;
     if (texts.has('torchio.json')) {
-      try { manifest = JSON.parse(texts.get('torchio.json')); }
+      try { droppedManifest = JSON.parse(texts.get('torchio.json')); }
       catch (err) { notes.push('torchio.json ignored: ' + err.message); }
     }
     if (texts.has('reconcile.json')) {
@@ -132,63 +146,366 @@
       } catch (err) { notes.push('reconcile.json ignored: ' + err.message); }
     }
 
-    // the editor's simple pages, declared in the manifest
-    const extraPages = [];
-    if (manifest && Array.isArray(manifest.extra)) {
-      for (const e of manifest.extra) {
+    // extra pages declared by a dropped manifest, resolved among the files
+    const droppedExtra = [];
+    if (droppedManifest && Array.isArray(droppedManifest.extra)) {
+      for (const e of droppedManifest.extra) {
         if (!e || !e.id || !e.file) continue;
         const raw = texts.get(e.file) || texts.get(byBase.get(e.file.split('/').pop()));
         if (raw === undefined) {
           notes.push('Extra page skipped (' + e.file + '): not among the chosen files.');
           continue;
         }
-        extraPages.push({
+        droppedExtra.push({
           id: e.id,
           label: e.label || e.id,
+          md: e.file.endsWith('.html') ? null : raw,
           html: e.file.endsWith('.html') ? raw : markdown(raw),
         });
       }
     }
 
     const analysis = analyze(roots.map((r) => r.root || r), map);
-    const sourceXML = xmlNames.length === 1 ? texts.get(xmlNames[0]) : null;
-    const files = pressSite(model, { manifest, sourceXML, extraPages });
-    const hasMap = 'map.html' in files;
+    const teiNames = parsed.map((p) => p.name);
 
-    pressed = {
-      files,
-      hasMap,
-      slug: xmlNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
+    S = {
+      model,
+      analysis,
+      sourceXML: teiNames.length === 1 ? texts.get(teiNames[0]) : null,
+      notes,
+      unresolved,
+      oddInfo,
+      droppedManifest,
+      slug: teiNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
+      ui: seedUI(model, droppedManifest, droppedExtra),
+      files: null,
     };
 
-    renderReport({ model, analysis, files, unresolvedIncludes, notes, manifest });
-    renderPreview(files);
+    compose();
+    renderPanel();
   }
 
-  function renderReport({ model, analysis, files, unresolvedIncludes, notes, manifest }) {
-    const regs = Object.entries(model.registries || {})
+  // ---- the composition state: what the panel edits, torchio.json records ----
+
+  function seedUI(model, raw, droppedExtra) {
+    raw = raw || {};
+    const ui = {
+      title: typeof raw.title === 'string' ? raw.title : '',
+      subtitle: typeof raw.subtitle === 'string' ? raw.subtitle : '',
+      lang: raw.lang === 'it' || raw.lang === 'en' ? raw.lang : '',
+      theme: typeof raw.theme === 'string' ? raw.theme : '',
+      exports: raw.exports !== false,
+      pieces: {
+        apparatus: !(raw.pieces && raw.pieces.apparatus === false),
+        entities: !(raw.pieces && raw.pieces.entities === false),
+        choice: !(raw.pieces && raw.pieces.choice === false),
+      },
+      // pages: id -> {on, label}; filled after the first pressing, when the
+      // derived pages are known
+      pages: null,
+      pagesFromManifest: Array.isArray(raw.pages) ? raw.pages : null,
+      extra: droppedExtra.map((e) => ({ id: e.id, label: e.label, md: e.md, html: e.html })),
+    };
+    return ui;
+  }
+
+  /** The manifest the interface writes: only what deviates, never noise. */
+  function buildManifest() {
+    const ui = S.ui;
+    const m = {};
+    if (ui.title.trim()) m.title = ui.title.trim();
+    if (ui.subtitle.trim()) m.subtitle = ui.subtitle.trim();
+    if (ui.lang) m.lang = ui.lang;
+    if (ui.theme) m.theme = ui.theme;
+    if (ui.extra.length) {
+      m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
+    }
+    if (ui.pages) {
+      const ids = Object.keys(ui.pages);
+      const deviates = ids.some((id) => !ui.pages[id].on || ui.pages[id].label);
+      if (deviates) {
+        m.pages = ids
+          .filter((id) => ui.pages[id].on)
+          .map((id) => (ui.pages[id].label ? { id, label: ui.pages[id].label } : id));
+      }
+    }
+    if (!ui.pieces.apparatus || !ui.pieces.entities || !ui.pieces.choice) {
+      m.pieces = {};
+      for (const k of ['apparatus', 'entities', 'choice']) {
+        if (!ui.pieces[k]) m.pieces[k] = false;
+      }
+    }
+    if (!ui.exports) m.exports = false;
+    return m;
+  }
+
+  /** Press the site with the current panel state. */
+  function compose() {
+    const extraPages = S.ui.extra.map((e) => ({
+      id: e.id,
+      label: e.label,
+      html: e.html !== null && e.md === null ? e.html : markdown(e.md || ''),
+    }));
+    const manifest = buildManifest();
+    S.files = pressSite(S.model, { manifest, sourceXML: S.sourceXML, extraPages });
+
+    // first pressing: learn which pages the markup activates, seed the page list
+    if (!S.ui.pages) {
+      const ids = Object.keys(S.files)
+        .filter((n) => n.endsWith('.html') && !n.startsWith('doc-'))
+        .map((n) => n.replace(/\.html$/, ''));
+      S.ui.pages = {};
+      const fromManifest = new Map();
+      if (S.ui.pagesFromManifest) {
+        for (const p of S.ui.pagesFromManifest) {
+          const id = typeof p === 'string' ? p : p && p.id;
+          if (id) fromManifest.set(id, (typeof p === 'object' && p.label) || '');
+        }
+      }
+      for (const id of ids) {
+        S.ui.pages[id] = S.ui.pagesFromManifest
+          ? { on: fromManifest.has(id), label: fromManifest.get(id) || '' }
+          : { on: true, label: '' };
+      }
+      for (const e of S.ui.extra) {
+        if (!(e.id in S.ui.pages)) S.ui.pages[e.id] = { on: true, label: '' };
+      }
+      // re-press once if the dropped manifest already deviated
+      if (S.ui.pagesFromManifest) { S.ui.pagesFromManifest = null; compose(); return; }
+      S.ui.pagesFromManifest = null;
+    }
+
+    renderReport();
+    renderPreview();
+  }
+
+  // ---- the report ----
+
+  function renderReport() {
+    const regs = Object.entries(S.model.registries || {})
       .filter(([, v]) => v.length)
       .map(([k, v]) => k + ': ' + v.length)
       .join(' · ');
     const rows = [
-      ['title', model.meta.title || '(none)'],
-      ['documents', String(model.documents ? model.documents.length : 1)],
-      ['elements', analysis.distinctElements + ' distinct'],
-      ['fallbacks', analysis.fallback.length ? analysis.fallback.join(', ') : 'none'],
+      ['title', S.model.meta.title || '(none)'],
+      ['documents', String(S.model.documents ? S.model.documents.length : 1)],
+      ['elements', S.analysis.distinctElements + ' distinct'],
+      ['fallbacks', S.analysis.fallback.length ? S.analysis.fallback.join(', ') : 'none'],
+      ['odd', S.oddInfo
+        ? S.oddInfo.file + ': ' + S.oddInfo.custom + ' custom elements, ' + S.oddInfo.deleted + ' deleted'
+        : 'none: read against the whole of P5 (tei_all)'],
       ['registries', regs || 'none'],
-      ['manifest', manifest ? 'torchio.json read' : 'none (everything derived)'],
-      ['pages', Object.keys(files).filter((n) => n.endsWith('.html')).length
-        + ' html, ' + Object.keys(files).length + ' files in total'],
+      ['pages', Object.keys(S.files).filter((n) => n.endsWith('.html')).length
+        + ' html, ' + Object.keys(S.files).length + ' files in total'],
     ];
     let html = '<h2>Pressed</h2><dl>'
       + rows.map(([k, v]) => '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>').join('')
       + '</dl>';
-    for (const u of unresolvedIncludes) {
+    for (const u of S.unresolved) {
       html += '<p class="warn">xinclude unresolved: ' + esc(u.href) + ' (' + esc(u.reason) + ')</p>';
     }
-    for (const n of notes) html += '<p class="note">' + esc(n) + '</p>';
+    for (const n of S.notes) html += '<p class="note">' + esc(n) + '</p>';
     report.innerHTML = html;
     report.hidden = false;
+  }
+
+  // ---- the composition panel: decisions here, torchio.json written by us ----
+
+  function pageDefaultLabel(id) {
+    const lang = S.ui.lang || resolveLang(null, S.model);
+    const T = i18n(lang);
+    const known = {
+      index: T.edition, front: T.front, text: T.text, back: T.back,
+      indices: T.indices, map: T.map, data: T.data,
+    };
+    if (known[id]) return known[id];
+    const extra = S.ui.extra.find((e) => e.id === id);
+    return extra ? extra.label : id;
+  }
+
+  function renderPanel() {
+    const ui = S.ui;
+    let html = '<h2>Composition</h2>'
+      + '<p class="note">Decisions taken here are written to a small file, '
+      + '<code>torchio.json</code>, shipped inside the archive: keep it next '
+      + 'to your XML and every future pressing repeats them.</p>'
+      + '<div class="frow"><label for="c-title">Title</label>'
+      + '<input id="c-title" type="text" value="' + esc(ui.title) + '" placeholder="'
+      + esc(S.model.meta.title || '') + '"></div>'
+      + '<div class="frow"><label for="c-subtitle">Subtitle</label>'
+      + '<input id="c-subtitle" type="text" value="' + esc(ui.subtitle) + '"></div>'
+      + '<div class="frow"><label for="c-lang">Language</label><select id="c-lang">'
+      + '<option value=""' + (ui.lang === '' ? ' selected' : '') + '>from the edition</option>'
+      + '<option value="it"' + (ui.lang === 'it' ? ' selected' : '') + '>italiano</option>'
+      + '<option value="en"' + (ui.lang === 'en' ? ' selected' : '') + '>English</option>'
+      + '</select></div>'
+      + '<div class="frow"><label for="c-theme">Theme</label><select id="c-theme">'
+      + ['', 'savi', 'pergamena', 'moderno'].map((t) =>
+        '<option value="' + t + '"' + (ui.theme === t ? ' selected' : '') + '>'
+        + (t || 'savi (default)') + '</option>').join('')
+      + '</select></div>';
+
+    // pages the markup did not activate: shown off, with their source named
+    // (the markup decides existence; the panel decides presence)
+    const DERIVED_FROM = {
+      front: 'appears when the TEI has front matter',
+      back: 'appears when the TEI has back matter',
+      indices: 'appears when a registry entry is referenced from the text',
+      map: 'appears when places carry coordinates, from the TEI or from a reviewed reconcile.json',
+    };
+
+    html += '<fieldset><legend>Pages</legend>';
+    for (const id of Object.keys(ui.pages)) {
+      const p = ui.pages[id];
+      html += '<div class="frow pagerow"><label><input type="checkbox" data-page="' + esc(id) + '"'
+        + (p.on ? ' checked' : '') + '> ' + esc(id) + '</label>'
+        + '<input type="text" data-pagelabel="' + esc(id) + '" value="' + esc(p.label)
+        + '" placeholder="' + esc(pageDefaultLabel(id)) + '" aria-label="Label of the page '
+        + esc(id) + '">'
+        + (ui.extra.some((e) => e.id === id)
+          ? ' <button type="button" data-editpage="' + esc(id) + '">edit</button>'
+            + ' <button type="button" data-removepage="' + esc(id) + '">remove</button>'
+          : '')
+        + '</div>';
+    }
+    for (const id of Object.keys(DERIVED_FROM)) {
+      if (!(id in ui.pages)) {
+        html += '<div class="frow pagerow"><span class="pageoff">' + esc(id)
+          + ' (' + esc(pageDefaultLabel(id)) + ')</span>'
+          + '<span class="note">' + esc(DERIVED_FROM[id]) + '</span></div>';
+      }
+    }
+    html += '<p><button type="button" id="c-addpage">Add a simple page</button> '
+      + '<span class="note">your own prose (an introduction, credits, a bibliography), '
+      + 'written in Markdown, part of the site navigation</span></p>'
+      + '</fieldset>';
+
+    html += '<fieldset><legend>Pieces and data</legend>'
+      + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
+      + '> apparatus popups</label> '
+      + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
+      + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
+      + '> reading/diplomatic toggle</label> '
+      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
+      + '> data files (model, CSV, source)</label>'
+      + '<p class="note">Switching a piece off disables its interactive layer, '
+      + 'never the base rendering: nothing becomes invisible.</p>'
+      + '</fieldset>';
+
+    // the simple-page editor, hidden until needed
+    html += '<div id="pageeditor" hidden>'
+      + '<h3 id="pe-title">New page</h3>'
+      + '<div class="frow"><label for="pe-label">Title of the page</label>'
+      + '<input id="pe-label" type="text"></div>'
+      + '<div class="frow"><label for="pe-md">Text (Markdown)</label>'
+      + '<textarea id="pe-md" rows="10" placeholder="# Heading&#10;&#10;Plain paragraphs, *emphasis*, [links](https://…), lists."></textarea></div>'
+      + '<p><button type="button" id="pe-save">Save the page</button> '
+      + '<button type="button" id="pe-cancel">Cancel</button></p>'
+      + '</div>';
+
+    composeBox.innerHTML = html;
+    composeBox.hidden = false;
+    wirePanel();
+  }
+
+  let recomposeTimer = null;
+  function recompose() {
+    clearTimeout(recomposeTimer);
+    recomposeTimer = setTimeout(() => { compose(); }, 250);
+  }
+
+  function wirePanel() {
+    const ui = S.ui;
+    const bind = (id, fn) => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => { fn(el); recompose(); });
+    };
+    bind('c-title', (el) => { ui.title = el.value; });
+    bind('c-subtitle', (el) => { ui.subtitle = el.value; });
+    bind('c-lang', (el) => { ui.lang = el.value; renderPanelSoon(); });
+    bind('c-theme', (el) => { ui.theme = el.value; });
+    bind('c-apparatus', (el) => { ui.pieces.apparatus = el.checked; });
+    bind('c-entities', (el) => { ui.pieces.entities = el.checked; });
+    bind('c-choice', (el) => { ui.pieces.choice = el.checked; });
+    bind('c-exports', (el) => { ui.exports = el.checked; });
+
+    for (const box of composeBox.querySelectorAll('[data-page]')) {
+      box.addEventListener('input', () => {
+        ui.pages[box.dataset.page].on = box.checked;
+        recompose();
+      });
+    }
+    for (const field of composeBox.querySelectorAll('[data-pagelabel]')) {
+      field.addEventListener('input', () => {
+        ui.pages[field.dataset.pagelabel].label = field.value;
+        recompose();
+      });
+    }
+    for (const btn of composeBox.querySelectorAll('[data-removepage]')) {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.removepage;
+        ui.extra = ui.extra.filter((e) => e.id !== id);
+        delete ui.pages[id];
+        renderPanel();
+        recompose();
+      });
+    }
+    for (const btn of composeBox.querySelectorAll('[data-editpage]')) {
+      btn.addEventListener('click', () => openPageEditor(btn.dataset.editpage));
+    }
+    document.getElementById('c-addpage').addEventListener('click', () => openPageEditor(null));
+    document.getElementById('pe-save').addEventListener('click', savePage);
+    document.getElementById('pe-cancel').addEventListener('click', () => {
+      document.getElementById('pageeditor').hidden = true;
+    });
+  }
+
+  let panelTimer = null;
+  function renderPanelSoon() {
+    // language change refreshes the default page labels shown as placeholders
+    clearTimeout(panelTimer);
+    panelTimer = setTimeout(renderPanel, 400);
+  }
+
+  let editingPage = null;
+  function openPageEditor(id) {
+    editingPage = id;
+    const editor = document.getElementById('pageeditor');
+    const existing = id ? S.ui.extra.find((e) => e.id === id) : null;
+    document.getElementById('pe-title').textContent = existing ? 'Edit the page' : 'New page';
+    document.getElementById('pe-label').value = existing ? existing.label : '';
+    document.getElementById('pe-md').value = existing ? (existing.md || '') : '';
+    editor.hidden = false;
+    document.getElementById('pe-label').focus();
+  }
+
+  function slugify(label) {
+    const s = label.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').replace(/^[0-9-]+/, '');
+    return s || 'page';
+  }
+
+  function savePage() {
+    const label = document.getElementById('pe-label').value.trim();
+    const md = document.getElementById('pe-md').value;
+    if (!label) { document.getElementById('pe-label').focus(); return; }
+    if (editingPage) {
+      const e = S.ui.extra.find((x) => x.id === editingPage);
+      e.label = label;
+      e.md = md;
+      e.html = null;
+    } else {
+      let id = slugify(label);
+      const taken = new Set([...Object.keys(S.ui.pages), 'index', 'front', 'text', 'back', 'indices', 'map', 'data']);
+      let n = 2;
+      while (taken.has(id)) id = slugify(label) + '-' + n++;
+      S.ui.extra.push({ id, label, md, html: null });
+      S.ui.pages[id] = { on: true, label: '' };
+    }
+    document.getElementById('pageeditor').hidden = true;
+    renderPanel();
+    recompose();
   }
 
   // ---- preview: one page at a time, internal links switch the page ----
@@ -208,7 +525,7 @@
   }
 
   function previewHTML(name) {
-    let html = pressed.files[name];
+    let html = S.files[name];
     if (name === 'map.html') {
       // the archive carries the real assets; the preview needs live URLs
       html = html
@@ -221,7 +538,7 @@
   }
 
   function showPage(name, fragment) {
-    if (!(name in pressed.files)) return;
+    if (!S || !(name in S.files)) return;
     pageSelect.value = name;
     iframe.srcdoc = previewHTML(name);
     if (fragment) {
@@ -233,29 +550,39 @@
   }
 
   window.addEventListener('message', (e) => {
-    if (!e.data || !e.data.torchioNav || !pressed) return;
+    if (!e.data || !e.data.torchioNav || !S || !S.files) return;
     const [page, fragment] = String(e.data.torchioNav).split('#');
     showPage(page || pageSelect.value, fragment ? '#' + fragment : '');
   });
 
-  function renderPreview(files) {
-    const pages = Object.keys(files).filter((n) => n.endsWith('.html'));
+  function renderPreview() {
+    const current = pageSelect.value;
+    const pages = Object.keys(S.files).filter((n) => n.endsWith('.html'));
     pageSelect.innerHTML = pages
       .map((n) => '<option value="' + esc(n) + '">' + esc(n) + '</option>')
       .join('');
     previewBox.hidden = false;
-    showPage(pages.includes('index.html') ? 'index.html' : pages[0], '');
+    const keep = pages.includes(current) ? current
+      : pages.includes('index.html') ? 'index.html' : pages[0];
+    showPage(keep, '');
   }
 
   pageSelect.addEventListener('change', () => showPage(pageSelect.value, ''));
 
-  // ---- download: the pressed site as one archive ----
+  // ---- download: the pressed site, its manifest and its pages, one archive ----
 
   downloadBtn.addEventListener('click', () => {
-    if (!pressed) return;
+    if (!S || !S.files) return;
     const entries = {};
-    for (const [name, content] of Object.entries(pressed.files)) entries[name] = content;
-    if (pressed.hasMap) {
+    for (const [name, content] of Object.entries(S.files)) entries[name] = content;
+    const manifest = buildManifest();
+    if (Object.keys(manifest).length) {
+      entries['torchio.json'] = JSON.stringify(manifest, null, 2) + '\n';
+    }
+    for (const e of S.ui.extra) {
+      if (e.md !== null) entries['pages/' + e.id + '.md'] = e.md;
+    }
+    if ('map.html' in S.files) {
       for (const [name, b64] of Object.entries(TORCHIO_LEAFLET_B64)) {
         const bin = atob(b64);
         const bytes = new Uint8Array(bin.length);
@@ -267,7 +594,7 @@
     const url = URL.createObjectURL(new Blob([zip], { type: 'application/zip' }));
     const a = document.createElement('a');
     a.href = url;
-    a.download = pressed.slug + '.zip';
+    a.download = S.slug + '.zip';
     document.body.appendChild(a);
     a.click();
     a.remove();

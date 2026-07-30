@@ -70,6 +70,16 @@ export function parseODD(source) {
   return { includedModules, deletedElements, customElements, customClasses };
 }
 
+/**
+ * An ODD is recognized on its own: a document carrying a schemaSpec is a
+ * schema, not a text. The ODD travels next to the TEI, in the same folder
+ * or the same drop, and the press tells the two apart.
+ */
+export function isODD(root) {
+  for (const node of walk(root)) if (local(node.name) === 'schemaSpec') return true;
+  return false;
+}
+
 function memberships(spec) {
   const out = [];
   for (const node of walk(spec)) {
