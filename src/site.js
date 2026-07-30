@@ -619,6 +619,11 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         check(body);
         return ok && hasAb;
       })();
+      // the classical convention for long lemmata: first words, dots, last words
+      const abbrev = (txt, head = 4, tail = 3, max = 12) => {
+        const w = txt.split(/\s+/).filter(Boolean);
+        return w.length > max ? `${w.slice(0, head).join(' ')} … ${w.slice(-tail).join(' ')}` : txt;
+      };
       const cleanText = (nd) => {
         let outT = '';
         for (const ch of nd.children) {
@@ -642,7 +647,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
             const rdgs = app.children.filter((c) => typeof c !== 'string' && c.element === 'rdg');
             const isLac = (app.atts.type || '') === 'lac';
             v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}">`;
-            if (!isLac) v += `<span class="vmap-lem">${escapeHTML(lem ? cleanText(lem).trim() : '')}</span>`;
+            if (!isLac) v += `<span class="vmap-lem">${escapeHTML(abbrev(lem ? cleanText(lem).trim() : ''))}</span>`;
             for (const r of rdgs) {
               const wits = (r.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, ''));
               const rt = cleanText(r).trim();
@@ -669,8 +674,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            entries.push(`<span class="band-e"><span class="band-lem">${escapeHTML(a.lemma || '')}</span>] `
-              + others.map((r) => `${escapeHTML(r.text.trim() || '(om.)')} <span class="band-wit">`
+            entries.push(`<span class="band-e"><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
+              + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')
                 + `</span>`).join('; ')
               + `</span>`);
