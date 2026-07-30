@@ -60,6 +60,7 @@ editorial genre.
 | 2026-07-30 | C39 | demanded by the supervising editor | extension | the ODD is recognized on its own (a document carrying `schemaSpec` is a schema, not a text) in directory input and in the browser drop, `--odd=` for single files; without an ODD the edition is read against the whole of P5 (`tei_all`) and the report says so |
 
 | 2026-07-30 | C40 | demanded by the supervising editor | assignment | the Italian interface called the edited level "Lettura", a calque of the English "reading text": the canonical pair of the Italian philological tradition is diplomatica / interpretativa, and the toggle now says so (the English pair, current in documentary and genetic editing, stands) |
+| 2026-07-30 | C41 | Canterbury Tales Project (GP), offered by the editor | assignment | a document whose body consists of collation entries (`ab` holding only `app`) is an apparatus, and rendering only its lemmata hid its content: it now renders expanded as a variant map, every reading with its witnesses and count, lacunae declared with their sigla |
 
-As of 30 July 2026: 39 corrections applied (25 assignments, 13 extensions, 1
+As of 30 July 2026: 40 corrections applied (26 assignments, 13 extensions, 1
 structural change), 1 open.

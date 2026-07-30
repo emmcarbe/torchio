@@ -111,6 +111,17 @@ ${headerLabelCSS()}
 .reg-table th[aria-sort="ascending"]::after{content:" \\2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \\2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
 .app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
   padding-left:1.2em}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -587,6 +598,65 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     for (let i = 0; i < model.documents.length; i++) {
       const d = model.documents[i];
       const c = d.card || {};
+      // a document whose body is entries of bare app elements IS an
+      // apparatus: it renders expanded, every reading with its witnesses
+      // and count, not only the lemmata (C32)
+      const isAppDoc = (() => {
+        const textNode = d.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
+        const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
+        if (!body) return false;
+        let hasAb = false, ok = true;
+        const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
+        const check = (nd) => {
+          for (const c of nd.children) {
+            if (!ok) return;
+            if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
+            if (c.element === 'app') continue;
+            if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
+            ok = false;
+          }
+        };
+        check(body);
+        return ok && hasAb;
+      })();
+      const cleanText = (nd) => {
+        let outT = '';
+        for (const ch of nd.children) {
+          if (typeof ch === 'string') { outT += ch; continue; }
+          if (ch.element === 'wit' || ch.element === 'witDetail') continue;
+          outT += cleanText(ch);
+        }
+        return outT;
+      };
+      const vmapHTML = () => {
+        let v = '';
+        const textNode = d.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
+        const body = textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
+        for (const ab of [...walkModel(body)].filter((nd) => nd.element === 'ab')) {
+          const key = alignKey && ab.atts.n ? alignKey(ab.atts.n) : (ab.atts.n || '');
+          v += `<section class="vmap" id="${escapeHTML(ab.id)}"${key ? ` data-ent="${escapeHTML(key)}"` : ''}>`;
+          v += `<h2 class="vmap-n">${escapeHTML(key || '·')}</h2>`;
+          for (const app of ab.children) {
+            if (typeof app === 'string') continue;
+            const lem = app.children.find((c) => typeof c !== 'string' && c.element === 'lem');
+            const rdgs = app.children.filter((c) => typeof c !== 'string' && c.element === 'rdg');
+            const isLac = (app.atts.type || '') === 'lac';
+            v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}">`;
+            if (!isLac) v += `<span class="vmap-lem">${escapeHTML(lem ? cleanText(lem).trim() : '')}</span>`;
+            for (const r of rdgs) {
+              const wits = (r.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, ''));
+              const rt = cleanText(r).trim();
+              v += `<div class="vmap-rdg">${isLac ? `<span class="vmap-lem">${escapeHTML(T.lacking)}</span>` : escapeHTML(rt || '(om.)')}`
+                + ` <span class="vmap-wit">${wits.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')}</span>`
+                + ` <span class="vmap-count">(${wits.length})</span></div>`;
+            }
+            v += `</div>`;
+          }
+          v += `</section>`;
+        }
+        return v;
+      };
+
       // the classical apparatus band: derived under the document the
       // manifest names (align.apparatusUnder), verse by verse
       const bandHooks = (alignKey && appsByKey && manifest.align.apparatusUnder === d.id) ? {
@@ -610,9 +680,14 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         },
       } : null;
       let docText = '';
-      for (const child of d.tree.children) {
-        if (typeof child === 'string') continue;
-        docText += renderBase(child, bandHooks); // header included: hidden, toggleable
+      if (isAppDoc) {
+        const header = d.tree.children.find((c) => typeof c !== 'string' && c.element === 'teiHeader');
+        docText = (header ? renderBase(header) : '') + vmapHTML();
+      } else {
+        for (const child of d.tree.children) {
+          if (typeof child === 'string') continue;
+          docText += renderBase(child, bandHooks); // header included: hidden, toggleable
+        }
       }
       const prev = i > 0 ? model.documents[i - 1] : null;
       const next = i < model.documents.length - 1 ? model.documents[i + 1] : null;
