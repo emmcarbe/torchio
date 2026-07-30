@@ -130,11 +130,12 @@ positions, one representative each, not every existing tool.
 9. **Accessibility.** WCAG AA contrast asserted in the test suite for every
    theme, keyboard access to every function, landmarks and dialog semantics.
    A generated edition must be publishable by a public institution as it is.
-10. **Forms before categories.** The internal, universal analyses concern
-    forms (concordances, frequencies), valid for every language. The lemma
-    is not a universal: not all languages lemmatize. Every grouping of forms
-    (lemma, stem, root, graphic normalization) is an adapter that declares
-    its strategy per edition.
+10. **Forms before categories.** Built-in analyses operate on attested
+    forms (concordances, frequencies), which exist in every written
+    tradition. Grouping forms into more abstract units (lemma, stem, root,
+    normalized spelling) depends on the language and on editorial choices,
+    so it is not built in: each edition declares its own grouping strategy,
+    and the press applies it as an adapter.
 11. **Curation above, completeness below.** Pages expose curated summaries
     (the edition record, the register of documents), but the full data
     always remains reachable: the TEI header is rendered in its entirety,
