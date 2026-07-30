@@ -204,11 +204,11 @@ the repository itself. One line per contribution.
 | Who | Date | Contribution | Where it landed |
 |---|---|---|---|
 | Federico Boschetti (CNR-ILC) | 29-30 July | the founding remark; early feedback | Origin; the apparatus DSL in the agenda |
-| Angelo Mario Del Grosso (CNR-ILC) | 30 July | two remarks: web components at the level of fruition behaviours, not TEI elements; extensions only for phenomena the Guidelines do not cover (which led to replacing the test example: `cancellatura`, duplicating `del`, gave way to `salvataggio`) | principle 3; agenda 2 and 7; the test suite |
+| Angelo Mario Del Grosso (CNR-ILC) | 30 July | two remarks: web components at the level of fruition behaviours, not TEI elements; extensions only for phenomena the Guidelines do not cover (which led to replacing the test example: `cancellatura`, duplicating `del`, gave way to `salvataggio`) | principle 3; agenda 2 and 6; the test suite |
 | Franz Fischer (VeDPH) | 30 July | the complexity question: does the class approach hold for non-standardized TEI? | principle 13 is the standing answer |
 | Paolo Monella | 30 July | the "sustainability by design" reading; the live vs one-off architecture question; a per-element rendering override request; offered Orso and Romualdo as test cases (open licence) | USAGE; desiderata; the contrast corpus |
 | Peter Robinson (Canterbury Tales Project) | 30 July | offered the [General Prologue](https://talesofcanterbury.org/GP/) transcription and collation materials; pointed to O'Donnell et al. 2019 | the contrast corpus; References |
-| Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting [DiScEPT](https://istituto-italiano-di-studi-germanici.github.io/DiScEPT/) (parallel texts and aligned translations) | agenda 6 |
+| Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting [DiScEPT](https://istituto-italiano-di-studi-germanici.github.io/DiScEPT/) (parallel texts and aligned translations) | agenda 5 |
 | Giulio Quaresima | 30 July | first star; the source-exposure question; recalled [TEI Boilerplate](https://github.com/TEI-Boilerplate/TEI-Boilerplate), which [ELA](https://ela.unisi.it/) had already used | USAGE; the survey above |
 | Christian D'Agata | 30 July | endorsement of versioning and sustainability at design time | — |
 
@@ -256,15 +256,13 @@ Specimen for teaching purposes.
    flagging of likely duplicates by comparing the ODD descriptions with
    those of the 588 P5 elements. Always at composition time, always
    materialized, always with provenance.
-5. **Concordances and frequencies of forms** (native Unicode tokenization),
-   with grouping strategies declared per edition.
-6. **Advanced collections**: timelines, networks, witness synopses, the text
+5. **Advanced collections**: timelines, networks, witness synopses, the text
    of a single witness derived from the model, and the alignment of parallel
    texts and translations (the [DiScEPT](https://istituto-italiano-di-studi-germanici.github.io/DiScEPT/) line, with T. Mancinelli).
-7. **The conformance report** integrated in the CI (strict: the build fails
+6. **The conformance report** integrated in the CI (strict: the build fails
    on the syntactic layer, requires written confirmation on the semantic
    one).
-8. **Tests**: take the TEI of published editions and press them without
+7. **Tests**: take the TEI of published editions and press them without
    configuration.
 
 ## Materials and rights
