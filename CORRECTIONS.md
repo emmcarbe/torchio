@@ -63,6 +63,7 @@ editorial genre.
 | 2026-07-30 | C41 | Canterbury Tales Project (GP), offered by the editor | assignment | a document whose body consists of collation entries (`ab` holding only `app`) is an apparatus, and rendering only its lemmata hid its content: it now renders expanded as a variant map, every reading with its witnesses and count, lacunae declared with their sigla |
 
 | 2026-07-30 | C42 | Eurasian Latin Archive, public demo | assignment | the source reuses one ORCID across two people's changes (and a placeholder across more): counting interventions by `@who` mis-attributed one person's work to another. The change's own prose names its agent ("I. Volpi: transcription") and that declaration wins; unambiguous name-identifier co-occurrences become aliases for identifier-only changes; an identifier seen with two names is never trusted |
+| 2026-07-30 | C43 | Canterbury Tales Project (GP), offered by the editor | extension | word-level apparatus from the declared positions: the words an `app` covers (`@from`/`@to`) become triggers in the text, with the same popup as everywhere else; witness sigla open the witness's passage in a small window instead of leaving the page; long lemmata abbreviate in the classical way; the register lists apparatus documents apart from the texts |
 
-As of 30 July 2026: 41 corrections applied (27 assignments, 13 extensions, 1
+As of 30 July 2026: 42 corrections applied (27 assignments, 14 extensions, 1
 structural change), 1 open.
