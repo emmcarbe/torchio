@@ -203,18 +203,24 @@ the repository itself. One line per contribution.
 
 The prototype in this repository: dependency-free XML parser; class map
 generated from P5 with ODD overlay and a full-coverage test; deterministic
-edition model; multi-page sites (edition, text, front and back matter,
-indices, map, data, free pages); collections with a sortable, filterable
-register and one page per document; structural sections of long texts as
-pages with a table of contents; apparatus popup on the lemma; transcription
-levels; three themes with verified contrast; interface in Italian and
-English; exports of the model, the entities and the apparatus;
-reconciliation of places against a GeoNames gazetteer with the editor in the
-loop. The test suite counts 108 assertions. Four demonstration editions with
-verified rights: the Odyssey (Perseus), thirty Van Gogh letters (Van Gogh
-Museum and Huygens ING), the Bellum Alexandrinum (Digital Latin Library,
-with a three-register critical apparatus) and a constructed Specimen for
-teaching purposes.
+edition model; multi-page sites (edition, text, front and back matter with
+labels taken from the markup, indices, map, data, free Markdown pages with
+tables); collections with a sortable, filterable register and one page per
+document; structural sections of long texts as pages with a table of
+contents; apparatus popup on the lemma; transcription levels, with every
+`choice` pair openable on click; margin notes that collapse to their marks
+past a density threshold and light the passage they refer to; three themes
+with verified contrast; interface in Italian and English; exports of the
+model, the entities and the apparatus; reconciliation of places against a
+GeoNames gazetteer with the editor in the loop; the same press as a single
+self-contained page in the browser. The test suite counts 126 assertions.
+Six demonstration editions with verified rights: the Odyssey (Perseus),
+thirty Van Gogh letters (Van Gogh Museum and Huygens ING), the Bellum
+Alexandrinum (Digital Latin Library, with a three-register critical
+apparatus), two editions by Paolo Monella offered by their editor as test
+cases (the Chronicon of Romualdus Salernitanus and the graphematic
+transcription of Ursus Beneventanus, with its table of signs) and a
+constructed Specimen for teaching purposes.
 
 ## Agenda
 
