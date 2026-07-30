@@ -61,6 +61,7 @@ export function buildInteractJS(t) {
   var body=document.body; body.classList.add('mode-read');
   var pop=null, lastTrigger=null;
   function closePop(){
+    clearZone();
     if(pop){pop.remove();pop=null;}
     if(lastTrigger){lastTrigger.setAttribute('aria-expanded','false');
       if(document.activeElement===document.body)lastTrigger.focus();
@@ -84,6 +85,28 @@ export function buildInteractJS(t) {
     el.setAttribute('aria-haspopup','dialog');el.setAttribute('aria-expanded','false');
     if(label)el.setAttribute('aria-label',label);
   }
+  /* the zone of text a note refers to: declared targets first, then the
+     word or block just before its mark */
+  var hiZone=[];
+  function clearZone(){hiZone.forEach(function(e){e.classList.remove('note-hi');});hiZone=[];}
+  function zoneOf(n){
+    var app=n.closest('.t-app');
+    if(app)return [app];
+    var t=n.dataset.target;
+    if(t){
+      var els=t.split(/\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
+      if(els.length)return els;
+    }
+    var m=n.previousElementSibling;
+    if(m&&m.classList&&m.classList.contains('t-note-mark')){
+      var prev=m.previousElementSibling;
+      if(prev&&prev.nodeType===1&&!prev.classList.contains('t-note')&&(prev.textContent||'').length<400)return [prev];
+      var par=m.parentElement;
+      if(par&&par!==document.body&&(par.textContent||'').length<400)return [par];
+    }
+    return [];
+  }
+  function showZone(n){clearZone();zoneOf(n).forEach(function(e){e.classList.add('note-hi');hiZone.push(e);});}
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
     makeTrigger(el,'${t.appEntry}: '+el.textContent.trim());
   });
@@ -132,6 +155,7 @@ export function buildInteractJS(t) {
       var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
       if(nn){
         openPop('<span class="k">'+'${t.notes}'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        showZone(nn);
         ev.stopPropagation();return;
       }
     }
@@ -220,10 +244,12 @@ export function buildInteractJS(t) {
           }
           // hover pairing in both directions
           (function(anchor,note){
-            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
-            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
+            var els=null;
+            function on(){if(!els)els=zoneOf(note);els.concat([anchor]).forEach(function(e){e.classList.add('note-hi');});note.classList.add('note-hi');}
+            function off(){(els||[]).concat([anchor]).forEach(function(e){e.classList.remove('note-hi');});note.classList.remove('note-hi');}
             note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
             anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
+            note.addEventListener('click',function(ev){on();if(els&&els[0])els[0].scrollIntoView({block:'nearest'});ev.stopPropagation();});
           })(it.a,n);
         }
       }
