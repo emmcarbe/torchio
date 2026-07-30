@@ -1,4 +1,4 @@
-<img src="docs/torchio.svg" alt="" width="56">
+<img src="docs/torchio-lockup.svg" alt="Torchio" width="400">
 
 # Torchio
 
