@@ -41,6 +41,7 @@ const STRINGS = {
     lemmaPending: 'types awaiting the editor’s review',
     formsLabel: 'forms', moreOccurrences: 'more occurrences not shown here',
     descrLemmas: 'every lemma with its forms and counts, one row per form',
+    descrTokens: 'the token stream of the reading text: position, language, form, lemma, anchor',
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
@@ -76,6 +77,7 @@ const STRINGS = {
     lemmaPending: "voci in attesa di revisione dell'editore",
     formsLabel: 'forme', moreOccurrences: 'altre occorrenze non mostrate qui',
     descrLemmas: 'ogni lemma con le sue forme e i conteggi, una riga per forma',
+    descrTokens: 'il flusso dei token del testo di lettura: posizione, lingua, forma, lemma, ancora',
   },
 };
 

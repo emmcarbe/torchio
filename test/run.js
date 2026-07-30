@@ -616,7 +616,36 @@ console.log('lemmas — concordances and frequencies, only where lemmas exist');
   ok(types.find((t) => t.form === 'errò').status === 'suggested',
     'unanimous forms are plain suggestions');
 
-  // 5. the editor's decisions survive re-runs
+  // 5. the language of a token is the markup's decision: xml:lang wins,
+  //    langUsage is the fallback, ISO 639-2 and 639-1 are one declaration
+  const MULTI = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Multilingue</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc><profileDesc><langUsage><language ident="lat">Latin</language></langUsage></profileDesc>
+  </teiHeader><text><body>
+    <p>arma uirumque cano, <foreign xml:lang="grc">μῆνιν ἄειδε θεά</foreign>, Troiae qui primus.</p>
+  </body></text></TEI>`;
+  const m5 = buildModel(parseXML(MULTI), map);
+  const toks = collectTokens(m5);
+  ok(toks.filter((t) => t.lang === 'grc').length === 3
+    && toks.filter((t) => t.lang === 'lat').length === 6,
+    'token language from the nearest xml:lang, langUsage as fallback');
+  const L5 = attachLemmas(m5, { types: [
+    { form: 'arma', lemma: 'arma', lang: 'la', status: 'confirmed' },
+    { form: 'μῆνιν', lemma: 'μῆνις', lang: 'grc', status: 'confirmed' },
+  ] });
+  ok(L5.entries.length === 2
+    && L5.entries[0].lang === 'la' && L5.entries[1].lang === 'grc',
+    'lang-typed entries match their language only; "lat" and "la" are one declaration');
+  const site5 = pressSite(m5, {});
+  ok(site5['lemmas.html'].includes('<h2 class="sec">la</h2>')
+    && site5['lemmas.html'].includes('<h2 class="sec">grc</h2>'),
+    'a multilingual edition groups the lemma index by language');
+  ok(site5['data/tokens.csv'].trim().split('\n').length === 10
+    && site5['data/tokens.csv'].includes('position,doc,lang,form,lemma,anchor'),
+    'tokens.csv: the token stream as data, position without markers, anchor back to the markup');
+
+  // 6. the editor's decisions survive re-runs
   const merged = mergeLemmaTypes(
     { types: [{ form: 'errò', lemma: 'vagare', status: 'confirmed' },
               { form: 'erra', lemma: 'sbagliare', status: 'suggested' }] },

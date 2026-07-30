@@ -16,7 +16,8 @@ function csv(rows) {
 }
 
 export function modelJSON(model) {
-  return JSON.stringify(model, null, 1);
+  // the token stream travels as tokens.csv, not duplicated inside the JSON
+  return JSON.stringify({ ...model, tokens: undefined }, null, 1);
 }
 
 export function entitiesCSV(model) {
@@ -38,6 +39,22 @@ export function apparatusCSV(model) {
         rows.push([reg.type, entry.id, entry.lemma ?? '', r.text, r.witnesses.join(' '), r.type ?? '', r.isLemma]);
       }
     }
+  }
+  return csv(rows);
+}
+
+/**
+ * The token stream as data: one row per token of the reading layer, in
+ * text order. "position" is the sequential index in the reading text with
+ * the markup stripped; "anchor" is the way back into the marked text. All
+ * quantitative work (frequencies, dispersion, collocations, n-grams)
+ * derives from this table without ever re-parsing the TEI.
+ */
+export function tokensCSV(model, tokens) {
+  const rows = [['position', 'doc', 'lang', 'form', 'lemma', 'anchor']];
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    rows.push([i, t.docId, t.lang || '', t.form, t.lemma || '', t.anchor]);
   }
   return csv(rows);
 }
@@ -66,6 +83,9 @@ export function buildExports(model, { sourceXML = null } = {}) {
   }
   if (model.lemmas && model.lemmas.entries.length) {
     files['data/lemmas.csv'] = lemmasCSV(model);
+  }
+  if (model.tokens && model.tokens.length) {
+    files['data/tokens.csv'] = tokensCSV(model, model.tokens);
   }
   if (sourceXML) files['data/source.xml'] = sourceXML;
   return files;

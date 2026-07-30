@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Compendiosa narratio. De statu missionis chinensis ab anno <date when="1581"
+                        >1581</date> usque ad annum <date when="1669">1669</date></title>
+                <author ref="https://viaf.org/viaf/45107415">Prospero Intorcetta<date from="1625"
+                        to="1696">1625-1696</date></author>
+            </titleStmt>
+            <publicationStmt>
+                <publisher>
+                    <ref target="www.ela.unisi.it">ELA</ref>
+                </publisher>
+                <!-- data da inserire -->
+                <date when="2021"/>
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+                        4.0</licence>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <bibl>
+                    <title ref="http://www.worldcat.org/oclc/806309751" key="print-editor"
+                        >Compendiosa narratio de statu missionis chinensis : ab anno 1581 usque ad
+                        annum 1669 : oblata minentissimis DD. Cardinalibus Sacrae Congregationis de
+                        Propaganda Fide</title>
+                </bibl>
+                <bibl>
+                    <idno type="OCLC">http://www.worldcat.org/oclc/806309751</idno>
+                    <idno type="WIKIDATA"/>
+                    <idno type="SINICA">https://www.univie.ac.at/Geschichte/China-Bibliographie/blog/2012/02/11/intorcetta-compendiosa-narratione-dello-stato-della-missione-cinese/</idno>
+                    <idno type="CCT">http://heron-net.be/pa_cct/index.php/Detail/objects/10702</idno>
+                    <idno type="DL">http://www.fondazioneintorcetta.info/pdf/Compendiosa_narratio.pdf</idno>
+                </bibl>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+               <p>Transcribed for the ELA Project, codified in TEI for the Serica Project.</p>
+            </projectDesc>
+            <editorialDecl>
+                <!-- da rivedere -->
+                <ab> Trascritta la j con la i, distinta la u dalla v, eliminati i segni di vocale
+                    lunga e di vocale breve. Sciolte le abbreviazioni.</ab>
+            </editorialDecl>
+            <!-- caratteri speciali per le abbreviazioni -->
+            <charDecl>
+                <!-- abbreviazione "us" -->
+                <char xml:id="us">
+                    <charName>MODIFIER LETTER US</charName>
+                    <mapping type="codepoint">U+A770</mapping>
+                    <mapping>ꝰ</mapping>
+                </char>
+            </charDecl>
+        </encodingDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="lat">Latin</language>
+            </langUsage>
+            <textClass>
+                <keywords>
+                    <term type="form">Prose</term>
+                    <term type="source">Primary source</term>
+                    <term type="genre">Itinera et Relationes</term>
+                    <term type="place">China</term>
+                </keywords>
+            </textClass>
+            <creation>
+                <date when-iso="1601/1700">1671</date>
+            </creation>
+        </profileDesc>
+        <revisionDesc>
+            <!-- mancano il livello di trascrizione e il livello TEI-->
+            <change when="2019-08-08" who="0000-0000-0000-0000">C. Marzucchi: transcription (level XXXXXX)</change>
+            <change when="2021-07-10" who="0000-0000-0000-0000">S. Bettella: TEI (level XXXXXX)</change>
+        </revisionDesc>
+    </teiHeader>
+
+    <text>
+        <!-- Frontespizio -->
+        <front>
+            <head>
+                <lb/>COMPENDIOSA
+                <lb/>NARRATIO.
+                <lb/>DE
+                <lb/>STATU MISSIONIS
+                <lb/>CHINENSIS.
+                <lb/><date from="1581" to="1669">Ab anno 1581 usque ad
+                    <lb/>Annum 1669</date>
+            </head>
+           <p>
+               <lb/><hi rend="italic">Oblata</hi>
+               <lb/>Eminentissimis DD. Cardinalibus
+               <lb/>Sacrae Congregationis de propaganda Fide
+               <lb/><choice><abbr>A<am>.</am></abbr><expan>A<ex>uctore</ex></expan></choice>
+                <choice><abbr>R<am>.</am></abbr><expan>R<ex>everendo</ex></expan></choice>
+                <choice><abbr>P<am>.</am></abbr><expan>P<ex>atre</ex></expan></choice> 
+                <persName>PROSPERO INTORCETTA</persName>
+               <lb/>SOCIETATIS IESU Sacerdote, et Procuratore
+               <lb/>V - <placeName>Proviciae Chinensis</placeName>.
+               <lb/><date when="1671-04-14">Anno 1671. 14. Aprilis</date>,
+               <lb/><placeName>Romae</placeName>.
+               <lb/><hi rend="italic">Permissu Superiorum</hi>
+           </p>
+        </front>
+        <body>
+            <!-- Testo -->
+               <pb n="353" type="page"/>
+               <p>Eminentissimi Domini. Ex <placeName>China</placeName> venio, ultima
+                        <placeName>Asiae</placeName> parte, missus Procurator a Patribus Societatis
+                    IESU, ut impraesentiarum provolutus omnium nomine ad pedes Eminentiarum
+                    Vestrarum, certiores Easdem reddam de summa veneratione et affectu, quo tota
+                    illa Communitas Sacram hanc Congregationem prosequitur; <choice>
+                        <abbr>simulq<am>;</am></abbr>
+                        <expan>simulq<ex>ue</ex></expan>
+                    </choice> paucis his lineis statum amplissimae illius Missionis in Compendio
+                    describam, quo tanquam Patres ac Propagatores sanctae nostrae Fidei, eandem
+                    porro paterna cura <choice>
+                        <abbr>amoreq<am>;</am></abbr>
+                        <expan>amoreq<ex>ue</ex></expan>
+                    </choice> protegere dignentur.</p>
+               <p>Est haec Missio dives laborum, ob spatiosum quindecim Provinciarum seu Regnorum
+                    campum; nec minus fertilis, ut in iisdem Christianae Religionis saluberrimus
+                    fructus <choice>
+                        <abbr>usq<am>;</am></abbr>
+                        <expan>usq<ex>ue</ex></expan>
+                    </choice> ad maturationem succrescat: inops tamen temporalibus bonis, et fine
+                    fundatione alicuius Collegii, ut plurimum ex Eleemosynis victitans, ab Europaeis
+                        <placeName key="China">Chinensi Regno</placeName> vicimoribus cor<pb n="354" type="page"
+                    />rogatis. <choice>
+                        <abbr>Neq<am>;</am></abbr>
+                        <expan>Neq<ex>ue</ex></expan>
+                    </choice> enim fas nobis est victum a Chinensibus mendicare, ut quam longissime
+                    suspicionem declinemus, quasi illorum Bonziis similes essemus, aut nostra
+                    doctrina aeque, ac illorum sit mendax: Hi enim pauperes, et otiosi in patria,
+                    Provincias mendicando pererrant perditi Hypocritae; <choice>
+                        <abbr>sicq<am>;</am></abbr>
+                        <expan>sicq<ex>ue</ex></expan>
+                    </choice> novis Religionis figmentis populo illudunt, ut ventrem repleant. <hi
+                        rend="italic">Quorum DEUS venter est</hi>.</p>
+               <p>Hac ergo intentione ab omni mundano emolumento longissime remota, iam inde ab
+                        <date when="1581">anno 1581.</date> quo a Patribus Societatis,
+                        <persName>Michaele Rogerio</persName>, <persName>Francisco Patio</persName>,
+                    et <persName>Matthaeo Riccio</persName>
+                    Italis Missio Chinensis fundata est, laboratum semper
+                    fuit, et etiamnum laboratur a Posteris in hoc agro Christi, ad colligendam
+                    fidelium messem: Et primis quidem annis lento, sed maturo passu, eo quod
+                        <placeName>China</placeName> tam civilibus vitiis, quam superstitionibus
+                    plena esset, <choice>
+                        <abbr>nostriq<am>;</am></abbr>
+                        <expan>nostriq<ex>ue</ex></expan>
+                    </choice> Patres ea in regione peregrini; (unde viginti minimum annorum spatio
+                    indigebant, tum ad linguam perfecte addiscendam, tum libris evolvendis, quo
+                    Civiles ritus a superstitiosis, usumque ab abusu discernerent.) At vero,
+                    postquam in plano semel pedem fixerunt, ingens semper augmentum sumpsit
+                    Chinensium Conversio; ita, ut ab anno <date when="1681">1681.</date> <choice>
+                        <abbr>usq<am>;</am></abbr>
+                        <expan>usq<ex>ue</ex></expan>
+                    </choice> ad annum <date when="1650">1650.</date> Patres Societatis centum et
+                    quinquaginta Christianorum millia sub Christi <pb n="355" type="page"/>Vexillo
+                    numeraverint, et <date from="1650" to="1667">ab anno 1650. ad annum 1667.</date>
+                    centum rursus et quatuor millia, nongentos, octoginta: quibus si accenseas mille
+                    et <choice>
+                        <abbr>n<am>ō</am></abbr>
+                        <expan>n<ex>on</ex></expan>
+                    </choice> gentos a nostris in <placeName>Insula HAI-NAN</placeName>
+                    <date from="1656" to="1664">ab anno 1656. ad annum 1664.</date> baptizatos; et <choice>
+                        <abbr>deniq<am>;</am></abbr>
+                        <expan>deniq<ex>ue</ex></expan>
+                    </choice> tria denuo millia et quingentos baptizatos a <choice><abbr>R<am>.</am>R<am>.</am></abbr><expan>R<ex>everendis</ex></expan></choice>
+                   <choice><abbr>P<am>.</am>P<am>.</am></abbr><expan>P<ex>atribus</ex></expan></choice> Franciscanis ab
+                    anno <date when="1633">1633.</date> primo sui ingressus in
+                        <placeName>Chinas</placeName>, <choice>
+                        <abbr>usq<am>;</am></abbr>
+                        <expan>usq<ex>ue</ex></expan>
+                    </choice> ad annum <date when="1668">1668.</date> contractus in unum numerus
+                    baptizatorum in <placeName>China</placeName>, ad trecenta et octo millia,
+                    septingentos et octoginta ascendet. <choice>
+                        <abbr>Neq<am>;</am></abbr>
+                        <expan>Neq<ex>ue</ex></expan>
+                    </choice> huic numero includo tinctos sacro fonte a <choice><abbr>P<am>.</am>P<am>.</am></abbr><expan>P<ex>atribus</ex></expan></choice> Dominicanis ab anno
+                        <date when="1631">1631.</date> ingressus sui primo, ad <choice>
+                        <abbr>usq<am>;</am></abbr>
+                        <expan>usq<ex>ue</ex></expan>
+                    </choice> annum <date when="1650">1650.</date> eo quod numerum ignorem. Non
+                    praeteribo tamen numerum Residentiarum, <choice>
+                        <abbr>Templorumq<am>;</am></abbr>
+                        <expan>Templorumq<ex>ue</ex></expan>
+                    </choice> seu Ecclesiarum a Missionariis et Christianis in hoc vastissimo
+                   <placeName key="China">Chinarum Imperio</placeName> DEO dedicatarum: Habent <choice><abbr>P<am>.</am>P<am>.</am></abbr><expan>P<ex>atres</ex></expan></choice>
+                   Dominicani Ecclesias 21. Residentias 2. <choice><abbr>P<am>.</am>P<am>.</am></abbr><expan>P<ex>atres</ex></expan></choice> Franciscani Ecclesias tres,
+                   Residentiam unam. <choice><abbr>P<am>.</am>P<am>.</am></abbr><expan>P<ex>atres</ex></expan></choice> Societatis Ecclesias 159. Residentias 38. Non recenseo
+                    hic Oratoria privata, quae sunt sine numero, sed solum Ecclesias omnibus
+                    communes.</p>
+               <p>Porro Status nostrae Missionis sub annis Missionis sub annis <placeName key="China">Imperii
+                        Chinensis</placeName>
+                    <choice>
+                        <abbr>utcunq<am>;</am></abbr>
+                        <expan>utcunq<ex>ue</ex></expan>
+                    </choice> diversus fuit ab eo, qui nunc est sub moderno <placeName>Tartarorum
+                        Imperio</placeName>, qui <choice>
+                        <abbr>hodieq<am>;</am></abbr>
+                        <expan>hodieq<ex>ue</ex></expan>
+                    </choice> omnibus <placeName>Chinae</placeName> Provinciis dominantur, nec ideo
+                    minus <placeName>Tartariam</placeName> suam gu<pb n="356" type="page"/>bernant:
+                    Quippe Chinensibus clavum adhuc moderantibus, non solum missionariis occulte
+                    intrandum fuit, sed ut plurimum etiam non nisi clam licebat iis per Sacramenta, <choice>
+                        <abbr>functionesq<am>;</am></abbr>
+                        <expan>functionesq<ex>ue</ex></expan>
+                    </choice> Apostolicas hunc Christi agrum excolere, ut cum pace et quiete
+                    salutiferum fructum animarum conversionis colligere possent. Et licet Anno <date
+                        when="1638">1638.</date> occulta haec quies turbari coeperit per repentinam
+                    persecutionem in quintum <choice>
+                        <abbr>usq<am>;</am></abbr>
+                        <expan>usq<ex>ue</ex></expan>
+                    </choice> annum protractam (quae tamen sancte pieque declinari poterat nisi
+                    indiscretus obstitisset Zelus, et modica quorundam Missionariorum experientia,
+                    recens in <placeName>Chinam</placeName> per <placeName>Philippinas</placeName>
+                    intrantium) non tamen ultra processit Furor, sed solo indiscretorum exilio
+                    contentus, Chinensium Conversioni pristinum reliquit progressum.</p>
+               <p>Translato dein sub annum <date when="1643">1643.</date> ad orientalem
+                        <placeName>Tartarum</placeName>, <persName>XÚN CHÌ</persName> dictum,
+                        Chinensium imperio, Fidei etiam Propagatio ex occulto
+                   in apricum vindicata est. Cum enim <choice><abbr>P<am>.</am></abbr><expan>P<ex>ater</ex></expan></choice> <persName>Ioannes Adamus Schall</persName>
+                    ex Societate IESU, huic Imperatori apprime esset charus, et ab eo non solum ad
+                    Praefecturam Tribunalis Mathematicae in ipsa <placeName>Pequini</placeName> Aula
+                    evectus, sed multis etiam primariis Regni Titulis condecoratus, facta insuper
+                    potestate, Conclave Regium pro arbitrio intrandi, tum ad salutandum Imperatorem,
+                    tum ad monendum, <choice>
+                        <abbr>fuggeren<pb n="357" type="page"/>dumq<am>;</am></abbr>
+                        <expan>fuggeren<pb n="357" type="page"/>dumq<ex>ue</ex></expan>
+                    </choice> quidquid ad Iustitiae, et rectae Gubernationis augmentum conducere
+                    iudicaret; Nos <choice>
+                        <abbr>quoq<am>;</am></abbr>
+                        <expan>quoq<ex>ue</ex></expan>
+                    </choice> Missionarii reliqui, per varias sparsi Provincias, a Civitatum
+                    Gubernatoribus consimili sumus benevolentia excepti, consimili aestimatione <choice>
+                        <abbr>honoreq<am>;</am></abbr>
+                        <expan>honoreq<ex>ue</ex></expan>
+                    </choice> ornati: Christiani amanter habiti: Ecclesiae <choice>
+                        <abbr>Domusq<am>;</am></abbr>
+                        <expan>Domusq<ex>ue</ex></expan>
+                    </choice> nostrae a litteratis, etiam Paganis frequentatae; editi a nobis
+                    Chinensi lingua libri cum desiderio expetiti; (Soli enim Societatis Patres de
+                    Religione Christiana 131. libros edidere; Physicos vero <choice>
+                        <abbr>Moralesq<am>;</am></abbr>
+                        <expan>Moralesq<ex>ue</ex></expan>
+                    </choice> 55. ac demum Mathematicos centum et supra typis vulgarunt; <choice><abbr>P<am>.</am>P<am>.</am></abbr><expan>P<ex>atres</ex></expan></choice>
+                    Dominicani tria de Christiana Religione volumina. Pater etiam ex Franciscana
+                    Familia librum edidit unum tribus tomis distinctum) aperta templa, et ab omnibus
+                    honorifice culta: Celebrati magna cum pompa Festi per annum Dies solenniores,
+                    exstructae novae, ac sumptuosae Ecclesiarum fabricae; verbo, Fides Christiana
+                    felicissimis progressibus ad Bonziorum <choice>
+                        <abbr>Orciq<am>;</am></abbr>
+                        <expan>Orciq<ex>ue</ex></expan>
+                    </choice> invidiam propagata.</p>
+               <p>Cum ecce post <persName>XÚN-CHÌ</persName> Benevolentissimi Imperatoris mortem,
+                    quae anno <date when="1664-09">1664. Septembri mense</date> secuta est, mutata
+                    repente scena prodiit in campum dirus Satanae Minister <persName><hi
+                            rend="italic">Yàm-quàm-sien</hi></persName> appellatus: Is, quum
+                    Diabolicis Chinensium sectis ceu author <choice>
+                        <abbr>Fautorq<am>;</am></abbr>
+                        <expan>Fautorq<ex>ue</ex></expan>
+                    </choice> praesideret, scriptam adversus Apostolicos vi<pb n="358" type="page"
+                    />ros Tabellam (Memoriale vocant) simulque plenum in divinam Legem blasphemiis
+                    librum ad quatuor Imperii Gubernatorum Tribunal detulit. Tartari hi erant omnes,
+                    a Defuncto <persName>XÚN-CHÌ</persName> protectores nominati Infantis
+                        <persName>CAM-HÍ</persName>, Filii secundo geniti, ac Imperii Haeredis.</p>
+               <p>Summa memorialis fuit: quod moliremur rebellionem, quod legem praedicaremus
+                    falsam, cuius Caput sit Crucifixus, mortuus in medio duorum Latronum; quod
+                    erraremus, in regulis Mathematicae Europeae, per quam antiquissimam Chinensium
+                    Mathematicam obscurare, <choice>
+                        <abbr>Domumq<am>;</am></abbr>
+                        <expan>Domumq<ex>ue</ex></expan>
+                    </choice> Regiam destruere conaremur. Susceptum est Memoriale a quatuor
+                    Gubernatoribus simulato vultu, et accusatori in speciem subirascente, licet dum
+                    et reipsa, iniquissimas eius accusationes, et molitiones diabolicas omni favore
+                    promoverent, quippe iam prius tum ipsi, tum reliqua etiam Tribunalia amplissimis
+                    donis, et magna argenti summa corrupti, quam a sectariis per omnes Provincias
+                    industria accusatoris collegerat, non alio fine, quam ad Legem Christianam cum
+                    omnibus asseclis funditus abolendam. Ventilatur causa per Tribunalia complura,
+                    et in his Veritas et Innocentia magnopere proculcatur: Comprehenduntur interim
+                    quatuor Societatis Patres, qui in duabus Aulae Ecclesiis diversabantur, <choice>
+                        <abbr>singuliq<am>;</am></abbr>
+                        <expan>singuliq<ex>ue</ex></expan>
+                    </choice> catenis novem hoc <pb n="359" type="page"/>est ad collum, brachia, <choice>
+                        <abbr>pedesq<am>;</am></abbr>
+                        <expan>pedesq<ex>ue</ex></expan>
+                    </choice> ternis ligantur. Ita vincti arctissima custodia duorum mensium spatio
+                    tenentur, et ex carceribus ad Tribunalia, ab his item ad carceres in singulos
+                    prope dies raptantur. Durarunt Examina ultra semestre, reposita a Patribus
+                    conformia semper et intrepida responsa; et quamvis adversarii manifestae
+                    calumniae fuerint convicti, <choice>
+                        <abbr>nihilomin<am><g ref="#us"/></am></abbr>
+                        <expan>nihilomin<ex>us</ex></expan>
+                    </choice>, partim tacita Iudicum dissimulatione, partim declinatis ad alia
+                    sermonibus semper triumphavit Iniquitas. Fulminatur <choice>
+                        <abbr>itaq<am>;</am></abbr>
+                        <expan>itaq<ex>ue</ex></expan>
+                    </choice> acerbissimae mortis Decretum adversus Patrem <persName>Ioannem
+                        Adamum</persName>, ceu reliquorum Antesignanum, et Fautorem Primarium
+                    Christianae Legis, quae a quatuor Imperii Gubernatoribus, lata pro Tribunali
+                    sententia, pro Falsa est condemnata: quam tamen Sententiam, Doctiores e
+                    Chinensibus, et in nostrorum librorum periti negarunt in Aula Chinensi ferri
+                    potuisse ab aliis, quam a bestialibus Tartaris; lata etiam adversus alios omnes
+                    virgarum <choice>
+                        <abbr>exiliiq<am>;</am></abbr>
+                        <expan>exiliiq<ex>ue</ex></expan>
+                    </choice> sententia, et Locus exilii <placeName>Tartaria</placeName> assignata.
+                    Mittitur confestim Edictum Regium, ad omnium Provinciarum Rectores, ut Patres
+                    Europaei omnes, per Imperii urbes <choice>
+                        <abbr>Terrasq<am>;</am></abbr>
+                        <expan>Terrasq<ex>ue</ex></expan>
+                    </choice> diligentissime conquisiti, ad Aulam secure ducantur; comburantur
+                    Doctrinae Christianae libri <choice>
+                        <abbr>aliiq<am>;</am></abbr>
+                        <expan>aliiq<ex>ue</ex></expan>
+                    </choice> similes, iubentur tradere Christiani, quas colunt, Imagines; ipsi
+                    tamen com<pb n="360" type="page"/>prehensi non sunt, nec sublatae etiam Imagines
+                    publice in Ecclesiis expositae, sed Templa clausa, et aliis custodienda tradita.</p>
+               <p>Mandatum est Executioni Decretum per omnes Provincias, sed rigore plurimum
+                    inaequali, pro maiore scilicet, aut minore Praefectorum in nos, <choice>
+                        <abbr>nostramq<am>;</am></abbr>
+                        <expan>nostramq<ex>ue</ex></expan>
+                    </choice> Legem affectu, qui maxime in executione eluxit. Pars maior Patrum, per
+                    Provincias sparsorum comprehensi, et per aliquot menses in carceres coniecti, <choice>
+                        <abbr>indeq<am>;</am></abbr>
+                        <expan>indeq<ex>ue</ex></expan>
+                    </choice> ad Aulam stipante militum manu deducti: alii collo catenis inserto,
+                    alii liberi; multis libri omnes tum Europaei, tum Chinenses combusti, aliquibus
+                    servati intacti. Quarundam Ecclesiarum, cum clauderentur, claves Christianis
+                    traditae, aliae militibus, vel Tribunalium ministris pro habitatione relictae:
+                    in aliquibus urbibus afflicti Christiani, sublatis e templis imaginibus sacris, <choice>
+                        <abbr>rebusq<am>;</am></abbr>
+                        <expan>rebusq<ex>ue</ex></expan>
+                    </choice> nostris divenditis, non item in aliis.</p>
+               <p>Sub hac tum Inquisitionis, tum Executionis per Imperii urbes varietate,
+                    omnipotentia divina ad Innocentiae tutelam, <choice>
+                        <abbr>suaeq<am>;</am></abbr>
+                        <expan>suaeq<ex>ue</ex></expan>
+                    </choice> sanctissimae Legis gloriam, iteratis horrendis terrae motibus, <choice>
+                        <abbr>aliisq<am>;</am></abbr>
+                        <expan>aliisq<ex>ue</ex></expan>
+                    </choice> prodigiis Aulam Pequinianam adeo conterruit, ut Tribunalium Praefectos
+                    cogeret mutata mortis, virgarum, exiliique <pb n="361" type="page"/>sententia,
+                    Nostros his malis iam destinatos, liberare repente ex aerumnoso carcere, et in
+                    alteram ex Aulae Ecclesiis transferre. Licet autem fatalis sententiae furor
+                    utcunque sit mitigatus, clamante praesertim populo Pequiniano: Magnum esse
+                    Christianorum DEUM, qui ad vindicandam suorum Innocentiam Coeli <choice>
+                        <abbr>terraeq<am>;</am></abbr>
+                        <expan>terraeq<ex>ue</ex></expan>
+                    </choice> vires in eorum hostes vibraverit; <choice><abbr>nihilomin<am><g ref="#us"/></am></abbr><expan>nihilomin<ex>us</ex></expan></choice> indurata accusatoris
+                        <persName>Yàm-quàm-sien</persName> malitia correcta non est; quin imo
+                    traditis semper novis accusationum libellis, monebat Tribunalia, ne imperitae
+                    plebis clamoribus attenderent, sed potius debito supplicio prosequerentur
+                    abolitionem Legis falsae, eiusque Praedicatorum, ac Mathematicae praesertim
+                    peregrinae, quae mortis Filioli Principis Primogeniti, omniumque Regni
+                    calamitatum causa fuisset.</p>
+               <p>Eo denique processit Iniquitas, ut de Christianis Chinensibus quinque, iidemque
+                    literati, et Tribunalis Mathematicae Praefecti, <choice>
+                        <abbr>eoq<am>;</am></abbr>
+                        <expan>eoq<ex>ue</ex></expan>
+                    </choice> <choice><abbr>P<am>.</am></abbr><expan>P<ex>atri</ex></expan></choice> <persName>Ioanni Adamo</persName> subordinati, capite plexi
+                    fuerint; <choice>
+                        <abbr>Neq<am>;</am></abbr>
+                        <expan>Neq<ex>ue</ex></expan>
+                    </choice> hoc Innocentum Christi Agnorum sanguine emollitum est Hydrae huius
+                    infernalis adamantinum pectus, quin semper avidius Europaeorum praecipue, ceu
+                    Primariorum Christianae Fidei Ministrorum sangui<pb n="362" type="page"/>nem
+                    sitiret. Quam in rem in ultimis suis Memorialibus, cum iam omnes ex Provinciis
+                    ad Aulam deducti, <choice>
+                        <abbr>unumq<am>;</am></abbr>
+                        <expan>unumq<ex>ue</ex></expan>
+                    </choice> in locum compacti essemus, adduxit pro exemplo
+                        <placeName>Philippinas</placeName> ab Hispanis,
+                    industria Praedicatorum nobis similium, et eiusdem nobiscum Legis, subiugatas;
+                    Exemplum item <placeName>Insulae Iaponis</placeName>, ubi Sacerdotum
+                    extraneorum, et Christianorum <placeName>Iaponum</placeName> ingens numerus
+                    occisus, non aliam, uti dicebat, ob causam, quam quod detecta fuerit Coniuratio
+                    adversus illud Imperium, quod proinde Sacerdotibus Europaeis in aeviternum citra
+                    reclusionis spem sit obseratum. Huiusmodi exempla complura Tartaris exhibita,
+                    alium contra nos, quae DEI Bonitas fuit, effectum sortita non sunt, quam ut 25.
+                    Sacerdotes in ultimam Australem Provinciam, <placeName>Cantonem</placeName>
+                    vocant, destinatum scilicet exilio locum ablegarentur, quatuor solum Societatis
+                    Patribus in aula et eiusdem orientali Ecclesia relictis, additis tamen ad portas
+                    custodibus, et prohibita Christianarum functionum administratione.</p>
+               <p>Discessimus ex Aula 25 Patres. <date when="1665-09-13">13. Septembris, Anni
+                        1665.</date> militum globo stipati; <choice>
+                        <abbr>neq<am>;</am></abbr>
+                        <expan>neq<ex>ue</ex></expan>
+                    </choice> Navigatio nostra, quam secundo flumine instituimus, multum molestiae
+                    habuit: Deducti enim sumus Navibus Honorariis peramplis, et <pb n="363"
+                        type="page"/>Regiorum Praefectorum propriis. <date when="1666-03">Post sex
+                        menses</date> Navigationi insumptos, ad exilii locum appulimus, ubi rursus
+                    adiuncti ad portam custodes et Evangelica munia interdicta; non tamen eo rigore
+                    tractarunt nos milites, ut non libere foras egredi, ad iuvandos in Spiritu
+                    Christianos liceret, (dummodo sub noctem domum rediremus) <choice>
+                        <abbr>neq<am>;</am></abbr>
+                        <expan>neq<ex>ue</ex></expan>
+                    </choice> ut ad aram facere, admissis etiam Christianorum permultis,
+                    prohiberemur. Dum hic moramur, nullo interim indicio investigare potuimus, quid
+                    demum de nobis statueret Tartarus; mortemne, an totalem e
+                        <placeName>China</placeName> egressum, an Carceres perennes, Exiliumve
+                    moliretur: tanto magis, quod Criminationes Inimici nondum erant
+                        <placeName>Pequini</placeName> finitae; siquidem post nostrūum discessum
+                    impetravit illico a 4. Gubernatoribus, ut una Ecclesiarum
+                        <placeName>Pequini</placeName>, orientalis scilicet, dissolveretur, altera
+                    vero traderetur eidem, ut eam in speculam seu Turrim verteret, ad stellas
+                    observandas.</p>
+               <p>In hac Eventuum ambiguitate, opportunissimum nobis tempus relictum est,
+                    examinandi non sine fructu, libros, ritus, <choice>
+                        <abbr>ususq<am>;</am></abbr>
+                        <expan>ususq<ex>ue</ex></expan>
+                    </choice> ac consuetudines nostrae Missionis, per quadraginta et plures
+                    Conferentiarum dies: eum in finem, ut in futurum omnes, easdem praxes, <choice>
+                        <abbr>modosq<am>;</am></abbr>
+                        <expan>modosq<ex>ue</ex></expan>
+                    </choice> nec non Doctrinae Conformitatem, et Charitatis Unionem intra variorum
+                    Ordinum <pb n="364" type="page"/>Religiosos observaremus; DEO praesertim, non
+                    sine speciali Divinae suae Providentiae consilio, uno nos loco congregante, et
+                    aptissimum huic negotio tempus suppeditante.</p>
+                <p>Porro Nobis exilio damnatis, dissoluta item Aulae Ecclesia, ac demum <choice><abbr>P<am>.</am></abbr><expan>P<ex>atre</ex></expan></choice>
+                        <persName>Ioanne Adamo</persName> in eadem Aula, solis aerumnis et
+                    Persecutionis doloribus, quibus ipse, licet senio annisque, prae quam ceteri,
+                    gravis, multo violentius premebatur, confecto, ac mortuo; ipsa etiam Elementa
+                    condoluere, monstratis certatim Irae Divinae signis, et toti iam
+                        <placeName>Chinae</placeName> exitium minitantia, ad vindicandas Iniurias,
+                    Innocentiae, et Catholicae Religionis Veritati illatas. Non hic referam
+                    Elementorum furores, aut prodigia de coelo secuta, nec Persecutionis praeludia,
+                    qualia per totum tempus, quo illa duravit, distincta et accurata relatione
+                    perscribit, et ad Eminentias Vestras transmittit (vide infra)
+                    <choice><abbr>R<am>.</am></abbr><expan>R<ex>everendus</ex></expan></choice>
+                    <choice><abbr>P<am>.</am></abbr><expan>P<ex>ater</ex></expan></choice>
+                    <choice><abbr>F<am>.</am></abbr><expan>F<ex>rater</ex></expan></choice>
+                        <persName>Dominicus Maria Sarpetri</persName> ex sacro Praedicatorum Ordine
+                    Missionarius in <placeName>China</placeName>, et Operarius optimus.</p>
+               <p>Recensebo tamen breviter Extinctae iam Persecutionis praeludia, et de Patrum
+                    Exulum ad suas Ecclesias restitutione laetissima nova. <pb n="365" type="page"
+                    />Post meum e <placeName>China</placeName> discessum Tres Societatis Patres,
+                        <persName>Gabriel Magaglianes</persName>, <persName>Ludovicus
+                        Buglio</persName>, et <persName>Ferdinandus Verbiest</persName>, qui iam
+                    primo in Aula substiterant, miserunt Relationem, scriptam
+                        <placeName>Pequini</placeName>, sub <date when="1669-01-02">die 2. Ianuarii
+                        1669.</date> Qua certiores nos reddunt, se pariter omnes restitutos in
+                    gratiam Tartari Imperatoris <persName><hi rend="italic">Cám-hì</hi></persName>,
+                    qui Possessionem Imperii iam occupaverit sub annum aetatis 14. Tum deinde, quod
+                    ob complures et manifestos errores, quos adversarius noster <persName><hi
+                            rend="italic">Yàm-quàm sien</hi></persName> in Mathematicae Calculis
+                    commisit, status ille revocatus ad Examen fuerit, in quo, praesente
+                   <persName>Cám-hì</persName> Imperatore, et aulicis Tribunalibus, a <choice><abbr>P<am>.</am></abbr><expan>P<ex>atre</ex></expan></choice>
+                        <persName>Ferdinando Verbiest</persName> ignorantiae sit convictus,
+                    ademptaque eidem Mathematicae Praefectura, praenominato Patri
+                        <persName>Verbiest</persName> eodem prorsus modo fuerit demandata, quo ab
+                   Imperatore <persName>Xùn-chì</persName> consignata erat <choice><abbr>P<am>.</am></abbr><expan>P<ex>atri</ex></expan></choice> <persName>Ioanni
+                        Adamo Schall</persName>; quemadmodum etiam ex aliis literis
+                        <placeName>Macao</placeName>
+                    <date when="1669-09">mense Septembri eiusdem anni</date> scriptis intelleximus.
+                    Est hoc evidens praeludium alterius scenae mutationis, pro Missione Chinensi
+                    admodum gloriosae. Imo de facto mihi dubium non est, Patres illos omnes, quos
+                        <placeName>Cantone</placeName> in exilio reliqui, Ecclesiis suis iam esse
+                    restitutos, et quidem cum gaudio universali, non solum Christianorum iis in <pb
+                        n="366" type="page"/>partibus, sed <placeName>Chinae</placeName> totius,
+                    solis Bonziis <choice>
+                        <abbr>eorumq<am>;</am></abbr>
+                        <expan>eorumq<ex>ue</ex></expan>
+                    </choice> Sectariis exceptis; siquidem Innocentia sanctissimae nostrae Legis
+                    toti <placeName>Chinae</placeName> fuit notissima, et perinde pristina nostra
+                    libertas ab omnibus desiderata.</p>
+               <p>Dico <choice>
+                        <abbr>itaq<am>;</am></abbr>
+                        <expan>itaq<ex>ue</ex></expan>
+                    </choice>, ad consummandum Christiani illius Gregis <choice>
+                        <abbr>Patrumq<am>;</am></abbr>
+                        <expan>Patrumq<ex>ue</ex></expan>
+                    </choice> Missionariorum perfectum gaudium nihil porro deesse, quam plurimorum
+                    Operariorum subsidium, tum ad complendas et animandas Ecclesias etiamnum vacuas,
+                    tum ad messem quam plurimam colligendam, quae pro Coelesti Granario, iam matura
+                    offertur. Sentio equidem, pro hoc Chinensi agro duo Operariorum millia neutiquam
+                    sufficere, desidero tamen solos minimum quadraginta, quos mecum in
+                        <placeName>Chinam</placeName> deducam, et inter paucos illos Patres (senes
+                    iam et laboribus oppressos) ad addiscendam Linguam dispertiam, ut ea paucos per
+                    annos exacte comprehensa, et Chinensium literarum effecti Magistri, possint et
+                    ipsi docere posteros, <choice>
+                        <abbr>sicq<am>;</am></abbr>
+                        <expan>sicq<ex>ue</ex></expan>
+                    </choice> suavissima continuatione sanctissimam nostram Fidem in literariis
+                    illis <placeName>Chinae</placeName> campis propagent. Me quidem (fateor) ad hunc
+                    effectum vires deficiunt, siquidem, ut initio insinuavi, Missio haec Fundatorem
+                    non habet, <choice>
+                        <abbr>vivitq<am>;</am></abbr>
+                        <expan>vivitq<ex>ue</ex></expan>
+                    </choice> ex Eleemosynis ab Europaeis collectis: Non deficiunt tamen assiduae
+                    preces, et lamen<pb n="367" type="page"/>tabilia Militantis Ecclesiae Chinensis
+                    suspiria, ad permovendam Clementiam Divinam, ac Fidelium pietatem, ut
+                    liberaliter concurrant, ad promotionem Operis, in se tam sancti, et ad
+                    Chinensium Conversionem tam necessarii, et denique pro DEI Honore tam gloriosi.</p>
+               <p>Atque hic est, Eminentissimi Domini, ab integro prope seculo Chinensis Ecclesiae
+                    status, descriptus a me hoc brevi Compendio, quod ego hodie Eminentiarum
+                    Vestrarum pedibus humillime substerno, nec aliud laboribus meis praemium expeto,
+                    quam ut ab Eisdem clementissime acceptetur, id quod pro lucro simul et solatio
+                    reputabo.</p>
+                <!-- Firma -->
+                <p><choice><abbr>E<am>.</am> E<am>.</am></abbr><expan>E<ex>minentiis</ex></expan></choice>
+                    <choice><abbr>V<am>.</am> V<am>.</am></abbr><expan>V<ex>estris</ex></expan></choice>
+                    <lb/><hi rend="italic">Indignissimus et Humillimus Servus
+                        <lb/>in Domino</hi>
+                    <lb/><persName>PROSPER INTORCETTA</persName></p>          
+        </body>
+    </text>
+</TEI>

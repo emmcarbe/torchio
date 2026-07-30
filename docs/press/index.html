@@ -496,7 +496,8 @@ function csv(rows) {
 }
 
 function modelJSON(model) {
-  return JSON.stringify(model, null, 1);
+  // the token stream travels as tokens.csv, not duplicated inside the JSON
+  return JSON.stringify({ ...model, tokens: undefined }, null, 1);
 }
 
 function entitiesCSV(model) {
@@ -518,6 +519,22 @@ function apparatusCSV(model) {
         rows.push([reg.type, entry.id, entry.lemma ?? '', r.text, r.witnesses.join(' '), r.type ?? '', r.isLemma]);
       }
     }
+  }
+  return csv(rows);
+}
+
+/**
+ * The token stream as data: one row per token of the reading layer, in
+ * text order. "position" is the sequential index in the reading text with
+ * the markup stripped; "anchor" is the way back into the marked text. All
+ * quantitative work (frequencies, dispersion, collocations, n-grams)
+ * derives from this table without ever re-parsing the TEI.
+ */
+function tokensCSV(model, tokens) {
+  const rows = [['position', 'doc', 'lang', 'form', 'lemma', 'anchor']];
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    rows.push([i, t.docId, t.lang || '', t.form, t.lemma || '', t.anchor]);
   }
   return csv(rows);
 }
@@ -546,6 +563,9 @@ function buildExports(model, { sourceXML = null } = {}) {
   }
   if (model.lemmas && model.lemmas.entries.length) {
     files['data/lemmas.csv'] = lemmasCSV(model);
+  }
+  if (model.tokens && model.tokens.length) {
+    files['data/tokens.csv'] = tokensCSV(model, model.tokens);
   }
   if (sourceXML) files['data/source.xml'] = sourceXML;
   return files;
@@ -1099,6 +1119,7 @@ const STRINGS = {
     lemmaPending: 'types awaiting the editor’s review',
     formsLabel: 'forms', moreOccurrences: 'more occurrences not shown here',
     descrLemmas: 'every lemma with its forms and counts, one row per form',
+    descrTokens: 'the token stream of the reading text: position, language, form, lemma, anchor',
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
@@ -1134,6 +1155,7 @@ const STRINGS = {
     lemmaPending: "voci in attesa di revisione dell'editore",
     formsLabel: 'forme', moreOccurrences: 'altre occorrenze non mostrate qui',
     descrLemmas: 'ogni lemma con le sue forme e i conteggi, una riga per forma',
+    descrTokens: 'il flusso dei token del testo di lettura: posizione, lingua, forma, lemma, ancora',
   },
 };
 
@@ -1204,6 +1226,11 @@ body.notes-dense.notes-off .t-note-mark{cursor:default}
 body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
 body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
 body.mode-read .t-del{display:none}
+body.mode-read .t-am{display:none}
+body.mode-dipl .t-ex{display:none}
+body.mode-read .t-lb br{display:none}
+body.mode-read .t-lb::after{content:" "}
+body.mode-read .t-lb[data-break="no"]::after{content:none}
 body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 `;
 
@@ -1485,15 +1512,29 @@ function toolbarHTML({ hasChoice, hasApparatus, hasNotes, t } = {}) {
 // excluded from the reading layer (diplomatic variants, editorial prose)
 const SKIP = new Set(['teiHeader', 'note', 'rdg', 'orig', 'abbr', 'sic', 'del', 'fw']);
 
-/** Collect the token stream of a document tree's reading layer. */
-function collectFrom(node, docId, anchor, out, seg) {
+// editions declare languages in ISO 639-2/3 as often as 639-1 ("lat" and
+// "la" are the same declaration): matching normalizes, display follows
+const LANG_ALIASES = {
+  lat: 'la', ita: 'it', eng: 'en', deu: 'de', ger: 'de', fra: 'fr', fre: 'fr',
+  nld: 'nl', dut: 'nl', spa: 'es', por: 'pt', ell: 'el',
+};
+function normLang(l) {
+  const k = (l || '').toLowerCase().split('-')[0];
+  return LANG_ALIASES[k] || k;
+}
+
+/** Collect the token stream of a document tree's reading layer.
+ *  The language of a token is the markup's decision: the nearest ancestor
+ *  with xml:lang, falling back to the edition's declared language. */
+function collectFrom(node, docId, anchor, out, segFor, lang) {
   if (SKIP.has(node.element)) return;
+  if (node.atts['xml:lang']) lang = node.atts['xml:lang'];
   // a <w> is one token by definition; its @lemma is the markup's decision
   if (node.element === 'w') {
     const form = textOfModel(node).trim();
     if (form) {
       out.push({
-        form, docId,
+        form, docId, lang,
         anchor: node.id,
         lemma: node.atts.lemma || null,
         provenance: node.atts.lemma ? 'markup' : null,
@@ -1504,12 +1545,15 @@ function collectFrom(node, docId, anchor, out, seg) {
   const here = node.id || anchor;
   for (const child of node.children) {
     if (typeof child === 'string') {
-      for (const s of seg.segment(child)) {
+      for (const s of segFor(lang).segment(child)) {
         if (!s.isWordLike) continue;
-        out.push({ form: s.segment, docId, anchor: here, lemma: null, provenance: null });
+        // a token without a single letter (page numbers, years) is not a
+        // word: it stays in the text, never in the lemma index
+        if (!/\p{L}/u.test(s.segment)) continue;
+        out.push({ form: s.segment, docId, lang, anchor: here, lemma: null, provenance: null });
       }
     } else {
-      collectFrom(child, docId, here, out, seg);
+      collectFrom(child, docId, here, out, segFor, lang);
     }
   }
 }
@@ -1530,15 +1574,21 @@ function bodies(model) {
 }
 
 function collectTokens(model) {
-  const locale = (model.meta.languages && model.meta.languages[0]) || undefined;
-  let seg;
-  try {
-    seg = new Intl.Segmenter(locale, { granularity: 'word' });
-  } catch {
-    seg = new Intl.Segmenter(undefined, { granularity: 'word' });
-  }
+  const baseLang = (model.meta.languages && model.meta.languages[0]) || '';
+  const segs = new Map();
+  const segFor = (lang) => {
+    let seg = segs.get(lang);
+    if (!seg) {
+      try { seg = new Intl.Segmenter(lang || undefined, { granularity: 'word' }); }
+      catch { seg = new Intl.Segmenter(undefined, { granularity: 'word' }); }
+      segs.set(lang, seg);
+    }
+    return seg;
+  };
   const out = [];
-  for (const { docId, body } of bodies(model)) collectFrom(body, docId, body.id, out, seg);
+  for (const { docId, body } of bodies(model)) {
+    collectFrom(body, docId, body.id, out, segFor, baseLang);
+  }
   return out;
 }
 
@@ -1549,8 +1599,12 @@ function collectTokens(model) {
  */
 function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
   const tokens = collectTokens(model);
+  // the token stream is data in its own right (data/tokens.csv), lemmas or
+  // not: position without markers, anchor as the way back into the markup
+  model.tokens = tokens;
 
-  // the reviewed file: form (lowercased) -> {lemma, status}
+  // the reviewed file: entries may carry a language ("lang"); a typed entry
+  // matches only tokens of its language, an untyped one matches any
   const byForm = new Map();
   let generator = null;
   if (file && Array.isArray(file.types)) {
@@ -1558,7 +1612,8 @@ function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
     for (const t of file.types) {
       if (!t || typeof t.form !== 'string' || typeof t.lemma !== 'string') continue;
       if (t.status === 'rejected') continue;
-      byForm.set(t.form.toLowerCase(), {
+      const key = `${normLang(t.lang)}|${t.form.toLowerCase()}`;
+      byForm.set(key, {
         lemma: t.lemma,
         status: t.status === 'confirmed' ? 'confirmed' : t.status === 'review' ? 'review' : 'suggested',
       });
@@ -1566,29 +1621,43 @@ function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
   }
 
   const provenance = { markup: 0, file: 0 };
-  const pending = { suggested: 0, review: 0 };
+  const pendingTypes = { suggested: new Set(), review: new Set() };
   for (const tok of tokens) {
     if (tok.lemma) { provenance.markup++; continue; }
-    const hit = byForm.get(tok.form.toLowerCase());
+    const key = `${normLang(tok.lang)}|${tok.form.toLowerCase()}`;
+    const hit = byForm.get(key) || byForm.get(`|${tok.form.toLowerCase()}`);
     if (hit) {
       tok.lemma = hit.lemma;
       tok.provenance = 'file';
       provenance.file++;
-      if (hit.status === 'suggested') pending.suggested++;
-      if (hit.status === 'review') pending.review++;
+      // pending is counted by TYPE: the editor reviews forms, not tokens
+      if (hit.status === 'suggested') pendingTypes.suggested.add(key);
+      if (hit.status === 'review') pendingTypes.review.add(key);
     }
   }
+  const pending = {
+    suggested: pendingTypes.suggested.size,
+    review: pendingTypes.review.size,
+  };
 
   const lemmatized = provenance.markup + provenance.file;
   if (!lemmatized) { model.lemmas = null; return null; }
 
-  // the index: lemma -> forms, count, occurrences with KWIC context
+  // the index: (language, lemma) -> forms, count, occurrences with KWIC
+  // context; "a" in Italian and "a" in Latin are two entries, not one
   const entries = new Map();
+  const perLang = new Map();
   for (let i = 0; i < tokens.length; i++) {
     const tok = tokens[i];
+    const lang = normLang(tok.lang);
+    let stat = perLang.get(lang);
+    if (!stat) { stat = { lang, tokens: 0, lemmatized: 0 }; perLang.set(lang, stat); }
+    stat.tokens++;
     if (!tok.lemma) continue;
-    let e = entries.get(tok.lemma);
-    if (!e) { e = { lemma: tok.lemma, count: 0, forms: new Map(), occurrences: [] }; entries.set(tok.lemma, e); }
+    stat.lemmatized++;
+    const key = `${lang}|${tok.lemma}`;
+    let e = entries.get(key);
+    if (!e) { e = { lemma: tok.lemma, lang, count: 0, forms: new Map(), occurrences: [] }; entries.set(key, e); }
     e.count++;
     e.forms.set(tok.form, (e.forms.get(tok.form) || 0) + 1);
     const before = tokens.slice(Math.max(0, i - kwicWindow), i).map((t) => t.form).join(' ');
@@ -1596,8 +1665,10 @@ function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
     e.occurrences.push({ docId: tok.docId, anchor: tok.anchor, form: tok.form, before, after });
   }
 
-  const locale = (model.meta.languages && model.meta.languages[0]) || undefined;
-  const sorted = [...entries.values()].sort((a, b) => a.lemma.localeCompare(b.lemma, locale));
+  const baseLang = normLang((model.meta.languages && model.meta.languages[0]) || '');
+  const sorted = [...entries.values()].sort((a, b) =>
+    (a.lang === b.lang ? 0 : a.lang === baseLang ? -1 : b.lang === baseLang ? 1 : a.lang.localeCompare(b.lang))
+    || a.lemma.localeCompare(b.lemma, a.lang || undefined));
   for (const e of sorted) {
     e.forms = [...e.forms.entries()].sort((a, b) => b[1] - a[1]);
   }
@@ -1609,6 +1680,8 @@ function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
     provenance,
     pending,
     generator,
+    languages: [...perLang.values()].sort((a, b) =>
+      a.lang === baseLang ? -1 : b.lang === baseLang ? 1 : a.lang.localeCompare(b.lang)),
   };
   return model.lemmas;
 }
@@ -1640,7 +1713,7 @@ function conlluTypes(conllu) {
  * the tagger disagreed with itself become "review" with the alternatives
  * listed: homographs are the editor's call, never the tool's.
  */
-function typesFromVotes(votes, formFilter = null) {
+function typesFromVotes(votes, formFilter = null, lang = null) {
   const types = [];
   for (const [form, m] of votes) {
     if (formFilter && !formFilter.has(form)) continue;
@@ -1651,6 +1724,7 @@ function typesFromVotes(votes, formFilter = null) {
       status: 'suggested',
       count: ranked.reduce((s, [, n]) => s + n, 0),
     };
+    if (lang) t.lang = lang;
     if (ranked.length > 1) { t.status = 'review'; t.alternatives = ranked.map(([l]) => l); }
     types.push(t);
   }
@@ -1666,17 +1740,18 @@ function mergeLemmaTypes(existing, fresh, generator = null) {
   const out = { generator: generator || (existing && existing.generator) || null, types: [] };
   if (existing && typeof existing.language === 'string') out.language = existing.language;
   if (fresh && typeof fresh.language === 'string') out.language = fresh.language;
+  const keyOf = (t) => `${(t.lang || '').toLowerCase()}|${t.form.toLowerCase()}`;
   const seen = new Map();
   if (existing && Array.isArray(existing.types)) {
     for (const t of existing.types) {
       if (!t || typeof t.form !== 'string') continue;
-      seen.set(t.form.toLowerCase(), { ...t });
+      seen.set(keyOf(t), { ...t });
     }
   }
   if (fresh && Array.isArray(fresh.types)) {
     for (const t of fresh.types) {
       if (!t || typeof t.form !== 'string') continue;
-      const key = t.form.toLowerCase();
+      const key = keyOf(t);
       const old = seen.get(key);
       if (!old) { seen.set(key, { ...t, status: t.status || 'suggested' }); continue; }
       // the editor's word is final; a mere suggestion may be refreshed
@@ -1685,7 +1760,8 @@ function mergeLemmaTypes(existing, fresh, generator = null) {
       }
     }
   }
-  out.types = [...seen.values()].sort((a, b) => a.form.localeCompare(b.form));
+  out.types = [...seen.values()].sort((a, b) =>
+    (a.lang || '').localeCompare(b.lang || '') || a.form.localeCompare(b.form));
   return out;
 }
 
@@ -1867,7 +1943,12 @@ const escapeHTML = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function renderBase(node) {
-  if (node.element === 'lb') return `<br id="${escapeHTML(node.id)}"/>`;
+  if (node.element === 'lb') {
+    // lineation belongs to the diplomatic level: the reading mode flows,
+    // and @break="no" rejoins a word split across lines (CSS in interact)
+    const nb = node.atts.break === 'no' ? ' data-break="no"' : '';
+    return `<span id="${escapeHTML(node.id)}" class="t-lb"${nb}><br/></span>`;
+  }
   if (node.element === 'pb') {
     const n = node.atts.n ? escapeHTML(node.atts.n) : '';
     return `<span id="${escapeHTML(node.id)}" class="t-pb" role="separator" title="page break">${n ? `[${n}]` : ''}</span>`;
@@ -2747,7 +2828,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   let hasChoice = false;
   if (manifest.pieces.choice !== false) {
     for (const doc of model.documents) {
-      for (const n of walkModel(doc.tree)) if (n.element === 'choice') { hasChoice = true; break; }
+      // am/ex mark the two levels even without a choice wrapper (C26)
+      for (const n of walkModel(doc.tree)) if (n.element === 'choice' || n.element === 'am' || n.element === 'ex') { hasChoice = true; break; }
     }
   }
   const hasApparatus = model.apparatus.length > 0 && manifest.pieces.apparatus !== false;
@@ -2956,12 +3038,24 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       prov.push(`${L.provenance.file} ${T.lemmaFromFile}${L.generator ? ` (${escapeHTML(L.generator)})` : ''}`);
     }
     const pendingN = L.pending.suggested + L.pending.review;
+    // a multilingual edition (xml:lang in the markup) declares its coverage
+    // per language and groups the index accordingly
+    const langsWithTokens = (L.languages || []).filter((s) => s.tokens > 0);
+    const multilingual = langsWithTokens.length > 1;
+    const coverage = multilingual
+      ? langsWithTokens.map((s) => `${s.lang || '?'}: ${s.lemmatized}/${s.tokens}`).join(' · ')
+      : `${L.lemmatized} / ${L.tokens}`;
     let lem = '<main id="main" class="torchio">'
-      + `<p class="lem-note">${T.lemmaCoverage}: ${L.lemmatized} / ${L.tokens} ${T.tokensWord} · ${prov.join(' · ')}`
+      + `<p class="lem-note">${T.lemmaCoverage}: ${coverage} ${T.tokensWord} · ${prov.join(' · ')}`
       + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
       + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
       + ` aria-label="${T.filter}"> <span class="reg-count">${L.entries.length}</span>`;
+    let currentLang = null;
     for (const e of L.entries) {
+      if (multilingual && e.lang !== currentLang) {
+        currentLang = e.lang;
+        lem += `<h2 class="sec">${escapeHTML(e.lang || '?')}</h2>`;
+      }
       const forms = e.forms.map(([f, n]) => `${escapeHTML(f)} (${n})`).join(', ');
       const search = escapeHTML((e.lemma + ' ' + e.forms.map(([f]) => f).join(' ')).toLowerCase());
       lem += `<details class="lemma" data-search="${search}">`
@@ -3003,6 +3097,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       'data/entities.csv': T.descrEntities,
       'data/apparatus.csv': T.descrApparatus,
       'data/lemmas.csv': T.descrLemmas,
+      'data/tokens.csv': T.descrTokens,
       'data/source.xml': T.descrSource,
     };
     let dataPage = '<main id="main" class="torchio"><table class="idx-table">';

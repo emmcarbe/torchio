@@ -348,7 +348,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   let hasChoice = false;
   if (manifest.pieces.choice !== false) {
     for (const doc of model.documents) {
-      for (const n of walkModel(doc.tree)) if (n.element === 'choice') { hasChoice = true; break; }
+      // am/ex mark the two levels even without a choice wrapper (C26)
+      for (const n of walkModel(doc.tree)) if (n.element === 'choice' || n.element === 'am' || n.element === 'ex') { hasChoice = true; break; }
     }
   }
   const hasApparatus = model.apparatus.length > 0 && manifest.pieces.apparatus !== false;
@@ -557,12 +558,24 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       prov.push(`${L.provenance.file} ${T.lemmaFromFile}${L.generator ? ` (${escapeHTML(L.generator)})` : ''}`);
     }
     const pendingN = L.pending.suggested + L.pending.review;
+    // a multilingual edition (xml:lang in the markup) declares its coverage
+    // per language and groups the index accordingly
+    const langsWithTokens = (L.languages || []).filter((s) => s.tokens > 0);
+    const multilingual = langsWithTokens.length > 1;
+    const coverage = multilingual
+      ? langsWithTokens.map((s) => `${s.lang || '?'}: ${s.lemmatized}/${s.tokens}`).join(' · ')
+      : `${L.lemmatized} / ${L.tokens}`;
     let lem = '<main id="main" class="torchio">'
-      + `<p class="lem-note">${T.lemmaCoverage}: ${L.lemmatized} / ${L.tokens} ${T.tokensWord} · ${prov.join(' · ')}`
+      + `<p class="lem-note">${T.lemmaCoverage}: ${coverage} ${T.tokensWord} · ${prov.join(' · ')}`
       + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
       + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
       + ` aria-label="${T.filter}"> <span class="reg-count">${L.entries.length}</span>`;
+    let currentLang = null;
     for (const e of L.entries) {
+      if (multilingual && e.lang !== currentLang) {
+        currentLang = e.lang;
+        lem += `<h2 class="sec">${escapeHTML(e.lang || '?')}</h2>`;
+      }
       const forms = e.forms.map(([f, n]) => `${escapeHTML(f)} (${n})`).join(', ');
       const search = escapeHTML((e.lemma + ' ' + e.forms.map(([f]) => f).join(' ')).toLowerCase());
       lem += `<details class="lemma" data-search="${search}">`
@@ -604,6 +617,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       'data/entities.csv': T.descrEntities,
       'data/apparatus.csv': T.descrApparatus,
       'data/lemmas.csv': T.descrLemmas,
+      'data/tokens.csv': T.descrTokens,
       'data/source.xml': T.descrSource,
     };
     let dataPage = '<main id="main" class="torchio"><table class="idx-table">';
