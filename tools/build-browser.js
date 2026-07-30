@@ -107,6 +107,10 @@ h2{font-size:20px;font-weight:600;margin:2.2rem 0 .4rem}
 a{color:#B01E28;text-decoration:none}
 a:hover{text-decoration:underline}
 .lockup{max-width:420px;width:100%;height:auto;margin:0 0 1.4rem;display:block}
+.upnav{margin:0 0 1rem}
+.upnav a{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:.06em;text-transform:uppercase;color:#6A6A66}
+.upnav a:hover{color:#B01E28}
 .note{font-size:14px;color:#6A6A66}
 .drop{border:1px solid #E5E2D9;padding:2.2rem 1.5rem;text-align:center;margin:1.5rem 0;background:#fff}
 .drop.over{border-color:#B01E28}
@@ -142,7 +146,10 @@ iframe{width:100%;height:60vh;border:1px solid #E5E2D9;background:#fff;margin-to
 </style>
 </head>
 <body>
+<nav class="upnav"><a href="../">&#8249; Demos</a></nav>
+<a href="../" aria-label="Torchio: home of the demos">
 ${lockup.replace('<svg ', '<svg class="lockup" role="img" aria-label="Torchio" ')}
+</a>
 <p>The press, in the browser. Choose the files of a TEI P5 edition and it is
 pressed into a static site, here, on your machine: nothing is uploaded
 anywhere (only the map tiles come from OpenStreetMap, when a map exists).
