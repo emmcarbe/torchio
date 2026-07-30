@@ -13645,6 +13645,18 @@
     "gnd": null,
     "isil": null,
     "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "0000-0002-1022-023X": {
+    "label": "Elisabetta Bartoli",
+    "status": "confirmed",
+    "source": "orcid",
+    "orcid": "0000-0002-1022-023X"
+   },
+   "0000-0003-4347-011X": {
+    "label": "Emmanuela Carbé",
+    "status": "confirmed",
+    "source": "orcid",
+    "orcid": "0000-0003-4347-011X"
    }
   },
   "org": {}

@@ -125,6 +125,17 @@ export function reconcile(model, sources = {}, previous = {}) {
  */
 export function applyReconciliation(model, entities) {
   if (!entities) return model;
+  // contributor references that are authority ids (an ORCID in @who)
+  // resolve to the confirmed name in the reconciliation file (C31)
+  if (model.collection && Array.isArray(model.collection.contributors) && entities.person) {
+    const persons = Object.entries(entities.person);
+    for (const c of model.collection.contributors) {
+      const ref = String(c.ref);
+      const hit = persons.find(([k, r]) => r && r.status === 'confirmed' && r.label
+        && (k === ref || r.orcid === ref || (r.orcid && ref.endsWith(r.orcid))));
+      if (hit) c.ref = hit[1].label;
+    }
+  }
   const harvested = harvest(model);
   for (const type of Object.keys(entities)) {
     const registry = registryFor(model, type);

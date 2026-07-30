@@ -49,6 +49,7 @@ editorial genre.
 | 2026-07-30 | C28 | Canterbury Tales Project (GP), offered by the editor | extension | exports become granular in the manifest: each piece (model, entities, apparatus, lemmas, tokens, source) defaults to on and can be switched off alone, for editions whose full model outweighs the site |
 | 2026-07-30 | C29 | Canterbury Tales Project (GP), offered by the editor | assignment | registry entries declared in the corpus header were not collected: a collection's `listWit` lives there; the registries now read the corpus header as well |
 | 2026-07-30 | C30 | Canterbury Tales Project (GP), offered by the editor | extension | canonical alignment, declared in the manifest (`align`): one key derived from `@n` identifies a passage across the documents of a collection; the press writes the entity index (`alignment.json`), derives the classical apparatus band under the document the manifest names, and every witness siglum in the band jumps to that witness's own verse |
+| 2026-07-30 | C31 | Eurasian Latin Archive, public demo | assignment | contributor references that are bare authority identifiers (an ORCID in `@who`, with no name anywhere in the file) resolve through the reconciliation file: the editor confirms the name once, every page shows the person |
 
-As of 30 July 2026: 29 corrections applied (21 assignments, 8 extensions, 0
+As of 30 July 2026: 30 corrections applied (22 assignments, 8 extensions, 0
 structural changes), 1 open.
