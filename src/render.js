@@ -141,7 +141,8 @@ const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
   'settlement', 'geogName', 'institution', 'repository', 'author', 'rs']);
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
-const DATA_ATTS = ['wit', 'ref', 'key', 'type', 'n', 'place', 'hand', 'target', 'when'];
+const DATA_ATTS = ['wit', 'source', 'resp', 'cert', 'ref', 'key', 'type', 'n',
+  'place', 'hand', 'target', 'when'];
 
 /**
  * Default theme. Visual language after Emmanuela Carbé's "Risposte dei Savi"
@@ -220,7 +221,7 @@ body.notes-off .t-note-mark{opacity:.25}
   .t-note.placed{font-size:.78em;line-height:1.4}
 }
 
-.t-app .t-rdg{display:none}
+.t-app:has([data-el="lem"]) .t-rdg{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
 .t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);

@@ -18,7 +18,10 @@ export function decodeEntities(s) {
       const code = body[1] === 'x' || body[1] === 'X'
         ? parseInt(body.slice(2), 16)
         : parseInt(body.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : m;
+      // a code point out of range is not a character: keep the reference as
+  // written instead of throwing (the engine degrades, it does not break)
+  return (Number.isFinite(code) && code >= 0 && code <= 0x10FFFF
+    && !(code >= 0xD800 && code <= 0xDFFF)) ? String.fromCodePoint(code) : m;
     }
     return PREDEFINED[body] ?? m; // unknown named entity: kept literal
   });

@@ -413,7 +413,7 @@ person,https://viaf.org/viaf/45107415,Prospero Intorcetta1625-1696,1,,
 person,person:0000-0002-1022-023X,Elisabetta Bartoli (this ORCID also marks Irene Volpi's change in the source),0,,
 person,person:0000-0003-4347-011X,Emmanuela Carbé,0,,
 person,person:0000-0000-0000-0000,"Silvia Bettella, Costanza Marzucchi (no ORCID in the source)",0,,
-place,Molina,Molina,1,38.0546,-1.2076
+place,Molina,Molina,1,38.0546,'-1.2076
 place,Siguntinae,Siguntinae,1,,
 place,Arima,Arima,13,32.65,130.33
 place,Japonia,Japonia,119,36.2,138.25
@@ -502,7 +502,7 @@ place,https://pleiades.stoa.org/places/108751,Coloniam,3,,
 place,Colonia,Colonia,3,,
 place,Rehno,Rehno,1,50,7.5
 place,https://pleiades.stoa.org/places/1027,Hispania,8,,
-place,Hispania,Hispania,8,40.2,-3.7
+place,Hispania,Hispania,8,40.2,'-3.7
 place,https://pleiades.stoa.org/places/981529,Lusitaniȩnatione,77,,
 place,Lusitania,Lusitania,77,,
 place,Nova Hispania,Nova Hispania,1,,
@@ -613,12 +613,12 @@ place,Atalaya,Atalaya,1,,
 place,Urbevetanus,Urbevetanus,1,,
 place,Monte Maiore,Monte Maiore,2,,
 place,Braccarensis,Braccarensis,1,,
-place,Lamego,Lamego,1,41.0974,-7.8099
+place,Lamego,Lamego,1,41.0974,'-7.8099
 place,Sancto Petro de [Torrados],Sancto Petro de [Torrados],1,,
 place,Ciampa,Ciampa,1,,
-place,Torres Vedras,Torres Vedras,1,39.0911,-9.2586
+place,Torres Vedras,Torres Vedras,1,39.0911,'-9.2586
 place,Fontanarosa,Fontanarosa,1,41.0181,15.0206
-place,Barcellos,Barcellos,1,41.53,-8.62
+place,Barcellos,Barcellos,1,41.53,'-8.62
 place,Canzusaensis Residentia,Canzusaensis Residentia,1,,
 place,Koga,Koga,1,,
 place,Konoura,Konoura,2,,
@@ -649,7 +649,7 @@ place,place:macao,Macao,18,22.2006,113.5461
 place,place:sine,Sinȩ,8,35.315,46.9988
 place,place:sina,Sina,19,35,103
 place,place:makau,Makau,1,22.2006,113.5461
-place,place:suvo,Suvó,1,-18.1368,178.4253
+place,place:suvo,Suvó,1,'-18.1368,178.4253
 place,place:cochim,Cochim,2,9.9399,76.2602
 place,place:formosa,Formosa,3,23.7,121
 place,place:colonie,Colonie,1,50.94,6.96

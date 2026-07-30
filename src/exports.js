@@ -7,7 +7,10 @@
  */
 
 function csvCell(v) {
-  const s = v == null ? '' : String(v);
+  let s = v == null ? '' : String(v);
+  // a cell that opens with =, +, - or @ is a formula for spreadsheets:
+  // editorial text must arrive as text
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
@@ -32,11 +35,13 @@ export function entitiesCSV(model) {
 }
 
 export function apparatusCSV(model) {
-  const rows = [['register', 'entry', 'lemma', 'reading', 'witnesses', 'type', 'isLemma']];
+  const rows = [['register', 'entry', 'lemma', 'reading', 'witnesses',
+    'source', 'resp', 'cert', 'type', 'isLemma']];
   for (const reg of model.apparatus) {
     for (const entry of reg.entries) {
       for (const r of entry.readings) {
-        rows.push([reg.type, entry.id, entry.lemma ?? '', r.text, r.witnesses.join(' '), r.type ?? '', r.isLemma]);
+        rows.push([reg.type, entry.id, entry.lemma ?? '', r.text, r.witnesses.join(' '),
+          (r.sources || []).join(' '), (r.resp || []).join(' '), r.cert ?? '', r.type ?? '', r.isLemma]);
       }
     }
   }

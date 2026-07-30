@@ -512,12 +512,24 @@ function collectApparatus(node, appByType) {
   if (!appByType.has(type)) appByType.set(type, { type, entries: [] });
   const readings = [];
   let lemma = null;
-  for (const child of node.children) {
-    if (typeof child === 'string') continue;
+  // readings grouped in rdgGrp are readings: the grouping is not a hiding
+  const children = [];
+  for (const c of node.children) {
+    if (typeof c === 'string') continue;
+    if (c.element === 'rdgGrp') {
+      for (const g of c.children) if (typeof g !== 'string') children.push(g);
+    } else children.push(c);
+  }
+  for (const child of children) {
     if (child.element === 'lem' || child.element === 'rdg') {
       const reading = {
         text: textOfReading(child).trim(),
         witnesses: (child.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, '')),
+        // a conjecture has no witness: its authority is its source or the
+        // scholar who proposed it (@source, @resp)
+        sources: (child.atts.source || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, '')),
+        resp: (child.atts.resp || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, '')),
+        cert: child.atts.cert || null,
         type: child.atts.type || null,
         isLemma: child.element === 'lem',
       };

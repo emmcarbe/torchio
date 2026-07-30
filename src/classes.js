@@ -53,7 +53,11 @@ export function buildClassMap(odd = null, data = { p5: P5, sections: SECTIONS })
       classes.set(spec.ident, { type: spec.type || 'model', memberOf: spec.memberOf });
     }
     for (const spec of odd.customElements) {
-      elements.set(spec.ident, { module: spec.module || 'custom', memberOf: spec.memberOf });
+      const prev = elements.get(spec.ident);
+      const memberOf = spec.merge && prev
+        ? [...new Set([...(prev.memberOf || []), ...spec.memberOf])]
+        : spec.memberOf;
+      elements.set(spec.ident, { module: spec.module || (prev && prev.module) || 'custom', memberOf });
     }
   }
 

@@ -906,6 +906,9 @@
         "A",
         "C"
        ],
+       "sources": [],
+       "resp": [],
+       "cert": null,
        "type": null,
        "isLemma": true
       },
@@ -914,6 +917,9 @@
        "witnesses": [
         "B"
        ],
+       "sources": [],
+       "resp": [],
+       "cert": null,
        "type": null,
        "isLemma": false
       }
@@ -932,6 +938,9 @@
        "witnesses": [
         "A"
        ],
+       "sources": [],
+       "resp": [],
+       "cert": null,
        "type": null,
        "isLemma": true
       },
@@ -941,6 +950,9 @@
         "B",
         "C"
        ],
+       "sources": [],
+       "resp": [],
+       "cert": null,
        "type": "ortografica",
        "isLemma": false
       }

@@ -54,7 +54,9 @@ export function parseODD(source) {
       // class membership changes come through classes/memberOf below if present.
       if (mode === 'change' || mode === 'replace') {
         const m = memberships(node);
-        if (m.length) customElements.push({ ident, module: node.attrs.module || '', memberOf: m });
+        // a change adds memberships, it does not replace the element's own:
+        // an element that joins a class keeps the behaviour it already had
+        if (m.length) customElements.push({ ident, module: node.attrs.module || '', memberOf: m, merge: mode === 'change' });
       }
     }
 

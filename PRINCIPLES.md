@@ -338,12 +338,26 @@ from the edition reached `href` unchecked (C56). The first two are the ones
 that matter here: the layer that survives longest is the markup of the page
 itself, and it was the one not being used.
 
+**Third round**, the deepest, went through the TEI conformance of the
+apparatus and found what matters most to an edition: a conjecture has no
+witness, and its authority (`@source`, `@resp`) was being dropped, so 373
+attributed readings of the Bellum Alexandrinum arrived anonymous (C57);
+readings grouped in `rdgGrp`, and readings in an `app` with no `lem`, were
+not shown at all, which is the first principle broken on known elements
+rather than unknown ones (C58). It also caught the register's own
+bookkeeping: two rows shared a number and the totals no longer matched the
+table (C62). Fixed, with the numbering now derived from the table.
+
 What the audits raise and remains open: the XML parser is deliberately
 minimal and its supported profile should be stated rather than implied;
 validation of the TEI against the ODD belongs in the edition's CI and is not
-performed by the press; the CLI is tolerant where CI should be strict; the
-vendored assets deserve a third-party notice. These are recorded here, not
-resolved.
+performed by the press; the CLI is tolerant where CI should be strict; only
+one of the three apparatus methods of chapter 12 is derived (parallel
+segmentation), and facsimiles are not yet rendered; behaviour is assigned by
+class but the section a class resolves to does not yet carry rendering of
+its own; the press has no tagged release, so an edition that presses itself
+from this repository follows the branch instead of a fixed version. These
+are recorded here, not resolved.
 
 The register of corrections is the standing answer: what an audit finds is a
 correction like any other, and it is filed.

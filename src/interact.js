@@ -278,9 +278,13 @@ export function buildInteractJS(t) {
       app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
         var rr=r.cloneNode(true);
         rr.querySelectorAll('[data-el="wit"],[data-el="witDetail"]').forEach(function(x){x.remove();});
-        rows+='<div class="rdgline"><span class="sig">'+esc(sigla(r.dataset.wit)||(r.dataset.el==='lem'?'lem.':'—'))+'</span>'
+        var auth=sigla(r.dataset.wit)
+          ||(r.dataset.source?sigla(r.dataset.source):'')
+          ||(r.dataset.resp?sigla(r.dataset.resp):'')
+          ||(r.dataset.el==='lem'?'lem.':'—');
+        rows+='<div class="rdgline"><span class="sig">'+esc(auth)+'</span>'
           +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span>'
-          +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
+          +((r.dataset.type||r.dataset.cert)?'<span class="meta">'+esc([r.dataset.type,r.dataset.cert&&('cert. '+r.dataset.cert)].filter(Boolean).join(' · '))+'</span>':'')+'</div>';
       });
       var extra='';
       app.querySelectorAll('.t-note').forEach(function(nn){
