@@ -116,6 +116,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -226,7 +233,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div class="tt"><h1>Specimen</h1><p class="sub">indici</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Demo</a><a href="index.html">Edizione</a><a href="text.html">Testo</a><a href="indices.html" class="on">Indici</a><a href="map.html">Mappa</a><a href="data.html">Dati</a></nav>
 </header>
-<main id="main" class="torchio"><h2 class="sec">Persone</h2><table class="idx-table"><tr><td>La Musa</td><td class="occ">1 occ. <a href="text.html#doc0:0.1.0.0.1.0.0">1</a></td></tr><tr><td>Odisseo</td><td class="occ">1 occ. <a href="text.html#doc0:0.1.0.0.2.3">1</a></td></tr></table><h2 class="sec">Luoghi</h2><table class="idx-table"><tr><td>Itaca</td><td class="occ">1 occ. <a href="text.html#doc0:0.1.0.0.2.4">1</a></td></tr><tr><td>Troia</td><td class="occ">1 occ. <a href="text.html#doc0:0.1.0.0.1.2.0">1</a></td></tr></table></main>
+<main id="main" class="torchio"><h2 class="sec">Persone</h2><table class="idx-table"><tr><td>La Musa</td><td class="occ">1 occ. <a href="text.html#specimen:0.1.0.0.1.0.0">1</a></td></tr><tr><td>Odisseo</td><td class="occ">1 occ. <a href="text.html#specimen:0.1.0.0.2.3">1</a></td></tr></table><h2 class="sec">Luoghi</h2><table class="idx-table"><tr><td>Itaca</td><td class="occ">1 occ. <a href="text.html#specimen:0.1.0.0.2.4">1</a></td></tr><tr><td>Troia</td><td class="occ">1 occ. <a href="text.html#specimen:0.1.0.0.1.2.0">1</a></td></tr></table></main>
 <footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
 
 </body>

@@ -36,6 +36,8 @@ editorial genre.
 | 2026-07-30 | C15 | Odyssey (Perseus), public demo | assignment | the structural partitions of the body (book or section `div`) become pages with a table of contents and navigation, instead of a single page |
 | 2026-07-30 | C16 | Bellum Alexandrinum (DLL), public demo | assignment | notes (`note`) interrupted the prose as blocks: they are now margin notes where the screen allows it, with an anchor mark in the text and a toolbar toggle |
 | 2026-07-30 | C17 | Ursus Beneventanus (ed. Monella), public demo | assignment | whitespace inside word-level elements (`w`, `m`, `c`) and between the children of element-only content (`choice`, `subst`, `app`, `rdgGrp`) is source formatting, not text: it is now dropped; word separation comes from `pc` and element boundaries |
+| 2026-07-30 | C18 | Romualdus Salernitanus (ed. Monella), public demo | assignment | front and back matter pages (C4) were not generated when the body is split into section pages (C15): the navigation promised an Introduction that did not exist; the two rules now compose |
+| 2026-07-30 | C19 | Ursus Beneventanus (ed. Monella), public demo | assignment | margin notes (C16) do not scale past a density the margin can carry: above a threshold per page they collapse to their anchor marks and open on click, like the apparatus |
 
-As of 30 July 2026: 17 corrections (12 assignments, 5 extensions, 0
+As of 30 July 2026: 19 corrections (14 assignments, 5 extensions, 0
 structural changes).

@@ -116,6 +116,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -492,89 +499,6 @@ Explicit prima etas.
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
-  /* margin notes: position each note beside its anchor (data-target for
-     standoff notes, the preceding mark otherwise), stack on collision,
-     and draw a faint leader to the exact point */
-  function leaders(){
-    var old=document.getElementById('note-leaders'); if(old)old.remove();
-    var main=document.querySelector('main.torchio'); if(!main)return;
-    var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
-    if(window.innerWidth<1180||body.classList.contains('notes-off')){
-      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
-      return;
-    }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='note-leaders';
-    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
-    function anchorOf(n){
-      var app=n.closest('.t-app');
-      if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
-      var t=n.dataset.target;
-      if(t){
-        var id=t.split(/s+/)[0].replace(/^#/,'');
-        var el=document.getElementById(id);
-        if(el)return {el:el,kind:'target'};
-      }
-      var m=n.previousElementSibling;
-      if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
-      return null;
-    }
-    var lastBottom=0;
-    var items=notes.map(function(n){
-      var flowY=n.getBoundingClientRect().top-mr.top;
-      var res=anchorOf(n);
-      var a=res?res.el:null, kind=res?res.kind:null;
-      var y=flowY;
-      if(a){
-        var r=a.getBoundingClientRect();
-        var ay=(r.width||r.height)?r.top-mr.top:null;
-        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
-        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
-        else{a=null;}
-      }
-      return {n:n,a:a,kind:kind,y:y};
-    });
-    items.sort(function(p,q){return p.y-q.y;});
-    items.forEach(function(it){
-      var n=it.n;
-      n.classList.add('placed');
-      var top=Math.max(it.y,lastBottom+10);
-      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
-      lastBottom=top+n.offsetHeight;
-      if(it.a){
-        var ar=it.a.getBoundingClientRect();
-        if(ar.width||ar.height){
-          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
-          var x2=colLeft-8, y2=top+8;
-          // a thread only when short and meaningful; never across the page
-          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
-            var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
-            p.setAttribute('fill','none');
-            p.setAttribute('stroke','var(--faint)');
-            p.setAttribute('stroke-width','1');
-            svg.appendChild(p);
-          }
-          // hover pairing in both directions
-          (function(anchor,note){
-            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
-            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
-            note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
-            anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
-          })(it.a,n);
-        }
-      }
-    });
-    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
-    main.appendChild(svg);
-  }
-  if(document.readyState==='complete')leaders();
-  else window.addEventListener('load',leaders);
-  window.addEventListener('resize',leaders);
 
   document.addEventListener('keydown',function(ev){
     if((ev.key==='Enter'||ev.key===' ')&&ev.target.getAttribute&&ev.target.getAttribute('role')==='button'
@@ -611,6 +535,14 @@ Explicit prima etas.
         +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
+    var np=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(np&&!body.classList.contains('notes-off')){
+      var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
+      if(nn){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        ev.stopPropagation();return;
+      }
+    }
     closePop();
   });
   /* margin notes: position each note beside its anchor (data-target for
@@ -621,16 +553,6 @@ Explicit prima etas.
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
       .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
-    if(window.innerWidth<1180||body.classList.contains('notes-off')){
-      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
-      return;
-    }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='note-leaders';
-    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
       var app=n.closest('.t-app');
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
@@ -644,6 +566,30 @@ Explicit prima etas.
       if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
       return null;
     }
+
+    /* economy rule: past this density the margin cannot carry the notes;
+       they collapse to their marks and open on click, like the apparatus */
+    var dense=notes.length>12;
+    body.classList.toggle('notes-dense',dense);
+    if(dense){
+      notes.forEach(function(n,i){
+        if(n.dataset.npi)return;
+        n.dataset.npi=String(i);
+        var res=anchorOf(n);
+        if(res){res.el.setAttribute('data-notepop',String(i));
+          res.el.removeAttribute('aria-hidden');makeTrigger(res.el,null);}
+      });
+    }
+    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
+      return;
+    }
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var colLeft=main.clientWidth+26;
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='note-leaders';
+    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;

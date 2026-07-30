@@ -116,6 +116,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -226,87 +233,87 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div class="tt"><h1>Odyssey</h1><p class="sub">Homer · Greek text · Perseus Digital Library (CC BY-SA 4.0)</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html" class="on">Edition</a><a href="text.html">Text</a><a href="data.html">Data</a></nav>
 </header>
-<main id="main" class="torchio about"><dl><dt>Responsibility</dt><dd>Homer · Augustus Taber Murray · Lisa Cerrato</dd><dt>Revision history</dt><dd><table class="wit-table"><tr><td class="sigla">19901001</td><td>Put in card breaks.</td></tr><tr><td class="sigla">19910801</td><td>Revise DTDs and recheck texts.</td></tr><tr><td class="sigla">20151216</td><td>Converted to EpiDoc</td></tr><tr><td class="sigla">20151216</td><td>Bumped URN</td></tr><tr><td class="sigla">2016-02-10</td><td>numerous typos</td></tr></table></dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">The full header (teiHeader)</h2><p class="occ">Everything the file declares, rendered as it is.</p><div class="header-full"><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
-      <div id="doc0:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
-         <span id="doc0:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
-            <span id="doc0:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Ὀδύσσεια</span>
-            <span id="doc0:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Homer</span>
-            <span id="doc0:0.0.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Augustus Taber Murray</span>
-            <span id="doc0:0.0.0.0.3" class="t-sponsor s-1-bibliografia" data-el="sponsor">Perseus Project, Tufts University</span>
-            <span id="doc0:0.0.0.0.4" class="t-principal s-1-bibliografia" data-el="principal">Gregory Crane</span>
-            <span id="doc0:0.0.0.0.5" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.5.0" class="t-resp s-1-struttura" data-el="resp">Prepared under the supervision of</span>
-               <span id="doc0:0.0.0.0.5.1" class="t-name s-2-entita" data-el="name">Lisa Cerrato</span>
-               <span id="doc0:0.0.0.0.5.2" class="t-name s-2-entita" data-el="name">William Merrill</span>
-               <span id="doc0:0.0.0.0.5.3" class="t-name s-2-entita" data-el="name">Elli Mylonas</span>
-               <span id="doc0:0.0.0.0.5.4" class="t-name s-2-entita" data-el="name">David Smith</span>
+<main id="main" class="torchio about"><dl><dt>Responsibility</dt><dd>Homer · Augustus Taber Murray · Lisa Cerrato</dd><dt>Revision history</dt><dd><table class="wit-table"><tr><td class="sigla">19901001</td><td>Put in card breaks.</td></tr><tr><td class="sigla">19910801</td><td>Revise DTDs and recheck texts.</td></tr><tr><td class="sigla">20151216</td><td>Converted to EpiDoc</td></tr><tr><td class="sigla">20151216</td><td>Bumped URN</td></tr><tr><td class="sigla">2016-02-10</td><td>numerous typos</td></tr></table></dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">The full header (teiHeader)</h2><p class="occ">Everything the file declares, rendered as it is.</p><div class="header-full"><div id="odissea:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+      <div id="odissea:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+         <span id="odissea:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+            <span id="odissea:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Ὀδύσσεια</span>
+            <span id="odissea:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Homer</span>
+            <span id="odissea:0.0.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Augustus Taber Murray</span>
+            <span id="odissea:0.0.0.0.3" class="t-sponsor s-1-bibliografia" data-el="sponsor">Perseus Project, Tufts University</span>
+            <span id="odissea:0.0.0.0.4" class="t-principal s-1-bibliografia" data-el="principal">Gregory Crane</span>
+            <span id="odissea:0.0.0.0.5" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="odissea:0.0.0.0.5.0" class="t-resp s-1-struttura" data-el="resp">Prepared under the supervision of</span>
+               <span id="odissea:0.0.0.0.5.1" class="t-name s-2-entita" data-el="name">Lisa Cerrato</span>
+               <span id="odissea:0.0.0.0.5.2" class="t-name s-2-entita" data-el="name">William Merrill</span>
+               <span id="odissea:0.0.0.0.5.3" class="t-name s-2-entita" data-el="name">Elli Mylonas</span>
+               <span id="odissea:0.0.0.0.5.4" class="t-name s-2-entita" data-el="name">David Smith</span>
             </span>
-            <span id="doc0:0.0.0.0.6" class="t-funder s-1-bibliografia" data-el="funder" data-n="org:AnnCPB">The Annenberg CPB/Project</span>
+            <span id="odissea:0.0.0.0.6" class="t-funder s-1-bibliografia" data-el="funder" data-n="org:AnnCPB">The Annenberg CPB/Project</span>
          </span>
-         <span id="doc0:0.0.0.1" class="t-extent s-1-bibliografia" data-el="extent">about 419Kb</span>
-         <span id="doc0:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
-            <span id="doc0:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">Trustees of Tufts University</span>
-            <span id="doc0:0.0.0.2.1" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Medford, MA</span>
-            <span id="doc0:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
+         <span id="odissea:0.0.0.1" class="t-extent s-1-bibliografia" data-el="extent">about 419Kb</span>
+         <span id="odissea:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+            <span id="odissea:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">Trustees of Tufts University</span>
+            <span id="odissea:0.0.0.2.1" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Medford, MA</span>
+            <span id="odissea:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
          </span>
-         <span id="doc0:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
-            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
+         <span id="odissea:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
+            <span class="t-note-mark" aria-hidden="true">°</span><div id="odissea:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
                tagging by Lauren Burka and Chiara Thayer.</div>
          </span>
-         <div id="doc0:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
-            <span id="doc0:0.0.0.4.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
-               <span id="doc0:0.0.0.4.0.0" class="t-monogr s-1-struttura" data-el="monogr">
-                  <span id="doc0:0.0.0.4.0.0.0" class="t-author s-1-bibliografia" data-el="author">Homer</span>
-                  <span id="doc0:0.0.0.4.0.0.1" class="t-title s-1-inline" data-el="title">The Odyssey</span>
-                  <span id="doc0:0.0.0.4.0.0.2" class="t-title s-1-inline" data-el="title" data-type="sub">with an English Translation</span>
-                  <span id="doc0:0.0.0.4.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">A. T. Murray</span>
-                  <span id="doc0:0.0.0.4.0.0.4" class="t-imprint s-1-struttura" data-el="imprint">
-                     <span id="doc0:0.0.0.4.0.0.4.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">London</span>
-                     <span id="doc0:0.0.0.4.0.0.4.1" class="t-publisher s-1-bibliografia" data-el="publisher">William Heinemann, Ltd.</span>
-                     <span id="doc0:0.0.0.4.0.0.4.2" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">New York</span>
-                     <span id="doc0:0.0.0.4.0.0.4.3" class="t-publisher s-1-bibliografia" data-el="publisher">G.P. Putnam's Sons</span>
-                     <span id="doc0:0.0.0.4.0.0.4.4" class="t-date s-2-date" data-el="date">1919</span>
+         <div id="odissea:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+            <span id="odissea:0.0.0.4.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
+               <span id="odissea:0.0.0.4.0.0" class="t-monogr s-1-struttura" data-el="monogr">
+                  <span id="odissea:0.0.0.4.0.0.0" class="t-author s-1-bibliografia" data-el="author">Homer</span>
+                  <span id="odissea:0.0.0.4.0.0.1" class="t-title s-1-inline" data-el="title">The Odyssey</span>
+                  <span id="odissea:0.0.0.4.0.0.2" class="t-title s-1-inline" data-el="title" data-type="sub">with an English Translation</span>
+                  <span id="odissea:0.0.0.4.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">A. T. Murray</span>
+                  <span id="odissea:0.0.0.4.0.0.4" class="t-imprint s-1-struttura" data-el="imprint">
+                     <span id="odissea:0.0.0.4.0.0.4.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">London</span>
+                     <span id="odissea:0.0.0.4.0.0.4.1" class="t-publisher s-1-bibliografia" data-el="publisher">William Heinemann, Ltd.</span>
+                     <span id="odissea:0.0.0.4.0.0.4.2" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">New York</span>
+                     <span id="odissea:0.0.0.4.0.0.4.3" class="t-publisher s-1-bibliografia" data-el="publisher">G.P. Putnam's Sons</span>
+                     <span id="odissea:0.0.0.4.0.0.4.4" class="t-date s-2-date" data-el="date">1919</span>
                   </span>
-                  <span id="doc0:0.0.0.4.0.0.5" class="t-biblScope s-1-bibliografia" data-el="biblScope">1-2</span>
+                  <span id="odissea:0.0.0.4.0.0.5" class="t-biblScope s-1-bibliografia" data-el="biblScope">1-2</span>
                </span>
-               <span id="doc0:0.0.0.4.0.1" class="t-series s-1-bibliografia" data-el="series">
-                  <span id="doc0:0.0.0.4.0.1.0" class="t-title s-1-inline" data-el="title">Loeb Classical Library</span>                        
+               <span id="odissea:0.0.0.4.0.1" class="t-series s-1-bibliografia" data-el="series">
+                  <span id="odissea:0.0.0.4.0.1.0" class="t-title s-1-inline" data-el="title">Loeb Classical Library</span>                        
                </span>
-               <span id="doc0:0.0.0.4.0.2" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://www.archive.org/details/odysseymurray01homeuoft">Internet Archive</span>
-               <span id="doc0:0.0.0.4.0.3" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://hdl.handle.net/2027/uc1.$b318748">HathiTrust</span>
+               <span id="odissea:0.0.0.4.0.2" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://www.archive.org/details/odysseymurray01homeuoft">Internet Archive</span>
+               <span id="odissea:0.0.0.4.0.3" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://hdl.handle.net/2027/uc1.$b318748">HathiTrust</span>
             </span>           
          </div>
       </div>
-      <span id="doc0:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
-         <span id="doc0:0.0.1.0" class="t-refsDecl s-7-header" data-el="refsDecl" data-n="CTS">
-            <span id="doc0:0.0.1.0.0" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="line">
-               <div id="doc0:0.0.1.0.0.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book and Line</div>
+      <span id="odissea:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
+         <span id="odissea:0.0.1.0" class="t-refsDecl s-7-header" data-el="refsDecl" data-n="CTS">
+            <span id="odissea:0.0.1.0.0" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="line">
+               <div id="odissea:0.0.1.0.0.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book and Line</div>
             </span>
-            <span id="doc0:0.0.1.0.1" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="book">
-               <div id="doc0:0.0.1.0.1.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book</div>
+            <span id="odissea:0.0.1.0.1" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="book">
+               <div id="odissea:0.0.1.0.1.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book</div>
             </span>
          </span>
-         <span id="doc0:0.0.1.1" class="t-refsDecl s-7-header" data-el="refsDecl">
-            <span id="doc0:0.0.1.1.0" class="t-refState s-7-header" data-el="refState"></span>
-            <span id="doc0:0.0.1.1.1" class="t-refState s-7-header" data-el="refState"></span>
+         <span id="odissea:0.0.1.1" class="t-refsDecl s-7-header" data-el="refsDecl">
+            <span id="odissea:0.0.1.1.0" class="t-refState s-7-header" data-el="refState"></span>
+            <span id="odissea:0.0.1.1.1" class="t-refState s-7-header" data-el="refState"></span>
          </span>
-         <span id="doc0:0.0.1.2" class="t-refsDecl s-7-header" data-el="refsDecl">
-            <span id="doc0:0.0.1.2.0" class="t-refState s-7-header" data-el="refState"></span>
-            <span id="doc0:0.0.1.2.1" class="t-refState s-7-header" data-el="refState"></span>
+         <span id="odissea:0.0.1.2" class="t-refsDecl s-7-header" data-el="refsDecl">
+            <span id="odissea:0.0.1.2.0" class="t-refState s-7-header" data-el="refState"></span>
+            <span id="odissea:0.0.1.2.1" class="t-refState s-7-header" data-el="refState"></span>
          </span>
       </span>
-      <span id="doc0:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
-         <span id="doc0:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
-            <span id="doc0:0.0.2.0.0" class="t-language s-7-header" data-el="language">Greek</span>
-            <span id="doc0:0.0.2.0.1" class="t-language s-7-header" data-el="language">English</span>
+      <span id="odissea:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
+         <span id="odissea:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
+            <span id="odissea:0.0.2.0.0" class="t-language s-7-header" data-el="language">Greek</span>
+            <span id="odissea:0.0.2.0.1" class="t-language s-7-header" data-el="language">English</span>
          </span>
       </span>
-      <span id="doc0:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
-         <div id="doc0:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="19901001">Put in card breaks.</div>
-         <div id="doc0:0.0.3.1" class="t-change s-7-header" data-el="change" data-when="19910801">Revise DTDs and recheck texts.</div>
-         <div id="doc0:0.0.3.2" class="t-change s-7-header" data-el="change" data-when="20151216">Converted to EpiDoc</div>
-         <div id="doc0:0.0.3.3" class="t-change s-7-header" data-el="change" data-when="20151216">Bumped URN</div>
-         <div id="doc0:0.0.3.4" class="t-change s-7-header" data-el="change" data-when="2016-02-10">numerous typos</div>
+      <span id="odissea:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
+         <div id="odissea:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="19901001">Put in card breaks.</div>
+         <div id="odissea:0.0.3.1" class="t-change s-7-header" data-el="change" data-when="19910801">Revise DTDs and recheck texts.</div>
+         <div id="odissea:0.0.3.2" class="t-change s-7-header" data-el="change" data-when="20151216">Converted to EpiDoc</div>
+         <div id="odissea:0.0.3.3" class="t-change s-7-header" data-el="change" data-when="20151216">Bumped URN</div>
+         <div id="odissea:0.0.3.4" class="t-change s-7-header" data-el="change" data-when="2016-02-10">numerous typos</div>
       </span>
    </div></div></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>

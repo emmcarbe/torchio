@@ -358,6 +358,20 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     });
+    if (frontOnOwnPage) {
+      out['front.html'] = chrome({
+        title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
+        body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
+      });
+    }
+    if (backOnOwnPage) {
+      out['back.html'] = chrome({
+        title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
+        body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
+      });
+    }
   } else if (!isCollection) {
     // reading page: the body (and the hidden header for the toggle);
     // front and back matter live on their own pages

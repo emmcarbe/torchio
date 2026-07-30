@@ -116,6 +116,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -226,159 +233,159 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div class="tt"><h1>Bellum Alexandrinum</h1><p class="sub">ed. Cynthia Damon et al. · Digital Latin Library · CC BY-SA 4.0 · beta pending SCS peer review</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html" class="on">Edition</a><a href="front.html">Introduction</a><a href="text.html">Text</a><a href="back.html">Appendices</a><a href="data.html">Data</a></nav>
 </header>
-<main id="main" class="torchio about"><dl><dt>Responsibility</dt><dd>Cynthia Damon, et al. · Samuel J. Huskey · Virgina K. Felkner · Dallas Simons · Tom Vozar · Marcie Persyn · Maria Kovalchuk · Tim Warnock · Isabella Reinhardt · Brian Credo · Amelia Bensch-Schaus · Wes Hanson</dd><dt>Licence</dt><dd><a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative Commons Attribution-ShareAlike 4.0 International Licence (CC BY-SA 4.0)</a></dd><dt>Witnesses</dt><dd><table class="wit-table"><tr><td class="sigla">ω</td><td>ω Common source of μ Common source of M and U ν Common source of S and π</td></tr><tr><td class="sigla">μ</td><td>μ Common source of M and U</td></tr><tr><td class="sigla">ν</td><td>ν Common source of S and π</td></tr><tr><td class="sigla">M</td><td>M Florence, BML Plut. lat 68.8 (s. xii4 or xiii1) Hands in M Mac The uncorrec…</td></tr><tr><td class="sigla">Mac</td><td>Mac The uncorrected reading in M. Equivalent to M.</td></tr><tr><td class="sigla">Mc</td><td>Mc Corrections by the original scribe, who usually recovers the reading of th…</td></tr><tr><td class="sigla">Mmr</td><td>Mmr Corrections by one or more later hands (manus recentior), sometimes recov…</td></tr><tr><td class="sigla">M8</td><td>M* An asterisk marks readings in M that prompted a correction—not necessarily…</td></tr><tr><td class="sigla">U</td><td>U Vatican, BAV Vat. lat. 3324 (s. xi4 or xii1) Hands in U Uac The uncorrected…</td></tr><tr><td class="sigla">Uac</td><td>Uac The uncorrected reading in U. Equivalent to U.</td></tr><tr><td class="sigla">Uc</td><td>Uc Corrections by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">S</td><td>S Florence, BML Ashburnham 33 (s. x2–3) Hands in S Sac The uncorrected readin…</td></tr><tr><td class="sigla">Sac</td><td>Sac The uncorrected reading in S, Equivalent to S.</td></tr><tr><td class="sigla">Sc</td><td>Sc Corrections made by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">π</td><td>π Common source of T and V. T Paris, BNF lat. 5764 (s. xi3–4). Hands in T Tac…</td></tr><tr><td class="sigla">T</td><td>T Paris, BNF lat. 5764 (s. xi3–4). Hands in T Tac The uncorrected reading in …</td></tr><tr><td class="sigla">Tac</td><td>Tac The uncorrected reading in T, Equivalent to T.</td></tr><tr><td class="sigla">Tc</td><td>Tc Corrections made by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">V</td><td>V Vienna, ÖN 95 (s. xii) Hands in V Vac The uncorrected reading in V. Equival…</td></tr><tr><td class="sigla">Vac</td><td>Vac The uncorrected reading in V. Equivalent to V.</td></tr><tr><td class="sigla">Vc</td><td>Vc Corrections made by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">N</td><td>N Naples, BN IV.C.11 (s. xi), cited where S is lacunose.</td></tr><tr><td class="sigla">stigma</td><td>ϛ A reading found in one or more later manuscripts.</td></tr><tr><td class="sigla">edprin</td><td>ed. pr. G. Bussi, ed. Romae: In domo Petri de Maximis [= Sweynheym and Pannar…</td></tr><tr><td class="sigla">Aldus</td><td>Aldus G. Giocondo, ed. Venice. 1513. URL:</td></tr><tr><td class="sigla">Beroaldus</td><td>Beroaldus P. Beroaldus, ed. Caii Iulii Caesaris commentarios Belli Gallici, C…</td></tr></table></dd><dt>Apparatus</dt><dd>critical (563 entries) · split-entry (3 entries) · transposition (1 entries)</dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">The full header (teiHeader)</h2><p class="occ">Everything the file declares, rendered as it is.</p><div class="header-full"><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
-      <div id="doc0:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
-         <span id="doc0:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
-            <span id="doc0:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span>
-            <span id="doc0:0.0.0.0.1" class="t-editor s-1-bibliografia" data-el="editor" data-ref="http://viaf.org/viaf/116523553">Cynthia Damon, et al.</span>
-            <span id="doc0:0.0.0.0.2" class="t-sponsor s-1-bibliografia" data-el="sponsor">Society for Classical Studies</span>
-            <span id="doc0:0.0.0.0.3" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.3.0" class="t-resp s-1-struttura" data-el="resp">TEI XML encoding:</span>
-               <span id="doc0:0.0.0.0.3.1" class="t-name s-2-entita" data-el="name" data-ref="https://orcid.org/0000-0002-8192-9385">Samuel J. Huskey</span>
+<main id="main" class="torchio about"><dl><dt>Responsibility</dt><dd>Cynthia Damon, et al. · Samuel J. Huskey · Virgina K. Felkner · Dallas Simons · Tom Vozar · Marcie Persyn · Maria Kovalchuk · Tim Warnock · Isabella Reinhardt · Brian Credo · Amelia Bensch-Schaus · Wes Hanson</dd><dt>Licence</dt><dd><a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative Commons Attribution-ShareAlike 4.0 International Licence (CC BY-SA 4.0)</a></dd><dt>Witnesses</dt><dd><table class="wit-table"><tr><td class="sigla">ω</td><td>ω Common source of μ Common source of M and U ν Common source of S and π</td></tr><tr><td class="sigla">μ</td><td>μ Common source of M and U</td></tr><tr><td class="sigla">ν</td><td>ν Common source of S and π</td></tr><tr><td class="sigla">M</td><td>M Florence, BML Plut. lat 68.8 (s. xii4 or xiii1) Hands in M Mac The uncorrec…</td></tr><tr><td class="sigla">Mac</td><td>Mac The uncorrected reading in M. Equivalent to M.</td></tr><tr><td class="sigla">Mc</td><td>Mc Corrections by the original scribe, who usually recovers the reading of th…</td></tr><tr><td class="sigla">Mmr</td><td>Mmr Corrections by one or more later hands (manus recentior), sometimes recov…</td></tr><tr><td class="sigla">M8</td><td>M* An asterisk marks readings in M that prompted a correction—not necessarily…</td></tr><tr><td class="sigla">U</td><td>U Vatican, BAV Vat. lat. 3324 (s. xi4 or xii1) Hands in U Uac The uncorrected…</td></tr><tr><td class="sigla">Uac</td><td>Uac The uncorrected reading in U. Equivalent to U.</td></tr><tr><td class="sigla">Uc</td><td>Uc Corrections by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">S</td><td>S Florence, BML Ashburnham 33 (s. x2–3) Hands in S Sac The uncorrected readin…</td></tr><tr><td class="sigla">Sac</td><td>Sac The uncorrected reading in S, Equivalent to S.</td></tr><tr><td class="sigla">Sc</td><td>Sc Corrections made by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">π</td><td>π Common source of T and V. T Paris, BNF lat. 5764 (s. xi3–4). Hands in T Tac…</td></tr><tr><td class="sigla">T</td><td>T Paris, BNF lat. 5764 (s. xi3–4). Hands in T Tac The uncorrected reading in …</td></tr><tr><td class="sigla">Tac</td><td>Tac The uncorrected reading in T, Equivalent to T.</td></tr><tr><td class="sigla">Tc</td><td>Tc Corrections made by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">V</td><td>V Vienna, ÖN 95 (s. xii) Hands in V Vac The uncorrected reading in V. Equival…</td></tr><tr><td class="sigla">Vac</td><td>Vac The uncorrected reading in V. Equivalent to V.</td></tr><tr><td class="sigla">Vc</td><td>Vc Corrections made by the original scribe or a close contemporary.</td></tr><tr><td class="sigla">N</td><td>N Naples, BN IV.C.11 (s. xi), cited where S is lacunose.</td></tr><tr><td class="sigla">stigma</td><td>ϛ A reading found in one or more later manuscripts.</td></tr><tr><td class="sigla">edprin</td><td>ed. pr. G. Bussi, ed. Romae: In domo Petri de Maximis [= Sweynheym and Pannar…</td></tr><tr><td class="sigla">Aldus</td><td>Aldus G. Giocondo, ed. Venice. 1513. URL:</td></tr><tr><td class="sigla">Beroaldus</td><td>Beroaldus P. Beroaldus, ed. Caii Iulii Caesaris commentarios Belli Gallici, C…</td></tr></table></dd><dt>Apparatus</dt><dd>critical (563 entries) · split-entry (3 entries) · transposition (1 entries)</dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">The full header (teiHeader)</h2><p class="occ">Everything the file declares, rendered as it is.</p><div class="header-full"><div id="ldlt-balex:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+      <div id="ldlt-balex:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+         <span id="ldlt-balex:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+            <span id="ldlt-balex:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span>
+            <span id="ldlt-balex:0.0.0.0.1" class="t-editor s-1-bibliografia" data-el="editor" data-ref="http://viaf.org/viaf/116523553">Cynthia Damon, et al.</span>
+            <span id="ldlt-balex:0.0.0.0.2" class="t-sponsor s-1-bibliografia" data-el="sponsor">Society for Classical Studies</span>
+            <span id="ldlt-balex:0.0.0.0.3" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.3.0" class="t-resp s-1-struttura" data-el="resp">TEI XML encoding:</span>
+               <span id="ldlt-balex:0.0.0.0.3.1" class="t-name s-2-entita" data-el="name" data-ref="https://orcid.org/0000-0002-8192-9385">Samuel J. Huskey</span>
             </span>
-            <span id="doc0:0.0.0.0.4" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.4.0" class="t-resp s-1-struttura" data-el="resp">Programming for automatic generation of TEI XML:</span>
-               <span id="doc0:0.0.0.0.4.1" class="t-name s-2-entita" data-el="name">Virgina K. Felkner</span>
+            <span id="ldlt-balex:0.0.0.0.4" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.4.0" class="t-resp s-1-struttura" data-el="resp">Programming for automatic generation of TEI XML:</span>
+               <span id="ldlt-balex:0.0.0.0.4.1" class="t-name s-2-entita" data-el="name">Virgina K. Felkner</span>
             </span>
-            <span id="doc0:0.0.0.0.5" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.5.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to section 2.5:</span>
-               <span id="doc0:0.0.0.0.5.1" class="t-name s-2-entita" data-el="name">Dallas Simons</span>
+            <span id="ldlt-balex:0.0.0.0.5" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.5.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to section 2.5:</span>
+               <span id="ldlt-balex:0.0.0.0.5.1" class="t-name s-2-entita" data-el="name">Dallas Simons</span>
             </span>
-            <span id="doc0:0.0.0.0.6" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.6.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 12.1–2 and 13.5:</span>
-               <span id="doc0:0.0.0.0.6.1" class="t-name s-2-entita" data-el="name">Tom Vozar</span>
+            <span id="ldlt-balex:0.0.0.0.6" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.6.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 12.1–2 and 13.5:</span>
+               <span id="ldlt-balex:0.0.0.0.6.1" class="t-name s-2-entita" data-el="name">Tom Vozar</span>
             </span>
-            <span id="doc0:0.0.0.0.7" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.7.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to section 26.1–2:</span>
-               <span id="doc0:0.0.0.0.7.1" class="t-name s-2-entita" data-el="name">Marcie Persyn</span>
+            <span id="ldlt-balex:0.0.0.0.7" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.7.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to section 26.1–2:</span>
+               <span id="ldlt-balex:0.0.0.0.7.1" class="t-name s-2-entita" data-el="name">Marcie Persyn</span>
             </span>
-            <span id="doc0:0.0.0.0.8" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.8.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 35.3 and 36.4–5:</span>
-               <span id="doc0:0.0.0.0.8.1" class="t-name s-2-entita" data-el="name">Maria Kovalchuk</span>
+            <span id="ldlt-balex:0.0.0.0.8" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.8.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 35.3 and 36.4–5:</span>
+               <span id="ldlt-balex:0.0.0.0.8.1" class="t-name s-2-entita" data-el="name">Maria Kovalchuk</span>
             </span>
-            <span id="doc0:0.0.0.0.9" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.9.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 47.2, 49.1, and 49.2–3:</span>
-               <span id="doc0:0.0.0.0.9.1" class="t-name s-2-entita" data-el="name">Tim Warnock</span>
+            <span id="ldlt-balex:0.0.0.0.9" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.9.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 47.2, 49.1, and 49.2–3:</span>
+               <span id="ldlt-balex:0.0.0.0.9.1" class="t-name s-2-entita" data-el="name">Tim Warnock</span>
             </span>
-            <span id="doc0:0.0.0.0.10" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.10.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to section 60.2:</span>
-               <span id="doc0:0.0.0.0.10.1" class="t-name s-2-entita" data-el="name">Isabella Reinhardt</span>
+            <span id="ldlt-balex:0.0.0.0.10" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.10.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to section 60.2:</span>
+               <span id="ldlt-balex:0.0.0.0.10.1" class="t-name s-2-entita" data-el="name">Isabella Reinhardt</span>
             </span>
-            <span id="doc0:0.0.0.0.11" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.11.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 63.5 and 66.3–4:</span>
-               <span id="doc0:0.0.0.0.11.1" class="t-name s-2-entita" data-el="name">Brian Credo</span>
+            <span id="ldlt-balex:0.0.0.0.11" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.11.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 63.5 and 66.3–4:</span>
+               <span id="ldlt-balex:0.0.0.0.11.1" class="t-name s-2-entita" data-el="name">Brian Credo</span>
             </span>
-            <span id="doc0:0.0.0.0.12" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.12.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 67.1 and 68.1:</span>
-               <span id="doc0:0.0.0.0.12.1" class="t-name s-2-entita" data-el="name">Amelia Bensch-Schaus</span>
+            <span id="ldlt-balex:0.0.0.0.12" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.12.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 67.1 and 68.1:</span>
+               <span id="ldlt-balex:0.0.0.0.12.1" class="t-name s-2-entita" data-el="name">Amelia Bensch-Schaus</span>
             </span>
-            <span id="doc0:0.0.0.0.13" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.13.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 72.2–3 and 74.4:</span>
-               <span id="doc0:0.0.0.0.13.1" class="t-name s-2-entita" data-el="name">Wes Hanson</span>
+            <span id="ldlt-balex:0.0.0.0.13" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.0.13.0" class="t-resp s-1-struttura" data-el="resp">Coauthor of content related to sections 72.2–3 and 74.4:</span>
+               <span id="ldlt-balex:0.0.0.0.13.1" class="t-name s-2-entita" data-el="name">Wes Hanson</span>
             </span>
          </span>
-         <span id="doc0:0.0.0.1" class="t-editionStmt s-7-header" data-el="editionStmt">
-            <span id="doc0:0.0.0.1.0" class="t-edition s-1-bibliografia" data-el="edition">First Edition</span>
+         <span id="ldlt-balex:0.0.0.1" class="t-editionStmt s-7-header" data-el="editionStmt">
+            <span id="ldlt-balex:0.0.0.1.0" class="t-edition s-1-bibliografia" data-el="edition">First Edition</span>
          </span>
-         <span id="doc0:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
-            <span id="doc0:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">The Digital Latin Library</span>
-            <span id="doc0:0.0.0.2.1" class="t-address s-1-struttura" data-el="address">
-               <span id="doc0:0.0.0.2.1.0" class="t-street s-2-entita" data-el="street">650 Parrington Oval</span>
-               <span id="doc0:0.0.0.2.1.1" class="t-addrLine s-2-entita" data-el="addrLine">Carnegie Building 101</span>
-               <span id="doc0:0.0.0.2.1.2" class="t-settlement s-2-entita" data-el="settlement">Norman</span>
-               <span id="doc0:0.0.0.2.1.3" class="t-name s-2-entita" data-el="name">OK</span>
-               <span id="doc0:0.0.0.2.1.4" class="t-postCode s-2-entita" data-el="postCode">73071</span>
-               <span id="doc0:0.0.0.2.1.5" class="t-country s-2-entita" data-el="country">USA</span>
+         <span id="ldlt-balex:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+            <span id="ldlt-balex:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">The Digital Latin Library</span>
+            <span id="ldlt-balex:0.0.0.2.1" class="t-address s-1-struttura" data-el="address">
+               <span id="ldlt-balex:0.0.0.2.1.0" class="t-street s-2-entita" data-el="street">650 Parrington Oval</span>
+               <span id="ldlt-balex:0.0.0.2.1.1" class="t-addrLine s-2-entita" data-el="addrLine">Carnegie Building 101</span>
+               <span id="ldlt-balex:0.0.0.2.1.2" class="t-settlement s-2-entita" data-el="settlement">Norman</span>
+               <span id="ldlt-balex:0.0.0.2.1.3" class="t-name s-2-entita" data-el="name">OK</span>
+               <span id="ldlt-balex:0.0.0.2.1.4" class="t-postCode s-2-entita" data-el="postCode">73071</span>
+               <span id="ldlt-balex:0.0.0.2.1.5" class="t-country s-2-entita" data-el="country">USA</span>
             </span>
-            <span id="doc0:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">The University of Oklahoma</span>
-            <span id="doc0:0.0.0.2.3" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Norman, OK</span>
-            <span id="doc0:0.0.0.2.4" class="t-date s-2-date" data-el="date">2022</span>
-            <span id="doc0:0.0.0.2.5" class="t-availability s-1-bibliografia" data-el="availability">
-               <span id="doc0:0.0.0.2.5.0" class="t-licence s-7-licenza" data-el="licence" data-target="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative
+            <span id="ldlt-balex:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">The University of Oklahoma</span>
+            <span id="ldlt-balex:0.0.0.2.3" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Norman, OK</span>
+            <span id="ldlt-balex:0.0.0.2.4" class="t-date s-2-date" data-el="date">2022</span>
+            <span id="ldlt-balex:0.0.0.2.5" class="t-availability s-1-bibliografia" data-el="availability">
+               <span id="ldlt-balex:0.0.0.2.5.0" class="t-licence s-7-licenza" data-el="licence" data-target="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative
                   Commons Attribution-ShareAlike 4.0 International Licence (CC BY-SA 4.0)</span>
             </span>
          </span>
-         <span id="doc0:0.0.0.3" class="t-seriesStmt s-7-header" data-el="seriesStmt">
-            <span id="doc0:0.0.0.3.0" class="t-title s-1-inline" data-el="title">Library of Digital Latin Texts</span>
-            <span id="doc0:0.0.0.3.1" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.3.1.0" class="t-resp s-1-struttura" data-el="resp">Edited by</span>
-               <span id="doc0:0.0.0.3.1.1" class="t-name s-2-entita" data-el="name" data-ref="https://orcid.org/0000-0002-8192-9385">Samuel J. Huskey</span>
+         <span id="ldlt-balex:0.0.0.3" class="t-seriesStmt s-7-header" data-el="seriesStmt">
+            <span id="ldlt-balex:0.0.0.3.0" class="t-title s-1-inline" data-el="title">Library of Digital Latin Texts</span>
+            <span id="ldlt-balex:0.0.0.3.1" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="ldlt-balex:0.0.0.3.1.0" class="t-resp s-1-struttura" data-el="resp">Edited by</span>
+               <span id="ldlt-balex:0.0.0.3.1.1" class="t-name s-2-entita" data-el="name" data-ref="https://orcid.org/0000-0002-8192-9385">Samuel J. Huskey</span>
             </span>
-            <span id="doc0:0.0.0.3.2" class="t-biblScope s-1-bibliografia" data-el="biblScope">1</span>
-            <span id="doc0:0.0.0.3.3" class="t-idno s-2-entita" data-el="idno" data-type="DOI"></span>
+            <span id="ldlt-balex:0.0.0.3.2" class="t-biblScope s-1-bibliografia" data-el="biblScope">1</span>
+            <span id="ldlt-balex:0.0.0.3.3" class="t-idno s-2-entita" data-el="idno" data-type="DOI"></span>
          </span>
-         <div id="doc0:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
-            <div id="doc0:0.0.0.4.0" class="t-p s-1-struttura" data-el="p">Born digital.</div>
+         <div id="ldlt-balex:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+            <div id="ldlt-balex:0.0.0.4.0" class="t-p s-1-struttura" data-el="p">Born digital.</div>
          </div>
       </div>
-     <span id="doc0:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
-       <span id="doc0:0.0.1.0" class="t-listPrefixDef s-7-header" data-el="listPrefixDef">
-         <span id="doc0:0.0.1.0.0" class="t-prefixDef s-7-header" data-el="prefixDef"></span>
+     <span id="ldlt-balex:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
+       <span id="ldlt-balex:0.0.1.0" class="t-listPrefixDef s-7-header" data-el="listPrefixDef">
+         <span id="ldlt-balex:0.0.1.0.0" class="t-prefixDef s-7-header" data-el="prefixDef"></span>
        </span>
-       <span id="doc0:0.0.1.1" class="t-refsDecl s-7-header" data-el="refsDecl">
+       <span id="ldlt-balex:0.0.1.1" class="t-refsDecl s-7-header" data-el="refsDecl">
          
-         <span id="doc0:0.0.1.1.0" class="t-citeStructure s-7-header" data-el="citeStructure">
+         <span id="ldlt-balex:0.0.1.1.0" class="t-citeStructure s-7-header" data-el="citeStructure">
            
-           <span id="doc0:0.0.1.1.0.0" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.0.0" class="t-citeData s-7-header" data-el="citeData"></span>
            
-           <span id="doc0:0.0.1.1.0.1" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.0.1" class="t-citeData s-7-header" data-el="citeData"></span>
            
-           <span id="doc0:0.0.1.1.0.2" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.0.3" class="t-citeStructure s-7-header" data-el="citeStructure">
-             <span id="doc0:0.0.1.1.0.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.0.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.0.3.2" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.0.2" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.0.3" class="t-citeStructure s-7-header" data-el="citeStructure">
+             <span id="ldlt-balex:0.0.1.1.0.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.0.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.0.3.2" class="t-citeData s-7-header" data-el="citeData"></span>
              
-             <span id="doc0:0.0.1.1.0.3.3" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.0.3.3" class="t-citeData s-7-header" data-el="citeData"></span>
              
-             <span id="doc0:0.0.1.1.0.3.4" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.0.3.4" class="t-citeData s-7-header" data-el="citeData"></span>
            </span>
          </span>
-         <span id="doc0:0.0.1.1.1" class="t-citeStructure s-7-header" data-el="citeStructure">
-           <span id="doc0:0.0.1.1.1.0" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.1.1" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.1.2" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.1.3" class="t-citeStructure s-7-header" data-el="citeStructure">
-             <span id="doc0:0.0.1.1.1.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.1.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.1.3.2" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.1.3.3" class="t-citeData s-7-header" data-el="citeData"></span>
+         <span id="ldlt-balex:0.0.1.1.1" class="t-citeStructure s-7-header" data-el="citeStructure">
+           <span id="ldlt-balex:0.0.1.1.1.0" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.1.1" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.1.2" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.1.3" class="t-citeStructure s-7-header" data-el="citeStructure">
+             <span id="ldlt-balex:0.0.1.1.1.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.1.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.1.3.2" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.1.3.3" class="t-citeData s-7-header" data-el="citeData"></span>
            </span>
          </span>
-         <span id="doc0:0.0.1.1.2" class="t-citeStructure s-7-header" data-el="citeStructure">
-           <span id="doc0:0.0.1.1.2.0" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.2.1" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.2.2" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.2.3" class="t-citeData s-7-header" data-el="citeData"></span>
+         <span id="ldlt-balex:0.0.1.1.2" class="t-citeStructure s-7-header" data-el="citeStructure">
+           <span id="ldlt-balex:0.0.1.1.2.0" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.2.1" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.2.2" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.2.3" class="t-citeData s-7-header" data-el="citeData"></span>
          </span>
          
-         <span id="doc0:0.0.1.1.3" class="t-citeStructure s-7-header" data-el="citeStructure">
-           <span id="doc0:0.0.1.1.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.3.2" class="t-citeStructure s-7-header" data-el="citeStructure">    
-             <span id="doc0:0.0.1.1.3.2.0" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.3.2.1" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.3.2.2" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.3.2.3" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.3.2.4" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.3.2.5" class="t-citeStructure s-7-header" data-el="citeStructure"></span>
+         <span id="ldlt-balex:0.0.1.1.3" class="t-citeStructure s-7-header" data-el="citeStructure">
+           <span id="ldlt-balex:0.0.1.1.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.3.2" class="t-citeStructure s-7-header" data-el="citeStructure">    
+             <span id="ldlt-balex:0.0.1.1.3.2.0" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.3.2.1" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.3.2.2" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.3.2.3" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.3.2.4" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.3.2.5" class="t-citeStructure s-7-header" data-el="citeStructure"></span>
            </span>
          </span>
-          <span id="doc0:0.0.1.1.4" class="t-citeStructure s-7-header" data-el="citeStructure">
-             <span id="doc0:0.0.1.1.4.0" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.4.1" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.4.2" class="t-citeData s-7-header" data-el="citeData"></span>
-             <span id="doc0:0.0.1.1.4.3" class="t-citeData s-7-header" data-el="citeData"></span>
+          <span id="ldlt-balex:0.0.1.1.4" class="t-citeStructure s-7-header" data-el="citeStructure">
+             <span id="ldlt-balex:0.0.1.1.4.0" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.4.1" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.4.2" class="t-citeData s-7-header" data-el="citeData"></span>
+             <span id="ldlt-balex:0.0.1.1.4.3" class="t-citeData s-7-header" data-el="citeData"></span>
           </span>
-         <span id="doc0:0.0.1.1.5" class="t-citeStructure s-7-header" data-el="citeStructure">
-           <span id="doc0:0.0.1.1.5.0" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.5.1" class="t-citeData s-7-header" data-el="citeData"></span>
-           <span id="doc0:0.0.1.1.5.2" class="t-citeData s-7-header" data-el="citeData"></span>
-            <span id="doc0:0.0.1.1.5.3" class="t-citeStructure s-7-header" data-el="citeStructure">
-               <span id="doc0:0.0.1.1.5.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
-               <span id="doc0:0.0.1.1.5.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
-               <span id="doc0:0.0.1.1.5.3.2" class="t-citeData s-7-header" data-el="citeData"></span>
-               <span id="doc0:0.0.1.1.5.3.3" class="t-citeData s-7-header" data-el="citeData"></span>
+         <span id="ldlt-balex:0.0.1.1.5" class="t-citeStructure s-7-header" data-el="citeStructure">
+           <span id="ldlt-balex:0.0.1.1.5.0" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.5.1" class="t-citeData s-7-header" data-el="citeData"></span>
+           <span id="ldlt-balex:0.0.1.1.5.2" class="t-citeData s-7-header" data-el="citeData"></span>
+            <span id="ldlt-balex:0.0.1.1.5.3" class="t-citeStructure s-7-header" data-el="citeStructure">
+               <span id="ldlt-balex:0.0.1.1.5.3.0" class="t-citeData s-7-header" data-el="citeData"></span>
+               <span id="ldlt-balex:0.0.1.1.5.3.1" class="t-citeData s-7-header" data-el="citeData"></span>
+               <span id="ldlt-balex:0.0.1.1.5.3.2" class="t-citeData s-7-header" data-el="citeData"></span>
+               <span id="ldlt-balex:0.0.1.1.5.3.3" class="t-citeData s-7-header" data-el="citeData"></span>
             </span>
          </span>
        </span>

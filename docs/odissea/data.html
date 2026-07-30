@@ -116,6 +116,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -226,7 +233,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div class="tt"><h1>Odyssey</h1><p class="sub">data</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="text.html">Text</a><a href="data.html" class="on">Data</a></nav>
 </header>
-<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">5.5 MB</td></tr><tr><td class="sigla"><a href="data/source.xml">source.xml</a></td><td>the unmodified TEI source file</td><td class="occ">1.5 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
+<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">5.5 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 
 </body>

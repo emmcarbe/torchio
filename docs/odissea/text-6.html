@@ -116,6 +116,13 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
   color:var(--accent);min-width:2.2em}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
+.torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* dense notes: marks only, notes open on click */
+body.notes-dense main.torchio .t-note{display:none!important}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense [data-notepop]{cursor:pointer}
+body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
@@ -226,478 +233,478 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div class="tt"><h1>Book 6 · Odyssey</h1><p class="sub">Odyssey</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Contents"><a href="text-5.html">‹ previous</a><a href="text.html">Contents</a><a href="text-7.html">next ›</a></nav><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
-      <div id="doc0:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
-         <span id="doc0:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
-            <span id="doc0:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Ὀδύσσεια</span>
-            <span id="doc0:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Homer</span>
-            <span id="doc0:0.0.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Augustus Taber Murray</span>
-            <span id="doc0:0.0.0.0.3" class="t-sponsor s-1-bibliografia" data-el="sponsor">Perseus Project, Tufts University</span>
-            <span id="doc0:0.0.0.0.4" class="t-principal s-1-bibliografia" data-el="principal">Gregory Crane</span>
-            <span id="doc0:0.0.0.0.5" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-               <span id="doc0:0.0.0.0.5.0" class="t-resp s-1-struttura" data-el="resp">Prepared under the supervision of</span>
-               <span id="doc0:0.0.0.0.5.1" class="t-name s-2-entita" data-el="name">Lisa Cerrato</span>
-               <span id="doc0:0.0.0.0.5.2" class="t-name s-2-entita" data-el="name">William Merrill</span>
-               <span id="doc0:0.0.0.0.5.3" class="t-name s-2-entita" data-el="name">Elli Mylonas</span>
-               <span id="doc0:0.0.0.0.5.4" class="t-name s-2-entita" data-el="name">David Smith</span>
+<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Contents"><a href="text-5.html">‹ previous</a><a href="text.html">Contents</a><a href="text-7.html">next ›</a></nav><div id="odissea:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+      <div id="odissea:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+         <span id="odissea:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+            <span id="odissea:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Ὀδύσσεια</span>
+            <span id="odissea:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Homer</span>
+            <span id="odissea:0.0.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Augustus Taber Murray</span>
+            <span id="odissea:0.0.0.0.3" class="t-sponsor s-1-bibliografia" data-el="sponsor">Perseus Project, Tufts University</span>
+            <span id="odissea:0.0.0.0.4" class="t-principal s-1-bibliografia" data-el="principal">Gregory Crane</span>
+            <span id="odissea:0.0.0.0.5" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+               <span id="odissea:0.0.0.0.5.0" class="t-resp s-1-struttura" data-el="resp">Prepared under the supervision of</span>
+               <span id="odissea:0.0.0.0.5.1" class="t-name s-2-entita" data-el="name">Lisa Cerrato</span>
+               <span id="odissea:0.0.0.0.5.2" class="t-name s-2-entita" data-el="name">William Merrill</span>
+               <span id="odissea:0.0.0.0.5.3" class="t-name s-2-entita" data-el="name">Elli Mylonas</span>
+               <span id="odissea:0.0.0.0.5.4" class="t-name s-2-entita" data-el="name">David Smith</span>
             </span>
-            <span id="doc0:0.0.0.0.6" class="t-funder s-1-bibliografia" data-el="funder" data-n="org:AnnCPB">The Annenberg CPB/Project</span>
+            <span id="odissea:0.0.0.0.6" class="t-funder s-1-bibliografia" data-el="funder" data-n="org:AnnCPB">The Annenberg CPB/Project</span>
          </span>
-         <span id="doc0:0.0.0.1" class="t-extent s-1-bibliografia" data-el="extent">about 419Kb</span>
-         <span id="doc0:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
-            <span id="doc0:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">Trustees of Tufts University</span>
-            <span id="doc0:0.0.0.2.1" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Medford, MA</span>
-            <span id="doc0:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
+         <span id="odissea:0.0.0.1" class="t-extent s-1-bibliografia" data-el="extent">about 419Kb</span>
+         <span id="odissea:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+            <span id="odissea:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">Trustees of Tufts University</span>
+            <span id="odissea:0.0.0.2.1" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Medford, MA</span>
+            <span id="odissea:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
          </span>
-         <span id="doc0:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
-            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
+         <span id="odissea:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
+            <span class="t-note-mark" aria-hidden="true">°</span><div id="odissea:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
                tagging by Lauren Burka and Chiara Thayer.</div>
          </span>
-         <div id="doc0:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
-            <span id="doc0:0.0.0.4.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
-               <span id="doc0:0.0.0.4.0.0" class="t-monogr s-1-struttura" data-el="monogr">
-                  <span id="doc0:0.0.0.4.0.0.0" class="t-author s-1-bibliografia" data-el="author">Homer</span>
-                  <span id="doc0:0.0.0.4.0.0.1" class="t-title s-1-inline" data-el="title">The Odyssey</span>
-                  <span id="doc0:0.0.0.4.0.0.2" class="t-title s-1-inline" data-el="title" data-type="sub">with an English Translation</span>
-                  <span id="doc0:0.0.0.4.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">A. T. Murray</span>
-                  <span id="doc0:0.0.0.4.0.0.4" class="t-imprint s-1-struttura" data-el="imprint">
-                     <span id="doc0:0.0.0.4.0.0.4.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">London</span>
-                     <span id="doc0:0.0.0.4.0.0.4.1" class="t-publisher s-1-bibliografia" data-el="publisher">William Heinemann, Ltd.</span>
-                     <span id="doc0:0.0.0.4.0.0.4.2" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">New York</span>
-                     <span id="doc0:0.0.0.4.0.0.4.3" class="t-publisher s-1-bibliografia" data-el="publisher">G.P. Putnam's Sons</span>
-                     <span id="doc0:0.0.0.4.0.0.4.4" class="t-date s-2-date" data-el="date">1919</span>
+         <div id="odissea:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+            <span id="odissea:0.0.0.4.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
+               <span id="odissea:0.0.0.4.0.0" class="t-monogr s-1-struttura" data-el="monogr">
+                  <span id="odissea:0.0.0.4.0.0.0" class="t-author s-1-bibliografia" data-el="author">Homer</span>
+                  <span id="odissea:0.0.0.4.0.0.1" class="t-title s-1-inline" data-el="title">The Odyssey</span>
+                  <span id="odissea:0.0.0.4.0.0.2" class="t-title s-1-inline" data-el="title" data-type="sub">with an English Translation</span>
+                  <span id="odissea:0.0.0.4.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">A. T. Murray</span>
+                  <span id="odissea:0.0.0.4.0.0.4" class="t-imprint s-1-struttura" data-el="imprint">
+                     <span id="odissea:0.0.0.4.0.0.4.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">London</span>
+                     <span id="odissea:0.0.0.4.0.0.4.1" class="t-publisher s-1-bibliografia" data-el="publisher">William Heinemann, Ltd.</span>
+                     <span id="odissea:0.0.0.4.0.0.4.2" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">New York</span>
+                     <span id="odissea:0.0.0.4.0.0.4.3" class="t-publisher s-1-bibliografia" data-el="publisher">G.P. Putnam's Sons</span>
+                     <span id="odissea:0.0.0.4.0.0.4.4" class="t-date s-2-date" data-el="date">1919</span>
                   </span>
-                  <span id="doc0:0.0.0.4.0.0.5" class="t-biblScope s-1-bibliografia" data-el="biblScope">1-2</span>
+                  <span id="odissea:0.0.0.4.0.0.5" class="t-biblScope s-1-bibliografia" data-el="biblScope">1-2</span>
                </span>
-               <span id="doc0:0.0.0.4.0.1" class="t-series s-1-bibliografia" data-el="series">
-                  <span id="doc0:0.0.0.4.0.1.0" class="t-title s-1-inline" data-el="title">Loeb Classical Library</span>                        
+               <span id="odissea:0.0.0.4.0.1" class="t-series s-1-bibliografia" data-el="series">
+                  <span id="odissea:0.0.0.4.0.1.0" class="t-title s-1-inline" data-el="title">Loeb Classical Library</span>                        
                </span>
-               <span id="doc0:0.0.0.4.0.2" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://www.archive.org/details/odysseymurray01homeuoft">Internet Archive</span>
-               <span id="doc0:0.0.0.4.0.3" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://hdl.handle.net/2027/uc1.$b318748">HathiTrust</span>
+               <span id="odissea:0.0.0.4.0.2" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://www.archive.org/details/odysseymurray01homeuoft">Internet Archive</span>
+               <span id="odissea:0.0.0.4.0.3" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://hdl.handle.net/2027/uc1.$b318748">HathiTrust</span>
             </span>           
          </div>
       </div>
-      <span id="doc0:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
-         <span id="doc0:0.0.1.0" class="t-refsDecl s-7-header" data-el="refsDecl" data-n="CTS">
-            <span id="doc0:0.0.1.0.0" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="line">
-               <div id="doc0:0.0.1.0.0.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book and Line</div>
+      <span id="odissea:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
+         <span id="odissea:0.0.1.0" class="t-refsDecl s-7-header" data-el="refsDecl" data-n="CTS">
+            <span id="odissea:0.0.1.0.0" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="line">
+               <div id="odissea:0.0.1.0.0.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book and Line</div>
             </span>
-            <span id="doc0:0.0.1.0.1" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="book">
-               <div id="doc0:0.0.1.0.1.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book</div>
+            <span id="odissea:0.0.1.0.1" class="t-cRefPattern s-7-header" data-el="cRefPattern" data-n="book">
+               <div id="odissea:0.0.1.0.1.0" class="t-p s-1-struttura" data-el="p">This pointer pattern extracts Book</div>
             </span>
          </span>
-         <span id="doc0:0.0.1.1" class="t-refsDecl s-7-header" data-el="refsDecl">
-            <span id="doc0:0.0.1.1.0" class="t-refState s-7-header" data-el="refState"></span>
-            <span id="doc0:0.0.1.1.1" class="t-refState s-7-header" data-el="refState"></span>
+         <span id="odissea:0.0.1.1" class="t-refsDecl s-7-header" data-el="refsDecl">
+            <span id="odissea:0.0.1.1.0" class="t-refState s-7-header" data-el="refState"></span>
+            <span id="odissea:0.0.1.1.1" class="t-refState s-7-header" data-el="refState"></span>
          </span>
-         <span id="doc0:0.0.1.2" class="t-refsDecl s-7-header" data-el="refsDecl">
-            <span id="doc0:0.0.1.2.0" class="t-refState s-7-header" data-el="refState"></span>
-            <span id="doc0:0.0.1.2.1" class="t-refState s-7-header" data-el="refState"></span>
-         </span>
-      </span>
-      <span id="doc0:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
-         <span id="doc0:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
-            <span id="doc0:0.0.2.0.0" class="t-language s-7-header" data-el="language">Greek</span>
-            <span id="doc0:0.0.2.0.1" class="t-language s-7-header" data-el="language">English</span>
+         <span id="odissea:0.0.1.2" class="t-refsDecl s-7-header" data-el="refsDecl">
+            <span id="odissea:0.0.1.2.0" class="t-refState s-7-header" data-el="refState"></span>
+            <span id="odissea:0.0.1.2.1" class="t-refState s-7-header" data-el="refState"></span>
          </span>
       </span>
-      <span id="doc0:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
-         <div id="doc0:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="19901001">Put in card breaks.</div>
-         <div id="doc0:0.0.3.1" class="t-change s-7-header" data-el="change" data-when="19910801">Revise DTDs and recheck texts.</div>
-         <div id="doc0:0.0.3.2" class="t-change s-7-header" data-el="change" data-when="20151216">Converted to EpiDoc</div>
-         <div id="doc0:0.0.3.3" class="t-change s-7-header" data-el="change" data-when="20151216">Bumped URN</div>
-         <div id="doc0:0.0.3.4" class="t-change s-7-header" data-el="change" data-when="2016-02-10">numerous typos</div>
+      <span id="odissea:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
+         <span id="odissea:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
+            <span id="odissea:0.0.2.0.0" class="t-language s-7-header" data-el="language">Greek</span>
+            <span id="odissea:0.0.2.0.1" class="t-language s-7-header" data-el="language">English</span>
+         </span>
       </span>
-   </div><div id="doc0:0.1.0.0.5" class="t-div s-1-struttura" data-el="div" data-type="textpart" data-n="6">
-               <span id="doc0:0.1.0.0.5.0" class="t-milestone s-1-milestone" data-el="milestone" data-n="1"></span>
-               <div id="doc0:0.1.0.0.5.1" class="t-l s-1-versi" data-el="l" data-n="1">ὣς ὁ μὲν ἔνθα καθεῦδε πολύτλας δῖος Ὀδυσσεὺς</div>
-               <div id="doc0:0.1.0.0.5.2" class="t-l s-1-versi" data-el="l" data-n="2">ὕπνῳ καὶ καμάτῳ ἀρημένος· αὐτὰρ Ἀθήνη</div>
-               <div id="doc0:0.1.0.0.5.3" class="t-l s-1-versi" data-el="l" data-n="3">βῆ ῥʼ ἐς Φαιήκων ἀνδρῶν δῆμόν τε πόλιν τε,</div>
-               <div id="doc0:0.1.0.0.5.4" class="t-l s-1-versi" data-el="l" data-n="4">οἳ πρὶν μέν ποτʼ ἔναιον ἐν εὐρυχόρῳ Ὑπερείῃ,</div>
-               <div id="doc0:0.1.0.0.5.5" class="t-l s-1-versi ln5" data-el="l" data-n="5">ἀγχοῦ Κυκλώπων ἀνδρῶν ὑπερηνορεόντων,</div>
-               <div id="doc0:0.1.0.0.5.6" class="t-l s-1-versi" data-el="l" data-n="6">οἵ σφεας σινέσκοντο, βίηφι δὲ φέρτεροι ἦσαν.</div>
-               <div id="doc0:0.1.0.0.5.7" class="t-l s-1-versi" data-el="l" data-n="7">ἔνθεν ἀναστήσας ἄγε Ναυσίθοος θεοειδής,</div>
-               <div id="doc0:0.1.0.0.5.8" class="t-l s-1-versi" data-el="l" data-n="8">εἷσεν δὲ Σχερίῃ, ἑκὰς ἀνδρῶν ἀλφηστάων,</div>
-               <div id="doc0:0.1.0.0.5.9" class="t-l s-1-versi" data-el="l" data-n="9">ἀμφὶ δὲ τεῖχος ἔλασσε πόλει, καὶ ἐδείματο οἴκους,</div>
-               <div id="doc0:0.1.0.0.5.10" class="t-l s-1-versi ln5" data-el="l" data-n="10">καὶ νηοὺς ποίησε θεῶν, καὶ ἐδάσσατʼ ἀρούρας.</div>
-               <div id="doc0:0.1.0.0.5.11" class="t-l s-1-versi" data-el="l" data-n="11">ἀλλʼ ὁ μὲν ἤδη κηρὶ δαμεὶς Ἄϊδόσδε βεβήκει,</div>
-               <div id="doc0:0.1.0.0.5.12" class="t-l s-1-versi" data-el="l" data-n="12">Ἀλκίνοος δὲ τότʼ ἦρχε, θεῶν ἄπο μήδεα εἰδώς.</div>
-               <div id="doc0:0.1.0.0.5.13" class="t-l s-1-versi" data-el="l" data-n="13">τοῦ μὲν ἔβη πρὸς δῶμα θεά, γλαυκῶπις Ἀθήνη,</div>
-               <div id="doc0:0.1.0.0.5.14" class="t-l s-1-versi" data-el="l" data-n="14">νόστον Ὀδυσσῆι μεγαλήτορι μητιόωσα.</div>
-               <div id="doc0:0.1.0.0.5.15" class="t-l s-1-versi ln5" data-el="l" data-n="15">βῆ δʼ ἴμεν ἐς θάλαμον πολυδαίδαλον, ᾧ ἔνι κούρη</div>
-               <div id="doc0:0.1.0.0.5.16" class="t-l s-1-versi" data-el="l" data-n="16">κοιμᾶτʼ ἀθανάτῃσι φυὴν καὶ εἶδος ὁμοίη,</div>
-               <div id="doc0:0.1.0.0.5.17" class="t-l s-1-versi" data-el="l" data-n="17">Ναυσικάα, θυγάτηρ μεγαλήτορος Ἀλκινόοιο,</div>
-               <div id="doc0:0.1.0.0.5.18" class="t-l s-1-versi" data-el="l" data-n="18">πὰρ δὲ δύʼ ἀμφίπολοι, Χαρίτων ἄπο κάλλος ἔχουσαι,</div>
-               <div id="doc0:0.1.0.0.5.19" class="t-l s-1-versi" data-el="l" data-n="19">σταθμοῖιν ἑκάτερθε· θύραι δʼ ἐπέκειντο φαειναί.</div>
-               <div id="doc0:0.1.0.0.5.20" class="t-l s-1-versi ln5" data-el="l" data-n="20">ἡ δʼ ἀνέμου ὡς πνοιὴ ἐπέσσυτο δέμνια κούρης,</div>
-               <div id="doc0:0.1.0.0.5.21" class="t-l s-1-versi" data-el="l" data-n="21">στῆ δʼ ἄρʼ ὑπὲρ κεφαλῆς, καί μιν πρὸς μῦθον ἔειπεν,</div>
-               <div id="doc0:0.1.0.0.5.22" class="t-l s-1-versi" data-el="l" data-n="22">εἰδομένη κούρῃ ναυσικλειτοῖο Δύμαντος,</div>
-               <div id="doc0:0.1.0.0.5.23" class="t-l s-1-versi" data-el="l" data-n="23">ἥ οἱ ὁμηλικίη μὲν ἔην, κεχάριστο δὲ θυμῷ.</div>
-               <div id="doc0:0.1.0.0.5.24" class="t-l s-1-versi" data-el="l" data-n="24">τῇ μιν ἐεισαμένη προσέφη γλαυκῶπις Ἀθήνη·</div>
-               <span id="doc0:0.1.0.0.5.25" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.25.0" class="t-l s-1-versi ln5" data-el="l" data-n="25">
-                     <span id="doc0:0.1.0.0.5.25.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>Ναυσικάα, τί νύ σʼ ὧδε μεθήμονα γείνατο
+      <span id="odissea:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
+         <div id="odissea:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="19901001">Put in card breaks.</div>
+         <div id="odissea:0.0.3.1" class="t-change s-7-header" data-el="change" data-when="19910801">Revise DTDs and recheck texts.</div>
+         <div id="odissea:0.0.3.2" class="t-change s-7-header" data-el="change" data-when="20151216">Converted to EpiDoc</div>
+         <div id="odissea:0.0.3.3" class="t-change s-7-header" data-el="change" data-when="20151216">Bumped URN</div>
+         <div id="odissea:0.0.3.4" class="t-change s-7-header" data-el="change" data-when="2016-02-10">numerous typos</div>
+      </span>
+   </div><div id="odissea:0.1.0.0.5" class="t-div s-1-struttura" data-el="div" data-type="textpart" data-n="6">
+               <span id="odissea:0.1.0.0.5.0" class="t-milestone s-1-milestone" data-el="milestone" data-n="1"></span>
+               <div id="odissea:0.1.0.0.5.1" class="t-l s-1-versi" data-el="l" data-n="1">ὣς ὁ μὲν ἔνθα καθεῦδε πολύτλας δῖος Ὀδυσσεὺς</div>
+               <div id="odissea:0.1.0.0.5.2" class="t-l s-1-versi" data-el="l" data-n="2">ὕπνῳ καὶ καμάτῳ ἀρημένος· αὐτὰρ Ἀθήνη</div>
+               <div id="odissea:0.1.0.0.5.3" class="t-l s-1-versi" data-el="l" data-n="3">βῆ ῥʼ ἐς Φαιήκων ἀνδρῶν δῆμόν τε πόλιν τε,</div>
+               <div id="odissea:0.1.0.0.5.4" class="t-l s-1-versi" data-el="l" data-n="4">οἳ πρὶν μέν ποτʼ ἔναιον ἐν εὐρυχόρῳ Ὑπερείῃ,</div>
+               <div id="odissea:0.1.0.0.5.5" class="t-l s-1-versi ln5" data-el="l" data-n="5">ἀγχοῦ Κυκλώπων ἀνδρῶν ὑπερηνορεόντων,</div>
+               <div id="odissea:0.1.0.0.5.6" class="t-l s-1-versi" data-el="l" data-n="6">οἵ σφεας σινέσκοντο, βίηφι δὲ φέρτεροι ἦσαν.</div>
+               <div id="odissea:0.1.0.0.5.7" class="t-l s-1-versi" data-el="l" data-n="7">ἔνθεν ἀναστήσας ἄγε Ναυσίθοος θεοειδής,</div>
+               <div id="odissea:0.1.0.0.5.8" class="t-l s-1-versi" data-el="l" data-n="8">εἷσεν δὲ Σχερίῃ, ἑκὰς ἀνδρῶν ἀλφηστάων,</div>
+               <div id="odissea:0.1.0.0.5.9" class="t-l s-1-versi" data-el="l" data-n="9">ἀμφὶ δὲ τεῖχος ἔλασσε πόλει, καὶ ἐδείματο οἴκους,</div>
+               <div id="odissea:0.1.0.0.5.10" class="t-l s-1-versi ln5" data-el="l" data-n="10">καὶ νηοὺς ποίησε θεῶν, καὶ ἐδάσσατʼ ἀρούρας.</div>
+               <div id="odissea:0.1.0.0.5.11" class="t-l s-1-versi" data-el="l" data-n="11">ἀλλʼ ὁ μὲν ἤδη κηρὶ δαμεὶς Ἄϊδόσδε βεβήκει,</div>
+               <div id="odissea:0.1.0.0.5.12" class="t-l s-1-versi" data-el="l" data-n="12">Ἀλκίνοος δὲ τότʼ ἦρχε, θεῶν ἄπο μήδεα εἰδώς.</div>
+               <div id="odissea:0.1.0.0.5.13" class="t-l s-1-versi" data-el="l" data-n="13">τοῦ μὲν ἔβη πρὸς δῶμα θεά, γλαυκῶπις Ἀθήνη,</div>
+               <div id="odissea:0.1.0.0.5.14" class="t-l s-1-versi" data-el="l" data-n="14">νόστον Ὀδυσσῆι μεγαλήτορι μητιόωσα.</div>
+               <div id="odissea:0.1.0.0.5.15" class="t-l s-1-versi ln5" data-el="l" data-n="15">βῆ δʼ ἴμεν ἐς θάλαμον πολυδαίδαλον, ᾧ ἔνι κούρη</div>
+               <div id="odissea:0.1.0.0.5.16" class="t-l s-1-versi" data-el="l" data-n="16">κοιμᾶτʼ ἀθανάτῃσι φυὴν καὶ εἶδος ὁμοίη,</div>
+               <div id="odissea:0.1.0.0.5.17" class="t-l s-1-versi" data-el="l" data-n="17">Ναυσικάα, θυγάτηρ μεγαλήτορος Ἀλκινόοιο,</div>
+               <div id="odissea:0.1.0.0.5.18" class="t-l s-1-versi" data-el="l" data-n="18">πὰρ δὲ δύʼ ἀμφίπολοι, Χαρίτων ἄπο κάλλος ἔχουσαι,</div>
+               <div id="odissea:0.1.0.0.5.19" class="t-l s-1-versi" data-el="l" data-n="19">σταθμοῖιν ἑκάτερθε· θύραι δʼ ἐπέκειντο φαειναί.</div>
+               <div id="odissea:0.1.0.0.5.20" class="t-l s-1-versi ln5" data-el="l" data-n="20">ἡ δʼ ἀνέμου ὡς πνοιὴ ἐπέσσυτο δέμνια κούρης,</div>
+               <div id="odissea:0.1.0.0.5.21" class="t-l s-1-versi" data-el="l" data-n="21">στῆ δʼ ἄρʼ ὑπὲρ κεφαλῆς, καί μιν πρὸς μῦθον ἔειπεν,</div>
+               <div id="odissea:0.1.0.0.5.22" class="t-l s-1-versi" data-el="l" data-n="22">εἰδομένη κούρῃ ναυσικλειτοῖο Δύμαντος,</div>
+               <div id="odissea:0.1.0.0.5.23" class="t-l s-1-versi" data-el="l" data-n="23">ἥ οἱ ὁμηλικίη μὲν ἔην, κεχάριστο δὲ θυμῷ.</div>
+               <div id="odissea:0.1.0.0.5.24" class="t-l s-1-versi" data-el="l" data-n="24">τῇ μιν ἐεισαμένη προσέφη γλαυκῶπις Ἀθήνη·</div>
+               <span id="odissea:0.1.0.0.5.25" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.25.0" class="t-l s-1-versi ln5" data-el="l" data-n="25">
+                     <span id="odissea:0.1.0.0.5.25.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>Ναυσικάα, τί νύ σʼ ὧδε μεθήμονα γείνατο
                      μήτηρ;</div>
-                  <div id="doc0:0.1.0.0.5.25.1" class="t-l s-1-versi" data-el="l" data-n="26">εἵματα μέν τοι κεῖται ἀκηδέα σιγαλόεντα,</div>
-                  <div id="doc0:0.1.0.0.5.25.2" class="t-l s-1-versi" data-el="l" data-n="27">σοὶ δὲ γάμος σχεδόν ἐστιν, ἵνα χρὴ καλὰ μὲν αὐτὴν</div>
-                  <div id="doc0:0.1.0.0.5.25.3" class="t-l s-1-versi" data-el="l" data-n="28">ἕννυσθαι, τὰ δὲ τοῖσι παρασχεῖν, οἵ κέ σʼ ἄγωνται.</div>
-                  <div id="doc0:0.1.0.0.5.25.4" class="t-l s-1-versi" data-el="l" data-n="29">ἐκ γάρ τοι τούτων φάτις ἀνθρώπους ἀναβαίνει</div>
-                  <div id="doc0:0.1.0.0.5.25.5" class="t-l s-1-versi ln5" data-el="l" data-n="30">ἐσθλή, χαίρουσιν δὲ πατὴρ καὶ πότνια μήτηρ.</div>
-                  <div id="doc0:0.1.0.0.5.25.6" class="t-l s-1-versi" data-el="l" data-n="31">ἀλλʼ ἴομεν πλυνέουσαι ἅμʼ ἠοῖ φαινομένηφι·</div>
-                  <div id="doc0:0.1.0.0.5.25.7" class="t-l s-1-versi" data-el="l" data-n="32">καί τοι ἐγὼ συνέριθος ἅμʼ ἕψομαι, ὄφρα τάχιστα</div>
-                  <div id="doc0:0.1.0.0.5.25.8" class="t-l s-1-versi" data-el="l" data-n="33">ἐντύνεαι, ἐπεὶ οὔ τοι ἔτι δὴν παρθένος ἔσσεαι·</div>
-                  <div id="doc0:0.1.0.0.5.25.9" class="t-l s-1-versi" data-el="l" data-n="34">ἤδη γάρ σε μνῶνται ἀριστῆες κατὰ δῆμον</div>
-                  <div id="doc0:0.1.0.0.5.25.10" class="t-l s-1-versi ln5" data-el="l" data-n="35">πάντων Φαιήκων, ὅθι τοι γένος ἐστὶ καὶ αὐτῇ.</div>
-                  <div id="doc0:0.1.0.0.5.25.11" class="t-l s-1-versi" data-el="l" data-n="36">ἀλλʼ ἄγʼ ἐπότρυνον πατέρα κλυτὸν ἠῶθι πρὸ</div>
-                  <div id="doc0:0.1.0.0.5.25.12" class="t-l s-1-versi" data-el="l" data-n="37">ἡμιόνους καὶ ἄμαξαν ἐφοπλίσαι, ἥ κεν ἄγῃσι</div>
-                  <div id="doc0:0.1.0.0.5.25.13" class="t-l s-1-versi" data-el="l" data-n="38">ζῶστρά τε καὶ πέπλους καὶ ῥήγεα σιγαλόεντα.</div>
-                  <div id="doc0:0.1.0.0.5.25.14" class="t-l s-1-versi" data-el="l" data-n="39">καὶ δὲ σοὶ ὧδʼ αὐτῇ πολὺ κάλλιον ἠὲ πόδεσσιν</div>
-                  <div id="doc0:0.1.0.0.5.25.15" class="t-l s-1-versi ln5" data-el="l" data-n="40">ἔρχεσθαι· πολλὸν γὰρ ἀπὸ πλυνοί εἰσι πόληος.</div>
+                  <div id="odissea:0.1.0.0.5.25.1" class="t-l s-1-versi" data-el="l" data-n="26">εἵματα μέν τοι κεῖται ἀκηδέα σιγαλόεντα,</div>
+                  <div id="odissea:0.1.0.0.5.25.2" class="t-l s-1-versi" data-el="l" data-n="27">σοὶ δὲ γάμος σχεδόν ἐστιν, ἵνα χρὴ καλὰ μὲν αὐτὴν</div>
+                  <div id="odissea:0.1.0.0.5.25.3" class="t-l s-1-versi" data-el="l" data-n="28">ἕννυσθαι, τὰ δὲ τοῖσι παρασχεῖν, οἵ κέ σʼ ἄγωνται.</div>
+                  <div id="odissea:0.1.0.0.5.25.4" class="t-l s-1-versi" data-el="l" data-n="29">ἐκ γάρ τοι τούτων φάτις ἀνθρώπους ἀναβαίνει</div>
+                  <div id="odissea:0.1.0.0.5.25.5" class="t-l s-1-versi ln5" data-el="l" data-n="30">ἐσθλή, χαίρουσιν δὲ πατὴρ καὶ πότνια μήτηρ.</div>
+                  <div id="odissea:0.1.0.0.5.25.6" class="t-l s-1-versi" data-el="l" data-n="31">ἀλλʼ ἴομεν πλυνέουσαι ἅμʼ ἠοῖ φαινομένηφι·</div>
+                  <div id="odissea:0.1.0.0.5.25.7" class="t-l s-1-versi" data-el="l" data-n="32">καί τοι ἐγὼ συνέριθος ἅμʼ ἕψομαι, ὄφρα τάχιστα</div>
+                  <div id="odissea:0.1.0.0.5.25.8" class="t-l s-1-versi" data-el="l" data-n="33">ἐντύνεαι, ἐπεὶ οὔ τοι ἔτι δὴν παρθένος ἔσσεαι·</div>
+                  <div id="odissea:0.1.0.0.5.25.9" class="t-l s-1-versi" data-el="l" data-n="34">ἤδη γάρ σε μνῶνται ἀριστῆες κατὰ δῆμον</div>
+                  <div id="odissea:0.1.0.0.5.25.10" class="t-l s-1-versi ln5" data-el="l" data-n="35">πάντων Φαιήκων, ὅθι τοι γένος ἐστὶ καὶ αὐτῇ.</div>
+                  <div id="odissea:0.1.0.0.5.25.11" class="t-l s-1-versi" data-el="l" data-n="36">ἀλλʼ ἄγʼ ἐπότρυνον πατέρα κλυτὸν ἠῶθι πρὸ</div>
+                  <div id="odissea:0.1.0.0.5.25.12" class="t-l s-1-versi" data-el="l" data-n="37">ἡμιόνους καὶ ἄμαξαν ἐφοπλίσαι, ἥ κεν ἄγῃσι</div>
+                  <div id="odissea:0.1.0.0.5.25.13" class="t-l s-1-versi" data-el="l" data-n="38">ζῶστρά τε καὶ πέπλους καὶ ῥήγεα σιγαλόεντα.</div>
+                  <div id="odissea:0.1.0.0.5.25.14" class="t-l s-1-versi" data-el="l" data-n="39">καὶ δὲ σοὶ ὧδʼ αὐτῇ πολὺ κάλλιον ἠὲ πόδεσσιν</div>
+                  <div id="odissea:0.1.0.0.5.25.15" class="t-l s-1-versi ln5" data-el="l" data-n="40">ἔρχεσθαι· πολλὸν γὰρ ἀπὸ πλυνοί εἰσι πόληος.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.26" class="t-l s-1-versi" data-el="l" data-n="41">
-                  <span id="doc0:0.1.0.0.5.26.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ἡ μὲν ἄρʼ ὣς εἰποῦσʼ ἀπέβη γλαυκῶπις Ἀθήνη</div>
-               <div id="doc0:0.1.0.0.5.27" class="t-l s-1-versi" data-el="l" data-n="42">Οὔλυμπόνδʼ, ὅθι φασὶ θεῶν ἕδος ἀσφαλὲς αἰεὶ</div>
-               <div id="doc0:0.1.0.0.5.28" class="t-l s-1-versi" data-el="l" data-n="43">ἔμμεναι. οὔτʼ ἀνέμοισι τινάσσεται οὔτε ποτʼ ὄμβρῳ</div>
-               <div id="doc0:0.1.0.0.5.29" class="t-l s-1-versi" data-el="l" data-n="44">δεύεται οὔτε χιὼν ἐπιπίλναται, ἀλλὰ μάλʼ αἴθρη</div>
-               <div id="doc0:0.1.0.0.5.30" class="t-l s-1-versi ln5" data-el="l" data-n="45">πέπταται ἀνέφελος, λευκὴ δʼ ἐπιδέδρομεν αἴγλη·</div>
-               <div id="doc0:0.1.0.0.5.31" class="t-l s-1-versi" data-el="l" data-n="46">τῷ ἔνι τέρπονται μάκαρες θεοὶ ἤματα πάντα.</div>
-               <div id="doc0:0.1.0.0.5.32" class="t-l s-1-versi" data-el="l" data-n="47">ἔνθʼ ἀπέβη γλαυκῶπις, ἐπεὶ διεπέφραδε κούρῃ.</div>
-               <span id="doc0:0.1.0.0.5.33" class="t-milestone s-1-milestone" data-el="milestone" data-n="48"></span>
-               <div id="doc0:0.1.0.0.5.34" class="t-l s-1-versi" data-el="l" data-n="48">
-                  <span id="doc0:0.1.0.0.5.34.0" class="t-milestone s-1-milestone" data-el="milestone"></span>αὐτίκα δʼ Ἠὼς ἦλθεν ἐύθρονος, ἥ μιν ἔγειρε</div>
-               <div id="doc0:0.1.0.0.5.35" class="t-l s-1-versi" data-el="l" data-n="49">Ναυσικάαν ἐύπεπλον· ἄφαρ δʼ ἀπεθαύμασʼ ὄνειρον,</div>
-               <div id="doc0:0.1.0.0.5.36" class="t-l s-1-versi ln5" data-el="l" data-n="50">βῆ δʼ ἰέναι διὰ δώμαθʼ, ἵνʼ ἀγγείλειε τοκεῦσιν,</div>
-               <div id="doc0:0.1.0.0.5.37" class="t-l s-1-versi" data-el="l" data-n="51">πατρὶ φίλῳ καὶ μητρί· κιχήσατο δʼ ἔνδον ἐόντας·</div>
-               <div id="doc0:0.1.0.0.5.38" class="t-l s-1-versi" data-el="l" data-n="52">ἡ μὲν ἐπʼ ἐσχάρῃ ἧστο σὺν ἀμφιπόλοισι γυναιξὶν</div>
-               <div id="doc0:0.1.0.0.5.39" class="t-l s-1-versi" data-el="l" data-n="53">ἠλάκατα στρωφῶσʼ ἁλιπόρφυρα· τῷ δὲ θύραζε</div>
-               <div id="doc0:0.1.0.0.5.40" class="t-l s-1-versi" data-el="l" data-n="54">ἐρχομένῳ ξύμβλητο μετὰ κλειτοὺς βασιλῆας</div>
-               <div id="doc0:0.1.0.0.5.41" class="t-l s-1-versi ln5" data-el="l" data-n="55">ἐς βουλήν, ἵνα μιν κάλεον Φαίηκες ἀγαυοί.</div>
-               <div id="doc0:0.1.0.0.5.42" class="t-l s-1-versi" data-el="l" data-n="56">ἡ δὲ μάλʼ ἄγχι στᾶσα φίλον πατέρα προσέειπε·</div>
-               <span id="doc0:0.1.0.0.5.43" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.43.0" class="t-l s-1-versi" data-el="l" data-n="57">
-                     <span id="doc0:0.1.0.0.5.43.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>πάππα φίλʼ, οὐκ ἂν δή μοι ἐφοπλίσσειας
+               <div id="odissea:0.1.0.0.5.26" class="t-l s-1-versi" data-el="l" data-n="41">
+                  <span id="odissea:0.1.0.0.5.26.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ἡ μὲν ἄρʼ ὣς εἰποῦσʼ ἀπέβη γλαυκῶπις Ἀθήνη</div>
+               <div id="odissea:0.1.0.0.5.27" class="t-l s-1-versi" data-el="l" data-n="42">Οὔλυμπόνδʼ, ὅθι φασὶ θεῶν ἕδος ἀσφαλὲς αἰεὶ</div>
+               <div id="odissea:0.1.0.0.5.28" class="t-l s-1-versi" data-el="l" data-n="43">ἔμμεναι. οὔτʼ ἀνέμοισι τινάσσεται οὔτε ποτʼ ὄμβρῳ</div>
+               <div id="odissea:0.1.0.0.5.29" class="t-l s-1-versi" data-el="l" data-n="44">δεύεται οὔτε χιὼν ἐπιπίλναται, ἀλλὰ μάλʼ αἴθρη</div>
+               <div id="odissea:0.1.0.0.5.30" class="t-l s-1-versi ln5" data-el="l" data-n="45">πέπταται ἀνέφελος, λευκὴ δʼ ἐπιδέδρομεν αἴγλη·</div>
+               <div id="odissea:0.1.0.0.5.31" class="t-l s-1-versi" data-el="l" data-n="46">τῷ ἔνι τέρπονται μάκαρες θεοὶ ἤματα πάντα.</div>
+               <div id="odissea:0.1.0.0.5.32" class="t-l s-1-versi" data-el="l" data-n="47">ἔνθʼ ἀπέβη γλαυκῶπις, ἐπεὶ διεπέφραδε κούρῃ.</div>
+               <span id="odissea:0.1.0.0.5.33" class="t-milestone s-1-milestone" data-el="milestone" data-n="48"></span>
+               <div id="odissea:0.1.0.0.5.34" class="t-l s-1-versi" data-el="l" data-n="48">
+                  <span id="odissea:0.1.0.0.5.34.0" class="t-milestone s-1-milestone" data-el="milestone"></span>αὐτίκα δʼ Ἠὼς ἦλθεν ἐύθρονος, ἥ μιν ἔγειρε</div>
+               <div id="odissea:0.1.0.0.5.35" class="t-l s-1-versi" data-el="l" data-n="49">Ναυσικάαν ἐύπεπλον· ἄφαρ δʼ ἀπεθαύμασʼ ὄνειρον,</div>
+               <div id="odissea:0.1.0.0.5.36" class="t-l s-1-versi ln5" data-el="l" data-n="50">βῆ δʼ ἰέναι διὰ δώμαθʼ, ἵνʼ ἀγγείλειε τοκεῦσιν,</div>
+               <div id="odissea:0.1.0.0.5.37" class="t-l s-1-versi" data-el="l" data-n="51">πατρὶ φίλῳ καὶ μητρί· κιχήσατο δʼ ἔνδον ἐόντας·</div>
+               <div id="odissea:0.1.0.0.5.38" class="t-l s-1-versi" data-el="l" data-n="52">ἡ μὲν ἐπʼ ἐσχάρῃ ἧστο σὺν ἀμφιπόλοισι γυναιξὶν</div>
+               <div id="odissea:0.1.0.0.5.39" class="t-l s-1-versi" data-el="l" data-n="53">ἠλάκατα στρωφῶσʼ ἁλιπόρφυρα· τῷ δὲ θύραζε</div>
+               <div id="odissea:0.1.0.0.5.40" class="t-l s-1-versi" data-el="l" data-n="54">ἐρχομένῳ ξύμβλητο μετὰ κλειτοὺς βασιλῆας</div>
+               <div id="odissea:0.1.0.0.5.41" class="t-l s-1-versi ln5" data-el="l" data-n="55">ἐς βουλήν, ἵνα μιν κάλεον Φαίηκες ἀγαυοί.</div>
+               <div id="odissea:0.1.0.0.5.42" class="t-l s-1-versi" data-el="l" data-n="56">ἡ δὲ μάλʼ ἄγχι στᾶσα φίλον πατέρα προσέειπε·</div>
+               <span id="odissea:0.1.0.0.5.43" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.43.0" class="t-l s-1-versi" data-el="l" data-n="57">
+                     <span id="odissea:0.1.0.0.5.43.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>πάππα φίλʼ, οὐκ ἂν δή μοι ἐφοπλίσσειας
                      ἀπήνην</div>
-                  <div id="doc0:0.1.0.0.5.43.1" class="t-l s-1-versi" data-el="l" data-n="58">ὑψηλὴν ἐύκυκλον, ἵνα κλυτὰ εἵματʼ ἄγωμαι</div>
-                  <div id="doc0:0.1.0.0.5.43.2" class="t-l s-1-versi" data-el="l" data-n="59">ἐς ποταμὸν πλυνέουσα, τά μοι ῥερυπωμένα κεῖται;</div>
-                  <div id="doc0:0.1.0.0.5.43.3" class="t-l s-1-versi ln5" data-el="l" data-n="60">καὶ δὲ σοὶ αὐτῷ ἔοικε μετὰ πρώτοισιν ἐόντα</div>
-                  <div id="doc0:0.1.0.0.5.43.4" class="t-l s-1-versi" data-el="l" data-n="61">βουλὰς βουλεύειν καθαρὰ χροΐ εἵματʼ ἔχοντα.</div>
-                  <div id="doc0:0.1.0.0.5.43.5" class="t-l s-1-versi" data-el="l" data-n="62">πέντε δέ τοι φίλοι υἷες ἐνὶ μεγάροις γεγάασιν,</div>
-                  <div id="doc0:0.1.0.0.5.43.6" class="t-l s-1-versi" data-el="l" data-n="63">οἱ δύʼ ὀπυίοντες, τρεῖς δʼ ἠίθεοι θαλέθοντες·</div>
-                  <div id="doc0:0.1.0.0.5.43.7" class="t-l s-1-versi" data-el="l" data-n="64">οἱ δʼ αἰεὶ ἐθέλουσι νεόπλυτα εἵματʼ ἔχοντες</div>
-                  <div id="doc0:0.1.0.0.5.43.8" class="t-l s-1-versi ln5" data-el="l" data-n="65">ἐς χορὸν ἔρχεσθαι· τὰ δʼ ἐμῇ φρενὶ πάντα μέμηλεν.</div>
+                  <div id="odissea:0.1.0.0.5.43.1" class="t-l s-1-versi" data-el="l" data-n="58">ὑψηλὴν ἐύκυκλον, ἵνα κλυτὰ εἵματʼ ἄγωμαι</div>
+                  <div id="odissea:0.1.0.0.5.43.2" class="t-l s-1-versi" data-el="l" data-n="59">ἐς ποταμὸν πλυνέουσα, τά μοι ῥερυπωμένα κεῖται;</div>
+                  <div id="odissea:0.1.0.0.5.43.3" class="t-l s-1-versi ln5" data-el="l" data-n="60">καὶ δὲ σοὶ αὐτῷ ἔοικε μετὰ πρώτοισιν ἐόντα</div>
+                  <div id="odissea:0.1.0.0.5.43.4" class="t-l s-1-versi" data-el="l" data-n="61">βουλὰς βουλεύειν καθαρὰ χροΐ εἵματʼ ἔχοντα.</div>
+                  <div id="odissea:0.1.0.0.5.43.5" class="t-l s-1-versi" data-el="l" data-n="62">πέντε δέ τοι φίλοι υἷες ἐνὶ μεγάροις γεγάασιν,</div>
+                  <div id="odissea:0.1.0.0.5.43.6" class="t-l s-1-versi" data-el="l" data-n="63">οἱ δύʼ ὀπυίοντες, τρεῖς δʼ ἠίθεοι θαλέθοντες·</div>
+                  <div id="odissea:0.1.0.0.5.43.7" class="t-l s-1-versi" data-el="l" data-n="64">οἱ δʼ αἰεὶ ἐθέλουσι νεόπλυτα εἵματʼ ἔχοντες</div>
+                  <div id="odissea:0.1.0.0.5.43.8" class="t-l s-1-versi ln5" data-el="l" data-n="65">ἐς χορὸν ἔρχεσθαι· τὰ δʼ ἐμῇ φρενὶ πάντα μέμηλεν.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.44" class="t-l s-1-versi" data-el="l" data-n="66">
-                  <span id="doc0:0.1.0.0.5.44.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφατʼ· αἴδετο γὰρ θαλερὸν γάμον ἐξονομῆναι</div>
-               <div id="doc0:0.1.0.0.5.45" class="t-l s-1-versi" data-el="l" data-n="67">πατρὶ φίλῳ. ὁ δὲ πάντα νόει καὶ ἀμείβετο μύθῳ·</div>
-               <span id="doc0:0.1.0.0.5.46" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.46.0" class="t-l s-1-versi" data-el="l" data-n="68">οὔτε τοι ἡμιόνων φθονέω, τέκος, οὔτε τευ ἄλλου.</div>
-                  <div id="doc0:0.1.0.0.5.46.1" class="t-l s-1-versi" data-el="l" data-n="69">ἔρχευ· ἀτάρ τοι δμῶες ἐφοπλίσσουσιν ἀπήνην</div>
-                  <div id="doc0:0.1.0.0.5.46.2" class="t-l s-1-versi ln5" data-el="l" data-n="70">ὑψηλὴν ἐύκυκλον, ὑπερτερίῃ ἀραρυῖαν.</div>
+               <div id="odissea:0.1.0.0.5.44" class="t-l s-1-versi" data-el="l" data-n="66">
+                  <span id="odissea:0.1.0.0.5.44.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφατʼ· αἴδετο γὰρ θαλερὸν γάμον ἐξονομῆναι</div>
+               <div id="odissea:0.1.0.0.5.45" class="t-l s-1-versi" data-el="l" data-n="67">πατρὶ φίλῳ. ὁ δὲ πάντα νόει καὶ ἀμείβετο μύθῳ·</div>
+               <span id="odissea:0.1.0.0.5.46" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.46.0" class="t-l s-1-versi" data-el="l" data-n="68">οὔτε τοι ἡμιόνων φθονέω, τέκος, οὔτε τευ ἄλλου.</div>
+                  <div id="odissea:0.1.0.0.5.46.1" class="t-l s-1-versi" data-el="l" data-n="69">ἔρχευ· ἀτάρ τοι δμῶες ἐφοπλίσσουσιν ἀπήνην</div>
+                  <div id="odissea:0.1.0.0.5.46.2" class="t-l s-1-versi ln5" data-el="l" data-n="70">ὑψηλὴν ἐύκυκλον, ὑπερτερίῃ ἀραρυῖαν.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.47" class="t-l s-1-versi" data-el="l" data-n="71">
-                  <span id="doc0:0.1.0.0.5.47.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς εἰπὼν δμώεσσιν ἐκέκλετο, τοὶ δʼ ἐπίθοντο.</div>
-               <div id="doc0:0.1.0.0.5.48" class="t-l s-1-versi" data-el="l" data-n="72">οἱ μὲν ἄρʼ ἐκτὸς ἄμαξαν ἐύτροχον ἡμιονείην</div>
-               <div id="doc0:0.1.0.0.5.49" class="t-l s-1-versi" data-el="l" data-n="73">ὥπλεον, ἡμιόνους θʼ ὕπαγον ζεῦξάν θʼ ὑπʼ ἀπήνῃ·</div>
-               <div id="doc0:0.1.0.0.5.50" class="t-l s-1-versi" data-el="l" data-n="74">κούρη δʼ ἐκ θαλάμοιο φέρεν ἐσθῆτα φαεινήν.</div>
-               <div id="doc0:0.1.0.0.5.51" class="t-l s-1-versi ln5" data-el="l" data-n="75">καὶ τὴν μὲν κατέθηκεν ἐυξέστῳ ἐπʼ ἀπήνῃ,</div>
-               <div id="doc0:0.1.0.0.5.52" class="t-l s-1-versi" data-el="l" data-n="76">μήτηρ δʼ ἐν κίστῃ ἐτίθει μενοεικέʼ ἐδωδὴν</div>
-               <div id="doc0:0.1.0.0.5.53" class="t-l s-1-versi" data-el="l" data-n="77">παντοίην, ἐν δʼ ὄψα τίθει, ἐν δʼ οἶνον ἔχευεν</div>
-               <div id="doc0:0.1.0.0.5.54" class="t-l s-1-versi" data-el="l" data-n="78">ἀσκῷ ἐν αἰγείῳ· κούρη δʼ ἐπεβήσετʼ ἀπήνης.</div>
-               <div id="doc0:0.1.0.0.5.55" class="t-l s-1-versi" data-el="l" data-n="79">δῶκεν δὲ χρυσέῃ ἐν ληκύθῳ ὑγρὸν ἔλαιον,</div>
-               <div id="doc0:0.1.0.0.5.56" class="t-l s-1-versi ln5" data-el="l" data-n="80">ἧος χυτλώσαιτο σὺν ἀμφιπόλοισι γυναιξίν.</div>
-               <div id="doc0:0.1.0.0.5.57" class="t-l s-1-versi" data-el="l" data-n="81">ἡ δʼ ἔλαβεν μάστιγα καὶ ἡνία σιγαλόεντα,</div>
-               <div id="doc0:0.1.0.0.5.58" class="t-l s-1-versi" data-el="l" data-n="82">μάστιξεν δʼ ἐλάαν· καναχὴ δʼ ἦν ἡμιόνοιιν.</div>
-               <div id="doc0:0.1.0.0.5.59" class="t-l s-1-versi" data-el="l" data-n="83">αἱ δʼ ἄμοτον τανύοντο, φέρον δʼ ἐσθῆτα καὶ αὐτήν,</div>
-               <div id="doc0:0.1.0.0.5.60" class="t-l s-1-versi" data-el="l" data-n="84">οὐκ οἴην, ἅμα τῇ γε καὶ ἀμφίπολοι κίον ἄλλαι.</div>
-               <span id="doc0:0.1.0.0.5.61" class="t-milestone s-1-milestone" data-el="milestone" data-n="85"></span>
-               <div id="doc0:0.1.0.0.5.62" class="t-l s-1-versi ln5" data-el="l" data-n="85">
-                  <span id="doc0:0.1.0.0.5.62.0" class="t-milestone s-1-milestone" data-el="milestone"></span>αἱ δʼ ὅτε δὴ ποταμοῖο ῥόον περικαλλέʼ ἵκοντο,</div>
-               <div id="doc0:0.1.0.0.5.63" class="t-l s-1-versi" data-el="l" data-n="86">ἔνθʼ ἦ τοι πλυνοὶ ἦσαν ἐπηετανοί, πολὺ δʼ ὕδωρ</div>
-               <div id="doc0:0.1.0.0.5.64" class="t-l s-1-versi" data-el="l" data-n="87">καλὸν ὑπεκπρόρεεν μάλα περ ῥυπόωντα καθῆραι,</div>
-               <div id="doc0:0.1.0.0.5.65" class="t-l s-1-versi" data-el="l" data-n="88">ἔνθʼ αἵ γʼ ἡμιόνους μὲν ὑπεκπροέλυσαν ἀπήνης.</div>
-               <div id="doc0:0.1.0.0.5.66" class="t-l s-1-versi" data-el="l" data-n="89">καὶ τὰς μὲν σεῦαν ποταμὸν πάρα δινήεντα</div>
-               <div id="doc0:0.1.0.0.5.67" class="t-l s-1-versi ln5" data-el="l" data-n="90">τρώγειν ἄγρωστιν μελιηδέα· ταὶ δʼ ἀπʼ ἀπήνης</div>
-               <div id="doc0:0.1.0.0.5.68" class="t-l s-1-versi" data-el="l" data-n="91">εἵματα χερσὶν ἕλοντο καὶ ἐσφόρεον μέλαν ὕδωρ,</div>
-               <div id="doc0:0.1.0.0.5.69" class="t-l s-1-versi" data-el="l" data-n="92">στεῖβον δʼ ἐν βόθροισι θοῶς ἔριδα προφέρουσαι.</div>
-               <div id="doc0:0.1.0.0.5.70" class="t-l s-1-versi" data-el="l" data-n="93">αὐτὰρ ἐπεὶ πλῦνάν τε κάθηράν τε ῥύπα πάντα,</div>
-               <div id="doc0:0.1.0.0.5.71" class="t-l s-1-versi" data-el="l" data-n="94">ἑξείης πέτασαν παρὰ θῖνʼ ἁλός, ἧχι μάλιστα</div>
-               <div id="doc0:0.1.0.0.5.72" class="t-l s-1-versi ln5" data-el="l" data-n="95">λάιγγας ποτὶ χέρσον ἀποπλύνεσκε θάλασσα.</div>
-               <div id="doc0:0.1.0.0.5.73" class="t-l s-1-versi" data-el="l" data-n="96">αἱ δὲ λοεσσάμεναι καὶ χρισάμεναι λίπʼ ἐλαίῳ</div>
-               <div id="doc0:0.1.0.0.5.74" class="t-l s-1-versi" data-el="l" data-n="97">δεῖπνον ἔπειθʼ εἵλοντο παρʼ ὄχθῃσιν ποταμοῖο,</div>
-               <div id="doc0:0.1.0.0.5.75" class="t-l s-1-versi" data-el="l" data-n="98">εἵματα δʼ ἠελίοιο μένον τερσήμεναι αὐγῇ.</div>
-               <div id="doc0:0.1.0.0.5.76" class="t-l s-1-versi" data-el="l" data-n="99">αὐτὰρ ἐπεὶ σίτου τάρφθεν δμῳαί τε καὶ αὐτή,</div>
-               <div id="doc0:0.1.0.0.5.77" class="t-l s-1-versi ln5" data-el="l" data-n="100">σφαίρῃ ταὶ δʼ ἄρʼ ἔπαιζον, ἀπὸ κρήδεμνα βαλοῦσαι·</div>
-               <div id="doc0:0.1.0.0.5.78" class="t-l s-1-versi" data-el="l" data-n="101">τῇσι δὲ Ναυσικάα λευκώλενος ἤρχετο μολπῆς.</div>
-               <div id="doc0:0.1.0.0.5.79" class="t-l s-1-versi" data-el="l" data-n="102">οἵη δʼ Ἄρτεμις εἶσι κατʼ οὔρεα ἰοχέαιρα,</div>
-               <div id="doc0:0.1.0.0.5.80" class="t-l s-1-versi" data-el="l" data-n="103">ἢ κατὰ Τηΰγετον περιμήκετον ἢ Ἐρύμανθον,</div>
-               <div id="doc0:0.1.0.0.5.81" class="t-l s-1-versi" data-el="l" data-n="104">τερπομένη κάπροισι καὶ ὠκείῃς ἐλάφοισι·</div>
-               <div id="doc0:0.1.0.0.5.82" class="t-l s-1-versi ln5" data-el="l" data-n="105">τῇ δέ θʼ ἅμα νύμφαι, κοῦραι Διὸς αἰγιόχοιο,</div>
-               <div id="doc0:0.1.0.0.5.83" class="t-l s-1-versi" data-el="l" data-n="106">ἀγρονόμοι παίζουσι, γέγηθε δέ τε φρένα Λητώ·</div>
-               <div id="doc0:0.1.0.0.5.84" class="t-l s-1-versi" data-el="l" data-n="107">πασάων δʼ ὑπὲρ ἥ γε κάρη ἔχει ἠδὲ μέτωπα,</div>
-               <div id="doc0:0.1.0.0.5.85" class="t-l s-1-versi" data-el="l" data-n="108">ῥεῖά τʼ ἀριγνώτη πέλεται, καλαὶ δέ τε πᾶσαι·</div>
-               <div id="doc0:0.1.0.0.5.86" class="t-l s-1-versi" data-el="l" data-n="109">ὣς ἥ γʼ ἀμφιπόλοισι μετέπρεπε παρθένος ἀδμής.</div>
-               <div id="doc0:0.1.0.0.5.87" class="t-l s-1-versi ln5" data-el="l" data-n="110">
-                  <span id="doc0:0.1.0.0.5.87.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ἀλλʼ ὅτε δὴ ἄρʼ ἔμελλε πάλιν οἶκόνδε νέεσθαι</div>
-               <div id="doc0:0.1.0.0.5.88" class="t-l s-1-versi" data-el="l" data-n="111">ζεύξασʼ ἡμιόνους πτύξασά τε εἵματα καλά,</div>
-               <div id="doc0:0.1.0.0.5.89" class="t-l s-1-versi" data-el="l" data-n="112">ἔνθʼ αὖτʼ ἄλλʼ ἐνόησε θεά, γλαυκῶπις Ἀθήνη,</div>
-               <div id="doc0:0.1.0.0.5.90" class="t-l s-1-versi" data-el="l" data-n="113">ὡς Ὀδυσεὺς ἔγροιτο, ἴδοι τʼ ἐυώπιδα κούρην,</div>
-               <div id="doc0:0.1.0.0.5.91" class="t-l s-1-versi" data-el="l" data-n="114">ἥ οἱ Φαιήκων ἀνδρῶν πόλιν ἡγήσαιτο.</div>
-               <div id="doc0:0.1.0.0.5.92" class="t-l s-1-versi ln5" data-el="l" data-n="115">σφαῖραν ἔπειτʼ ἔρριψε μετʼ ἀμφίπολον βασίλεια·</div>
-               <div id="doc0:0.1.0.0.5.93" class="t-l s-1-versi" data-el="l" data-n="116">ἀμφιπόλου μὲν ἅμαρτε, βαθείῃ δʼ ἔμβαλε δίνῃ·</div>
-               <div id="doc0:0.1.0.0.5.94" class="t-l s-1-versi" data-el="l" data-n="117">αἱ δʼ ἐπὶ μακρὸν ἄυσαν· ὁ δʼ ἔγρετο δῖος Ὀδυσσεύς,</div>
-               <div id="doc0:0.1.0.0.5.95" class="t-l s-1-versi" data-el="l" data-n="118">ἑζόμενος δʼ ὥρμαινε κατὰ φρένα καὶ κατὰ θυμόν·</div>
-               <span id="doc0:0.1.0.0.5.96" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.96.0" class="t-l s-1-versi" data-el="l" data-n="119">
-                     <span id="doc0:0.1.0.0.5.96.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὤ μοι ἐγώ, τέων αὖτε βροτῶν ἐς γαῖαν ἱκάνω;</div>
-                  <div id="doc0:0.1.0.0.5.96.1" class="t-l s-1-versi ln5" data-el="l" data-n="120">ἦ ῥʼ οἵ γʼ ὑβρισταί τε καὶ ἄγριοι οὐδὲ δίκαιοι,</div>
-                  <div id="doc0:0.1.0.0.5.96.2" class="t-l s-1-versi" data-el="l" data-n="121">ἦε φιλόξεινοι καί σφιν νόος ἐστὶ θεουδής;</div>
-                  <div id="doc0:0.1.0.0.5.96.3" class="t-l s-1-versi" data-el="l" data-n="122">ὥς τέ με κουράων ἀμφήλυθε θῆλυς ἀυτή·</div>
-                  <div id="doc0:0.1.0.0.5.96.4" class="t-l s-1-versi" data-el="l" data-n="123">νυμφάων, αἳ ἔχουσʼ ὀρέων αἰπεινὰ κάρηνα</div>
-                  <div id="doc0:0.1.0.0.5.96.5" class="t-l s-1-versi" data-el="l" data-n="124">καὶ πηγὰς ποταμῶν καὶ πίσεα ποιήεντα.</div>
-                  <div id="doc0:0.1.0.0.5.96.6" class="t-l s-1-versi ln5" data-el="l" data-n="125">ἦ νύ που ἀνθρώπων εἰμὶ σχεδὸν αὐδηέντων;</div>
-                  <div id="doc0:0.1.0.0.5.96.7" class="t-l s-1-versi" data-el="l" data-n="126">ἀλλʼ ἄγʼ ἐγὼν αὐτὸς πειρήσομαι ἠδὲ ἴδωμαι.</div>
+               <div id="odissea:0.1.0.0.5.47" class="t-l s-1-versi" data-el="l" data-n="71">
+                  <span id="odissea:0.1.0.0.5.47.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς εἰπὼν δμώεσσιν ἐκέκλετο, τοὶ δʼ ἐπίθοντο.</div>
+               <div id="odissea:0.1.0.0.5.48" class="t-l s-1-versi" data-el="l" data-n="72">οἱ μὲν ἄρʼ ἐκτὸς ἄμαξαν ἐύτροχον ἡμιονείην</div>
+               <div id="odissea:0.1.0.0.5.49" class="t-l s-1-versi" data-el="l" data-n="73">ὥπλεον, ἡμιόνους θʼ ὕπαγον ζεῦξάν θʼ ὑπʼ ἀπήνῃ·</div>
+               <div id="odissea:0.1.0.0.5.50" class="t-l s-1-versi" data-el="l" data-n="74">κούρη δʼ ἐκ θαλάμοιο φέρεν ἐσθῆτα φαεινήν.</div>
+               <div id="odissea:0.1.0.0.5.51" class="t-l s-1-versi ln5" data-el="l" data-n="75">καὶ τὴν μὲν κατέθηκεν ἐυξέστῳ ἐπʼ ἀπήνῃ,</div>
+               <div id="odissea:0.1.0.0.5.52" class="t-l s-1-versi" data-el="l" data-n="76">μήτηρ δʼ ἐν κίστῃ ἐτίθει μενοεικέʼ ἐδωδὴν</div>
+               <div id="odissea:0.1.0.0.5.53" class="t-l s-1-versi" data-el="l" data-n="77">παντοίην, ἐν δʼ ὄψα τίθει, ἐν δʼ οἶνον ἔχευεν</div>
+               <div id="odissea:0.1.0.0.5.54" class="t-l s-1-versi" data-el="l" data-n="78">ἀσκῷ ἐν αἰγείῳ· κούρη δʼ ἐπεβήσετʼ ἀπήνης.</div>
+               <div id="odissea:0.1.0.0.5.55" class="t-l s-1-versi" data-el="l" data-n="79">δῶκεν δὲ χρυσέῃ ἐν ληκύθῳ ὑγρὸν ἔλαιον,</div>
+               <div id="odissea:0.1.0.0.5.56" class="t-l s-1-versi ln5" data-el="l" data-n="80">ἧος χυτλώσαιτο σὺν ἀμφιπόλοισι γυναιξίν.</div>
+               <div id="odissea:0.1.0.0.5.57" class="t-l s-1-versi" data-el="l" data-n="81">ἡ δʼ ἔλαβεν μάστιγα καὶ ἡνία σιγαλόεντα,</div>
+               <div id="odissea:0.1.0.0.5.58" class="t-l s-1-versi" data-el="l" data-n="82">μάστιξεν δʼ ἐλάαν· καναχὴ δʼ ἦν ἡμιόνοιιν.</div>
+               <div id="odissea:0.1.0.0.5.59" class="t-l s-1-versi" data-el="l" data-n="83">αἱ δʼ ἄμοτον τανύοντο, φέρον δʼ ἐσθῆτα καὶ αὐτήν,</div>
+               <div id="odissea:0.1.0.0.5.60" class="t-l s-1-versi" data-el="l" data-n="84">οὐκ οἴην, ἅμα τῇ γε καὶ ἀμφίπολοι κίον ἄλλαι.</div>
+               <span id="odissea:0.1.0.0.5.61" class="t-milestone s-1-milestone" data-el="milestone" data-n="85"></span>
+               <div id="odissea:0.1.0.0.5.62" class="t-l s-1-versi ln5" data-el="l" data-n="85">
+                  <span id="odissea:0.1.0.0.5.62.0" class="t-milestone s-1-milestone" data-el="milestone"></span>αἱ δʼ ὅτε δὴ ποταμοῖο ῥόον περικαλλέʼ ἵκοντο,</div>
+               <div id="odissea:0.1.0.0.5.63" class="t-l s-1-versi" data-el="l" data-n="86">ἔνθʼ ἦ τοι πλυνοὶ ἦσαν ἐπηετανοί, πολὺ δʼ ὕδωρ</div>
+               <div id="odissea:0.1.0.0.5.64" class="t-l s-1-versi" data-el="l" data-n="87">καλὸν ὑπεκπρόρεεν μάλα περ ῥυπόωντα καθῆραι,</div>
+               <div id="odissea:0.1.0.0.5.65" class="t-l s-1-versi" data-el="l" data-n="88">ἔνθʼ αἵ γʼ ἡμιόνους μὲν ὑπεκπροέλυσαν ἀπήνης.</div>
+               <div id="odissea:0.1.0.0.5.66" class="t-l s-1-versi" data-el="l" data-n="89">καὶ τὰς μὲν σεῦαν ποταμὸν πάρα δινήεντα</div>
+               <div id="odissea:0.1.0.0.5.67" class="t-l s-1-versi ln5" data-el="l" data-n="90">τρώγειν ἄγρωστιν μελιηδέα· ταὶ δʼ ἀπʼ ἀπήνης</div>
+               <div id="odissea:0.1.0.0.5.68" class="t-l s-1-versi" data-el="l" data-n="91">εἵματα χερσὶν ἕλοντο καὶ ἐσφόρεον μέλαν ὕδωρ,</div>
+               <div id="odissea:0.1.0.0.5.69" class="t-l s-1-versi" data-el="l" data-n="92">στεῖβον δʼ ἐν βόθροισι θοῶς ἔριδα προφέρουσαι.</div>
+               <div id="odissea:0.1.0.0.5.70" class="t-l s-1-versi" data-el="l" data-n="93">αὐτὰρ ἐπεὶ πλῦνάν τε κάθηράν τε ῥύπα πάντα,</div>
+               <div id="odissea:0.1.0.0.5.71" class="t-l s-1-versi" data-el="l" data-n="94">ἑξείης πέτασαν παρὰ θῖνʼ ἁλός, ἧχι μάλιστα</div>
+               <div id="odissea:0.1.0.0.5.72" class="t-l s-1-versi ln5" data-el="l" data-n="95">λάιγγας ποτὶ χέρσον ἀποπλύνεσκε θάλασσα.</div>
+               <div id="odissea:0.1.0.0.5.73" class="t-l s-1-versi" data-el="l" data-n="96">αἱ δὲ λοεσσάμεναι καὶ χρισάμεναι λίπʼ ἐλαίῳ</div>
+               <div id="odissea:0.1.0.0.5.74" class="t-l s-1-versi" data-el="l" data-n="97">δεῖπνον ἔπειθʼ εἵλοντο παρʼ ὄχθῃσιν ποταμοῖο,</div>
+               <div id="odissea:0.1.0.0.5.75" class="t-l s-1-versi" data-el="l" data-n="98">εἵματα δʼ ἠελίοιο μένον τερσήμεναι αὐγῇ.</div>
+               <div id="odissea:0.1.0.0.5.76" class="t-l s-1-versi" data-el="l" data-n="99">αὐτὰρ ἐπεὶ σίτου τάρφθεν δμῳαί τε καὶ αὐτή,</div>
+               <div id="odissea:0.1.0.0.5.77" class="t-l s-1-versi ln5" data-el="l" data-n="100">σφαίρῃ ταὶ δʼ ἄρʼ ἔπαιζον, ἀπὸ κρήδεμνα βαλοῦσαι·</div>
+               <div id="odissea:0.1.0.0.5.78" class="t-l s-1-versi" data-el="l" data-n="101">τῇσι δὲ Ναυσικάα λευκώλενος ἤρχετο μολπῆς.</div>
+               <div id="odissea:0.1.0.0.5.79" class="t-l s-1-versi" data-el="l" data-n="102">οἵη δʼ Ἄρτεμις εἶσι κατʼ οὔρεα ἰοχέαιρα,</div>
+               <div id="odissea:0.1.0.0.5.80" class="t-l s-1-versi" data-el="l" data-n="103">ἢ κατὰ Τηΰγετον περιμήκετον ἢ Ἐρύμανθον,</div>
+               <div id="odissea:0.1.0.0.5.81" class="t-l s-1-versi" data-el="l" data-n="104">τερπομένη κάπροισι καὶ ὠκείῃς ἐλάφοισι·</div>
+               <div id="odissea:0.1.0.0.5.82" class="t-l s-1-versi ln5" data-el="l" data-n="105">τῇ δέ θʼ ἅμα νύμφαι, κοῦραι Διὸς αἰγιόχοιο,</div>
+               <div id="odissea:0.1.0.0.5.83" class="t-l s-1-versi" data-el="l" data-n="106">ἀγρονόμοι παίζουσι, γέγηθε δέ τε φρένα Λητώ·</div>
+               <div id="odissea:0.1.0.0.5.84" class="t-l s-1-versi" data-el="l" data-n="107">πασάων δʼ ὑπὲρ ἥ γε κάρη ἔχει ἠδὲ μέτωπα,</div>
+               <div id="odissea:0.1.0.0.5.85" class="t-l s-1-versi" data-el="l" data-n="108">ῥεῖά τʼ ἀριγνώτη πέλεται, καλαὶ δέ τε πᾶσαι·</div>
+               <div id="odissea:0.1.0.0.5.86" class="t-l s-1-versi" data-el="l" data-n="109">ὣς ἥ γʼ ἀμφιπόλοισι μετέπρεπε παρθένος ἀδμής.</div>
+               <div id="odissea:0.1.0.0.5.87" class="t-l s-1-versi ln5" data-el="l" data-n="110">
+                  <span id="odissea:0.1.0.0.5.87.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ἀλλʼ ὅτε δὴ ἄρʼ ἔμελλε πάλιν οἶκόνδε νέεσθαι</div>
+               <div id="odissea:0.1.0.0.5.88" class="t-l s-1-versi" data-el="l" data-n="111">ζεύξασʼ ἡμιόνους πτύξασά τε εἵματα καλά,</div>
+               <div id="odissea:0.1.0.0.5.89" class="t-l s-1-versi" data-el="l" data-n="112">ἔνθʼ αὖτʼ ἄλλʼ ἐνόησε θεά, γλαυκῶπις Ἀθήνη,</div>
+               <div id="odissea:0.1.0.0.5.90" class="t-l s-1-versi" data-el="l" data-n="113">ὡς Ὀδυσεὺς ἔγροιτο, ἴδοι τʼ ἐυώπιδα κούρην,</div>
+               <div id="odissea:0.1.0.0.5.91" class="t-l s-1-versi" data-el="l" data-n="114">ἥ οἱ Φαιήκων ἀνδρῶν πόλιν ἡγήσαιτο.</div>
+               <div id="odissea:0.1.0.0.5.92" class="t-l s-1-versi ln5" data-el="l" data-n="115">σφαῖραν ἔπειτʼ ἔρριψε μετʼ ἀμφίπολον βασίλεια·</div>
+               <div id="odissea:0.1.0.0.5.93" class="t-l s-1-versi" data-el="l" data-n="116">ἀμφιπόλου μὲν ἅμαρτε, βαθείῃ δʼ ἔμβαλε δίνῃ·</div>
+               <div id="odissea:0.1.0.0.5.94" class="t-l s-1-versi" data-el="l" data-n="117">αἱ δʼ ἐπὶ μακρὸν ἄυσαν· ὁ δʼ ἔγρετο δῖος Ὀδυσσεύς,</div>
+               <div id="odissea:0.1.0.0.5.95" class="t-l s-1-versi" data-el="l" data-n="118">ἑζόμενος δʼ ὥρμαινε κατὰ φρένα καὶ κατὰ θυμόν·</div>
+               <span id="odissea:0.1.0.0.5.96" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.96.0" class="t-l s-1-versi" data-el="l" data-n="119">
+                     <span id="odissea:0.1.0.0.5.96.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὤ μοι ἐγώ, τέων αὖτε βροτῶν ἐς γαῖαν ἱκάνω;</div>
+                  <div id="odissea:0.1.0.0.5.96.1" class="t-l s-1-versi ln5" data-el="l" data-n="120">ἦ ῥʼ οἵ γʼ ὑβρισταί τε καὶ ἄγριοι οὐδὲ δίκαιοι,</div>
+                  <div id="odissea:0.1.0.0.5.96.2" class="t-l s-1-versi" data-el="l" data-n="121">ἦε φιλόξεινοι καί σφιν νόος ἐστὶ θεουδής;</div>
+                  <div id="odissea:0.1.0.0.5.96.3" class="t-l s-1-versi" data-el="l" data-n="122">ὥς τέ με κουράων ἀμφήλυθε θῆλυς ἀυτή·</div>
+                  <div id="odissea:0.1.0.0.5.96.4" class="t-l s-1-versi" data-el="l" data-n="123">νυμφάων, αἳ ἔχουσʼ ὀρέων αἰπεινὰ κάρηνα</div>
+                  <div id="odissea:0.1.0.0.5.96.5" class="t-l s-1-versi" data-el="l" data-n="124">καὶ πηγὰς ποταμῶν καὶ πίσεα ποιήεντα.</div>
+                  <div id="odissea:0.1.0.0.5.96.6" class="t-l s-1-versi ln5" data-el="l" data-n="125">ἦ νύ που ἀνθρώπων εἰμὶ σχεδὸν αὐδηέντων;</div>
+                  <div id="odissea:0.1.0.0.5.96.7" class="t-l s-1-versi" data-el="l" data-n="126">ἀλλʼ ἄγʼ ἐγὼν αὐτὸς πειρήσομαι ἠδὲ ἴδωμαι.</div>
                </span>
-               <span id="doc0:0.1.0.0.5.97" class="t-milestone s-1-milestone" data-el="milestone" data-n="127"></span>
-               <div id="doc0:0.1.0.0.5.98" class="t-l s-1-versi" data-el="l" data-n="127">
-                  <span id="doc0:0.1.0.0.5.98.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς εἰπὼν θάμνων ὑπεδύσετο δῖος Ὀδυσσεύς,</div>
-               <div id="doc0:0.1.0.0.5.99" class="t-l s-1-versi" data-el="l" data-n="128">ἐκ πυκινῆς δʼ ὕλης πτόρθον κλάσε χειρὶ παχείῃ</div>
-               <div id="doc0:0.1.0.0.5.100" class="t-l s-1-versi" data-el="l" data-n="129">φύλλων, ὡς ῥύσαιτο περὶ χροῒ μήδεα φωτός.</div>
-               <div id="doc0:0.1.0.0.5.101" class="t-l s-1-versi ln5" data-el="l" data-n="130">βῆ δʼ ἴμεν ὥς τε λέων ὀρεσίτροφος ἀλκὶ πεποιθώς,</div>
-               <div id="doc0:0.1.0.0.5.102" class="t-l s-1-versi" data-el="l" data-n="131">ὅς τʼ εἶσʼ ὑόμενος καὶ ἀήμενος, ἐν δέ οἱ ὄσσε</div>
-               <div id="doc0:0.1.0.0.5.103" class="t-l s-1-versi" data-el="l" data-n="132">δαίεται· αὐτὰρ ὁ βουσὶ μετέρχεται ἢ ὀίεσσιν</div>
-               <div id="doc0:0.1.0.0.5.104" class="t-l s-1-versi" data-el="l" data-n="133">ἠὲ μετʼ ἀγροτέρας ἐλάφους· κέλεται δέ ἑ γαστὴρ</div>
-               <div id="doc0:0.1.0.0.5.105" class="t-l s-1-versi" data-el="l" data-n="134">μήλων πειρήσοντα καὶ ἐς πυκινὸν δόμον ἐλθεῖν·</div>
-               <div id="doc0:0.1.0.0.5.106" class="t-l s-1-versi ln5" data-el="l" data-n="135">ὣς Ὀδυσεὺς κούρῃσιν ἐυπλοκάμοισιν ἔμελλε</div>
-               <div id="doc0:0.1.0.0.5.107" class="t-l s-1-versi" data-el="l" data-n="136">μίξεσθαι, γυμνός περ ἐών· χρειὼ γὰρ ἵκανε.</div>
-               <div id="doc0:0.1.0.0.5.108" class="t-l s-1-versi" data-el="l" data-n="137">σμερδαλέος δʼ αὐτῇσι φάνη κεκακωμένος ἅλμῃ,</div>
-               <div id="doc0:0.1.0.0.5.109" class="t-l s-1-versi" data-el="l" data-n="138">τρέσσαν δʼ ἄλλυδις ἄλλη ἐπʼ ἠιόνας προὐχούσας·</div>
-               <div id="doc0:0.1.0.0.5.110" class="t-l s-1-versi" data-el="l" data-n="139">οἴη δʼ Ἀλκινόου θυγάτηρ μένε· τῇ γὰρ Ἀθήνη</div>
-               <div id="doc0:0.1.0.0.5.111" class="t-l s-1-versi ln5" data-el="l" data-n="140">θάρσος ἐνὶ φρεσὶ θῆκε καὶ ἐκ δέος εἵλετο γυίων.</div>
-               <div id="doc0:0.1.0.0.5.112" class="t-l s-1-versi" data-el="l" data-n="141">στῆ δʼ ἄντα σχομένη· ὁ δὲ μερμήριξεν Ὀδυσσεύς,</div>
-               <div id="doc0:0.1.0.0.5.113" class="t-l s-1-versi" data-el="l" data-n="142">ἢ γούνων λίσσοιτο λαβὼν ἐυώπιδα κούρην,</div>
-               <div id="doc0:0.1.0.0.5.114" class="t-l s-1-versi" data-el="l" data-n="143">ἦ αὔτως ἐπέεσσιν ἀποσταδὰ μειλιχίοισι</div>
-               <div id="doc0:0.1.0.0.5.115" class="t-l s-1-versi" data-el="l" data-n="144">λίσσοιτʼ, εἰ δείξειε πόλιν καὶ εἵματα δοίη.</div>
-               <div id="doc0:0.1.0.0.5.116" class="t-l s-1-versi ln5" data-el="l" data-n="145">ὣς ἄρα οἱ φρονέοντι δοάσσατο κέρδιον εἶναι,</div>
-               <div id="doc0:0.1.0.0.5.117" class="t-l s-1-versi" data-el="l" data-n="146">λίσσεσθαι ἐπέεσσιν ἀποσταδὰ μειλιχίοισι,</div>
-               <div id="doc0:0.1.0.0.5.118" class="t-l s-1-versi" data-el="l" data-n="147">μή οἱ γοῦνα λαβόντι χολώσαιτο φρένα κούρη.</div>
-               <div id="doc0:0.1.0.0.5.119" class="t-l s-1-versi" data-el="l" data-n="148">αὐτίκα μειλίχιον καὶ κερδαλέον φάτο μῦθον.</div>
-               <span id="doc0:0.1.0.0.5.120" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.120.0" class="t-l s-1-versi" data-el="l" data-n="149">
-                     <span id="doc0:0.1.0.0.5.120.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>γουνοῦμαί σε, ἄνασσα· θεός νύ τις, ἦ βροτός
+               <span id="odissea:0.1.0.0.5.97" class="t-milestone s-1-milestone" data-el="milestone" data-n="127"></span>
+               <div id="odissea:0.1.0.0.5.98" class="t-l s-1-versi" data-el="l" data-n="127">
+                  <span id="odissea:0.1.0.0.5.98.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς εἰπὼν θάμνων ὑπεδύσετο δῖος Ὀδυσσεύς,</div>
+               <div id="odissea:0.1.0.0.5.99" class="t-l s-1-versi" data-el="l" data-n="128">ἐκ πυκινῆς δʼ ὕλης πτόρθον κλάσε χειρὶ παχείῃ</div>
+               <div id="odissea:0.1.0.0.5.100" class="t-l s-1-versi" data-el="l" data-n="129">φύλλων, ὡς ῥύσαιτο περὶ χροῒ μήδεα φωτός.</div>
+               <div id="odissea:0.1.0.0.5.101" class="t-l s-1-versi ln5" data-el="l" data-n="130">βῆ δʼ ἴμεν ὥς τε λέων ὀρεσίτροφος ἀλκὶ πεποιθώς,</div>
+               <div id="odissea:0.1.0.0.5.102" class="t-l s-1-versi" data-el="l" data-n="131">ὅς τʼ εἶσʼ ὑόμενος καὶ ἀήμενος, ἐν δέ οἱ ὄσσε</div>
+               <div id="odissea:0.1.0.0.5.103" class="t-l s-1-versi" data-el="l" data-n="132">δαίεται· αὐτὰρ ὁ βουσὶ μετέρχεται ἢ ὀίεσσιν</div>
+               <div id="odissea:0.1.0.0.5.104" class="t-l s-1-versi" data-el="l" data-n="133">ἠὲ μετʼ ἀγροτέρας ἐλάφους· κέλεται δέ ἑ γαστὴρ</div>
+               <div id="odissea:0.1.0.0.5.105" class="t-l s-1-versi" data-el="l" data-n="134">μήλων πειρήσοντα καὶ ἐς πυκινὸν δόμον ἐλθεῖν·</div>
+               <div id="odissea:0.1.0.0.5.106" class="t-l s-1-versi ln5" data-el="l" data-n="135">ὣς Ὀδυσεὺς κούρῃσιν ἐυπλοκάμοισιν ἔμελλε</div>
+               <div id="odissea:0.1.0.0.5.107" class="t-l s-1-versi" data-el="l" data-n="136">μίξεσθαι, γυμνός περ ἐών· χρειὼ γὰρ ἵκανε.</div>
+               <div id="odissea:0.1.0.0.5.108" class="t-l s-1-versi" data-el="l" data-n="137">σμερδαλέος δʼ αὐτῇσι φάνη κεκακωμένος ἅλμῃ,</div>
+               <div id="odissea:0.1.0.0.5.109" class="t-l s-1-versi" data-el="l" data-n="138">τρέσσαν δʼ ἄλλυδις ἄλλη ἐπʼ ἠιόνας προὐχούσας·</div>
+               <div id="odissea:0.1.0.0.5.110" class="t-l s-1-versi" data-el="l" data-n="139">οἴη δʼ Ἀλκινόου θυγάτηρ μένε· τῇ γὰρ Ἀθήνη</div>
+               <div id="odissea:0.1.0.0.5.111" class="t-l s-1-versi ln5" data-el="l" data-n="140">θάρσος ἐνὶ φρεσὶ θῆκε καὶ ἐκ δέος εἵλετο γυίων.</div>
+               <div id="odissea:0.1.0.0.5.112" class="t-l s-1-versi" data-el="l" data-n="141">στῆ δʼ ἄντα σχομένη· ὁ δὲ μερμήριξεν Ὀδυσσεύς,</div>
+               <div id="odissea:0.1.0.0.5.113" class="t-l s-1-versi" data-el="l" data-n="142">ἢ γούνων λίσσοιτο λαβὼν ἐυώπιδα κούρην,</div>
+               <div id="odissea:0.1.0.0.5.114" class="t-l s-1-versi" data-el="l" data-n="143">ἦ αὔτως ἐπέεσσιν ἀποσταδὰ μειλιχίοισι</div>
+               <div id="odissea:0.1.0.0.5.115" class="t-l s-1-versi" data-el="l" data-n="144">λίσσοιτʼ, εἰ δείξειε πόλιν καὶ εἵματα δοίη.</div>
+               <div id="odissea:0.1.0.0.5.116" class="t-l s-1-versi ln5" data-el="l" data-n="145">ὣς ἄρα οἱ φρονέοντι δοάσσατο κέρδιον εἶναι,</div>
+               <div id="odissea:0.1.0.0.5.117" class="t-l s-1-versi" data-el="l" data-n="146">λίσσεσθαι ἐπέεσσιν ἀποσταδὰ μειλιχίοισι,</div>
+               <div id="odissea:0.1.0.0.5.118" class="t-l s-1-versi" data-el="l" data-n="147">μή οἱ γοῦνα λαβόντι χολώσαιτο φρένα κούρη.</div>
+               <div id="odissea:0.1.0.0.5.119" class="t-l s-1-versi" data-el="l" data-n="148">αὐτίκα μειλίχιον καὶ κερδαλέον φάτο μῦθον.</div>
+               <span id="odissea:0.1.0.0.5.120" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.120.0" class="t-l s-1-versi" data-el="l" data-n="149">
+                     <span id="odissea:0.1.0.0.5.120.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>γουνοῦμαί σε, ἄνασσα· θεός νύ τις, ἦ βροτός
                      ἐσσι;</div>
-                  <div id="doc0:0.1.0.0.5.120.1" class="t-l s-1-versi ln5" data-el="l" data-n="150">εἰ μέν τις θεός ἐσσι, τοὶ οὐρανὸν εὐρὺν ἔχουσιν,</div>
-                  <div id="doc0:0.1.0.0.5.120.2" class="t-l s-1-versi" data-el="l" data-n="151">Ἀρτέμιδί σε ἐγώ γε, Διὸς κούρῃ μεγάλοιο,</div>
-                  <div id="doc0:0.1.0.0.5.120.3" class="t-l s-1-versi" data-el="l" data-n="152">εἶδός τε μέγεθός τε φυήν τʼ ἄγχιστα ἐίσκω·</div>
-                  <div id="doc0:0.1.0.0.5.120.4" class="t-l s-1-versi" data-el="l" data-n="153">εἰ δέ τίς ἐσσι βροτῶν, τοὶ ἐπὶ χθονὶ ναιετάουσιν,</div>
-                  <div id="doc0:0.1.0.0.5.120.5" class="t-l s-1-versi" data-el="l" data-n="154">τρὶς μάκαρες μὲν σοί γε πατὴρ καὶ πότνια μήτηρ,</div>
-                  <div id="doc0:0.1.0.0.5.120.6" class="t-l s-1-versi ln5" data-el="l" data-n="155">τρὶς μάκαρες δὲ κασίγνητοι· μάλα πού σφισι θυμὸς</div>
-                  <div id="doc0:0.1.0.0.5.120.7" class="t-l s-1-versi" data-el="l" data-n="156">αἰὲν ἐυφροσύνῃσιν ἰαίνεται εἵνεκα σεῖο,</div>
-                  <div id="doc0:0.1.0.0.5.120.8" class="t-l s-1-versi" data-el="l" data-n="157">λευσσόντων τοιόνδε θάλος χορὸν εἰσοιχνεῦσαν.</div>
-                  <div id="doc0:0.1.0.0.5.120.9" class="t-l s-1-versi" data-el="l" data-n="158">κεῖνος δʼ αὖ περὶ κῆρι μακάρτατος ἔξοχον ἄλλων,</div>
-                  <div id="doc0:0.1.0.0.5.120.10" class="t-l s-1-versi" data-el="l" data-n="159">ὅς κέ σʼ ἐέδνοισι βρίσας οἶκόνδʼ ἀγάγηται.</div>
-                  <div id="doc0:0.1.0.0.5.120.11" class="t-l s-1-versi ln5" data-el="l" data-n="160">οὐ γάρ πω τοιοῦτον ἴδον βροτὸν ὀφθαλμοῖσιν,</div>
-                  <div id="doc0:0.1.0.0.5.120.12" class="t-l s-1-versi" data-el="l" data-n="161">οὔτʼ ἄνδρʼ οὔτε γυναῖκα· σέβας μʼ ἔχει εἰσορόωντα.</div>
-                  <span id="doc0:0.1.0.0.5.120.13" class="t-milestone s-1-milestone" data-el="milestone" data-n="162"></span>
-                  <div id="doc0:0.1.0.0.5.120.14" class="t-l s-1-versi" data-el="l" data-n="162">Δήλῳ δή ποτε τοῖον Ἀπόλλωνος παρὰ βωμῷ</div>
-                  <div id="doc0:0.1.0.0.5.120.15" class="t-l s-1-versi" data-el="l" data-n="163">φοίνικος νέον ἔρνος ἀνερχόμενον ἐνόησα·</div>
-                  <div id="doc0:0.1.0.0.5.120.16" class="t-l s-1-versi" data-el="l" data-n="164">ἦλθον γὰρ καὶ κεῖσε, πολὺς δέ μοι ἕσπετο λαός,</div>
-                  <div id="doc0:0.1.0.0.5.120.17" class="t-l s-1-versi ln5" data-el="l" data-n="165">τὴν ὁδὸν ᾗ δὴ μέλλεν ἐμοὶ κακὰ κήδεʼ ἔσεσθαι.</div>
-                  <div id="doc0:0.1.0.0.5.120.18" class="t-l s-1-versi" data-el="l" data-n="166">ὣς δʼ αὔτως καὶ κεῖνο ἰδὼν ἐτεθήπεα θυμῷ</div>
-                  <div id="doc0:0.1.0.0.5.120.19" class="t-l s-1-versi" data-el="l" data-n="167">δήν, ἐπεὶ οὔ πω τοῖον ἀνήλυθεν ἐκ δόρυ γαίης,</div>
-                  <div id="doc0:0.1.0.0.5.120.20" class="t-l s-1-versi" data-el="l" data-n="168">ὡς σέ, γύναι, ἄγαμαί τε τέθηπά τε, δείδια δʼ αἰνῶς</div>
-                  <div id="doc0:0.1.0.0.5.120.21" class="t-l s-1-versi" data-el="l" data-n="169">γούνων ἅψασθαι· χαλεπὸν δέ με πένθος ἱκάνει.</div>
-                  <div id="doc0:0.1.0.0.5.120.22" class="t-l s-1-versi ln5" data-el="l" data-n="170">χθιζὸς ἐεικοστῷ φύγον ἤματι οἴνοπα πόντον·</div>
-                  <div id="doc0:0.1.0.0.5.120.23" class="t-l s-1-versi" data-el="l" data-n="171">τόφρα δέ μʼ αἰεὶ κῦμʼ ἐφόρει κραιπναί τε θύελλαι</div>
-                  <div id="doc0:0.1.0.0.5.120.24" class="t-l s-1-versi" data-el="l" data-n="172">νήσου ἀπʼ Ὠγυγίης. νῦν δʼ ἐνθάδε κάββαλε δαίμων,</div>
-                  <div id="doc0:0.1.0.0.5.120.25" class="t-l s-1-versi" data-el="l" data-n="173">ὄφρʼ ἔτι που καὶ τῇδε πάθω κακόν· οὐ γὰρ ὀίω</div>
-                  <div id="doc0:0.1.0.0.5.120.26" class="t-l s-1-versi" data-el="l" data-n="174">παύσεσθʼ, ἀλλʼ ἔτι πολλὰ θεοὶ τελέουσι πάροιθεν.</div>
-                  <div id="doc0:0.1.0.0.5.120.27" class="t-l s-1-versi ln5" data-el="l" data-n="175">ἀλλά, ἄνασσʼ, ἐλέαιρε· σὲ γὰρ κακὰ πολλὰ μογήσας</div>
-                  <div id="doc0:0.1.0.0.5.120.28" class="t-l s-1-versi" data-el="l" data-n="176">ἐς πρώτην ἱκόμην, τῶν δʼ ἄλλων οὔ τινα οἶδα</div>
-                  <div id="doc0:0.1.0.0.5.120.29" class="t-l s-1-versi" data-el="l" data-n="177">ἀνθρώπων, οἳ τήνδε πόλιν καὶ γαῖαν ἔχουσιν.</div>
-                  <div id="doc0:0.1.0.0.5.120.30" class="t-l s-1-versi" data-el="l" data-n="178">ἄστυ δέ μοι δεῖξον, δὸς δὲ ῥάκος ἀμφιβαλέσθαι,</div>
-                  <div id="doc0:0.1.0.0.5.120.31" class="t-l s-1-versi" data-el="l" data-n="179">εἴ τί που εἴλυμα σπείρων ἔχες ἐνθάδʼ ἰοῦσα.</div>
-                  <div id="doc0:0.1.0.0.5.120.32" class="t-l s-1-versi ln5" data-el="l" data-n="180">σοὶ δὲ θεοὶ τόσα δοῖεν ὅσα φρεσὶ σῇσι μενοινᾷς,</div>
-                  <div id="doc0:0.1.0.0.5.120.33" class="t-l s-1-versi" data-el="l" data-n="181">ἄνδρα τε καὶ οἶκον, καὶ ὁμοφροσύνην ὀπάσειαν</div>
-                  <div id="doc0:0.1.0.0.5.120.34" class="t-l s-1-versi" data-el="l" data-n="182">ἐσθλήν· οὐ μὲν γὰρ τοῦ γε κρεῖσσον καὶ ἄρειον,</div>
-                  <div id="doc0:0.1.0.0.5.120.35" class="t-l s-1-versi" data-el="l" data-n="183">ἢ ὅθʼ ὁμοφρονέοντε νοήμασιν οἶκον ἔχητον</div>
-                  <div id="doc0:0.1.0.0.5.120.36" class="t-l s-1-versi" data-el="l" data-n="184">ἀνὴρ ἠδὲ γυνή· πόλλʼ ἄλγεα δυσμενέεσσι,</div>
-                  <div id="doc0:0.1.0.0.5.120.37" class="t-l s-1-versi ln5" data-el="l" data-n="185">χάρματα δʼ εὐμενέτῃσι, μάλιστα δέ τʼ ἔκλυον αὐτοί.</div>
+                  <div id="odissea:0.1.0.0.5.120.1" class="t-l s-1-versi ln5" data-el="l" data-n="150">εἰ μέν τις θεός ἐσσι, τοὶ οὐρανὸν εὐρὺν ἔχουσιν,</div>
+                  <div id="odissea:0.1.0.0.5.120.2" class="t-l s-1-versi" data-el="l" data-n="151">Ἀρτέμιδί σε ἐγώ γε, Διὸς κούρῃ μεγάλοιο,</div>
+                  <div id="odissea:0.1.0.0.5.120.3" class="t-l s-1-versi" data-el="l" data-n="152">εἶδός τε μέγεθός τε φυήν τʼ ἄγχιστα ἐίσκω·</div>
+                  <div id="odissea:0.1.0.0.5.120.4" class="t-l s-1-versi" data-el="l" data-n="153">εἰ δέ τίς ἐσσι βροτῶν, τοὶ ἐπὶ χθονὶ ναιετάουσιν,</div>
+                  <div id="odissea:0.1.0.0.5.120.5" class="t-l s-1-versi" data-el="l" data-n="154">τρὶς μάκαρες μὲν σοί γε πατὴρ καὶ πότνια μήτηρ,</div>
+                  <div id="odissea:0.1.0.0.5.120.6" class="t-l s-1-versi ln5" data-el="l" data-n="155">τρὶς μάκαρες δὲ κασίγνητοι· μάλα πού σφισι θυμὸς</div>
+                  <div id="odissea:0.1.0.0.5.120.7" class="t-l s-1-versi" data-el="l" data-n="156">αἰὲν ἐυφροσύνῃσιν ἰαίνεται εἵνεκα σεῖο,</div>
+                  <div id="odissea:0.1.0.0.5.120.8" class="t-l s-1-versi" data-el="l" data-n="157">λευσσόντων τοιόνδε θάλος χορὸν εἰσοιχνεῦσαν.</div>
+                  <div id="odissea:0.1.0.0.5.120.9" class="t-l s-1-versi" data-el="l" data-n="158">κεῖνος δʼ αὖ περὶ κῆρι μακάρτατος ἔξοχον ἄλλων,</div>
+                  <div id="odissea:0.1.0.0.5.120.10" class="t-l s-1-versi" data-el="l" data-n="159">ὅς κέ σʼ ἐέδνοισι βρίσας οἶκόνδʼ ἀγάγηται.</div>
+                  <div id="odissea:0.1.0.0.5.120.11" class="t-l s-1-versi ln5" data-el="l" data-n="160">οὐ γάρ πω τοιοῦτον ἴδον βροτὸν ὀφθαλμοῖσιν,</div>
+                  <div id="odissea:0.1.0.0.5.120.12" class="t-l s-1-versi" data-el="l" data-n="161">οὔτʼ ἄνδρʼ οὔτε γυναῖκα· σέβας μʼ ἔχει εἰσορόωντα.</div>
+                  <span id="odissea:0.1.0.0.5.120.13" class="t-milestone s-1-milestone" data-el="milestone" data-n="162"></span>
+                  <div id="odissea:0.1.0.0.5.120.14" class="t-l s-1-versi" data-el="l" data-n="162">Δήλῳ δή ποτε τοῖον Ἀπόλλωνος παρὰ βωμῷ</div>
+                  <div id="odissea:0.1.0.0.5.120.15" class="t-l s-1-versi" data-el="l" data-n="163">φοίνικος νέον ἔρνος ἀνερχόμενον ἐνόησα·</div>
+                  <div id="odissea:0.1.0.0.5.120.16" class="t-l s-1-versi" data-el="l" data-n="164">ἦλθον γὰρ καὶ κεῖσε, πολὺς δέ μοι ἕσπετο λαός,</div>
+                  <div id="odissea:0.1.0.0.5.120.17" class="t-l s-1-versi ln5" data-el="l" data-n="165">τὴν ὁδὸν ᾗ δὴ μέλλεν ἐμοὶ κακὰ κήδεʼ ἔσεσθαι.</div>
+                  <div id="odissea:0.1.0.0.5.120.18" class="t-l s-1-versi" data-el="l" data-n="166">ὣς δʼ αὔτως καὶ κεῖνο ἰδὼν ἐτεθήπεα θυμῷ</div>
+                  <div id="odissea:0.1.0.0.5.120.19" class="t-l s-1-versi" data-el="l" data-n="167">δήν, ἐπεὶ οὔ πω τοῖον ἀνήλυθεν ἐκ δόρυ γαίης,</div>
+                  <div id="odissea:0.1.0.0.5.120.20" class="t-l s-1-versi" data-el="l" data-n="168">ὡς σέ, γύναι, ἄγαμαί τε τέθηπά τε, δείδια δʼ αἰνῶς</div>
+                  <div id="odissea:0.1.0.0.5.120.21" class="t-l s-1-versi" data-el="l" data-n="169">γούνων ἅψασθαι· χαλεπὸν δέ με πένθος ἱκάνει.</div>
+                  <div id="odissea:0.1.0.0.5.120.22" class="t-l s-1-versi ln5" data-el="l" data-n="170">χθιζὸς ἐεικοστῷ φύγον ἤματι οἴνοπα πόντον·</div>
+                  <div id="odissea:0.1.0.0.5.120.23" class="t-l s-1-versi" data-el="l" data-n="171">τόφρα δέ μʼ αἰεὶ κῦμʼ ἐφόρει κραιπναί τε θύελλαι</div>
+                  <div id="odissea:0.1.0.0.5.120.24" class="t-l s-1-versi" data-el="l" data-n="172">νήσου ἀπʼ Ὠγυγίης. νῦν δʼ ἐνθάδε κάββαλε δαίμων,</div>
+                  <div id="odissea:0.1.0.0.5.120.25" class="t-l s-1-versi" data-el="l" data-n="173">ὄφρʼ ἔτι που καὶ τῇδε πάθω κακόν· οὐ γὰρ ὀίω</div>
+                  <div id="odissea:0.1.0.0.5.120.26" class="t-l s-1-versi" data-el="l" data-n="174">παύσεσθʼ, ἀλλʼ ἔτι πολλὰ θεοὶ τελέουσι πάροιθεν.</div>
+                  <div id="odissea:0.1.0.0.5.120.27" class="t-l s-1-versi ln5" data-el="l" data-n="175">ἀλλά, ἄνασσʼ, ἐλέαιρε· σὲ γὰρ κακὰ πολλὰ μογήσας</div>
+                  <div id="odissea:0.1.0.0.5.120.28" class="t-l s-1-versi" data-el="l" data-n="176">ἐς πρώτην ἱκόμην, τῶν δʼ ἄλλων οὔ τινα οἶδα</div>
+                  <div id="odissea:0.1.0.0.5.120.29" class="t-l s-1-versi" data-el="l" data-n="177">ἀνθρώπων, οἳ τήνδε πόλιν καὶ γαῖαν ἔχουσιν.</div>
+                  <div id="odissea:0.1.0.0.5.120.30" class="t-l s-1-versi" data-el="l" data-n="178">ἄστυ δέ μοι δεῖξον, δὸς δὲ ῥάκος ἀμφιβαλέσθαι,</div>
+                  <div id="odissea:0.1.0.0.5.120.31" class="t-l s-1-versi" data-el="l" data-n="179">εἴ τί που εἴλυμα σπείρων ἔχες ἐνθάδʼ ἰοῦσα.</div>
+                  <div id="odissea:0.1.0.0.5.120.32" class="t-l s-1-versi ln5" data-el="l" data-n="180">σοὶ δὲ θεοὶ τόσα δοῖεν ὅσα φρεσὶ σῇσι μενοινᾷς,</div>
+                  <div id="odissea:0.1.0.0.5.120.33" class="t-l s-1-versi" data-el="l" data-n="181">ἄνδρα τε καὶ οἶκον, καὶ ὁμοφροσύνην ὀπάσειαν</div>
+                  <div id="odissea:0.1.0.0.5.120.34" class="t-l s-1-versi" data-el="l" data-n="182">ἐσθλήν· οὐ μὲν γὰρ τοῦ γε κρεῖσσον καὶ ἄρειον,</div>
+                  <div id="odissea:0.1.0.0.5.120.35" class="t-l s-1-versi" data-el="l" data-n="183">ἢ ὅθʼ ὁμοφρονέοντε νοήμασιν οἶκον ἔχητον</div>
+                  <div id="odissea:0.1.0.0.5.120.36" class="t-l s-1-versi" data-el="l" data-n="184">ἀνὴρ ἠδὲ γυνή· πόλλʼ ἄλγεα δυσμενέεσσι,</div>
+                  <div id="odissea:0.1.0.0.5.120.37" class="t-l s-1-versi ln5" data-el="l" data-n="185">χάρματα δʼ εὐμενέτῃσι, μάλιστα δέ τʼ ἔκλυον αὐτοί.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.121" class="t-l s-1-versi" data-el="l" data-n="186">
-                  <span id="doc0:0.1.0.0.5.121.0" class="t-milestone s-1-milestone" data-el="milestone"></span>τὸν δʼ αὖ Ναυσικάα λευκώλενος ἀντίον ηὔδα·</div>
-               <span id="doc0:0.1.0.0.5.122" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.122.0" class="t-l s-1-versi" data-el="l" data-n="187">ξεῖνʼ, ἐπεὶ οὔτε κακῷ οὔτʼ ἄφρονι φωτὶ ἔοικας·</div>
-                  <div id="doc0:0.1.0.0.5.122.1" class="t-l s-1-versi" data-el="l" data-n="188">Ζεὺς δʼ αὐτὸς νέμει ὄλβον Ὀλύμπιος ἀνθρώποισιν,</div>
-                  <div id="doc0:0.1.0.0.5.122.2" class="t-l s-1-versi" data-el="l" data-n="189">ἐσθλοῖς ἠδὲ κακοῖσιν, ὅπως ἐθέλῃσιν, ἑκάστῳ·</div>
-                  <div id="doc0:0.1.0.0.5.122.3" class="t-l s-1-versi ln5" data-el="l" data-n="190">καί που σοὶ τάδʼ ἔδωκε, σὲ δὲ χρὴ τετλάμεν ἔμπης.</div>
-                  <div id="doc0:0.1.0.0.5.122.4" class="t-l s-1-versi" data-el="l" data-n="191">νῦν δʼ, ἐπεὶ ἡμετέρην τε πόλιν καὶ γαῖαν ἱκάνεις,</div>
-                  <div id="doc0:0.1.0.0.5.122.5" class="t-l s-1-versi" data-el="l" data-n="192">οὔτʼ οὖν ἐσθῆτος δευήσεαι οὔτε τευ ἄλλου,</div>
-                  <div id="doc0:0.1.0.0.5.122.6" class="t-l s-1-versi" data-el="l" data-n="193">ὧν ἐπέοιχʼ ἱκέτην ταλαπείριον ἀντιάσαντα.</div>
-                  <div id="doc0:0.1.0.0.5.122.7" class="t-l s-1-versi" data-el="l" data-n="194">ἄστυ δέ τοι δείξω, ἐρέω δέ τοι οὔνομα λαῶν.</div>
-                  <div id="doc0:0.1.0.0.5.122.8" class="t-l s-1-versi ln5" data-el="l" data-n="195">Φαίηκες μὲν τήνδε πόλιν καὶ γαῖαν ἔχουσιν,</div>
-                  <div id="doc0:0.1.0.0.5.122.9" class="t-l s-1-versi" data-el="l" data-n="196">εἰμὶ δʼ ἐγὼ θυγάτηρ μεγαλήτορος Ἀλκινόοιο,</div>
-                  <div id="doc0:0.1.0.0.5.122.10" class="t-l s-1-versi" data-el="l" data-n="197">τοῦ δʼ ἐκ Φαιήκων ἔχεται κάρτος τε βίη τε.</div>
+               <div id="odissea:0.1.0.0.5.121" class="t-l s-1-versi" data-el="l" data-n="186">
+                  <span id="odissea:0.1.0.0.5.121.0" class="t-milestone s-1-milestone" data-el="milestone"></span>τὸν δʼ αὖ Ναυσικάα λευκώλενος ἀντίον ηὔδα·</div>
+               <span id="odissea:0.1.0.0.5.122" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.122.0" class="t-l s-1-versi" data-el="l" data-n="187">ξεῖνʼ, ἐπεὶ οὔτε κακῷ οὔτʼ ἄφρονι φωτὶ ἔοικας·</div>
+                  <div id="odissea:0.1.0.0.5.122.1" class="t-l s-1-versi" data-el="l" data-n="188">Ζεὺς δʼ αὐτὸς νέμει ὄλβον Ὀλύμπιος ἀνθρώποισιν,</div>
+                  <div id="odissea:0.1.0.0.5.122.2" class="t-l s-1-versi" data-el="l" data-n="189">ἐσθλοῖς ἠδὲ κακοῖσιν, ὅπως ἐθέλῃσιν, ἑκάστῳ·</div>
+                  <div id="odissea:0.1.0.0.5.122.3" class="t-l s-1-versi ln5" data-el="l" data-n="190">καί που σοὶ τάδʼ ἔδωκε, σὲ δὲ χρὴ τετλάμεν ἔμπης.</div>
+                  <div id="odissea:0.1.0.0.5.122.4" class="t-l s-1-versi" data-el="l" data-n="191">νῦν δʼ, ἐπεὶ ἡμετέρην τε πόλιν καὶ γαῖαν ἱκάνεις,</div>
+                  <div id="odissea:0.1.0.0.5.122.5" class="t-l s-1-versi" data-el="l" data-n="192">οὔτʼ οὖν ἐσθῆτος δευήσεαι οὔτε τευ ἄλλου,</div>
+                  <div id="odissea:0.1.0.0.5.122.6" class="t-l s-1-versi" data-el="l" data-n="193">ὧν ἐπέοιχʼ ἱκέτην ταλαπείριον ἀντιάσαντα.</div>
+                  <div id="odissea:0.1.0.0.5.122.7" class="t-l s-1-versi" data-el="l" data-n="194">ἄστυ δέ τοι δείξω, ἐρέω δέ τοι οὔνομα λαῶν.</div>
+                  <div id="odissea:0.1.0.0.5.122.8" class="t-l s-1-versi ln5" data-el="l" data-n="195">Φαίηκες μὲν τήνδε πόλιν καὶ γαῖαν ἔχουσιν,</div>
+                  <div id="odissea:0.1.0.0.5.122.9" class="t-l s-1-versi" data-el="l" data-n="196">εἰμὶ δʼ ἐγὼ θυγάτηρ μεγαλήτορος Ἀλκινόοιο,</div>
+                  <div id="odissea:0.1.0.0.5.122.10" class="t-l s-1-versi" data-el="l" data-n="197">τοῦ δʼ ἐκ Φαιήκων ἔχεται κάρτος τε βίη τε.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.123" class="t-l s-1-versi" data-el="l" data-n="198">
-                  <span id="doc0:0.1.0.0.5.123.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ἦ ῥα καὶ ἀμφιπόλοισιν ἐυπλοκάμοισι κέλευσε·</div>
-               <span id="doc0:0.1.0.0.5.124" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.124.0" class="t-l s-1-versi" data-el="l" data-n="199">στῆτέ μοι, ἀμφίπολοι· πόσε φεύγετε φῶτα ἰδοῦσαι;</div>
-                  <div id="doc0:0.1.0.0.5.124.1" class="t-l s-1-versi ln5" data-el="l" data-n="200">ἦ μή πού τινα δυσμενέων φάσθʼ ἔμμεναι ἀνδρῶν;</div>
-                  <div id="doc0:0.1.0.0.5.124.2" class="t-l s-1-versi" data-el="l" data-n="201">οὐκ ἔσθʼ οὗτος ἀνὴρ διερὸς βροτὸς οὐδὲ γένηται,</div>
-                  <div id="doc0:0.1.0.0.5.124.3" class="t-l s-1-versi" data-el="l" data-n="202">ὅς κεν Φαιήκων ἀνδρῶν ἐς γαῖαν ἵκηται</div>
-                  <div id="doc0:0.1.0.0.5.124.4" class="t-l s-1-versi" data-el="l" data-n="203">δηιοτῆτα φέρων· μάλα γὰρ φίλοι ἀθανάτοισιν.</div>
-                  <div id="doc0:0.1.0.0.5.124.5" class="t-l s-1-versi" data-el="l" data-n="204">οἰκέομεν δʼ ἀπάνευθε πολυκλύστῳ ἐνὶ πόντῳ,</div>
-                  <div id="doc0:0.1.0.0.5.124.6" class="t-l s-1-versi ln5" data-el="l" data-n="205">ἔσχατοι, οὐδέ τις ἄμμι βροτῶν ἐπιμίσγεται ἄλλος.</div>
-                  <div id="doc0:0.1.0.0.5.124.7" class="t-l s-1-versi" data-el="l" data-n="206">ἀλλʼ ὅδε τις δύστηνος ἀλώμενος ἐνθάδʼ ἱκάνει,</div>
-                  <div id="doc0:0.1.0.0.5.124.8" class="t-l s-1-versi" data-el="l" data-n="207">τὸν νῦν χρὴ κομέειν· πρὸς γὰρ Διός εἰσιν ἅπαντες</div>
-                  <div id="doc0:0.1.0.0.5.124.9" class="t-l s-1-versi" data-el="l" data-n="208">ξεῖνοί τε πτωχοί τε, δόσις δʼ ὀλίγη τε φίλη τε.</div>
-                  <div id="doc0:0.1.0.0.5.124.10" class="t-l s-1-versi" data-el="l" data-n="209">ἀλλὰ δότʼ, ἀμφίπολοι, ξείνῳ βρῶσίν τε πόσιν τε,</div>
-                  <div id="doc0:0.1.0.0.5.124.11" class="t-l s-1-versi ln5" data-el="l" data-n="210">λούσατέ τʼ ἐν ποταμῷ, ὅθʼ ἐπὶ σκέπας ἔστʼ ἀνέμοιο.</div>
+               <div id="odissea:0.1.0.0.5.123" class="t-l s-1-versi" data-el="l" data-n="198">
+                  <span id="odissea:0.1.0.0.5.123.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ἦ ῥα καὶ ἀμφιπόλοισιν ἐυπλοκάμοισι κέλευσε·</div>
+               <span id="odissea:0.1.0.0.5.124" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.124.0" class="t-l s-1-versi" data-el="l" data-n="199">στῆτέ μοι, ἀμφίπολοι· πόσε φεύγετε φῶτα ἰδοῦσαι;</div>
+                  <div id="odissea:0.1.0.0.5.124.1" class="t-l s-1-versi ln5" data-el="l" data-n="200">ἦ μή πού τινα δυσμενέων φάσθʼ ἔμμεναι ἀνδρῶν;</div>
+                  <div id="odissea:0.1.0.0.5.124.2" class="t-l s-1-versi" data-el="l" data-n="201">οὐκ ἔσθʼ οὗτος ἀνὴρ διερὸς βροτὸς οὐδὲ γένηται,</div>
+                  <div id="odissea:0.1.0.0.5.124.3" class="t-l s-1-versi" data-el="l" data-n="202">ὅς κεν Φαιήκων ἀνδρῶν ἐς γαῖαν ἵκηται</div>
+                  <div id="odissea:0.1.0.0.5.124.4" class="t-l s-1-versi" data-el="l" data-n="203">δηιοτῆτα φέρων· μάλα γὰρ φίλοι ἀθανάτοισιν.</div>
+                  <div id="odissea:0.1.0.0.5.124.5" class="t-l s-1-versi" data-el="l" data-n="204">οἰκέομεν δʼ ἀπάνευθε πολυκλύστῳ ἐνὶ πόντῳ,</div>
+                  <div id="odissea:0.1.0.0.5.124.6" class="t-l s-1-versi ln5" data-el="l" data-n="205">ἔσχατοι, οὐδέ τις ἄμμι βροτῶν ἐπιμίσγεται ἄλλος.</div>
+                  <div id="odissea:0.1.0.0.5.124.7" class="t-l s-1-versi" data-el="l" data-n="206">ἀλλʼ ὅδε τις δύστηνος ἀλώμενος ἐνθάδʼ ἱκάνει,</div>
+                  <div id="odissea:0.1.0.0.5.124.8" class="t-l s-1-versi" data-el="l" data-n="207">τὸν νῦν χρὴ κομέειν· πρὸς γὰρ Διός εἰσιν ἅπαντες</div>
+                  <div id="odissea:0.1.0.0.5.124.9" class="t-l s-1-versi" data-el="l" data-n="208">ξεῖνοί τε πτωχοί τε, δόσις δʼ ὀλίγη τε φίλη τε.</div>
+                  <div id="odissea:0.1.0.0.5.124.10" class="t-l s-1-versi" data-el="l" data-n="209">ἀλλὰ δότʼ, ἀμφίπολοι, ξείνῳ βρῶσίν τε πόσιν τε,</div>
+                  <div id="odissea:0.1.0.0.5.124.11" class="t-l s-1-versi ln5" data-el="l" data-n="210">λούσατέ τʼ ἐν ποταμῷ, ὅθʼ ἐπὶ σκέπας ἔστʼ ἀνέμοιο.</div>
                </span>
-               <span id="doc0:0.1.0.0.5.125" class="t-milestone s-1-milestone" data-el="milestone" data-n="211"></span>
-               <div id="doc0:0.1.0.0.5.126" class="t-l s-1-versi" data-el="l" data-n="211">
-                  <span id="doc0:0.1.0.0.5.126.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφαθʼ, αἱ δʼ ἔσταν τε καὶ ἀλλήλῃσι κέλευσαν,</div>
-               <div id="doc0:0.1.0.0.5.127" class="t-l s-1-versi" data-el="l" data-n="212">κὰδ δʼ ἄρʼ Ὀδυσσῆʼ εἷσαν ἐπὶ σκέπας, ὡς ἐκέλευσεν</div>
-               <div id="doc0:0.1.0.0.5.128" class="t-l s-1-versi" data-el="l" data-n="213">Ναυσικάα θυγάτηρ μεγαλήτορος Ἀλκινόοιο·</div>
-               <div id="doc0:0.1.0.0.5.129" class="t-l s-1-versi" data-el="l" data-n="214">πὰρ δʼ ἄρα οἱ φᾶρός τε χιτῶνά τε εἵματʼ ἔθηκαν,</div>
-               <div id="doc0:0.1.0.0.5.130" class="t-l s-1-versi ln5" data-el="l" data-n="215">δῶκαν δὲ χρυσέῃ ἐν ληκύθῳ ὑγρὸν ἔλαιον,</div>
-               <div id="doc0:0.1.0.0.5.131" class="t-l s-1-versi" data-el="l" data-n="216">ἤνωγον δʼ ἄρα μιν λοῦσθαι ποταμοῖο ῥοῇσιν.</div>
-               <div id="doc0:0.1.0.0.5.132" class="t-l s-1-versi" data-el="l" data-n="217">δή ῥα τότʼ ἀμφιπόλοισι μετηύδα δῖος Ὀδυσσεύς·</div>
-               <span id="doc0:0.1.0.0.5.133" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.133.0" class="t-l s-1-versi" data-el="l" data-n="218">ἀμφίπολοι, στῆθʼ οὕτω ἀπόπροθεν, ὄφρʼ ἐγὼ αὐτὸς</div>
-                  <div id="doc0:0.1.0.0.5.133.1" class="t-l s-1-versi" data-el="l" data-n="219">ἅλμην ὤμοιιν ἀπολούσομαι, ἀμφὶ δʼ ἐλαίῳ</div>
-                  <div id="doc0:0.1.0.0.5.133.2" class="t-l s-1-versi ln5" data-el="l" data-n="220">χρίσομαι· ἦ γὰρ δηρὸν ἀπὸ χροός ἐστιν ἀλοιφή.</div>
-                  <div id="doc0:0.1.0.0.5.133.3" class="t-l s-1-versi" data-el="l" data-n="221">ἄντην δʼ οὐκ ἂν ἐγώ γε λοέσσομαι· αἰδέομαι γὰρ</div>
-                  <div id="doc0:0.1.0.0.5.133.4" class="t-l s-1-versi" data-el="l" data-n="222">γυμνοῦσθαι κούρῃσιν ἐυπλοκάμοισι μετελθών.</div>
+               <span id="odissea:0.1.0.0.5.125" class="t-milestone s-1-milestone" data-el="milestone" data-n="211"></span>
+               <div id="odissea:0.1.0.0.5.126" class="t-l s-1-versi" data-el="l" data-n="211">
+                  <span id="odissea:0.1.0.0.5.126.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφαθʼ, αἱ δʼ ἔσταν τε καὶ ἀλλήλῃσι κέλευσαν,</div>
+               <div id="odissea:0.1.0.0.5.127" class="t-l s-1-versi" data-el="l" data-n="212">κὰδ δʼ ἄρʼ Ὀδυσσῆʼ εἷσαν ἐπὶ σκέπας, ὡς ἐκέλευσεν</div>
+               <div id="odissea:0.1.0.0.5.128" class="t-l s-1-versi" data-el="l" data-n="213">Ναυσικάα θυγάτηρ μεγαλήτορος Ἀλκινόοιο·</div>
+               <div id="odissea:0.1.0.0.5.129" class="t-l s-1-versi" data-el="l" data-n="214">πὰρ δʼ ἄρα οἱ φᾶρός τε χιτῶνά τε εἵματʼ ἔθηκαν,</div>
+               <div id="odissea:0.1.0.0.5.130" class="t-l s-1-versi ln5" data-el="l" data-n="215">δῶκαν δὲ χρυσέῃ ἐν ληκύθῳ ὑγρὸν ἔλαιον,</div>
+               <div id="odissea:0.1.0.0.5.131" class="t-l s-1-versi" data-el="l" data-n="216">ἤνωγον δʼ ἄρα μιν λοῦσθαι ποταμοῖο ῥοῇσιν.</div>
+               <div id="odissea:0.1.0.0.5.132" class="t-l s-1-versi" data-el="l" data-n="217">δή ῥα τότʼ ἀμφιπόλοισι μετηύδα δῖος Ὀδυσσεύς·</div>
+               <span id="odissea:0.1.0.0.5.133" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.133.0" class="t-l s-1-versi" data-el="l" data-n="218">ἀμφίπολοι, στῆθʼ οὕτω ἀπόπροθεν, ὄφρʼ ἐγὼ αὐτὸς</div>
+                  <div id="odissea:0.1.0.0.5.133.1" class="t-l s-1-versi" data-el="l" data-n="219">ἅλμην ὤμοιιν ἀπολούσομαι, ἀμφὶ δʼ ἐλαίῳ</div>
+                  <div id="odissea:0.1.0.0.5.133.2" class="t-l s-1-versi ln5" data-el="l" data-n="220">χρίσομαι· ἦ γὰρ δηρὸν ἀπὸ χροός ἐστιν ἀλοιφή.</div>
+                  <div id="odissea:0.1.0.0.5.133.3" class="t-l s-1-versi" data-el="l" data-n="221">ἄντην δʼ οὐκ ἂν ἐγώ γε λοέσσομαι· αἰδέομαι γὰρ</div>
+                  <div id="odissea:0.1.0.0.5.133.4" class="t-l s-1-versi" data-el="l" data-n="222">γυμνοῦσθαι κούρῃσιν ἐυπλοκάμοισι μετελθών.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.134" class="t-l s-1-versi" data-el="l" data-n="223">
-                  <span id="doc0:0.1.0.0.5.134.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφαθʼ, αἱ δʼ ἀπάνευθεν ἴσαν, εἶπον δʼ ἄρα
+               <div id="odissea:0.1.0.0.5.134" class="t-l s-1-versi" data-el="l" data-n="223">
+                  <span id="odissea:0.1.0.0.5.134.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφαθʼ, αἱ δʼ ἀπάνευθεν ἴσαν, εἶπον δʼ ἄρα
                   κούρῃ.</div>
-               <div id="doc0:0.1.0.0.5.135" class="t-l s-1-versi" data-el="l" data-n="224">αὐτὰρ ὁ ἐκ ποταμοῦ χρόα νίζετο δῖος Ὀδυσσεὺς</div>
-               <div id="doc0:0.1.0.0.5.136" class="t-l s-1-versi ln5" data-el="l" data-n="225">ἅλμην, ἥ οἱ νῶτα καὶ εὐρέας ἄμπεχεν ὤμους,</div>
-               <div id="doc0:0.1.0.0.5.137" class="t-l s-1-versi" data-el="l" data-n="226">ἐκ κεφαλῆς δʼ ἔσμηχεν ἁλὸς χνόον ἀτρυγέτοιο.</div>
-               <div id="doc0:0.1.0.0.5.138" class="t-l s-1-versi" data-el="l" data-n="227">αὐτὰρ ἐπεὶ δὴ πάντα λοέσσατο καὶ λίπʼ ἄλειψεν,</div>
-               <div id="doc0:0.1.0.0.5.139" class="t-l s-1-versi" data-el="l" data-n="228">ἀμφὶ δὲ εἵματα ἕσσαθʼ ἅ οἱ πόρε παρθένος ἀδμής,</div>
-               <div id="doc0:0.1.0.0.5.140" class="t-l s-1-versi" data-el="l" data-n="229">τὸν μὲν Ἀθηναίη θῆκεν Διὸς ἐκγεγαυῖα</div>
-               <div id="doc0:0.1.0.0.5.141" class="t-l s-1-versi ln5" data-el="l" data-n="230">μείζονά τʼ εἰσιδέειν καὶ πάσσονα, κὰδ δὲ κάρητος</div>
-               <div id="doc0:0.1.0.0.5.142" class="t-l s-1-versi" data-el="l" data-n="231">οὔλας ἧκε κόμας, ὑακινθίνῳ ἄνθει ὁμοίας.</div>
-               <div id="doc0:0.1.0.0.5.143" class="t-l s-1-versi" data-el="l" data-n="232">ὡς δʼ ὅτε τις χρυσὸν περιχεύεται ἀργύρῳ ἀνὴρ</div>
-               <div id="doc0:0.1.0.0.5.144" class="t-l s-1-versi" data-el="l" data-n="233">ἴδρις, ὃν Ἥφαιστος δέδαεν καὶ Παλλὰς Ἀθήνη</div>
-               <div id="doc0:0.1.0.0.5.145" class="t-l s-1-versi" data-el="l" data-n="234">τέχνην παντοίην, χαρίεντα δὲ ἔργα τελείει,</div>
-               <div id="doc0:0.1.0.0.5.146" class="t-l s-1-versi ln5" data-el="l" data-n="235">ὣς ἄρα τῷ κατέχευε χάριν κεφαλῇ τε καὶ ὤμοις.</div>
-               <div id="doc0:0.1.0.0.5.147" class="t-l s-1-versi" data-el="l" data-n="236">ἕζετʼ ἔπειτʼ ἀπάνευθε κιὼν ἐπὶ θῖνα θαλάσσης,</div>
-               <div id="doc0:0.1.0.0.5.148" class="t-l s-1-versi" data-el="l" data-n="237">κάλλεϊ καὶ χάρισι στίλβων· θηεῖτο δὲ κούρη.</div>
-               <div id="doc0:0.1.0.0.5.149" class="t-l s-1-versi" data-el="l" data-n="238">δή ῥα τότʼ ἀμφιπόλοισιν ἐυπλοκάμοισι μετηύδα·</div>
-               <span id="doc0:0.1.0.0.5.150" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.150.0" class="t-l s-1-versi" data-el="l" data-n="239">
-                     <span id="doc0:0.1.0.0.5.150.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>κλῦτέ μευ, ἀμφίπολοι λευκώλενοι, ὄφρα τι
+               <div id="odissea:0.1.0.0.5.135" class="t-l s-1-versi" data-el="l" data-n="224">αὐτὰρ ὁ ἐκ ποταμοῦ χρόα νίζετο δῖος Ὀδυσσεὺς</div>
+               <div id="odissea:0.1.0.0.5.136" class="t-l s-1-versi ln5" data-el="l" data-n="225">ἅλμην, ἥ οἱ νῶτα καὶ εὐρέας ἄμπεχεν ὤμους,</div>
+               <div id="odissea:0.1.0.0.5.137" class="t-l s-1-versi" data-el="l" data-n="226">ἐκ κεφαλῆς δʼ ἔσμηχεν ἁλὸς χνόον ἀτρυγέτοιο.</div>
+               <div id="odissea:0.1.0.0.5.138" class="t-l s-1-versi" data-el="l" data-n="227">αὐτὰρ ἐπεὶ δὴ πάντα λοέσσατο καὶ λίπʼ ἄλειψεν,</div>
+               <div id="odissea:0.1.0.0.5.139" class="t-l s-1-versi" data-el="l" data-n="228">ἀμφὶ δὲ εἵματα ἕσσαθʼ ἅ οἱ πόρε παρθένος ἀδμής,</div>
+               <div id="odissea:0.1.0.0.5.140" class="t-l s-1-versi" data-el="l" data-n="229">τὸν μὲν Ἀθηναίη θῆκεν Διὸς ἐκγεγαυῖα</div>
+               <div id="odissea:0.1.0.0.5.141" class="t-l s-1-versi ln5" data-el="l" data-n="230">μείζονά τʼ εἰσιδέειν καὶ πάσσονα, κὰδ δὲ κάρητος</div>
+               <div id="odissea:0.1.0.0.5.142" class="t-l s-1-versi" data-el="l" data-n="231">οὔλας ἧκε κόμας, ὑακινθίνῳ ἄνθει ὁμοίας.</div>
+               <div id="odissea:0.1.0.0.5.143" class="t-l s-1-versi" data-el="l" data-n="232">ὡς δʼ ὅτε τις χρυσὸν περιχεύεται ἀργύρῳ ἀνὴρ</div>
+               <div id="odissea:0.1.0.0.5.144" class="t-l s-1-versi" data-el="l" data-n="233">ἴδρις, ὃν Ἥφαιστος δέδαεν καὶ Παλλὰς Ἀθήνη</div>
+               <div id="odissea:0.1.0.0.5.145" class="t-l s-1-versi" data-el="l" data-n="234">τέχνην παντοίην, χαρίεντα δὲ ἔργα τελείει,</div>
+               <div id="odissea:0.1.0.0.5.146" class="t-l s-1-versi ln5" data-el="l" data-n="235">ὣς ἄρα τῷ κατέχευε χάριν κεφαλῇ τε καὶ ὤμοις.</div>
+               <div id="odissea:0.1.0.0.5.147" class="t-l s-1-versi" data-el="l" data-n="236">ἕζετʼ ἔπειτʼ ἀπάνευθε κιὼν ἐπὶ θῖνα θαλάσσης,</div>
+               <div id="odissea:0.1.0.0.5.148" class="t-l s-1-versi" data-el="l" data-n="237">κάλλεϊ καὶ χάρισι στίλβων· θηεῖτο δὲ κούρη.</div>
+               <div id="odissea:0.1.0.0.5.149" class="t-l s-1-versi" data-el="l" data-n="238">δή ῥα τότʼ ἀμφιπόλοισιν ἐυπλοκάμοισι μετηύδα·</div>
+               <span id="odissea:0.1.0.0.5.150" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.150.0" class="t-l s-1-versi" data-el="l" data-n="239">
+                     <span id="odissea:0.1.0.0.5.150.0.0" class="t-milestone s-1-milestone" data-el="milestone"></span>κλῦτέ μευ, ἀμφίπολοι λευκώλενοι, ὄφρα τι
                      εἴπω.</div>
-                  <div id="doc0:0.1.0.0.5.150.1" class="t-l s-1-versi ln5" data-el="l" data-n="240">οὐ πάντων ἀέκητι θεῶν, οἳ Ὄλυμπον ἔχουσιν,</div>
-                  <div id="doc0:0.1.0.0.5.150.2" class="t-l s-1-versi" data-el="l" data-n="241">Φαιήκεσσʼ ὅδʼ ἀνὴρ ἐπιμίσγεται ἀντιθέοισι·</div>
-                  <div id="doc0:0.1.0.0.5.150.3" class="t-l s-1-versi" data-el="l" data-n="242">πρόσθεν μὲν γὰρ δή μοι ἀεικέλιος δέατʼ εἶναι,</div>
-                  <div id="doc0:0.1.0.0.5.150.4" class="t-l s-1-versi" data-el="l" data-n="243">νῦν δὲ θεοῖσιν ἔοικε, τοὶ οὐρανὸν εὐρὺν ἔχουσιν.</div>
-                  <div id="doc0:0.1.0.0.5.150.5" class="t-l s-1-versi" data-el="l" data-n="244">αἲ γὰρ ἐμοὶ τοιόσδε πόσις κεκλημένος εἴη</div>
-                  <div id="doc0:0.1.0.0.5.150.6" class="t-l s-1-versi ln5" data-el="l" data-n="245">ἐνθάδε ναιετάων, καί οἱ ἅδοι αὐτόθι μίμνειν.</div>
-                  <div id="doc0:0.1.0.0.5.150.7" class="t-l s-1-versi" data-el="l" data-n="246">ἀλλὰ δότʼ, ἀμφίπολοι, ξείνῳ βρῶσίν τε πόσιν τε.</div>
+                  <div id="odissea:0.1.0.0.5.150.1" class="t-l s-1-versi ln5" data-el="l" data-n="240">οὐ πάντων ἀέκητι θεῶν, οἳ Ὄλυμπον ἔχουσιν,</div>
+                  <div id="odissea:0.1.0.0.5.150.2" class="t-l s-1-versi" data-el="l" data-n="241">Φαιήκεσσʼ ὅδʼ ἀνὴρ ἐπιμίσγεται ἀντιθέοισι·</div>
+                  <div id="odissea:0.1.0.0.5.150.3" class="t-l s-1-versi" data-el="l" data-n="242">πρόσθεν μὲν γὰρ δή μοι ἀεικέλιος δέατʼ εἶναι,</div>
+                  <div id="odissea:0.1.0.0.5.150.4" class="t-l s-1-versi" data-el="l" data-n="243">νῦν δὲ θεοῖσιν ἔοικε, τοὶ οὐρανὸν εὐρὺν ἔχουσιν.</div>
+                  <div id="odissea:0.1.0.0.5.150.5" class="t-l s-1-versi" data-el="l" data-n="244">αἲ γὰρ ἐμοὶ τοιόσδε πόσις κεκλημένος εἴη</div>
+                  <div id="odissea:0.1.0.0.5.150.6" class="t-l s-1-versi ln5" data-el="l" data-n="245">ἐνθάδε ναιετάων, καί οἱ ἅδοι αὐτόθι μίμνειν.</div>
+                  <div id="odissea:0.1.0.0.5.150.7" class="t-l s-1-versi" data-el="l" data-n="246">ἀλλὰ δότʼ, ἀμφίπολοι, ξείνῳ βρῶσίν τε πόσιν τε.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.151" class="t-l s-1-versi" data-el="l" data-n="247">
-                  <span id="doc0:0.1.0.0.5.151.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφαθʼ, αἱ δʼ ἄρα τῆς μάλα μὲν κλύον ἠδʼ
+               <div id="odissea:0.1.0.0.5.151" class="t-l s-1-versi" data-el="l" data-n="247">
+                  <span id="odissea:0.1.0.0.5.151.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφαθʼ, αἱ δʼ ἄρα τῆς μάλα μὲν κλύον ἠδʼ
                   ἐπίθοντο,</div>
-               <div id="doc0:0.1.0.0.5.152" class="t-l s-1-versi" data-el="l" data-n="248">πὰρ δʼ ἄρʼ Ὀδυσσῆι ἔθεσαν βρῶσίν τε πόσιν τε.</div>
-               <div id="doc0:0.1.0.0.5.153" class="t-l s-1-versi" data-el="l" data-n="249">ἦ τοι ὁ πῖνε καὶ ἦσθε πολύτλας δῖος Ὀδυσσεὺς</div>
-               <div id="doc0:0.1.0.0.5.154" class="t-l s-1-versi ln5" data-el="l" data-n="250">ἁρπαλέως· δηρὸν γὰρ ἐδητύος ἦεν ἄπαστος.</div>
-               <span id="doc0:0.1.0.0.5.155" class="t-milestone s-1-milestone" data-el="milestone" data-n="251"></span>
-               <div id="doc0:0.1.0.0.5.156" class="t-l s-1-versi" data-el="l" data-n="251">
-                  <span id="doc0:0.1.0.0.5.156.0" class="t-milestone s-1-milestone" data-el="milestone"></span>αὐτὰρ Ναυσικάα λευκώλενος ἄλλʼ ἐνόησεν·</div>
-               <div id="doc0:0.1.0.0.5.157" class="t-l s-1-versi" data-el="l" data-n="252">εἵματʼ ἄρα πτύξασα τίθει καλῆς ἐπʼ ἀπήνης,</div>
-               <div id="doc0:0.1.0.0.5.158" class="t-l s-1-versi" data-el="l" data-n="253">ζεῦξεν δʼ ἡμιόνους κρατερώνυχας, ἂν δʼ ἔβη αὐτή,</div>
-               <div id="doc0:0.1.0.0.5.159" class="t-l s-1-versi" data-el="l" data-n="254">ὤτρυνεν δʼ Ὀδυσῆα, ἔπος τʼ ἔφατʼ ἔκ τʼ ὀνόμαζεν·</div>
-               <span id="doc0:0.1.0.0.5.160" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.160.0" class="t-l s-1-versi ln5" data-el="l" data-n="255">ὄρσεο δὴ νῦν, ξεῖνε, πόλινδʼ ἴμεν ὄφρα σε πέμψω</div>
-                  <div id="doc0:0.1.0.0.5.160.1" class="t-l s-1-versi" data-el="l" data-n="256">πατρὸς ἐμοῦ πρὸς δῶμα δαΐφρονος, ἔνθα σέ φημι</div>
-                  <div id="doc0:0.1.0.0.5.160.2" class="t-l s-1-versi" data-el="l" data-n="257">πάντων Φαιήκων εἰδησέμεν ὅσσοι ἄριστοι.</div>
-                  <div id="doc0:0.1.0.0.5.160.3" class="t-l s-1-versi" data-el="l" data-n="258">ἀλλὰ μάλʼ ὧδʼ ἔρδειν, δοκέεις δέ μοι οὐκ ἀπινύσσειν·</div>
-                  <div id="doc0:0.1.0.0.5.160.4" class="t-l s-1-versi" data-el="l" data-n="259">ὄφρʼ ἂν μέν κʼ ἀγροὺς ἴομεν καὶ ἔργʼ ἀνθρώπων,</div>
-                  <div id="doc0:0.1.0.0.5.160.5" class="t-l s-1-versi ln5" data-el="l" data-n="260">τόφρα σὺν ἀμφιπόλοισι μεθʼ ἡμιόνους καὶ ἄμαξαν</div>
-                  <div id="doc0:0.1.0.0.5.160.6" class="t-l s-1-versi" data-el="l" data-n="261">καρπαλίμως ἔρχεσθαι· ἐγὼ δʼ ὁδὸν ἡγεμονεύσω.</div>
-                  <div id="doc0:0.1.0.0.5.160.7" class="t-l s-1-versi" data-el="l" data-n="262">αὐτὰρ ἐπὴν πόλιος ἐπιβήομεν, ἣν πέρι πύργος</div>
-                  <div id="doc0:0.1.0.0.5.160.8" class="t-l s-1-versi" data-el="l" data-n="263">ὑψηλός, καλὸς δὲ λιμὴν ἑκάτερθε πόληος,</div>
-                  <div id="doc0:0.1.0.0.5.160.9" class="t-l s-1-versi" data-el="l" data-n="264">λεπτὴ δʼ εἰσίθμη· νῆες δʼ ὁδὸν ἀμφιέλισσαι</div>
-                  <div id="doc0:0.1.0.0.5.160.10" class="t-l s-1-versi ln5" data-el="l" data-n="265">εἰρύαται· πᾶσιν γὰρ ἐπίστιόν ἐστιν ἑκάστῳ.</div>
-                  <div id="doc0:0.1.0.0.5.160.11" class="t-l s-1-versi" data-el="l" data-n="266">ἔνθα δέ τέ σφʼ ἀγορὴ καλὸν Ποσιδήιον ἀμφίς,</div>
-                  <div id="doc0:0.1.0.0.5.160.12" class="t-l s-1-versi" data-el="l" data-n="267">ῥυτοῖσιν λάεσσι κατωρυχέεσσʼ ἀραρυῖα.</div>
-                  <div id="doc0:0.1.0.0.5.160.13" class="t-l s-1-versi" data-el="l" data-n="268">ἔνθα δὲ νηῶν ὅπλα μελαινάων ἀλέγουσι,</div>
-                  <div id="doc0:0.1.0.0.5.160.14" class="t-l s-1-versi" data-el="l" data-n="269">πείσματα καὶ σπεῖρα, καὶ ἀποξύνουσιν ἐρετμά.</div>
-                  <div id="doc0:0.1.0.0.5.160.15" class="t-l s-1-versi ln5" data-el="l" data-n="270">οὐ γὰρ Φαιήκεσσι μέλει βιὸς οὐδὲ φαρέτρη,</div>
-                  <div id="doc0:0.1.0.0.5.160.16" class="t-l s-1-versi" data-el="l" data-n="271">ἀλλʼ ἱστοὶ καὶ ἐρετμὰ νεῶν καὶ νῆες ἐῖσαι,</div>
-                  <div id="doc0:0.1.0.0.5.160.17" class="t-l s-1-versi" data-el="l" data-n="272">ᾗσιν ἀγαλλόμενοι πολιὴν περόωσι θάλασσαν.</div>
-                  <div id="doc0:0.1.0.0.5.160.18" class="t-l s-1-versi" data-el="l" data-n="273">τῶν ἀλεείνω φῆμιν ἀδευκέα, μή τις ὀπίσσω</div>
-                  <div id="doc0:0.1.0.0.5.160.19" class="t-l s-1-versi" data-el="l" data-n="274">μωμεύῃ· μάλα δʼ εἰσὶν ὑπερφίαλοι κατὰ δῆμον·</div>
-                  <div id="doc0:0.1.0.0.5.160.20" class="t-l s-1-versi ln5" data-el="l" data-n="275">καί νύ τις ὧδʼ εἴπῃσι κακώτερος ἀντιβολήσας·</div>
-                  <span id="doc0:0.1.0.0.5.160.21" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                     <div id="doc0:0.1.0.0.5.160.21.0" class="t-l s-1-versi" data-el="l" data-n="276">τίς δʼ ὅδε Ναυσικάᾳ ἕπεται καλός τε μέγας τε</div>
-                     <div id="doc0:0.1.0.0.5.160.21.1" class="t-l s-1-versi" data-el="l" data-n="277">ξεῖνος; ποῦ δέ μιν εὗρε; πόσις νύ οἱ ἔσσεται αὐτῇ.</div>
-                     <div id="doc0:0.1.0.0.5.160.21.2" class="t-l s-1-versi" data-el="l" data-n="278">ἦ τινά που πλαγχθέντα κομίσσατο ἧς ἀπὸ νηὸς</div>
-                     <div id="doc0:0.1.0.0.5.160.21.3" class="t-l s-1-versi" data-el="l" data-n="279">ἀνδρῶν τηλεδαπῶν, ἐπεὶ οὔ τινες ἐγγύθεν εἰσίν·</div>
-                     <div id="doc0:0.1.0.0.5.160.21.4" class="t-l s-1-versi ln5" data-el="l" data-n="280">ἤ τίς οἱ εὐξαμένῃ πολυάρητος θεὸς ἦλθεν</div>
-                     <div id="doc0:0.1.0.0.5.160.21.5" class="t-l s-1-versi" data-el="l" data-n="281">οὐρανόθεν καταβάς, ἕξει δέ μιν ἤματα πάντα.</div>
-                     <div id="doc0:0.1.0.0.5.160.21.6" class="t-l s-1-versi" data-el="l" data-n="282">βέλτερον, εἰ καὐτή περ ἐποιχομένη πόσιν εὗρεν</div>
-                     <div id="doc0:0.1.0.0.5.160.21.7" class="t-l s-1-versi" data-el="l" data-n="283">ἄλλοθεν· ἦ γὰρ τούσδε γʼ ἀτιμάζει κατὰ δῆμον</div>
-                     <div id="doc0:0.1.0.0.5.160.21.8" class="t-l s-1-versi" data-el="l" data-n="284">Φαίηκας, τοί μιν μνῶνται πολέες τε καὶ ἐσθλοί.</div>
+               <div id="odissea:0.1.0.0.5.152" class="t-l s-1-versi" data-el="l" data-n="248">πὰρ δʼ ἄρʼ Ὀδυσσῆι ἔθεσαν βρῶσίν τε πόσιν τε.</div>
+               <div id="odissea:0.1.0.0.5.153" class="t-l s-1-versi" data-el="l" data-n="249">ἦ τοι ὁ πῖνε καὶ ἦσθε πολύτλας δῖος Ὀδυσσεὺς</div>
+               <div id="odissea:0.1.0.0.5.154" class="t-l s-1-versi ln5" data-el="l" data-n="250">ἁρπαλέως· δηρὸν γὰρ ἐδητύος ἦεν ἄπαστος.</div>
+               <span id="odissea:0.1.0.0.5.155" class="t-milestone s-1-milestone" data-el="milestone" data-n="251"></span>
+               <div id="odissea:0.1.0.0.5.156" class="t-l s-1-versi" data-el="l" data-n="251">
+                  <span id="odissea:0.1.0.0.5.156.0" class="t-milestone s-1-milestone" data-el="milestone"></span>αὐτὰρ Ναυσικάα λευκώλενος ἄλλʼ ἐνόησεν·</div>
+               <div id="odissea:0.1.0.0.5.157" class="t-l s-1-versi" data-el="l" data-n="252">εἵματʼ ἄρα πτύξασα τίθει καλῆς ἐπʼ ἀπήνης,</div>
+               <div id="odissea:0.1.0.0.5.158" class="t-l s-1-versi" data-el="l" data-n="253">ζεῦξεν δʼ ἡμιόνους κρατερώνυχας, ἂν δʼ ἔβη αὐτή,</div>
+               <div id="odissea:0.1.0.0.5.159" class="t-l s-1-versi" data-el="l" data-n="254">ὤτρυνεν δʼ Ὀδυσῆα, ἔπος τʼ ἔφατʼ ἔκ τʼ ὀνόμαζεν·</div>
+               <span id="odissea:0.1.0.0.5.160" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.160.0" class="t-l s-1-versi ln5" data-el="l" data-n="255">ὄρσεο δὴ νῦν, ξεῖνε, πόλινδʼ ἴμεν ὄφρα σε πέμψω</div>
+                  <div id="odissea:0.1.0.0.5.160.1" class="t-l s-1-versi" data-el="l" data-n="256">πατρὸς ἐμοῦ πρὸς δῶμα δαΐφρονος, ἔνθα σέ φημι</div>
+                  <div id="odissea:0.1.0.0.5.160.2" class="t-l s-1-versi" data-el="l" data-n="257">πάντων Φαιήκων εἰδησέμεν ὅσσοι ἄριστοι.</div>
+                  <div id="odissea:0.1.0.0.5.160.3" class="t-l s-1-versi" data-el="l" data-n="258">ἀλλὰ μάλʼ ὧδʼ ἔρδειν, δοκέεις δέ μοι οὐκ ἀπινύσσειν·</div>
+                  <div id="odissea:0.1.0.0.5.160.4" class="t-l s-1-versi" data-el="l" data-n="259">ὄφρʼ ἂν μέν κʼ ἀγροὺς ἴομεν καὶ ἔργʼ ἀνθρώπων,</div>
+                  <div id="odissea:0.1.0.0.5.160.5" class="t-l s-1-versi ln5" data-el="l" data-n="260">τόφρα σὺν ἀμφιπόλοισι μεθʼ ἡμιόνους καὶ ἄμαξαν</div>
+                  <div id="odissea:0.1.0.0.5.160.6" class="t-l s-1-versi" data-el="l" data-n="261">καρπαλίμως ἔρχεσθαι· ἐγὼ δʼ ὁδὸν ἡγεμονεύσω.</div>
+                  <div id="odissea:0.1.0.0.5.160.7" class="t-l s-1-versi" data-el="l" data-n="262">αὐτὰρ ἐπὴν πόλιος ἐπιβήομεν, ἣν πέρι πύργος</div>
+                  <div id="odissea:0.1.0.0.5.160.8" class="t-l s-1-versi" data-el="l" data-n="263">ὑψηλός, καλὸς δὲ λιμὴν ἑκάτερθε πόληος,</div>
+                  <div id="odissea:0.1.0.0.5.160.9" class="t-l s-1-versi" data-el="l" data-n="264">λεπτὴ δʼ εἰσίθμη· νῆες δʼ ὁδὸν ἀμφιέλισσαι</div>
+                  <div id="odissea:0.1.0.0.5.160.10" class="t-l s-1-versi ln5" data-el="l" data-n="265">εἰρύαται· πᾶσιν γὰρ ἐπίστιόν ἐστιν ἑκάστῳ.</div>
+                  <div id="odissea:0.1.0.0.5.160.11" class="t-l s-1-versi" data-el="l" data-n="266">ἔνθα δέ τέ σφʼ ἀγορὴ καλὸν Ποσιδήιον ἀμφίς,</div>
+                  <div id="odissea:0.1.0.0.5.160.12" class="t-l s-1-versi" data-el="l" data-n="267">ῥυτοῖσιν λάεσσι κατωρυχέεσσʼ ἀραρυῖα.</div>
+                  <div id="odissea:0.1.0.0.5.160.13" class="t-l s-1-versi" data-el="l" data-n="268">ἔνθα δὲ νηῶν ὅπλα μελαινάων ἀλέγουσι,</div>
+                  <div id="odissea:0.1.0.0.5.160.14" class="t-l s-1-versi" data-el="l" data-n="269">πείσματα καὶ σπεῖρα, καὶ ἀποξύνουσιν ἐρετμά.</div>
+                  <div id="odissea:0.1.0.0.5.160.15" class="t-l s-1-versi ln5" data-el="l" data-n="270">οὐ γὰρ Φαιήκεσσι μέλει βιὸς οὐδὲ φαρέτρη,</div>
+                  <div id="odissea:0.1.0.0.5.160.16" class="t-l s-1-versi" data-el="l" data-n="271">ἀλλʼ ἱστοὶ καὶ ἐρετμὰ νεῶν καὶ νῆες ἐῖσαι,</div>
+                  <div id="odissea:0.1.0.0.5.160.17" class="t-l s-1-versi" data-el="l" data-n="272">ᾗσιν ἀγαλλόμενοι πολιὴν περόωσι θάλασσαν.</div>
+                  <div id="odissea:0.1.0.0.5.160.18" class="t-l s-1-versi" data-el="l" data-n="273">τῶν ἀλεείνω φῆμιν ἀδευκέα, μή τις ὀπίσσω</div>
+                  <div id="odissea:0.1.0.0.5.160.19" class="t-l s-1-versi" data-el="l" data-n="274">μωμεύῃ· μάλα δʼ εἰσὶν ὑπερφίαλοι κατὰ δῆμον·</div>
+                  <div id="odissea:0.1.0.0.5.160.20" class="t-l s-1-versi ln5" data-el="l" data-n="275">καί νύ τις ὧδʼ εἴπῃσι κακώτερος ἀντιβολήσας·</div>
+                  <span id="odissea:0.1.0.0.5.160.21" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                     <div id="odissea:0.1.0.0.5.160.21.0" class="t-l s-1-versi" data-el="l" data-n="276">τίς δʼ ὅδε Ναυσικάᾳ ἕπεται καλός τε μέγας τε</div>
+                     <div id="odissea:0.1.0.0.5.160.21.1" class="t-l s-1-versi" data-el="l" data-n="277">ξεῖνος; ποῦ δέ μιν εὗρε; πόσις νύ οἱ ἔσσεται αὐτῇ.</div>
+                     <div id="odissea:0.1.0.0.5.160.21.2" class="t-l s-1-versi" data-el="l" data-n="278">ἦ τινά που πλαγχθέντα κομίσσατο ἧς ἀπὸ νηὸς</div>
+                     <div id="odissea:0.1.0.0.5.160.21.3" class="t-l s-1-versi" data-el="l" data-n="279">ἀνδρῶν τηλεδαπῶν, ἐπεὶ οὔ τινες ἐγγύθεν εἰσίν·</div>
+                     <div id="odissea:0.1.0.0.5.160.21.4" class="t-l s-1-versi ln5" data-el="l" data-n="280">ἤ τίς οἱ εὐξαμένῃ πολυάρητος θεὸς ἦλθεν</div>
+                     <div id="odissea:0.1.0.0.5.160.21.5" class="t-l s-1-versi" data-el="l" data-n="281">οὐρανόθεν καταβάς, ἕξει δέ μιν ἤματα πάντα.</div>
+                     <div id="odissea:0.1.0.0.5.160.21.6" class="t-l s-1-versi" data-el="l" data-n="282">βέλτερον, εἰ καὐτή περ ἐποιχομένη πόσιν εὗρεν</div>
+                     <div id="odissea:0.1.0.0.5.160.21.7" class="t-l s-1-versi" data-el="l" data-n="283">ἄλλοθεν· ἦ γὰρ τούσδε γʼ ἀτιμάζει κατὰ δῆμον</div>
+                     <div id="odissea:0.1.0.0.5.160.21.8" class="t-l s-1-versi" data-el="l" data-n="284">Φαίηκας, τοί μιν μνῶνται πολέες τε καὶ ἐσθλοί.</div>
                   </span>
-                  <div id="doc0:0.1.0.0.5.160.22" class="t-l s-1-versi ln5" data-el="l" data-n="285">ὣς ἐρέουσιν, ἐμοὶ δέ κʼ ὀνείδεα ταῦτα γένοιτο.</div>
-                  <div id="doc0:0.1.0.0.5.160.23" class="t-l s-1-versi" data-el="l" data-n="286">καὶ δʼ ἄλλῃ νεμεσῶ, ἥ τις τοιαῦτά γε ῥέζοι,</div>
-                  <div id="doc0:0.1.0.0.5.160.24" class="t-l s-1-versi" data-el="l" data-n="287">ἥ τʼ ἀέκητι φίλων πατρὸς καὶ μητρὸς ἐόντων,</div>
-                  <div id="doc0:0.1.0.0.5.160.25" class="t-l s-1-versi" data-el="l" data-n="288">ἀνδράσι μίσγηται, πρίν γʼ ἀμφάδιον γάμον ἐλθεῖν.</div>
-                  <span id="doc0:0.1.0.0.5.160.26" class="t-milestone s-1-milestone" data-el="milestone" data-n="288"></span>
-                  <div id="doc0:0.1.0.0.5.160.27" class="t-l s-1-versi" data-el="l" data-n="289">ξεῖνε, σὺ δʼ ὦκʼ ἐμέθεν ξυνίει ἔπος, ὄφρα τάχιστα</div>
-                  <div id="doc0:0.1.0.0.5.160.28" class="t-l s-1-versi ln5" data-el="l" data-n="290">πομπῆς καὶ νόστοιο τύχῃς παρὰ πατρὸς ἐμοῖο.</div>
-                  <div id="doc0:0.1.0.0.5.160.29" class="t-l s-1-versi" data-el="l" data-n="291">δήεις ἀγλαὸν ἄλσος Ἀθήνης ἄγχι κελεύθου</div>
-                  <div id="doc0:0.1.0.0.5.160.30" class="t-l s-1-versi" data-el="l" data-n="292">αἰγείρων· ἐν δὲ κρήνη νάει, ἀμφὶ δὲ λειμών·</div>
-                  <div id="doc0:0.1.0.0.5.160.31" class="t-l s-1-versi" data-el="l" data-n="293">ἔνθα δὲ πατρὸς ἐμοῦ τέμενος τεθαλυῖά τʼ ἀλωή,</div>
-                  <div id="doc0:0.1.0.0.5.160.32" class="t-l s-1-versi" data-el="l" data-n="294">τόσσον ἀπὸ πτόλιος, ὅσσον τε γέγωνε βοήσας.</div>
-                  <div id="doc0:0.1.0.0.5.160.33" class="t-l s-1-versi ln5" data-el="l" data-n="295">ἔνθα καθεζόμενος μεῖναι χρόνον, εἰς ὅ κεν ἡμεῖς</div>
-                  <div id="doc0:0.1.0.0.5.160.34" class="t-l s-1-versi" data-el="l" data-n="296">ἄστυδε ἔλθωμεν καὶ ἱκώμεθα δώματα πατρός.</div>
-                  <div id="doc0:0.1.0.0.5.160.35" class="t-l s-1-versi" data-el="l" data-n="297">αὐτὰρ ἐπὴν ἡμέας ἔλπῃ ποτὶ δώματʼ ἀφῖχθαι,</div>
-                  <div id="doc0:0.1.0.0.5.160.36" class="t-l s-1-versi" data-el="l" data-n="298">καὶ τότε Φαιήκων ἴμεν ἐς πόλιν ἠδʼ ἐρέεσθαι</div>
-                  <div id="doc0:0.1.0.0.5.160.37" class="t-l s-1-versi" data-el="l" data-n="299">δώματα πατρὸς ἐμοῦ μεγαλήτορος Ἀλκινόοιο.</div>
-                  <div id="doc0:0.1.0.0.5.160.38" class="t-l s-1-versi ln5" data-el="l" data-n="300">ῥεῖα δʼ ἀρίγνωτʼ ἐστί, καὶ ἂν πάϊς ἡγήσαιτο</div>
-                  <div id="doc0:0.1.0.0.5.160.39" class="t-l s-1-versi" data-el="l" data-n="301">νήπιος· οὐ μὲν γάρ τι ἐοικότα τοῖσι τέτυκται</div>
-                  <div id="doc0:0.1.0.0.5.160.40" class="t-l s-1-versi" data-el="l" data-n="302">δώματα Φαιήκων, οἷος δόμος Ἀλκινόοιο</div>
-                  <div id="doc0:0.1.0.0.5.160.41" class="t-l s-1-versi" data-el="l" data-n="303">ἥρωος. ἀλλʼ ὁπότʼ ἄν σε δόμοι κεκύθωσι καὶ αὐλή,</div>
-                  <div id="doc0:0.1.0.0.5.160.42" class="t-l s-1-versi" data-el="l" data-n="304">ὦκα μάλα μεγάροιο διελθέμεν, ὄφρʼ ἂν ἵκηαι</div>
-                  <div id="doc0:0.1.0.0.5.160.43" class="t-l s-1-versi ln5" data-el="l" data-n="305">μητέρʼ ἐμήν· ἡ δʼ ἧσται ἐπʼ ἐσχάρῃ ἐν πυρὸς αὐγῇ,</div>
-                  <div id="doc0:0.1.0.0.5.160.44" class="t-l s-1-versi" data-el="l" data-n="306">ἠλάκατα στρωφῶσʼ ἁλιπόρφυρα, θαῦμα ἰδέσθαι,</div>
-                  <div id="doc0:0.1.0.0.5.160.45" class="t-l s-1-versi" data-el="l" data-n="307">κίονι κεκλιμένη· δμωαὶ δέ οἱ εἵατʼ ὄπισθεν.</div>
-                  <div id="doc0:0.1.0.0.5.160.46" class="t-l s-1-versi" data-el="l" data-n="308">ἔνθα δὲ πατρὸς ἐμοῖο θρόνος ποτικέκλιται αὐτῇ,</div>
-                  <div id="doc0:0.1.0.0.5.160.47" class="t-l s-1-versi" data-el="l" data-n="309">τῷ ὅ γε οἰνοποτάζει ἐφήμενος ἀθάνατος ὥς.</div>
-                  <div id="doc0:0.1.0.0.5.160.48" class="t-l s-1-versi ln5" data-el="l" data-n="310">τὸν παραμειψάμενος μητρὸς περὶ γούνασι χεῖρας</div>
-                  <div id="doc0:0.1.0.0.5.160.49" class="t-l s-1-versi" data-el="l" data-n="311">βάλλειν ἡμετέρης, ἵνα νόστιμον ἦμαρ ἴδηαι</div>
-                  <div id="doc0:0.1.0.0.5.160.50" class="t-l s-1-versi" data-el="l" data-n="312">χαίρων καρπαλίμως, εἰ καὶ μάλα τηλόθεν ἐσσί.</div>
-                  <div id="doc0:0.1.0.0.5.160.51" class="t-l s-1-versi" data-el="l" data-n="313">εἴ κέν τοι κείνη γε φίλα φρονέῃσʼ ἐνὶ θυμῷ,</div>
-                  <div id="doc0:0.1.0.0.5.160.52" class="t-l s-1-versi" data-el="l" data-n="314">ἐλπωρή τοι ἔπειτα φίλους τʼ ἰδέειν καὶ ἱκέσθαι</div>
-                  <div id="doc0:0.1.0.0.5.160.53" class="t-l s-1-versi ln5" data-el="l" data-n="315">οἶκον ἐυκτίμενον καὶ σὴν ἐς πατρίδα γαῖαν.</div>
+                  <div id="odissea:0.1.0.0.5.160.22" class="t-l s-1-versi ln5" data-el="l" data-n="285">ὣς ἐρέουσιν, ἐμοὶ δέ κʼ ὀνείδεα ταῦτα γένοιτο.</div>
+                  <div id="odissea:0.1.0.0.5.160.23" class="t-l s-1-versi" data-el="l" data-n="286">καὶ δʼ ἄλλῃ νεμεσῶ, ἥ τις τοιαῦτά γε ῥέζοι,</div>
+                  <div id="odissea:0.1.0.0.5.160.24" class="t-l s-1-versi" data-el="l" data-n="287">ἥ τʼ ἀέκητι φίλων πατρὸς καὶ μητρὸς ἐόντων,</div>
+                  <div id="odissea:0.1.0.0.5.160.25" class="t-l s-1-versi" data-el="l" data-n="288">ἀνδράσι μίσγηται, πρίν γʼ ἀμφάδιον γάμον ἐλθεῖν.</div>
+                  <span id="odissea:0.1.0.0.5.160.26" class="t-milestone s-1-milestone" data-el="milestone" data-n="288"></span>
+                  <div id="odissea:0.1.0.0.5.160.27" class="t-l s-1-versi" data-el="l" data-n="289">ξεῖνε, σὺ δʼ ὦκʼ ἐμέθεν ξυνίει ἔπος, ὄφρα τάχιστα</div>
+                  <div id="odissea:0.1.0.0.5.160.28" class="t-l s-1-versi ln5" data-el="l" data-n="290">πομπῆς καὶ νόστοιο τύχῃς παρὰ πατρὸς ἐμοῖο.</div>
+                  <div id="odissea:0.1.0.0.5.160.29" class="t-l s-1-versi" data-el="l" data-n="291">δήεις ἀγλαὸν ἄλσος Ἀθήνης ἄγχι κελεύθου</div>
+                  <div id="odissea:0.1.0.0.5.160.30" class="t-l s-1-versi" data-el="l" data-n="292">αἰγείρων· ἐν δὲ κρήνη νάει, ἀμφὶ δὲ λειμών·</div>
+                  <div id="odissea:0.1.0.0.5.160.31" class="t-l s-1-versi" data-el="l" data-n="293">ἔνθα δὲ πατρὸς ἐμοῦ τέμενος τεθαλυῖά τʼ ἀλωή,</div>
+                  <div id="odissea:0.1.0.0.5.160.32" class="t-l s-1-versi" data-el="l" data-n="294">τόσσον ἀπὸ πτόλιος, ὅσσον τε γέγωνε βοήσας.</div>
+                  <div id="odissea:0.1.0.0.5.160.33" class="t-l s-1-versi ln5" data-el="l" data-n="295">ἔνθα καθεζόμενος μεῖναι χρόνον, εἰς ὅ κεν ἡμεῖς</div>
+                  <div id="odissea:0.1.0.0.5.160.34" class="t-l s-1-versi" data-el="l" data-n="296">ἄστυδε ἔλθωμεν καὶ ἱκώμεθα δώματα πατρός.</div>
+                  <div id="odissea:0.1.0.0.5.160.35" class="t-l s-1-versi" data-el="l" data-n="297">αὐτὰρ ἐπὴν ἡμέας ἔλπῃ ποτὶ δώματʼ ἀφῖχθαι,</div>
+                  <div id="odissea:0.1.0.0.5.160.36" class="t-l s-1-versi" data-el="l" data-n="298">καὶ τότε Φαιήκων ἴμεν ἐς πόλιν ἠδʼ ἐρέεσθαι</div>
+                  <div id="odissea:0.1.0.0.5.160.37" class="t-l s-1-versi" data-el="l" data-n="299">δώματα πατρὸς ἐμοῦ μεγαλήτορος Ἀλκινόοιο.</div>
+                  <div id="odissea:0.1.0.0.5.160.38" class="t-l s-1-versi ln5" data-el="l" data-n="300">ῥεῖα δʼ ἀρίγνωτʼ ἐστί, καὶ ἂν πάϊς ἡγήσαιτο</div>
+                  <div id="odissea:0.1.0.0.5.160.39" class="t-l s-1-versi" data-el="l" data-n="301">νήπιος· οὐ μὲν γάρ τι ἐοικότα τοῖσι τέτυκται</div>
+                  <div id="odissea:0.1.0.0.5.160.40" class="t-l s-1-versi" data-el="l" data-n="302">δώματα Φαιήκων, οἷος δόμος Ἀλκινόοιο</div>
+                  <div id="odissea:0.1.0.0.5.160.41" class="t-l s-1-versi" data-el="l" data-n="303">ἥρωος. ἀλλʼ ὁπότʼ ἄν σε δόμοι κεκύθωσι καὶ αὐλή,</div>
+                  <div id="odissea:0.1.0.0.5.160.42" class="t-l s-1-versi" data-el="l" data-n="304">ὦκα μάλα μεγάροιο διελθέμεν, ὄφρʼ ἂν ἵκηαι</div>
+                  <div id="odissea:0.1.0.0.5.160.43" class="t-l s-1-versi ln5" data-el="l" data-n="305">μητέρʼ ἐμήν· ἡ δʼ ἧσται ἐπʼ ἐσχάρῃ ἐν πυρὸς αὐγῇ,</div>
+                  <div id="odissea:0.1.0.0.5.160.44" class="t-l s-1-versi" data-el="l" data-n="306">ἠλάκατα στρωφῶσʼ ἁλιπόρφυρα, θαῦμα ἰδέσθαι,</div>
+                  <div id="odissea:0.1.0.0.5.160.45" class="t-l s-1-versi" data-el="l" data-n="307">κίονι κεκλιμένη· δμωαὶ δέ οἱ εἵατʼ ὄπισθεν.</div>
+                  <div id="odissea:0.1.0.0.5.160.46" class="t-l s-1-versi" data-el="l" data-n="308">ἔνθα δὲ πατρὸς ἐμοῖο θρόνος ποτικέκλιται αὐτῇ,</div>
+                  <div id="odissea:0.1.0.0.5.160.47" class="t-l s-1-versi" data-el="l" data-n="309">τῷ ὅ γε οἰνοποτάζει ἐφήμενος ἀθάνατος ὥς.</div>
+                  <div id="odissea:0.1.0.0.5.160.48" class="t-l s-1-versi ln5" data-el="l" data-n="310">τὸν παραμειψάμενος μητρὸς περὶ γούνασι χεῖρας</div>
+                  <div id="odissea:0.1.0.0.5.160.49" class="t-l s-1-versi" data-el="l" data-n="311">βάλλειν ἡμετέρης, ἵνα νόστιμον ἦμαρ ἴδηαι</div>
+                  <div id="odissea:0.1.0.0.5.160.50" class="t-l s-1-versi" data-el="l" data-n="312">χαίρων καρπαλίμως, εἰ καὶ μάλα τηλόθεν ἐσσί.</div>
+                  <div id="odissea:0.1.0.0.5.160.51" class="t-l s-1-versi" data-el="l" data-n="313">εἴ κέν τοι κείνη γε φίλα φρονέῃσʼ ἐνὶ θυμῷ,</div>
+                  <div id="odissea:0.1.0.0.5.160.52" class="t-l s-1-versi" data-el="l" data-n="314">ἐλπωρή τοι ἔπειτα φίλους τʼ ἰδέειν καὶ ἱκέσθαι</div>
+                  <div id="odissea:0.1.0.0.5.160.53" class="t-l s-1-versi ln5" data-el="l" data-n="315">οἶκον ἐυκτίμενον καὶ σὴν ἐς πατρίδα γαῖαν.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.161" class="t-l s-1-versi" data-el="l" data-n="316">
-                  <span id="doc0:0.1.0.0.5.161.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἄρα φωνήσασʼ ἵμασεν μάστιγι φαεινῇ</div>
-               <div id="doc0:0.1.0.0.5.162" class="t-l s-1-versi" data-el="l" data-n="317">ἡμιόνους· αἱ δʼ ὦκα λίπον ποταμοῖο ῥέεθρα.</div>
-               <div id="doc0:0.1.0.0.5.163" class="t-l s-1-versi" data-el="l" data-n="318">αἱ δʼ ἐὺ μὲν τρώχων, ἐὺ δὲ πλίσσοντο πόδεσσιν·</div>
-               <div id="doc0:0.1.0.0.5.164" class="t-l s-1-versi" data-el="l" data-n="319">ἡ δὲ μάλʼ ἡνιόχευεν, ὅπως ἅμʼ ἑποίατο πεζοὶ</div>
-               <div id="doc0:0.1.0.0.5.165" class="t-l s-1-versi ln5" data-el="l" data-n="320">ἀμφίπολοί τʼ Ὀδυσεύς τε, νόῳ δʼ ἐπέβαλλεν ἱμάσθλην.</div>
-               <div id="doc0:0.1.0.0.5.166" class="t-l s-1-versi" data-el="l" data-n="321">δύσετό τʼ ἠέλιος καὶ τοὶ κλυτὸν ἄλσος ἵκοντο</div>
-               <div id="doc0:0.1.0.0.5.167" class="t-l s-1-versi" data-el="l" data-n="322">ἱρὸν Ἀθηναίης, ἵνʼ ἄρʼ ἕζετο δῖος Ὀδυσσεύς.</div>
-               <div id="doc0:0.1.0.0.5.168" class="t-l s-1-versi" data-el="l" data-n="323">αὐτίκʼ ἔπειτʼ ἠρᾶτο Διὸς κούρῃ μεγάλοιο·</div>
-               <span id="doc0:0.1.0.0.5.169" class="t-q s-1-inline" data-el="q" data-type="unspecified">
-                  <div id="doc0:0.1.0.0.5.169.0" class="t-l s-1-versi" data-el="l" data-n="324">κλῦθί μευ, αἰγιόχοιο Διὸς τέκος, Ἀτρυτώνη·</div>
-                  <div id="doc0:0.1.0.0.5.169.1" class="t-l s-1-versi ln5" data-el="l" data-n="325">νῦν δή πέρ μευ ἄκουσον, ἐπεὶ πάρος οὔ ποτʼ ἄκουσας</div>
-                  <div id="doc0:0.1.0.0.5.169.2" class="t-l s-1-versi" data-el="l" data-n="326">ῥαιομένου, ὅτε μʼ ἔρραιε κλυτὸς ἐννοσίγαιος.</div>
-                  <div id="doc0:0.1.0.0.5.169.3" class="t-l s-1-versi" data-el="l" data-n="327">δός μʼ ἐς Φαίηκας φίλον ἐλθεῖν ἠδʼ ἐλεεινόν.</div>
+               <div id="odissea:0.1.0.0.5.161" class="t-l s-1-versi" data-el="l" data-n="316">
+                  <span id="odissea:0.1.0.0.5.161.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἄρα φωνήσασʼ ἵμασεν μάστιγι φαεινῇ</div>
+               <div id="odissea:0.1.0.0.5.162" class="t-l s-1-versi" data-el="l" data-n="317">ἡμιόνους· αἱ δʼ ὦκα λίπον ποταμοῖο ῥέεθρα.</div>
+               <div id="odissea:0.1.0.0.5.163" class="t-l s-1-versi" data-el="l" data-n="318">αἱ δʼ ἐὺ μὲν τρώχων, ἐὺ δὲ πλίσσοντο πόδεσσιν·</div>
+               <div id="odissea:0.1.0.0.5.164" class="t-l s-1-versi" data-el="l" data-n="319">ἡ δὲ μάλʼ ἡνιόχευεν, ὅπως ἅμʼ ἑποίατο πεζοὶ</div>
+               <div id="odissea:0.1.0.0.5.165" class="t-l s-1-versi ln5" data-el="l" data-n="320">ἀμφίπολοί τʼ Ὀδυσεύς τε, νόῳ δʼ ἐπέβαλλεν ἱμάσθλην.</div>
+               <div id="odissea:0.1.0.0.5.166" class="t-l s-1-versi" data-el="l" data-n="321">δύσετό τʼ ἠέλιος καὶ τοὶ κλυτὸν ἄλσος ἵκοντο</div>
+               <div id="odissea:0.1.0.0.5.167" class="t-l s-1-versi" data-el="l" data-n="322">ἱρὸν Ἀθηναίης, ἵνʼ ἄρʼ ἕζετο δῖος Ὀδυσσεύς.</div>
+               <div id="odissea:0.1.0.0.5.168" class="t-l s-1-versi" data-el="l" data-n="323">αὐτίκʼ ἔπειτʼ ἠρᾶτο Διὸς κούρῃ μεγάλοιο·</div>
+               <span id="odissea:0.1.0.0.5.169" class="t-q s-1-inline" data-el="q" data-type="unspecified">
+                  <div id="odissea:0.1.0.0.5.169.0" class="t-l s-1-versi" data-el="l" data-n="324">κλῦθί μευ, αἰγιόχοιο Διὸς τέκος, Ἀτρυτώνη·</div>
+                  <div id="odissea:0.1.0.0.5.169.1" class="t-l s-1-versi ln5" data-el="l" data-n="325">νῦν δή πέρ μευ ἄκουσον, ἐπεὶ πάρος οὔ ποτʼ ἄκουσας</div>
+                  <div id="odissea:0.1.0.0.5.169.2" class="t-l s-1-versi" data-el="l" data-n="326">ῥαιομένου, ὅτε μʼ ἔρραιε κλυτὸς ἐννοσίγαιος.</div>
+                  <div id="odissea:0.1.0.0.5.169.3" class="t-l s-1-versi" data-el="l" data-n="327">δός μʼ ἐς Φαίηκας φίλον ἐλθεῖν ἠδʼ ἐλεεινόν.</div>
                </span>
-               <div id="doc0:0.1.0.0.5.170" class="t-l s-1-versi" data-el="l" data-n="328">
-                  <span id="doc0:0.1.0.0.5.170.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφατʼ εὐχόμενος, τοῦ δʼ ἔκλυε Παλλὰς Ἀθήνη.</div>
-               <div id="doc0:0.1.0.0.5.171" class="t-l s-1-versi" data-el="l" data-n="329">αὐτῷ δʼ οὔ πω φαίνετʼ ἐναντίη· αἴδετο γάρ ῥα</div>
-               <div id="doc0:0.1.0.0.5.172" class="t-l s-1-versi ln5" data-el="l" data-n="330">πατροκασίγνητον· ὁ δʼ ἐπιζαφελῶς μενέαινεν</div>
-               <div id="doc0:0.1.0.0.5.173" class="t-l s-1-versi" data-el="l" data-n="331">ἀντιθέῳ Ὀδυσῆι πάρος ἣν γαῖαν ἱκέσθαι.</div>
+               <div id="odissea:0.1.0.0.5.170" class="t-l s-1-versi" data-el="l" data-n="328">
+                  <span id="odissea:0.1.0.0.5.170.0" class="t-milestone s-1-milestone" data-el="milestone"></span>ὣς ἔφατʼ εὐχόμενος, τοῦ δʼ ἔκλυε Παλλὰς Ἀθήνη.</div>
+               <div id="odissea:0.1.0.0.5.171" class="t-l s-1-versi" data-el="l" data-n="329">αὐτῷ δʼ οὔ πω φαίνετʼ ἐναντίη· αἴδετο γάρ ῥα</div>
+               <div id="odissea:0.1.0.0.5.172" class="t-l s-1-versi ln5" data-el="l" data-n="330">πατροκασίγνητον· ὁ δʼ ἐπιζαφελῶς μενέαινεν</div>
+               <div id="odissea:0.1.0.0.5.173" class="t-l s-1-versi" data-el="l" data-n="331">ἀντιθέῳ Ὀδυσῆι πάρος ἣν γαῖαν ἱκέσθαι.</div>
             </div><nav class="prevnext" aria-label="Contents"><a href="text-5.html">‹ previous</a><a href="text.html">Contents</a><a href="text-7.html">next ›</a></nav></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
@@ -735,89 +742,6 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
-  /* margin notes: position each note beside its anchor (data-target for
-     standoff notes, the preceding mark otherwise), stack on collision,
-     and draw a faint leader to the exact point */
-  function leaders(){
-    var old=document.getElementById('note-leaders'); if(old)old.remove();
-    var main=document.querySelector('main.torchio'); if(!main)return;
-    var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
-    if(window.innerWidth<1180||body.classList.contains('notes-off')){
-      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
-      return;
-    }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='note-leaders';
-    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
-    function anchorOf(n){
-      var app=n.closest('.t-app');
-      if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
-      var t=n.dataset.target;
-      if(t){
-        var id=t.split(/s+/)[0].replace(/^#/,'');
-        var el=document.getElementById(id);
-        if(el)return {el:el,kind:'target'};
-      }
-      var m=n.previousElementSibling;
-      if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
-      return null;
-    }
-    var lastBottom=0;
-    var items=notes.map(function(n){
-      var flowY=n.getBoundingClientRect().top-mr.top;
-      var res=anchorOf(n);
-      var a=res?res.el:null, kind=res?res.kind:null;
-      var y=flowY;
-      if(a){
-        var r=a.getBoundingClientRect();
-        var ay=(r.width||r.height)?r.top-mr.top:null;
-        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
-        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
-        else{a=null;}
-      }
-      return {n:n,a:a,kind:kind,y:y};
-    });
-    items.sort(function(p,q){return p.y-q.y;});
-    items.forEach(function(it){
-      var n=it.n;
-      n.classList.add('placed');
-      var top=Math.max(it.y,lastBottom+10);
-      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
-      lastBottom=top+n.offsetHeight;
-      if(it.a){
-        var ar=it.a.getBoundingClientRect();
-        if(ar.width||ar.height){
-          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
-          var x2=colLeft-8, y2=top+8;
-          // a thread only when short and meaningful; never across the page
-          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
-            var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
-            p.setAttribute('fill','none');
-            p.setAttribute('stroke','var(--faint)');
-            p.setAttribute('stroke-width','1');
-            svg.appendChild(p);
-          }
-          // hover pairing in both directions
-          (function(anchor,note){
-            function on(){anchor.classList.add('note-hi');note.classList.add('note-hi');}
-            function off(){anchor.classList.remove('note-hi');note.classList.remove('note-hi');}
-            note.addEventListener('mouseenter',on);note.addEventListener('mouseleave',off);
-            anchor.addEventListener('mouseenter',on);anchor.addEventListener('mouseleave',off);
-          })(it.a,n);
-        }
-      }
-    });
-    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
-    main.appendChild(svg);
-  }
-  if(document.readyState==='complete')leaders();
-  else window.addEventListener('load',leaders);
-  window.addEventListener('resize',leaders);
 
   document.addEventListener('keydown',function(ev){
     if((ev.key==='Enter'||ev.key===' ')&&ev.target.getAttribute&&ev.target.getAttribute('role')==='button'
@@ -854,6 +778,14 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
         +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
+    var np=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(np&&!body.classList.contains('notes-off')){
+      var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
+      if(nn){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        ev.stopPropagation();return;
+      }
+    }
     closePop();
   });
   /* margin notes: position each note beside its anchor (data-target for
@@ -864,16 +796,6 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
       .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
-    if(window.innerWidth<1180||body.classList.contains('notes-off')){
-      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
-      return;
-    }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
-    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='note-leaders';
-    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     function anchorOf(n){
       var app=n.closest('.t-app');
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
@@ -887,6 +809,30 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       if(m&&m.classList&&m.classList.contains('t-note-mark'))return {el:m,kind:'mark'};
       return null;
     }
+
+    /* economy rule: past this density the margin cannot carry the notes;
+       they collapse to their marks and open on click, like the apparatus */
+    var dense=notes.length>12;
+    body.classList.toggle('notes-dense',dense);
+    if(dense){
+      notes.forEach(function(n,i){
+        if(n.dataset.npi)return;
+        n.dataset.npi=String(i);
+        var res=anchorOf(n);
+        if(res){res.el.setAttribute('data-notepop',String(i));
+          res.el.removeAttribute('aria-hidden');makeTrigger(res.el,null);}
+      });
+    }
+    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+      notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
+      return;
+    }
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var colLeft=main.clientWidth+26;
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='note-leaders';
+    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
     var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
