@@ -7,11 +7,600 @@
       <respStmt><resp>edition and transcripts</resp><name>Peter Robinson and the Canterbury Tales Project</name></respStmt>
     </titleStmt>
     <publicationStmt><p>Demonstration pressing of materials from talesofcanterbury.org, offered by the editor as a test case. The source files are included verbatim. Materials under copyright: this is a temporary demo, it will be removed.</p></publicationStmt>
-    <sourceDesc><p>Transcripts and collation from the Canterbury Tales Project, https://talesofcanterbury.org/GP/</p></sourceDesc>
+    <sourceDesc><p>Transcripts of all 54 witnesses and the full collation of the General Prologue, from the Canterbury Tales Project, https://talesofcanterbury.org/GP/</p></sourceDesc>
   </fileDesc>
 </teiHeader>
+<TEI xml:id="Ad1">
+<teiHeader><fileDesc><titleStmt><title>Ad1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ad1/1r.xml"/>
+    <xi:include href="transcripts/Ad1/1v.xml"/>
+    <xi:include href="transcripts/Ad1/2r.xml"/>
+    <xi:include href="transcripts/Ad1/2v.xml"/>
+    <xi:include href="transcripts/Ad1/3r.xml"/>
+    <xi:include href="transcripts/Ad1/3v.xml"/>
+    <xi:include href="transcripts/Ad1/4r.xml"/>
+    <xi:include href="transcripts/Ad1/4v.xml"/>
+    <xi:include href="transcripts/Ad1/5r.xml"/>
+    <xi:include href="transcripts/Ad1/5v.xml"/>
+    <xi:include href="transcripts/Ad1/6r.xml"/>
+    <xi:include href="transcripts/Ad1/6v.xml"/>
+    <xi:include href="transcripts/Ad1/7r.xml"/>
+    <xi:include href="transcripts/Ad1/7v.xml"/>
+    <xi:include href="transcripts/Ad1/8r.xml"/>
+    <xi:include href="transcripts/Ad1/8v.xml"/>
+    <xi:include href="transcripts/Ad1/9r.xml"/>
+    <xi:include href="transcripts/Ad1/9v.xml"/>
+    <xi:include href="transcripts/Ad1/10r.xml"/>
+    <xi:include href="transcripts/Ad1/10v.xml"/>
+    <xi:include href="transcripts/Ad1/11r.xml"/>
+    <xi:include href="transcripts/Ad1/11v.xml"/>
+    <xi:include href="transcripts/Ad1/12r.xml"/>
+    <xi:include href="transcripts/Ad1/12v.xml"/>
+    <xi:include href="transcripts/Ad1/13r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ad3">
+<teiHeader><fileDesc><titleStmt><title>Ad3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad3/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ad3/3r.xml"/>
+    <xi:include href="transcripts/Ad3/3v.xml"/>
+    <xi:include href="transcripts/Ad3/6r.xml"/>
+    <xi:include href="transcripts/Ad3/6v.xml"/>
+    <xi:include href="transcripts/Ad3/7r.xml"/>
+    <xi:include href="transcripts/Ad3/7v.xml"/>
+    <xi:include href="transcripts/Ad3/8r.xml"/>
+    <xi:include href="transcripts/Ad3/8v.xml"/>
+    <xi:include href="transcripts/Ad3/9r.xml"/>
+    <xi:include href="transcripts/Ad3/9v.xml"/>
+    <xi:include href="transcripts/Ad3/10r.xml"/>
+    <xi:include href="transcripts/Ad3/10v.xml"/>
+    <xi:include href="transcripts/Ad3/11r.xml"/>
+    <xi:include href="transcripts/Ad3/11v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ad4">
+<teiHeader><fileDesc><titleStmt><title>Ad4: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ad4/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ad4/41r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Bo1">
+<teiHeader><fileDesc><titleStmt><title>Bo1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bo1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Bo1/2r.xml"/>
+    <xi:include href="transcripts/Bo1/2v.xml"/>
+    <xi:include href="transcripts/Bo1/3r.xml"/>
+    <xi:include href="transcripts/Bo1/3v.xml"/>
+    <xi:include href="transcripts/Bo1/4r.xml"/>
+    <xi:include href="transcripts/Bo1/4v.xml"/>
+    <xi:include href="transcripts/Bo1/5r.xml"/>
+    <xi:include href="transcripts/Bo1/5v.xml"/>
+    <xi:include href="transcripts/Bo1/6r.xml"/>
+    <xi:include href="transcripts/Bo1/6v.xml"/>
+    <xi:include href="transcripts/Bo1/7r.xml"/>
+    <xi:include href="transcripts/Bo1/7v.xml"/>
+    <xi:include href="transcripts/Bo1/8r.xml"/>
+    <xi:include href="transcripts/Bo1/8v.xml"/>
+    <xi:include href="transcripts/Bo1/9r.xml"/>
+    <xi:include href="transcripts/Bo1/9v.xml"/>
+    <xi:include href="transcripts/Bo1/10r.xml"/>
+    <xi:include href="transcripts/Bo1/10v.xml"/>
+    <xi:include href="transcripts/Bo1/11r.xml"/>
+    <xi:include href="transcripts/Bo1/11v.xml"/>
+    <xi:include href="transcripts/Bo1/12r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Bo2">
+<teiHeader><fileDesc><titleStmt><title>Bo2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bo2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Bo2/1r.xml"/>
+    <xi:include href="transcripts/Bo2/1v.xml"/>
+    <xi:include href="transcripts/Bo2/2r.xml"/>
+    <xi:include href="transcripts/Bo2/2v.xml"/>
+    <xi:include href="transcripts/Bo2/3r.xml"/>
+    <xi:include href="transcripts/Bo2/3v.xml"/>
+    <xi:include href="transcripts/Bo2/4r.xml"/>
+    <xi:include href="transcripts/Bo2/4v.xml"/>
+    <xi:include href="transcripts/Bo2/5r.xml"/>
+    <xi:include href="transcripts/Bo2/5v.xml"/>
+    <xi:include href="transcripts/Bo2/6r.xml"/>
+    <xi:include href="transcripts/Bo2/6v.xml"/>
+    <xi:include href="transcripts/Bo2/7r.xml"/>
+    <xi:include href="transcripts/Bo2/7v.xml"/>
+    <xi:include href="transcripts/Bo2/8r.xml"/>
+    <xi:include href="transcripts/Bo2/8v.xml"/>
+    <xi:include href="transcripts/Bo2/9r.xml"/>
+    <xi:include href="transcripts/Bo2/9v.xml"/>
+    <xi:include href="transcripts/Bo2/10r.xml"/>
+    <xi:include href="transcripts/Bo2/10v.xml"/>
+    <xi:include href="transcripts/Bo2/11r.xml"/>
+    <xi:include href="transcripts/Bo2/11v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Bw">
+<teiHeader><fileDesc><titleStmt><title>Bw: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Bw/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Bw/9r.xml"/>
+    <xi:include href="transcripts/Bw/9v.xml"/>
+    <xi:include href="transcripts/Bw/10r.xml"/>
+    <xi:include href="transcripts/Bw/10v.xml"/>
+    <xi:include href="transcripts/Bw/11r.xml"/>
+    <xi:include href="transcripts/Bw/11v.xml"/>
+    <xi:include href="transcripts/Bw/12r.xml"/>
+    <xi:include href="transcripts/Bw/12v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ch">
+<teiHeader><fileDesc><titleStmt><title>Ch: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ch/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ch/1r.xml"/>
+    <xi:include href="transcripts/Ch/1v.xml"/>
+    <xi:include href="transcripts/Ch/2r.xml"/>
+    <xi:include href="transcripts/Ch/2v.xml"/>
+    <xi:include href="transcripts/Ch/3r.xml"/>
+    <xi:include href="transcripts/Ch/3v.xml"/>
+    <xi:include href="transcripts/Ch/4r.xml"/>
+    <xi:include href="transcripts/Ch/4v.xml"/>
+    <xi:include href="transcripts/Ch/5r.xml"/>
+    <xi:include href="transcripts/Ch/5v.xml"/>
+    <xi:include href="transcripts/Ch/6r.xml"/>
+    <xi:include href="transcripts/Ch/6v.xml"/>
+    <xi:include href="transcripts/Ch/7r.xml"/>
+    <xi:include href="transcripts/Ch/7v.xml"/>
+    <xi:include href="transcripts/Ch/8r.xml"/>
+    <xi:include href="transcripts/Ch/8v.xml"/>
+    <xi:include href="transcripts/Ch/9r.xml"/>
+    <xi:include href="transcripts/Ch/9v.xml"/>
+    <xi:include href="transcripts/Ch/10r.xml"/>
+    <xi:include href="transcripts/Ch/10v.xml"/>
+    <xi:include href="transcripts/Ch/11r.xml"/>
+    <xi:include href="transcripts/Ch/11v.xml"/>
+    <xi:include href="transcripts/Ch/12r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Cn">
+<teiHeader><fileDesc><titleStmt><title>Cn: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cn/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Cn/4r.xml"/>
+    <xi:include href="transcripts/Cn/4v.xml"/>
+    <xi:include href="transcripts/Cn/5r.xml"/>
+    <xi:include href="transcripts/Cn/5v.xml"/>
+    <xi:include href="transcripts/Cn/6r.xml"/>
+    <xi:include href="transcripts/Cn/6v.xml"/>
+    <xi:include href="transcripts/Cn/7r.xml"/>
+    <xi:include href="transcripts/Cn/7v.xml"/>
+    <xi:include href="transcripts/Cn/8r.xml"/>
+    <xi:include href="transcripts/Cn/8v.xml"/>
+    <xi:include href="transcripts/Cn/9r.xml"/>
+    <xi:include href="transcripts/Cn/9v.xml"/>
+    <xi:include href="transcripts/Cn/10r.xml"/>
+    <xi:include href="transcripts/Cn/10v.xml"/>
+    <xi:include href="transcripts/Cn/11r.xml"/>
+    <xi:include href="transcripts/Cn/11v.xml"/>
+    <xi:include href="transcripts/Cn/12r.xml"/>
+    <xi:include href="transcripts/Cn/12v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Cp">
+<teiHeader><fileDesc><titleStmt><title>Cp: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cp/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Cp/2r.xml"/>
+    <xi:include href="transcripts/Cp/2v.xml"/>
+    <xi:include href="transcripts/Cp/3r.xml"/>
+    <xi:include href="transcripts/Cp/3v.xml"/>
+    <xi:include href="transcripts/Cp/4r.xml"/>
+    <xi:include href="transcripts/Cp/4v.xml"/>
+    <xi:include href="transcripts/Cp/5r.xml"/>
+    <xi:include href="transcripts/Cp/5v.xml"/>
+    <xi:include href="transcripts/Cp/6r.xml"/>
+    <xi:include href="transcripts/Cp/6v.xml"/>
+    <xi:include href="transcripts/Cp/7r.xml"/>
+    <xi:include href="transcripts/Cp/7v.xml"/>
+    <xi:include href="transcripts/Cp/8r.xml"/>
+    <xi:include href="transcripts/Cp/8v.xml"/>
+    <xi:include href="transcripts/Cp/9r.xml"/>
+    <xi:include href="transcripts/Cp/9v.xml"/>
+    <xi:include href="transcripts/Cp/10r.xml"/>
+    <xi:include href="transcripts/Cp/10v.xml"/>
+    <xi:include href="transcripts/Cp/11r.xml"/>
+    <xi:include href="transcripts/Cp/11v.xml"/>
+    <xi:include href="transcripts/Cp/12r.xml"/>
+    <xi:include href="transcripts/Cp/12v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Cx1">
+<teiHeader><fileDesc><titleStmt><title>Cx1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cx1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Cx1/2r.xml"/>
+    <xi:include href="transcripts/Cx1/2v.xml"/>
+    <xi:include href="transcripts/Cx1/3r.xml"/>
+    <xi:include href="transcripts/Cx1/3v.xml"/>
+    <xi:include href="transcripts/Cx1/4r.xml"/>
+    <xi:include href="transcripts/Cx1/4v.xml"/>
+    <xi:include href="transcripts/Cx1/5r.xml"/>
+    <xi:include href="transcripts/Cx1/5v.xml"/>
+    <xi:include href="transcripts/Cx1/6r.xml"/>
+    <xi:include href="transcripts/Cx1/6v.xml"/>
+    <xi:include href="transcripts/Cx1/7r.xml"/>
+    <xi:include href="transcripts/Cx1/7v.xml"/>
+    <xi:include href="transcripts/Cx1/8r.xml"/>
+    <xi:include href="transcripts/Cx1/8v.xml"/>
+    <xi:include href="transcripts/Cx1/9r.xml"/>
+    <xi:include href="transcripts/Cx1/9v.xml"/>
+    <xi:include href="transcripts/Cx1/10r.xml"/>
+    <xi:include href="transcripts/Cx1/10v.xml"/>
+    <xi:include href="transcripts/Cx1/11r.xml"/>
+    <xi:include href="transcripts/Cx1/11v.xml"/>
+    <xi:include href="transcripts/Cx1/12r.xml"/>
+    <xi:include href="transcripts/Cx1/12v.xml"/>
+    <xi:include href="transcripts/Cx1/13r.xml"/>
+    <xi:include href="transcripts/Cx1/13v.xml"/>
+    <xi:include href="transcripts/Cx1/14r.xml"/>
+    <xi:include href="transcripts/Cx1/14v.xml"/>
+    <xi:include href="transcripts/Cx1/15r.xml"/>
+    <xi:include href="transcripts/Cx1/15v.xml"/>
+    <xi:include href="transcripts/Cx1/16r.xml"/>
+    <xi:include href="transcripts/Cx1/16v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Cx2">
+<teiHeader><fileDesc><titleStmt><title>Cx2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Cx2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Cx2/a2r.xml"/>
+    <xi:include href="transcripts/Cx2/a2v.xml"/>
+    <xi:include href="transcripts/Cx2/a3r.xml"/>
+    <xi:include href="transcripts/Cx2/a3v.xml"/>
+    <xi:include href="transcripts/Cx2/a4r.xml"/>
+    <xi:include href="transcripts/Cx2/a4v.xml"/>
+    <xi:include href="transcripts/Cx2/a5r.xml"/>
+    <xi:include href="transcripts/Cx2/a5v.xml"/>
+    <xi:include href="transcripts/Cx2/a6r.xml"/>
+    <xi:include href="transcripts/Cx2/a6v.xml"/>
+    <xi:include href="transcripts/Cx2/a7r.xml"/>
+    <xi:include href="transcripts/Cx2/a7v.xml"/>
+    <xi:include href="transcripts/Cx2/a8r.xml"/>
+    <xi:include href="transcripts/Cx2/a8v.xml"/>
+    <xi:include href="transcripts/Cx2/b1r.xml"/>
+    <xi:include href="transcripts/Cx2/b1v.xml"/>
+    <xi:include href="transcripts/Cx2/b2r.xml"/>
+    <xi:include href="transcripts/Cx2/b2v.xml"/>
+    <xi:include href="transcripts/Cx2/b3r.xml"/>
+    <xi:include href="transcripts/Cx2/b3v.xml"/>
+    <xi:include href="transcripts/Cx2/b4r.xml"/>
+    <xi:include href="transcripts/Cx2/b4v.xml"/>
+    <xi:include href="transcripts/Cx2/b5r.xml"/>
+    <xi:include href="transcripts/Cx2/b5v.xml"/>
+    <xi:include href="transcripts/Cx2/b6r.xml"/>
+    <xi:include href="transcripts/Cx2/b6v.xml"/>
+    <xi:include href="transcripts/Cx2/b7r.xml"/>
+    <xi:include href="transcripts/Cx2/b7v.xml"/>
+    <xi:include href="transcripts/Cx2/b8r.xml"/>
+    <xi:include href="transcripts/Cx2/b8v.xml"/>
+    <xi:include href="transcripts/Cx2/c1r.xml"/>
+    <xi:include href="transcripts/Cx2/c1v.xml"/>
+    <xi:include href="transcripts/Cx2/c2r.xml"/>
+    <xi:include href="transcripts/Cx2/c2v.xml"/>
+    <xi:include href="transcripts/Cx2/c3r.xml"/>
+    <xi:include href="transcripts/Cx2/c3v.xml"/>
+    <xi:include href="transcripts/Cx2/c4r.xml"/>
+    <xi:include href="transcripts/Cx2/c4v.xml"/>
+    <xi:include href="transcripts/Cx2/c5r.xml"/>
+    <xi:include href="transcripts/Cx2/c5v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Dd">
+<teiHeader><fileDesc><titleStmt><title>Dd: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Dd/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Dd/6r.xml"/>
+    <xi:include href="transcripts/Dd/6v.xml"/>
+    <xi:include href="transcripts/Dd/7r.xml"/>
+    <xi:include href="transcripts/Dd/7v.xml"/>
+    <xi:include href="transcripts/Dd/8r.xml"/>
+    <xi:include href="transcripts/Dd/8v.xml"/>
+    <xi:include href="transcripts/Dd/12r.xml"/>
+    <xi:include href="transcripts/Dd/12v.xml"/>
+    <xi:include href="transcripts/Dd/13r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Dl">
+<teiHeader><fileDesc><titleStmt><title>Dl: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Dl/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Dl/26r.xml"/>
+    <xi:include href="transcripts/Dl/26v.xml"/>
+    <xi:include href="transcripts/Dl/27r.xml"/>
+    <xi:include href="transcripts/Dl/27v.xml"/>
+    <xi:include href="transcripts/Dl/28r.xml"/>
+    <xi:include href="transcripts/Dl/28v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Do">
+<teiHeader><fileDesc><titleStmt><title>Do: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Do/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Do/1r.xml"/>
+    <xi:include href="transcripts/Do/1v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ds1">
+<teiHeader><fileDesc><titleStmt><title>Ds1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ds1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ds1/1r.xml"/>
+    <xi:include href="transcripts/Ds1/1v.xml"/>
+    <xi:include href="transcripts/Ds1/2r.xml"/>
+    <xi:include href="transcripts/Ds1/2v.xml"/>
+    <xi:include href="transcripts/Ds1/3r.xml"/>
+    <xi:include href="transcripts/Ds1/3v.xml"/>
+    <xi:include href="transcripts/Ds1/4r.xml"/>
+    <xi:include href="transcripts/Ds1/4v.xml"/>
+    <xi:include href="transcripts/Ds1/5r.xml"/>
+    <xi:include href="transcripts/Ds1/5v.xml"/>
+    <xi:include href="transcripts/Ds1/6r.xml"/>
+    <xi:include href="transcripts/Ds1/6v.xml"/>
+    <xi:include href="transcripts/Ds1/7r.xml"/>
+    <xi:include href="transcripts/Ds1/7v.xml"/>
+    <xi:include href="transcripts/Ds1/8r.xml"/>
+    <xi:include href="transcripts/Ds1/8v.xml"/>
+    <xi:include href="transcripts/Ds1/9r.xml"/>
+    <xi:include href="transcripts/Ds1/9v.xml"/>
+    <xi:include href="transcripts/Ds1/10r.xml"/>
+    <xi:include href="transcripts/Ds1/10v.xml"/>
+    <xi:include href="transcripts/Ds1/11r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Edition">
+<teiHeader><fileDesc><titleStmt><title>Edition: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Edition/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Edition/1.xml"/>
+    <xi:include href="transcripts/Edition/10.xml"/>
+    <xi:include href="transcripts/Edition/11.xml"/>
+    <xi:include href="transcripts/Edition/12.xml"/>
+    <xi:include href="transcripts/Edition/13.xml"/>
+    <xi:include href="transcripts/Edition/14.xml"/>
+    <xi:include href="transcripts/Edition/15.xml"/>
+    <xi:include href="transcripts/Edition/16.xml"/>
+    <xi:include href="transcripts/Edition/17.xml"/>
+    <xi:include href="transcripts/Edition/18.xml"/>
+    <xi:include href="transcripts/Edition/19.xml"/>
+    <xi:include href="transcripts/Edition/2.xml"/>
+    <xi:include href="transcripts/Edition/20.xml"/>
+    <xi:include href="transcripts/Edition/21.xml"/>
+    <xi:include href="transcripts/Edition/22.xml"/>
+    <xi:include href="transcripts/Edition/23.xml"/>
+    <xi:include href="transcripts/Edition/24.xml"/>
+    <xi:include href="transcripts/Edition/25.xml"/>
+    <xi:include href="transcripts/Edition/26.xml"/>
+    <xi:include href="transcripts/Edition/27.xml"/>
+    <xi:include href="transcripts/Edition/28.xml"/>
+    <xi:include href="transcripts/Edition/29.xml"/>
+    <xi:include href="transcripts/Edition/3.xml"/>
+    <xi:include href="transcripts/Edition/30.xml"/>
+    <xi:include href="transcripts/Edition/31.xml"/>
+    <xi:include href="transcripts/Edition/4.xml"/>
+    <xi:include href="transcripts/Edition/5.xml"/>
+    <xi:include href="transcripts/Edition/6.xml"/>
+    <xi:include href="transcripts/Edition/7.xml"/>
+    <xi:include href="transcripts/Edition/8.xml"/>
+    <xi:include href="transcripts/Edition/9.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="El">
+<teiHeader><fileDesc><titleStmt><title>El: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/El/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/El/1r.xml"/>
+    <xi:include href="transcripts/El/1v.xml"/>
+    <xi:include href="transcripts/El/2r.xml"/>
+    <xi:include href="transcripts/El/2v.xml"/>
+    <xi:include href="transcripts/El/3r.xml"/>
+    <xi:include href="transcripts/El/3v.xml"/>
+    <xi:include href="transcripts/El/4r.xml"/>
+    <xi:include href="transcripts/El/4v.xml"/>
+    <xi:include href="transcripts/El/5r.xml"/>
+    <xi:include href="transcripts/El/5v.xml"/>
+    <xi:include href="transcripts/El/6r.xml"/>
+    <xi:include href="transcripts/El/6v.xml"/>
+    <xi:include href="transcripts/El/7r.xml"/>
+    <xi:include href="transcripts/El/7v.xml"/>
+    <xi:include href="transcripts/El/8r.xml"/>
+    <xi:include href="transcripts/El/8v.xml"/>
+    <xi:include href="transcripts/El/9r.xml"/>
+    <xi:include href="transcripts/El/9v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="En1">
+<teiHeader><fileDesc><titleStmt><title>En1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/En1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/En1/1r.xml"/>
+    <xi:include href="transcripts/En1/1v.xml"/>
+    <xi:include href="transcripts/En1/2r.xml"/>
+    <xi:include href="transcripts/En1/2v.xml"/>
+    <xi:include href="transcripts/En1/3r.xml"/>
+    <xi:include href="transcripts/En1/3v.xml"/>
+    <xi:include href="transcripts/En1/4r.xml"/>
+    <xi:include href="transcripts/En1/4v.xml"/>
+    <xi:include href="transcripts/En1/5r.xml"/>
+    <xi:include href="transcripts/En1/5v.xml"/>
+    <xi:include href="transcripts/En1/6r.xml"/>
+    <xi:include href="transcripts/En1/6v.xml"/>
+    <xi:include href="transcripts/En1/7r.xml"/>
+    <xi:include href="transcripts/En1/7v.xml"/>
+    <xi:include href="transcripts/En1/8r.xml"/>
+    <xi:include href="transcripts/En1/8v.xml"/>
+    <xi:include href="transcripts/En1/9r.xml"/>
+    <xi:include href="transcripts/En1/9v.xml"/>
+    <xi:include href="transcripts/En1/10r.xml"/>
+    <xi:include href="transcripts/En1/10v.xml"/>
+    <xi:include href="transcripts/En1/11r.xml"/>
+    <xi:include href="transcripts/En1/11v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="En3">
+<teiHeader><fileDesc><titleStmt><title>En3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/En3/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/En3/1r.xml"/>
+    <xi:include href="transcripts/En3/1v.xml"/>
+    <xi:include href="transcripts/En3/2r.xml"/>
+    <xi:include href="transcripts/En3/2v.xml"/>
+    <xi:include href="transcripts/En3/3r.xml"/>
+    <xi:include href="transcripts/En3/3v.xml"/>
+    <xi:include href="transcripts/En3/4r.xml"/>
+    <xi:include href="transcripts/En3/4v.xml"/>
+    <xi:include href="transcripts/En3/5r.xml"/>
+    <xi:include href="transcripts/En3/5v.xml"/>
+    <xi:include href="transcripts/En3/6r.xml"/>
+    <xi:include href="transcripts/En3/6v.xml"/>
+    <xi:include href="transcripts/En3/7r.xml"/>
+    <xi:include href="transcripts/En3/7v.xml"/>
+    <xi:include href="transcripts/En3/8r.xml"/>
+    <xi:include href="transcripts/En3/8v.xml"/>
+    <xi:include href="transcripts/En3/9r.xml"/>
+    <xi:include href="transcripts/En3/9v.xml"/>
+    <xi:include href="transcripts/En3/10r.xml"/>
+    <xi:include href="transcripts/En3/10v.xml"/>
+    <xi:include href="transcripts/En3/11r.xml"/>
+    <xi:include href="transcripts/En3/11v.xml"/>
+    <xi:include href="transcripts/En3/12r.xml"/>
+    <xi:include href="transcripts/En3/12v.xml"/>
+    <xi:include href="transcripts/En3/13r.xml"/>
+    <xi:include href="transcripts/En3/13v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Fi">
+<teiHeader><fileDesc><titleStmt><title>Fi: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Fi/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Fi/2r.xml"/>
+    <xi:include href="transcripts/Fi/2v.xml"/>
+    <xi:include href="transcripts/Fi/3r.xml"/>
+    <xi:include href="transcripts/Fi/3v.xml"/>
+    <xi:include href="transcripts/Fi/4r.xml"/>
+    <xi:include href="transcripts/Fi/4v.xml"/>
+    <xi:include href="transcripts/Fi/5r.xml"/>
+    <xi:include href="transcripts/Fi/5v.xml"/>
+    <xi:include href="transcripts/Fi/6r.xml"/>
+    <xi:include href="transcripts/Fi/6v.xml"/>
+    <xi:include href="transcripts/Fi/7r.xml"/>
+    <xi:include href="transcripts/Fi/7v.xml"/>
+    <xi:include href="transcripts/Fi/8r.xml"/>
+    <xi:include href="transcripts/Fi/8v.xml"/>
+    <xi:include href="transcripts/Fi/9r.xml"/>
+    <xi:include href="transcripts/Fi/9v.xml"/>
+    <xi:include href="transcripts/Fi/10r.xml"/>
+    <xi:include href="transcripts/Fi/10v.xml"/>
+    <xi:include href="transcripts/Fi/11r.xml"/>
+    <xi:include href="transcripts/Fi/11v.xml"/>
+    <xi:include href="transcripts/Fi/12r.xml"/>
+    <xi:include href="transcripts/Fi/12v.xml"/>
+    <xi:include href="transcripts/Fi/13r.xml"/>
+    <xi:include href="transcripts/Fi/13v.xml"/>
+    <xi:include href="transcripts/Fi/14r.xml"/>
+    <xi:include href="transcripts/Fi/14v.xml"/>
+    <xi:include href="transcripts/Fi/15r.xml"/>
+    <xi:include href="transcripts/Fi/15v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Gg">
+<teiHeader><fileDesc><titleStmt><title>Gg: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Gg/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Gg/132r.xml"/>
+    <xi:include href="transcripts/Gg/132v.xml"/>
+    <xi:include href="transcripts/Gg/133r.xml"/>
+    <xi:include href="transcripts/Gg/133v.xml"/>
+    <xi:include href="transcripts/Gg/134r.xml"/>
+    <xi:include href="transcripts/Gg/134v.xml"/>
+    <xi:include href="transcripts/Gg/135r.xml"/>
+    <xi:include href="transcripts/Gg/135v.xml"/>
+    <xi:include href="transcripts/Gg/136r.xml"/>
+    <xi:include href="transcripts/Gg/136v.xml"/>
+    <xi:include href="transcripts/Gg/137r.xml"/>
+    <xi:include href="transcripts/Gg/137v.xml"/>
+    <xi:include href="transcripts/Gg/138r.xml"/>
+    <xi:include href="transcripts/Gg/138v.xml"/>
+    <xi:include href="transcripts/Gg/139r.xml"/>
+    <xi:include href="transcripts/Gg/139v.xml"/>
+    <xi:include href="transcripts/Gg/140r.xml"/>
+    <xi:include href="transcripts/Gg/140v.xml"/>
+    <xi:include href="transcripts/Gg/141r.xml"/>
+    <xi:include href="transcripts/Gg/141v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Gl">
+<teiHeader><fileDesc><titleStmt><title>Gl: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Gl/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Gl/3r.xml"/>
+    <xi:include href="transcripts/Gl/3v.xml"/>
+    <xi:include href="transcripts/Gl/4r.xml"/>
+    <xi:include href="transcripts/Gl/4v.xml"/>
+    <xi:include href="transcripts/Gl/5r.xml"/>
+    <xi:include href="transcripts/Gl/5v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ha2">
+<teiHeader><fileDesc><titleStmt><title>Ha2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ha2/1r.xml"/>
+    <xi:include href="transcripts/Ha2/1v.xml"/>
+    <xi:include href="transcripts/Ha2/2r.xml"/>
+    <xi:include href="transcripts/Ha2/2v.xml"/>
+    <xi:include href="transcripts/Ha2/3r.xml"/>
+    <xi:include href="transcripts/Ha2/3v.xml"/>
+    <xi:include href="transcripts/Ha2/4r.xml"/>
+    <xi:include href="transcripts/Ha2/4v.xml"/>
+    <xi:include href="transcripts/Ha2/5r.xml"/>
+    <xi:include href="transcripts/Ha2/5v.xml"/>
+    <xi:include href="transcripts/Ha2/6r.xml"/>
+    <xi:include href="transcripts/Ha2/6v.xml"/>
+    <xi:include href="transcripts/Ha2/7r.xml"/>
+    <xi:include href="transcripts/Ha2/7v.xml"/>
+    <xi:include href="transcripts/Ha2/8r.xml"/>
+    <xi:include href="transcripts/Ha2/8v.xml"/>
+    <xi:include href="transcripts/Ha2/9r.xml"/>
+    <xi:include href="transcripts/Ha2/9v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ha3">
+<teiHeader><fileDesc><titleStmt><title>Ha3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha3/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ha3/69r.xml"/>
+    <xi:include href="transcripts/Ha3/69v.xml"/>
+    <xi:include href="transcripts/Ha3/70r.xml"/>
+    <xi:include href="transcripts/Ha3/70v.xml"/>
+    <xi:include href="transcripts/Ha3/71r.xml"/>
+    <xi:include href="transcripts/Ha3/71v.xml"/>
+    <xi:include href="transcripts/Ha3/72r.xml"/>
+    <xi:include href="transcripts/Ha3/72v.xml"/>
+    <xi:include href="transcripts/Ha3/73r.xml"/>
+    <xi:include href="transcripts/Ha3/73v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ha4">
+<teiHeader><fileDesc><titleStmt><title>Ha4: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ha4/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ha4/1r.xml"/>
+    <xi:include href="transcripts/Ha4/1v.xml"/>
+    <xi:include href="transcripts/Ha4/2r.xml"/>
+    <xi:include href="transcripts/Ha4/2v.xml"/>
+    <xi:include href="transcripts/Ha4/3r.xml"/>
+    <xi:include href="transcripts/Ha4/3v.xml"/>
+    <xi:include href="transcripts/Ha4/4r.xml"/>
+    <xi:include href="transcripts/Ha4/4v.xml"/>
+    <xi:include href="transcripts/Ha4/5r.xml"/>
+    <xi:include href="transcripts/Ha4/5v.xml"/>
+    <xi:include href="transcripts/Ha4/6r.xml"/>
+    <xi:include href="transcripts/Ha4/6v.xml"/>
+    <xi:include href="transcripts/Ha4/7r.xml"/>
+    <xi:include href="transcripts/Ha4/7v.xml"/>
+    <xi:include href="transcripts/Ha4/8r.xml"/>
+    <xi:include href="transcripts/Ha4/8v.xml"/>
+    <xi:include href="transcripts/Ha4/9r.xml"/>
+    <xi:include href="transcripts/Ha4/9v.xml"/>
+    <xi:include href="transcripts/Ha4/10r.xml"/>
+    <xi:include href="transcripts/Ha4/10v.xml"/>
+    <xi:include href="transcripts/Ha4/11r.xml"/>
+    <xi:include href="transcripts/Ha4/11v.xml"/>
+    <xi:include href="transcripts/Ha4/12r.xml"/>
+</body></text>
+</TEI>
 <TEI xml:id="Hg">
-<teiHeader><fileDesc><titleStmt><title>Hengwrt (Hg): the transcript, folio by folio</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Hg/</p></sourceDesc></fileDesc></teiHeader>
+<teiHeader><fileDesc><titleStmt><title>Hg: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Hg/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
     <xi:include href="transcripts/Hg/1r.xml"/>
     <xi:include href="transcripts/Hg/1v.xml"/>
@@ -37,27 +626,705 @@
     <xi:include href="transcripts/Hg/11v.xml"/>
 </body></text>
 </TEI>
-<TEI xml:id="El">
-<teiHeader><fileDesc><titleStmt><title>Ellesmere (El): the transcript, folio by folio</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/El/</p></sourceDesc></fileDesc></teiHeader>
+<TEI xml:id="Ht">
+<teiHeader><fileDesc><titleStmt><title>Ht: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ht/</p></sourceDesc></fileDesc></teiHeader>
 <text><body>
-    <xi:include href="transcripts/El/1r.xml"/>
-    <xi:include href="transcripts/El/1v.xml"/>
-    <xi:include href="transcripts/El/2r.xml"/>
-    <xi:include href="transcripts/El/2v.xml"/>
-    <xi:include href="transcripts/El/3r.xml"/>
-    <xi:include href="transcripts/El/3v.xml"/>
-    <xi:include href="transcripts/El/4r.xml"/>
-    <xi:include href="transcripts/El/4v.xml"/>
-    <xi:include href="transcripts/El/5r.xml"/>
-    <xi:include href="transcripts/El/5v.xml"/>
-    <xi:include href="transcripts/El/6r.xml"/>
-    <xi:include href="transcripts/El/6v.xml"/>
-    <xi:include href="transcripts/El/7r.xml"/>
-    <xi:include href="transcripts/El/7v.xml"/>
-    <xi:include href="transcripts/El/8r.xml"/>
-    <xi:include href="transcripts/El/8v.xml"/>
-    <xi:include href="transcripts/El/9r.xml"/>
-    <xi:include href="transcripts/El/9v.xml"/>
+    <xi:include href="transcripts/Ht/1r.xml"/>
+    <xi:include href="transcripts/Ht/1v.xml"/>
+    <xi:include href="transcripts/Ht/2r.xml"/>
+    <xi:include href="transcripts/Ht/2v.xml"/>
+    <xi:include href="transcripts/Ht/3r.xml"/>
+    <xi:include href="transcripts/Ht/3v.xml"/>
+    <xi:include href="transcripts/Ht/4r.xml"/>
+    <xi:include href="transcripts/Ht/4v.xml"/>
+    <xi:include href="transcripts/Ht/5r.xml"/>
+    <xi:include href="transcripts/Ht/5v.xml"/>
+    <xi:include href="transcripts/Ht/6r.xml"/>
+    <xi:include href="transcripts/Ht/6v.xml"/>
+    <xi:include href="transcripts/Ht/7r.xml"/>
+    <xi:include href="transcripts/Ht/7v.xml"/>
+    <xi:include href="transcripts/Ht/8r.xml"/>
+    <xi:include href="transcripts/Ht/8v.xml"/>
+    <xi:include href="transcripts/Ht/9r.xml"/>
+    <xi:include href="transcripts/Ht/9v.xml"/>
+    <xi:include href="transcripts/Ht/10r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ii">
+<teiHeader><fileDesc><titleStmt><title>Ii: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ii/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ii/1r.xml"/>
+    <xi:include href="transcripts/Ii/1v.xml"/>
+    <xi:include href="transcripts/Ii/2r.xml"/>
+    <xi:include href="transcripts/Ii/2v.xml"/>
+    <xi:include href="transcripts/Ii/3r.xml"/>
+    <xi:include href="transcripts/Ii/3v.xml"/>
+    <xi:include href="transcripts/Ii/4r.xml"/>
+    <xi:include href="transcripts/Ii/4v.xml"/>
+    <xi:include href="transcripts/Ii/5r.xml"/>
+    <xi:include href="transcripts/Ii/5v.xml"/>
+    <xi:include href="transcripts/Ii/6r.xml"/>
+    <xi:include href="transcripts/Ii/6v.xml"/>
+    <xi:include href="transcripts/Ii/7r.xml"/>
+    <xi:include href="transcripts/Ii/7v.xml"/>
+    <xi:include href="transcripts/Ii/8r.xml"/>
+    <xi:include href="transcripts/Ii/8v.xml"/>
+    <xi:include href="transcripts/Ii/9r.xml"/>
+    <xi:include href="transcripts/Ii/9v.xml"/>
+    <xi:include href="transcripts/Ii/10r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="La">
+<teiHeader><fileDesc><titleStmt><title>La: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/La/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/La/1r.xml"/>
+    <xi:include href="transcripts/La/1v.xml"/>
+    <xi:include href="transcripts/La/2r.xml"/>
+    <xi:include href="transcripts/La/2v.xml"/>
+    <xi:include href="transcripts/La/3r.xml"/>
+    <xi:include href="transcripts/La/3v.xml"/>
+    <xi:include href="transcripts/La/4r.xml"/>
+    <xi:include href="transcripts/La/4v.xml"/>
+    <xi:include href="transcripts/La/5r.xml"/>
+    <xi:include href="transcripts/La/5v.xml"/>
+    <xi:include href="transcripts/La/6r.xml"/>
+    <xi:include href="transcripts/La/6v.xml"/>
+    <xi:include href="transcripts/La/7r.xml"/>
+    <xi:include href="transcripts/La/7v.xml"/>
+    <xi:include href="transcripts/La/8r.xml"/>
+    <xi:include href="transcripts/La/8v.xml"/>
+    <xi:include href="transcripts/La/9r.xml"/>
+    <xi:include href="transcripts/La/9v.xml"/>
+    <xi:include href="transcripts/La/10r.xml"/>
+    <xi:include href="transcripts/La/10v.xml"/>
+    <xi:include href="transcripts/La/11r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Lc">
+<teiHeader><fileDesc><titleStmt><title>Lc: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Lc/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Lc/2r.xml"/>
+    <xi:include href="transcripts/Lc/2v.xml"/>
+    <xi:include href="transcripts/Lc/3r.xml"/>
+    <xi:include href="transcripts/Lc/3v.xml"/>
+    <xi:include href="transcripts/Lc/4r.xml"/>
+    <xi:include href="transcripts/Lc/4v.xml"/>
+    <xi:include href="transcripts/Lc/5r.xml"/>
+    <xi:include href="transcripts/Lc/5v.xml"/>
+    <xi:include href="transcripts/Lc/6r.xml"/>
+    <xi:include href="transcripts/Lc/6v.xml"/>
+    <xi:include href="transcripts/Lc/7r.xml"/>
+    <xi:include href="transcripts/Lc/7v.xml"/>
+    <xi:include href="transcripts/Lc/8r.xml"/>
+    <xi:include href="transcripts/Lc/8v.xml"/>
+    <xi:include href="transcripts/Lc/9r.xml"/>
+    <xi:include href="transcripts/Lc/9v.xml"/>
+    <xi:include href="transcripts/Lc/10r.xml"/>
+    <xi:include href="transcripts/Lc/10v.xml"/>
+    <xi:include href="transcripts/Lc/11r.xml"/>
+    <xi:include href="transcripts/Lc/11v.xml"/>
+    <xi:include href="transcripts/Lc/1ar.xml"/>
+    <xi:include href="transcripts/Lc/1av.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ld1">
+<teiHeader><fileDesc><titleStmt><title>Ld1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ld1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ld1/4r.xml"/>
+    <xi:include href="transcripts/Ld1/4v.xml"/>
+    <xi:include href="transcripts/Ld1/5r.xml"/>
+    <xi:include href="transcripts/Ld1/5v.xml"/>
+    <xi:include href="transcripts/Ld1/6r.xml"/>
+    <xi:include href="transcripts/Ld1/6v.xml"/>
+    <xi:include href="transcripts/Ld1/7r.xml"/>
+    <xi:include href="transcripts/Ld1/7v.xml"/>
+    <xi:include href="transcripts/Ld1/8r.xml"/>
+    <xi:include href="transcripts/Ld1/8v.xml"/>
+    <xi:include href="transcripts/Ld1/9r.xml"/>
+    <xi:include href="transcripts/Ld1/9v.xml"/>
+    <xi:include href="transcripts/Ld1/10r.xml"/>
+    <xi:include href="transcripts/Ld1/10v.xml"/>
+    <xi:include href="transcripts/Ld1/11r.xml"/>
+    <xi:include href="transcripts/Ld1/11v.xml"/>
+    <xi:include href="transcripts/Ld1/12r.xml"/>
+    <xi:include href="transcripts/Ld1/12v.xml"/>
+    <xi:include href="transcripts/Ld1/13r.xml"/>
+    <xi:include href="transcripts/Ld1/13v.xml"/>
+    <xi:include href="transcripts/Ld1/14r.xml"/>
+    <xi:include href="transcripts/Ld1/14v.xml"/>
+    <xi:include href="transcripts/Ld1/2ar.xml"/>
+    <xi:include href="transcripts/Ld1/2av.xml"/>
+    <xi:include href="transcripts/Ld1/3ar.xml"/>
+    <xi:include href="transcripts/Ld1/3av.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ld2">
+<teiHeader><fileDesc><titleStmt><title>Ld2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ld2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ld2/1r.xml"/>
+    <xi:include href="transcripts/Ld2/1v.xml"/>
+    <xi:include href="transcripts/Ld2/2r.xml"/>
+    <xi:include href="transcripts/Ld2/2v.xml"/>
+    <xi:include href="transcripts/Ld2/3r.xml"/>
+    <xi:include href="transcripts/Ld2/3v.xml"/>
+    <xi:include href="transcripts/Ld2/4r.xml"/>
+    <xi:include href="transcripts/Ld2/4v.xml"/>
+    <xi:include href="transcripts/Ld2/5r.xml"/>
+    <xi:include href="transcripts/Ld2/5v.xml"/>
+    <xi:include href="transcripts/Ld2/6r.xml"/>
+    <xi:include href="transcripts/Ld2/6v.xml"/>
+    <xi:include href="transcripts/Ld2/7r.xml"/>
+    <xi:include href="transcripts/Ld2/7v.xml"/>
+    <xi:include href="transcripts/Ld2/8r.xml"/>
+    <xi:include href="transcripts/Ld2/8v.xml"/>
+    <xi:include href="transcripts/Ld2/9r.xml"/>
+    <xi:include href="transcripts/Ld2/9v.xml"/>
+    <xi:include href="transcripts/Ld2/10r.xml"/>
+    <xi:include href="transcripts/Ld2/10v.xml"/>
+    <xi:include href="transcripts/Ld2/11r.xml"/>
+    <xi:include href="transcripts/Ld2/11v.xml"/>
+    <xi:include href="transcripts/Ld2/12r.xml"/>
+    <xi:include href="transcripts/Ld2/12v.xml"/>
+    <xi:include href="transcripts/Ld2/13r.xml"/>
+    <xi:include href="transcripts/Ld2/13v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ln">
+<teiHeader><fileDesc><titleStmt><title>Ln: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ln/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ln/6r.xml"/>
+    <xi:include href="transcripts/Ln/6v.xml"/>
+    <xi:include href="transcripts/Ln/7r.xml"/>
+    <xi:include href="transcripts/Ln/7v.xml"/>
+    <xi:include href="transcripts/Ln/8r.xml"/>
+    <xi:include href="transcripts/Ln/8v.xml"/>
+    <xi:include href="transcripts/Ln/9r.xml"/>
+    <xi:include href="transcripts/Ln/9v.xml"/>
+    <xi:include href="transcripts/Ln/10r.xml"/>
+    <xi:include href="transcripts/Ln/10v.xml"/>
+    <xi:include href="transcripts/Ln/11r.xml"/>
+    <xi:include href="transcripts/Ln/11v.xml"/>
+    <xi:include href="transcripts/Ln/12r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ma">
+<teiHeader><fileDesc><titleStmt><title>Ma: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ma/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ma/6r.xml"/>
+    <xi:include href="transcripts/Ma/6v.xml"/>
+    <xi:include href="transcripts/Ma/7r.xml"/>
+    <xi:include href="transcripts/Ma/7v.xml"/>
+    <xi:include href="transcripts/Ma/8r.xml"/>
+    <xi:include href="transcripts/Ma/8v.xml"/>
+    <xi:include href="transcripts/Ma/9r.xml"/>
+    <xi:include href="transcripts/Ma/9v.xml"/>
+    <xi:include href="transcripts/Ma/10r.xml"/>
+    <xi:include href="transcripts/Ma/10v.xml"/>
+    <xi:include href="transcripts/Ma/11r.xml"/>
+    <xi:include href="transcripts/Ma/11v.xml"/>
+    <xi:include href="transcripts/Ma/12r.xml"/>
+    <xi:include href="transcripts/Ma/12v.xml"/>
+    <xi:include href="transcripts/Ma/13r.xml"/>
+    <xi:include href="transcripts/Ma/13v.xml"/>
+    <xi:include href="transcripts/Ma/14r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Mg">
+<teiHeader><fileDesc><titleStmt><title>Mg: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Mg/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Mg/1r.xml"/>
+    <xi:include href="transcripts/Mg/1v.xml"/>
+    <xi:include href="transcripts/Mg/2r.xml"/>
+    <xi:include href="transcripts/Mg/2v.xml"/>
+    <xi:include href="transcripts/Mg/3r.xml"/>
+    <xi:include href="transcripts/Mg/3v.xml"/>
+    <xi:include href="transcripts/Mg/4r.xml"/>
+    <xi:include href="transcripts/Mg/4v.xml"/>
+    <xi:include href="transcripts/Mg/5r.xml"/>
+    <xi:include href="transcripts/Mg/5v.xml"/>
+    <xi:include href="transcripts/Mg/6r.xml"/>
+    <xi:include href="transcripts/Mg/6v.xml"/>
+    <xi:include href="transcripts/Mg/7r.xml"/>
+    <xi:include href="transcripts/Mg/7v.xml"/>
+    <xi:include href="transcripts/Mg/8r.xml"/>
+    <xi:include href="transcripts/Mg/8v.xml"/>
+    <xi:include href="transcripts/Mg/9r.xml"/>
+    <xi:include href="transcripts/Mg/9v.xml"/>
+    <xi:include href="transcripts/Mg/10r.xml"/>
+    <xi:include href="transcripts/Mg/10v.xml"/>
+    <xi:include href="transcripts/Mg/11r.xml"/>
+    <xi:include href="transcripts/Mg/11v.xml"/>
+    <xi:include href="transcripts/Mg/12r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Mm">
+<teiHeader><fileDesc><titleStmt><title>Mm: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Mm/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Mm/2r.xml"/>
+    <xi:include href="transcripts/Mm/2v.xml"/>
+    <xi:include href="transcripts/Mm/3r.xml"/>
+    <xi:include href="transcripts/Mm/3v.xml"/>
+    <xi:include href="transcripts/Mm/4r.xml"/>
+    <xi:include href="transcripts/Mm/4v.xml"/>
+    <xi:include href="transcripts/Mm/5r.xml"/>
+    <xi:include href="transcripts/Mm/5v.xml"/>
+    <xi:include href="transcripts/Mm/6r.xml"/>
+    <xi:include href="transcripts/Mm/6v.xml"/>
+    <xi:include href="transcripts/Mm/7r.xml"/>
+    <xi:include href="transcripts/Mm/7v.xml"/>
+    <xi:include href="transcripts/Mm/8r.xml"/>
+    <xi:include href="transcripts/Mm/8v.xml"/>
+    <xi:include href="transcripts/Mm/9r.xml"/>
+    <xi:include href="transcripts/Mm/9v.xml"/>
+    <xi:include href="transcripts/Mm/10r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ne">
+<teiHeader><fileDesc><titleStmt><title>Ne: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ne/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ne/9r.xml"/>
+    <xi:include href="transcripts/Ne/9v.xml"/>
+    <xi:include href="transcripts/Ne/10r.xml"/>
+    <xi:include href="transcripts/Ne/10v.xml"/>
+    <xi:include href="transcripts/Ne/11r.xml"/>
+    <xi:include href="transcripts/Ne/11v.xml"/>
+    <xi:include href="transcripts/Ne/12r.xml"/>
+    <xi:include href="transcripts/Ne/12v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Nl">
+<teiHeader><fileDesc><titleStmt><title>Nl: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Nl/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Nl/3r.xml"/>
+    <xi:include href="transcripts/Nl/3v.xml"/>
+    <xi:include href="transcripts/Nl/4r.xml"/>
+    <xi:include href="transcripts/Nl/4v.xml"/>
+    <xi:include href="transcripts/Nl/5r.xml"/>
+    <xi:include href="transcripts/Nl/5v.xml"/>
+    <xi:include href="transcripts/Nl/6r.xml"/>
+    <xi:include href="transcripts/Nl/6v.xml"/>
+    <xi:include href="transcripts/Nl/7r.xml"/>
+    <xi:include href="transcripts/Nl/7v.xml"/>
+    <xi:include href="transcripts/Nl/8r.xml"/>
+    <xi:include href="transcripts/Nl/8v.xml"/>
+    <xi:include href="transcripts/Nl/9r.xml"/>
+    <xi:include href="transcripts/Nl/9v.xml"/>
+    <xi:include href="transcripts/Nl/10r.xml"/>
+    <xi:include href="transcripts/Nl/10v.xml"/>
+    <xi:include href="transcripts/Nl/11r.xml"/>
+    <xi:include href="transcripts/Nl/11v.xml"/>
+    <xi:include href="transcripts/Nl/12r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ph2">
+<teiHeader><fileDesc><titleStmt><title>Ph2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ph2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ph2/2r.xml"/>
+    <xi:include href="transcripts/Ph2/2v.xml"/>
+    <xi:include href="transcripts/Ph2/3r.xml"/>
+    <xi:include href="transcripts/Ph2/3v.xml"/>
+    <xi:include href="transcripts/Ph2/4r.xml"/>
+    <xi:include href="transcripts/Ph2/4v.xml"/>
+    <xi:include href="transcripts/Ph2/5r.xml"/>
+    <xi:include href="transcripts/Ph2/5v.xml"/>
+    <xi:include href="transcripts/Ph2/6r.xml"/>
+    <xi:include href="transcripts/Ph2/6v.xml"/>
+    <xi:include href="transcripts/Ph2/7r.xml"/>
+    <xi:include href="transcripts/Ph2/7v.xml"/>
+    <xi:include href="transcripts/Ph2/8r.xml"/>
+    <xi:include href="transcripts/Ph2/8v.xml"/>
+    <xi:include href="transcripts/Ph2/9r.xml"/>
+    <xi:include href="transcripts/Ph2/9v.xml"/>
+    <xi:include href="transcripts/Ph2/10r.xml"/>
+    <xi:include href="transcripts/Ph2/10v.xml"/>
+    <xi:include href="transcripts/Ph2/11r.xml"/>
+    <xi:include href="transcripts/Ph2/11v.xml"/>
+    <xi:include href="transcripts/Ph2/12r.xml"/>
+    <xi:include href="transcripts/Ph2/12v.xml"/>
+    <xi:include href="transcripts/Ph2/13r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Pn">
+<teiHeader><fileDesc><titleStmt><title>Pn: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Pn/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Pn/a2r.xml"/>
+    <xi:include href="transcripts/Pn/a2v.xml"/>
+    <xi:include href="transcripts/Pn/a3r.xml"/>
+    <xi:include href="transcripts/Pn/a3v.xml"/>
+    <xi:include href="transcripts/Pn/a4r.xml"/>
+    <xi:include href="transcripts/Pn/a4v.xml"/>
+    <xi:include href="transcripts/Pn/a5r.xml"/>
+    <xi:include href="transcripts/Pn/a5v.xml"/>
+    <xi:include href="transcripts/Pn/a6r.xml"/>
+    <xi:include href="transcripts/Pn/a6v.xml"/>
+    <xi:include href="transcripts/Pn/a7r.xml"/>
+    <xi:include href="transcripts/Pn/a7v.xml"/>
+    <xi:include href="transcripts/Pn/a8r.xml"/>
+    <xi:include href="transcripts/Pn/a8v.xml"/>
+    <xi:include href="transcripts/Pn/b1r.xml"/>
+    <xi:include href="transcripts/Pn/b1v.xml"/>
+    <xi:include href="transcripts/Pn/b2r.xml"/>
+    <xi:include href="transcripts/Pn/b2v.xml"/>
+    <xi:include href="transcripts/Pn/b3r.xml"/>
+    <xi:include href="transcripts/Pn/b3v.xml"/>
+    <xi:include href="transcripts/Pn/b4r.xml"/>
+    <xi:include href="transcripts/Pn/b4v.xml"/>
+    <xi:include href="transcripts/Pn/b5r.xml"/>
+    <xi:include href="transcripts/Pn/b5v.xml"/>
+    <xi:include href="transcripts/Pn/b6r.xml"/>
+    <xi:include href="transcripts/Pn/b6v.xml"/>
+    <xi:include href="transcripts/Pn/b7r.xml"/>
+    <xi:include href="transcripts/Pn/b7v.xml"/>
+    <xi:include href="transcripts/Pn/b8r.xml"/>
+    <xi:include href="transcripts/Pn/b8v.xml"/>
+    <xi:include href="transcripts/Pn/c1r.xml"/>
+    <xi:include href="transcripts/Pn/c1v.xml"/>
+    <xi:include href="transcripts/Pn/c2r.xml"/>
+    <xi:include href="transcripts/Pn/c2v.xml"/>
+    <xi:include href="transcripts/Pn/c3r.xml"/>
+    <xi:include href="transcripts/Pn/c3v.xml"/>
+    <xi:include href="transcripts/Pn/c4r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ps">
+<teiHeader><fileDesc><titleStmt><title>Ps: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ps/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ps/1r.xml"/>
+    <xi:include href="transcripts/Ps/1v.xml"/>
+    <xi:include href="transcripts/Ps/2r.xml"/>
+    <xi:include href="transcripts/Ps/2v.xml"/>
+    <xi:include href="transcripts/Ps/3r.xml"/>
+    <xi:include href="transcripts/Ps/3v.xml"/>
+    <xi:include href="transcripts/Ps/4r.xml"/>
+    <xi:include href="transcripts/Ps/4v.xml"/>
+    <xi:include href="transcripts/Ps/5r.xml"/>
+    <xi:include href="transcripts/Ps/5v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Pw">
+<teiHeader><fileDesc><titleStmt><title>Pw: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Pw/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Pw/1r.xml"/>
+    <xi:include href="transcripts/Pw/1v.xml"/>
+    <xi:include href="transcripts/Pw/2r.xml"/>
+    <xi:include href="transcripts/Pw/2v.xml"/>
+    <xi:include href="transcripts/Pw/3r.xml"/>
+    <xi:include href="transcripts/Pw/3v.xml"/>
+    <xi:include href="transcripts/Pw/4r.xml"/>
+    <xi:include href="transcripts/Pw/4v.xml"/>
+    <xi:include href="transcripts/Pw/5r.xml"/>
+    <xi:include href="transcripts/Pw/5v.xml"/>
+    <xi:include href="transcripts/Pw/6r.xml"/>
+    <xi:include href="transcripts/Pw/6v.xml"/>
+    <xi:include href="transcripts/Pw/7r.xml"/>
+    <xi:include href="transcripts/Pw/7v.xml"/>
+    <xi:include href="transcripts/Pw/8r.xml"/>
+    <xi:include href="transcripts/Pw/8v.xml"/>
+    <xi:include href="transcripts/Pw/9r.xml"/>
+    <xi:include href="transcripts/Pw/9v.xml"/>
+    <xi:include href="transcripts/Pw/10r.xml"/>
+    <xi:include href="transcripts/Pw/10v.xml"/>
+    <xi:include href="transcripts/Pw/11r.xml"/>
+    <xi:include href="transcripts/Pw/11v.xml"/>
+    <xi:include href="transcripts/Pw/12r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Py">
+<teiHeader><fileDesc><titleStmt><title>Py: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Py/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Py/1r.xml"/>
+    <xi:include href="transcripts/Py/1v.xml"/>
+    <xi:include href="transcripts/Py/2r.xml"/>
+    <xi:include href="transcripts/Py/2v.xml"/>
+    <xi:include href="transcripts/Py/3r.xml"/>
+    <xi:include href="transcripts/Py/3v.xml"/>
+    <xi:include href="transcripts/Py/4r.xml"/>
+    <xi:include href="transcripts/Py/4v.xml"/>
+    <xi:include href="transcripts/Py/5r.xml"/>
+    <xi:include href="transcripts/Py/5v.xml"/>
+    <xi:include href="transcripts/Py/6r.xml"/>
+    <xi:include href="transcripts/Py/6v.xml"/>
+    <xi:include href="transcripts/Py/7r.xml"/>
+    <xi:include href="transcripts/Py/7v.xml"/>
+    <xi:include href="transcripts/Py/8r.xml"/>
+    <xi:include href="transcripts/Py/8v.xml"/>
+    <xi:include href="transcripts/Py/9r.xml"/>
+    <xi:include href="transcripts/Py/9v.xml"/>
+    <xi:include href="transcripts/Py/10r.xml"/>
+    <xi:include href="transcripts/Py/10v.xml"/>
+    <xi:include href="transcripts/Py/11r.xml"/>
+    <xi:include href="transcripts/Py/11v.xml"/>
+    <xi:include href="transcripts/Py/12r.xml"/>
+    <xi:include href="transcripts/Py/12v.xml"/>
+    <xi:include href="transcripts/Py/13r.xml"/>
+    <xi:include href="transcripts/Py/13v.xml"/>
+    <xi:include href="transcripts/Py/14r.xml"/>
+    <xi:include href="transcripts/Py/14v.xml"/>
+    <xi:include href="transcripts/Py/15r.xml"/>
+    <xi:include href="transcripts/Py/15v.xml"/>
+    <xi:include href="transcripts/Py/16r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ra2">
+<teiHeader><fileDesc><titleStmt><title>Ra2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ra2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ra2/6r.xml"/>
+    <xi:include href="transcripts/Ra2/6v.xml"/>
+    <xi:include href="transcripts/Ra2/7r.xml"/>
+    <xi:include href="transcripts/Ra2/7v.xml"/>
+    <xi:include href="transcripts/Ra2/8r.xml"/>
+    <xi:include href="transcripts/Ra2/8v.xml"/>
+    <xi:include href="transcripts/Ra2/9r.xml"/>
+    <xi:include href="transcripts/Ra2/9v.xml"/>
+    <xi:include href="transcripts/Ra2/10r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ra3">
+<teiHeader><fileDesc><titleStmt><title>Ra3: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ra3/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ra3/8r.xml"/>
+    <xi:include href="transcripts/Ra3/8v.xml"/>
+    <xi:include href="transcripts/Ra3/9r.xml"/>
+    <xi:include href="transcripts/Ra3/9v.xml"/>
+    <xi:include href="transcripts/Ra3/10r.xml"/>
+    <xi:include href="transcripts/Ra3/10v.xml"/>
+    <xi:include href="transcripts/Ra3/11r.xml"/>
+    <xi:include href="transcripts/Ra3/11v.xml"/>
+    <xi:include href="transcripts/Ra3/12r.xml"/>
+    <xi:include href="transcripts/Ra3/12v.xml"/>
+    <xi:include href="transcripts/Ra3/13r.xml"/>
+    <xi:include href="transcripts/Ra3/13v.xml"/>
+    <xi:include href="transcripts/Ra3/14r.xml"/>
+    <xi:include href="transcripts/Ra3/14v.xml"/>
+    <xi:include href="transcripts/Ra3/15r.xml"/>
+    <xi:include href="transcripts/Ra3/15v.xml"/>
+    <xi:include href="transcripts/Ra3/16r.xml"/>
+    <xi:include href="transcripts/Ra3/16v.xml"/>
+    <xi:include href="transcripts/Ra3/17r.xml"/>
+    <xi:include href="transcripts/Ra3/17v.xml"/>
+    <xi:include href="transcripts/Ra3/18r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ry1">
+<teiHeader><fileDesc><titleStmt><title>Ry1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ry1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ry1/2r.xml"/>
+    <xi:include href="transcripts/Ry1/2v.xml"/>
+    <xi:include href="transcripts/Ry1/3r.xml"/>
+    <xi:include href="transcripts/Ry1/3v.xml"/>
+    <xi:include href="transcripts/Ry1/4r.xml"/>
+    <xi:include href="transcripts/Ry1/4v.xml"/>
+    <xi:include href="transcripts/Ry1/5r.xml"/>
+    <xi:include href="transcripts/Ry1/5v.xml"/>
+    <xi:include href="transcripts/Ry1/6r.xml"/>
+    <xi:include href="transcripts/Ry1/6v.xml"/>
+    <xi:include href="transcripts/Ry1/7r.xml"/>
+    <xi:include href="transcripts/Ry1/7v.xml"/>
+    <xi:include href="transcripts/Ry1/8r.xml"/>
+    <xi:include href="transcripts/Ry1/8v.xml"/>
+    <xi:include href="transcripts/Ry1/9r.xml"/>
+    <xi:include href="transcripts/Ry1/9v.xml"/>
+    <xi:include href="transcripts/Ry1/10r.xml"/>
+    <xi:include href="transcripts/Ry1/10v.xml"/>
+    <xi:include href="transcripts/Ry1/11r.xml"/>
+    <xi:include href="transcripts/Ry1/11v.xml"/>
+    <xi:include href="transcripts/Ry1/12r.xml"/>
+    <xi:include href="transcripts/Ry1/12v.xml"/>
+    <xi:include href="transcripts/Ry1/13r.xml"/>
+    <xi:include href="transcripts/Ry1/13v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Ry2">
+<teiHeader><fileDesc><titleStmt><title>Ry2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Ry2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Ry2/1r.xml"/>
+    <xi:include href="transcripts/Ry2/1v.xml"/>
+    <xi:include href="transcripts/Ry2/2r.xml"/>
+    <xi:include href="transcripts/Ry2/2v.xml"/>
+    <xi:include href="transcripts/Ry2/3r.xml"/>
+    <xi:include href="transcripts/Ry2/3v.xml"/>
+    <xi:include href="transcripts/Ry2/4r.xml"/>
+    <xi:include href="transcripts/Ry2/4v.xml"/>
+    <xi:include href="transcripts/Ry2/5r.xml"/>
+    <xi:include href="transcripts/Ry2/5v.xml"/>
+    <xi:include href="transcripts/Ry2/6r.xml"/>
+    <xi:include href="transcripts/Ry2/6v.xml"/>
+    <xi:include href="transcripts/Ry2/7r.xml"/>
+    <xi:include href="transcripts/Ry2/7v.xml"/>
+    <xi:include href="transcripts/Ry2/8r.xml"/>
+    <xi:include href="transcripts/Ry2/8v.xml"/>
+    <xi:include href="transcripts/Ry2/9r.xml"/>
+    <xi:include href="transcripts/Ry2/9v.xml"/>
+    <xi:include href="transcripts/Ry2/10r.xml"/>
+    <xi:include href="transcripts/Ry2/10v.xml"/>
+    <xi:include href="transcripts/Ry2/11r.xml"/>
+    <xi:include href="transcripts/Ry2/11v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Se">
+<teiHeader><fileDesc><titleStmt><title>Se: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Se/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Se/1r.xml"/>
+    <xi:include href="transcripts/Se/1v.xml"/>
+    <xi:include href="transcripts/Se/2r.xml"/>
+    <xi:include href="transcripts/Se/2v.xml"/>
+    <xi:include href="transcripts/Se/3r.xml"/>
+    <xi:include href="transcripts/Se/3v.xml"/>
+    <xi:include href="transcripts/Se/4r.xml"/>
+    <xi:include href="transcripts/Se/4v.xml"/>
+    <xi:include href="transcripts/Se/5r.xml"/>
+    <xi:include href="transcripts/Se/5v.xml"/>
+    <xi:include href="transcripts/Se/6r.xml"/>
+    <xi:include href="transcripts/Se/6v.xml"/>
+    <xi:include href="transcripts/Se/7r.xml"/>
+    <xi:include href="transcripts/Se/7v.xml"/>
+    <xi:include href="transcripts/Se/8r.xml"/>
+    <xi:include href="transcripts/Se/8v.xml"/>
+    <xi:include href="transcripts/Se/9r.xml"/>
+    <xi:include href="transcripts/Se/9v.xml"/>
+    <xi:include href="transcripts/Se/10r.xml"/>
+    <xi:include href="transcripts/Se/10v.xml"/>
+    <xi:include href="transcripts/Se/11r.xml"/>
+    <xi:include href="transcripts/Se/11v.xml"/>
+    <xi:include href="transcripts/Se/12r.xml"/>
+    <xi:include href="transcripts/Se/12v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Sl1">
+<teiHeader><fileDesc><titleStmt><title>Sl1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Sl1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Sl1/10r.xml"/>
+    <xi:include href="transcripts/Sl1/10v.xml"/>
+    <xi:include href="transcripts/Sl1/11r.xml"/>
+    <xi:include href="transcripts/Sl1/11v.xml"/>
+    <xi:include href="transcripts/Sl1/12r.xml"/>
+    <xi:include href="transcripts/Sl1/12v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Sl2">
+<teiHeader><fileDesc><titleStmt><title>Sl2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Sl2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Sl2/2r.xml"/>
+    <xi:include href="transcripts/Sl2/2v.xml"/>
+    <xi:include href="transcripts/Sl2/3r.xml"/>
+    <xi:include href="transcripts/Sl2/3v.xml"/>
+    <xi:include href="transcripts/Sl2/4r.xml"/>
+    <xi:include href="transcripts/Sl2/4v.xml"/>
+    <xi:include href="transcripts/Sl2/5r.xml"/>
+    <xi:include href="transcripts/Sl2/5v.xml"/>
+    <xi:include href="transcripts/Sl2/6r.xml"/>
+    <xi:include href="transcripts/Sl2/6v.xml"/>
+    <xi:include href="transcripts/Sl2/7r.xml"/>
+    <xi:include href="transcripts/Sl2/7v.xml"/>
+    <xi:include href="transcripts/Sl2/9r.xml"/>
+    <xi:include href="transcripts/Sl2/9v.xml"/>
+    <xi:include href="transcripts/Sl2/10r.xml"/>
+    <xi:include href="transcripts/Sl2/10v.xml"/>
+    <xi:include href="transcripts/Sl2/11r.xml"/>
+    <xi:include href="transcripts/Sl2/11v.xml"/>
+    <xi:include href="transcripts/Sl2/12r.xml"/>
+    <xi:include href="transcripts/Sl2/12v.xml"/>
+    <xi:include href="transcripts/Sl2/13r.xml"/>
+    <xi:include href="transcripts/Sl2/13v.xml"/>
+    <xi:include href="transcripts/Sl2/14r.xml"/>
+    <xi:include href="transcripts/Sl2/14v.xml"/>
+    <xi:include href="transcripts/Sl2/15r.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Tc1">
+<teiHeader><fileDesc><titleStmt><title>Tc1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Tc1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Tc1/1r.xml"/>
+    <xi:include href="transcripts/Tc1/1v.xml"/>
+    <xi:include href="transcripts/Tc1/2r.xml"/>
+    <xi:include href="transcripts/Tc1/2v.xml"/>
+    <xi:include href="transcripts/Tc1/3r.xml"/>
+    <xi:include href="transcripts/Tc1/3v.xml"/>
+    <xi:include href="transcripts/Tc1/4r.xml"/>
+    <xi:include href="transcripts/Tc1/4v.xml"/>
+    <xi:include href="transcripts/Tc1/5r.xml"/>
+    <xi:include href="transcripts/Tc1/5v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Tc2">
+<teiHeader><fileDesc><titleStmt><title>Tc2: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Tc2/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Tc2/3r.xml"/>
+    <xi:include href="transcripts/Tc2/3v.xml"/>
+    <xi:include href="transcripts/Tc2/4r.xml"/>
+    <xi:include href="transcripts/Tc2/4v.xml"/>
+    <xi:include href="transcripts/Tc2/5r.xml"/>
+    <xi:include href="transcripts/Tc2/5v.xml"/>
+    <xi:include href="transcripts/Tc2/6r.xml"/>
+    <xi:include href="transcripts/Tc2/6v.xml"/>
+    <xi:include href="transcripts/Tc2/7r.xml"/>
+    <xi:include href="transcripts/Tc2/7v.xml"/>
+    <xi:include href="transcripts/Tc2/8r.xml"/>
+    <xi:include href="transcripts/Tc2/8v.xml"/>
+    <xi:include href="transcripts/Tc2/9r.xml"/>
+    <xi:include href="transcripts/Tc2/9v.xml"/>
+    <xi:include href="transcripts/Tc2/10r.xml"/>
+    <xi:include href="transcripts/Tc2/10v.xml"/>
+    <xi:include href="transcripts/Tc2/11r.xml"/>
+    <xi:include href="transcripts/Tc2/11v.xml"/>
+    <xi:include href="transcripts/Tc2/12r.xml"/>
+    <xi:include href="transcripts/Tc2/12v.xml"/>
+    <xi:include href="transcripts/Tc2/13r.xml"/>
+    <xi:include href="transcripts/Tc2/13v.xml"/>
+    <xi:include href="transcripts/Tc2/14r.xml"/>
+    <xi:include href="transcripts/Tc2/14v.xml"/>
+    <xi:include href="transcripts/Tc2/15r.xml"/>
+    <xi:include href="transcripts/Tc2/15v.xml"/>
+    <xi:include href="transcripts/Tc2/16r.xml"/>
+    <xi:include href="transcripts/Tc2/4av.xml"/>
+    <xi:include href="transcripts/Tc2/a3v.xml"/>
+    <xi:include href="transcripts/Tc2/a4r.xml"/>
+    <xi:include href="transcripts/Tc2/a4v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="To1">
+<teiHeader><fileDesc><titleStmt><title>To1: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/To1/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/To1/1v.xml"/>
+    <xi:include href="transcripts/To1/2r.xml"/>
+    <xi:include href="transcripts/To1/2v.xml"/>
+    <xi:include href="transcripts/To1/3r.xml"/>
+    <xi:include href="transcripts/To1/3v.xml"/>
+    <xi:include href="transcripts/To1/4r.xml"/>
+    <xi:include href="transcripts/To1/4v.xml"/>
+    <xi:include href="transcripts/To1/5r.xml"/>
+    <xi:include href="transcripts/To1/5v.xml"/>
+    <xi:include href="transcripts/To1/6r.xml"/>
+    <xi:include href="transcripts/To1/6v.xml"/>
+    <xi:include href="transcripts/To1/7r.xml"/>
+    <xi:include href="transcripts/To1/7v.xml"/>
+    <xi:include href="transcripts/To1/8r.xml"/>
+    <xi:include href="transcripts/To1/8v.xml"/>
+    <xi:include href="transcripts/To1/9r.xml"/>
+    <xi:include href="transcripts/To1/9v.xml"/>
+    <xi:include href="transcripts/To1/10r.xml"/>
+    <xi:include href="transcripts/To1/10v.xml"/>
+    <xi:include href="transcripts/To1/2a1r.xml"/>
+    <xi:include href="transcripts/To1/2a1v.xml"/>
+</body></text>
+</TEI>
+<TEI xml:id="Wy">
+<teiHeader><fileDesc><titleStmt><title>Wy: the transcript</title></titleStmt><publicationStmt><p>Canterbury Tales Project.</p></publicationStmt><sourceDesc><p>talesofcanterbury.org/GP/xml/transcripts/Wy/</p></sourceDesc></fileDesc></teiHeader>
+<text><body>
+    <xi:include href="transcripts/Wy/a3r.xml"/>
+    <xi:include href="transcripts/Wy/a3v.xml"/>
+    <xi:include href="transcripts/Wy/a4r.xml"/>
+    <xi:include href="transcripts/Wy/a4v.xml"/>
+    <xi:include href="transcripts/Wy/b1r.xml"/>
+    <xi:include href="transcripts/Wy/b1v.xml"/>
+    <xi:include href="transcripts/Wy/b2r.xml"/>
+    <xi:include href="transcripts/Wy/b2v.xml"/>
+    <xi:include href="transcripts/Wy/b3r.xml"/>
+    <xi:include href="transcripts/Wy/b3v.xml"/>
+    <xi:include href="transcripts/Wy/b4r.xml"/>
+    <xi:include href="transcripts/Wy/b4v.xml"/>
+    <xi:include href="transcripts/Wy/c1r.xml"/>
+    <xi:include href="transcripts/Wy/c1v.xml"/>
 </body></text>
 </TEI>
 <TEI xml:id="collazione-01">

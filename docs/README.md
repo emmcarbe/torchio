@@ -35,7 +35,7 @@ and `node tools/press.js --site demo-src/vangogh docs/vangogh`.
   GPL 2.0. Offered by the editor as a test case. The derived demo is
   distributed under the same licence.
 - **The Canterbury Tales, General Prologue** (`demo-src/canterbury/`):
-  transcripts (Hengwrt and Ellesmere) and full collation from the
+  transcripts of all 54 witnesses and the full collation from the
   [Canterbury Tales Project](https://talesofcanterbury.org/GP/), ed. Peter
   Robinson. Materials under copyright; pressed and republished here by
   invitation of the editor as a test case. This is a temporary demo and it
