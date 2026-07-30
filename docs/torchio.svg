@@ -1,31 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Torchio">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 122" width="150" height="122" role="img" aria-label="Torchio">
   <style>
-    .frame { stroke: #1B1B1B; stroke-width: 3; stroke-linecap: square; fill: none; }
-    .screw { stroke: #1B1B1B; stroke-width: 2; stroke-linecap: round; }
-    .platen { fill: #B01E28; }
-    .sheet { stroke: #1B1B1B; stroke-width: 2; stroke-linecap: round; }
-    .moving { animation: press 4.5s ease-in-out infinite; }
-    @keyframes press {
-      0%, 100% { transform: translateY(0); }
-      42%, 58% { transform: translateY(7px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .moving { animation: none; }
-    }
+    .hair { stroke: #1B1B1B; stroke-width: 1.3; stroke-linecap: round; fill: none; }
+    .dot { fill: #1B1B1B; }
+    .lett { font: 600 6px ui-monospace, Menlo, monospace; letter-spacing: 2.2px; fill: #B01E28; }
+    .tick { stroke: #B01E28; stroke-width: 1; stroke-linecap: round; }
+    .sheet { stroke: #B01E28; stroke-width: 2; stroke-linecap: round; }
+    .wheel { transform-origin: 104px 60px; animation: turn 26s linear infinite; }
+    @keyframes turn { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .wheel { animation: none; } }
   </style>
-  <!-- base and frame -->
-  <path class="frame" d="M8 56 H56"/>
-  <path class="frame" d="M14 56 V10 H50 V56"/>
-  <!-- fixed screw shaft with thread marks -->
-  <line class="screw" x1="32" y1="10" x2="32" y2="24"/>
-  <line class="screw" x1="28.5" y1="14" x2="35.5" y2="14"/>
-  <line class="screw" x1="28.5" y1="19" x2="35.5" y2="19"/>
-  <!-- moving assembly: stem, handle, platen -->
-  <g class="moving">
-    <line class="screw" x1="32" y1="22" x2="32" y2="31"/>
-    <line class="screw" x1="22" y1="25" x2="42" y2="25"/>
-    <rect class="platen" x="20" y="31" width="24" height="5" rx="1"/>
+
+  <!-- frame -->
+  <path class="hair" d="M40 14 H92"/>
+  <path class="hair" d="M46 14 V103"/>
+  <path class="hair" d="M86 14 V103"/>
+  <path class="hair" d="M38 107 H58"/>
+  <path class="hair" d="M74 107 H94"/>
+
+  <!-- cylinder resting on the bed -->
+  <circle class="hair" cx="66" cy="59.5" r="9"/>
+  <circle class="dot" cx="66" cy="59.5" r="1.1"/>
+
+  <!-- the bed -->
+  <path class="hair" d="M18 70 H126"/>
+  <path class="hair" d="M24 74 H120"/>
+
+  <!-- the star wheel, six even spokes -->
+  <g class="wheel">
+    <circle class="dot" cx="104" cy="60" r="2.4"/>
+    <g class="hair">
+      <path d="M104 60 Q117.7 69.2 132.2 70.3"/>
+      <path d="M104 60 Q102.8 76.5 109.2 89.5"/>
+      <path d="M104 60 Q89.2 67.2 81 79.3"/>
+      <path d="M104 60 Q90.3 50.8 75.8 49.7"/>
+      <path d="M104 60 Q105.2 43.5 98.8 30.5"/>
+      <path d="M104 60 Q118.8 52.8 127 40.7"/>
+    </g>
+    <circle class="dot" cx="132.2" cy="70.3" r="1.6"/>
+    <circle class="dot" cx="109.2" cy="89.5" r="1.6"/>
+    <circle class="dot" cx="81" cy="79.3" r="1.6"/>
+    <circle class="dot" cx="75.8" cy="49.7" r="1.6"/>
+    <circle class="dot" cx="98.8" cy="30.5" r="1.6"/>
+    <circle class="dot" cx="127" cy="40.7" r="1.6"/>
   </g>
-  <!-- the sheet on the bed -->
-  <line class="sheet" x1="22" y1="49" x2="42" y2="49"/>
+
+  <!-- inscriptions, tick-flanked -->
+  <line class="tick" x1="16" y1="64" x2="19.5" y2="64"/>
+  <text class="lett" x="30.5" y="66.2" text-anchor="middle">TEI</text>
+  <line class="tick" x1="41.5" y1="64" x2="45" y2="64"/>
+
+  <line class="sheet" x1="23" y1="84" x2="39" y2="84"/>
+  <line class="tick" x1="16" y1="92" x2="19.5" y2="92"/>
+  <text class="lett" x="30.5" y="94.2" text-anchor="middle">ed</text>
+  <line class="tick" x1="41.5" y1="92" x2="45" y2="92"/>
 </svg>
