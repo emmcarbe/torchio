@@ -35,6 +35,7 @@ editorial genre.
 | 2026-07-30 | C14 | Odyssey (Perseus), public demo | assignment | verse numbers (`@n` on `l`) were not displayed: every fifth line now carries its number in the margin |
 | 2026-07-30 | C15 | Odyssey (Perseus), public demo | assignment | the structural partitions of the body (book or section `div`) become pages with a table of contents and navigation, instead of a single page |
 | 2026-07-30 | C16 | Bellum Alexandrinum (DLL), public demo | assignment | notes (`note`) interrupted the prose as blocks: they are now margin notes where the screen allows it, with an anchor mark in the text and a toolbar toggle |
+| 2026-07-30 | C17 | Ursus Beneventanus (ed. Monella), public demo | assignment | whitespace inside word-level elements (`w`, `m`, `c`) and between the children of element-only content (`choice`, `subst`, `app`, `rdgGrp`) is source formatting, not text: it is now dropped; word separation comes from `pc` and element boundaries |
 
-As of 30 July 2026: 16 corrections (11 assignments, 5 extensions, 0
+As of 30 July 2026: 17 corrections (12 assignments, 5 extensions, 0
 structural changes).

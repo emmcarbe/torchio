@@ -23,6 +23,17 @@ and `node tools/press.js --site demo-src/vangogh docs/vangogh`.
   pending peer review by the Society for Classical Studies. Temporary test
   sample. The derived demo is distributed under the same licence (CC BY-SA
   4.0).
+- **Romualdus Salernitanus, Chronicon** (`demo-src/romualdo/`): digital
+  scholarly edition by Paolo Monella, ALIM Project, from the
+  [paolomonella/romualdus](https://github.com/paolomonella/romualdus)
+  repository, GPL 3.0. Offered by the editor as a test case. The derived
+  demo is distributed under the same licence.
+- **Ursus Beneventanus, Adbreviatio artis grammaticae** (`demo-src/orso/`):
+  digital scholarly edition (section *De nomine*, Codex Casanatensis 1086)
+  by Paolo Monella, ALIM Project, from the
+  [paolomonella/ursus](https://github.com/paolomonella/ursus) repository,
+  GPL 2.0. Offered by the editor as a test case. The derived demo is
+  distributed under the same licence.
 - **Specimen** (`demo-src/specimen/`): a micro-edition constructed for
   demonstration purposes (imaginary witnesses, didactic variants, declared
   as such on the title page); base text: the opening of the Odyssey in
