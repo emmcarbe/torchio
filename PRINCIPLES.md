@@ -153,6 +153,18 @@ positions, one representative each, not every existing tool.
     a reasonable number of editions of a genre, the corrections for that
     genre do not decrease, or if structural changes become frequent, the
     thesis is falsified, and it will be written here.
+14. **No tradition is the default.** Philological traditions differ not
+    only in method but in vocabulary, and in the very levels they
+    distinguish: the Italian tradition opposes *edizione diplomatica* and
+    *edizione interpretativa*; anglophone documentary and genetic editing
+    speaks of *diplomatic transcription* and *reading text*; between them
+    live semi-diplomatic transcriptions, *Lesetexte*, constituted texts.
+    The interface never presumes one tradition's vocabulary as universal:
+    its defaults are declared per interface language and follow that
+    language's own tradition, and where an edition's tradition diverges
+    further, the manifest gives it its own labels. This is the same rule
+    that keeps lemmatization out of the core (principle 10): the tool
+    adapts to the tradition, never the reverse.
 
 ## The method
 

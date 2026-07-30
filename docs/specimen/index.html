@@ -77,6 +77,9 @@ body.notes-off .t-note-mark{opacity:.25}
 
 .t-app .t-rdg{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+  border-bottom:none;margin-right:.5em;vertical-align:.08em}
 .t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
 
 footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
@@ -119,6 +122,14 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
 .torchio-pop .notebody{font-size:14px;line-height:1.5}
 
+/* a verse followed by its apparatus band opens the scheme on click */
+body.has-band [data-el="l"]{cursor:pointer}
+.torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
+.torchio-pop .popband .band-e{display:block;margin:.35em 0}
+.torchio-pop .popband .band-lem{font-style:italic}
+.torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
+.torchio-pop .popband .bw:hover{text-decoration:underline}
+
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
@@ -130,6 +141,8 @@ body.notes-dense.notes-off .t-note-mark{cursor:default}
 body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
 body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
 body.mode-read .t-del{display:none}
+body.mode-read .t-am{display:none}
+body.mode-dipl .t-ex{display:none}
 body.mode-read .t-lb br{display:none}
 body.mode-read .t-lb::after{content:" "}
 body.mode-read .t-lb[data-break="no"]::after{content:none}
@@ -231,6 +244,13 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
+  padding-left:1.2em}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
@@ -253,50 +273,50 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div class="tt"><h1>Specimen</h1><p class="sub">esempio costruito: testimoni immaginari, varianti didattiche</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html" class="on">Edizione</a><a href="text.html">Testo</a><a href="indices.html">Indici</a><a href="map.html">Mappa</a><a href="data.html">Dati</a></nav>
 </header>
-<main id="main" class="torchio about"><dl><dt>Responsabilità</dt><dd>Omero, nella traduzione di Ippolito Pindemonte (1822)</dd><dt>Licenza</dt><dd><a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0: nessun diritto riservato su questa codifica dimostrativa.</a></dd><dt>Testimoni</dt><dd><table class="wit-table"><tr><td class="sigla">A</td><td>Testimone A, immaginario: la stampa di riferimento.</td></tr><tr><td class="sigla">B</td><td>Testimone B, immaginario: una copia con lezioni proprie.</td></tr><tr><td class="sigla">C</td><td>Testimone C, immaginario: un apografo tardo.</td></tr></table></dd><dt>Apparati</dt><dd>critical (2 voci)</dd><dt>Storia delle revisioni</dt><dd><table class="wit-table"><tr><td class="sigla">2026-07-30</td><td>Specimen creato per la pubblicazione di Torchio.</td></tr></table></dd><dt>Generatore</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">L'intestazione completa (teiHeader)</h2><p class="occ">Tutto ciò che il file dichiara, reso così com'è.</p><div class="header-full"><div id="specimen:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
-    <div id="specimen:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
-      <span id="specimen:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
-        <span id="specimen:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Specimen</span>
-        <span id="specimen:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Omero, nella traduzione di Ippolito Pindemonte (1822)</span>
+<main id="main" class="torchio about"><dl><dt>Responsabilità</dt><dd>Omero, nella traduzione di Ippolito Pindemonte (1822)</dd><dt>Licenza</dt><dd><a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0: nessun diritto riservato su questa codifica dimostrativa.</a></dd><dt>Testimoni</dt><dd><table class="wit-table"><tr><td class="sigla">A</td><td>Testimone A, immaginario: la stampa di riferimento.</td></tr><tr><td class="sigla">B</td><td>Testimone B, immaginario: una copia con lezioni proprie.</td></tr><tr><td class="sigla">C</td><td>Testimone C, immaginario: un apografo tardo.</td></tr></table></dd><dt>Apparati</dt><dd>critical (2 voci)</dd><dt>Storia delle revisioni</dt><dd><table class="wit-table"><tr><td class="sigla">2026-07-30</td><td>Specimen creato per la pubblicazione di Torchio.</td></tr></table></dd><dt>Generatore</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">L'intestazione completa (teiHeader)</h2><p class="occ">Tutto ciò che il file dichiara, reso così com'è.</p><div class="header-full"><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+    <div id="doc0:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+      <span id="doc0:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+        <span id="doc0:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Specimen</span>
+        <span id="doc0:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Omero, nella traduzione di Ippolito Pindemonte (1822)</span>
       </span>
-      <span id="specimen:0.0.0.1" class="t-publicationStmt s-7-header" data-el="publicationStmt">
-        <span id="specimen:0.0.0.1.0" class="t-availability s-1-bibliografia" data-el="availability">
-          <span id="specimen:0.0.0.1.0.0" class="t-licence s-7-licenza" data-el="licence" data-target="https://creativecommons.org/publicdomain/zero/1.0/">CC0: nessun diritto riservato su questa codifica dimostrativa.</span>
+      <span id="doc0:0.0.0.1" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+        <span id="doc0:0.0.0.1.0" class="t-availability s-1-bibliografia" data-el="availability">
+          <span id="doc0:0.0.0.1.0.0" class="t-licence s-7-licenza" data-el="licence" data-target="https://creativecommons.org/publicdomain/zero/1.0/">CC0: nessun diritto riservato su questa codifica dimostrativa.</span>
         </span>
       </span>
-      <div id="specimen:0.0.0.2" class="t-sourceDesc s-7-header" data-el="sourceDesc">
-        <div id="specimen:0.0.0.2.0" class="t-p s-1-struttura" data-el="p">Esempio costruito per mostrare i pezzi di Torchio. Il testo base è
+      <div id="doc0:0.0.0.2" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+        <div id="doc0:0.0.0.2.0" class="t-p s-1-struttura" data-el="p">Esempio costruito per mostrare i pezzi di Torchio. Il testo base è
         l'incipit dell'Odissea nella traduzione di Ippolito Pindemonte
         (pubblico dominio). I testimoni A, B e C sono immaginari e le
         varianti sono didattiche: nessuna pretesa filologica.</div>
-        <div id="specimen:0.0.0.2.1" class="t-listWit s-1-liste" data-el="listWit">
+        <div id="doc0:0.0.0.2.1" class="t-listWit s-1-liste" data-el="listWit">
           <div id="A" class="t-witness s-4-apparato" data-el="witness">Testimone A, immaginario: la stampa di riferimento.</div>
           <div id="B" class="t-witness s-4-apparato" data-el="witness">Testimone B, immaginario: una copia con lezioni proprie.</div>
           <div id="C" class="t-witness s-4-apparato" data-el="witness">Testimone C, immaginario: un apografo tardo.</div>
         </div>
       </div>
     </div>
-    <span id="specimen:0.0.1" class="t-profileDesc s-7-header" data-el="profileDesc">
-      <span id="specimen:0.0.1.0" class="t-langUsage s-7-header" data-el="langUsage"><span id="specimen:0.0.1.0.0" class="t-language s-7-header" data-el="language">italiano</span></span>
-      <span id="specimen:0.0.1.1" class="t-particDesc s-7-header" data-el="particDesc">
-        <div id="specimen:0.0.1.1.0" class="t-listPerson s-1-liste" data-el="listPerson">
-          <div id="odisseo" class="t-person s-2-entita" data-el="person"><span id="specimen:0.0.1.1.0.0.0" class="t-persName s-2-entita" data-el="persName">Odisseo</span></div>
-          <div id="musa" class="t-person s-2-entita" data-el="person"><span id="specimen:0.0.1.1.0.1.0" class="t-persName s-2-entita" data-el="persName">La Musa</span></div>
+    <span id="doc0:0.0.1" class="t-profileDesc s-7-header" data-el="profileDesc">
+      <span id="doc0:0.0.1.0" class="t-langUsage s-7-header" data-el="langUsage"><span id="doc0:0.0.1.0.0" class="t-language s-7-header" data-el="language">italiano</span></span>
+      <span id="doc0:0.0.1.1" class="t-particDesc s-7-header" data-el="particDesc">
+        <div id="doc0:0.0.1.1.0" class="t-listPerson s-1-liste" data-el="listPerson">
+          <div id="odisseo" class="t-person s-2-entita" data-el="person"><span id="doc0:0.0.1.1.0.0.0" class="t-persName s-2-entita" data-el="persName">Odisseo</span></div>
+          <div id="musa" class="t-person s-2-entita" data-el="person"><span id="doc0:0.0.1.1.0.1.0" class="t-persName s-2-entita" data-el="persName">La Musa</span></div>
         </div>
       </span>
-      <span id="specimen:0.0.1.2" class="t-settingDesc s-7-header" data-el="settingDesc">
-        <div id="specimen:0.0.1.2.0" class="t-listPlace s-1-liste" data-el="listPlace">
-          <div id="troia" class="t-place s-2-entita" data-el="place"><span id="specimen:0.0.1.2.0.0.0" class="t-placeName s-2-entita" data-el="placeName">Troia</span><span id="specimen:0.0.1.2.0.0.1" class="t-location s-2-entita" data-el="location"><span id="specimen:0.0.1.2.0.0.1.0" class="t-geo s-1-inline" data-el="geo">39.9570 26.2390</span></span></div>
-          <div id="itaca" class="t-place s-2-entita" data-el="place"><span id="specimen:0.0.1.2.0.1.0" class="t-placeName s-2-entita" data-el="placeName">Itaca</span><span id="specimen:0.0.1.2.0.1.1" class="t-location s-2-entita" data-el="location"><span id="specimen:0.0.1.2.0.1.1.0" class="t-geo s-1-inline" data-el="geo">38.4381 20.6903</span></span></div>
+      <span id="doc0:0.0.1.2" class="t-settingDesc s-7-header" data-el="settingDesc">
+        <div id="doc0:0.0.1.2.0" class="t-listPlace s-1-liste" data-el="listPlace">
+          <div id="troia" class="t-place s-2-entita" data-el="place"><span id="doc0:0.0.1.2.0.0.0" class="t-placeName s-2-entita" data-el="placeName">Troia</span><span id="doc0:0.0.1.2.0.0.1" class="t-location s-2-entita" data-el="location"><span id="doc0:0.0.1.2.0.0.1.0" class="t-geo s-1-inline" data-el="geo">39.9570 26.2390</span></span></div>
+          <div id="itaca" class="t-place s-2-entita" data-el="place"><span id="doc0:0.0.1.2.0.1.0" class="t-placeName s-2-entita" data-el="placeName">Itaca</span><span id="doc0:0.0.1.2.0.1.1" class="t-location s-2-entita" data-el="location"><span id="doc0:0.0.1.2.0.1.1.0" class="t-geo s-1-inline" data-el="geo">38.4381 20.6903</span></span></div>
         </div>
       </span>
-      <span id="specimen:0.0.1.3" class="t-handNotes s-7-header" data-el="handNotes">
+      <span id="doc0:0.0.1.3" class="t-handNotes s-7-header" data-el="handNotes">
         <span id="m1" class="t-handNote s-7-header" data-el="handNote">Mano principale, immaginaria.</span>
         <span id="m2" class="t-handNote s-7-header" data-el="handNote">Mano di revisione, immaginaria.</span>
       </span>
     </span>
-    <span id="specimen:0.0.2" class="t-revisionDesc s-7-header" data-el="revisionDesc">
-      <div id="specimen:0.0.2.0" class="t-change s-7-header" data-el="change" data-when="2026-07-30">Specimen creato per la pubblicazione di Torchio.</div>
+    <span id="doc0:0.0.2" class="t-revisionDesc s-7-header" data-el="revisionDesc">
+      <div id="doc0:0.0.2.0" class="t-change s-7-header" data-el="change" data-when="2026-07-30">Specimen creato per la pubblicazione di Torchio.</div>
     </span>
   </div></div></main>
 <footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>

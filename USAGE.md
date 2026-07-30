@@ -196,6 +196,11 @@ optional:
   Useful when one export outweighs the site: the rest of the data stays.
 - `lang`: `en` or `it` (interface language; otherwise derived from the
   edition's `langUsage`).
+- `labels`: interface words the edition's tradition wants otherwise, as
+  string overrides of the interface keys: `"labels": { "reading":
+  "Costituito" }`. The defaults already follow each interface language's
+  own tradition (English: Reading / Diplomatic; Italian: Interpretativa /
+  Diplomatica); no tradition is the default (principle 14).
 - `theme`: `savi` (default), `pergamena`, `moderno`.
 - `pages`: which pages appear, in which order, with which labels. Known ids:
   `index`, `front`, `text`, `back`, `indices`, `map`, `data`, plus the ids of

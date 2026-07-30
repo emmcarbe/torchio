@@ -37,6 +37,12 @@ export function normalizeManifest(raw = {}) {
     parent: raw.parent && typeof raw.parent.href === 'string'
       ? { href: raw.parent.href, label: String(raw.parent.label || '\u2039') }
       : null,
+    // interface labels the edition's tradition wants otherwise (principle
+    // 14): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
+    labels: (raw.labels && typeof raw.labels === 'object')
+      ? Object.fromEntries(Object.entries(raw.labels)
+          .filter(([, v]) => typeof v === 'string' && v.trim()))
+      : {},
     extra: [],
     pages: null,
     pieces: { apparatus: true, entities: true, choice: true, ...(raw.pieces || {}) },

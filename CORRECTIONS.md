@@ -59,5 +59,7 @@ editorial genre.
 | 2026-07-30 | C38 | Eurasian Latin Archive, public demo | assignment | `@key` declares identity too: mentions sharing a canonical-name key ("Figueredo, Thomas de") are one entity, labelled by the key, feeding the indices; a key alone never fakes a link |
 | 2026-07-30 | C39 | demanded by the supervising editor | extension | the ODD is recognized on its own (a document carrying `schemaSpec` is a schema, not a text) in directory input and in the browser drop, `--odd=` for single files; without an ODD the edition is read against the whole of P5 (`tei_all`) and the report says so |
 
-As of 30 July 2026: 38 corrections applied (24 assignments, 13 extensions, 1
+| 2026-07-30 | C40 | demanded by the supervising editor | assignment | the Italian interface called the edited level "Lettura", a calque of the English "reading text": the canonical pair of the Italian philological tradition is diplomatica / interpretativa, and the toggle now says so (the English pair, current in documentary and genetic editing, stands) |
+
+As of 30 July 2026: 39 corrections applied (25 assignments, 13 extensions, 1
 structural change), 1 open.

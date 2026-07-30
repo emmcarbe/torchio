@@ -1259,7 +1259,9 @@ const STRINGS = {
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
     archive: 'Archivio', dsa: 'archivio digitale',
-    reading: 'Lettura', diplomatic: 'Diplomatica', apparatus: 'Apparato',
+    // the canonical pair of the Italian tradition (diplomatica /
+    // interpretativa), not a calque of the English "reading text"
+    reading: 'Interpretativa', diplomatic: 'Diplomatica', apparatus: 'Apparato',
     aboutFile: 'Scheda del file', notes: 'Note',
     dse: 'edizione scientifica digitale',
     responsibility: 'Responsabilità', licence: 'Licenza', witnesses: 'Testimoni',
@@ -1354,6 +1356,14 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
 .torchio-pop .notebody{font-size:14px;line-height:1.5}
 
+/* a verse followed by its apparatus band opens the scheme on click */
+body.has-band [data-el="l"]{cursor:pointer}
+.torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
+.torchio-pop .popband .band-e{display:block;margin:.35em 0}
+.torchio-pop .popband .band-lem{font-style:italic}
+.torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
+.torchio-pop .popband .bw:hover{text-decoration:underline}
+
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
@@ -1377,6 +1387,7 @@ function buildInteractJS(t) {
   return `
 (function(){
   var body=document.body; body.classList.add('mode-read');
+  if(document.querySelector('.app-band'))body.classList.add('has-band');
   var pop=null, lastTrigger=null;
   function closePop(){
     clearZone();
@@ -1451,6 +1462,19 @@ function buildInteractJS(t) {
   function sigla(w){return (w||'').split(/\\s+/).filter(Boolean).map(function(x){return x.replace(/^#/,'');}).join(' ');}
 
   document.addEventListener('click',function(ev){
+    var bw=ev.target.closest&&ev.target.closest('.bw');
+    if(bw){
+      var bandk=bw.closest('[data-ent]');
+      var sig=bw.getAttribute('data-sig');
+      if(bandk&&sig){
+        withAlign(function(map){
+          var row=map[bandk.getAttribute('data-ent')]||{};
+          var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
+          if(tgt)location.href=tgt;
+        });
+        ev.stopPropagation();return;
+      }
+    }
     if(pop&&pop.contains(ev.target))return;
     var app=ev.target.closest&&ev.target.closest('.t-app');
     if(app&&!body.classList.contains('app-off')){
@@ -1490,18 +1514,13 @@ function buildInteractJS(t) {
         +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'${t.occurrenceOne}':'${t.occurrenceMany}')+'</div>',ent);
       ev.stopPropagation();return;
     }
-    var bw=ev.target.closest&&ev.target.closest('.app-band .bw');
-    if(bw){
-      var band=bw.closest('[data-ent]');
-      var sig=bw.getAttribute('data-sig');
-      if(band&&sig){
-        withAlign(function(map){
-          var row=map[band.getAttribute('data-ent')]||{};
-          var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
-          if(tgt)location.href=tgt;
-        });
-        ev.stopPropagation();return;
-      }
+    var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lv&&lv.nextElementSibling&&lv.nextElementSibling.classList
+       &&lv.nextElementSibling.classList.contains('app-band')){
+      var bd=lv.nextElementSibling;
+      openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+(bd.getAttribute('data-ent')||'')+'">'+bd.innerHTML+'</div>',lv);
+      ev.stopPropagation();return;
     }
     var np=ev.target.closest&&ev.target.closest('[data-notepop]');
     if(np&&!body.classList.contains('notes-off')){
@@ -2117,6 +2136,12 @@ function normalizeManifest(raw = {}) {
     parent: raw.parent && typeof raw.parent.href === 'string'
       ? { href: raw.parent.href, label: String(raw.parent.label || '\u2039') }
       : null,
+    // interface labels the edition's tradition wants otherwise (principle
+    // 14): string overrides of the i18n keys, e.g. {"reading": "Costituito"}
+    labels: (raw.labels && typeof raw.labels === 'object')
+      ? Object.fromEntries(Object.entries(raw.labels)
+          .filter(([, v]) => typeof v === 'string' && v.trim()))
+      : {},
     extra: [],
     pages: null,
     pieces: { apparatus: true, entities: true, choice: true, ...(raw.pieces || {}) },
@@ -2963,7 +2988,8 @@ function chunkLabel(div, i, T) {
 function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages = [] } = {}) {
   const manifest = normalizeManifest(rawManifest || {});
   const lang = resolveLang(manifest.lang, model);
-  const T = i18n(lang);
+  // the edition's tradition may name things its own way (principle 14)
+  const T = { ...i18n(lang), ...manifest.labels };
   const theme = manifest.theme || 'savi';
   const parent = manifest.parent;
   const isCollection = model.documents.length > 1;

@@ -739,6 +739,24 @@ console.log('authority refs — an external @ref is an identity declaration');
     'keyed entities feed the indices; no fake link where there is no URI');
 }
 
+console.log('traditions — no tradition is the default (principle 14)');
+{
+  const { pressSite } = await import('../src/site.js');
+  const map = buildClassMap(null, data);
+  const SRC = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Tradizioni</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc><profileDesc><langUsage><language ident="it">italiano</language></langUsage></profileDesc>
+  </teiHeader><text><body><p>Prova <choice><abbr>sig.</abbr><expan>signore</expan></choice>.</p></body></text></TEI>`;
+  const model = buildModel(parseXML(SRC), map);
+  const it = pressSite(model, {});
+  ok(it['text.html'].includes('Interpretativa') && it['text.html'].includes('Diplomatica'),
+    'the Italian default is the tradition’s canonical pair: diplomatica / interpretativa');
+  const own = pressSite(model, { manifest: { labels: { reading: 'Costituito' } } });
+  ok(own['text.html'].includes('Costituito') && !own['text.html'].includes('Interpretativa'),
+    'an edition’s tradition renames the levels through the manifest');
+}
+
 console.log('lemma review — errors exist, so reviewing must be cheap');
 {
   const { reviewCSV, parseReviewCSV, applyReview } = await import('../src/lemmas.js');

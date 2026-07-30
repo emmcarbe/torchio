@@ -50,7 +50,9 @@ const STRINGS = {
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
     archive: 'Archivio', dsa: 'archivio digitale',
-    reading: 'Lettura', diplomatic: 'Diplomatica', apparatus: 'Apparato',
+    // the canonical pair of the Italian tradition (diplomatica /
+    // interpretativa), not a calque of the English "reading text"
+    reading: 'Interpretativa', diplomatic: 'Diplomatica', apparatus: 'Apparato',
     aboutFile: 'Scheda del file', notes: 'Note',
     dse: 'edizione scientifica digitale',
     responsibility: 'Responsabilità', licence: 'Licenza', witnesses: 'Testimoni',

@@ -24,9 +24,9 @@
  },
  "documents": [
   {
-   "id": "specimen",
+   "id": "doc0",
    "tree": {
-    "id": "specimen:0",
+    "id": "doc0:0",
     "element": "TEI",
     "section": "1-struttura",
     "atts": {
@@ -35,28 +35,28 @@
     "children": [
      "\n  ",
      {
-      "id": "specimen:0.0",
+      "id": "doc0:0.0",
       "element": "teiHeader",
       "section": "7-header",
       "atts": {},
       "children": [
        "\n    ",
        {
-        "id": "specimen:0.0.0",
+        "id": "doc0:0.0.0",
         "element": "fileDesc",
         "section": "7-header",
         "atts": {},
         "children": [
          "\n      ",
          {
-          "id": "specimen:0.0.0.0",
+          "id": "doc0:0.0.0.0",
           "element": "titleStmt",
           "section": "7-header",
           "atts": {},
           "children": [
            "\n        ",
            {
-            "id": "specimen:0.0.0.0.0",
+            "id": "doc0:0.0.0.0.0",
             "element": "title",
             "section": "1-inline",
             "atts": {},
@@ -66,7 +66,7 @@
            },
            "\n        ",
            {
-            "id": "specimen:0.0.0.0.1",
+            "id": "doc0:0.0.0.0.1",
             "element": "author",
             "section": "1-bibliografia",
             "atts": {},
@@ -79,21 +79,21 @@
          },
          "\n      ",
          {
-          "id": "specimen:0.0.0.1",
+          "id": "doc0:0.0.0.1",
           "element": "publicationStmt",
           "section": "7-header",
           "atts": {},
           "children": [
            "\n        ",
            {
-            "id": "specimen:0.0.0.1.0",
+            "id": "doc0:0.0.0.1.0",
             "element": "availability",
             "section": "1-bibliografia",
             "atts": {},
             "children": [
              "\n          ",
              {
-              "id": "specimen:0.0.0.1.0.0",
+              "id": "doc0:0.0.0.1.0.0",
               "element": "licence",
               "section": "7-licenza",
               "atts": {
@@ -111,14 +111,14 @@
          },
          "\n      ",
          {
-          "id": "specimen:0.0.0.2",
+          "id": "doc0:0.0.0.2",
           "element": "sourceDesc",
           "section": "7-header",
           "atts": {},
           "children": [
            "\n        ",
            {
-            "id": "specimen:0.0.0.2.0",
+            "id": "doc0:0.0.0.2.0",
             "element": "p",
             "section": "1-struttura",
             "atts": {},
@@ -128,7 +128,7 @@
            },
            "\n        ",
            {
-            "id": "specimen:0.0.0.2.1",
+            "id": "doc0:0.0.0.2.1",
             "element": "listWit",
             "section": "1-liste",
             "atts": {},
@@ -180,20 +180,20 @@
        },
        "\n    ",
        {
-        "id": "specimen:0.0.1",
+        "id": "doc0:0.0.1",
         "element": "profileDesc",
         "section": "7-header",
         "atts": {},
         "children": [
          "\n      ",
          {
-          "id": "specimen:0.0.1.0",
+          "id": "doc0:0.0.1.0",
           "element": "langUsage",
           "section": "7-header",
           "atts": {},
           "children": [
            {
-            "id": "specimen:0.0.1.0.0",
+            "id": "doc0:0.0.1.0.0",
             "element": "language",
             "section": "7-header",
             "atts": {
@@ -207,14 +207,14 @@
          },
          "\n      ",
          {
-          "id": "specimen:0.0.1.1",
+          "id": "doc0:0.0.1.1",
           "element": "particDesc",
           "section": "7-header",
           "atts": {},
           "children": [
            "\n        ",
            {
-            "id": "specimen:0.0.1.1.0",
+            "id": "doc0:0.0.1.1.0",
             "element": "listPerson",
             "section": "1-liste",
             "atts": {},
@@ -229,7 +229,7 @@
               },
               "children": [
                {
-                "id": "specimen:0.0.1.1.0.0.0",
+                "id": "doc0:0.0.1.1.0.0.0",
                 "element": "persName",
                 "section": "2-entita",
                 "atts": {},
@@ -249,7 +249,7 @@
               },
               "children": [
                {
-                "id": "specimen:0.0.1.1.0.1.0",
+                "id": "doc0:0.0.1.1.0.1.0",
                 "element": "persName",
                 "section": "2-entita",
                 "atts": {},
@@ -267,14 +267,14 @@
          },
          "\n      ",
          {
-          "id": "specimen:0.0.1.2",
+          "id": "doc0:0.0.1.2",
           "element": "settingDesc",
           "section": "7-header",
           "atts": {},
           "children": [
            "\n        ",
            {
-            "id": "specimen:0.0.1.2.0",
+            "id": "doc0:0.0.1.2.0",
             "element": "listPlace",
             "section": "1-liste",
             "atts": {},
@@ -289,7 +289,7 @@
               },
               "children": [
                {
-                "id": "specimen:0.0.1.2.0.0.0",
+                "id": "doc0:0.0.1.2.0.0.0",
                 "element": "placeName",
                 "section": "2-entita",
                 "atts": {},
@@ -298,13 +298,13 @@
                 ]
                },
                {
-                "id": "specimen:0.0.1.2.0.0.1",
+                "id": "doc0:0.0.1.2.0.0.1",
                 "element": "location",
                 "section": "2-entita",
                 "atts": {},
                 "children": [
                  {
-                  "id": "specimen:0.0.1.2.0.0.1.0",
+                  "id": "doc0:0.0.1.2.0.0.1.0",
                   "element": "geo",
                   "section": "1-inline",
                   "atts": {},
@@ -326,7 +326,7 @@
               },
               "children": [
                {
-                "id": "specimen:0.0.1.2.0.1.0",
+                "id": "doc0:0.0.1.2.0.1.0",
                 "element": "placeName",
                 "section": "2-entita",
                 "atts": {},
@@ -335,13 +335,13 @@
                 ]
                },
                {
-                "id": "specimen:0.0.1.2.0.1.1",
+                "id": "doc0:0.0.1.2.0.1.1",
                 "element": "location",
                 "section": "2-entita",
                 "atts": {},
                 "children": [
                  {
-                  "id": "specimen:0.0.1.2.0.1.1.0",
+                  "id": "doc0:0.0.1.2.0.1.1.0",
                   "element": "geo",
                   "section": "1-inline",
                   "atts": {},
@@ -361,7 +361,7 @@
          },
          "\n      ",
          {
-          "id": "specimen:0.0.1.3",
+          "id": "doc0:0.0.1.3",
           "element": "handNotes",
           "section": "7-header",
           "atts": {},
@@ -400,14 +400,14 @@
        },
        "\n    ",
        {
-        "id": "specimen:0.0.2",
+        "id": "doc0:0.0.2",
         "element": "revisionDesc",
         "section": "7-header",
         "atts": {},
         "children": [
          "\n      ",
          {
-          "id": "specimen:0.0.2.0",
+          "id": "doc0:0.0.2.0",
           "element": "change",
           "section": "7-header",
           "atts": {
@@ -425,21 +425,21 @@
      },
      "\n  ",
      {
-      "id": "specimen:0.1",
+      "id": "doc0:0.1",
       "element": "text",
       "section": "7-struttura-documento",
       "atts": {},
       "children": [
        "\n    ",
        {
-        "id": "specimen:0.1.0",
+        "id": "doc0:0.1.0",
         "element": "body",
         "section": "1-struttura",
         "atts": {},
         "children": [
          "\n      ",
          {
-          "id": "specimen:0.1.0.0",
+          "id": "doc0:0.1.0.0",
           "element": "div",
           "section": "1-struttura",
           "atts": {
@@ -448,7 +448,7 @@
           "children": [
            "\n        ",
            {
-            "id": "specimen:0.1.0.0.0",
+            "id": "doc0:0.1.0.0.0",
             "element": "head",
             "section": "1-struttura",
             "atts": {},
@@ -458,20 +458,20 @@
            },
            "\n        ",
            {
-            "id": "specimen:0.1.0.0.1",
+            "id": "doc0:0.1.0.0.1",
             "element": "lg",
             "section": "1-struttura",
             "atts": {},
             "children": [
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.0",
+              "id": "doc0:0.1.0.0.1.0",
               "element": "l",
               "section": "1-versi",
               "atts": {},
               "children": [
                {
-                "id": "specimen:0.1.0.0.1.0.0",
+                "id": "doc0:0.1.0.0.1.0.0",
                 "element": "persName",
                 "section": "2-entita",
                 "atts": {
@@ -483,13 +483,13 @@
                },
                ", quell'uom di\n            ",
                {
-                "id": "specimen:0.1.0.0.1.0.1",
+                "id": "doc0:0.1.0.0.1.0.1",
                 "element": "app",
                 "section": "4-apparato",
                 "atts": {},
                 "children": [
                  {
-                  "id": "specimen:0.1.0.0.1.0.1.0",
+                  "id": "doc0:0.1.0.0.1.0.1.0",
                   "element": "lem",
                   "section": "4-apparato",
                   "atts": {
@@ -500,7 +500,7 @@
                   ]
                  },
                  {
-                  "id": "specimen:0.1.0.0.1.0.1.1",
+                  "id": "doc0:0.1.0.0.1.0.1.1",
                   "element": "rdg",
                   "section": "4-apparato",
                   "atts": {
@@ -517,7 +517,7 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.1",
+              "id": "doc0:0.1.0.0.1.1",
               "element": "l",
               "section": "1-versi",
               "atts": {},
@@ -527,14 +527,14 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.2",
+              "id": "doc0:0.1.0.0.1.2",
               "element": "l",
               "section": "1-versi",
               "atts": {},
               "children": [
                "gittate d'",
                {
-                "id": "specimen:0.1.0.0.1.2.0",
+                "id": "doc0:0.1.0.0.1.2.0",
                 "element": "placeName",
                 "section": "2-entita",
                 "atts": {
@@ -549,7 +549,7 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.3",
+              "id": "doc0:0.1.0.0.1.3",
               "element": "l",
               "section": "1-versi",
               "atts": {},
@@ -559,20 +559,20 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.4",
+              "id": "doc0:0.1.0.0.1.4",
               "element": "l",
               "section": "1-versi",
               "atts": {},
               "children": [
                "l'",
                {
-                "id": "specimen:0.1.0.0.1.4.0",
+                "id": "doc0:0.1.0.0.1.4.0",
                 "element": "app",
                 "section": "4-apparato",
                 "atts": {},
                 "children": [
                  {
-                  "id": "specimen:0.1.0.0.1.4.0.0",
+                  "id": "doc0:0.1.0.0.1.4.0.0",
                   "element": "lem",
                   "section": "4-apparato",
                   "atts": {
@@ -583,7 +583,7 @@
                   ]
                  },
                  {
-                  "id": "specimen:0.1.0.0.1.4.0.1",
+                  "id": "doc0:0.1.0.0.1.4.0.1",
                   "element": "rdg",
                   "section": "4-apparato",
                   "atts": {
@@ -601,7 +601,7 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.5",
+              "id": "doc0:0.1.0.0.1.5",
               "element": "l",
               "section": "1-versi",
               "atts": {},
@@ -611,14 +611,14 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.6",
+              "id": "doc0:0.1.0.0.1.6",
               "element": "l",
               "section": "1-versi",
               "atts": {},
               "children": [
                "mentre a ",
                {
-                "id": "specimen:0.1.0.0.1.6.0",
+                "id": "doc0:0.1.0.0.1.6.0",
                 "element": "del",
                 "section": "3-trascrizionale",
                 "atts": {
@@ -629,7 +629,7 @@
                 ]
                },
                {
-                "id": "specimen:0.1.0.0.1.6.1",
+                "id": "doc0:0.1.0.0.1.6.1",
                 "element": "add",
                 "section": "3-trascrizionale",
                 "atts": {
@@ -645,7 +645,7 @@
              },
              "\n          ",
              {
-              "id": "specimen:0.1.0.0.1.7",
+              "id": "doc0:0.1.0.0.1.7",
               "element": "l",
               "section": "1-versi",
               "atts": {},
@@ -658,20 +658,20 @@
            },
            "\n        ",
            {
-            "id": "specimen:0.1.0.0.2",
+            "id": "doc0:0.1.0.0.2",
             "element": "p",
             "section": "1-struttura",
             "atts": {},
             "children": [
              "Nel testo in prosa lo specimen mostra anche la\n          ",
              {
-              "id": "specimen:0.1.0.0.2.0",
+              "id": "doc0:0.1.0.0.2.0",
               "element": "choice",
               "section": "3-editoriale",
               "atts": {},
               "children": [
                {
-                "id": "specimen:0.1.0.0.2.0.0",
+                "id": "doc0:0.1.0.0.2.0.0",
                 "element": "abbr",
                 "section": "3-editoriale",
                 "atts": {},
@@ -680,7 +680,7 @@
                 ]
                },
                {
-                "id": "specimen:0.1.0.0.2.0.1",
+                "id": "doc0:0.1.0.0.2.0.1",
                 "element": "expan",
                 "section": "3-editoriale",
                 "atts": {},
@@ -692,7 +692,7 @@
              },
              " abbreviazione\n          col suo scioglimento, un passo\n          ",
              {
-              "id": "specimen:0.1.0.0.2.1",
+              "id": "doc0:0.1.0.0.2.1",
               "element": "unclear",
               "section": "3-editoriale",
               "atts": {},
@@ -702,7 +702,7 @@
              },
              ", una parola\n          ",
              {
-              "id": "specimen:0.1.0.0.2.2",
+              "id": "doc0:0.1.0.0.2.2",
               "element": "supplied",
               "section": "3-editoriale",
               "atts": {
@@ -714,7 +714,7 @@
              },
              ", e il nome di\n          ",
              {
-              "id": "specimen:0.1.0.0.2.3",
+              "id": "doc0:0.1.0.0.2.3",
               "element": "persName",
               "section": "2-entita",
               "atts": {
@@ -726,7 +726,7 @@
              },
              " che punta al registro,\n          come ",
              {
-              "id": "specimen:0.1.0.0.2.4",
+              "id": "doc0:0.1.0.0.2.4",
               "element": "placeName",
               "section": "2-entita",
               "atts": {
@@ -738,7 +738,7 @@
              },
              " alla mappa.\n          ",
              {
-              "id": "specimen:0.1.0.0.2.5",
+              "id": "doc0:0.1.0.0.2.5",
               "element": "note",
               "section": "1-note",
               "atts": {
@@ -763,7 +763,7 @@
     ]
    },
    "card": {
-    "id": "specimen",
+    "id": "doc0",
     "title": "Specimen",
     "date": null,
     "from": [],
@@ -783,7 +783,7 @@
      "xml:id": "odisseo"
     },
     "occurrences": [
-     "specimen:0.1.0.0.2.3"
+     "doc0:0.1.0.0.2.3"
     ]
    },
    {
@@ -793,7 +793,7 @@
      "xml:id": "musa"
     },
     "occurrences": [
-     "specimen:0.1.0.0.1.0.0"
+     "doc0:0.1.0.0.1.0.0"
     ]
    }
   ],
@@ -805,7 +805,7 @@
      "xml:id": "troia"
     },
     "occurrences": [
-     "specimen:0.1.0.0.1.2.0"
+     "doc0:0.1.0.0.1.2.0"
     ],
     "geo": {
      "lat": 39.957,
@@ -819,7 +819,7 @@
      "xml:id": "itaca"
     },
     "occurrences": [
-     "specimen:0.1.0.0.2.4"
+     "doc0:0.1.0.0.2.4"
     ],
     "geo": {
      "lat": 38.4381,
@@ -881,7 +881,7 @@
   ],
   "layers": [
    {
-    "id": "specimen:0.0.2.0",
+    "id": "doc0:0.0.2.0",
     "label": "Specimen creato per la pubblicazione di Torchio.",
     "atts": {
      "when": "2026-07-30"
@@ -896,8 +896,8 @@
    "type": "critical",
    "entries": [
     {
-     "id": "specimen:0.1.0.0.1.0.1",
-     "anchor": "specimen:0.1.0.0.1.0.1",
+     "id": "doc0:0.1.0.0.1.0.1",
+     "anchor": "doc0:0.1.0.0.1.0.1",
      "lemma": "multiforme",
      "readings": [
       {
@@ -917,11 +917,14 @@
        "type": null,
        "isLemma": false
       }
-     ]
+     ],
+     "n": null,
+     "from": null,
+     "to": null
     },
     {
-     "id": "specimen:0.1.0.0.1.4.0",
-     "anchor": "specimen:0.1.0.0.1.4.0",
+     "id": "doc0:0.1.0.0.1.4.0",
+     "anchor": "doc0:0.1.0.0.1.4.0",
      "lemma": "indol",
      "readings": [
       {
@@ -941,7 +944,10 @@
        "type": "ortografica",
        "isLemma": false
       }
-     ]
+     ],
+     "n": null,
+     "from": null,
+     "to": null
     }
    ]
   }
