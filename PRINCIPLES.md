@@ -213,15 +213,20 @@ contents; apparatus popup on the lemma; transcription levels, with every
 past a density threshold and light the passage they refer to; three themes
 with verified contrast; interface in Italian and English; exports of the
 model, the entities and the apparatus; reconciliation of places against a
-GeoNames gazetteer with the editor in the loop; the same press as a single
-self-contained page in the browser. The test suite counts 126 assertions.
-Six demonstration editions with verified rights: the Odyssey (Perseus),
+GeoNames gazetteer with the editor in the loop; canonical alignment across
+the documents of a collection, with the classical apparatus band derived
+under the edited text; the same press as a single self-contained page in
+the browser. The test suite counts 149 assertions.
+Eight demonstration editions with rights verified or granted: the Odyssey (Perseus),
 thirty Van Gogh letters (Van Gogh Museum and Huygens ING), the Bellum
 Alexandrinum (Digital Latin Library, with a three-register critical
 apparatus), two editions by Paolo Monella offered by their editor as test
 cases (the Chronicon of Romualdus Salernitanus and the graphematic
-transcription of Ursus Beneventanus, with its table of signs) and a
-constructed Specimen for teaching purposes.
+transcription of Ursus Beneventanus, with its table of signs), the General
+Prologue of the Canterbury Tales (54 witnesses and the full collation,
+offered by Peter Robinson as a temporary test case), texts from the
+Eurasian Latin Archive (suggested by Giulio Quaresima) and a constructed
+Specimen for teaching purposes.
 
 ## Agenda
 

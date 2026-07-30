@@ -65,16 +65,21 @@ that is a gap of the tool, to be filed in
 
 | The edition declares | The press derives |
 |---|---|
-| `app` / `lem` / `rdg`, `listWit` | critical apparatus (popup on the lemma, margin notes, `apparatus.csv`) |
-| `choice` (`orig`/`reg`, `abbr`/`expan`, `sic`/`corr`), `add`/`del` | reading / diplomatic toggle |
+| `app` / `lem` / `rdg`, `listWit` (also in the corpus header of a collection) | critical apparatus (popup on the lemma), witnesses table with full descriptions, `apparatus.csv` |
+| adjacent `app` segments with `@from`/`@to` | separators between segments, computed from the declared token positions |
+| `choice` (`orig`/`reg`, `abbr`/`expan`, `sic`/`corr`), `am`/`ex` even without a `choice` wrapper, `add`/`del` | reading / diplomatic toggle; every pair opens on click showing both levels |
+| `lb`, with `@break` where the line splits a word | lineation in the diplomatic view; the reading view flows the prose and rejoins split words |
 | `listPerson` / `listPlace` / `listOrg` entries referenced from the text (`ref="#id"`) | indices of persons, places, organisations |
-| `geo` coordinates inside `place`/`location` (or a reviewed `reconcile.json`, see below) | map page |
-| `note` in the text, inline or standoff (`@target`) | margin notes with leader lines |
-| many input files, or a `teiCorpus` | register of documents |
+| `geo` coordinates inside `place`/`location` (or a reviewed `reconcile.json`, see below) | map page, confirmed and suggested places drawn differently |
+| `note` in the text, inline or standoff (`@target`) | margin notes while the margin can carry them; past a density threshold, anchor marks that open on click; either way the passage the note refers to lights up |
+| many input files, or a `teiCorpus` | register of documents, sortable and filterable |
+| a shared `@n` across the documents of a collection, named in the manifest (`align`) | canonical alignment: the entity index (`alignment.json`), witness sigla that jump to the same passage in each witness, and the classical apparatus band under the document the manifest names |
 | several structural `div`s in the body of a long text | one page per book or section, with a table of contents |
-| `front` and `back` matter | Introduction and Appendices pages |
+| `front` and `back` matter | their own pages, labelled by their own heading when they have one (neutral fallback otherwise) |
 | `l` elements with `@n` | verse numbers |
 | `w` elements with `@lemma` (or a reviewed `lemmas.json`, see below) | index of lemmas: frequencies, forms, concordance (KWIC), `lemmas.csv` |
+| `revisionDesc` | the revision history on the edition page (long histories scroll in place) |
+| pipe tables in extra Markdown pages | real tables (used for a table of signs, for instance) |
 
 Unknown or custom elements are never dropped: they receive a base rendering.
 
@@ -171,6 +176,20 @@ optional:
       "parent": { "href": "../", "label": "Home" }
     }
 
+- `align`: canonical alignment for collections whose documents share a
+  numbering. Declares which elements carry it, how to normalise their `@n`
+  to one key, and (optionally) under which document the classical apparatus
+  band is derived:
+
+        "align": {
+          "elements": ["l", "app"],
+          "strip": "^.*line=",
+          "apparatusUnder": "ms-Edition"
+        }
+
+  The press then writes `alignment.json` (entity to passage, per document),
+  makes every witness siglum in the band jump to that witness's own verse,
+  and prints the band in the classical form (lemma] variant sigla).
 - `exports`: `true`, `false`, or an object switching off single pieces,
   each true by default: `"exports": { "model": false, "source": false }`
   (pieces: `model`, `entities`, `apparatus`, `lemmas`, `tokens`, `source`).
