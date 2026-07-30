@@ -113,12 +113,33 @@ function convert(node, docId, path, classMap) {
     children: [],
   };
   let i = 0;
+  const wordInternal = WORD_INTERNAL.has(element);
   for (const child of node.children) {
-    if (typeof child === 'string') out.children.push(child);
-    else out.children.push(convert(child, docId, `${path}.${i++}`, classMap));
+    if (typeof child === 'string') {
+      if (wordInternal) {
+        // C20: inside word-level elements, whitespace is source formatting,
+        // not text; word separation comes from pc and element boundaries
+        const s = child.replace(/\s+/g, '');
+        if (s) out.children.push(s);
+      } else if (ELEMENT_ONLY.has(element) && !child.trim()) {
+        // C20: these content models admit no character data, so
+        // whitespace-only nodes can only be source formatting
+        continue;
+      } else {
+        out.children.push(child);
+      }
+    } else out.children.push(convert(child, docId, `${path}.${i++}`, classMap));
   }
   return out;
 }
+
+/** Elements whose direct text content is a single word or smaller (TEI
+ *  model.segLike, sub-word members): internal whitespace is indentation. */
+const WORD_INTERNAL = new Set(['w', 'm', 'c']);
+
+/** Elements whose P5 content model is element-only (alternations and
+ *  groupings, no character data): whitespace between children is indentation. */
+const ELEMENT_ONLY = new Set(['choice', 'subst', 'app', 'rdgGrp']);
 
 export function* walkModel(node) {
   if (!node) return;
