@@ -668,7 +668,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
             const lem = app.children.find((c) => typeof c !== 'string' && c.element === 'lem');
             const rdgs = app.children.filter((c) => typeof c !== 'string' && c.element === 'rdg');
             const isLac = (app.atts.type || '') === 'lac';
-            v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}">`;
+            v += `<div class="vmap-app${isLac ? ' vmap-lac' : ''}" id="${escapeHTML(app.id)}">`;
             if (!isLac) v += `<span class="vmap-lem">${escapeHTML(abbrev(lem ? cleanText(lem).trim() : ''))}</span>`;
             for (const r of rdgs) {
               const wits = (r.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, ''));
@@ -723,10 +723,17 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         + `<a href="text.html">${T.register}</a>`
         + (next ? `<a href="${docFiles.get(next.id)}">${T.next}</a>` : '<span></span>')
         + `</nav>`;
+      const alignCfg = (alignKey && manifest.align)
+        ? `window.TORCHIO_ALIGN=${JSON.stringify({
+            strip: manifest.align.strip || null,
+            suffix: manifest.align.stripSuffix || null,
+            apps: model.documents.filter((x) => isApparatusDoc(x)).map((x) => x.id),
+          })};`
+        : '';
       out[docFiles.get(d.id)] = chrome({
         title: c.title || d.id, sub: t, active: 'text.html', pages, bodyClass: offClasses,
         body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme, parent,
+        script: alignCfg + buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
   }

@@ -44,6 +44,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
@@ -75,6 +76,7 @@ export function buildInteractJS(t) {
 (function(){
   var body=document.body; body.classList.add('mode-read');
   if(document.querySelector('.app-band'))body.classList.add('has-band');
+  if(window.TORCHIO_ALIGN)body.classList.add('has-align');
   /* words covered by an apparatus entry become triggers: the reader clicks
      the word and sees its variants (positions from the declared @from/@to) */
   function wireWords(){
@@ -268,6 +270,31 @@ export function buildInteractJS(t) {
       var wband=wv._be.closest('.app-band');
       openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
+      ev.stopPropagation();return;
+    }
+    var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')
+       &&!(lw.nextElementSibling&&lw.nextElementSibling.classList&&lw.nextElementSibling.classList.contains('app-band'))){
+      var CFG=window.TORCHIO_ALIGN;
+      var key=String(lw.getAttribute('data-n'));
+      try{ if(CFG.strip)key=key.replace(new RegExp(CFG.strip),''); if(CFG.suffix)key=key.replace(new RegExp(CFG.suffix),''); }catch(e){}
+      withAlign(function(map){
+        var row=map[key]; if(!row)return;
+        var tgt=null;
+        (CFG.apps||[]).some(function(a){ if(row[a]){tgt=row[a];return true;} return false; });
+        if(!tgt)return;
+        var file=tgt.split('#')[0], id=tgt.split('#')[1];
+        fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+          if(!html)return;
+          var doc=new DOMParser().parseFromString(html,'text/html');
+          var el=doc.getElementById(id);
+          var sec=el&&el.closest?el.closest('.vmap')||el:el;
+          if(!sec)return;
+          openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+            +'<div class="popband" data-ent="'+esc(key)+'">'+sec.innerHTML+'</div>'
+            +'<div class="meta"><a href="'+tgt+'">${t.openPage}</a></div>',lw);
+        })['catch'](function(){});
+      });
       ev.stopPropagation();return;
     }
     var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');
