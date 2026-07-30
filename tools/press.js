@@ -16,6 +16,7 @@ import { pressPage } from '../src/render.js';
 import { pressSite } from '../src/site.js';
 import { analyze } from '../src/analyze.js';
 import { applyReconciliation } from '../src/reconcile.js';
+import { attachLemmas } from '../src/lemmas.js';
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const site = process.argv.includes('--site');
@@ -102,6 +103,18 @@ try {
   applyReconciliation(model, rec.entities);
   console.error('reconcile: reconcile.json applied');
 } catch { /* nothing reconciled */ }
+
+// lemmas: from the markup (w/@lemma), or from a reviewed lemmas.json
+let lemmasJson = null;
+try {
+  lemmasJson = JSON.parse(await readFile(join(dirname(manifestPath), 'lemmas.json'), 'utf-8'));
+} catch { /* no file: the markup alone decides */ }
+const lemmas = attachLemmas(model, lemmasJson);
+if (lemmas) {
+  console.error(`lemmas: ${lemmas.entries.length} lemmas, ${lemmas.lemmatized}/${lemmas.tokens} tokens`
+    + (lemmas.provenance.markup ? ` (markup: ${lemmas.provenance.markup})` : '')
+    + (lemmas.provenance.file ? ` (lemmas.json: ${lemmas.provenance.file})` : ''));
+}
 
 const report = analyze(roots.map((r) => r.root || r), map);
 

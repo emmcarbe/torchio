@@ -115,6 +115,16 @@ ${headerLabelCSS()}
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
+details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
+details.lemma summary{cursor:pointer;list-style-position:outside}
+.lem-forms{color:var(--soft);font-size:.9em}
+.kwic{margin:.5em 0 .3em}
+.kwic td{border-bottom:0;padding:2px 8px 2px 0}
+.kwic .kb{text-align:right;color:var(--soft);width:40%}
+.kwic .kf{white-space:nowrap;text-align:center}
+.kwic .kf a{font-weight:600}
+.kwic .ka{color:var(--soft);width:40%}
 </style>
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
@@ -224,6 +234,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const hasIndices = hasOcc(reg.people) || hasOcc(reg.places) || hasOcc(reg.orgs);
   const geoPlaces = reg.places.filter((p) => p.geo);
   const hasMap = geoPlaces.length > 0;
+  // no lemmas, no page: forms alone are never passed off as an index of lemmas
+  const hasLemmas = !!(model.lemmas && model.lemmas.entries.length);
   const exports_ = manifest.exports ? buildExports(model, { sourceXML }) : {};
   const hasData = Object.keys(exports_).length > 0;
 
@@ -251,12 +263,13 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ['text', T.text],
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
+    ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
     ...(hasMap ? [['map', T.map]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
   const EXISTS = { index: true, front: !!frontNode, text: true, back: !!backNode,
-    indices: hasIndices, map: hasMap, data: hasData };
+    indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
   if (manifest.pages) {
@@ -534,12 +547,63 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme, parent, parent });
   }
 
+  /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
+  if (hasLemmas && wanted.has('lemmas')) {
+    const L = model.lemmas;
+    const KWIC_MAX = 30;
+    const prov = [];
+    if (L.provenance.markup) prov.push(`${L.provenance.markup} ${T.lemmaFromMarkup}`);
+    if (L.provenance.file) {
+      prov.push(`${L.provenance.file} ${T.lemmaFromFile}${L.generator ? ` (${escapeHTML(L.generator)})` : ''}`);
+    }
+    const pendingN = L.pending.suggested + L.pending.review;
+    let lem = '<main id="main" class="torchio">'
+      + `<p class="lem-note">${T.lemmaCoverage}: ${L.lemmatized} / ${L.tokens} ${T.tokensWord} · ${prov.join(' · ')}`
+      + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
+      + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
+      + ` aria-label="${T.filter}"> <span class="reg-count">${L.entries.length}</span>`;
+    for (const e of L.entries) {
+      const forms = e.forms.map(([f, n]) => `${escapeHTML(f)} (${n})`).join(', ');
+      const search = escapeHTML((e.lemma + ' ' + e.forms.map(([f]) => f).join(' ')).toLowerCase());
+      lem += `<details class="lemma" data-search="${search}">`
+        + `<summary><b>${escapeHTML(e.lemma)}</b> <span class="reg-count">${e.count}</span>`
+        + ` <span class="lem-forms">${forms}</span></summary>`
+        + '<table class="wit-table kwic">';
+      for (const o of e.occurrences.slice(0, KWIC_MAX)) {
+        lem += `<tr><td class="kb">${escapeHTML(o.before)}</td>`
+          + `<td class="kf"><a href="${pageFor(o.anchor)}#${escapeHTML(o.anchor)}">${escapeHTML(o.form)}</a></td>`
+          + `<td class="ka">${escapeHTML(o.after)}</td></tr>`;
+      }
+      lem += '</table>';
+      if (e.occurrences.length > KWIC_MAX) {
+        lem += `<p class="lem-note">${e.occurrences.length - KWIC_MAX} ${T.moreOccurrences}</p>`;
+      }
+      lem += '</details>';
+    }
+    lem += '</main>';
+    const lemmaJS = `
+(function(){
+  var input=document.querySelector('.lem-filter');
+  var items=[].slice.call(document.querySelectorAll('details.lemma'));
+  var count=document.querySelector('.reg-count');
+  if(!input)return;
+  input.addEventListener('input',function(){
+    var q=input.value.toLowerCase();var n=0;
+    items.forEach(function(d){var hit=!q||d.getAttribute('data-search').indexOf(q)>-1;
+      d.style.display=hit?'':'none';if(hit)n++;});
+    if(count)count.textContent=n;
+  });
+})();`;
+    out['lemmas.html'] = chrome({ title: t, sub: T.lemmas.toLowerCase(), active: 'lemmas.html', pages, body: lem, script: lemmaJS, t: T, lang, theme, parent });
+  }
+
   /* ---- data.html: the edition as downloadable data ---- */
   if (hasData && wanted.has('data')) {
     const DESCR = {
       'data/model.json': T.descrModel,
       'data/entities.csv': T.descrEntities,
       'data/apparatus.csv': T.descrApparatus,
+      'data/lemmas.csv': T.descrLemmas,
       'data/source.xml': T.descrSource,
     };
     let dataPage = '<main id="main" class="torchio"><table class="idx-table">';

@@ -35,6 +35,12 @@ const STRINGS = {
     descrEntities: 'people, places and organisations with occurrence counts and coordinates',
     descrApparatus: 'every apparatus reading with its witnesses, one row per reading',
     descrSource: 'the unmodified TEI source file',
+    lemmas: 'Lemmas', lemmaCoverage: 'Coverage', tokensWord: 'tokens',
+    lemmaFromMarkup: 'from the markup (w/@lemma)',
+    lemmaFromFile: 'from lemmas.json',
+    lemmaPending: 'types awaiting the editor’s review',
+    formsLabel: 'forms', moreOccurrences: 'more occurrences not shown here',
+    descrLemmas: 'every lemma with its forms and counts, one row per form',
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
@@ -64,6 +70,12 @@ const STRINGS = {
     descrEntities: 'persone, luoghi e organizzazioni con conteggio delle occorrenze e coordinate',
     descrApparatus: 'ogni lezione di apparato con i suoi testimoni, una riga per lezione',
     descrSource: 'il file TEI sorgente, senza modifiche',
+    lemmas: 'Lemmi', lemmaCoverage: 'Copertura', tokensWord: 'token',
+    lemmaFromMarkup: 'dal markup (w/@lemma)',
+    lemmaFromFile: "da lemmas.json",
+    lemmaPending: "voci in attesa di revisione dell'editore",
+    formsLabel: 'forme', moreOccurrences: 'altre occorrenze non mostrate qui',
+    descrLemmas: 'ogni lemma con le sue forme e i conteggi, una riga per forma',
   },
 };
 

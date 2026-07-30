@@ -74,6 +74,7 @@ that is a gap of the tool, to be filed in
 | several structural `div`s in the body of a long text | one page per book or section, with a table of contents |
 | `front` and `back` matter | Introduction and Appendices pages |
 | `l` elements with `@n` | verse numbers |
+| `w` elements with `@lemma` (or a reviewed `lemmas.json`, see below) | index of lemmas: frequencies, forms, concordance (KWIC), `lemmas.csv` |
 
 Unknown or custom elements are never dropped: they receive a base rendering.
 
@@ -161,6 +162,32 @@ optional:
 - `exports`: set to `false` to omit the Data page.
 - `parent`: an optional link back to a parent site, shown first in the
   navigation.
+
+## Lemmas: concordances and frequencies
+
+Concordances and frequency lists make no philological sense on raw forms
+("errò" and "errare" are one word, not two), so the Lemmas page appears
+only when the edition carries lemmas, and it declares their provenance and
+coverage. Two ways in:
+
+- the markup decides: `<w lemma="...">` is used as is;
+- otherwise, a reviewed `lemmas.json` next to the TEI:
+
+      node tools/lemmatize.js path/to/edition.xml
+
+  The language comes from `--lang=`, or from what the TEI itself declares
+  in `langUsage`; the tool picks the matching UDPipe model (Latin, ancient
+  Greek, Italian, Dutch, French, German, English, Spanish, Portuguese;
+  `--model=` to choose exactly, `--conllu=file` to work fully offline from
+  any local pipeline). If it knows no model for the declared language it
+  stops and says so. Every entry is written as `suggested`; where the
+  tagger disagreed with itself the entry says `review` and lists the
+  alternatives: the homograph is the editor's call. Review the file:
+  confirm, correct or reject. Your decisions survive re-runs, and only
+  then is the index worth its name.
+
+Traditions that are not lemmatized are not forced into this: without
+lemmas there simply is no Lemmas page, and nothing else changes.
 
 ## Reconciling places, people, organisations
 

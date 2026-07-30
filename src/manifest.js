@@ -26,7 +26,7 @@
 
 import { isTheme } from './themes.js';
 
-const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'map', 'data'];
+const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas', 'map', 'data'];
 
 export function normalizeManifest(raw = {}) {
   const m = {

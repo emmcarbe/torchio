@@ -154,6 +154,50 @@ export function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
   return model.lemmas;
 }
 
+/* ------------------------------------------------------------------ */
+/* Helpers for the working tool (tools/lemmatize.js): pure, testable.  */
+
+/** CoNLL-U text -> Map form(lower) -> Map lemma -> votes. */
+export function conlluTypes(conllu) {
+  const votes = new Map();
+  for (const line of String(conllu).split('\n')) {
+    if (!line || line.startsWith('#')) continue;
+    const cols = line.split('\t');
+    // skip multiword ranges (1-2) and empty nodes (1.1)
+    if (cols.length < 3 || cols[0].includes('-') || cols[0].includes('.')) continue;
+    const form = cols[1];
+    const lemma = cols[2];
+    if (!form || !lemma || lemma === '_') continue;
+    const key = form.toLowerCase();
+    let m = votes.get(key);
+    if (!m) { m = new Map(); votes.set(key, m); }
+    m.set(lemma, (m.get(lemma) || 0) + 1);
+  }
+  return votes;
+}
+
+/**
+ * Votes -> lemmas.json types. Unanimous forms are "suggested"; forms where
+ * the tagger disagreed with itself become "review" with the alternatives
+ * listed: homographs are the editor's call, never the tool's.
+ */
+export function typesFromVotes(votes, formFilter = null) {
+  const types = [];
+  for (const [form, m] of votes) {
+    if (formFilter && !formFilter.has(form)) continue;
+    const ranked = [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const t = {
+      form,
+      lemma: ranked[0][0],
+      status: 'suggested',
+      count: ranked.reduce((s, [, n]) => s + n, 0),
+    };
+    if (ranked.length > 1) { t.status = 'review'; t.alternatives = ranked.map(([l]) => l); }
+    types.push(t);
+  }
+  return types.sort((a, b) => a.form.localeCompare(b.form));
+}
+
 /**
  * Merge fresh suggestions into an existing lemmas.json: the tool proposes,
  * the editor decides, and only the editor's decisions survive re-runs

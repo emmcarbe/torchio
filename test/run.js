@@ -558,4 +558,73 @@ console.log('odd — recognized on its own, wired to the press');
   await rm(dir, { recursive: true, force: true });
 }
 
+console.log('lemmas — concordances and frequencies, only where lemmas exist');
+{
+  const { attachLemmas, collectTokens, conlluTypes, typesFromVotes, mergeLemmaTypes } =
+    await import('../src/lemmas.js');
+  const { pressSite } = await import('../src/site.js');
+  const map = buildClassMap(null, data);
+
+  // 1. the markup decides: w/@lemma
+  const MARKED = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>Lemmi dal markup</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc>
+  </fileDesc><profileDesc><langUsage><language ident="it">italiano</language></langUsage></profileDesc>
+  </teiHeader><text><body>
+    <p n="1"><w lemma="errare">errò</w> molto, e ancora <w lemma="errare">erra</w>;
+    il suo <w lemma="errore">errore</w> resta. <note>errò qui non conta.</note></p>
+  </body></text></TEI>`;
+  const m1 = buildModel(parseXML(MARKED), map);
+  const L1 = attachLemmas(m1, null);
+  ok(L1 && L1.provenance.markup === 3 && L1.provenance.file === 0,
+    'w/@lemma read from the markup, notes excluded from the reading layer');
+  const errare = L1.entries.find((e) => e.lemma === 'errare');
+  ok(errare.count === 2 && errare.forms.length === 2,
+    'two forms gathered under one lemma: the reason forms alone are not enough');
+  ok(errare.occurrences[0].after.includes('molto'),
+    'KWIC context collected around each occurrence');
+  const site1 = pressSite(m1, {});
+  ok('lemmas.html' in site1 && site1['lemmas.html'].includes('errare')
+    && site1['lemmas.html'].includes('errò (1), erra (1)'),
+    'the lemma page presses: lemma, forms, counts, concordance');
+  ok('data/lemmas.csv' in site1 && site1['data/lemmas.csv'].includes('errare'),
+    'lemmas.csv exported: every view is a projection of the model');
+
+  // 2. no lemmas, no page
+  const PLAIN = MARKED.replace(/ lemma="[^"]*"/g, '');
+  const m2 = buildModel(parseXML(PLAIN), map);
+  ok(attachLemmas(m2, null) === null && !('lemmas.html' in pressSite(m2, {})),
+    'no lemmas, no page: forms are never passed off as an index of lemmas');
+
+  // 3. the reviewed file: lemmas.json in the reconciliation pattern
+  const L3 = attachLemmas(m2, { generator: 'test', types: [
+    { form: 'errò', lemma: 'errare', status: 'confirmed' },
+    { form: 'erra', lemma: 'errare', status: 'suggested' },
+    { form: 'errore', lemma: 'errore', status: 'rejected' },
+  ] });
+  ok(L3.provenance.file === 2 && L3.pending.suggested === 1
+    && !L3.entries.some((e) => e.lemma === 'errore'),
+    'lemmas.json applied: rejected types stay out, pending counted');
+
+  // 4. the tool's aggregation: unanimity suggests, disagreement asks the editor
+  const CONLLU = ['# text', '1\terrò\terrare\tVERB', '2\terra\terrare\tVERB',
+    '3\tErra\tErra\tPROPN', '4\terrore\terrore\tNOUN'].join('\n');
+  const types = typesFromVotes(conlluTypes(CONLLU));
+  const erra = types.find((t) => t.form === 'erra');
+  ok(erra.status === 'review' && erra.alternatives.length === 2,
+    'a form with two candidate lemmas becomes review: the homograph is the editor’s call');
+  ok(types.find((t) => t.form === 'errò').status === 'suggested',
+    'unanimous forms are plain suggestions');
+
+  // 5. the editor's decisions survive re-runs
+  const merged = mergeLemmaTypes(
+    { types: [{ form: 'errò', lemma: 'vagare', status: 'confirmed' },
+              { form: 'erra', lemma: 'sbagliare', status: 'suggested' }] },
+    { types: [{ form: 'errò', lemma: 'errare', status: 'suggested' },
+              { form: 'erra', lemma: 'errare', status: 'suggested' }] });
+  ok(merged.types.find((t) => t.form === 'errò').lemma === 'vagare'
+    && merged.types.find((t) => t.form === 'erra').lemma === 'errare',
+    'confirmed entries are never overwritten; mere suggestions are refreshed');
+}
+
 console.log(`\n${passed} assertions passed.`);

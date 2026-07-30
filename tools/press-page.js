@@ -15,7 +15,7 @@
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   markdown, buildZip, i18n, resolveLang,
+   attachLemmas, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -145,6 +145,14 @@
         notes.push('reconcile.json applied.');
       } catch (err) { notes.push('reconcile.json ignored: ' + err.message); }
     }
+
+    // lemmas: from the markup (w/@lemma), or from a reviewed lemmas.json
+    let lemmasJson = null;
+    if (texts.has('lemmas.json')) {
+      try { lemmasJson = JSON.parse(texts.get('lemmas.json')); }
+      catch (err) { notes.push('lemmas.json ignored: ' + err.message); }
+    }
+    attachLemmas(model, lemmasJson);
 
     // extra pages declared by a dropped manifest, resolved among the files
     const droppedExtra = [];
@@ -295,6 +303,10 @@
         ? S.oddInfo.file + ': ' + S.oddInfo.custom + ' custom elements, ' + S.oddInfo.deleted + ' deleted'
         : 'none: read against the whole of P5 (tei_all)'],
       ['registries', regs || 'none'],
+      ['lemmas', S.model.lemmas
+        ? S.model.lemmas.entries.length + ' lemmas, '
+          + S.model.lemmas.lemmatized + '/' + S.model.lemmas.tokens + ' tokens'
+        : 'none (from w/@lemma or a reviewed lemmas.json; the page appears only then)'],
       ['pages', Object.keys(S.files).filter((n) => n.endsWith('.html')).length
         + ' html, ' + Object.keys(S.files).length + ' files in total'],
     ];
@@ -316,7 +328,7 @@
     const T = i18n(lang);
     const known = {
       index: T.edition, front: T.front, text: T.text, back: T.back,
-      indices: T.indices, map: T.map, data: T.data,
+      indices: T.indices, lemmas: T.lemmas, map: T.map, data: T.data,
     };
     if (known[id]) return known[id];
     const extra = S.ui.extra.find((e) => e.id === id);
@@ -351,6 +363,7 @@
       front: 'appears when the TEI has front matter',
       back: 'appears when the TEI has back matter',
       indices: 'appears when a registry entry is referenced from the text',
+      lemmas: 'appears when lemmas exist, from w/@lemma or from a reviewed lemmas.json',
       map: 'appears when places carry coordinates, from the TEI or from a reviewed reconcile.json',
     };
 

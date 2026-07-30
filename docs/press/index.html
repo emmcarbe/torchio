@@ -522,6 +522,14 @@ function apparatusCSV(model) {
   return csv(rows);
 }
 
+function lemmasCSV(model) {
+  const rows = [['lemma', 'form', 'count', 'total']];
+  for (const e of model.lemmas.entries) {
+    for (const [form, n] of e.forms) rows.push([e.lemma, form, n, e.count]);
+  }
+  return csv(rows);
+}
+
 /**
  * Assemble the export files for an edition.
  * @returns {Object<string,string>} path (relative to the site root) -> content
@@ -535,6 +543,9 @@ function buildExports(model, { sourceXML = null } = {}) {
   }
   if (model.apparatus.length) {
     files['data/apparatus.csv'] = apparatusCSV(model);
+  }
+  if (model.lemmas && model.lemmas.entries.length) {
+    files['data/lemmas.csv'] = lemmasCSV(model);
   }
   if (sourceXML) files['data/source.xml'] = sourceXML;
   return files;
@@ -859,10 +870,31 @@ function collectRegistries(node, reg, byXmlId) {
       if (Number.isFinite(lat) && Number.isFinite(lon)) entry.geo = { lat, lon };
     }
   }
+  if (key === 'witnesses') {
+    // the register page can carry the full description, untruncated
+    entry.full = pointersText(node).trim().replace(/\s+/g, ' ');
+  }
   if (key === 'hands') entry.scope = node.atts.scope || null;
   if (key === 'layers') entry.order = reg.layers.length;
   reg[key].push(entry);
   if (node.atts['xml:id']) byXmlId.set(node.atts['xml:id'], entry);
+}
+
+/** Text with pointers surfaced: a ptr or an empty ref yields its @target,
+ *  so bibliographic entries never end in a dangling "URL:" (nothing is
+ *  invisible). */
+function pointersText(node) {
+  let out = '';
+  for (const c of node.children) {
+    if (typeof c === 'string') { out += c; continue; }
+    if (c.element === 'ptr' || c.element === 'ref') {
+      const inner = pointersText(c);
+      out += inner.trim() ? inner : (c.atts.target || '');
+      continue;
+    }
+    out += pointersText(c);
+  }
+  return out;
 }
 
 function registryLabel(node) {
@@ -870,8 +902,8 @@ function registryLabel(node) {
     const n = findFirst(node, el);
     if (n) return textOfModel(n).trim().replace(/\s+/g, ' ');
   }
-  const t = textOfModel(node).trim().replace(/\s+/g, ' ');
-  return t.length > 80 ? t.slice(0, 77) + '…' : t;
+  // no truncation: the model is lossless, compactness belongs to the pages
+  return pointersText(node).trim().replace(/\s+/g, ' ');
 }
 
 /* ---------------------------------------------------------------- */
@@ -1061,6 +1093,12 @@ const STRINGS = {
     descrEntities: 'people, places and organisations with occurrence counts and coordinates',
     descrApparatus: 'every apparatus reading with its witnesses, one row per reading',
     descrSource: 'the unmodified TEI source file',
+    lemmas: 'Lemmas', lemmaCoverage: 'Coverage', tokensWord: 'tokens',
+    lemmaFromMarkup: 'from the markup (w/@lemma)',
+    lemmaFromFile: 'from lemmas.json',
+    lemmaPending: 'types awaiting the editor’s review',
+    formsLabel: 'forms', moreOccurrences: 'more occurrences not shown here',
+    descrLemmas: 'every lemma with its forms and counts, one row per form',
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
@@ -1090,6 +1128,12 @@ const STRINGS = {
     descrEntities: 'persone, luoghi e organizzazioni con conteggio delle occorrenze e coordinate',
     descrApparatus: 'ogni lezione di apparato con i suoi testimoni, una riga per lezione',
     descrSource: 'il file TEI sorgente, senza modifiche',
+    lemmas: 'Lemmi', lemmaCoverage: 'Copertura', tokensWord: 'token',
+    lemmaFromMarkup: 'dal markup (w/@lemma)',
+    lemmaFromFile: "da lemmas.json",
+    lemmaPending: "voci in attesa di revisione dell'editore",
+    formsLabel: 'forme', moreOccurrences: 'altre occorrenze non mostrate qui',
+    descrLemmas: 'ogni lemma con le sue forme e i conteggi, una riga per forma',
   },
 };
 
@@ -1569,6 +1613,50 @@ function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
   return model.lemmas;
 }
 
+/* ------------------------------------------------------------------ */
+/* Helpers for the working tool (tools/lemmatize.js): pure, testable.  */
+
+/** CoNLL-U text -> Map form(lower) -> Map lemma -> votes. */
+function conlluTypes(conllu) {
+  const votes = new Map();
+  for (const line of String(conllu).split('\n')) {
+    if (!line || line.startsWith('#')) continue;
+    const cols = line.split('\t');
+    // skip multiword ranges (1-2) and empty nodes (1.1)
+    if (cols.length < 3 || cols[0].includes('-') || cols[0].includes('.')) continue;
+    const form = cols[1];
+    const lemma = cols[2];
+    if (!form || !lemma || lemma === '_') continue;
+    const key = form.toLowerCase();
+    let m = votes.get(key);
+    if (!m) { m = new Map(); votes.set(key, m); }
+    m.set(lemma, (m.get(lemma) || 0) + 1);
+  }
+  return votes;
+}
+
+/**
+ * Votes -> lemmas.json types. Unanimous forms are "suggested"; forms where
+ * the tagger disagreed with itself become "review" with the alternatives
+ * listed: homographs are the editor's call, never the tool's.
+ */
+function typesFromVotes(votes, formFilter = null) {
+  const types = [];
+  for (const [form, m] of votes) {
+    if (formFilter && !formFilter.has(form)) continue;
+    const ranked = [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const t = {
+      form,
+      lemma: ranked[0][0],
+      status: 'suggested',
+      count: ranked.reduce((s, [, n]) => s + n, 0),
+    };
+    if (ranked.length > 1) { t.status = 'review'; t.alternatives = ranked.map(([l]) => l); }
+    types.push(t);
+  }
+  return types.sort((a, b) => a.form.localeCompare(b.form));
+}
+
 /**
  * Merge fresh suggestions into an existing lemmas.json: the tool proposes,
  * the editor decides, and only the editor's decisions survive re-runs
@@ -1703,7 +1791,7 @@ function isTheme(name) {
 
 
 
-const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'map', 'data'];
+const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas', 'map', 'data'];
 
 function normalizeManifest(raw = {}) {
   const m = {
@@ -2426,6 +2514,16 @@ ${headerLabelCSS()}
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
+details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
+details.lemma summary{cursor:pointer;list-style-position:outside}
+.lem-forms{color:var(--soft);font-size:.9em}
+.kwic{margin:.5em 0 .3em}
+.kwic td{border-bottom:0;padding:2px 8px 2px 0}
+.kwic .kb{text-align:right;color:var(--soft);width:40%}
+.kwic .kf{white-space:nowrap;text-align:center}
+.kwic .kf a{font-weight:600}
+.kwic .ka{color:var(--soft);width:40%}
 </style>
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
@@ -2535,6 +2633,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const hasIndices = hasOcc(reg.people) || hasOcc(reg.places) || hasOcc(reg.orgs);
   const geoPlaces = reg.places.filter((p) => p.geo);
   const hasMap = geoPlaces.length > 0;
+  // no lemmas, no page: forms alone are never passed off as an index of lemmas
+  const hasLemmas = !!(model.lemmas && model.lemmas.entries.length);
   const exports_ = manifest.exports ? buildExports(model, { sourceXML }) : {};
   const hasData = Object.keys(exports_).length > 0;
 
@@ -2562,12 +2662,13 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     ['text', T.text],
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
+    ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
     ...(hasMap ? [['map', T.map]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
   const EXISTS = { index: true, front: !!frontNode, text: true, back: !!backNode,
-    indices: hasIndices, map: hasMap, data: hasData };
+    indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
   if (manifest.pages) {
@@ -2609,7 +2710,9 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   if (reg.witnesses.length) {
     about += `<dt>${T.witnesses}</dt><dd><table class="wit-table">`;
     for (const w of reg.witnesses) {
-      about += `<tr><td class="sigla">${escapeHTML(w.id)}</td><td>${escapeHTML(w.label)}</td></tr>`;
+      const wtext = escapeHTML(w.full || w.label)
+        .replace(/(https?:\/\/[^\s<]*[^\s<.,;)])/g, '<a href="$1">$1</a>');
+      about += `<tr><td class="sigla">${escapeHTML(w.id)}</td><td>${wtext}</td></tr>`;
     }
     about += `</table></dd>`;
   }
@@ -2843,12 +2946,63 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme, parent, parent });
   }
 
+  /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
+  if (hasLemmas && wanted.has('lemmas')) {
+    const L = model.lemmas;
+    const KWIC_MAX = 30;
+    const prov = [];
+    if (L.provenance.markup) prov.push(`${L.provenance.markup} ${T.lemmaFromMarkup}`);
+    if (L.provenance.file) {
+      prov.push(`${L.provenance.file} ${T.lemmaFromFile}${L.generator ? ` (${escapeHTML(L.generator)})` : ''}`);
+    }
+    const pendingN = L.pending.suggested + L.pending.review;
+    let lem = '<main id="main" class="torchio">'
+      + `<p class="lem-note">${T.lemmaCoverage}: ${L.lemmatized} / ${L.tokens} ${T.tokensWord} · ${prov.join(' · ')}`
+      + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
+      + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
+      + ` aria-label="${T.filter}"> <span class="reg-count">${L.entries.length}</span>`;
+    for (const e of L.entries) {
+      const forms = e.forms.map(([f, n]) => `${escapeHTML(f)} (${n})`).join(', ');
+      const search = escapeHTML((e.lemma + ' ' + e.forms.map(([f]) => f).join(' ')).toLowerCase());
+      lem += `<details class="lemma" data-search="${search}">`
+        + `<summary><b>${escapeHTML(e.lemma)}</b> <span class="reg-count">${e.count}</span>`
+        + ` <span class="lem-forms">${forms}</span></summary>`
+        + '<table class="wit-table kwic">';
+      for (const o of e.occurrences.slice(0, KWIC_MAX)) {
+        lem += `<tr><td class="kb">${escapeHTML(o.before)}</td>`
+          + `<td class="kf"><a href="${pageFor(o.anchor)}#${escapeHTML(o.anchor)}">${escapeHTML(o.form)}</a></td>`
+          + `<td class="ka">${escapeHTML(o.after)}</td></tr>`;
+      }
+      lem += '</table>';
+      if (e.occurrences.length > KWIC_MAX) {
+        lem += `<p class="lem-note">${e.occurrences.length - KWIC_MAX} ${T.moreOccurrences}</p>`;
+      }
+      lem += '</details>';
+    }
+    lem += '</main>';
+    const lemmaJS = `
+(function(){
+  var input=document.querySelector('.lem-filter');
+  var items=[].slice.call(document.querySelectorAll('details.lemma'));
+  var count=document.querySelector('.reg-count');
+  if(!input)return;
+  input.addEventListener('input',function(){
+    var q=input.value.toLowerCase();var n=0;
+    items.forEach(function(d){var hit=!q||d.getAttribute('data-search').indexOf(q)>-1;
+      d.style.display=hit?'':'none';if(hit)n++;});
+    if(count)count.textContent=n;
+  });
+})();`;
+    out['lemmas.html'] = chrome({ title: t, sub: T.lemmas.toLowerCase(), active: 'lemmas.html', pages, body: lem, script: lemmaJS, t: T, lang, theme, parent });
+  }
+
   /* ---- data.html: the edition as downloadable data ---- */
   if (hasData && wanted.has('data')) {
     const DESCR = {
       'data/model.json': T.descrModel,
       'data/entities.csv': T.descrEntities,
       'data/apparatus.csv': T.descrApparatus,
+      'data/lemmas.csv': T.descrLemmas,
       'data/source.xml': T.descrSource,
     };
     let dataPage = '<main id="main" class="torchio"><table class="idx-table">';
@@ -3246,7 +3400,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   markdown, buildZip, i18n, resolveLang,
+   attachLemmas, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -3376,6 +3530,14 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         notes.push('reconcile.json applied.');
       } catch (err) { notes.push('reconcile.json ignored: ' + err.message); }
     }
+
+    // lemmas: from the markup (w/@lemma), or from a reviewed lemmas.json
+    let lemmasJson = null;
+    if (texts.has('lemmas.json')) {
+      try { lemmasJson = JSON.parse(texts.get('lemmas.json')); }
+      catch (err) { notes.push('lemmas.json ignored: ' + err.message); }
+    }
+    attachLemmas(model, lemmasJson);
 
     // extra pages declared by a dropped manifest, resolved among the files
     const droppedExtra = [];
@@ -3526,6 +3688,10 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         ? S.oddInfo.file + ': ' + S.oddInfo.custom + ' custom elements, ' + S.oddInfo.deleted + ' deleted'
         : 'none: read against the whole of P5 (tei_all)'],
       ['registries', regs || 'none'],
+      ['lemmas', S.model.lemmas
+        ? S.model.lemmas.entries.length + ' lemmas, '
+          + S.model.lemmas.lemmatized + '/' + S.model.lemmas.tokens + ' tokens'
+        : 'none (from w/@lemma or a reviewed lemmas.json; the page appears only then)'],
       ['pages', Object.keys(S.files).filter((n) => n.endsWith('.html')).length
         + ' html, ' + Object.keys(S.files).length + ' files in total'],
     ];
@@ -3547,7 +3713,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     const T = i18n(lang);
     const known = {
       index: T.edition, front: T.front, text: T.text, back: T.back,
-      indices: T.indices, map: T.map, data: T.data,
+      indices: T.indices, lemmas: T.lemmas, map: T.map, data: T.data,
     };
     if (known[id]) return known[id];
     const extra = S.ui.extra.find((e) => e.id === id);
@@ -3582,6 +3748,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       front: 'appears when the TEI has front matter',
       back: 'appears when the TEI has back matter',
       indices: 'appears when a registry entry is referenced from the text',
+      lemmas: 'appears when lemmas exist, from w/@lemma or from a reviewed lemmas.json',
       map: 'appears when places carry coordinates, from the TEI or from a reviewed reconcile.json',
     };
 

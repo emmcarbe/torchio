@@ -42,6 +42,14 @@ export function apparatusCSV(model) {
   return csv(rows);
 }
 
+export function lemmasCSV(model) {
+  const rows = [['lemma', 'form', 'count', 'total']];
+  for (const e of model.lemmas.entries) {
+    for (const [form, n] of e.forms) rows.push([e.lemma, form, n, e.count]);
+  }
+  return csv(rows);
+}
+
 /**
  * Assemble the export files for an edition.
  * @returns {Object<string,string>} path (relative to the site root) -> content
@@ -55,6 +63,9 @@ export function buildExports(model, { sourceXML = null } = {}) {
   }
   if (model.apparatus.length) {
     files['data/apparatus.csv'] = apparatusCSV(model);
+  }
+  if (model.lemmas && model.lemmas.entries.length) {
+    files['data/lemmas.csv'] = lemmasCSV(model);
   }
   if (sourceXML) files['data/source.xml'] = sourceXML;
   return files;
