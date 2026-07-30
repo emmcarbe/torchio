@@ -424,6 +424,17 @@ function registryLabel(node) {
 
 /* ---------------------------------------------------------------- */
 
+/** Reading text without the embedded witness lists (wit/idno inside rdg). */
+function textOfReading(node) {
+  let out = '';
+  for (const c of node.children) {
+    if (typeof c === 'string') { out += c; continue; }
+    if (c.element === 'wit' || c.element === 'witDetail') continue;
+    out += textOfReading(c);
+  }
+  return out;
+}
+
 function collectApparatus(node, appByType) {
   if (node.element !== 'app') return;
   const type = node.atts.type || 'critical';
@@ -434,7 +445,7 @@ function collectApparatus(node, appByType) {
     if (typeof child === 'string') continue;
     if (child.element === 'lem' || child.element === 'rdg') {
       const reading = {
-        text: textOfModel(child).trim(),
+        text: textOfReading(child).trim(),
         witnesses: (child.atts.wit || '').split(/\s+/).filter(Boolean).map((w) => w.replace(/^#/, '')),
         type: child.atts.type || null,
         isLemma: child.element === 'lem',
@@ -443,5 +454,8 @@ function collectApparatus(node, appByType) {
       if (child.element === 'lem') lemma = reading.text;
     }
   }
-  appByType.get(type).entries.push({ id: node.id, anchor: node.id, lemma, readings });
+  appByType.get(type).entries.push({
+    id: node.id, anchor: node.id, lemma, readings,
+    n: node.atts.n || null, from: node.atts.from || null, to: node.atts.to || null,
+  });
 }

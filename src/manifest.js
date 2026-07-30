@@ -40,6 +40,12 @@ export function normalizeManifest(raw = {}) {
     extra: [],
     pages: null,
     pieces: { apparatus: true, entities: true, choice: true, ...(raw.pieces || {}) },
+    align: raw.align && typeof raw.align === 'object' ? {
+      elements: Array.isArray(raw.align.elements) ? raw.align.elements.map(String) : ['l'],
+      strip: raw.align.strip ? String(raw.align.strip) : null,
+      stripSuffix: raw.align.stripSuffix ? String(raw.align.stripSuffix) : null,
+      apparatusUnder: raw.align.apparatusUnder ? String(raw.align.apparatusUnder) : null,
+    } : null,
     exports: raw.exports === false ? false
       : (raw.exports && typeof raw.exports === 'object' ? raw.exports : true),
     warnings: [],

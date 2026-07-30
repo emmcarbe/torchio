@@ -9,5 +9,14 @@
   "exports": {
     "model": false,
     "source": false
+  },
+  "align": {
+    "elements": [
+      "l",
+      "app"
+    ],
+    "strip": "^.*line=",
+    "stripSuffix": "-APP$",
+    "apparatusUnder": "ms-Edition"
   }
 }

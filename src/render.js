@@ -26,7 +26,7 @@ const BLOCKS = new Set([
 export const escapeHTML = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export function renderBase(node) {
+export function renderBase(node, hooks) {
   if (node.element === 'lb') {
     // lineation belongs to the diplomatic level: the reading mode flows,
     // and @break="no" rejoins a word split across lines (CSS in interact)
@@ -39,7 +39,7 @@ export function renderBase(node) {
   }
   if (node.element === 'note') {
     // anchor marker in the text, tied to the floated margin note
-    const inner = node.children.map((c) => typeof c === 'string' ? escapeHTML(c) : renderBase(c)).join('');
+    const inner = node.children.map((c) => typeof c === 'string' ? escapeHTML(c) : renderBase(c, hooks)).join('');
     let nd = '';
     for (const a of DATA_ATTS) {
       if (node.atts[a] != null) nd += ` data-${a}="${escapeHTML(node.atts[a])}"`;
@@ -67,10 +67,11 @@ export function renderBase(node) {
       // separator between adjacent app elements
       inner += ' ';
     }
-    inner += typeof child === 'string' ? escapeHTML(child) : renderBase(child);
+    inner += typeof child === 'string' ? escapeHTML(child) : renderBase(child, hooks);
     prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
-  return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>`;
+  const after = hooks && hooks.after ? hooks.after(node) : '';
+  return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>${after}`;
 }
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
