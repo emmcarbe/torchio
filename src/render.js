@@ -32,6 +32,12 @@ export function renderBase(node) {
     const n = node.atts.n ? escapeHTML(node.atts.n) : '';
     return `<span class="t-pb" role="separator" title="page break">${n ? `[${n}]` : ''}</span>`;
   }
+  if (node.element === 'note') {
+    // anchor marker in the text, tied to the floated margin note
+    const inner = node.children.map((c) => typeof c === 'string' ? escapeHTML(c) : renderBase(c)).join('');
+    return `<span class="t-note-mark" aria-hidden="true">°</span>`
+      + `<div id="${escapeHTML(node.id)}" class="t-note s-${node.section}" data-el="note">${inner}</div>`;
+  }
   const tag = BLOCKS.has(node.element) ? 'div' : 'span';
   let cls = `t-${node.element} s-${node.section}`;
   // verse numbering: mark every fifth line so the theme can show its number
@@ -114,6 +120,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}
@@ -116,6 +120,7 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -139,6 +144,58 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -155,10 +212,10 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
-<div class="tt"><h1>Bellum Alexandrinum</h1><p class="sub">introduzione</p></div>
-<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="front.html" class="on">Introduzione</a><a href="text.html">Testo</a><a href="back.html">Appendici</a><a href="data.html">Dati</a></nav>
+<div class="tt"><h1>Bellum Alexandrinum</h1><p class="sub">introduction</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="front.html" class="on">Introduction</a><a href="text.html">Text</a><a href="back.html">Appendices</a><a href="data.html">Data</a></nav>
 </header>
 <main id="main" class="torchio"><div id="front" class="t-front s-1-struttura" data-el="front">
         <div id="titlepage" class="t-titlePage s-1-paratesti" data-el="titlePage">
@@ -181,7 +238,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                spreadsheet, and the LDLT team led by Sam Huskey at the University of Oklahoma
                converted both the text and the apparatus into the machine-readable form that
                underlies the version you are reading, either at the interactive LDLT website or as
-               an on-demand .pdf. Damon and Huskey wrote this preface.<div id="ftn1" class="t-note s-1-note" data-el="note" data-n="1" data-place="foot"><div id="doc0:0.1.0.1.1.3.0" class="t-p s-1-struttura" data-el="p">The processes summarized here have been the subject of
+               an on-demand .pdf. Damon and Huskey wrote this preface.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn1" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.1.3.0" class="t-p s-1-struttura" data-el="p">The processes summarized here have been the subject of
                      several talks at the annual meeting of the Society for Classical Studies and
                      will be described more fully in Damon
                      and Huskey (in preparation).</div></div>
@@ -194,7 +251,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                   discoveries that underpin Damon's recent critical edition of Caesar’s <span id="doc0:0.1.0.1.2.1.0" class="t-title s-1-inline" data-el="title">Civil
                    War</span> (Oxford, 2015) should also be used to reassess the text of the
                   <span id="doc0:0.1.0.1.2.1.1" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span>, which rests on the same manuscript
-                  witnesses.<div id="ftn3" class="t-note s-1-note" data-el="note" data-n="3" data-place="foot"><div id="doc0:0.1.0.1.2.1.2.0" class="t-p s-1-struttura" data-el="p">OUP site: <span id="doc0:0.1.0.1.2.1.2.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="https://global.oup.com/academic/product/c-iuli-caesaris-commentarii-de-bello-civili-bellum-civile-or-civil-war-9780199659746?cc=us&amp;lang=en&amp;">https://global.oup.com/academic/product/c-iuli-caesaris-commentarii-de-bello-civili-bellum-civile-or-civil-war-9780199659746?cc=us&amp;lang=en&amp;</span>.</div></div>
+                  witnesses.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn3" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.2.1.2.0" class="t-p s-1-struttura" data-el="p">OUP site: <span id="doc0:0.1.0.1.2.1.2.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="https://global.oup.com/academic/product/c-iuli-caesaris-commentarii-de-bello-civili-bellum-civile-or-civil-war-9780199659746?cc=us&amp;lang=en&amp;">https://global.oup.com/academic/product/c-iuli-caesaris-commentarii-de-bello-civili-bellum-civile-or-civil-war-9780199659746?cc=us&amp;lang=en&amp;</span>.</div></div>
                   But the real answer is that in the digital era we urgently need new editors, and
                   that creating an edition such as this is an excellent way to expose students to
                   the editing process. The next generation of critical editions, <span id="doc0:0.1.0.1.2.1.3" class="t-hi s-1-inline" data-el="hi">digital</span> critical editions, can improve significantly on past editions,
@@ -218,13 +275,13 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         text, in nearly 100 places. Eleven of these changes are a consequence of the
                         new stemma, in which the manuscript that differs the most from the rest, S,
                         is treated as a witness to the hyparchetype nu rather than as an independent
-                        witness to the archetype.<div id="ftn4" class="t-note s-1-note" data-el="note" data-n="4" data-place="foot"><div id="doc0:0.1.0.1.2.2.1.1.1.0" class="t-p s-1-struttura" data-el="p">42.2
+                        witness to the archetype.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn4" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.2.2.1.1.1.0" class="t-p s-1-struttura" data-el="p">42.2
                            exercitus alendos, 49.2 causae, 57.3 †in†, 60.1 educerentur, 60.3
                            animaduerteret, 61.6 sibi usui, 62.1 auxiliares, 62.2 Marcello
                            fauebant, 64.3 derectam, 66.1 praefecit, 66.5 inceptum. <span id="doc0:0.1.0.1.2.2.1.1.1.0.0" class="t-hi s-1-inline" data-el="hi">See further the lists in Damon 2015b, 46
                               (note 93) and 48 (note 99)</span>. </div></div> In fifty-three places
                         we print the archetype (or a possibly archetypal reading) where other
-                        editors emend it.<div id="ftn5" class="t-note s-1-note" data-el="note" data-n="5" data-place="foot"><div id="doc0:0.1.0.1.2.2.1.1.2.0" class="t-p s-1-struttura" data-el="p">1.5 expectans,
+                        editors emend it.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn5" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.2.2.1.1.2.0" class="t-p s-1-struttura" data-el="p">1.5 expectans,
                            7.2 casum, 7.2 ut … absumeretur, 8.2 Paratonio, 10.2 accessissent,
                            10.2 exposuissent, 12.3 miserant, 12.4 Caesaris, 13.5 Lycias, 13.5 et,
                            14.1 Rhodios, 14.1 Ponticos, 14.1 hos, 16.1 uictis, 19.2 certiorem,
@@ -238,7 +295,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                            legionibus, 66.1 praefecit, 66.5 inceptum, 67.1 Caesaris, 68.1
                            defensionem, 68.2 natura, 70.8 si, 72.2 superioribus … oppido, 75.1
                            operibus, 78.2 quod.</div></div> We print thirteen new
-                           emendations and propose a number of others.<div id="ftn6" class="t-note s-1-note" data-el="note" data-n="6" data-place="foot"><div id="doc0:0.1.0.1.2.2.1.1.3.0" class="t-p s-1-struttura" data-el="p">11.2 ⟨suorum⟩ <span id="doc0:0.1.0.1.2.2.1.1.3.0.0" class="t-hi s-1-inline" data-el="hi">Khan</span>, 15.3
+                           emendations and propose a number of others.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn6" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.2.2.1.1.3.0" class="t-p s-1-struttura" data-el="p">11.2 ⟨suorum⟩ <span id="doc0:0.1.0.1.2.2.1.1.3.0.0" class="t-hi s-1-inline" data-el="hi">Khan</span>, 15.3
                            ⟨moram⟩ <span id="doc0:0.1.0.1.2.2.1.1.3.0.1" class="t-hi s-1-inline" data-el="hi">Lewis</span>, 16.2 ⟨exercitus⟩ <span id="doc0:0.1.0.1.2.2.1.1.3.0.2" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 17.2 ⟨et hanc⟩ et illam [urbem] <span id="doc0:0.1.0.1.2.2.1.1.3.0.3" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 35.3 ⟨constat⟩ <span id="doc0:0.1.0.1.2.2.1.1.3.0.4" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 44.4 has adiunxit <span id="doc0:0.1.0.1.2.2.1.1.3.0.5" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 60.3 animaduerteret causa <span id="doc0:0.1.0.1.2.2.1.1.3.0.6" class="t-hi s-1-inline" data-el="hi">Reinhardt</span>, 61.4 adductus <span id="doc0:0.1.0.1.2.2.1.1.3.0.7" class="t-hi s-1-inline" data-el="hi">scripsimus</span>,
                            62.1 auxiliares <span id="doc0:0.1.0.1.2.2.1.1.3.0.8" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 67.1 ⟨et coactus⟩
                               <span id="doc0:0.1.0.1.2.2.1.1.3.0.9" class="t-hi s-1-inline" data-el="hi">Bensch-Schaus</span>, 73.3 aggerere tum <span id="doc0:0.1.0.1.2.2.1.1.3.0.10" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 74.3 contemptione <span id="doc0:0.1.0.1.2.2.1.1.3.0.11" class="t-hi s-1-inline" data-el="hi">scripsimus</span>, 75.1 operibus reuocat <span id="doc0:0.1.0.1.2.2.1.1.3.0.12" class="t-hi s-1-inline" data-el="hi">Naqvi</span>. Emendations proposed but not printed: 20.3 ⟨et⟩ sine
@@ -248,7 +305,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                               Simons.</span> There are also more than 40 new suggestions introduced
                            at the end of apparatus notes with the formulas <span id="doc0:0.1.0.1.2.2.1.1.3.0.19" class="t-hi s-1-inline" data-el="hi">an …
                               ?</span> or <span id="doc0:0.1.0.1.2.2.1.1.3.0.20" class="t-hi s-1-inline" data-el="hi">nisi mauis</span>. </div></div> We also
-                     revive fourteen.<div id="ftn7" class="t-note s-1-note" data-el="note" data-n="7" data-place="foot"><div id="doc0:0.1.0.1.2.2.1.1.4.0" class="t-p s-1-struttura" data-el="p">2.1
+                     revive fourteen.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn7" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.2.2.1.1.4.0" class="t-p s-1-struttura" data-el="p">2.1
                               ⟨armatorum⟩<span id="doc0:0.1.0.1.2.2.1.1.4.0.0" class="t-hi s-1-inline" data-el="hi"> Fischer</span>, 7.2 esse <span id="doc0:0.1.0.1.2.2.1.1.4.0.1" class="t-hi s-1-inline" data-el="hi">Nipperdey</span>, 15.8 ⟨nisi⟩ qui <span id="doc0:0.1.0.1.2.2.1.1.4.0.2" class="t-hi s-1-inline" data-el="hi">Fleischer, </span>17.3 quosque <span id="doc0:0.1.0.1.2.2.1.1.4.0.3" class="t-hi s-1-inline" data-el="hi">Lipsius, </span>25.1
                            Caesaris praesidia <span id="doc0:0.1.0.1.2.2.1.1.4.0.4" class="t-hi s-1-inline" data-el="hi">ed. pr., </span>36.5 aduentu sin
                               <span id="doc0:0.1.0.1.2.2.1.1.4.0.5" class="t-hi s-1-inline" data-el="hi">Hoffmann, </span>40.2 circumire ac transcendere <span id="doc0:0.1.0.1.2.2.1.1.4.0.6" class="t-hi s-1-inline" data-el="hi">Nipperdey, </span>42.2 exercitus alendos <span id="doc0:0.1.0.1.2.2.1.1.4.0.7" class="t-hi s-1-inline" data-el="hi">M, </span>45.2 distentis <span id="doc0:0.1.0.1.2.2.1.1.4.0.8" class="t-hi s-1-inline" data-el="hi">Hoffmann,
@@ -305,7 +362,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                   as follows: Caesar in Alexandria (chh. 1-33; September 48 -February 47), Domitius
                   Calvinus in Pontus (34-41; September-October 48), Cornificius, Gabinius, and
                   Vatinius in Illyricum (42-47; October 48 - January 47), Q. Cassius in Spain
-                  (48-64; May-December 48), Caesar in Pontus (65-78; March-May 47).<div id="ftn8" class="t-note s-1-note" data-el="note" data-n="8" data-place="foot"><div id="doc0:0.1.0.1.3.1.3.0" class="t-p s-1-struttura" data-el="p">The dates (Julian) are taken from
+                  (48-64; May-December 48), Caesar in Pontus (65-78; March-May 47).<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn8" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.3.1.3.0" class="t-p s-1-struttura" data-el="p">The dates (Julian) are taken from
                         Raaflaub and Ramsey 2017. </div></div> None of Caesar’s officers is known to
                   have participated in all of these overlapping campaigns. As a result, the
                   narrative, like Caesar’s own commentaries, must rest on sources written by various
@@ -317,7 +374,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                   the surviving witnesses ultimately rest on a single copy of the text that was
                   produced during the Carolingian period: they share significant errors that must go
                   back to a single source. For the <span id="doc0:0.1.0.1.3.1.5" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum</span>, a
-                  work of just under 11,000 words, they number about 150. <div id="ftn9" class="t-note s-1-note" data-el="note" data-n="9" data-place="foot"><div id="doc0:0.1.0.1.3.1.6.0" class="t-p s-1-struttura" data-el="p">The word count used by Gaertner and Hausburg is 10513
+                  work of just under 11,000 words, they number about 150. <span class="t-note-mark" aria-hidden="true">°</span><div id="ftn9" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.3.1.6.0" class="t-p s-1-struttura" data-el="p">The word count used by Gaertner and Hausburg is 10513
                         (see, e.g., 2013, 286).</div></div> The most striking are the gaps (12.1,
                   17.3, 17.6, 22.2) and the insoluble problems (2.5 †obiectis†, 22.2 †multum†, 57.2
                   †noctu†, 57.3 †in†). But almost every page of the critical apparatus shows one or
@@ -332,13 +389,13 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                
                <div id="preface-constituting-the-text-stemma" class="t-div s-1-struttura" data-el="div" data-type="section">
                   <div id="doc0:0.1.0.1.4.1.0" class="t-head s-1-struttura" data-el="head">A. The stemma</div>
-                  <div id="doc0:0.1.0.1.4.1.1" class="t-p s-1-struttura" data-el="p">The foundations of the present edition are Damon 2015a and Damon 2015b.<div id="ftn10" class="t-note s-1-note" data-el="note" data-n="10" data-place="foot"><div id="doc0:0.1.0.1.4.1.1.0.0" class="t-p s-1-struttura" data-el="p">For a fuller discussion of the
+                  <div id="doc0:0.1.0.1.4.1.1" class="t-p s-1-struttura" data-el="p">The foundations of the present edition are Damon 2015a and Damon 2015b.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn10" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.1.1.0.0" class="t-p s-1-struttura" data-el="p">For a fuller discussion of the
                            history of the text and of editorial work on the Caesarian corpus see <span id="doc0:0.1.0.1.4.1.1.0.0.0" class="t-hi s-1-inline" data-el="hi">the Preface to Damon 2015a and the first
                               chapter of Damon 2015</span>b.</div></div> The<span id="doc0:0.1.0.1.4.1.1.1" class="t-hi s-1-inline" data-el="hi"> Bellum
                         Alexandrinum</span> rests on the same five independent manuscript witnesses as
                      Caesar’s <span id="doc0:0.1.0.1.4.1.1.2" class="t-hi s-1-inline" data-el="hi">Bellum ciuile</span>. We looked for evidence that
                      would challenge the stemma proposed for the <span id="doc0:0.1.0.1.4.1.1.3" class="t-hi s-1-inline" data-el="hi">Bellum
-                        ciuile</span>, but found nothing conclusive.<div id="ftn11" class="t-note s-1-note" data-el="note" data-n="11" data-place="foot"><div id="doc0:0.1.0.1.4.1.1.4.0" class="t-p s-1-struttura" data-el="p">As was the case for the <span id="doc0:0.1.0.1.4.1.1.4.0.0" class="t-hi s-1-inline" data-el="hi">Bellum
+                        ciuile</span>, but found nothing conclusive.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn11" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.1.1.4.0" class="t-p s-1-struttura" data-el="p">As was the case for the <span id="doc0:0.1.0.1.4.1.1.4.0.0" class="t-hi s-1-inline" data-el="hi">Bellum
                               ciuile</span>, the “good readings” in <span id="doc0:0.1.0.1.4.1.1.4.0.1" class="t-hi s-1-inline" data-el="hi">S</span>, which have
                            traditionally been taken as evidence of agreement in error by the
                            hyparchetypes mu and pi and proof that they have a common ancestor, can
@@ -350,7 +407,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 
                
                <div id="preface-constituting-the-text-witnesses" class="t-div s-1-struttura" data-el="div" data-type="section">
-                 <div id="head-witnesses" class="t-head s-1-struttura" data-el="head">B. The witnesses<div id="ftn12" class="t-note s-1-note" data-el="note" data-n="12" data-place="foot" data-target="#head-witnesses">
+                 <div id="head-witnesses" class="t-head s-1-struttura" data-el="head">B. The witnesses<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn12" class="t-note s-1-note" data-el="note">
                    <div id="doc0:0.1.0.1.4.2.0.0.0" class="t-p s-1-struttura" data-el="p">More detailed versions of the following paragraphs are given in <span id="doc0:0.1.0.1.4.2.0.0.0.0" class="t-hi s-1-inline" data-el="hi">Damon 2015a, xxii-xxvi and 2015b,
                      55-61</span>.</div></div></div>
                   
@@ -364,7 +421,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         archetype include abbreviations, <span id="doc0:0.1.0.1.4.2.1.1.1" class="t-hi s-1-inline" data-el="hi">scriptura continua</span>,
                         and inversions. Some of the archetype’s original readings seem to have been
                         altered in such a way that both the original reading and the correction (or
-                        “correction”) were visible to the scribes of the two hyparchetypes, <span id="doc0:0.1.0.1.4.2.1.1.2" class="t-hi s-1-inline" data-el="hi">mu</span> (the common source of <span id="doc0:0.1.0.1.4.2.1.1.3" class="t-hi s-1-inline" data-el="hi">M</span> and <span id="doc0:0.1.0.1.4.2.1.1.4" class="t-hi s-1-inline" data-el="hi">U</span>) and <span id="doc0:0.1.0.1.4.2.1.1.5" class="t-hi s-1-inline" data-el="hi">nu</span> (the common source of <span id="doc0:0.1.0.1.4.2.1.1.6" class="t-hi s-1-inline" data-el="hi">S</span> and <span id="doc0:0.1.0.1.4.2.1.1.7" class="t-hi s-1-inline" data-el="hi">pi</span>, the common source of <span id="doc0:0.1.0.1.4.2.1.1.8" class="t-hi s-1-inline" data-el="hi">T</span> and <span id="doc0:0.1.0.1.4.2.1.1.9" class="t-hi s-1-inline" data-el="hi">V</span>).<div id="ftn13" class="t-note s-1-note" data-el="note" data-n="13" data-place="foot"><div id="doc0:0.1.0.1.4.2.1.1.10.0" class="t-p s-1-struttura" data-el="p">Possible instances can be found throughout the
+                        “correction”) were visible to the scribes of the two hyparchetypes, <span id="doc0:0.1.0.1.4.2.1.1.2" class="t-hi s-1-inline" data-el="hi">mu</span> (the common source of <span id="doc0:0.1.0.1.4.2.1.1.3" class="t-hi s-1-inline" data-el="hi">M</span> and <span id="doc0:0.1.0.1.4.2.1.1.4" class="t-hi s-1-inline" data-el="hi">U</span>) and <span id="doc0:0.1.0.1.4.2.1.1.5" class="t-hi s-1-inline" data-el="hi">nu</span> (the common source of <span id="doc0:0.1.0.1.4.2.1.1.6" class="t-hi s-1-inline" data-el="hi">S</span> and <span id="doc0:0.1.0.1.4.2.1.1.7" class="t-hi s-1-inline" data-el="hi">pi</span>, the common source of <span id="doc0:0.1.0.1.4.2.1.1.8" class="t-hi s-1-inline" data-el="hi">T</span> and <span id="doc0:0.1.0.1.4.2.1.1.9" class="t-hi s-1-inline" data-el="hi">V</span>).<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn13" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.1.1.10.0" class="t-p s-1-struttura" data-el="p">Possible instances can be found throughout the
                               apparatus, but the clearest examples are these: 9.3 dediticiis <span id="doc0:0.1.0.1.4.2.1.1.10.0.0" class="t-hi s-1-inline" data-el="hi">U</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.1" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.2" class="t-hi s-1-inline" data-el="hi">SV et M</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.3" class="t-hi s-1-inline" data-el="hi">mr</span> :
                               dedi(c/t)iis <span id="doc0:0.1.0.1.4.2.1.1.10.0.4" class="t-hi s-1-inline" data-el="hi">MU</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.5" class="t-hi s-1-inline" data-el="hi">ac</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.6" class="t-hi s-1-inline" data-el="hi">T</span>; 10.6 successuros <span id="doc0:0.1.0.1.4.2.1.1.10.0.7" class="t-hi s-1-inline" data-el="hi">M</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.8" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.9" class="t-hi s-1-inline" data-el="hi">US</span> : successoros <span id="doc0:0.1.0.1.4.2.1.1.10.0.10" class="t-hi s-1-inline" data-el="hi">M</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.11" class="t-hi s-1-inline" data-el="hi">ac</span> : succens(u/o)res <span id="doc0:0.1.0.1.4.2.1.1.10.0.12" class="t-hi s-1-inline" data-el="hi">T</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.13" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.14" class="t-hi s-1-inline" data-el="hi">V</span> : succensuros <span id="doc0:0.1.0.1.4.2.1.1.10.0.15" class="t-hi s-1-inline" data-el="hi">T</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.16" class="t-hi s-1-inline" data-el="hi">ac </span>; 15.5 pugnae <span id="doc0:0.1.0.1.4.2.1.1.10.0.17" class="t-hi s-1-inline" data-el="hi">MT</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.18" class="t-hi s-1-inline" data-el="hi">c</span> : pugna <span id="doc0:0.1.0.1.4.2.1.1.10.0.19" class="t-hi s-1-inline" data-el="hi">UST</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.20" class="t-hi s-1-inline" data-el="hi">ac</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.21" class="t-hi s-1-inline" data-el="hi">V</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.22" class="t-hi s-1-inline" data-el="hi">ac</span> :
                               pugnandi <span id="doc0:0.1.0.1.4.2.1.1.10.0.23" class="t-hi s-1-inline" data-el="hi">V</span><span id="doc0:0.1.0.1.4.2.1.1.10.0.24" class="t-hi s-1-inline" data-el="hi">c</span>;
@@ -379,7 +436,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                               the text include: 27.1 [a]; 29.3 [fluminum]; 70.3 [non]; 78.3
                               [legibus]. </div></div> Disagreement among our manuscript witnesses
                         also arises from other features of the archetype, such as variant readings
-                        and glosses.<div id="ftn14" class="t-note s-1-note" data-el="note" data-n="14" data-place="foot"><div id="doc0:0.1.0.1.4.2.1.1.11.0" class="t-p s-1-struttura" data-el="p">Variants: 12.1
+                        and glosses.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn14" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.1.1.11.0" class="t-p s-1-struttura" data-el="p">Variants: 12.1
                               classiariorum <span id="doc0:0.1.0.1.4.2.1.1.11.0.0" class="t-hi s-1-inline" data-el="hi">USTV et M supra lineam</span> :
                                  nauigatorum <span id="doc0:0.1.0.1.4.2.1.1.11.0.1" class="t-hi s-1-inline" data-el="hi">M</span>; 24.1 statuit <span id="doc0:0.1.0.1.4.2.1.1.11.0.2" class="t-hi s-1-inline" data-el="hi">UTV et M supra lineam</span> : constituit <span id="doc0:0.1.0.1.4.2.1.1.11.0.3" class="t-hi s-1-inline" data-el="hi">M </span>(<span id="doc0:0.1.0.1.4.2.1.1.11.0.4" class="t-hi s-1-inline" data-el="hi">deest S</span>); 27.5
                               prudentia <span id="doc0:0.1.0.1.4.2.1.1.11.0.5" class="t-hi s-1-inline" data-el="hi">MUS</span><span id="doc0:0.1.0.1.4.2.1.1.11.0.6" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.1.1.11.0.7" class="t-hi s-1-inline" data-el="hi">V et T supra lineam</span> : potentia <span id="doc0:0.1.0.1.4.2.1.1.11.0.8" class="t-hi s-1-inline" data-el="hi">S</span><span id="doc0:0.1.0.1.4.2.1.1.11.0.9" class="t-hi s-1-inline" data-el="hi">ac</span><span id="doc0:0.1.0.1.4.2.1.1.11.0.10" class="t-hi s-1-inline" data-el="hi">T</span>; 34.1 prouincias <span id="doc0:0.1.0.1.4.2.1.1.11.0.11" class="t-hi s-1-inline" data-el="hi">USTV et M
@@ -397,7 +454,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 
                      <div id="doc0:0.1.0.1.4.2.2.1" class="t-p s-1-struttura" data-el="p">The hyparchetypes that transmitted the archetype’s text to the extant
                         manuscripts are hard to discern in this tradition; our work on the <span id="doc0:0.1.0.1.4.2.2.1.0" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum</span> turned up no new and conclusive
-                        evidence for them.<div id="ftn15" class="t-note s-1-note" data-el="note" data-n="15" data-place="foot"><div id="doc0:0.1.0.1.4.2.2.1.1.0" class="t-p s-1-struttura" data-el="p">The most
+                        evidence for them.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn15" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.2.1.1.0" class="t-p s-1-struttura" data-el="p">The most
                               suggestive evidence from the <span id="doc0:0.1.0.1.4.2.2.1.1.0.0" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span> is
                               discussed at <span id="doc0:0.1.0.1.4.2.2.1.1.0.1" class="t-hi s-1-inline" data-el="hi">Damon 2015b, 34-36</span>.
                            </div></div><span id="doc0:0.1.0.1.4.2.2.1.2" class="t-seg s-2-standoff" data-el="seg"> </span></div>
@@ -534,7 +591,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                               <div id="doc0:0.1.0.1.4.2.2.3.2.2.13" class="t-item s-1-struttura" data-el="item">70.5 se <span id="doc0:0.1.0.1.4.2.2.3.2.2.13.0" class="t-hi s-1-inline" data-el="hi">MUS</span> : <span id="doc0:0.1.0.1.4.2.2.3.2.2.13.1" class="t-hi s-1-inline" data-el="hi">om.
                                     TV</span></div>
                               <div id="doc0:0.1.0.1.4.2.2.3.2.2.14" class="t-item s-1-struttura" data-el="item">76.1 in <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.0" class="t-hi s-1-inline" data-el="hi">MUS</span> : <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.1" class="t-hi s-1-inline" data-el="hi">om.
-                                    TV</span><div id="ftn16" class="t-note s-1-note" data-el="note" data-n="16" data-place="foot"><div id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0" class="t-p s-1-struttura" data-el="p">Textual
+                                    TV</span><span class="t-note-mark" aria-hidden="true">°</span><div id="ftn16" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0" class="t-p s-1-struttura" data-el="p">Textual
                                        variation between <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0.0" class="t-hi s-1-inline" data-el="hi">π</span> and <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0.1" class="t-hi s-1-inline" data-el="hi">μ</span> in some of the many passages omitted by <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0.2" class="t-hi s-1-inline" data-el="hi">S</span> make it unlikely that these omissions
                                        were filled by contamination from the <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0.3" class="t-hi s-1-inline" data-el="hi">μ</span>
                                        branch. There are also some small discrepancies between <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0.4" class="t-hi s-1-inline" data-el="hi">S</span> and <span id="doc0:0.1.0.1.4.2.2.3.2.2.14.2.0.5" class="t-hi s-1-inline" data-el="hi">μ</span> in text
@@ -559,7 +616,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         <div id="doc0:0.1.0.1.4.2.2.4.1" class="t-p s-1-struttura" data-el="p">A large number of shared innovations both link <span id="doc0:0.1.0.1.4.2.2.4.1.0" class="t-hi s-1-inline" data-el="hi">T</span> and
                               <span id="doc0:0.1.0.1.4.2.2.4.1.1" class="t-hi s-1-inline" data-el="hi">V</span> and separate them from the rest of the
                            tradition, more than 50 for the <span id="doc0:0.1.0.1.4.2.2.4.1.2" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span>; the
-                           traditional siglum for the source of these innovations is <span id="doc0:0.1.0.1.4.2.2.4.1.3" class="t-hi s-1-inline" data-el="hi">π</span>.<div id="ftn17" class="t-note s-1-note" data-el="note" data-n="17" data-place="foot"><div id="doc0:0.1.0.1.4.2.2.4.1.4.0" class="t-p s-1-struttura" data-el="p">Hering (1963,
+                           traditional siglum for the source of these innovations is <span id="doc0:0.1.0.1.4.2.2.4.1.3" class="t-hi s-1-inline" data-el="hi">π</span>.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn17" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.2.4.1.4.0" class="t-p s-1-struttura" data-el="p">Hering (1963,
                                  40) lists six substantial omissions common to <span id="doc0:0.1.0.1.4.2.2.4.1.4.0.0" class="t-hi s-1-inline" data-el="hi">T</span> and <span id="doc0:0.1.0.1.4.2.2.4.1.4.0.1" class="t-hi s-1-inline" data-el="hi">V</span> in the <span id="doc0:0.1.0.1.4.2.2.4.1.4.0.2" class="t-hi s-1-inline" data-el="hi">BG</span>. There is another at <span id="doc0:0.1.0.1.4.2.2.4.1.4.0.3" class="t-hi s-1-inline" data-el="hi">BHisp</span> 40.2.
                                  (The relationship between <span id="doc0:0.1.0.1.4.2.2.4.1.4.0.4" class="t-hi s-1-inline" data-el="hi">T</span> and <span id="doc0:0.1.0.1.4.2.2.4.1.4.0.5" class="t-hi s-1-inline" data-el="hi">V</span> is the same for all fourteen books of the
                                  Caesarian corpus.) </div></div> The separative innovations in the
@@ -608,8 +665,8 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         <div id="doc0:0.1.0.1.4.2.3.2.0" class="t-head s-1-struttura" data-el="head">a. M</div>
 
                         <div id="doc0:0.1.0.1.4.2.3.2.1" class="t-p s-1-struttura" data-el="p"><span id="doc0:0.1.0.1.4.2.3.2.1.0" class="t-hi s-1-inline" data-el="hi">M</span> is a manuscript in the Biblioteca Medicea
-                           Laurenziana in Florence, shelf mark Plut. lat. 68.8.<div id="ftn18" class="t-note s-1-note" data-el="note" data-n="18" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.2.1.1.0" class="t-p s-1-struttura" data-el="p">High quality page images of <span id="doc0:0.1.0.1.4.2.3.2.1.1.0.0" class="t-hi s-1-inline" data-el="hi">M</span> can be viewed at <span id="doc0:0.1.0.1.4.2.3.2.1.1.0.1" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://mss.bmlonline.it/s.aspx?Id=AWOIs_iEI1A4r7GxML1h&amp;c=Caesaris%20Commentaria#/oro/13">https://bit.ly/3HCkcSG</span>. </div></div> The <span id="doc0:0.1.0.1.4.2.3.2.1.2" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum </span>occupies ff. 133v-143r. <span id="doc0:0.1.0.1.4.2.3.2.1.3" class="t-hi s-1-inline" data-el="hi">M</span> offers some uniquely successful or meritorious innovations
-                           (those marked with an asterisk are particularly impressive<div id="ftn19" class="t-note s-1-note" data-el="note" data-n="19" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.2.1.4.0" class="t-p s-1-struttura" data-el="p">Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.0" class="t-hi s-1-inline" data-el="hi">M</span>: 11.2 conspectu ⟨suorum⟩ <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.1" class="t-hi s-1-inline" data-el="hi">Khan</span> : conspectu hostium <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.2" class="t-hi s-1-inline" data-el="hi">M </span>:
+                           Laurenziana in Florence, shelf mark Plut. lat. 68.8.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn18" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.2.1.1.0" class="t-p s-1-struttura" data-el="p">High quality page images of <span id="doc0:0.1.0.1.4.2.3.2.1.1.0.0" class="t-hi s-1-inline" data-el="hi">M</span> can be viewed at <span id="doc0:0.1.0.1.4.2.3.2.1.1.0.1" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://mss.bmlonline.it/s.aspx?Id=AWOIs_iEI1A4r7GxML1h&amp;c=Caesaris%20Commentaria#/oro/13">https://bit.ly/3HCkcSG</span>. </div></div> The <span id="doc0:0.1.0.1.4.2.3.2.1.2" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum </span>occupies ff. 133v-143r. <span id="doc0:0.1.0.1.4.2.3.2.1.3" class="t-hi s-1-inline" data-el="hi">M</span> offers some uniquely successful or meritorious innovations
+                           (those marked with an asterisk are particularly impressive<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn19" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.2.1.4.0" class="t-p s-1-struttura" data-el="p">Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.0" class="t-hi s-1-inline" data-el="hi">M</span>: 11.2 conspectu ⟨suorum⟩ <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.1" class="t-hi s-1-inline" data-el="hi">Khan</span> : conspectu hostium <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.2" class="t-hi s-1-inline" data-el="hi">M </span>:
                                  conspectu <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.3" class="t-hi s-1-inline" data-el="hi">USTV</span> :<span id="doc0:0.1.0.1.4.2.3.2.1.4.0.4" class="t-hi s-1-inline" data-el="hi"> an</span>
                                  conspectu ⟨omnium⟩<span id="doc0:0.1.0.1.4.2.3.2.1.4.0.5" class="t-hi s-1-inline" data-el="hi">?</span>; 48.1 multis <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.6" class="t-hi s-1-inline" data-el="hi">UTV</span> : mutis <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.7" class="t-hi s-1-inline" data-el="hi">M</span> : mutus
                                     <span id="doc0:0.1.0.1.4.2.3.2.1.4.0.8" class="t-hi s-1-inline" data-el="hi">S.</span>
@@ -644,7 +701,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         <div id="doc0:0.1.0.1.4.2.3.3.0" class="t-head s-1-struttura" data-el="head">b. U</div>
 
                         <div id="doc0:0.1.0.1.4.2.3.3.1" class="t-p s-1-struttura" data-el="p"><span id="doc0:0.1.0.1.4.2.3.3.1.0" class="t-hi s-1-inline" data-el="hi">U</span> is a manuscript in the Biblioteca Apostolica
-                           Vaticana in the Vatican, shelf mark Vaticanus lat. 3324.<div id="ftn20" class="t-note s-1-note" data-el="note" data-n="20" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.3.1.1.0" class="t-p s-1-struttura" data-el="p">Microfilm images are available
+                           Vaticana in the Vatican, shelf mark Vaticanus lat. 3324.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn20" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.3.1.1.0" class="t-p s-1-struttura" data-el="p">Microfilm images are available
                                  online: <span id="doc0:0.1.0.1.4.2.3.3.1.1.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="https://digi.vatlib.it/view/MSS_Vat.lat.3324">https://digi.vatlib.it/view/MSS_Vat.lat.3324</span>. </div></div>
                            The <span id="doc0:0.1.0.1.4.2.3.3.1.2" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum </span>occupies ff. 85r-95r.
                            These folios contain, besides the text, a small number of brief marginal
@@ -652,12 +709,12 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                            “epibatis” 86v, “berones” 92r, “dinastas” “tarsus” 93v) or moral (e.g.,
                            “laus euphranoris” 87r, “mors euphranoris” 87v), along with the familiar
                            “quaere” and “nota bene” symbols. The singular readings in <span id="doc0:0.1.0.1.4.2.3.3.1.3" class="t-hi s-1-inline" data-el="hi">U</span> are far fewer than those of <span id="doc0:0.1.0.1.4.2.3.3.1.4" class="t-hi s-1-inline" data-el="hi">M</span>,
-                              <span id="doc0:0.1.0.1.4.2.3.3.1.5" class="t-hi s-1-inline" data-el="hi">S</span>, <span id="doc0:0.1.0.1.4.2.3.3.1.6" class="t-hi s-1-inline" data-el="hi">T</span>, or <span id="doc0:0.1.0.1.4.2.3.3.1.7" class="t-hi s-1-inline" data-el="hi">V</span>, as can be seen in the Appendix critica.<div id="ftn21" class="t-note s-1-note" data-el="note" data-n="21" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.3.1.8.0" class="t-p s-1-struttura" data-el="p">In the <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.0" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span>
+                              <span id="doc0:0.1.0.1.4.2.3.3.1.5" class="t-hi s-1-inline" data-el="hi">S</span>, <span id="doc0:0.1.0.1.4.2.3.3.1.6" class="t-hi s-1-inline" data-el="hi">T</span>, or <span id="doc0:0.1.0.1.4.2.3.3.1.7" class="t-hi s-1-inline" data-el="hi">V</span>, as can be seen in the Appendix critica.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn21" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.3.1.8.0" class="t-p s-1-struttura" data-el="p">In the <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.0" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span>
                                  <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.1" class="t-hi s-1-inline" data-el="hi">U</span> has roughly 80 singular readings listed in
                                  the Appendix critica; the approximate figures for the other
                                  manuscripts are as follows: <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.2" class="t-hi s-1-inline" data-el="hi">M </span>170, <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.3" class="t-hi s-1-inline" data-el="hi">S</span> 260, <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.4" class="t-hi s-1-inline" data-el="hi">T</span> 130, <span id="doc0:0.1.0.1.4.2.3.3.1.8.0.5" class="t-hi s-1-inline" data-el="hi">V</span> 165. Orthographical variants are not included
                                  in these figures.</div></div> The uniquely successful innovations in
-                              <span id="doc0:0.1.0.1.4.2.3.3.1.9" class="t-hi s-1-inline" data-el="hi">U</span> are few and mostly cautious<div id="ftn22" class="t-note s-1-note" data-el="note" data-n="22" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.3.1.10.0" class="t-p s-1-struttura" data-el="p">Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.0" class="t-hi s-1-inline" data-el="hi">U</span>:
+                              <span id="doc0:0.1.0.1.4.2.3.3.1.9" class="t-hi s-1-inline" data-el="hi">U</span> are few and mostly cautious<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn22" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.3.1.10.0" class="t-p s-1-struttura" data-el="p">Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.0" class="t-hi s-1-inline" data-el="hi">U</span>:
                                  10.1 nudare <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.1" class="t-hi s-1-inline" data-el="hi">MSTV</span> : nudari <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.2" class="t-hi s-1-inline" data-el="hi">U non male; </span>28.3 rex <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.3" class="t-hi s-1-inline" data-el="hi">S </span>: L ex <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.4" class="t-hi s-1-inline" data-el="hi">MTV </span>: ex <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.5" class="t-hi s-1-inline" data-el="hi">U</span>; 44.3
                                  magnitudo nequaquam <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.6" class="t-hi s-1-inline" data-el="hi">Larsen</span> (<span id="doc0:0.1.0.1.4.2.3.3.1.10.0.7" class="t-hi s-1-inline" data-el="hi">cf. BC 3.109.2</span>) : magnitudine quam non <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.8" class="t-hi s-1-inline" data-el="hi">M</span> : magnitudine quamquam non <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.9" class="t-hi s-1-inline" data-el="hi">U</span> : magnitudine quaquam <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.10" class="t-hi s-1-inline" data-el="hi">S</span> : magnitudine quamquam <span id="doc0:0.1.0.1.4.2.3.3.1.10.0.11" class="t-hi s-1-inline" data-el="hi">TV.</span>
                               </div></div> (there are of course other spots where <span id="doc0:0.1.0.1.4.2.3.3.1.11" class="t-hi s-1-inline" data-el="hi">U
@@ -689,7 +746,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                               <span id="doc0:0.1.0.1.4.2.3.4.1.4" class="t-hi s-1-inline" data-el="hi">ad</span>; there are also some shorter gaps (see
                            above). Thirteen of <span id="doc0:0.1.0.1.4.2.3.4.1.5" class="t-hi s-1-inline" data-el="hi">S</span>'s singular readings make it
                            into the text in this edition, a lower number than that in previous
-                           editions (see above). But the philological acumen of the innovator<div id="ftn23" class="t-note s-1-note" data-el="note" data-n="23" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.4.1.6.0" class="t-p s-1-struttura" data-el="p">On the innovator see further
+                           editions (see above). But the philological acumen of the innovator<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn23" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.4.1.6.0" class="t-p s-1-struttura" data-el="p">On the innovator see further
                                     <span id="doc0:0.1.0.1.4.2.3.4.1.6.0.0" class="t-hi s-1-inline" data-el="hi">Damon 2015a, li-liii</span>. The
                                  innovations in <span id="doc0:0.1.0.1.4.2.3.4.1.6.0.1" class="t-hi s-1-inline" data-el="hi">S</span>, here as in the <span id="doc0:0.1.0.1.4.2.3.4.1.6.0.2" class="t-hi s-1-inline" data-el="hi">Bellum ciuile</span>, include supplements to
                                  apparent omissions, omissions of superfluous material, alterations
@@ -704,7 +761,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                                  </span>respectively may contain the kernel of <span id="doc0:0.1.0.1.4.2.3.4.1.6.0.10" class="t-hi s-1-inline" data-el="hi">apertae un-</span> in Kübler’s emendation. </div></div> whose
                            legacy reaches us through <span id="doc0:0.1.0.1.4.2.3.4.1.7" class="t-hi s-1-inline" data-el="hi">S</span> is as evident here as it
                            was in the <span id="doc0:0.1.0.1.4.2.3.4.1.8" class="t-hi s-1-inline" data-el="hi">Bellum ciuile </span>(the innovations marked
-                           with an asterisk are particularly impressive <div id="ftn24" class="t-note s-1-note" data-el="note" data-n="24" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.4.1.9.0" class="t-p s-1-struttura" data-el="p"> Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.4.1.9.0.0" class="t-hi s-1-inline" data-el="hi">S</span>:
+                           with an asterisk are particularly impressive <span class="t-note-mark" aria-hidden="true">°</span><div id="ftn24" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.4.1.9.0" class="t-p s-1-struttura" data-el="p"> Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.4.1.9.0.0" class="t-hi s-1-inline" data-el="hi">S</span>:
                                  8.4 aduersos (<span id="doc0:0.1.0.1.4.2.3.4.1.9.0.1" class="t-hi s-1-inline" data-el="hi">sc</span>. impetus) ex munitionibus
                                  sustineri <span id="doc0:0.1.0.1.4.2.3.4.1.9.0.2" class="t-hi s-1-inline" data-el="hi">MUTV</span> : aduersos (<span id="doc0:0.1.0.1.4.2.3.4.1.9.0.3" class="t-hi s-1-inline" data-el="hi">sc.</span> nostros) ex munitionibus sustinere <span id="doc0:0.1.0.1.4.2.3.4.1.9.0.4" class="t-hi s-1-inline" data-el="hi">S
                                     fortasse recte; </span>11.6 suis nauibus <span id="doc0:0.1.0.1.4.2.3.4.1.9.0.5" class="t-hi s-1-inline" data-el="hi">MUTV</span> : suis <span id="doc0:0.1.0.1.4.2.3.4.1.9.0.6" class="t-hi s-1-inline" data-el="hi">S non male</span>; 17.4 quo
@@ -747,11 +804,11 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         <div id="doc0:0.1.0.1.4.2.3.5.0" class="t-head s-1-struttura" data-el="head">d. T</div>
 
                         <div id="doc0:0.1.0.1.4.2.3.5.1" class="t-p s-1-struttura" data-el="p"><span id="doc0:0.1.0.1.4.2.3.5.1.0" class="t-hi s-1-inline" data-el="hi">T</span> is a manuscript preserved in the Bibliothèque
-                           Nationale in Paris, shelf mark lat. 5764.<div id="ftn25" class="t-note s-1-note" data-el="note" data-n="25" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.5.1.1.0" class="t-p s-1-struttura" data-el="p">Page images of <span id="doc0:0.1.0.1.4.2.3.5.1.1.0.0" class="t-hi s-1-inline" data-el="hi">T</span> may be
+                           Nationale in Paris, shelf mark lat. 5764.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn25" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.5.1.1.0" class="t-p s-1-struttura" data-el="p">Page images of <span id="doc0:0.1.0.1.4.2.3.5.1.1.0.0" class="t-hi s-1-inline" data-el="hi">T</span> may be
                                  viewed at <span id="doc0:0.1.0.1.4.2.3.5.1.1.0.1" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://gallica.bnf.fr/ark:/12148/btv1b90668596">http://gallica.bnf.fr/ark:/12148/btv1b90668596</span>.
                               </div></div> The <span id="doc0:0.1.0.1.4.2.3.5.1.2" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum </span>occupies
                            ff. 122va-136ra. For the <span id="doc0:0.1.0.1.4.2.3.5.1.3" class="t-hi s-1-inline" data-el="hi">Bellum Alexandrinum</span> T
-                           only offers one successful innovation<div id="ftn26" class="t-note s-1-note" data-el="note" data-n="26" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.5.1.4.0" class="t-p s-1-struttura" data-el="p">Another noteworthy correction in <span id="doc0:0.1.0.1.4.2.3.5.1.4.0.0" class="t-hi s-1-inline" data-el="hi">T</span>:
+                           only offers one successful innovation<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn26" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.5.1.4.0" class="t-p s-1-struttura" data-el="p">Another noteworthy correction in <span id="doc0:0.1.0.1.4.2.3.5.1.4.0.0" class="t-hi s-1-inline" data-el="hi">T</span>:
                                  12.3 non tamen <span id="doc0:0.1.0.1.4.2.3.5.1.4.0.1" class="t-hi s-1-inline" data-el="hi">MU</span> : tamen <span id="doc0:0.1.0.1.4.2.3.5.1.4.0.2" class="t-hi s-1-inline" data-el="hi">ST</span><span id="doc0:0.1.0.1.4.2.3.5.1.4.0.3" class="t-hi s-1-inline" data-el="hi">ac</span><span id="doc0:0.1.0.1.4.2.3.5.1.4.0.4" class="t-hi s-1-inline" data-el="hi">V
                                  </span>: non <span id="doc0:0.1.0.1.4.2.3.5.1.4.0.5" class="t-hi s-1-inline" data-el="hi">post cogitationem suppleuit T</span><span id="doc0:0.1.0.1.4.2.3.5.1.4.0.6" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.3.5.1.4.0.7" class="t-hi s-1-inline" data-el="hi">.</span></div></div>(there are of course other spots where <span id="doc0:0.1.0.1.4.2.3.5.1.5" class="t-hi s-1-inline" data-el="hi">T </span>has been joined by one or another manuscript in a
                            successful innovation): <div id="doc0:0.1.0.1.4.2.3.5.1.6" class="t-list s-1-liste" data-el="list">
@@ -773,7 +830,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                            Books III-IV of that work. The number of uniquely successful innovations
                            in <span id="doc0:0.1.0.1.4.2.3.6.2.6" class="t-hi s-1-inline" data-el="hi">V</span> in the <span id="doc0:0.1.0.1.4.2.3.6.2.7" class="t-hi s-1-inline" data-el="hi">Bellum
                               Alexandrinum</span> is much lower than would have been expected based
-                           the evidence of the <span id="doc0:0.1.0.1.4.2.3.6.2.8" class="t-hi s-1-inline" data-el="hi">Bellum ciuile</span><div id="ftn27" class="t-note s-1-note" data-el="note" data-n="27" data-place="foot"><div id="doc0:0.1.0.1.4.2.3.6.2.9.0" class="t-p s-1-struttura" data-el="p">Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.0" class="t-hi s-1-inline" data-el="hi">V</span>: 27.5 Mithridates magna cum prudentia <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.1" class="t-hi s-1-inline" data-el="hi">MUS</span><span id="doc0:0.1.0.1.4.2.3.6.2.9.0.2" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.3.6.2.9.0.3" class="t-hi s-1-inline" data-el="hi"> et T supra lineam</span> : mithridates magna cum
+                           the evidence of the <span id="doc0:0.1.0.1.4.2.3.6.2.8" class="t-hi s-1-inline" data-el="hi">Bellum ciuile</span><span class="t-note-mark" aria-hidden="true">°</span><div id="ftn27" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.4.2.3.6.2.9.0" class="t-p s-1-struttura" data-el="p">Also noteworthy in <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.0" class="t-hi s-1-inline" data-el="hi">V</span>: 27.5 Mithridates magna cum prudentia <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.1" class="t-hi s-1-inline" data-el="hi">MUS</span><span id="doc0:0.1.0.1.4.2.3.6.2.9.0.2" class="t-hi s-1-inline" data-el="hi">c</span><span id="doc0:0.1.0.1.4.2.3.6.2.9.0.3" class="t-hi s-1-inline" data-el="hi"> et T supra lineam</span> : mithridates magna cum
                                  potentia <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.4" class="t-hi s-1-inline" data-el="hi">S</span><span id="doc0:0.1.0.1.4.2.3.6.2.9.0.5" class="t-hi s-1-inline" data-el="hi">ac</span><span id="doc0:0.1.0.1.4.2.3.6.2.9.0.6" class="t-hi s-1-inline" data-el="hi">T</span> : magna cum prudentia
                                  mithridates <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.7" class="t-hi s-1-inline" data-el="hi">V feliciter</span>; 62.1 paucis diebus
                                  q <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.8" class="t-hi s-1-inline" data-el="hi">S </span>: paucis diebusque <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.9" class="t-hi s-1-inline" data-el="hi">MU</span> : paucisque diebus <span id="doc0:0.1.0.1.4.2.3.6.2.9.0.10" class="t-hi s-1-inline" data-el="hi">T</span> : paucis
@@ -861,7 +918,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                      order are not sufficient (see further below). We occasionally use paired dashes
                      to indicate a gap between the narrative and an embedded utterance such as an
                      editorializing comment by the author, an afterthought, or a “snippet” of
-                     indirect statement, where commas don't suffice.<div id="ftn28" class="t-note s-1-note" data-el="note" data-n="28" data-place="foot"><div id="doc0:0.1.0.1.5.2.5.0.0" class="t-p s-1-struttura" data-el="p">See Damon (2020) on such parentheses. </div></div>
+                     indirect statement, where commas don't suffice.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn28" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.2.5.0.0" class="t-p s-1-struttura" data-el="p">See Damon (2020) on such parentheses. </div></div>
                      Where such utterances extend for a sentence or more and full stops don't
                      suffice we use parentheses rather than dashes. Single dashes precede instances
                      of anacoluthon. Pointed and square brackets indicate additions to (⟨ ⟩) and
@@ -880,7 +937,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                      are numbered as in Andrieu 1954.</div>
 
                   <div id="doc0:0.1.0.1.5.2.7" class="t-p s-1-struttura" data-el="p">The features of the text described so far are available in both online and
-                     print versions of the LDLT edition.<div id="ftn29" class="t-note s-1-note" data-el="note" data-n="29" data-place="foot">Since the edition itself is an XML file, it is important to note that
+                     print versions of the LDLT edition.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn29" class="t-note s-1-note" data-el="note">Since the edition itself is an XML file, it is important to note that
                         “online and print versions” refer to visualizations of the data in that
                         file. The LDLT's official online reading application is based on the <span id="doc0:0.1.0.1.5.2.7.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="https://github.com/TEIC/CETEIcean">CETEIcean</span> application
                         developed by Hugh Cayless and Raffaele Viglianti. This edition can be viewed
@@ -933,7 +990,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                            about the shape of hyparchetype families. When other sorts of singular
                            readings are reported in the apparatus, they are mentioned for their
                            value as emendations. Where two manuscripts have different singular
-                           readings at the same spot we generally record this in the apparatus.<div id="ftn30" class="t-note s-1-note" data-el="note" data-n="30" data-place="foot"><div id="doc0:0.1.0.1.5.3.1.0.2.2.0" class="t-p s-1-struttura" data-el="p">In some cases the <span id="doc0:0.1.0.1.5.3.1.0.2.2.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#appendix-critica">Appendix critica</span> seemed the
+                           readings at the same spot we generally record this in the apparatus.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn30" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.3.1.0.2.2.0" class="t-p s-1-struttura" data-el="p">In some cases the <span id="doc0:0.1.0.1.5.3.1.0.2.2.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#appendix-critica">Appendix critica</span> seemed the
                                  more appropriate home for the information, especially when
                                  unrelated errors were typical of their manuscripts or where one of
                                  the two errors has been corrected by the scribe.</div></div></div>
@@ -941,7 +998,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         <div id="doc0:0.1.0.1.5.3.1.0.3" class="t-item s-1-struttura" data-el="item" data-n="4">If the syntax is faulty, showing omissions, problems of
                            agreement, etc. The problem is fixed in the text if possible, even if the
                            solution adopted is only one of several possible solutions. But sometimes
-                           a lacuna (indicated by <span id="doc0:0.1.0.1.5.3.1.0.3.0" class="t-gap s-3-trascrizionale" data-el="gap"></span>) is indicated instead.<div id="ftn31" class="t-note s-1-note" data-el="note" data-n="31" data-place="foot"><div id="doc0:0.1.0.1.5.3.1.0.3.1.0" class="t-p s-1-struttura" data-el="p">For the more difficult
+                           a lacuna (indicated by <span id="doc0:0.1.0.1.5.3.1.0.3.0" class="t-gap s-3-trascrizionale" data-el="gap"></span>) is indicated instead.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn31" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.3.1.0.3.1.0" class="t-p s-1-struttura" data-el="p">For the more difficult
                                  examples of categories (4)–(7) there are notes explaining our
                                  reasoning in <span id="doc0:0.1.0.1.5.3.1.0.3.1.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#commentary"><span id="doc0:0.1.0.1.5.3.1.0.3.1.0.0.0" class="t-title s-1-inline" data-el="title">Studies on the Text
                                        of the Bellum Alexandrinum</span></span>. These are signaled
@@ -960,7 +1017,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                                  reading and the repairs available. The fact that someone before
                                  them has also queried the text is unlikely to help resolve the
                                  problem, and such notes, which would be very very numerous, would
-                                 clog the apparatus.<div id="ftn32" class="t-note s-1-note" data-el="note" data-n="32" data-place="foot"><div id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0" class="t-p s-1-struttura" data-el="p">The <span id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0.0" class="t-hi s-1-inline" data-el="hi">α</span> and <span id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0.1" class="t-hi s-1-inline" data-el="hi">β</span>
+                                 clog the apparatus.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn32" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0" class="t-p s-1-struttura" data-el="p">The <span id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0.0" class="t-hi s-1-inline" data-el="hi">α</span> and <span id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0.1" class="t-hi s-1-inline" data-el="hi">β</span>
                                        branches of the tradition of the <span id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0.2" class="t-hi s-1-inline" data-el="hi">BG</span>
                                        frequently differ over verb tenses, which leads one to
                                        suspect that in our tradition, which is limited to the <span id="doc0:0.1.0.1.5.3.1.0.4.0.0.0.0.3" class="t-hi s-1-inline" data-el="hi">β</span> branch, tense errors will be numerous
@@ -983,7 +1040,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                               <div id="doc0:0.1.0.1.5.3.1.0.4.0.3" class="t-item s-1-struttura" data-el="item" data-n="d">We rarely make notes involving diction. Unlike categories
                                  (a)–(c), such notes sometimes involve substantial changes to the
                                  text, and the presumed innovations have to be explained as
-                                 substitutions (deliberate or unconscious) by the scribe.<div id="ftn33" class="t-note s-1-note" data-el="note" data-n="33" data-place="foot"><div id="doc0:0.1.0.1.5.3.1.0.4.0.3.0.0" class="t-p s-1-struttura" data-el="p">Or additions. We also
+                                 substitutions (deliberate or unconscious) by the scribe.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn33" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.3.1.0.4.0.3.0.0" class="t-p s-1-struttura" data-el="p">Or additions. We also
                                        refrain from making notes about possible intrusive glosses,
                                        as long as they don't interfere with the comprehension of the
                                        text.</div></div> Spotting this sort of problem is an almost
@@ -1006,7 +1063,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                         <div id="doc0:0.1.0.1.5.3.1.0.5" class="t-item s-1-struttura" data-el="item" data-n="6">If the sense is or appears to be problematic on grounds of
                            either history or logic. Such a problem is fixed in the text unless it
                            can be attributed to the author himself. A number of these passages
-                           involve names.<div id="ftn34" class="t-note s-1-note" data-el="note" data-n="34" data-place="foot"><div id="doc0:0.1.0.1.5.3.1.0.5.0.0" class="t-p s-1-struttura" data-el="p">For example,
+                           involve names.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn34" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.3.1.0.5.0.0" class="t-p s-1-struttura" data-el="p">For example,
                                  we printed the transmitted spelling, even though epigraphic
                                  evidence suggests that it is wrong, at 42.3 <span id="doc0:0.1.0.1.5.3.1.0.5.0.0.0" class="t-foreign s-1-inline" data-el="foreign">Iadertinorum</span> and 48.2 <span id="doc0:0.1.0.1.5.3.1.0.5.0.0.1" class="t-foreign s-1-inline" data-el="foreign">Medobrigam</span>. Incertus might not have known the local
                                  or accepted spelling of these rather out of the way toponyms. Like
@@ -1055,7 +1112,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 
                   <div id="doc0:0.1.0.1.5.3.6" class="t-p s-1-struttura" data-el="p">Scholars are cited by name only, or by name and date if it is necessary to
                      distinguish among their works. Full bibliographic information is given in the
-                        <span id="doc0:0.1.0.1.5.3.6.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#bibliography">List of works cited</span>.<div id="ftn35" class="t-note s-1-note" data-el="note" data-n="35" data-place="foot"><div id="doc0:0.1.0.1.5.3.6.1.0" class="t-p s-1-struttura" data-el="p">In the long history of work on the text of the
+                        <span id="doc0:0.1.0.1.5.3.6.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#bibliography">List of works cited</span>.<span class="t-note-mark" aria-hidden="true">°</span><div id="ftn35" class="t-note s-1-note" data-el="note"><div id="doc0:0.1.0.1.5.3.6.1.0" class="t-p s-1-struttura" data-el="p">In the long history of work on the text of the
                               <span id="doc0:0.1.0.1.5.3.6.1.0.0" class="t-title s-1-inline" data-el="title">Bellum Alexandrinum</span> some emendations have lost their
                            source. Where other editors ascribe a reading to “<span id="doc0:0.1.0.1.5.3.6.1.0.1" class="t-hi s-1-inline" data-el="hi">edd</span>.,” we have named the earliest source we can find. We use <span id="doc0:0.1.0.1.5.3.6.1.0.2" class="t-hi s-1-inline" data-el="hi">ς</span> if we can verify that a reading is in a
                            manuscript other than those used here to constitute the text. (This
@@ -1770,125 +1827,125 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                <div id="doc0:0.1.0.2.5.1" class="t-listPerson s-1-liste" data-el="listPerson">
                   <div id="Atkins" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.0.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.0.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Atkins</span> Adrienne Atkins</span>
-                     <div id="doc0:0.1.0.2.5.1.0.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.0.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="Bensch-Schaus" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.1.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.1.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Bensch-Schaus</span> Amelia
                         Bensch-Schaus</span>
-                     <div id="doc0:0.1.0.2.5.1.1.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.1.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Brutus" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.2.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.2.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Brutus</span> Brutus</span>
-                     <div id="doc0:0.1.0.2.5.1.2.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.2.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Jungermann">Jungermann</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.2.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.2.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Jungermann">Jungermann</span>.</div>
                   </div>
                   <div id="Callaghan" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.3.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.3.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Callaghan</span> Greg Callaghan</span>
-                     <div id="doc0:0.1.0.2.5.1.3.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.3.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="Ciacconius" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.4.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.4.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Ciacconius</span> Petrus Ciacconius</span>
-                     <div id="doc0:0.1.0.2.5.1.4.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.4.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="Jungermann">Jungermann</span> and <span id="doc0:0.1.0.2.5.1.4.1.1" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Dauisius1706">Dauisius 1706</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.4.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.4.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="Jungermann">Jungermann</span> and <span id="doc0:0.1.0.2.5.1.4.1.1" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Dauisius1706">Dauisius 1706</span>.</div>
                   </div>
                   <div id="Credo" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.5.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.5.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Credo</span> Brian Credo</span>
-                     <div id="doc0:0.1.0.2.5.1.5.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.5.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Cuiacius" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.6.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.6.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Cuiacius</span> Cuiacius</span>
-                     <div id="doc0:0.1.0.2.5.1.6.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.6.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Nipperdey">Nipperdey</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.6.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.6.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Nipperdey">Nipperdey</span>.</div>
                   </div>
                   <div id="Damon" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.7.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.7.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Damon</span> Cynthia Damon</span>
-                     <div id="doc0:0.1.0.2.5.1.7.1" class="t-note s-1-note" data-el="note">Editor of this edition and instructor of Latin 540 (University of
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.7.1" class="t-note s-1-note" data-el="note">Editor of this edition and instructor of Latin 540 (University of
                         Pennsylvania) in 2015 and 2017.</div>
                   </div>
                   <div id="Faernus" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.8.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.8.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Faernus</span> Faerno, Gabriello</span>
-                     <div id="doc0:0.1.0.2.5.1.8.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.8.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.8.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.8.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
                   </div>
                   <div id="Gertz" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.9.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.9.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Gertz</span> M. C. Gertz</span>
-                     <div id="doc0:0.1.0.2.5.1.9.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.9.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.9.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.9.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
                   </div>
                   <div id="Glandorpius" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.10.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.10.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Glandorpius</span> Glandorp, Johann</span>
-                     <div id="doc0:0.1.0.2.5.1.10.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.10.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Jungermann">Jungermann</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.10.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.10.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Jungermann">Jungermann</span>.</div>
                   </div>
                   <div id="Gruterus" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.11.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.11.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Gruterus</span> Janus Gruterus</span>
-                     <div id="doc0:0.1.0.2.5.1.11.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.11.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Oudendorp">Oudendorp</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.11.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.11.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Oudendorp">Oudendorp</span>.</div>
                   </div>
                   <div id="Hanson" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.12.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.12.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Hanson</span> Wes Hanson</span>
-                     <div id="doc0:0.1.0.2.5.1.12.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.12.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Haupt" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.13.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.13.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Haupt</span> Moriz Haupt</span>
-                     <div id="doc0:0.1.0.2.5.1.13.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.13.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Nipperdey">Nipperdey</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.13.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.13.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Nipperdey">Nipperdey</span>.</div>
                   </div>
                   <div id="Jurinius" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.14.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.14.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Jurinius</span> Jurinius</span>
-                     <div id="doc0:0.1.0.2.5.1.14.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.14.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Bentley">T. Bentley</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.14.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.14.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Bentley">T. Bentley</span>.</div>
                   </div>
                   <div id="Keil" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.15.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.15.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Keil</span> Heinrich Keil</span>
-                     <div id="doc0:0.1.0.2.5.1.15.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.15.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.15.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.15.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
                   </div>
                   <div id="Khan" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.16.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.16.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Khan</span> Scheherazade Khan</span>
-                     <div id="doc0:0.1.0.2.5.1.16.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.16.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="Kovalchuk" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.17.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.17.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Kovalchuk</span> Maria Kovalchuk</span>
-                     <div id="doc0:0.1.0.2.5.1.17.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.17.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Lewis" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.18.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.18.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Lewis</span> Amy Lewis</span>
-                     <div id="doc0:0.1.0.2.5.1.18.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.18.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="Naqvi" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.19.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.19.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Naqvi</span> Theodora Naqvi</span>
-                     <div id="doc0:0.1.0.2.5.1.19.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.19.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Persyn" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.20.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.20.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Persyn</span> Marcie Persyn</span>
-                     <div id="doc0:0.1.0.2.5.1.20.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.20.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="Reinhardt" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.21.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.21.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Reinhardt</span> Isabella Reinhardt</span>
-                     <div id="doc0:0.1.0.2.5.1.21.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.21.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Rhellicanus" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.22.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.22.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Rhellicanus</span> Rhellicanus</span>
-                     <div id="doc0:0.1.0.2.5.1.22.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.22.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Jungermann">Jungermann</span></div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.22.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.22.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Jungermann">Jungermann</span></div>
                   </div>
                   <div id="Rossetus" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.23.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.23.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Rossetus</span> Joannes Rossetus</span>
-                     <div id="doc0:0.1.0.2.5.1.23.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.23.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Gaertner-Hausburg">Gaertner-Hausburg</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.23.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.23.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Gaertner-Hausburg">Gaertner-Hausburg</span>.</div>
                   </div>
                   <div id="Siesbye" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.24.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.24.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Siesbye</span> Oskar Siesbye</span>
-                     <div id="doc0:0.1.0.2.5.1.24.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.24.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Larsen">Larsen</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.24.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.24.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Larsen">Larsen</span>.</div>
                   </div>
                   <div id="DSimons" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.25.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.25.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">D. Simons</span> Dallas Simons</span>
-                     <div id="doc0:0.1.0.2.5.1.25.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.25.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="JSimons" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.26.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.26.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">J. Simons</span> Julia Simons</span>
-                     <div id="doc0:0.1.0.2.5.1.26.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.26.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Vozar" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.27.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.27.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Vozar</span> Tom Vozar</span>
-                     <div id="doc0:0.1.0.2.5.1.27.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.27.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2015).</div>
                   </div>
                   <div id="Warnock" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.28.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.28.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Warnock</span> Tim Warnock</span>
-                     <div id="doc0:0.1.0.2.5.1.28.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.28.1" class="t-note s-1-note" data-el="note">Member of the Latin 540 class (spring 2017).</div>
                   </div>
                   <div id="Wölfflin" class="t-person s-2-entita" data-el="person">
                      <span id="doc0:0.1.0.2.5.1.29.0" class="t-persName s-2-entita" data-el="persName"><span id="doc0:0.1.0.2.5.1.29.0.0" class="t-abbr s-3-editoriale" data-el="abbr" data-type="siglum">Wölfflin</span> Eduard Wölfflin</span>
-                     <div id="doc0:0.1.0.2.5.1.29.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.29.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
+                     <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.1.0.2.5.1.29.1" class="t-note s-1-note" data-el="note">See <span id="doc0:0.1.0.2.5.1.29.1.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#Klotz">Klotz</span>.</div>
                   </div>
                </div>
             </div>
@@ -2409,7 +2466,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
          </div>
          
       </div></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
@@ -2439,7 +2496,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     if(label)el.setAttribute('aria-label',label);
   }
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+    makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref]').forEach(function(el){
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
@@ -2464,7 +2521,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
           +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
-      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
+      openPop('<span class="k">apparatus'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
       ev.stopPropagation();return;
     }
     var ent=ev.target.closest&&ev.target.closest('[data-ref]');
@@ -2473,7 +2530,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occorrenza':'occorrenze')+'</div>',ent);
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
     closePop();
@@ -2491,6 +2548,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }

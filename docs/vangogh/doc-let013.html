@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}
@@ -116,6 +120,7 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -139,6 +144,58 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -155,12 +212,12 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
-<div class="tt"><h1>To Theo van Gogh. London, Saturday, 13 September 1873.</h1><p class="sub">Vincent van Gogh, le lettere</p></div>
-<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="data.html">Dati</a></nav>
+<div class="tt"><h1>To Theo van Gogh. London, Saturday, 13 September 1873.</h1><p class="sub">Vincent van Gogh, the letters</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Registro"><a href="doc-let012.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let014.html">successivo ›</a></nav><div id="let013:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-let012.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let014.html">next ›</a></nav><div id="let013:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
         <div id="let013:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
 <span id="let013:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
 <span id="let013:0.0.0.0.0" class="t-title s-1-inline" data-el="title">To Theo van Gogh. London, Saturday, 13 September 1873.</span>
@@ -199,13 +256,13 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                     <span id="let013:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
 <div id="let013:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. London, Saturday, 13 September 1873.</div>
                     </span>
-<div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note">
 <div id="let013:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
                     </div>
-<div id="location" class="t-note s-1-note" data-el="note" data-type="location">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note">
 <div id="let013:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b11 V/1962</div>
                     </div>
-<div id="date" class="t-note s-1-note" data-el="note" data-type="date">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note">
 <div id="let013:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 13 Sept_ 1873’.</div>
                     </div>
                 </span>
@@ -277,8 +334,8 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div id="let013:0.2.0.0.32" class="t-ab s-1-struttura" data-el="ab">V.</div>
 <span id="let013:0.2.0.0.33" class="t-whiteline s-base" data-el="whiteline"></span>
 <div id="let013:0.2.0.0.34" class="t-div s-1-struttura" data-el="div" data-type="textualNotes">
-<div id="let013:0.2.0.0.34.0" class="t-note s-1-note" data-el="note" data-n="43" data-target="l-43">eenigen tijd &lt; eenigentijd</div>
-<div id="let013:0.2.0.0.34.1" class="t-note s-1-note" data-el="note" data-n="57" data-target="l-57">Gadarena”. &lt; Gadarena.”.</div>
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let013:0.2.0.0.34.0" class="t-note s-1-note" data-el="note">eenigen tijd &lt; eenigentijd</div>
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let013:0.2.0.0.34.1" class="t-note s-1-note" data-el="note">Gadarena”. &lt; Gadarena.”.</div>
                 </div>
             </div>
 <div id="let013:0.2.0.1" class="t-div s-1-struttura" data-el="div" data-type="translation">
@@ -308,22 +365,22 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div id="let013:0.2.0.1.18" class="t-ab s-1-struttura" data-el="ab">V.</div>
             </div>
 <div id="let013:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
-<div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-1" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">Theo visited his <span id="let013:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="524" data-type="pers">mother</span> for her 54th birthday on 10 September (FR b2659 and b2661).</div>
                 </div>
-<div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-2" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">The lithograph <span id="let013:0.2.0.2.1.0.0" class="t-hi s-1-inline" data-el="hi">Molen langs de Trekvaart </span>(Mill by the Trekvaart) by <span id="let013:0.2.0.2.1.0.1" class="t-rs s-2-entita" data-el="rs" data-key="1443" data-type="pers">Weissenbruch Dzn.</span> is followed in Theo’s album on pp. 2, 3 and 5 by three lithographs after J.H. Weissenbruch: <span id="let013:0.2.0.2.1.0.2" class="t-hi s-1-inline" data-el="hi">Landschap met kerk en molens</span> (Landscape with churches and mills), which was made by <span id="let013:0.2.0.2.1.0.3" class="t-rs s-2-entita" data-el="rs" data-key="1191" data-type="pers">Jacobus Jan van der Maaten</span> (<span id="let013:0.2.0.2.1.0.4" class="t-rs s-2-entita" data-el="rs" data-key="1653" data-type="ill">Ill. 1653</span>), <span id="let013:0.2.0.2.1.0.5" class="t-hi s-1-inline" data-el="hi">Het hofje aan de Nieuwe Haven te ’s-Gravenhage</span> (The courtyard near the Nieuwe Haven in The Hague), by <span id="let013:0.2.0.2.1.0.6" class="t-rs s-2-entita" data-el="rs" data-key="1606" data-type="pers">Frederik Hendrik Weissenbruch</span> (<span id="let013:0.2.0.2.1.0.7" class="t-rs s-2-entita" data-el="rs" data-key="1654" data-type="ill">Ill. 1654</span>) and <span id="let013:0.2.0.2.1.0.8" class="t-hi s-1-inline" data-el="hi">Landschap met bootje</span> (Landscape with boat). <span id="let013:0.2.0.2.1.0.9" class="t-rs s-2-entita" data-el="rs" data-key="1652" data-type="ill">Ill. 1652</span> (Amsterdam, Van Gogh Museum, t*1488). See also <span id="let013:0.2.0.2.1.0.10" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let011.xml#n-16">letter 11, n. 16.</span> Van Gogh sometimes enclosed letters or prints in shipments sent from Goupil’s London office to the branch in The Hague.</div>
                 </div>
-<div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-3" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">Van Gogh moved to Hackford Road 87, Brixton, where he boarded with <span id="let013:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="497" data-type="pers">Ursula Loyer</span> and her daughter <span id="let013:0.2.0.2.2.0.1" class="t-rs s-2-entita" data-el="rs" data-key="498" data-type="pers">Eugenie</span>, who ran a school. Brixton was ‘a relatively well-to-do area on the southern outskirts of the capital’. See exhib. cat. London<span id="let013:0.2.0.2.2.0.2" class="t-hi s-1-inline" data-el="hi"> </span>1992, p. 16; and Bailey 1990, pp. 26-37. <span id="let013:0.2.0.2.2.0.3" class="t-rs s-2-entita" data-el="rs" data-key="526" data-type="pers">Mr van Gogh</span> reported to Theo: ‘Vincent is doing well in London. We are getting cheerful letters. He moved last week to save some money, as his former lodgings had become too expensive for him, and he had found a good place for 180 guilders less a year’ (FR 2651, 25 August 1873).</div>
                 </div>
-<div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-4" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">The ‘London International Exhibition’ was held from 14 April to 31 October in two halls near the Royal Albert Hall and in the Horticultural Gardens. See <span id="let013:0.2.0.2.3.0.0" class="t-hi s-1-inline" data-el="hi">London International exhibition of 1873. Official catalogue</span>. London 1873, and John E. Findling, <span id="let013:0.2.0.2.3.0.1" class="t-hi s-1-inline" data-el="hi">Historical dictionary of world’s fairs and expositions, 1851-1988</span>. London 1990, pp. 44-47.</div>
                 </div>
-<div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-5" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">In the summer of 1872, Van Gogh visited the ‘Exposition générale des Beaux-Arts’ (General Exhibition of Fine Arts) at Brussels, at which the painters mentioned were all represented. <span id="let013:0.2.0.2.4.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let004.xml">See letter 4</span>.</div>
                 </div>
-<div id="n-6" class="t-note s-1-note" data-el="note" data-n="6" data-target="#note-t-6">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-6" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.5.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1434" data-type="pers">Albert Frans Lieven de Vriendt</span>, <span id="let013:0.2.0.2.5.0.1" class="t-rs s-2-entita" data-el="rs" data-key="6" data-type="otherart">
                             <span id="let013:0.2.0.2.5.0.1.0" class="t-hi s-1-inline" data-el="hi">Figures</span>
@@ -331,7 +388,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                             <span id="let013:0.2.0.2.5.0.3.0" class="t-hi s-1-inline" data-el="hi">Figures</span>
                         </span>, p. 66, cat. nos. 1716 and 1712.</div>
                 </div>
-<div id="n-7" class="t-note s-1-note" data-el="note" data-n="7" data-target="#note-t-7">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-7" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.6.0.0" class="t-rs s-2-entita" data-el="rs" data-key="950" data-type="pers">Alfred Cluysenaar</span>, <span id="let013:0.2.0.2.6.0.1" class="t-rs s-2-entita" data-el="rs" data-key="8" data-type="otherart">
                             <span id="let013:0.2.0.2.6.0.1.0" class="t-hi s-1-inline" data-el="hi">A vocation</span>
@@ -339,13 +396,13 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                             <span id="let013:0.2.0.2.6.0.2.0" class="t-hi s-1-inline" data-el="hi">La vie en rose </span>
                         </span>(A rosy view of life), pp. 64-65, cat. nos. 1640 and 1673.</div>
                 </div>
-<div id="n-8" class="t-note s-1-note" data-el="note" data-n="8" data-target="#note-t-8">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-8" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.7.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1452" data-type="pers">Edouard Wouters</span>, <span id="let013:0.2.0.2.7.0.1" class="t-rs s-2-entita" data-el="rs" data-key="10" data-type="otherart">
                             <span id="let013:0.2.0.2.7.0.1.0" class="t-hi s-1-inline" data-el="hi">The new romance</span>
                         </span>, p. 66, cat. no. 1693.</div>
                 </div>
-<div id="n-9" class="t-note s-1-note" data-el="note" data-n="9" data-target="#note-t-9">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-9" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="947" data-type="pers">Joseph Théodore Coosemans</span>, <span id="let013:0.2.0.2.8.0.1" class="t-rs s-2-entita" data-el="rs" data-key="11" data-type="otherart">
                             <span id="let013:0.2.0.2.8.0.1.0" class="t-hi s-1-inline" data-el="hi">Interior of a wood</span>
@@ -353,14 +410,14 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                             <span id="let013:0.2.0.2.8.0.2.0" class="t-hi s-1-inline" data-el="hi">The marsh</span>
                         </span>, pp. 66-67, cat. nos. 1720 and 1724.</div>
                 </div>
-<div id="n-10" class="t-note s-1-note" data-el="note" data-n="10" data-target="#note-t-10">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-10" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">The Dutch painter <span id="let013:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1034" data-type="pers">Constant Gabriël</span> was often viewed as a Belgian because of his frequent stays in Belgium. He was represented at the exhibition by <span id="let013:0.2.0.2.9.0.1" class="t-rs s-2-entita" data-el="rs" data-key="13" data-type="otherart">
                             <span id="let013:0.2.0.2.9.0.1.0" class="t-hi s-1-inline" data-el="hi">A bog – View in Holland</span>
                         </span> and <span id="let013:0.2.0.2.9.0.2" class="t-rs s-2-entita" data-el="rs" data-key="14" data-type="otherart">
                             <span id="let013:0.2.0.2.9.0.2.0" class="t-hi s-1-inline" data-el="hi">Afternoon – Landscape in Holland</span>
                         </span>, pp. 64-65, cat. nos. 1659 and 1663.</div>
                 </div>
-    <div id="n-11" class="t-note s-1-note" data-el="note" data-n="11" data-target="#note-t-11">
+    <span class="t-note-mark" aria-hidden="true">°</span><div id="n-11" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.10.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.10.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1340" data-type="pers">Edmond de Schampheleer</span>, <span id="let013:0.2.0.2.10.0.1" class="t-rs s-2-entita" data-el="rs" data-key="15" data-type="otherart">
                             <span id="let013:0.2.0.2.10.0.1.0" class="t-hi s-1-inline" data-el="hi">Marsh of the old bogs of Vreeland, Holland</span>
@@ -368,32 +425,32 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                             <span id="let013:0.2.0.2.10.0.2.0" class="t-hi s-1-inline" data-el="hi">Road from Loosdrecht to Hilversum, Holland</span>
                         </span>, pp. 67-68, cat. nos. 1743 and 1768.</div>
                 </div>
-    <div id="n-12" class="t-note s-1-note" data-el="note" data-n="12" data-target="#note-t-12">
+    <span class="t-note-mark" aria-hidden="true">°</span><div id="n-12" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.11.0" class="t-ab s-1-struttura" data-el="ab">According to the catalogue, <span id="let013:0.2.0.2.11.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1377" data-type="pers">Felix Terlinden</span> was not represented at the London exhibition, though one of his works was on display at the 1872 Brussels exhibition.</div>
                 </div>
-<div id="n-13" class="t-note s-1-note" data-el="note" data-n="13" data-target="#note-t-13">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-13" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.12.0" class="t-ab s-1-struttura" data-el="ab">There were c. 600 English paintings on display at this exhibition.</div>
                 </div>
-<div id="n-14" class="t-note s-1-note" data-el="note" data-n="14" data-target="#note-t-14">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-14" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.13.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.13.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1276" data-type="pers">Sir Edward James (John) Poynter</span>, <span id="let013:0.2.0.2.13.0.1" class="t-hi s-1-inline" data-el="hi">Fight between More of More Hall and the Dragon of Wantley</span> (Wortley Hall (near Sheffield), The Earl of Wharncliffe’s Billiard Room). <span id="let013:0.2.0.2.13.0.2" class="t-rs s-2-entita" data-el="rs" data-key="467" data-type="ill">Ill. 467</span>. It was displayed as a ‘companion picture to Perseus and Andromeda’ at the Royal Academy in 1873 and has nothing to do with the Archangel Michael, as Van Gogh assumes. See exhib. cat. Nottingham 1974, pp. 14-16 (with ill.) and exhib. cat. London 1992, p. 38.</div>
                 </div>
-<div id="n-15" class="t-note s-1-note" data-el="note" data-n="15" data-target="#note-t-15">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-15" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.14.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let013:0.2.0.2.14.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1289" data-type="pers">Valentine Cameron Prinsep</span>, <span id="let013:0.2.0.2.14.0.1" class="t-rs s-2-entita" data-el="rs" data-key="17" data-type="otherart">
                             <span id="let013:0.2.0.2.14.0.1.0" class="t-hi s-1-inline" data-el="hi">The Gadarene swine</span>
                         </span> (present whereabouts unknown). The work is very sketchily rendered in a cartoon by <span id="let013:0.2.0.2.14.0.2" class="t-rs s-2-entita" data-el="rs" data-key="1137" data-type="pers">Charles Keene</span> which was published in the 21 June 1873 issue of <span id="let013:0.2.0.2.14.0.3" class="t-hi s-1-inline" data-el="hi">Punch</span>, p. 261.</div>
                 </div>
-<div id="n-16" class="t-note s-1-note" data-el="note" data-n="16" data-target="#note-t-16">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-16" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.15.0" class="t-ab s-1-struttura" data-el="ab">Theo had been transferred from Brussels to The Hague. <span id="let013:0.2.0.2.15.0.0" class="t-rs s-2-entita" data-el="rs" data-key="526" data-type="pers">Mr van Gogh</span> had approved of this transfer and had told Theo: ‘I’ve now written to <span id="let013:0.2.0.2.15.0.1" class="t-rs s-2-entita" data-el="rs" data-key="624" data-type="pers">Mr Schmidt</span> and requested that you begin in The Hague on 1 Nov. at the latest. And that His Honour therefore release you before that time. I sympathize with you. You’re attached to Mr S., and that is your perfect right, because he is such an excellent fellow. But in this case there are so many reasons that coincide, which one should in fact heed’ (FR b2661, 17 September 1873. Cf. also FR b2663). Theo arrived on Wednesday, 12 November in The Hague.</div>
                 </div>
-<div id="n-17" class="t-note s-1-note" data-el="note" data-n="17" data-target="#note-t-17">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-17" class="t-note s-1-note" data-el="note">
 <div id="let013:0.2.0.2.16.0" class="t-ab s-1-struttura" data-el="ab">It cannot be ascertained which painting by <span id="let013:0.2.0.2.16.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1226" data-type="pers">Jean-François Millet</span> Theo had described; evidently Vincent was not familiar with it.</div>
                 </div>
             </div>
         </div>
-    </div><nav class="prevnext" aria-label="Registro"><a href="doc-let012.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let014.html">successivo ›</a></nav></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+    </div><nav class="prevnext" aria-label="Register"><a href="doc-let012.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let014.html">next ›</a></nav></main>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
@@ -423,7 +480,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     if(label)el.setAttribute('aria-label',label);
   }
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+    makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref]').forEach(function(el){
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
@@ -448,7 +505,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
           +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
-      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
+      openPop('<span class="k">apparatus'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
       ev.stopPropagation();return;
     }
     var ent=ev.target.closest&&ev.target.closest('[data-ref]');
@@ -457,7 +514,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occorrenza':'occorrenze')+'</div>',ent);
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
     closePop();
@@ -475,6 +532,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }

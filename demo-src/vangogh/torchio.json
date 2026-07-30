@@ -1,5 +1,9 @@
 {
-  "lang": "it",
-  "title": "Vincent van Gogh, le lettere",
-  "subtitle": "campione di 30 lettere · Van Gogh Museum e Huygens ING · CC BY-NC-SA 4.0"
+  "lang": "en",
+  "title": "Vincent van Gogh, the letters",
+  "subtitle": "a sample of 30 letters · Van Gogh Museum and Huygens ING · CC BY-NC-SA 4.0",
+  "parent": {
+    "href": "../",
+    "label": "Demos"
+  }
 }

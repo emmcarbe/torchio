@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Odissea</title>
+<title>Odyssey</title>
 <style>:root{--ground:#FFFFFF;--paper:#FFFFFF;--ink:#1B1B1B;--soft:#6A6A66;--hair:#E5E2D9;--faint:#CFCCC2;--accent:#B01E28;--accent-soft:#9a5a52;--link:#B01E28;--reading:"EB Garamond",Iowan Old Style,Palatino,"Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--serif:var(--reading);--measure:44rem}
 
 *{box-sizing:border-box}
@@ -58,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}
@@ -116,6 +120,7 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -139,6 +144,58 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -155,12 +212,12 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
-<div class="tt"><h1>Odissea</h1><p class="sub">Omero · testo greco · Perseus Digital Library (CC BY-SA 4.0)</p></div>
-<nav class="torchio-nav"><a href="index.html" class="on">Edizione</a><a href="text.html">Testo</a><a href="data.html">Dati</a></nav>
+<div class="tt"><h1>Odyssey</h1><p class="sub">Homer · Greek text · Perseus Digital Library (CC BY-SA 4.0)</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html" class="on">Edition</a><a href="text.html">Text</a><a href="data.html">Data</a></nav>
 </header>
-<main id="main" class="torchio about"><dl><dt>Responsabilità</dt><dd>Homer · Augustus Taber Murray · Lisa Cerrato</dd><dt>Storia delle revisioni</dt><dd><table class="wit-table"><tr><td class="sigla">19901001</td><td>Put in card breaks.</td></tr><tr><td class="sigla">19910801</td><td>Revise DTDs and recheck texts.</td></tr><tr><td class="sigla">20151216</td><td>Converted to EpiDoc</td></tr><tr><td class="sigla">20151216</td><td>Bumped URN</td></tr><tr><td class="sigla">2016-02-10</td><td>numerous typos</td></tr></table></dd><dt>Generatore</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">L'intestazione completa (teiHeader)</h2><p class="occ">Tutto ciò che il file dichiara, reso così com'è.</p><div class="header-full"><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+<main id="main" class="torchio about"><dl><dt>Responsibility</dt><dd>Homer · Augustus Taber Murray · Lisa Cerrato</dd><dt>Revision history</dt><dd><table class="wit-table"><tr><td class="sigla">19901001</td><td>Put in card breaks.</td></tr><tr><td class="sigla">19910801</td><td>Revise DTDs and recheck texts.</td></tr><tr><td class="sigla">20151216</td><td>Converted to EpiDoc</td></tr><tr><td class="sigla">20151216</td><td>Bumped URN</td></tr><tr><td class="sigla">2016-02-10</td><td>numerous typos</td></tr></table></dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">The full header (teiHeader)</h2><p class="occ">Everything the file declares, rendered as it is.</p><div class="header-full"><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
       <div id="doc0:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
          <span id="doc0:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
             <span id="doc0:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Ὀδύσσεια</span>
@@ -184,7 +241,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
             <span id="doc0:0.0.0.2.2" class="t-authority s-7-header" data-el="authority">Perseus Project</span>
          </span>
          <span id="doc0:0.0.0.3" class="t-notesStmt s-7-header" data-el="notesStmt">
-            <div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note" data-place="unspecified">Text scanned at U. Chicago in 1989. Basic SGML
+            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0" class="t-note s-1-note" data-el="note">Text scanned at U. Chicago in 1989. Basic SGML
                tagging by Lauren Burka and Chiara Thayer.</div>
          </span>
          <div id="doc0:0.0.0.4" class="t-sourceDesc s-7-header" data-el="sourceDesc">
@@ -243,7 +300,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
          <div id="doc0:0.0.3.4" class="t-change s-7-header" data-el="change" data-when="2016-02-10">numerous typos</div>
       </span>
    </div></div></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 
 </body>
 </html>

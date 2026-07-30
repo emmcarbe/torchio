@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}
@@ -116,6 +120,7 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -139,6 +144,58 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -155,12 +212,12 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
-<div class="tt"><h1>To Theo van Gogh. The Hague, Monday, 24 March 1873.</h1><p class="sub">Vincent van Gogh, le lettere</p></div>
-<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="data.html">Dati</a></nav>
+<div class="tt"><h1>To Theo van Gogh. The Hague, Monday, 24 March 1873.</h1><p class="sub">Vincent van Gogh, the letters</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Registro"><a href="doc-let005.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let007.html">successivo ›</a></nav><div id="let006:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-let005.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let007.html">next ›</a></nav><div id="let006:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
         <div id="let006:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
 <span id="let006:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
 <span id="let006:0.0.0.0.0" class="t-title s-1-inline" data-el="title">To Theo van Gogh. The Hague, Monday, 24 March 1873.</span>
@@ -199,13 +256,13 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                     <span id="let006:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
 <div id="let006:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. The Hague, Monday, 24 March 1873.</div>
                     </span>
-<div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note">
 <div id="let006:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
                     </div>
-<div id="location" class="t-note s-1-note" data-el="note" data-type="location">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note">
 <div id="let006:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b6 V/1962</div>
                     </div>
-<div id="date" class="t-note s-1-note" data-el="note" data-type="date">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note">
 <div id="let006:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘den Haag 24 Maart 1873’.</div>
                     </div>
                 </span>
@@ -271,10 +328,10 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div id="let006:0.2.0.0.32" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
 <span id="let006:0.2.0.0.33" class="t-whiteline s-base" data-el="whiteline"></span>
 <div id="let006:0.2.0.0.34" class="t-div s-1-struttura" data-el="div" data-type="textualNotes">
-<div id="let006:0.2.0.0.34.0" class="t-note s-1-note" data-el="note" data-n="1-5" data-target="l-1">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let006:0.2.0.0.34.0" class="t-note s-1-note" data-el="note">
                         <span id="let006:0.2.0.0.34.0.0" class="t-hi s-1-inline" data-el="hi">Printed letterhead.</span>
                     </div>
-<div id="let006:0.2.0.0.34.1" class="t-note s-1-note" data-el="note" data-n="18" data-target="l-18">dan dat &lt; dat dat</div>
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let006:0.2.0.0.34.1" class="t-note s-1-note" data-el="note">dan dat &lt; dat dat</div>
                 </div>
             </div>
 <div id="let006:0.2.0.1" class="t-div s-1-struttura" data-el="div" data-type="translation">
@@ -298,30 +355,30 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <div id="let006:0.2.0.1.13" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
             </div>
 <div id="let006:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
-<div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-1" class="t-note s-1-note" data-el="note">
 <div id="let006:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">On 6 May 1870 a <span id="let006:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="5" data-type="otherart">
                             <span id="let006:0.2.0.2.0.0.0.0" class="t-hi s-1-inline" data-el="hi">Seascape</span>
                         </span> was sent by <span id="let006:0.2.0.2.0.0.1" class="t-rs s-2-entita" data-el="rs" data-key="1348" data-type="pers">Johannes Christianus Schotel</span> to the art gallery of <span id="let006:0.2.0.2.0.0.2" class="t-rs s-2-entita" data-el="rs" data-key="399" data-type="pers">H.V. van Gogh</span> (Uncle Hein) in Brussels (<span id="let006:0.2.0.2.0.0.3" class="t-hi s-1-inline" data-el="hi">RKD</span>, <span id="let006:0.2.0.2.0.0.4" class="t-hi s-1-inline" data-el="hi">Goupil Ledgers</span>). In 1871 this work was sent on to one of the Paris branches, but it must have been sent back to Brussels at some point, since Van Gogh saw it there when he visited the city (between around 15 August and 15 October 1872; <span id="let006:0.2.0.2.0.0.5" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let011.xml#n-8">see letter 11, n. 8</span>). It is not known whether the work was again sent to Paris.</div>
                 </div>
-<div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-2" class="t-note s-1-note" data-el="note">
 <div id="let006:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">Van Gogh was in Brussels in the summer of 1872; <span id="let006:0.2.0.2.1.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let004.xml">see letter 4</span>.</div>
                 </div>
-<div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-3" class="t-note s-1-note" data-el="note">
 <div id="let006:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let006:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="399" data-type="pers">Uncle Hein</span> and <span id="let006:0.2.0.2.2.0.1" class="t-rs s-2-entita" data-el="rs" data-key="1613" data-type="pers">Aunt Mietje</span> in Brussels.</div>
                 </div>
-<div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-4" class="t-note s-1-note" data-el="note">
 <div id="let006:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let006:0.2.0.2.3.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1069" data-type="pers">Edouard Hamman</span>.</div>
                 </div>
-<div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-5" class="t-note s-1-note" data-el="note">
 <div id="let006:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">
   <span id="let006:0.2.0.2.4.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let005.xml">Letter 5</span> of 17 March.</div>
                 </div>
             </div>
         </div>
-    </div><nav class="prevnext" aria-label="Registro"><a href="doc-let005.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let007.html">successivo ›</a></nav></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+    </div><nav class="prevnext" aria-label="Register"><a href="doc-let005.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let007.html">next ›</a></nav></main>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
@@ -351,7 +408,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     if(label)el.setAttribute('aria-label',label);
   }
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+    makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref]').forEach(function(el){
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
@@ -376,7 +433,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
           +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
-      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
+      openPop('<span class="k">apparatus'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
       ev.stopPropagation();return;
     }
     var ent=ev.target.closest&&ev.target.closest('[data-ref]');
@@ -385,7 +442,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occorrenza':'occorrenze')+'</div>',ent);
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
     closePop();
@@ -403,6 +460,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }

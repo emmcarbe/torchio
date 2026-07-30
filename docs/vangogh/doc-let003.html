@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}
@@ -116,6 +120,7 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -139,6 +144,58 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -155,12 +212,12 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
-<div class="tt"><h1>To Theo van Gogh. The Hague, mid-January 1873.</h1><p class="sub">Vincent van Gogh, le lettere</p></div>
-<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="data.html">Dati</a></nav>
+<div class="tt"><h1>To Theo van Gogh. The Hague, mid-January 1873.</h1><p class="sub">Vincent van Gogh, the letters</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Registro"><a href="doc-let002.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let004.html">successivo ›</a></nav><div id="let003:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-let002.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let004.html">next ›</a></nav><div id="let003:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
         <div id="let003:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
 <span id="let003:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
 <span id="let003:0.0.0.0.0" class="t-title s-1-inline" data-el="title">To Theo van Gogh. The Hague, mid-January 1873.</span>
@@ -199,13 +256,13 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                     <span id="let003:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
 <div id="let003:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. The Hague, mid-January 1873.</div>
                     </span>
-<div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note">
 <div id="let003:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
                     </div>
-<div id="location" class="t-note s-1-note" data-el="note" data-type="location">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note">
 <div id="let003:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b3 V/1962</div>
                     </div>
-<div id="date" class="t-note s-1-note" data-el="note" data-type="date">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note">
 <div id="let003:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Den Haag Januari 1873’. The date is based on the fact that Theo has already been in Brussels for some time and Vincent has meanwhile had a busy start to the new year. From a letter written by Mrs van Gogh it emerges that Theo wrote to Vincent on 22 January at the latest: ‘just imagine, on Monday and Tuesday morning we received good letters from all three absentees ... [Vincent] will surely be glad that you wrote to him and could also tell him the good news’ (FR b2595, 23 January 1873, to Theo). Evidently Vincent had not yet received this letter.</div>
                     </div>
                 </span>
@@ -332,48 +389,48 @@ Mijn nieuwe jaar is goed <br/>begonnen, ik heb f<span id="let003:0.2.0.0.16.3" c
 <div id="let003:0.2.0.1.22" class="t-ab s-1-struttura" data-el="ab">You know that my address is Lange Beestenmarkt 32 or Maison Goupil &amp; Cie, Plaats.</div>
             </div>
 <div id="let003:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
-<div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-1" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">Theo boarded with the family of the minister <span id="let003:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="313" data-type="pers">Hendrik van den Brink</span>, place St Catherine 5 in Brussels (cf. FR b2594, b2608 and <span id="let003:0.2.0.2.0.0.1" class="t-hi s-1-inline" data-el="hi">SAB</span>). </div>
                 </div>
-<div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-2" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let003:0.2.0.2.1.0.0" class="t-rs s-2-entita" data-el="rs" data-key="624" data-type="pers">Tobias Victor Schmidt</span> was Theo’s boss at Goupil &amp; Co. in Brussels. He called himself ‘Marchand de gravures et tableaux’ (Dealer in engravings and paintings) (<span id="let003:0.2.0.2.1.0.1" class="t-hi s-1-inline" data-el="hi">SAB</span>, <span id="let003:0.2.0.2.1.0.2" class="t-hi s-1-inline" data-el="hi">Civil registration</span>).</div>
                 </div>
-<div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-3" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">Vincent sent 25 guilders of this bonus to his <span id="let003:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="526 524" data-type="pers">parents</span>. Mr van Gogh wrote to Theo: ‘Vincent sent us 25 guilders of his savings to help us out. <span id="let003:0.2.0.2.2.0.1" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Lies</span> and <span id="let003:0.2.0.2.2.0.2" class="t-rs s-2-entita" data-el="rs" data-key="407" data-type="pers">Willemien</span> needed new clothes and Ma will use the money for that. How good of Vincent. So he realizes that he wants to be of assistance to us, and he sets a good example for the others’ (FR b2596, 24 January 1873). At this time Theo was earning a starting salary of 30 francs, or approximately 15 guilders a month (FR b2604, 19 February).</div>
                 </div>
-<div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-4" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let003:0.2.0.2.3.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1422" data-type="pers">Emile Louis Vernier</span> made a great many reproductions after the work of <span id="let003:0.2.0.2.3.0.1" class="t-rs s-2-entita" data-el="rs" data-key="971" data-type="pers">Jean-Baptiste Camille Corot</span>, including the collection of <span id="let003:0.2.0.2.3.0.2" class="t-rs s-2-entita" data-el="rs" data-key="1" data-type="lit">
                             <span id="let003:0.2.0.2.3.0.2.0" class="t-hi s-1-inline" data-el="hi">Emile Vernier. Douze lithographies d’après Corot.</span>
                         </span> Notice par Philippe Burty. Paris, Librairie artistique, 1870 (without mention of price). Below the lithographs is recorded ‘Impr. Lemercier’. The lithographs were made after works in the collections of, among others, Hadingue, Gravet, Désiré, Rouart and Sensier (three pieces), including the <span id="let003:0.2.0.2.3.0.3" class="t-hi s-1-inline" data-el="hi">Girl reading</span> (no. 9) (Paris, BNF, Cabinet des Estampes). <span id="let003:0.2.0.2.3.0.4" class="t-rs s-2-entita" data-el="rs" data-key="1694" data-type="ill">Ill. 1694</span>.</div>
                 </div>
-<div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-5" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">This portrait photograph was taken by the photographer <span id="let003:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1615" data-type="pers">J.M.W. de Louw</span> (FR b4784). <span id="let003:0.2.0.2.4.0.1" class="t-rs s-2-entita" data-el="rs" data-key="1695" data-type="ill">Ill. 1695</span>.</div>
                 </div>
-<div id="n-6" class="t-note s-1-note" data-el="note" data-n="6" data-target="#note-t-6">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-6" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">The Palais des Académies – also called the <span id="let003:0.2.0.2.5.0.0" class="t-hi s-1-inline" data-el="hi">Palais Ducal</span> – in rue Ducale housed the Musée des Plâtres and the Musée Moderne.</div>
                 </div>
-<div id="n-7" class="t-note s-1-note" data-el="note" data-n="7" data-target="#note-t-7">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-7" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let003:0.2.0.2.6.0.0" class="t-rs s-2-entita" data-el="rs" data-key="399" data-type="pers">Hendrik (Hein) Vincent van Gogh</span>, retired art dealer in Brussels, brother of <span id="let003:0.2.0.2.6.0.1" class="t-rs s-2-entita" data-el="rs" data-key="526" data-type="pers">Mr van Gogh</span>. He suffered from an unidentified wasting disease.</div>
                 </div>
-<div id="n-8" class="t-note s-1-note" data-el="note" data-n="8" data-target="#note-t-8">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-8" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">Uncle Hein’s second wife was <span id="let003:0.2.0.2.7.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1613" data-type="pers">Maria van Gogh-Boon</span>, Aunt Mietje.</div>
                 </div>
-<div id="n-9" class="t-note s-1-note" data-el="note" data-n="9" data-target="#note-t-9">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-9" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">Vincent van Gogh, retired art dealer and collector, brother of <span id="let003:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="526" data-type="pers">Mr van Gogh</span>.</div>
                 </div>
-<div id="n-a" class="t-note s-1-note" data-el="note" data-n="a" data-target="#note-o-a">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-a" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">Meaning: ‘Did he stop off, did he interrupt his journey?’</div>
                 </div>
-<div id="n-10" class="t-note s-1-note" data-el="note" data-n="10" data-target="#note-t-10">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-10" class="t-note s-1-note" data-el="note">
 <div id="let003:0.2.0.2.10.0" class="t-ab s-1-struttura" data-el="ab">This colleague of Theo at Goupil’s in Brussels is most likely the later landscape painter <span id="let003:0.2.0.2.10.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1069" data-type="pers">Edouard Michel Ferdinand Hamman</span>, son of the artist <span id="let003:0.2.0.2.10.0.1" class="t-rs s-2-entita" data-el="rs" data-key="348" data-type="pers">Edouard Jean Conrad Hamman</span>. In 1878 <span id="let003:0.2.0.2.10.0.2" class="t-rs s-2-entita" data-el="rs" data-key="423" data-type="pers">Uncle Vincent van Gogh</span> wrote to Theo, mentioning the Hamman family and ‘Eduard’ in connection with one another : ‘Have you ever gone to see the Hamman family? They’re home again. Eduard will also be coming back from his studies around 15 Oct.’ (FR b5342; cf. <span id="let003:0.2.0.2.10.0.3" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let041.xml">letters 41</span> and <span id="let003:0.2.0.2.10.0.4" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let189.xml">189</span>). Eduard left on 15 October 1873 (FR b2669). See Hostyn 1978, pp. 138, 143.</div>
                 </div>
             </div>
         </div>
-    </div><nav class="prevnext" aria-label="Registro"><a href="doc-let002.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let004.html">successivo ›</a></nav></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+    </div><nav class="prevnext" aria-label="Register"><a href="doc-let002.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let004.html">next ›</a></nav></main>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
@@ -403,7 +460,7 @@ Mijn nieuwe jaar is goed <br/>begonnen, ik heb f<span id="let003:0.2.0.0.16.3" c
     if(label)el.setAttribute('aria-label',label);
   }
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+    makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref]').forEach(function(el){
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
@@ -428,7 +485,7 @@ Mijn nieuwe jaar is goed <br/>begonnen, ik heb f<span id="let003:0.2.0.0.16.3" c
           +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
-      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
+      openPop('<span class="k">apparatus'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
       ev.stopPropagation();return;
     }
     var ent=ev.target.closest&&ev.target.closest('[data-ref]');
@@ -437,7 +494,7 @@ Mijn nieuwe jaar is goed <br/>begonnen, ik heb f<span id="let003:0.2.0.0.16.3" c
       var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occorrenza':'occorrenze')+'</div>',ent);
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
     closePop();
@@ -455,6 +512,7 @@ Mijn nieuwe jaar is goed <br/>begonnen, ik heb f<span id="let003:0.2.0.0.16.3" c
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }

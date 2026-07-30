@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Torchio">
+  <style>
+    .frame { stroke: #1B1B1B; stroke-width: 3; stroke-linecap: square; fill: none; }
+    .screw { stroke: #1B1B1B; stroke-width: 2; stroke-linecap: round; }
+    .platen { fill: #B01E28; }
+    .sheet { stroke: #1B1B1B; stroke-width: 2; stroke-linecap: round; }
+    .moving { animation: press 4.5s ease-in-out infinite; }
+    @keyframes press {
+      0%, 100% { transform: translateY(0); }
+      42%, 58% { transform: translateY(7px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .moving { animation: none; }
+    }
+  </style>
+  <!-- base and frame -->
+  <path class="frame" d="M8 56 H56"/>
+  <path class="frame" d="M14 56 V10 H50 V56"/>
+  <!-- fixed screw shaft with thread marks -->
+  <line class="screw" x1="32" y1="10" x2="32" y2="24"/>
+  <line class="screw" x1="28.5" y1="14" x2="35.5" y2="14"/>
+  <line class="screw" x1="28.5" y1="19" x2="35.5" y2="19"/>
+  <!-- moving assembly: stem, handle, platen -->
+  <g class="moving">
+    <line class="screw" x1="32" y1="22" x2="32" y2="31"/>
+    <line class="screw" x1="22" y1="25" x2="42" y2="25"/>
+    <rect class="platen" x="20" y="31" width="24" height="5" rx="1"/>
+  </g>
+  <!-- the sheet on the bed -->
+  <line class="sheet" x1="22" y1="49" x2="42" y2="49"/>
+</svg>

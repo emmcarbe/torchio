@@ -34,6 +34,9 @@ export function normalizeManifest(raw = {}) {
     subtitle: typeof raw.subtitle === 'string' ? raw.subtitle : null,
     lang: raw.lang === 'it' || raw.lang === 'en' ? raw.lang : null,
     theme: typeof raw.theme === 'string' && isTheme(raw.theme) ? raw.theme : null,
+    parent: raw.parent && typeof raw.parent.href === 'string'
+      ? { href: raw.parent.href, label: String(raw.parent.label || '\u2039') }
+      : null,
     extra: [],
     pages: null,
     pieces: { apparatus: true, entities: true, choice: true, ...(raw.pieces || {}) },

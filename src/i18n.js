@@ -10,7 +10,7 @@ const STRINGS = {
   en: {
     edition: 'Edition', text: 'Text', indices: 'Indices', data: 'Data',
     reading: 'Reading', diplomatic: 'Diplomatic', apparatus: 'Apparatus',
-    aboutFile: 'About this file',
+    aboutFile: 'About this file', notes: 'Notes',
     dse: 'digital scholarly edition',
     responsibility: 'Responsibility', licence: 'Licence', witnesses: 'Witnesses',
     apparatusRegisters: 'Apparatus', revisions: 'Revision history', generator: 'Generator',
@@ -39,7 +39,7 @@ const STRINGS = {
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
     reading: 'Lettura', diplomatic: 'Diplomatica', apparatus: 'Apparato',
-    aboutFile: 'Scheda del file',
+    aboutFile: 'Scheda del file', notes: 'Note',
     dse: 'edizione scientifica digitale',
     responsibility: 'Responsabilità', licence: 'Licenza', witnesses: 'Testimoni',
     apparatusRegisters: 'Apparati', revisions: 'Storia delle revisioni', generator: 'Generatore',

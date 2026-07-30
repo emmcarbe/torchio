@@ -1,58 +1,61 @@
+<img src="docs/torchio.svg" alt="" width="56">
+
 # Torchio
 
-Torchio trasforma testi codificati in TEI P5 in edizioni scientifiche digitali
-statiche: siti a più pagine con testo di lettura, apparato critico, indici,
-mappe ed export dei dati, pubblicati da un repository git (GitHub Pages o
-qualunque hosting statico), senza server e senza database.
+Torchio turns TEI P5 encoded texts into static digital scholarly editions:
+multi-page sites with reading text, critical apparatus, indices, maps and
+data exports, published from a git repository (GitHub Pages or any static
+host), with no server and no database.
 
+Status: prototype under development. The principles, the method and the
+origin of the project are in [PRINCIPLES.md](PRINCIPLES.md); corrections
+required by real editions are recorded in [CORRECTIONS.md](CORRECTIONS.md).
 
-Stato: prototipo in sviluppo. I principi, il metodo e
-la genesi del progetto sono in [PRINCIPI.md](PRINCIPI.md).
+## Design constraints
 
-## Vincoli di progetto
+1. Every well-formed TEI document is always displayed in full. Unknown or
+   custom constructs receive a base rendering.
+2. Rendering behaviour is assigned to TEI model classes, not to individual
+   elements. The class data is generated from the official `p5subset`
+   (currently 588 elements, 127 model classes); coverage of the whole P5
+   element set is checked by the test suite at every TEI release.
+3. The edition's ODD customization is the configuration. Custom elements
+   declared `memberOf` a TEI class inherit its behaviour. Following the
+   Guidelines' conformance chapter, extensions concern phenomena P5 does not
+   already cover.
+4. The engine produces a documented data model (JSON); pages and exports
+   (XML, CSV, JSON) are generated from the model, not from ad hoc
+   transformations of the XML.
+5. No runtime services. The same code runs in the browser and in Node;
+   hosting, versioning and CI belong to the edition's repository.
+6. The markup decides which pages and functions exist; the optional manifest
+   (`torchio.json`) decides their presence, order and labels.
+7. Generated pages meet WCAG AA contrast (asserted per theme in the test
+   suite) and are keyboard-accessible.
+8. Interface language: English or Italian, set in the manifest or derived
+   from the edition's `langUsage`.
 
-1. Ogni documento TEI ben formato viene sempre visualizzato per intero. I costrutti sconosciuti o custom ricevono una resa di base.
-2. I comportamenti di resa sono assegnati alle classi di modello TEI, non ai
-   singoli elementi. I dati delle classi sono generati dal `p5subset`
-   ufficiale (oggi 588 elementi, 127 classi di modello); la copertura
-   dell'intero insieme P5 è verificata dalla suite di test a ogni release TEI.
-3. La personalizzazione ODD dell'edizione è la configurazione. Gli elementi
-   custom dichiarati `memberOf` di una classe TEI ne ereditano il
-   comportamento. Come da capitolo sulla conformance delle Guidelines, le
-   estensioni riguardano fenomeni che P5 non copre già.
-4. Il motore produce un modello di dati documentato (JSON); pagine ed export
-   (XML, CSV, JSON) sono generati dal modello, non da trasformazioni ad hoc
-   dell'XML.
-5. Nessun servizio a runtime. Lo stesso codice gira nel browser e in Node;
-   hosting, versioni e CI appartengono al repository dell'edizione.
-6. Il markup decide l'esistenza di pagine e funzioni; il manifesto
-   (`torchio.json`, facoltativo) ne decide presenza, ordine ed etichette.
-7. Le pagine generate rispettano il contrasto WCAG AA (asserito per ogni tema
-   nella suite) e sono accessibili da tastiera.
-8. Lingua dell'interfaccia: italiano o inglese, dal manifesto o derivata dal
-   `langUsage` dell'edizione.
+## Layout
 
-## Struttura
+- `src/xml.js` — XML parser (no dependencies; validation belongs to the edition's CI)
+- `src/classes.js`, `data/p5-classes.json` — element → class → behaviour resolution, with ODD overlay
+- `src/odd.js` — ODD reader
+- `src/model.js` — the edition model: documents, cards, registries, apparatus
+- `src/render.js`, `src/site.js`, `src/themes.js` — base rendering, site pages, themes
+- `src/interact.js` — reader-side functions (apparatus, entity cards, transcription levels)
+- `src/reconcile.js` — entity reconciliation (GeoNames gazetteer; authority identifiers)
+- `tools/` — press CLI, gazetteer builder, reconciliation
+- `docs/`, `demo-src/` — demonstration editions, with rights in `docs/README.md`
 
-- `src/xml.js` — parser XML (nessuna dipendenza; la validazione appartiene alla CI dell'edizione)
-- `src/classes.js`, `data/p5-classes.json` — risoluzione elemento → classe → comportamento, con overlay ODD
-- `src/odd.js` — lettore di ODD
-- `src/model.js` — il modello dell'edizione: documenti, schede, registri, apparati
-- `src/render.js`, `src/site.js`, `src/themes.js` — resa di base, pagine del sito, temi
-- `src/interact.js` — funzioni lato lettore (apparato, schede delle entità, livelli di trascrizione)
-- `src/reconcile.js` — riconciliazione delle entità (gazetteer GeoNames; identificatori d'autorità)
-- `tools/` — CLI di stampa, costruzione del gazetteer, riconciliazione
-- `docs/`, `demo-src/` — edizioni dimostrative (Odissea; lettere di Van Gogh), con diritti in `docs/README.md`
-
-## Sviluppo
+## Development
 
 ```
 npm test
 ```
 
-Nessuna dipendenza, moduli ES, Node >= 18.
+No dependencies, ES modules, Node >= 18.
 
-## Licenza
+## Licence
 
-MIT. Come citare: `CITATION.cff`.
-Le ricerche geografiche usano dati derivati da [GeoNames](https://www.geonames.org/) (CC BY 4.0).
+MIT. Geographic lookups use data derived from
+[GeoNames](https://www.geonames.org/) (CC BY 4.0).

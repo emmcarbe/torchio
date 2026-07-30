@@ -1,5 +1,9 @@
 {
-  "lang": "it",
-  "title": "Odissea",
-  "subtitle": "Omero · testo greco · Perseus Digital Library (CC BY-SA 4.0)"
+  "lang": "en",
+  "title": "Odyssey",
+  "subtitle": "Homer · Greek text · Perseus Digital Library (CC BY-SA 4.0)",
+  "parent": {
+    "href": "../",
+    "label": "Demos"
+  }
 }

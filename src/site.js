@@ -22,8 +22,39 @@ import { i18n, resolveLang } from './i18n.js';
 import { themeCSS } from './themes.js';
 import { WORLD } from './world-data.js';
 
-function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme }) {
-  const nav = pages
+const HEADER_LABELS = {
+  teiHeader: 'TEI Header', fileDesc: 'File Description', titleStmt: 'Title',
+  editionStmt: 'Edition', extent: 'Extent', publicationStmt: 'Publication',
+  seriesStmt: 'Series', notesStmt: 'Notes', sourceDesc: 'Source',
+  respStmt: 'Responsibility', availability: 'Availability', licence: 'Licence',
+  listWit: 'Witnesses', witness: 'Witness', msDesc: 'Manuscript',
+  msIdentifier: 'Identifier', msContents: 'Contents',
+  physDesc: 'Physical Description', history: 'History',
+  encodingDesc: 'Encoding', projectDesc: 'Project',
+  editorialDecl: 'Editorial Practice', samplingDecl: 'Sampling',
+  refsDecl: 'Reference System', classDecl: 'Classification Scheme',
+  listPrefixDef: 'Prefixes', profileDesc: 'Profile', creation: 'Creation',
+  langUsage: 'Languages', textClass: 'Classification',
+  correspDesc: 'Correspondence', handNotes: 'Hands',
+  revisionDesc: 'Revision History', listChange: 'Changes',
+  biblFull: 'Bibliographic Record', appInfo: 'Application',
+};
+const HEADER_SILENT = ['p', 'ab', 'list', 'item', 'table', 'row', 'cell',
+  'lg', 'l', 'head', 'note', 'bibl', 'address', 'addrLine', 'change'];
+function headerLabelCSS() {
+  let css = '';
+  for (const [el, label] of Object.entries(HEADER_LABELS)) {
+    css += `.header-full div[data-el="${el}"]::before{content:"${label}"}\n`;
+  }
+  for (const el of HEADER_SILENT) {
+    css += `.header-full div[data-el="${el}"]::before{content:none}\n`;
+  }
+  return css;
+}
+
+function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
+  const nav = (parent ? `<a href="${escapeHTML(parent.href)}" class="up">${escapeHTML(parent.label)}</a>` : '')
+    + pages
     .map(([file, label]) =>
       `<a href="${file}"${file === active ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
     .join('');
@@ -39,6 +70,7 @@ ${interactCSS}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -62,6 +94,7 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+${headerLabelCSS()}
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -148,6 +181,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const lang = resolveLang(manifest.lang, model);
   const T = i18n(lang);
   const theme = manifest.theme || 'savi';
+  const parent = manifest.parent;
   const isCollection = model.documents.length > 1;
   // single document: front and back matter get their own pages
   let frontNode = null, backNode = null, bodyNode = null, chunks = null;
@@ -262,7 +296,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       + `<div class="header-full">${renderBase(headerTree)}</div>`;
   }
   about += '</main>';
-  out['index.html'] = chrome({ title: t, sub: manifest.subtitle || T.dse, active: 'index.html', pages, body: about, t: T, lang, theme });
+  out['index.html'] = chrome({ title: t, sub: manifest.subtitle || T.dse, active: 'index.html', pages, body: about, t: T, lang, theme, parent, parent });
   }
 
   /* ---- text.html: everything but the header ---- */
@@ -273,6 +307,13 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
   }
   const hasApparatus = model.apparatus.length > 0 && manifest.pieces.apparatus !== false;
+  let hasNotes = false;
+  for (const doc of model.documents) {
+    for (const n of walkModel(doc.tree)) {
+      if (n.element === 'note') { hasNotes = true; break; }
+    }
+    if (hasNotes) break;
+  }
   let text = '';
   for (const doc of model.documents) {
     for (const child of doc.tree.children) {
@@ -299,7 +340,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     toc += '</main>';
     out['text.html'] = chrome({
       title: t, sub: `${chunks.length} ${T.sectionsN}`, active: 'text.html', pages,
-      body: toc, t: T, lang, theme,
+      body: toc, t: T, lang, theme, parent,
     });
     chunks.forEach((d, i) => {
       for (const n of walkModel(d)) idPage.set(n.id, files[i]);
@@ -312,8 +353,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         + `</nav>`;
       out[files[i]] = chrome({
         title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${nav}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${nav}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     });
   } else if (!isCollection) {
@@ -339,21 +380,21 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
     out['text.html'] = chrome({
       title: t, sub: resp, active: 'text.html', pages, bodyClass: offClasses,
-      body: `${toolbarHTML({ hasChoice, hasApparatus, t: T })}<main id="main" class="torchio">${reading}</main>`,
-      script: buildInteractJS(T), t: T, lang, theme,
+      body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${reading}</main>`,
+      script: buildInteractJS(T), t: T, lang, theme, parent,
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({
         title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
     if (backOnOwnPage) {
       out['back.html'] = chrome({
         title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
   } else {
@@ -401,7 +442,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     reg += '</tbody></table></main>';
     out['text.html'] = chrome({
       title: t, sub: `${model.documents.length} ${T.documentsN}`, active: 'text.html',
-      pages, body: reg, script: registerJS, t: T, lang, theme,
+      pages, body: reg, script: registerJS, t: T, lang, theme, parent,
     });
 
     // one page per document, with register navigation
@@ -422,8 +463,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         + `</nav>`;
       out[docFiles.get(d.id)] = chrome({
         title: c.title || d.id, sub: t, active: 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
+        script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
   }
@@ -444,7 +485,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       idx += '</table>';
     }
     idx += '</main>';
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme });
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme, parent, parent });
   }
 
   /* ---- data.html: the edition as downloadable data ---- */
@@ -463,7 +504,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         + `<td class="occ">${kb < 1024 ? kb.toFixed(1) + ' KB' : (kb / 1024).toFixed(1) + ' MB'}</td></tr>`;
     }
     dataPage += `</table><p class="occ">${T.reuse}</p></main>`;
-    out['data.html'] = chrome({ title: t, sub: T.data.toLowerCase(), active: 'data.html', pages, body: dataPage, t: T, lang, theme });
+    out['data.html'] = chrome({ title: t, sub: T.data.toLowerCase(), active: 'data.html', pages, body: dataPage, t: T, lang, theme, parent, parent });
     Object.assign(out, exports_);
   }
 
@@ -549,7 +590,7 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
         + `<td class="occ"><a href="https://www.openstreetmap.org/?mlat=${pl.geo.lat}&amp;mlon=${pl.geo.lon}#map=12/${pl.geo.lat}/${pl.geo.lon}">OSM</a></td></tr>`;
     }
     mapBody += '</table></main>';
-    out['map.html'] = chrome({ title: t, sub: T.map.toLowerCase(), active: 'map.html', pages, body: mapBody, t: T, lang, theme });
+    out['map.html'] = chrome({ title: t, sub: T.map.toLowerCase(), active: 'map.html', pages, body: mapBody, t: T, lang, theme, parent, parent });
   }
 
   /* ---- the editor's simple pages ---- */
@@ -557,7 +598,7 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
     if (!wanted.has(e.id)) continue;
     out[`${e.id}.html`] = chrome({
       title: t, sub: e.label.toLowerCase(), active: `${e.id}.html`, pages,
-      body: `<main id="main" class="torchio">${e.html}</main>`, t: T, lang, theme,
+      body: `<main id="main" class="torchio">${e.html}</main>`, t: T, lang, theme, parent,
     });
   }
 

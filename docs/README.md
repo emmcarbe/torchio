@@ -1,34 +1,38 @@
-# Demo
+# Demos
 
-Edizioni dimostrative generate con Torchio dai sorgenti in `demo-src/`.
-Per rigenerarle: `node tools/press.js --site demo-src/odissea/odissea.xml docs/odissea`
-e `node tools/press.js --site demo-src/vangogh docs/vangogh`.
+Demonstration editions generated with Torchio from the sources in
+`demo-src/`. To regenerate, for example:
+`node tools/press.js --site demo-src/odissea/odissea.xml docs/odissea`
+and `node tools/press.js --site demo-src/vangogh docs/vangogh`.
 
-## Materiali e diritti
+## Materials and rights
 
-- **Odissea** (`demo-src/odissea/`): Homer, *Odyssey*, testo greco dalla
+- **Odyssey** (`demo-src/odissea/`): Homer, *Odyssey*, Greek text from the
   [Perseus Digital Library](https://github.com/PerseusDL/canonical-greekLit)
-  (`tlg0012.tlg002.perseus-grc2`), licenza CC BY-SA 4.0. La demo derivata è
-  distribuita alla stessa condizione.
-- **Lettere di Van Gogh** (`demo-src/vangogh/`): 30 lettere da
-  [Vincent van Gogh, The Letters](https://vangoghletters.org/) (Van Gogh Museum
-  e Huygens ING, a cura di Leo Jansen, Hans Luijten e Nienke Bakker), file TEI
-  dal repository [eeditiones/vangogh](https://github.com/eeditiones/vangogh),
-  licenza CC BY-NC-SA 4.0. La demo derivata è distribuita alla stessa
-  condizione, per soli usi non commerciali.
-- **Bellum Alexandrinum** (`demo-src/bellum/`): edizione critica di Cynthia
+  (`tlg0012.tlg002.perseus-grc2`), CC BY-SA 4.0. The derived demo is
+  distributed under the same licence.
+- **Van Gogh letters** (`demo-src/vangogh/`): 30 letters from
+  [Vincent van Gogh, The Letters](https://vangoghletters.org/) (Van Gogh
+  Museum and Huygens ING, ed. Leo Jansen, Hans Luijten and Nienke Bakker),
+  TEI files from the [eeditiones/vangogh](https://github.com/eeditiones/vangogh)
+  repository, CC BY-NC-SA 4.0. The derived demo is distributed under the
+  same licence, for non-commercial use only.
+- **Bellum Alexandrinum** (`demo-src/bellum/`): critical edition by Cynthia
   Damon et al., [Digital Latin Library](https://github.com/digitallatin/caesar-balex),
-  licenza CC BY-SA 4.0; i file sono dichiarati dagli autori versione beta in
-  attesa della peer review della Society for Classical Studies. Uso
-  temporaneo, a scopo di prova. La demo derivata è distribuita alla stessa
-  condizione (CC BY-SA 4.0).
-- **Specimen** (`demo-src/specimen/`): micro-edizione costruita a scopo
-  dimostrativo (testimoni immaginari, varianti didattiche, dichiarati nel
-  frontespizio); testo base: incipit dell'Odissea nella traduzione di
-  Ippolito Pindemonte (pubblico dominio); codifica CC0.
-- Le ricerche geografiche usano dati derivati da [GeoNames](https://www.geonames.org/) (CC BY 4.0); le coste della mappa da [Natural Earth](https://www.naturalearthdata.com/) (pubblico dominio). La pagina Mappa usa [Leaflet](https://leafletjs.com/)
-  (BSD-2, incluso nel sito) e tile © OpenStreetMap contributors (ODbL),
-  caricati dai server OSM alla consultazione.
+  CC BY-SA 4.0; the files are declared by their authors a beta version
+  pending peer review by the Society for Classical Studies. Temporary test
+  sample. The derived demo is distributed under the same licence (CC BY-SA
+  4.0).
+- **Specimen** (`demo-src/specimen/`): a micro-edition constructed for
+  demonstration purposes (imaginary witnesses, didactic variants, declared
+  as such on the title page); base text: the opening of the Odyssey in
+  Ippolito Pindemonte's translation (public domain); CC0 encoding.
+- Geographic lookups use data derived from
+  [GeoNames](https://www.geonames.org/) (CC BY 4.0); map coastlines from
+  [Natural Earth](https://www.naturalearthdata.com/) (public domain). The
+  map page uses [Leaflet](https://leafletjs.com/) (BSD-2, bundled) and tiles
+  © OpenStreetMap contributors (ODbL), loaded from the OSM servers when the
+  page is viewed.
 
-Il codice di Torchio resta MIT; le licenze qui sopra riguardano i contenuti
-delle demo.
+Torchio's code remains MIT; the licences above concern the contents of the
+demos.

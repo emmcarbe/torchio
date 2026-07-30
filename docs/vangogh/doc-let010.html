@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +58,10 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
+.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
+body.notes-off .t-note{display:none}
+body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
     font-size:.78em;line-height:1.4}
@@ -116,6 +120,7 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
+.torchio-nav a.up{color:var(--accent-soft)}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -139,6 +144,58 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   text-transform:uppercase;color:var(--soft);margin:.9em 0 .1em}
 .header-full{border:1px solid var(--hair);border-radius:2px;padding:6px 16px 14px;
   font-size:.92em;overflow-x:auto}
+.header-full div[data-el="teiHeader"]::before{content:"TEI Header"}
+.header-full div[data-el="fileDesc"]::before{content:"File Description"}
+.header-full div[data-el="titleStmt"]::before{content:"Title"}
+.header-full div[data-el="editionStmt"]::before{content:"Edition"}
+.header-full div[data-el="extent"]::before{content:"Extent"}
+.header-full div[data-el="publicationStmt"]::before{content:"Publication"}
+.header-full div[data-el="seriesStmt"]::before{content:"Series"}
+.header-full div[data-el="notesStmt"]::before{content:"Notes"}
+.header-full div[data-el="sourceDesc"]::before{content:"Source"}
+.header-full div[data-el="respStmt"]::before{content:"Responsibility"}
+.header-full div[data-el="availability"]::before{content:"Availability"}
+.header-full div[data-el="licence"]::before{content:"Licence"}
+.header-full div[data-el="listWit"]::before{content:"Witnesses"}
+.header-full div[data-el="witness"]::before{content:"Witness"}
+.header-full div[data-el="msDesc"]::before{content:"Manuscript"}
+.header-full div[data-el="msIdentifier"]::before{content:"Identifier"}
+.header-full div[data-el="msContents"]::before{content:"Contents"}
+.header-full div[data-el="physDesc"]::before{content:"Physical Description"}
+.header-full div[data-el="history"]::before{content:"History"}
+.header-full div[data-el="encodingDesc"]::before{content:"Encoding"}
+.header-full div[data-el="projectDesc"]::before{content:"Project"}
+.header-full div[data-el="editorialDecl"]::before{content:"Editorial Practice"}
+.header-full div[data-el="samplingDecl"]::before{content:"Sampling"}
+.header-full div[data-el="refsDecl"]::before{content:"Reference System"}
+.header-full div[data-el="classDecl"]::before{content:"Classification Scheme"}
+.header-full div[data-el="listPrefixDef"]::before{content:"Prefixes"}
+.header-full div[data-el="profileDesc"]::before{content:"Profile"}
+.header-full div[data-el="creation"]::before{content:"Creation"}
+.header-full div[data-el="langUsage"]::before{content:"Languages"}
+.header-full div[data-el="textClass"]::before{content:"Classification"}
+.header-full div[data-el="correspDesc"]::before{content:"Correspondence"}
+.header-full div[data-el="handNotes"]::before{content:"Hands"}
+.header-full div[data-el="revisionDesc"]::before{content:"Revision History"}
+.header-full div[data-el="listChange"]::before{content:"Changes"}
+.header-full div[data-el="biblFull"]::before{content:"Bibliographic Record"}
+.header-full div[data-el="appInfo"]::before{content:"Application"}
+.header-full div[data-el="p"]::before{content:none}
+.header-full div[data-el="ab"]::before{content:none}
+.header-full div[data-el="list"]::before{content:none}
+.header-full div[data-el="item"]::before{content:none}
+.header-full div[data-el="table"]::before{content:none}
+.header-full div[data-el="row"]::before{content:none}
+.header-full div[data-el="cell"]::before{content:none}
+.header-full div[data-el="lg"]::before{content:none}
+.header-full div[data-el="l"]::before{content:none}
+.header-full div[data-el="head"]::before{content:none}
+.header-full div[data-el="note"]::before{content:none}
+.header-full div[data-el="bibl"]::before{content:none}
+.header-full div[data-el="address"]::before{content:none}
+.header-full div[data-el="addrLine"]::before{content:none}
+.header-full div[data-el="change"]::before{content:none}
+
 .reg-filter{font-family:var(--mono);font-size:12px;padding:6px 10px;
   border:1px solid var(--hair);border-radius:2px;background:var(--paper);
   color:var(--ink);margin:.4em 0;width:14rem;max-width:100%}
@@ -155,12 +212,12 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Vai al contenuto</a>
+<a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
-<div class="tt"><h1>To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</h1><p class="sub">Vincent van Gogh, le lettere</p></div>
-<nav class="torchio-nav"><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="data.html">Dati</a></nav>
+<div class="tt"><h1>To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</h1><p class="sub">Vincent van Gogh, the letters</p></div>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Registro"><a href="doc-let009.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let011.html">successivo ›</a></nav><div id="let010:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-let009.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let011.html">next ›</a></nav><div id="let010:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
         <div id="let010:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
 <span id="let010:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
 <span id="let010:0.0.0.0.0" class="t-title s-1-inline" data-el="title">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</span>
@@ -199,16 +256,16 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                     <span id="let010:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
 <div id="let010:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</div>
                     </span>
-<div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note">
 <div id="let010:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
                     </div>
-<div id="location" class="t-note s-1-note" data-el="note" data-type="location">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note">
     <div id="let010:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. nos. b27a, b28, b27b V/1962</div>
                     </div>
-<div id="date" class="t-note s-1-note" data-el="note" data-type="date">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note">
 <div id="let010:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 2 Juli 1873’.</div>
                     </div>
-<div id="additionalDetail" class="t-note s-1-note" data-el="note" data-type="additionalDetail">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="additionalDetail" class="t-note s-1-note" data-el="note">
 <div id="let010:0.0.0.2.0.6.0" class="t-p s-1-struttura" data-el="p">The envelope belonging with this letter has been preserved. The stamp has been torn off. The postmark on the front reads ‘London. W.C. 6 JY 3 73’, and on the back ‘’S GRAVENHAGE 4 JUL 73 12M-4A’. It is addressed to ‘W.J. van Stockum Esq/ Varkenmarkt/ <span id="let010:0.0.0.2.0.6.0.0" class="t-hi s-1-inline" data-el="hi">Holland The Hague</span>’.</div>
                     </div>
                 </span>
@@ -520,10 +577,10 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                 <span class="t-pb" role="separator" title="page break">[9]</span>
 <span id="let010:0.2.0.0.210" class="t-whiteline s-base" data-el="whiteline"></span>
 <div id="let010:0.2.0.0.211" class="t-div s-1-struttura" data-el="div" data-type="textualNotes">
-<div id="let010:0.2.0.0.211.0" class="t-note s-1-note" data-el="note" data-n="68" data-target="l-68">schreef &lt; scheef</div>
-<div id="let010:0.2.0.0.211.1" class="t-note s-1-note" data-el="note" data-n="113" data-target="l-113">delling &lt; helling  <span id="let010:0.2.0.0.211.1.0" class="t-hi s-1-inline" data-el="hi">Corresponding to the original text.</span>
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let010:0.2.0.0.211.0" class="t-note s-1-note" data-el="note">schreef &lt; scheef</div>
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let010:0.2.0.0.211.1" class="t-note s-1-note" data-el="note">delling &lt; helling  <span id="let010:0.2.0.0.211.1.0" class="t-hi s-1-inline" data-el="hi">Corresponding to the original text.</span>
                     </div>
-<div id="let010:0.2.0.0.211.2" class="t-note s-1-note" data-el="note" data-n="129" data-target="l-129">zonk &lt; zwonk  <span id="let010:0.2.0.0.211.2.0" class="t-hi s-1-inline" data-el="hi">Corresponding to the original text.</span>
+<span class="t-note-mark" aria-hidden="true">°</span><div id="let010:0.2.0.0.211.2" class="t-note s-1-note" data-el="note">zonk &lt; zwonk  <span id="let010:0.2.0.0.211.2.0" class="t-hi s-1-inline" data-el="hi">Corresponding to the original text.</span>
                     </div>
                 </div>
             </div>
@@ -663,45 +720,45 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
                 <span class="t-pb" role="separator" title="page break">[9]</span>
             </div>
 <div id="let010:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
-<div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-1" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let010:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="760" data-type="pers">Willem Jacob van Stockum</span> and <span id="let010:0.2.0.2.0.0.1" class="t-rs s-2-entita" data-el="rs" data-key="761" data-type="pers">Carolina Adolphina van Stockum-Haanebeek</span>; Caroline was a distant relative of Vincent on his mother’s side and he had been in contact with her family in The Hague.</div>
                 </div>
-<div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-2" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let010:0.2.0.2.1.0.0" class="t-rs s-2-entita" data-el="rs" data-key="760" data-type="pers">Willem</span> and <span id="let010:0.2.0.2.1.0.1" class="t-rs s-2-entita" data-el="rs" data-key="761" data-type="pers">Caroline</span> were married on 30 April 1873 and lived at Varkenmarkt 11a in The Hague.</div>
                 </div>
-<div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-3" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let010:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="524" data-type="pers">Mrs van Gogh</span> wrote to Theo: ‘When I last wrote to you, had we received Vincent’s letter in which he said that his salary is 1,080 guilders and that he has such a nice room, where he’s hung up his prints from The Hague and with which he’s very pleased?’ (FR b2638, 2 July 1873).</div>
                 </div>
-<div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-4" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">Lange Poten 10 in The Hague, Caroline’s parental home.</div>
                 </div>
-<div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-5" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let010:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Jan van Beers</span>, ‘The evening hour’. See the end of the letter.</div>
                 </div>
-<div id="n-6" class="t-note s-1-note" data-el="note" data-n="6" data-target="#note-t-6">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-6" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">
                         <span id="let010:0.2.0.2.5.0.0" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Elisabeth (Lies) Huberta van Gogh</span>, sister of Van Gogh. She informed Theo that she was copying out a poem for Vincent to take along with him when he left Helvoirt (FR b2622).</div>
                 </div>
-<div id="n-7" class="t-note s-1-note" data-el="note" data-n="7" data-target="#note-t-7">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-7" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">Van Gogh’s last evening at home was Sunday, 11 May 1873.</div>
                 </div>
-<div id="n-8" class="t-note s-1-note" data-el="note" data-n="8" data-target="#note-t-8">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-8" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">The province of North Brabant in the south of the Netherlands, where Van Gogh grew up.</div>
                 </div>
-<div id="n-9" class="t-note s-1-note" data-el="note" data-n="9" data-target="#note-t-9">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-9" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">On 9 July 1873, <span id="let010:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="762" data-type="pers">Maria Louisa van Stockum</span>, Willem’s sister, married the merchant and broker <span id="let010:0.2.0.2.8.0.1" class="t-rs s-2-entita" data-el="rs" data-key="7" data-type="pers">Jan Bakker</span>.</div>
                 </div>
-<div id="n-10" class="t-note s-1-note" data-el="note" data-n="10" data-target="#note-t-10">
+<span class="t-note-mark" aria-hidden="true">°</span><div id="n-10" class="t-note s-1-note" data-el="note">
 <div id="let010:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">The poem as cited here was originally the first of four parts comprising the romantic poem ‘<span id="let010:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="3" data-type="lit">De bestedeling</span>’ (The boarder). See <span id="let010:0.2.0.2.9.0.1" class="t-hi s-1-inline" data-el="hi">Levensbeelden. Poezij van Jan van Beers</span>. Amsterdam and Antwerp 1858, pp. 98-104. Vincent probably copied the text from the transcript <span id="let010:0.2.0.2.9.0.2" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Lies</span> made for him (which has not survived). This presumably explains several slight differences between the original text and the version in the letter; ‘The evening hour’ is not <span id="let010:0.2.0.2.9.0.3" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Van Beers</span>’s title. Vincent also sent a version to Theo; <span id="let010:0.2.0.2.9.0.4" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let011.xml">see letter 11</span>.</div>
                 </div>
             </div>
         </div>
-    </div><nav class="prevnext" aria-label="Registro"><a href="doc-let009.html">‹ precedente</a><a href="text.html">Registro</a><a href="doc-let011.html">successivo ›</a></nav></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
+    </div><nav class="prevnext" aria-label="Register"><a href="doc-let009.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let011.html">next ›</a></nav></main>
+<footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
@@ -731,7 +788,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
     if(label)el.setAttribute('aria-label',label);
   }
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+    makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref]').forEach(function(el){
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
@@ -756,7 +813,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
           +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
-      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
+      openPop('<span class="k">apparatus'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows,app);
       ev.stopPropagation();return;
     }
     var ent=ev.target.closest&&ev.target.closest('[data-ref]');
@@ -765,7 +822,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occorrenza':'occorrenze')+'</div>',ent);
+        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
       ev.stopPropagation();return;
     }
     closePop();
@@ -783,6 +840,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }

@@ -130,6 +130,7 @@ export function buildInteractJS(t) {
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }
@@ -138,10 +139,11 @@ export function buildInteractJS(t) {
 }
 
 /** The sticky toolbar markup; controls appear only when the markup warrants them. */
-export function toolbarHTML({ hasChoice, hasApparatus, t } = {}) {
+export function toolbarHTML({ hasChoice, hasApparatus, hasNotes, t } = {}) {
   const modes = hasChoice
     ? `<span class="modes" role="group" aria-label="${t.text}"><button data-mode="read" class="active" aria-pressed="true">${t.reading}</button><button data-mode="dipl" aria-pressed="false">${t.diplomatic}</button></span>`
     : '';
   const app = hasApparatus ? `<button class="sw" data-sw="app" aria-pressed="true">${t.apparatus}</button>` : '';
-  return `<div class="torchio-bar"><div class="inner">${modes}${app}<button class="sw off" data-sw="header" aria-pressed="false">${t.aboutFile}</button></div></div>`;
+  const notes = hasNotes ? `<button class="sw" data-sw="notes" aria-pressed="true">${t.notes}</button>` : '';
+  return `<div class="torchio-bar"><div class="inner">${modes}${app}${notes}<button class="sw off" data-sw="header" aria-pressed="false">${t.aboutFile}</button></div></div>`;
 }
