@@ -1,8 +1,21 @@
+<img src="docs/torchio.svg" alt="" width="72">
+
 # Torchio. Principles of a project in the making
 
 First document, 30 July 2026. It records the state of the project at the
 moment of its publication on GitHub and opens the phase of collaboration,
 revision and implementation.
+
+Contents:
+[Origin](#origin) ·
+[Why](#why) ·
+[What already exists](#what-already-exists) ·
+[The principles](#the-principles) ·
+[Contributions](#contributions-received-outside-the-repository) ·
+[State of the prototype](#state-of-the-prototype-30-july-2026) ·
+[Agenda](#agenda) ·
+[Materials and rights](#materials-and-rights) ·
+[References](#references)
 
 ## Origin
 
@@ -12,13 +25,13 @@ then with Angelo Mario Del Grosso (CNR-ILC «A. Zampolli»). That evening
 Emmanuela Carbé tried to work out some principles for a simple, reusable
 project that would address some problems of the main visualization systems
 for digital editions. She built a prototype with the assistance of Claude
-(Anthropic), model Fable 5; on the morning of 30 July Del Grosso proposed
-some substantial adjustments, which were adopted and are documented below.
-With this publication the ball passes to Boschetti and Del Grosso, and to
-anyone who wants to join: to review the principles, contest them, improve
-them. The working language of the project is English, so that collaboration
-is not restricted to Italian speakers; the founding conversations took place
-in Italian.
+(Anthropic), model Fable 5; on the morning of 30 July Del Grosso raised
+two pointed remarks, recorded with the other contributions below.
+At 14:51 on 30 July a presentation mail went out to the VeDPH team, and the
+first feedback arrived within the hour (see the contributions table below);
+at 15:30 a brief call with Boschetti and Del Grosso sketched further
+solutions. The project is open to anyone who wants to join: to review the
+principles, contest them, improve them.
 
 ## Why
 
@@ -27,8 +40,10 @@ in Italian.
    to the list of tags the tool accepts. The relationship is upside down:
    the data model should govern the interface, not the other way round.
 2. **Sustainability is the open problem.** Editions published on application
-   servers die with their servers. From the census of the Catalogue of
-   Digital Editions (Franzini): of 358 recorded editions, 242 declare a TEI
+   servers die with their servers. The field is charted by two catalogues,
+   Sahle's [Catalog of Digital Scholarly Editions](https://www.digitale-edition.de/)
+   and Franzini's [Catalogue of Digital Editions](https://github.com/gfranzini/digEds_cat);
+   the figures here come from the structured data of the latter: of 358 recorded editions, 242 declare a TEI
    transcription, but only 104 publish the source XML, and 95 are still
    online. Two TEI editions out of three do not provide their source.
    -> This figure comes from a census run with Claude, and should therefore
@@ -41,18 +56,23 @@ in Italian.
 
 ## What already exists
 
-A first survey, to be deepened and corrected.
+A first survey, to be deepened and corrected. It records architectural
+positions, one representative each, not every existing tool.
 
-- **EVT 2** is the most widely used tool in Italy and among the best known
+- **[EVT 2](https://evt.labcd.unipi.it/)** is the most widely used tool in Italy and among the best known
   internationally. It rests on AngularJS, unsupported since 2021. **EVT 3**
   is in beta, with the migration under way. The tool is continuously
   developed and remains one of the most important visualization projects.
-- **CETEIcean** (TEI-C) renders every TEI element as a custom element in the
+- **[CETEIcean](https://github.com/TEIC/CETEIcean)** (TEI-C) renders every TEI element as a custom element in the
   browser, without conversion: guaranteed rendering, with some limits: no
   apparatus, indices, facsimile, export.
-- **TEI Publisher** (e-editiones) has a static route, but generating it
+- **[TEI Publisher](https://teipublisher.com/)** (e-editiones) has a static route, but generating it
   still requires a running instance.
-- **dse-static-cookiecutter** (ACDH-CH, Vienna) is the project closest to
+- **[TEI Boilerplate](https://github.com/TEI-Boilerplate/TEI-Boilerplate)** (John Walsh) makes a TEI file render itself in the
+  browser, through an XSLT stylesheet linked from the document itself: no
+  build, no server. It is the earliest statement of the self-rendering
+  document, and a direct ancestor of this project's in-browser route.
+- **[dse-static-cookiecutter](https://github.com/acdh-oeaw/dse-static-cookiecutter)** (ACDH-CH, Vienna) is the project closest to
   this one: XSLT plus GitHub Actions plus Pages, with indices and maps, used
   for dozens of editions. It requires a developer's toolchain, though; the
   interface comes from templates to be adapted, and there is no reusable
@@ -69,7 +89,7 @@ A first survey, to be deepened and corrected.
 2. **Behaviour lives on classes, not on tags.** The TEI has more than 500
    elements but organizes them into a few dozen model classes. Rendering
    rules are written per class; elements inherit. The map is generated from
-   the official `p5subset` (P5 4.12.0: 588 elements, 127 model classes, 86
+   the official [`p5subset`](https://tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml) (P5 4.12.0: 588 elements, 127 model classes, 86
    attribute classes, 35 datatypes) and full coverage is an automated test,
    re-runnable at every TEI release. Never example-driven development:
    examples are test cases, not the specification.
@@ -157,19 +177,21 @@ themes, manifest); pieces (apparatus, entities, levels, indices, maps,
 exports); packaging (template repository and in-browser configurator); real
 cases; scholarly publication.
 
-## The adjustments of Angelo Mario Del Grosso (30 July, morning)
+## Contributions received outside the repository
 
-1. **Web components are abstract behaviours of fruition**, not TEI elements:
-   reusable components (popup, toggle, synopsis, facsimile) that any markup
-   can activate. No per-tag granularity.
-2. **Conformance must be judged on two layers.** A custom element can be
-   syntactically legitimate (own namespace, declared in the ODD) and
-   semantically illegitimate if it duplicates a phenomenon P5 already
-   covers. The first example used in the tests (`cancellatura`, which
-   duplicated `del`) was exactly this mistake: it was replaced with
-   `salvataggio`, the autosave layer in born-digital manuscripts, which P5
-   does not cover. The error lands on the editor at press time, never on the
-   reader.
+Substantive contributions arriving by mail and messaging, before or beside
+the repository itself. One line per contribution.
+
+| Who | Date | Contribution | Where it landed |
+|---|---|---|---|
+| Federico Boschetti (CNR-ILC) | 29-30 July | the founding remark; early feedback | Origin; the apparatus DSL in the agenda |
+| Angelo Mario Del Grosso (CNR-ILC) | 30 July | two remarks: web components at the level of fruition behaviours, not TEI elements; extensions only for phenomena the Guidelines do not cover (which led to replacing the test example: `cancellatura`, duplicating `del`, gave way to `salvataggio`) | principle 3; agenda 2 and 7; the test suite |
+| Franz Fischer (VeDPH) | 30 July | the complexity question: does the class approach hold for non-standardized TEI? | principle 13 is the standing answer |
+| Paolo Monella | 30 July | the "sustainability by design" reading; the live vs one-off architecture question; a per-element rendering override request; offered Orso and Romualdo as test cases (open licence) | USAGE; desiderata; the contrast corpus |
+| Peter Robinson (Canterbury Tales Project) | 30 July | offered the [General Prologue](https://talesofcanterbury.org/GP/) transcription and collation materials; pointed to O'Donnell et al. 2019 | the contrast corpus; References |
+| Tiziana Mancinelli (VeDPH) | 30 July | proposed connecting DiScEPT (parallel texts and aligned translations, with F. Boschetti and others) | agenda 6 |
+| Giulio Quaresima | 30 July | first star; the source-exposure question; recalled TEI Boilerplate, which ELA had already used | USAGE; the survey above |
+| Christian D'Agata | 30 July | endorsement of versioning and sustainability at design time | — |
 
 ## State of the prototype (30 July 2026)
 
@@ -207,7 +229,9 @@ teaching purposes.
 5. **Concordances and frequencies of forms** (native Unicode tokenization),
    with grouping strategies declared per edition.
 6. **Advanced collections**: timelines, networks, witness synopses, the text
-   of a single witness derived from the model.
+   of a single witness derived from the model, and the alignment of parallel
+   texts and translations (DiScEPT line, with T. Mancinelli, F. Boschetti
+   and others).
 7. **The conformance report** integrated in the CI (strict: the build fails
    on the syntactic layer, requires written confirmation on the semantic
    one).
@@ -217,11 +241,21 @@ teaching purposes.
 ## Materials and rights
 
 MIT code. Class data generated from the `p5subset` (TEI Consortium, dual
-licence CC BY 3.0 / BSD-2). Demos: Odyssey from the Perseus Digital Library
-(CC BY-SA 4.0); Van Gogh letters from the Van Gogh Museum and Huygens ING
-via e-editiones (CC BY-NC-SA 4.0). Geographic lookups on data derived from
-GeoNames (CC BY 4.0); map coastlines from Natural Earth (public domain); the
-map page uses Leaflet (BSD-2, bundled) and tiles © OpenStreetMap
+licence CC BY 3.0 / BSD-2). Demos: Odyssey from the [Perseus Digital Library](https://github.com/PerseusDL/canonical-greekLit)
+(CC BY-SA 4.0); [Van Gogh letters](https://vangoghletters.org/) from the Van Gogh Museum and Huygens ING
+via [e-editiones](https://github.com/eeditiones/vangogh) (CC BY-NC-SA 4.0). Geographic lookups on data derived from
+[GeoNames](https://www.geonames.org/) (CC BY 4.0); map coastlines from [Natural Earth](https://www.naturalearthdata.com/) (public domain); the
+map page uses [Leaflet](https://leafletjs.com/) (BSD-2, bundled) and tiles © OpenStreetMap
 contributors (ODbL). The contrast corpus is not included in the repository:
 the list of the 95 editions and the method are described above and
 reproducible.
+
+## References
+
+Works pointed out by early readers, cited with gratitude:
+
+- O'Donnell, Daniel Paul, Gurpreet Singh, Dot Porter, et al. 2019.
+  *Publishing (and Forgetting) the Small or Medium-Sized Scholarly Edition
+  or Cultural Heritage Collection as Linked Open Data: Using Zenodo and
+  Github to Publish the Visionary Cross Project.*
+  https://doi.org/10.5281/ZENODO.3338457. (Suggested by Peter Robinson.)
