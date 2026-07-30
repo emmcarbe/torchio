@@ -1039,7 +1039,7 @@ const STRINGS = {
     map: 'Map',
     mapAria: 'Map of the places of the edition',
     mapNote: 'Positional sketch. Filled dots: coordinates declared in the TEI or confirmed by the editor. Hollow dots: gazetteer suggestions awaiting review. Each place links to OpenStreetMap. Coastlines: Natural Earth (public domain).',
-    front: 'Introduction', back: 'Appendices',
+    front: 'Front matter', back: 'Back matter',
     sectionsN: 'sections', sectionOne: 'Section', contents: 'Contents',
     bookLabel: 'Book',
     register: 'Register', documentsN: 'documents',
@@ -1068,7 +1068,7 @@ const STRINGS = {
     map: 'Mappa',
     mapAria: "Mappa dei luoghi dell'edizione",
     mapNote: 'Schizzo posizionale. Punti pieni: coordinate dichiarate nel TEI o confermate dall\u2019editore. Punti vuoti: suggerimenti del gazetteer in attesa di revisione. Ogni luogo rimanda a OpenStreetMap. Coste: Natural Earth (pubblico dominio).',
-    front: 'Introduzione', back: 'Appendici',
+    front: 'Pagine iniziali', back: 'Pagine finali',
     sectionsN: 'sezioni', sectionOne: 'Sezione', contents: 'Indice delle sezioni',
     bookLabel: 'Libro',
     register: 'Registro', documentsN: 'documenti',
@@ -2329,12 +2329,29 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const exports_ = manifest.exports ? buildExports(model, { sourceXML }) : {};
   const hasData = Object.keys(exports_).length > 0;
 
+  // front and back matter name themselves when the markup gives them a
+  // heading; the fallback is neutral (front can be a title page, a preface,
+  // a dedication, a cast list: never presume a genre)
+  const sectionLabel = (node, fallback) => {
+    if (!node) return fallback;
+    const divs = node.children.filter((c) => typeof c !== 'string' && /^div\d?$/.test(c.element));
+    const one = divs.length === 1 ? divs[0] : node;
+    const head = one.children.find((c) => typeof c !== 'string' && c.element === 'head');
+    if (head) {
+      const label = textOfModel(head).trim().replace(/\s+/g, ' ');
+      if (label && label.length <= 40) return label;
+    }
+    return fallback;
+  };
+  const frontLabel = sectionLabel(frontNode, T.front);
+  const backLabel = sectionLabel(backNode, T.back);
+
   // The markup decides existence; the manifest decides presence, order, labels.
   const DEFAULT = [
     ['index', T.edition],
-    ...(frontNode ? [['front', T.front]] : []),
+    ...(frontNode ? [['front', frontLabel]] : []),
     ['text', T.text],
-    ...(backNode ? [['back', T.back]] : []),
+    ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasMap ? [['map', T.map]] : []),
     ...(hasData ? [['data', T.data]] : []),
@@ -2474,14 +2491,14 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({
-        title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
+        title: t, sub: frontLabel.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
     if (backOnOwnPage) {
       out['back.html'] = chrome({
-        title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
+        title: t, sub: backLabel.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
@@ -2514,14 +2531,14 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({
-        title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
+        title: t, sub: frontLabel.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
     if (backOnOwnPage) {
       out['back.html'] = chrome({
-        title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
+        title: t, sub: backLabel.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
