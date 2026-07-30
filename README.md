@@ -7,9 +7,11 @@ multi-page sites with reading text, critical apparatus, indices, maps and
 data exports, published from a git repository (GitHub Pages or any static
 host), with no server and no database.
 
-Status: prototype under development. The principles, the method and the
-origin of the project are in [PRINCIPLES.md](PRINCIPLES.md); corrections
-required by real editions are recorded in [CORRECTIONS.md](CORRECTIONS.md).
+Status: prototype under development. How to use it: [USAGE.md](USAGE.md).
+The principles, the method and the origin of the project are in
+[PRINCIPLES.md](PRINCIPLES.md); corrections required by real editions are
+recorded in [CORRECTIONS.md](CORRECTIONS.md); wishes go in
+[DESIDERATA.md](DESIDERATA.md).
 
 ## Design constraints
 
