@@ -43,6 +43,7 @@ editorial genre.
 | 2026-07-30 | C22 | Ursus Beneventanus (ed. Monella), public demo | extension | `choice` pairs looked interactive (dotted underline) but were not: a click now shows both levels of the pair (abbreviation and expansion, original and regularisation, error and correction), in both views |
 | 2026-07-30 | C23 | Bellum Alexandrinum (DLL), public demo | assignment | witness descriptions were truncated at 80 characters and a `ptr` with no text swallowed its URL, leaving a dangling "URL:": the register now carries the full description and pointer targets surface as links |
 | 2026-07-30 | C24 | all registers | assignment | the 80-character truncation removed by C23 lived in the model itself and applied to every register (people, places, hands, layers), not only witnesses: the model now keeps labels whole; compactness is a concern of the pages |
+| 2026-07-30 | C25 | Ursus Beneventanus (ed. Monella), public demo | assignment | manuscript lineation (`lb`) belongs to the diplomatic level: the reading view flows the prose and `@break="no"` rejoins words split across lines; the base rendering without JavaScript keeps every line break |
 
-As of 30 July 2026: 23 corrections applied (17 assignments, 6 extensions, 0
+As of 30 July 2026: 24 corrections applied (18 assignments, 6 extensions, 0
 structural changes), 1 open.

@@ -27,7 +27,12 @@ export const escapeHTML = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export function renderBase(node) {
-  if (node.element === 'lb') return `<br id="${escapeHTML(node.id)}"/>`;
+  if (node.element === 'lb') {
+    // lineation belongs to the diplomatic level: the reading mode flows,
+    // and @break="no" rejoins a word split across lines (CSS in interact)
+    const nb = node.atts.break === 'no' ? ' data-break="no"' : '';
+    return `<span id="${escapeHTML(node.id)}" class="t-lb"${nb}><br/></span>`;
+  }
   if (node.element === 'pb') {
     const n = node.atts.n ? escapeHTML(node.atts.n) : '';
     return `<span id="${escapeHTML(node.id)}" class="t-pb" role="separator" title="page break">${n ? `[${n}]` : ''}</span>`;
