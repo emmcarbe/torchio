@@ -64,3 +64,11 @@ No dependencies, ES modules, Node >= 18.
 
 MIT. Geographic lookups use data derived from
 [GeoNames](https://www.geonames.org/) (CC BY 4.0).
+
+## Credits
+
+Torchio is designed and maintained by
+[Emmanuela Carbé](https://www.unive.it/persone/emmanuela.carbe)
+(Ca' Foscari University of Venice, Venice Centre for Digital and Public
+Humanities). Contributions received outside the repository are recorded in
+[PRINCIPLES.md](PRINCIPLES.md).

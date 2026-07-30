@@ -348,8 +348,8 @@ function registryLabel(node) {
     const n = findFirst(node, el);
     if (n) return textOfModel(n).trim().replace(/\s+/g, ' ');
   }
-  const t = textOfModel(node).trim().replace(/\s+/g, ' ');
-  return t.length > 80 ? t.slice(0, 77) + '…' : t;
+  // no truncation: the model is lossless, compactness belongs to the pages
+  return pointersText(node).trim().replace(/\s+/g, ' ');
 }
 
 /* ---------------------------------------------------------------- */
