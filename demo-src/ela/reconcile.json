@@ -5,7 +5,7 @@
   "place": {
    "molina": {
     "label": "Molina",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 38.0546,
     "lon": -1.2076,
@@ -47,55 +47,63 @@
    },
    "arima": {
     "label": "Arima",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 10.6374,
-    "lon": -61.2823,
-    "country": "TT",
-    "geonames": 3575051,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 32.65,
+    "lon": 130.33,
+    "country": "JP",
+    "alternatives": [],
+    "note": "Arima (Hizen, Kyushu)"
    },
    "japonia": {
     "label": "Japonia",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 36.2,
+    "lon": 138.25,
+    "note": "Japonia (Japan)",
+    "country": "JP",
+    "source": "editor"
    },
    "bungo": {
     "label": "Bungo",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": -7.4396,
-    "lon": 15.3852,
-    "country": "AO",
-    "geonames": 2243366,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 33.2,
+    "lon": 131.6,
+    "country": "JP",
+    "alternatives": [],
+    "note": "Bungo (Kyushu)"
    },
    "fingo": {
     "label": "Fingo",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 32.8,
+    "lon": 130.7,
+    "note": "Fingo (Higo, Kyushu)",
+    "country": "JP",
+    "source": "editor"
    },
    "firando": {
     "label": "Firando",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 33.37,
+    "lon": 129.55,
+    "note": "Firando (Hirado)",
+    "country": "JP",
+    "source": "editor"
    },
    "nangasaqui": {
     "label": "Nangasaqui",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 32.75,
+    "lon": 129.87,
+    "note": "Nangasaqui (Nagasaki)",
+    "country": "JP",
+    "source": "editor"
    },
    "manilae": {
     "label": "Manilae",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 14.6042,
     "lon": 120.9822,
@@ -140,7 +148,7 @@
    },
    "zayton": {
     "label": "Zayton",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 24.9139,
     "lon": 118.5858,
@@ -150,17 +158,21 @@
    },
    "chambaliech": {
     "label": "Chambaliech",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 39.9075,
+    "lon": 116.3972,
+    "note": "Chambaliech (Khanbaliq, Beijing)",
+    "country": "CN",
+    "source": "editor"
    },
    "cambaliech": {
     "label": "Cambaliech",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 39.9075,
+    "lon": 116.3972,
+    "note": "Cambaliech (Khanbaliq, Beijing)",
+    "country": "CN",
+    "source": "editor"
    },
    "ianuensium": {
     "label": "Ianuensium",
@@ -171,10 +183,12 @@
    },
    "yndia": {
     "label": "Yndia",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 22.0,
+    "lon": 79.0,
+    "note": "Yndia (India)",
+    "country": "IN",
+    "source": "editor"
    },
    "kambaliensis sedis": {
     "label": "Kambaliensis sedis",
@@ -185,47 +199,56 @@
    },
    "yndie": {
     "label": "Yndie",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 22.0,
+    "lon": 79.0,
+    "note": "Yndia (India)",
+    "country": "IN",
+    "source": "editor"
    },
    "quangtung": {
     "label": "Quangtung",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 23.4,
+    "lon": 113.5,
+    "note": "Quangtung (Guangdong)",
+    "country": "CN",
+    "source": "editor"
    },
    "fokien": {
     "label": "Fokien",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 26.1,
+    "lon": 117.98,
+    "note": "Fokien (Fujian)",
+    "country": "CN",
+    "source": "editor"
    },
    "kiangsi": {
     "label": "Kiangsi",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 27.6,
+    "lon": 115.7,
+    "note": "Kiangsi (Jiangxi)",
+    "country": "CN",
+    "source": "editor"
    },
    "sinarum": {
     "label": "Sinarum",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 35.0,
+    "lon": 103.0,
+    "note": "Sinae (China)",
+    "country": "CN",
+    "source": "editor"
    },
    "china": {
     "label": "China",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 25.6998,
-    "lon": -99.2346,
-    "country": "MX",
-    "geonames": 3530839,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 35.0,
+    "lon": 103.0,
+    "country": "CN",
     "alternatives": [
      {
       "name": "China",
@@ -259,7 +282,8 @@
       "population": 2627,
       "geonames": 1734736
      }
-    ]
+    ],
+    "note": "China"
    },
    "cantonensi": {
     "label": "Cantonensi",
@@ -284,7 +308,7 @@
    },
    "canton": {
     "label": "Canton",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 23.1167,
     "lon": 113.25,
@@ -369,10 +393,12 @@
    },
    "chekiang": {
     "label": "Chekiang",
-    "status": "missing",
-    "lat": null,
-    "lon": null,
-    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+    "status": "confirmed",
+    "lat": 29.2,
+    "lon": 120.5,
+    "note": "Chekiang (Zhejiang)",
+    "country": "CN",
+    "source": "editor"
    },
    "hukuang": {
     "label": "Hukuang",
@@ -432,7 +458,7 @@
    },
    "roma": {
     "label": "Roma",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 41.8919,
     "lon": 12.5113,
@@ -531,7 +557,7 @@
    },
    "nanking": {
     "label": "Nanking",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 32.0617,
     "lon": 118.7778,
@@ -541,7 +567,7 @@
    },
    "peking": {
     "label": "Peking",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 39.9075,
     "lon": 116.3972,
@@ -582,7 +608,7 @@
    },
    "honan": {
     "label": "Honan",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 34.6735,
     "lon": 112.4368,
@@ -669,7 +695,7 @@
    },
    "macao": {
     "label": "Macao",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 22.2006,
     "lon": 113.5461,
@@ -801,13 +827,13 @@
    },
    "gallia": {
     "label": "Gallia",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": -22.2914,
-    "lon": -49.5528,
-    "country": "BR",
-    "geonames": 3462687,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 46.6,
+    "lon": 2.4,
+    "country": "FR",
+    "alternatives": [],
+    "note": "Gallia (France)"
    },
    "romam": {
     "label": "Romam",
@@ -916,12 +942,11 @@
    },
    "don": {
     "label": "Don",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 50.5491,
-    "lon": 2.9182,
-    "country": "FR",
-    "geonames": 3021105,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 47.27,
+    "lon": 39.8,
+    "country": "RU",
     "alternatives": [
      {
       "name": "Don",
@@ -939,16 +964,16 @@
       "population": 221,
       "geonames": 8952705
      }
-    ]
+    ],
+    "note": "Don (river)"
    },
    "volga": {
     "label": "Volga",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 57.9516,
-    "lon": 38.3879,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 48.7,
+    "lon": 44.5,
     "country": "RU",
-    "geonames": 472777,
     "alternatives": [
      {
       "name": "Volga",
@@ -958,7 +983,8 @@
       "population": 1865,
       "geonames": 5232637
      }
-    ]
+    ],
+    "note": "Volga (river)"
    },
    "thanais": {
     "label": "Thanais",
@@ -976,7 +1002,7 @@
    },
    "comania": {
     "label": "Comania",
-    "status": "suggested",
+    "status": "rejected",
     "source": "geonames",
     "lat": 19.7461,
     "lon": -101.6908,
@@ -1049,17 +1075,17 @@
    },
    "rehno": {
     "label": "Rehno",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 39.5296,
-    "lon": -119.8138,
-    "country": "US",
-    "geonames": 5511077,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 50.0,
+    "lon": 7.5,
+    "country": "DE",
+    "alternatives": [],
+    "note": "Rhenus (Rhine)"
    },
    "lugdunum": {
     "label": "Lugdunum",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 45.7491,
     "lon": 4.8479,
@@ -1078,13 +1104,13 @@
    },
    "hispania": {
     "label": "Hispania",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 5.7992,
-    "lon": -75.9072,
-    "country": "CO",
-    "geonames": 3680857,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 40.2,
+    "lon": -3.7,
+    "country": "ES",
+    "alternatives": [],
+    "note": "Hispania (Spain)"
    },
    "insulas philippinas": {
     "label": "insulas Philippinas",
@@ -1095,7 +1121,7 @@
    },
    "manila": {
     "label": "Manila",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 14.6042,
     "lon": 120.9822,
@@ -1206,7 +1232,7 @@
    },
    "vasora": {
     "label": "Vasora",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 30.5085,
     "lon": 47.7804,
@@ -1223,12 +1249,11 @@
    },
    "sina": {
     "label": "Sina",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 35.315,
-    "lon": 46.9988,
-    "country": "IR",
-    "geonames": 117574,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 35.0,
+    "lon": 103.0,
+    "country": "CN",
     "alternatives": [
      {
       "name": "Sīnah",
@@ -1254,7 +1279,8 @@
       "population": 363,
       "geonames": 3928601
      }
-    ]
+    ],
+    "note": "Sina (China)"
    },
    "sinis": {
     "label": "Sinis",
@@ -1279,12 +1305,11 @@
    },
    "india": {
     "label": "India",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 45.0482,
-    "lon": 20.0816,
-    "country": "RS",
-    "geonames": 790015,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 22.0,
+    "lon": 79.0,
+    "country": "IN",
     "alternatives": [
      {
       "name": "San Candido",
@@ -1294,7 +1319,8 @@
       "population": 2282,
       "geonames": 3168508
      }
-    ]
+    ],
+    "note": "India"
    },
    "india orientali": {
     "label": "India Orientali",
@@ -1326,7 +1352,7 @@
    },
    "makau": {
     "label": "Makau",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 22.2006,
     "lon": 113.5461,
@@ -1415,12 +1441,11 @@
    },
    "goa": {
     "label": "Goa",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 44.4048,
-    "lon": 8.9444,
-    "country": "IT",
-    "geonames": 3176219,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 15.5,
+    "lon": 73.9,
+    "country": "IN",
     "alternatives": [
      {
       "name": "Mormugao",
@@ -1438,7 +1463,8 @@
       "population": 20936,
       "geonames": 1712808
      }
-    ]
+    ],
+    "note": "Goa"
    },
    "lusitania": {
     "label": "Lusitania",
@@ -1470,7 +1496,7 @@
    },
    "macaum": {
     "label": "Macaum",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 22.2006,
     "lon": 113.5461,
@@ -1899,7 +1925,7 @@
    },
    "cochim": {
     "label": "Cochim",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 9.9399,
     "lon": 76.2602,
@@ -2077,12 +2103,11 @@
    },
    "formosa": {
     "label": "Formosa",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": -26.1849,
-    "lon": -58.1731,
-    "country": "AR",
-    "geonames": 3433899,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 23.7,
+    "lon": 121.0,
+    "country": "TW",
     "alternatives": [
      {
       "name": "Formosa",
@@ -2116,16 +2141,16 @@
       "population": 25899,
       "geonames": 3463124
      }
-    ]
+    ],
+    "note": "Formosa (Taiwan)"
    },
    "luzon": {
     "label": "Luzon",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 6.519,
-    "lon": 126.0941,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 16.0,
+    "lon": 121.0,
     "country": "PH",
-    "geonames": 1704845,
     "alternatives": [
      {
       "name": "Luzón",
@@ -2135,7 +2160,8 @@
       "population": 80,
       "geonames": 3117776
      }
-    ]
+    ],
+    "note": "Luzon"
    },
    "sedemque apostolicam": {
     "label": "Sedemque Apostolicam",
@@ -2174,13 +2200,13 @@
    },
    "colonie": {
     "label": "Colonie",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 42.7179,
-    "lon": -73.8335,
-    "country": "US",
-    "geonames": 5113348,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 50.94,
+    "lon": 6.96,
+    "country": "DE",
+    "alternatives": [],
+    "note": "Colonia (Cologne)"
    },
    "cothay": {
     "label": "Cothay",
@@ -2219,7 +2245,7 @@
    },
    "sara": {
     "label": "Sara",
-    "status": "suggested",
+    "status": "rejected",
     "source": "geonames",
     "lat": 9.1456,
     "lon": 18.3833,
@@ -2339,7 +2365,7 @@
    },
    "rome": {
     "label": "Rome",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 41.8919,
     "lon": 12.5113,
@@ -2466,7 +2492,7 @@
    },
    "asia": {
     "label": "Asia",
-    "status": "suggested",
+    "status": "rejected",
     "source": "geonames",
     "lat": 9.5506,
     "lon": 122.5164,
@@ -2548,12 +2574,11 @@
    },
    "malaca": {
     "label": "Malaca",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 36.7202,
-    "lon": -4.4203,
-    "country": "ES",
-    "geonames": 2514256,
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 2.2,
+    "lon": 102.25,
+    "country": "MY",
     "alternatives": [
      {
       "name": "Malacca",
@@ -2563,7 +2588,8 @@
       "population": 579000,
       "geonames": 1734759
      }
-    ]
+    ],
+    "note": "Malacca"
    },
    "avinionem": {
     "label": "Avinionem",
@@ -2609,7 +2635,7 @@
    },
    "galatas": {
     "label": "Galatas",
-    "status": "suggested",
+    "status": "rejected",
     "source": "geonames",
     "lat": 35.4986,
     "lon": 23.9634,
@@ -2671,7 +2697,7 @@
    },
    "saray": {
     "label": "Saray",
-    "status": "suggested",
+    "status": "rejected",
     "source": "geonames",
     "lat": 41.0175,
     "lon": 28.971,
@@ -2742,7 +2768,7 @@
    },
    "ierusalem": {
     "label": "Ierusalem",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 31.769,
     "lon": 35.2163,
@@ -2801,23 +2827,23 @@
    },
    "cayton": {
     "label": "Cayton",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 17.35,
-    "lon": -62.7333,
-    "country": "KN",
-    "geonames": 3575487,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 24.91,
+    "lon": 118.59,
+    "country": "CN",
+    "alternatives": [],
+    "note": "Cayton (Zayton, Quanzhou)"
    },
    "armenie": {
     "label": "Armenie",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 4.5366,
-    "lon": -75.6726,
-    "country": "CO",
-    "geonames": 3689560,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 40.1,
+    "lon": 45.0,
+    "country": "AM",
+    "alternatives": [],
+    "note": "Armenia"
    },
    "cambalieth": {
     "label": "Cambalieth",
@@ -2877,7 +2903,7 @@
    },
    "atalaya": {
     "label": "Atalaya",
-    "status": "suggested",
+    "status": "rejected",
     "source": "geonames",
     "lat": -10.7307,
     "lon": -73.7587,
@@ -2975,7 +3001,7 @@
    },
    "lamego": {
     "label": "Lamego",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 41.0974,
     "lon": -7.8099,
@@ -3009,7 +3035,7 @@
    },
    "fontanarosa": {
     "label": "Fontanarosa",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 41.0181,
     "lon": 15.0206,
@@ -3019,13 +3045,13 @@
    },
    "barcellos": {
     "label": "Barcellos",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": -0.9736,
-    "lon": -62.9269,
-    "country": "BR",
-    "geonames": 3665098,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 41.53,
+    "lon": -8.62,
+    "country": "PT",
+    "alternatives": [],
+    "note": "Barcelos"
    },
    "cocinensis": {
     "label": "Cocinensis",
@@ -3253,7 +3279,7 @@
    },
    "pragae": {
     "label": "PRAGAE",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 50.088,
     "lon": 14.4208,
@@ -3431,13 +3457,13 @@
    },
    "pequini": {
     "label": "Pequini",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 41.0461,
-    "lon": 19.7511,
-    "country": "AL",
-    "geonames": 3184497,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 39.9075,
+    "lon": 116.3972,
+    "country": "CN",
+    "alternatives": [],
+    "note": "Pequini (Peking)"
    },
    "insulae iaponis": {
     "label": "Insulae Iaponis",
@@ -3609,7 +3635,7 @@
    },
    "hamburgum": {
     "label": "Hamburgum",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 53.5507,
     "lon": 9.993,
@@ -4578,7 +4604,7 @@
    },
    "kienning": {
     "label": "Kienning",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 27.0415,
     "lon": 118.319,
@@ -5038,7 +5064,7 @@
    },
    "bruxellae": {
     "label": "Bruxellae",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 50.8505,
     "lon": 4.3488,
@@ -5244,7 +5270,7 @@
    },
    "omura": {
     "label": "Omura",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 32.9214,
     "lon": 129.9539,
@@ -5702,7 +5728,7 @@
    },
    "uto": {
     "label": "Uto",
-    "status": "suggested",
+    "status": "confirmed",
     "source": "geonames",
     "lat": 32.6833,
     "lon": 130.6667,
@@ -5754,13 +5780,13 @@
    },
    "corai": {
     "label": "Corai",
-    "status": "suggested",
-    "source": "geonames",
-    "lat": 19.25,
-    "lon": 72.7833,
-    "country": "IN",
-    "geonames": 1270937,
-    "alternatives": []
+    "status": "confirmed",
+    "source": "editor",
+    "lat": 36.5,
+    "lon": 127.8,
+    "country": "KR",
+    "alternatives": [],
+    "note": "Corai (Korea)"
    },
    "tensae": {
     "label": "Tensae",
