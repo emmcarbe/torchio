@@ -28,7 +28,8 @@ import { resolveIncludes } from '../src/xinclude.js';
 import { isODD } from '../src/odd.js';
 import { loadBaseData, buildClassMap } from '../src/classes.js';
 import { buildModel, walkModel } from '../src/model.js';
-import { collectTokens, conlluTypes, typesFromVotes, mergeLemmaTypes } from '../src/lemmas.js';
+import { collectTokens, conlluTypes, typesFromVotes, mergeLemmaTypes,
+  reviewCSV, parseReviewCSV, applyReview } from '../src/lemmas.js';
 
 const UDPIPE = 'https://lindat.mff.cuni.cz/services/udpipe/api';
 // language -> UDPipe model name prefix (resolved against the live model list)
@@ -55,7 +56,25 @@ const opt = (name) => {
 const [input] = args;
 if (!input) {
   console.error('usage: node tools/lemmatize.js <edition.xml | folder> [--lang=xx] [--model=NAME] [--conllu=file] [--out=lemmas.json]');
+  console.error('       node tools/lemmatize.js <edition.xml | folder> --import=lemmas-review.csv');
   process.exit(1);
+}
+
+// ---- the review circuit: spreadsheet decisions back into lemmas.json ----
+const importPath = opt('import');
+if (importPath) {
+  const jsonPath = opt('out')
+    || join((await stat(input)).isDirectory() ? input : dirname(input), 'lemmas.json');
+  const existing = JSON.parse(await readFile(jsonPath, 'utf-8'));
+  const rows = parseReviewCSV(await readFile(importPath, 'utf-8'));
+  const { json, decided } = applyReview(existing, rows);
+  await writeFile(jsonPath, JSON.stringify(json, null, 2) + '\n');
+  await writeFile(jsonPath.replace(/\.json$/, '-review.csv'), reviewCSV(json.types));
+  const counts = { suggested: 0, review: 0, confirmed: 0, rejected: 0 };
+  for (const t of json.types) counts[t.status] = (counts[t.status] || 0) + 1;
+  console.error(`imported: ${decided} decisions from ${importPath}`);
+  console.error(`  types: ${json.types.length} (suggested ${counts.suggested}, review ${counts.review}, confirmed ${counts.confirmed}, rejected ${counts.rejected})`);
+  process.exit(0);
 }
 
 // ---- the edition's token stream (same modules as the press) ----
@@ -173,9 +192,15 @@ try { existing = JSON.parse(await readFile(outPath, 'utf-8')); } catch { /* firs
 const generator = conlluPath ? `conllu: ${conlluPath}` : `udpipe`;
 const merged = mergeLemmaTypes(existing, fresh, generator);
 await writeFile(outPath, JSON.stringify(merged, null, 2) + '\n');
+// the same content as a spreadsheet, sorted by what deserves the eye first:
+// entries the tagger itself doubted, then frequency (Zipf pays: on a real
+// corpus a few hundred types cover half the tokens)
+const reviewPath = outPath.replace(/\.json$/, '-review.csv');
+await writeFile(reviewPath, reviewCSV(merged.types));
 
 const counts = { suggested: 0, review: 0, confirmed: 0, rejected: 0 };
 for (const t of merged.types) counts[t.status] = (counts[t.status] || 0) + 1;
 console.error(`written: ${outPath}`);
 console.error(`  types: ${merged.types.length} (suggested ${counts.suggested}, review ${counts.review}, confirmed ${counts.confirmed}, rejected ${counts.rejected})`);
-console.error('  review the file: confirm, correct or reject; your decisions survive re-runs.');
+console.error(`  review: ${reviewPath} (open in a spreadsheet: doubted entries first, then by frequency;`);
+console.error('  fix a lemma or set the status, then run again with --import=...; your decisions survive re-runs.');

@@ -175,16 +175,37 @@ coverage. Two ways in:
 
       node tools/lemmatize.js path/to/edition.xml
 
-  The language comes from `--lang=`, or from what the TEI itself declares
-  in `langUsage`; the tool picks the matching UDPipe model (Latin, ancient
-  Greek, Italian, Dutch, French, German, English, Spanish, Portuguese;
-  `--model=` to choose exactly, `--conllu=file` to work fully offline from
-  any local pipeline). If it knows no model for the declared language it
-  stops and says so. Every entry is written as `suggested`; where the
-  tagger disagreed with itself the entry says `review` and lists the
-  alternatives: the homograph is the editor's call. Review the file:
-  confirm, correct or reject. Your decisions survive re-runs, and only
-  then is the index worth its name.
+  The language of every token is the markup's decision: the nearest
+  ancestor with `xml:lang`, falling back to the header's `langUsage`
+  (ISO 639-2 and 639-1 are read as one declaration: `lat` is `la`). A
+  multilingual edition is lemmatized per language, and the index groups
+  and declares coverage per language. The tool picks the matching UDPipe
+  model (Latin, ancient Greek, Italian, Dutch, French, German, English,
+  Spanish, Portuguese); for Latin, the date of the text (`creation` in
+  the header) chooses between classical and post-classical. `--lang=` and
+  `--model=` override everything; `--conllu=file` works fully offline
+  from any local pipeline. If no model is known for a declared language
+  the tool says so and skips it: never a silent guess in the wrong
+  language.
+
+### When the lemmatizer is wrong (it will be)
+
+Every entry is written as `suggested`; where the tagger disagreed with
+itself the entry says `review` and lists the alternatives: the homograph
+is the editor's call. Next to `lemmas.json` the tool writes
+`lemmas-review.csv`, the same content for a spreadsheet, sorted by what
+deserves the eye first: doubted entries, then frequency. Zipf pays: on a
+real corpus a few hundred types cover half the tokens, so a bounded
+session of review carries most of the text. Fix a lemma or set the
+status (`confirmed` / `rejected`), then import the decisions back:
+
+    node tools/lemmatize.js path/to/edition --import=lemmas-review.csv
+
+An edited lemma counts as a decision even if the status column is left
+alone. Your decisions survive every re-run, and the pressed page counts
+what is still pending. Corrections are by type (a form everywhere in the
+edition); per-occurrence overrides for true homographs are a declared
+limit of v0.
 
 Traditions that are not lemmatized are not forced into this: without
 lemmas there simply is no Lemmas page, and nothing else changes.

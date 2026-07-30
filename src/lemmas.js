@@ -245,6 +245,83 @@ export function typesFromVotes(votes, formFilter = null, lang = null) {
   return types.sort((a, b) => a.form.localeCompare(b.form));
 }
 
+/* ------------------------------------------------------------------ */
+/* The review circuit: errors exist, so reviewing must be cheap.       */
+/* A CSV the editor opens in a spreadsheet, sorted by what deserves    */
+/* the eye first: entries the tagger itself doubted, then frequency.   */
+
+function csvCell(v) {
+  const s = String(v ?? '');
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+export function reviewCSV(types) {
+  const rows = [['form', 'lang', 'lemma', 'status', 'count', 'alternatives']];
+  const sorted = [...types].sort((a, b) =>
+    (a.status === 'review' ? 0 : 1) - (b.status === 'review' ? 0 : 1)
+    || (b.count || 0) - (a.count || 0)
+    || a.form.localeCompare(b.form));
+  for (const t of sorted) {
+    rows.push([t.form, t.lang || '', t.lemma, t.status || 'suggested',
+      t.count ?? '', (t.alternatives || []).join(' ')]);
+  }
+  return rows.map((r) => r.map(csvCell).join(',')).join('\n') + '\n';
+}
+
+export function parseReviewCSV(text) {
+  const rows = [];
+  let row = [], cell = '', inQ = false;
+  const push = () => { row.push(cell); cell = ''; };
+  const endRow = () => { if (row.length > 1 || row[0] !== '') rows.push(row); row = []; };
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (c === '"') inQ = false;
+      else cell += c;
+    } else if (c === '"') inQ = true;
+    else if (c === ',') push();
+    else if (c === '\n') { push(); endRow(); }
+    else if (c !== '\r') cell += c;
+  }
+  if (cell !== '' || row.length) { push(); endRow(); }
+  const [header, ...body] = rows;
+  const col = (name) => header.indexOf(name);
+  const iF = col('form'), iL = col('lang'), iLe = col('lemma'), iS = col('status');
+  if (iF < 0 || iLe < 0) throw new Error('review CSV: "form" and "lemma" columns are required');
+  return body.map((r) => ({
+    form: r[iF],
+    lang: iL >= 0 && r[iL] ? r[iL] : undefined,
+    lemma: r[iLe],
+    status: iS >= 0 && r[iS] ? r[iS] : undefined,
+  })).filter((t) => t.form);
+}
+
+/**
+ * Apply the editor's reviewed rows to an existing lemmas.json.
+ * The rules: an explicit status (confirmed / rejected) is a decision; an
+ * edited lemma is a decision too (confirmed), even if the status column was
+ * left alone. Untouched rows stay exactly as they were.
+ */
+export function applyReview(existing, rows) {
+  const out = { ...existing, types: existing.types.map((t) => ({ ...t })) };
+  const byKey = new Map();
+  for (const t of out.types) byKey.set(`${normLang(t.lang)}|${t.form.toLowerCase()}`, t);
+  let decided = 0;
+  for (const r of rows) {
+    const t = byKey.get(`${normLang(r.lang)}|${r.form.toLowerCase()}`);
+    if (!t) continue;
+    const lemmaEdited = r.lemma && r.lemma !== t.lemma;
+    const statusSet = r.status === 'confirmed' || r.status === 'rejected';
+    if (!lemmaEdited && !statusSet) continue;
+    if (lemmaEdited) t.lemma = r.lemma;
+    t.status = statusSet ? r.status : 'confirmed';
+    delete t.alternatives;
+    decided++;
+  }
+  return { json: out, decided };
+}
+
 /**
  * Merge fresh suggestions into an existing lemmas.json: the tool proposes,
  * the editor decides, and only the editor's decisions survive re-runs

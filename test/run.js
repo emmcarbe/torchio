@@ -656,4 +656,33 @@ console.log('lemmas — concordances and frequencies, only where lemmas exist');
     'confirmed entries are never overwritten; mere suggestions are refreshed');
 }
 
+console.log('lemma review — errors exist, so reviewing must be cheap');
+{
+  const { reviewCSV, parseReviewCSV, applyReview } = await import('../src/lemmas.js');
+  const types = [
+    { form: 'et', lemma: 'et', status: 'suggested', count: 900 },
+    { form: 'legge', lemma: 'lex', status: 'review', count: 7, alternatives: ['lex', 'legere'] },
+    { form: 'errò', lemma: 'erro', status: 'suggested', count: 3 },
+  ];
+  const csvText = reviewCSV(types);
+  const lines = csvText.trim().split('\n');
+  ok(lines[1].startsWith('legge,') && lines[2].startsWith('et,'),
+    'the review CSV puts doubted entries first, then frequency: the eye goes where it pays');
+  const rows = parseReviewCSV(csvText);
+  ok(rows.length === 3 && rows[1].form === 'et' && rows[1].lemma === 'et',
+    'the CSV reads back: spreadsheet in, decisions out');
+
+  // the editor fixes one lemma, sets one status, leaves the rest alone
+  const edited = parseReviewCSV(csvText
+    .replace('errò,,erro,suggested', 'errò,,errare,suggested')
+    .replace('legge,,lex,review', 'legge,,lex,confirmed'));
+  const { json, decided } = applyReview({ generator: 'test', types }, edited);
+  const byForm = Object.fromEntries(json.types.map((t) => [t.form, t]));
+  ok(decided === 2
+    && byForm['errò'].lemma === 'errare' && byForm['errò'].status === 'confirmed'
+    && byForm['legge'].status === 'confirmed' && !byForm['legge'].alternatives
+    && byForm['et'].status === 'suggested',
+    'an edited lemma is a decision (confirmed); explicit statuses count; untouched rows stay');
+}
+
 console.log(`\n${passed} assertions passed.`);

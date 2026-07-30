@@ -77,6 +77,9 @@ body.notes-off .t-note-mark{opacity:.25}
 
 .t-app .t-rdg{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+  border-bottom:none;margin-right:.5em;vertical-align:.08em}
 .t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
 
 footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;
@@ -253,9 +256,9 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>Eurasian Latin Archive · three texts</h1><p class="sub">data</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html">Text</a><a href="lemmas.html">Lemmas</a><a href="data.html" class="on">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html">Text</a><a href="indices.html">Indices</a><a href="lemmas.html">Lemmas</a><a href="map.html">Map</a><a href="data.html" class="on">Data</a></nav>
 </header>
-<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">12.6 MB</td></tr><tr><td class="sigla"><a href="data/lemmas.csv">lemmas.csv</a></td><td>every lemma with its forms and counts, one row per form</td><td class="occ">253.3 KB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>the token stream of the reading text: position, language, form, lemma, anchor</td><td class="occ">3.3 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
+<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>the edition model: documents, registries, apparatus (JSON)</td><td class="occ">12.6 MB</td></tr><tr><td class="sigla"><a href="data/entities.csv">entities.csv</a></td><td>people, places and organisations with occurrence counts and coordinates</td><td class="occ">0.8 KB</td></tr><tr><td class="sigla"><a href="data/lemmas.csv">lemmas.csv</a></td><td>every lemma with its forms and counts, one row per form</td><td class="occ">253.3 KB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>the token stream of the reading text: position, language, form, lemma, anchor</td><td class="occ">3.3 MB</td></tr></table><p class="occ">Reuse under the edition licence (see the Edition page).</p></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 
 </body>

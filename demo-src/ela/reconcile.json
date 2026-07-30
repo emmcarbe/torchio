@@ -1,0 +1,6339 @@
+{
+ "sources": "places: GeoNames cities1000 (CC BY 4.0). People and organisations: fill in viaf / wikidata / gnd / isil.",
+ "howto": "review each entry: set status to \"confirmed\" (correcting data if needed) or \"rejected\"; fill in data for \"missing\". Your edits survive re-runs.",
+ "entities": {
+  "place": {
+   "proviciae chinensis": {
+    "label": "Proviciae Chinensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "romae": {
+    "label": "Romae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "china": {
+    "label": "China",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 25.6998,
+    "lon": -99.2346,
+    "country": "MX",
+    "geonames": 3530839,
+    "alternatives": [
+     {
+      "name": "China",
+      "lat": 27.3333,
+      "lon": 128.5667,
+      "country": "JP",
+      "population": 5976,
+      "geonames": 1864565
+     },
+     {
+      "name": "Chiná",
+      "lat": 19.7691,
+      "lon": -90.4951,
+      "country": "MX",
+      "population": 5194,
+      "geonames": 3530840
+     },
+     {
+      "name": "China",
+      "lat": 44.4787,
+      "lon": -69.5173,
+      "country": "US",
+      "population": 4269,
+      "geonames": 4960817
+     },
+     {
+      "name": "Lubok China",
+      "lat": 2.4536,
+      "lon": 102.0695,
+      "country": "MY",
+      "population": 2627,
+      "geonames": 1734736
+     }
+    ]
+   },
+   "asiae": {
+    "label": "Asiae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chinensi regno": {
+    "label": "Chinensi Regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insula hai-nan": {
+    "label": "Insula HAI-NAN",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chinas": {
+    "label": "Chinas",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chinarum imperio": {
+    "label": "Chinarum Imperio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperii chinensis": {
+    "label": "Imperii Chinensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tartarorum imperio": {
+    "label": "Tartarorum Imperio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chinae": {
+    "label": "Chinae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tartariam": {
+    "label": "Tartariam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chinam": {
+    "label": "Chinam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "philippinas": {
+    "label": "Philippinas",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tartarum": {
+    "label": "Tartarum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "pequini": {
+    "label": "Pequini",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 41.0461,
+    "lon": 19.7511,
+    "country": "AL",
+    "geonames": 3184497,
+    "alternatives": []
+   },
+   "tartaria": {
+    "label": "Tartaria",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insulae iaponis": {
+    "label": "Insulae Iaponis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponum": {
+    "label": "Iaponum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cantonem": {
+    "label": "Cantonem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "macao": {
+    "label": "Macao",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 22.2006,
+    "lon": 113.5461,
+    "country": "MO",
+    "geonames": 1821274,
+    "alternatives": [
+     {
+      "name": "Macau",
+      "lat": -5.115,
+      "lon": -36.6344,
+      "country": "BR",
+      "population": 32039,
+      "geonames": 3395998
+     },
+     {
+      "name": "Mação",
+      "lat": 39.5557,
+      "lon": -7.9942,
+      "country": "PT",
+      "population": 0,
+      "geonames": 2266924
+     }
+    ]
+   },
+   "cantone": {
+    "label": "Cantone",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinicum imperium": {
+    "label": "Sinicum Imperium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provincia sinensi": {
+    "label": "Provincia Sinensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "antverpiae": {
+    "label": "ANTVERPIAE",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "poloniae": {
+    "label": "POLONIAE",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sveciae": {
+    "label": "SVECIAE",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "europae": {
+    "label": "Europae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sina": {
+    "label": "Sina",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 35.315,
+    "lon": 46.9988,
+    "country": "IR",
+    "geonames": 117574,
+    "alternatives": [
+     {
+      "name": "Sīnah",
+      "lat": 36.8085,
+      "lon": 43.0393,
+      "country": "IQ",
+      "population": 128776,
+      "geonames": 90708
+     },
+     {
+      "name": "Kinna",
+      "lat": 57.5073,
+      "lon": 12.6946,
+      "country": "SE",
+      "population": 15019,
+      "geonames": 2700839
+     },
+     {
+      "name": "Sina",
+      "lat": -14.4966,
+      "lon": -69.2799,
+      "country": "PE",
+      "population": 363,
+      "geonames": 3928601
+     }
+    ]
+   },
+   "europam": {
+    "label": "Europam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinensis regni": {
+    "label": "Sinensis Regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperio": {
+    "label": "Imperio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "romam": {
+    "label": "Romam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperii": {
+    "label": "Imperii",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinam": {
+    "label": "Sinam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "philippinis in insulis": {
+    "label": "Philippinis in Insulis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iavam": {
+    "label": "Iavam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "novam bataviam": {
+    "label": "novam Bataviam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bonae spei promontorio": {
+    "label": "Bonae Spei Promontorio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insulis britannicis": {
+    "label": "Insulis Britannicis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "americam": {
+    "label": "Americam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "scotiam": {
+    "label": "Scotiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "islandiam": {
+    "label": "Islandiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "berghas": {
+    "label": "Berghas",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "norvegiae": {
+    "label": "Norvegiae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "hamburgum": {
+    "label": "Hamburgum",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 53.5507,
+    "lon": 9.993,
+    "country": "DE",
+    "geonames": 2911298,
+    "alternatives": []
+   },
+   "hollandiam": {
+    "label": "Hollandiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "antverpiam": {
+    "label": "Antverpiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bruxellamque": {
+    "label": "Bruxellamque",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "africum bonae spei promontorium": {
+    "label": "Africum Bonae Spei Promontorium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "europa": {
+    "label": "Europa",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperii sinici": {
+    "label": "Imperii Sinici",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "asia": {
+    "label": "Asia",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 9.5506,
+    "lon": 122.5164,
+    "country": "PH",
+    "geonames": 1730097,
+    "alternatives": [
+     {
+      "name": "Asia",
+      "lat": -12.7794,
+      "lon": -76.5567,
+      "country": "PE",
+      "population": 890,
+      "geonames": 3947240
+     }
+    ]
+   },
+   "sinico imperio": {
+    "label": "Sinico imperio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinarum": {
+    "label": "Sinarum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "veterem tartariam": {
+    "label": "veterem Tartariam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "samahania": {
+    "label": "Samahania",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tanyu": {
+    "label": "Tanyu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "niuche": {
+    "label": "Niuche",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "niulhan": {
+    "label": "Niulhan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno cascar": {
+    "label": "Regno Cascar",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponiam": {
+    "label": "Iaponiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "americae": {
+    "label": "Americae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quevira": {
+    "label": "Quevira",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinas": {
+    "label": "Sinas",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tartariae": {
+    "label": "Tartariae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "asiam": {
+    "label": "Asiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinis": {
+    "label": "Sinis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "catayum": {
+    "label": "Catayum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "mangin": {
+    "label": "Mangin",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinae": {
+    "label": "Sinae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperium": {
+    "label": "Imperium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperio sinico": {
+    "label": "Imperio Sinico",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanking urbe": {
+    "label": "Nanking urbe",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanking": {
+    "label": "Nanking",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 32.0617,
+    "lon": 118.7778,
+    "country": "CN",
+    "geonames": 1799962,
+    "alternatives": []
+   },
+   "kiang maximi fluminis": {
+    "label": "Kiang maximi fluminis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "leaotung": {
+    "label": "Leaotung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "niuche regnum": {
+    "label": "Niuche Regnum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tanyu regni": {
+    "label": "Tanyu Regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperium itaque sinicum": {
+    "label": "Imperium itaque Sinicum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "niuche regni": {
+    "label": "Niuche Regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "leaotung provincia": {
+    "label": "Leaotung Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "niuche regno": {
+    "label": "Niuche Regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbem caiyuen": {
+    "label": "Urbem Caiyuen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tuxun": {
+    "label": "Tuxun",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "leaotung provinciae": {
+    "label": "Leaotung Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "leaoyang metropolim": {
+    "label": "Leaoyang metropolim",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "leaoyang metropolis": {
+    "label": "Leaoyang metropolis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangning": {
+    "label": "Quangning",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "peking": {
+    "label": "Peking",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 39.9075,
+    "lon": 116.3972,
+    "country": "CN",
+    "geonames": 1816670,
+    "alternatives": [
+     {
+      "name": "Kosciusko",
+      "lat": 33.058,
+      "lon": -89.5896,
+      "country": "US",
+      "population": 7187,
+      "geonames": 4432542
+     },
+     {
+      "name": "Pöcking",
+      "lat": 47.9667,
+      "lon": 11.3,
+      "country": "DE",
+      "population": 5734,
+      "geonames": 2853066
+     }
+    ]
+   },
+   "leaotung metropolim": {
+    "label": "Leaotung metropolim",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno": {
+    "label": "Regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "macaum": {
+    "label": "Macaum",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 22.2006,
+    "lon": 113.5461,
+    "country": "MO",
+    "geonames": 1821274,
+    "alternatives": []
+   },
+   "sinae imperium": {
+    "label": "Sinae Imperium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "coreae": {
+    "label": "Coreae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "thiencin": {
+    "label": "Thiencin",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuen": {
+    "label": "Suchuen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuen provinciae": {
+    "label": "Suchuen Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropolim leaoyang": {
+    "label": "metropolim Leaoyang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "leaoyang urbs": {
+    "label": "Leaoyang urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bosphori": {
+    "label": "Bosphori",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xanghai": {
+    "label": "Xanghai",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insula cu": {
+    "label": "Insula Cu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "yalo fluminis": {
+    "label": "Yalo fluminis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangtung provincia": {
+    "label": "Quangtung Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "ningyuensium": {
+    "label": "Ningyuensium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "ningyuen": {
+    "label": "Ningyuen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinici imperii": {
+    "label": "Sinici Imperii",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "ningyuen urbi": {
+    "label": "Ningyuen urbi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "thaoyuen insulam": {
+    "label": "Thaoyuen Insulam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum tartaricum": {
+    "label": "Regnum Tartaricum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "hienkien": {
+    "label": "Hienkien",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "coream": {
+    "label": "Coream",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "corea": {
+    "label": "Corea",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "peking provinciam": {
+    "label": "Peking Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "peking provincia": {
+    "label": "Peking Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xantung": {
+    "label": "Xantung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insulam cu": {
+    "label": "insulam Cu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuen provincia": {
+    "label": "Suchuen Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chingtu": {
+    "label": "Chingtu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "queicheu provincia": {
+    "label": "Queicheu Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xensi provincia": {
+    "label": "Xensi Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xensi provinciae": {
+    "label": "Xensi Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "honan": {
+    "label": "Honan",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 34.6735,
+    "lon": 112.4368,
+    "country": "CN",
+    "geonames": 1801792,
+    "alternatives": []
+   },
+   "huquang": {
+    "label": "Huquang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xensi": {
+    "label": "Xensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provincia xensi": {
+    "label": "Provincia Xensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "honan provinciam": {
+    "label": "Honan Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "c'aifung": {
+    "label": "C'aifung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "c’aifung": {
+    "label": "C’aifung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "hoang": {
+    "label": "Hoang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "croceum": {
+    "label": "Croceum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "c’aifung urbs": {
+    "label": "C’aifung urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xensi provinciam": {
+    "label": "Xensi Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropolim sigan": {
+    "label": "Metropolim Sigan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xansi provinciam": {
+    "label": "Xansi Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "croceum fluvium": {
+    "label": "Croceum fluvium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xansi": {
+    "label": "Xansi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiangcheu": {
+    "label": "Kiangcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "croceo": {
+    "label": "Croceo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropolitana urbs taiyuen": {
+    "label": "Metropolitana urbs Taiyuen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xansi provinciae": {
+    "label": "Xansi Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sigan urbe": {
+    "label": "Sigan urbe",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "peking urbem": {
+    "label": "Peking urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperium sinicum": {
+    "label": "Imperium Sinicum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sigan": {
+    "label": "Sigan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinicum occupandum imperium": {
+    "label": "Sinicum occupandum Imperium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "yupi": {
+    "label": "Yupi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponiae": {
+    "label": "Iaponiae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "volga": {
+    "label": "Volga",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 57.9516,
+    "lon": 38.3879,
+    "country": "RU",
+    "geonames": 472777,
+    "alternatives": [
+     {
+      "name": "Volga",
+      "lat": 44.3236,
+      "lon": -96.9265,
+      "country": "US",
+      "population": 1865,
+      "geonames": 5232637
+     }
+    ]
+   },
+   "moscoviae": {
+    "label": "Moscoviae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperiuimperium": {
+    "label": "ImperiūImperium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "pingsi": {
+    "label": "Pingsi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xensi metropolim": {
+    "label": "Xensi Metropolim",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sigan metropoli": {
+    "label": "Sigan Metropoli",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provincia honan": {
+    "label": "Provincia Honan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbis hoigan": {
+    "label": "urbis Hoigan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "crocei fluminis": {
+    "label": "Crocei fluminis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanking provinciam": {
+    "label": "Nanking Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiang fluminis": {
+    "label": "Kiang fluminis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tangcheu urbs": {
+    "label": "Tangcheu urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "yangcheu": {
+    "label": "Yangcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanking metropolis": {
+    "label": "Nanking Metropolis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanking urbem": {
+    "label": "Nanking urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "hangcheu": {
+    "label": "Hangcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chekiang": {
+    "label": "Chekiang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiang fluvim": {
+    "label": "Kiang fluvim",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiangsi": {
+    "label": "Kiangsi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangtung": {
+    "label": "Quangtung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "c'ienthang": {
+    "label": "C'ienthang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fluvium c'ienthang": {
+    "label": "fluvium C'ienthang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbem xaoking": {
+    "label": "urbem Xaoking",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xaoking": {
+    "label": "Xaoking",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "c’ienthang fluvium": {
+    "label": "C’ienthang fluvium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "c’ienthang": {
+    "label": "C’ienthang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fokien provincia": {
+    "label": "Fokien Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tunglieu": {
+    "label": "Tunglieu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "xaoking urbem": {
+    "label": "Xaoking urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insulamque cheuxan": {
+    "label": "Insulamque Cheuxan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nimpo": {
+    "label": "Nimpo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insula cheuxan": {
+    "label": "Insula Cheuxan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chekiang provinciae": {
+    "label": "Chekiang Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kinhoa urbs": {
+    "label": "Kinhoa urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "khiucheu urbem": {
+    "label": "Khiucheu urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "vencheu": {
+    "label": "Vencheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fokien provinciam": {
+    "label": "Fokien Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kinhoa": {
+    "label": "Kinhoa",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "venxui": {
+    "label": "Venxui",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbis hangcheu": {
+    "label": "urbis Hangcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "thermopylis": {
+    "label": "Thermopylis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tauri iugis": {
+    "label": "Tauri iugis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provinciam fokien": {
+    "label": "Provinciam Fokien",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanhiung": {
+    "label": "Nanhiung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provincia quangtung": {
+    "label": "Provincia Quangtung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fokien": {
+    "label": "Fokien",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "macai": {
+    "label": "Macai",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "formosa": {
+    "label": "Formosa",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": -26.1849,
+    "lon": -58.1731,
+    "country": "AR",
+    "geonames": 3433899,
+    "alternatives": [
+     {
+      "name": "Formosa",
+      "lat": -15.5372,
+      "lon": -47.3344,
+      "country": "BR",
+      "population": 115901,
+      "geonames": 3463140
+     },
+     {
+      "name": "Plettenberg Bay",
+      "lat": -34.0527,
+      "lon": 23.3716,
+      "country": "ZA",
+      "population": 38126,
+      "geonames": 964712
+     },
+     {
+      "name": "Ilhabela",
+      "lat": -23.7781,
+      "lon": -45.3581,
+      "country": "BR",
+      "population": 35591,
+      "geonames": 3461425
+     },
+     {
+      "name": "Formosa do Rio Preto",
+      "lat": -11.0483,
+      "lon": -45.1931,
+      "country": "BR",
+      "population": 25899,
+      "geonames": 3463124
+     }
+    ]
+   },
+   "indiae": {
+    "label": "Indiae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "philippinis": {
+    "label": "Philippinis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nova batavia": {
+    "label": "nova Batavia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "oceani indici": {
+    "label": "Oceani Indici",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "focheu": {
+    "label": "Focheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangsi": {
+    "label": "Quangsi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangsi provinciam": {
+    "label": "Quangsi Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangsi provinciae": {
+    "label": "Quangsi Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "queilin": {
+    "label": "Queilin",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangtung provinciae": {
+    "label": "Quangtung Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chatking": {
+    "label": "Chatking",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fokien provinciae": {
+    "label": "Fokien Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kienning": {
+    "label": "Kienning",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 27.0415,
+    "lon": 118.319,
+    "country": "CN",
+    "geonames": 1806167,
+    "alternatives": [
+     {
+      "name": "Jianning",
+      "lat": 26.8345,
+      "lon": 116.8385,
+      "country": "CN",
+      "population": 0,
+      "geonames": 1793908
+     }
+    ]
+   },
+   "siuencheu": {
+    "label": "Siuencheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "changcheu": {
+    "label": "Changcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chekiang provincia": {
+    "label": "Chekiang Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kienning urbem": {
+    "label": "Kienning urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbem kienning": {
+    "label": "urbem Kienning",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinarum imperium": {
+    "label": "Sinarum Imperium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provinciam kiangsi": {
+    "label": "Provinciam Kiangsi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiangsi provinciam": {
+    "label": "Kiangsi Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbs cancheu": {
+    "label": "urbs Cancheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quantung provincia": {
+    "label": "Quantung Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cancheu": {
+    "label": "Cancheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provincia fokien": {
+    "label": "Provincia Fokien",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbem cancheu": {
+    "label": "urbem Cancheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cancheu urbem": {
+    "label": "Cancheu urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropolim nanchang": {
+    "label": "Metropolim Nanchang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbs nanchang": {
+    "label": "urbs Nanchang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cancheu urbs": {
+    "label": "Cancheu urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanchagnanchang urbs": {
+    "label": "NanchāgNanchang urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provinciae fokien": {
+    "label": "Provinciae Fokien",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sigan metropolitana urbs": {
+    "label": "Sigan Metropolitana urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropolitana sigan": {
+    "label": "Metropolitana Sigan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbs sigasigan": {
+    "label": "Urbs SigāSigan",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbem taitung": {
+    "label": "urbem Taitung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "han regni": {
+    "label": "Han Regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "taitung urbem": {
+    "label": "Taitung urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "pucheu": {
+    "label": "Pucheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni tanyu": {
+    "label": "Regni Tanyu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "flumine guei": {
+    "label": "flumine Guei",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiang fluvium": {
+    "label": "Kiang fluvium",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiangsi provincia": {
+    "label": "Kiangsi Provincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provinciam quangtung": {
+    "label": "Provinciam Quangtung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangcheu metropolis": {
+    "label": "Quangcheu Metropolis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangcheu urbs": {
+    "label": "Quangcheu urbs",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangcheu": {
+    "label": "Quangcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chaoking": {
+    "label": "Chaoking",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropolitana quangcheu": {
+    "label": "Metropolitana Quangcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuen prouincia": {
+    "label": "Suchuen Prouincia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provincia suchuen": {
+    "label": "Provincia Suchuen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "metropoli chingtu": {
+    "label": "Metropoli Chingtu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuesuchuen": {
+    "label": "SuchuēSuchuen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuen prouinciae": {
+    "label": "Suchuen Prouinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "hanchung": {
+    "label": "Hanchung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "hachunghanchung": {
+    "label": "HāchungHanchung",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chingtu urbis": {
+    "label": "Chingtu urbis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chingtu metropolitana urbe": {
+    "label": "Chingtu Metropolitana urbe",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "suchuen provinciam": {
+    "label": "Suchuen Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kioochang": {
+    "label": "Kioochang",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "kiang fluvio": {
+    "label": "Kiang fluvio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chingtu urbem": {
+    "label": "Chingtu urbem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chingtu metropolim": {
+    "label": "Chingtu Metropolim",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tibetano regno": {
+    "label": "Tibetano Regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sinarum regno": {
+    "label": "Sinarum Regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "coraeam": {
+    "label": "Coraeam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "amstelodamo": {
+    "label": "Amstelodamo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bruxellas": {
+    "label": "Bruxellas",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provinciae nanking": {
+    "label": "provinciae Nanking",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperium sinense": {
+    "label": "Imperium Sinense",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quangtung provinciam": {
+    "label": "Quangtung Provinciam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tungking": {
+    "label": "Tungking",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nanking provinciae": {
+    "label": "Nanking Provinciae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "changcho": {
+    "label": "Changcho",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbe changcheu": {
+    "label": "urbe Changcheu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "batavia nova": {
+    "label": "Batavia nova",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "chang fluminis": {
+    "label": "Chang fluminis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "belgio": {
+    "label": "Belgio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bruxellae": {
+    "label": "Bruxellae",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 50.8505,
+    "lon": 4.3488,
+    "country": "BE",
+    "geonames": 2800866,
+    "alternatives": []
+   },
+   "flandro-belgicam": {
+    "label": "Flandro-Belgicam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "provinciae sinensis": {
+    "label": "Provinciae Sinensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "germaniae inferioris": {
+    "label": "Germaniae Inferioris",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bruxella": {
+    "label": "Bruxella",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponiae regno": {
+    "label": "IAPONIAE REGNO",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "moguntiae": {
+    "label": "MOGUNTIAE",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponici imperii": {
+    "label": "Iaponici Imperii",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno coraiano": {
+    "label": "regno Coraiano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "meaco": {
+    "label": "Meaco",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "has partes scimanas": {
+    "label": "has partes Scimanas",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangasaci": {
+    "label": "Nangasaci",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponia": {
+    "label": "Iaponia",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponem": {
+    "label": "Iaponem",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cicungo": {
+    "label": "Cicungo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni fingensis": {
+    "label": "regni Fingensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni bugensis": {
+    "label": "Regni Bugensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fingensis": {
+    "label": "Fingensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "meacum": {
+    "label": "Meacum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "tenzae": {
+    "label": "Tenzae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "arce fuscimana": {
+    "label": "arce Fuscimana",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbe ozacana": {
+    "label": "urbe Ozacana",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fuscimo": {
+    "label": "Fuscimo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "ozaca": {
+    "label": "Ozaca",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fuscimufuscimum": {
+    "label": "FuscimūFuscimum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "ozacae": {
+    "label": "Ozacae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fuscimum": {
+    "label": "Fuscimum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum omi": {
+    "label": "regnum Omi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangasacho": {
+    "label": "Nangasacho",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "amacusam": {
+    "label": "Amacusam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "amacusa": {
+    "label": "Amacusa",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "scico": {
+    "label": "Scico",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "arima": {
+    "label": "Arima",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 10.6374,
+    "lon": -61.2823,
+    "country": "TT",
+    "geonames": 3575051,
+    "alternatives": []
+   },
+   "omura": {
+    "label": "Omura",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 32.9214,
+    "lon": 129.9539,
+    "country": "JP",
+    "geonames": 1854093,
+    "alternatives": []
+   },
+   "nagasachonangasacho": {
+    "label": "NāgasachoNangasacho",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "meaci": {
+    "label": "Meaci",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangasachana exueretur praefectura": {
+    "label": "Nangasachana exueretur praefectura",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangasachum": {
+    "label": "Nangasachum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "meacumeacum": {
+    "label": "MeacūMeacum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnuregnum iaponiae": {
+    "label": "regnūregnum Iaponiae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangasachana gaudeat praefectura": {
+    "label": "Nangasachana gaudeat Praefectura",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "monarchiam tenze": {
+    "label": "monarchiam Tenze",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "firandi": {
+    "label": "Firandi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "omuram": {
+    "label": "Omuram",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "firandum": {
+    "label": "Firandum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "omurae": {
+    "label": "Omurae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "firando": {
+    "label": "Firando",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "amacusae": {
+    "label": "Amacusae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "oiano": {
+    "label": "Oiano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iamba": {
+    "label": "Iamba",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bungense regnum": {
+    "label": "Bungense regnum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "fingo": {
+    "label": "Fingo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "arimam": {
+    "label": "Arimam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "facatam": {
+    "label": "Facatam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni figensis": {
+    "label": "regni Figensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bugensisbungensis regni": {
+    "label": "BūgensisBungensis regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cicungani regni": {
+    "label": "Cicungani regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni fiungani": {
+    "label": "regni Fiungani",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum bungense": {
+    "label": "regnum Bungense",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "scimo": {
+    "label": "Scimo",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "amagutii": {
+    "label": "Amagutii",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "simonascechi": {
+    "label": "Simonascechi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno figen": {
+    "label": "regno Figen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno mino": {
+    "label": "regno Mino",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "scichum": {
+    "label": "Scichum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni totius iaponici": {
+    "label": "regni totius Iaponici",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iapone": {
+    "label": "Iapone",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponis": {
+    "label": "Iaponis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iateusciro": {
+    "label": "Iateusciro",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "arimensi statu": {
+    "label": "Arimensi statu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iatenscico": {
+    "label": "Iatenscico",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "insula iaponiae": {
+    "label": "insula Iaponiae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "imperii iaponici": {
+    "label": "Imperii Iaponici",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnis suis quantanis": {
+    "label": "regnis suis Quantanis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno isciensi": {
+    "label": "regno Isciensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "arimano": {
+    "label": "Arimano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni voarani": {
+    "label": "regni Voarani",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno minoano": {
+    "label": "regno Minoano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno isciano": {
+    "label": "regno Isciano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "minoanum regnum": {
+    "label": "Minoanum regnum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum minoanuminoanum": {
+    "label": "regnum MinoanūMinoanum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "voaranum regnum": {
+    "label": "Voaranum regnum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno bugesibugensi": {
+    "label": "regno BugēsiBugensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bungum": {
+    "label": "Bungum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bungo": {
+    "label": "Bungo",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": -7.4396,
+    "lon": 15.3852,
+    "country": "AO",
+    "geonames": 2243366,
+    "alternatives": []
+   },
+   "regni fingani": {
+    "label": "regni Fingani",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnorum scimanorum": {
+    "label": "regnorum Scimanorum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum oarense": {
+    "label": "regnum Oarense",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum oaranum": {
+    "label": "regnum Oaranum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni cicugen": {
+    "label": "regni Cicugen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno omensi": {
+    "label": "regno Omensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "ozacam": {
+    "label": "Ozacam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "iaponiaiaponiam": {
+    "label": "IaponiāIaponiam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "quantani regni": {
+    "label": "Quantani regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sassumam": {
+    "label": "Sassumam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnorum suorum quantanorum": {
+    "label": "regnorum suorum Quantanorum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum minoanum": {
+    "label": "regnum Minoanum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "guifu": {
+    "label": "Guifu",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "coam": {
+    "label": "Coam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni bigensis": {
+    "label": "regni Bigensis",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "corumi": {
+    "label": "Corumi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno cicungano": {
+    "label": "regno Cicungano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "firoscima": {
+    "label": "Firoscima",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "uto": {
+    "label": "Uto",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 32.6833,
+    "lon": 130.6667,
+    "country": "JP",
+    "geonames": 1849069,
+    "alternatives": []
+   },
+   "regni sassumani": {
+    "label": "regni Sassumani",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "sassumano regno": {
+    "label": "Sassumano regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nagasachumnangasachum": {
+    "label": "NāgasachumNangasachum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "statu omurano": {
+    "label": "statu Omurano",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "omurandono": {
+    "label": "Omurandono",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "urbem nangasachum": {
+    "label": "urbem Nangasachum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "corai": {
+    "label": "Corai",
+    "status": "suggested",
+    "source": "geonames",
+    "lat": 19.25,
+    "lon": 72.7833,
+    "country": "IN",
+    "geonames": 1270937,
+    "alternatives": []
+   },
+   "tensae": {
+    "label": "Tensae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangasachi": {
+    "label": "Nangasachi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnum cicugense": {
+    "label": "regnum Cicugense",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cicugen": {
+    "label": "Cicugen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "facata": {
+    "label": "Facata",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bugen": {
+    "label": "Bugen",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "cicugense regnum": {
+    "label": "Cicugense regnum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangaiocae": {
+    "label": "Nangaiocae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni tangani": {
+    "label": "regni Tangani",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nagaiocaenangaiocae": {
+    "label": "NāgaiocaeNangaiocae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bugensi regno": {
+    "label": "Bugensi regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nangaioca": {
+    "label": "Nangaioca",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "firoscimae": {
+    "label": "Firoscimae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "amangutio": {
+    "label": "Amangutio",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "firoscimam": {
+    "label": "Firoscimam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bigensi regno": {
+    "label": "Bigensi regno",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "bigensis regni": {
+    "label": "Bigensis regni",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regni mimazacae": {
+    "label": "regni Mimazacae",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno bugensi": {
+    "label": "regno Bugensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regnuregnum bugesebungense": {
+    "label": "regnūregnum BūgēseBungense",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno bungensi": {
+    "label": "regno Bungensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "nacazucauam": {
+    "label": "Nacazucauam",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "scichuscichum": {
+    "label": "ScichūScichum",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   },
+   "regno fingensi": {
+    "label": "regno Fingensi",
+    "status": "missing",
+    "lat": null,
+    "lon": null,
+    "note": "not in the gazetteer: fill in lat/lon, set status to confirmed"
+   }
+  },
+  "person": {
+   "prospero intorcetta": {
+    "label": "PROSPERO INTORCETTA",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "michaele rogerio": {
+    "label": "Michaele Rogerio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "francisco patio": {
+    "label": "Francisco Patio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "matthaeo riccio": {
+    "label": "Matthaeo Riccio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xun chi": {
+    "label": "XÚN CHÌ",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannes adamus schall": {
+    "label": "Ioannes Adamus Schall",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xun-chi": {
+    "label": "XÚN-CHÌ",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "yam-quam-sien": {
+    "label": "Yàm-quàm-sien",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "cam-hi": {
+    "label": "CAM-HÍ",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannem adamum": {
+    "label": "Ioannem Adamum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioanni adamo": {
+    "label": "Ioanni Adamo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioanne adamo": {
+    "label": "Ioanne Adamo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "dominicus maria sarpetri": {
+    "label": "Dominicus Maria Sarpetri",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gabriel magaglianes": {
+    "label": "Gabriel Magaglianes",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ludovicus buglio": {
+    "label": "Ludovicus Buglio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ferdinandus verbiest": {
+    "label": "Ferdinandus Verbiest",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "yam-quam sien": {
+    "label": "Yàm-quàm sien",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ferdinando verbiest": {
+    "label": "Ferdinando Verbiest",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "verbiest": {
+    "label": "Verbiest",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioanni adamo schall": {
+    "label": "Ioanni Adamo Schall",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "prosper intorcetta": {
+    "label": "PROSPER INTORCETTA",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "martino martinio": {
+    "label": "Martino Martinio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "balthasaris moreti": {
+    "label": "BALTHASARIS MORETI",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioanni casimiro": {
+    "label": "IOANNI CASIMIRO",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "martinus martinius": {
+    "label": "Martinus Martinius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nicolai trigautii": {
+    "label": "Nicolai Trigautii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "marcus paulus": {
+    "label": "Marcus Paulus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "aytonius": {
+    "label": "Aytonius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tamerlani": {
+    "label": "Tamerlani",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tamerlanus": {
+    "label": "Tamerlanus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taicungus": {
+    "label": "Taiçungus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taimingae": {
+    "label": "Taimingae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "sunga": {
+    "label": "Sunga",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iuenam": {
+    "label": "Iuenam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "chu": {
+    "label": "Chu",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taimingam": {
+    "label": "Taimingam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hungiius": {
+    "label": "Hungiius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taiminga": {
+    "label": "Taiminga",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "vanlieus": {
+    "label": "Vanlieus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienmingus": {
+    "label": "Thienmingus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taichangus": {
+    "label": "Taichangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienkius": {
+    "label": "Thienkius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "paulus": {
+    "label": "Paulus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "michael": {
+    "label": "Michael",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maovenlungus": {
+    "label": "Maovenlungus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maovenlungi": {
+    "label": "Maovenlungi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienkio": {
+    "label": "Thienkio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "zungchinius": {
+    "label": "Zungchinius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienmingo": {
+    "label": "Thienmingo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienzungum": {
+    "label": "Thienzungum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienzungus": {
+    "label": "Thienzungus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "sun ignatius": {
+    "label": "Sun Ignatius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "yuenum": {
+    "label": "Yuenum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "yuenus": {
+    "label": "Yuenus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maovenlungum": {
+    "label": "Maovenlungum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maovenlugus": {
+    "label": "Maovenlugus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "zungchinium": {
+    "label": "Zungchinium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "zungteus": {
+    "label": "Zungteus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ignatius": {
+    "label": "Ignatius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ignatio": {
+    "label": "Ignatio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ignatii": {
+    "label": "Ignatii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ignatium": {
+    "label": "Ignatium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "zungchinii": {
+    "label": "Zungchinii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "licungzus": {
+    "label": "Licungzus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "changhienchungus": {
+    "label": "Changhienchungus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "licungzo": {
+    "label": "Licungzo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "robertus de figueredo": {
+    "label": "Robertus de Figueredo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xunuang": {
+    "label": "Xunuang",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienxunam": {
+    "label": "Thienxunam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ignatius d’acosta": {
+    "label": "Ignatius d’Acosta",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "petrus fabri": {
+    "label": "Petrus Fabri",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gueio": {
+    "label": "Gueio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienkium": {
+    "label": "Thienkium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "michael trigautius": {
+    "label": "Michael Trigautius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "licungzi": {
+    "label": "Licungzi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lius": {
+    "label": "Lius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "us": {
+    "label": "Us",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "usangueius": {
+    "label": "Usangueius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "usangueium": {
+    "label": "Usangueium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "usangueio": {
+    "label": "Usangueio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "zugteuszungteus": {
+    "label": "ZūgteusZungteus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "licungzum": {
+    "label": "Licungzum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xunchi": {
+    "label": "Xunchi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taicing": {
+    "label": "Taicing",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amavagusamavangus": {
+    "label": "AmavāgusAmavangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amahan": {
+    "label": "Amahan",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amavang": {
+    "label": "Amavang",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hungquangus": {
+    "label": "Hungquangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hungquangum": {
+    "label": "Hungquangum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "vanliei": {
+    "label": "Vanliei",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "zuus": {
+    "label": "Zuus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hungquango": {
+    "label": "Hungquango",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hoangchoango": {
+    "label": "Hoangchoango",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hoangchoangus": {
+    "label": "Hoangchoangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thienus": {
+    "label": "Thienus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lovangum": {
+    "label": "Lovangum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lovangus": {
+    "label": "Lovangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lovangi": {
+    "label": "Lovangi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "alexandrum": {
+    "label": "Alexandrum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "caesarem": {
+    "label": "Caesarem",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lu": {
+    "label": "Lu",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thangum": {
+    "label": "Thangum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lunguuo": {
+    "label": "Lunguuo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lunguus": {
+    "label": "Lunguus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "chinchilungus": {
+    "label": "Chinchilungus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iquon": {
+    "label": "Iquon",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "pingnan": {
+    "label": "Pingnan",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kiu thomas": {
+    "label": "Kiu Thomas",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ching lucas": {
+    "label": "Ching Lucas",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iunglieus": {
+    "label": "Iunglieus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "p’ang achilleus": {
+    "label": "P’ang Achilleus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "andreas xavier": {
+    "label": "Andreas Xavier",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "coffler": {
+    "label": "Coffler",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "michael boym": {
+    "label": "Michael Boym",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "constantinus": {
+    "label": "Constantinus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "michaelem boym": {
+    "label": "Michaelem Boym",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "vangus": {
+    "label": "Vangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "changus": {
+    "label": "Changus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "vango": {
+    "label": "Vango",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "simon de cunha": {
+    "label": "Simon de Cunha",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannes nicolaus smogoleski": {
+    "label": "Ioannes Nicolaus Smogoleski",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kinus": {
+    "label": "Kinus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kinum": {
+    "label": "Kinum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iunglieum": {
+    "label": "Iunglieum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kino": {
+    "label": "Kino",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lihuzus": {
+    "label": "Lihuzus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iunglieo": {
+    "label": "Iunglieo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lihuzi": {
+    "label": "Lihuzi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lihuzum": {
+    "label": "Lihuzum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iungliei": {
+    "label": "Iungliei",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tranquillus grassetti": {
+    "label": "Tranquillus Grassetti",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iosephus de almeida": {
+    "label": "Iosephus de Almeida",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "emanuel gomez": {
+    "label": "Emanuel Gomez",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hous": {
+    "label": "Hous",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "houm": {
+    "label": "Houm",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hoi": {
+    "label": "Hoi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hoii": {
+    "label": "Hoii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hoo": {
+    "label": "Hoo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "pauang": {
+    "label": "Pauang",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kiangus": {
+    "label": "Kiangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amavangus": {
+    "label": "Amavangus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kiangum": {
+    "label": "Kiangum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kiango": {
+    "label": "Kiango",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kiangi": {
+    "label": "Kiangi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "michaelem valta": {
+    "label": "Michaelem Valta",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xunchii": {
+    "label": "Xunchii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xunchius": {
+    "label": "Xunchius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iunglieuiunglieum": {
+    "label": "IunglieūIunglieum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kengus": {
+    "label": "Kengus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kengo": {
+    "label": "Kengo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "kengum": {
+    "label": "Kengum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "alvarus semedo": {
+    "label": "Alvarus Semedo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "sun ignatio": {
+    "label": "Sun Ignatio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amavangi": {
+    "label": "Amavangi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quintus": {
+    "label": "Quintus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xunchium": {
+    "label": "Xunchium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "xunchio": {
+    "label": "Xunchio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "changhienchungum": {
+    "label": "Changhienchungum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ludovico bullio": {
+    "label": "Ludovico Bullio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gabriele de magellanes": {
+    "label": "Gabriele de Magellanes",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "changhienchung": {
+    "label": "Changhienchung",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "herodis": {
+    "label": "Herodis",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amavango": {
+    "label": "Amavango",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amavangum": {
+    "label": "Amavangum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "francisco brancato": {
+    "label": "Francisco Brancato",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "fung": {
+    "label": "Fung",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "assuerus": {
+    "label": "Assuerus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "p'ang achilleo": {
+    "label": "P'ang Achilleo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "andrea xaverio koffler": {
+    "label": "Andrea Xaverio Koffler",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "c'ung": {
+    "label": "C'ung",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "petrus canevari": {
+    "label": "Petrus Canevari",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quesingum": {
+    "label": "Quesingum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quesingus": {
+    "label": "Quesingus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "chingchilungo": {
+    "label": "Chingchilungo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quesingo": {
+    "label": "Quesingo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nicolalus trigautius": {
+    "label": "Nicolalus Trigautius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gosuvino nickel": {
+    "label": "Gosuvino Nickel",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "balthasari moreto": {
+    "label": "Balthasari Moreto",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannes baptista engelgrave": {
+    "label": "Ioannes Baptista Engelgrave",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "guilielmus bolognino": {
+    "label": "Guilielmus Bolognino",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "philippus iv": {
+    "label": "PHILIPPUS IV",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "d. fren": {
+    "label": "D. Fren",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "alessandro valignano": {
+    "label": "Alessandro Valignano",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "claudio acquaviva": {
+    "label": "Claudio Acquaviva",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "valentino carvaglio": {
+    "label": "Valentino Carvaglio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taicosamae": {
+    "label": "TAICOSAMAE",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "claudium aquavivam": {
+    "label": "CLAUDIUM AQUAVIVAM",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "balthasarem lippium": {
+    "label": "BALTHASAREM Lippium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "alexandri valignani": {
+    "label": "ALEXANDRI VALIGNANI",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taicosama": {
+    "label": "TAICOSAMA",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "taicosamam": {
+    "label": "Taicosamam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ieiasi": {
+    "label": "Ieiasi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ieiasum": {
+    "label": "Ieiasum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ieiaso": {
+    "label": "Ieiaso",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibunoscius": {
+    "label": "Gibunoscius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibonoscius": {
+    "label": "Gibonoscius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "asonodangius": {
+    "label": "Asonodangius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iaponiam": {
+    "label": "Iaponiam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustino nostro tzunocamindono": {
+    "label": "Augustino nostro Tzunocamindono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibunoscium": {
+    "label": "Gibunoscium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "asonodangium": {
+    "label": "Asonodangium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustini": {
+    "label": "Augustini",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibonoscio": {
+    "label": "Gibonoscio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "asonodangio": {
+    "label": "Asonodangio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibonoscii": {
+    "label": "Gibonoscii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustino": {
+    "label": "Augustino",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gianangauandono": {
+    "label": "Gianangauandono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "toscirondonus": {
+    "label": "Toscirondonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tarazauandonus": {
+    "label": "Tarazauandonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuidonus": {
+    "label": "Canzuidonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "cainocamus": {
+    "label": "Cainocamus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ichinocamus": {
+    "label": "Ichinocamus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nabescima": {
+    "label": "Nabescima",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ieiasus": {
+    "label": "Ieiasus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ieciasuieciasum": {
+    "label": "IeciasūIeciasum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibonoscium": {
+    "label": "Gibonoscium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustinus": {
+    "label": "Augustinus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gubonoscio": {
+    "label": "Gubonoscio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibunoscio": {
+    "label": "Gibunoscio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tzunicamindonum augustinuaugustinum": {
+    "label": "Tzunicamindonum AugustinūAugustinum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "august.augustinus": {
+    "label": "August.Augustinus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gibunoscii": {
+    "label": "Gibunoscii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustinum": {
+    "label": "Augustinum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "organtinus": {
+    "label": "Organtinus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "valentino carvalio": {
+    "label": "Valentino Carvalio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioanne pomerio": {
+    "label": "Ioanne Pomerio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tarazauandono": {
+    "label": "Tarazauandono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "organtinuorgantinum": {
+    "label": "OrgantinūOrgantinum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "organtino": {
+    "label": "Organtino",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nangasachum": {
+    "label": "Nangasachum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannem rodrigez": {
+    "label": "Ioannem Rodrigez",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tarazauandonum": {
+    "label": "Tarazauandonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "orgatinusorgantinus": {
+    "label": "OrgātinusOrgantinus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "antianorum": {
+    "label": "Antianorum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "rodrigez": {
+    "label": "Rodrigez",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "arimandono": {
+    "label": "Arimandono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "antiano": {
+    "label": "Antiano",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "foin": {
+    "label": "Foin",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hieronymum": {
+    "label": "Hieronymum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thomam": {
+    "label": "Thomam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "mitiam": {
+    "label": "Mitiam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "omurandoni": {
+    "label": "Omurandoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "omurandonum": {
+    "label": "Omurandonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "omurandonus": {
+    "label": "Omurandonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "balthazarem": {
+    "label": "Balthazarem",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "organtinum": {
+    "label": "Organtinum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustinum tzunocamindonum": {
+    "label": "Augustinum Tzunocamindonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tarazauondoni": {
+    "label": "Tarazauondoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannes baptista": {
+    "label": "Ioannes Baptista",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iacobi sacuiman": {
+    "label": "Iacobi Sacuiman",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannis baptistae": {
+    "label": "Ioannis Baptistae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "arimondonus": {
+    "label": "Arimondonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "lucia": {
+    "label": "Lucia",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "benedicti": {
+    "label": "Benedicti",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "itodonus": {
+    "label": "Itodonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "mantii iti": {
+    "label": "Mantii Iti",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "isafaidonus": {
+    "label": "Isafaidonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "isafaindonum": {
+    "label": "Isafaindonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maxentiae": {
+    "label": "Maxentiae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "francisci": {
+    "label": "Francisci",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "cainocami": {
+    "label": "Cainocami",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quambioindono": {
+    "label": "Quambioindono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "morindoni": {
+    "label": "Morindoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "marindoni": {
+    "label": "Marindoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "francisci xaverii": {
+    "label": "Francisci Xaverii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "morindonus": {
+    "label": "Morindonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nobunangae": {
+    "label": "Nobunangae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "egidius de matta": {
+    "label": "Egidius de Matta",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "egidius": {
+    "label": "Egidius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iateusciranos": {
+    "label": "Iateusciranos",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "alexander valignani": {
+    "label": "Alexander Valignani",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "daifusamam": {
+    "label": "Daifusamam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canguetaso": {
+    "label": "Canguetaso",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canguetasum": {
+    "label": "Canguetasum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "daifusama": {
+    "label": "Daifusama",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ciunangodoni": {
+    "label": "Ciunangodoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nobunagae": {
+    "label": "Nobunagae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "daifusamae": {
+    "label": "Daifusamae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ciunangodonus": {
+    "label": "Ciunangodonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustinus tzunocamindonus": {
+    "label": "Augustinus Tzunocamindonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quabioiendoniquambioiendoni": {
+    "label": "QuābioiendoniQuambioiendoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quambioiendonum": {
+    "label": "Quambioiendonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quambioiendonus": {
+    "label": "Quambioiendonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quambioiendono": {
+    "label": "Quambioiendono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiedonus": {
+    "label": "Canzuiedonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "august.augustino": {
+    "label": "August.Augustino",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiendono": {
+    "label": "Canzuiendono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "arimandonus": {
+    "label": "Arimandonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canguetasi": {
+    "label": "Canguetasi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "cangueraso": {
+    "label": "Cangueraso",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ciunangondonus": {
+    "label": "Ciunangondonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "morindono": {
+    "label": "Morindono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "morindonum": {
+    "label": "Morindonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannes acascicamon": {
+    "label": "Ioannes Acascicamon",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "findecanus": {
+    "label": "Findecanus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maxentia": {
+    "label": "Maxentia",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quambioiendoni": {
+    "label": "Quambioiendoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "sassedonus": {
+    "label": "Sassedonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "niscimangobioio": {
+    "label": "Niscimangobioio",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "antonium": {
+    "label": "Antonium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "augustinuaugustinum": {
+    "label": "AugustinūAugustinum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "mimazaca": {
+    "label": "Mimazaca",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiedono": {
+    "label": "Canzuiedono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "mimazacam": {
+    "label": "Mimazacam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "mimazacae": {
+    "label": "Mimazacae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "alphonsus gonzalez": {
+    "label": "Alphonsus Gonzalez",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gonzales": {
+    "label": "Gonzales",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiedoni": {
+    "label": "Canzuiedoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gonzalez": {
+    "label": "Gonzalez",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiedonuscanzuiendonus": {
+    "label": "CanzuiēdonusCanzuiendonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iustam": {
+    "label": "Iustam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "scimandonum": {
+    "label": "Scimandonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "arimondonum": {
+    "label": "Arimondonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "omuradonumomurandonum": {
+    "label": "OmurādonumOmurandonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "scimandoni": {
+    "label": "Scimandoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "scimandonus": {
+    "label": "Scimandonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hieronymo": {
+    "label": "Hieronymo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "thomae": {
+    "label": "Thomae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "scimandono": {
+    "label": "Scimandono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "hieronymi": {
+    "label": "Hieronymi",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "mariae": {
+    "label": "Mariae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iustae": {
+    "label": "Iustae",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "maria": {
+    "label": "Maria",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ancocugum": {
+    "label": "Ancocugum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioanni rodrigez": {
+    "label": "Ioanni Rodrigez",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "nangauoca": {
+    "label": "Nangauoca",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "fucuscimandonus": {
+    "label": "Fucuscimandonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "afonodangii": {
+    "label": "Afonodangii",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "cainocamo": {
+    "label": "Cainocamo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannem acascicamonem": {
+    "label": "Ioannem Acascicamonem",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "cainocamum": {
+    "label": "Cainocamum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "acascicamone": {
+    "label": "Acascicamone",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ascicamoni": {
+    "label": "Ascicamoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "daifusame": {
+    "label": "Daifusame",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "acascicamon": {
+    "label": "Acascicamon",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "soiemondono": {
+    "label": "Soiemondono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "acascicamonem": {
+    "label": "Acascicamonem",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "gregorium cespedes": {
+    "label": "Gregorium Cespedes",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "fucuscimadonus": {
+    "label": "Fucuscimadonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "iriafaconum": {
+    "label": "Iriafaconum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "paulum": {
+    "label": "Paulum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "fucuscimandonum": {
+    "label": "Fucuscimandonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "fucuscimadoni": {
+    "label": "Fucuscimadoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "firoscimani": {
+    "label": "Firoscimani",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ozace": {
+    "label": "Ozace",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "amagutiuamagutium": {
+    "label": "AmagutiūAmagutium",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ciunagondoni": {
+    "label": "Ciunagondoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quingodono": {
+    "label": "Quingodono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "quingodonus": {
+    "label": "Quingodonus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ioannem amacusadonum": {
+    "label": "Ioannem Amacusadonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiodono": {
+    "label": "Canzuiodono",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "canzuiedonum": {
+    "label": "Canzuiedonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tzunicamindoni": {
+    "label": "Tzunicamindoni",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ancocugus": {
+    "label": "Ancocugus",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "tenzam": {
+    "label": "Tenzam",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "ancocugo": {
+    "label": "Ancocugo",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "catharina": {
+    "label": "Catharina",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "caroli v.": {
+    "label": "Caroli V.",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "morindonis": {
+    "label": "Morindonis",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "morindonumorindonum": {
+    "label": "MorindonūMorindonum",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   },
+   "valentinus carvaglius": {
+    "label": "Valentinus Carvaglius",
+    "status": "missing",
+    "viaf": null,
+    "wikidata": null,
+    "gnd": null,
+    "isil": null,
+    "note": "fill in one or more authority ids, set status to confirmed"
+   }
+  },
+  "org": {}
+ }
+}
