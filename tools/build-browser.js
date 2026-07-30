@@ -146,7 +146,7 @@ iframe{width:100%;height:60vh;border:1px solid #E5E2D9;background:#fff;margin-to
 </style>
 </head>
 <body>
-<nav class="upnav"><a href="../">&#8249; Demos</a></nav>
+<nav class="upnav"><a href="../">&#8249; Home</a></nav>
 <a href="../" aria-label="Torchio: home of the demos">
 ${lockup.replace('<svg ', '<svg class="lockup" role="img" aria-label="Torchio" ')}
 </a>
