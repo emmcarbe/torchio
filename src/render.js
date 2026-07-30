@@ -192,7 +192,9 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-foreign,.t-hi,.t-emph,.t-title{font-style:italic}
 .t-quote{margin:.8em 0 .8em 1.4em;color:var(--soft)}
 
-.t-del{text-decoration:line-through;color:var(--soft)}
+/* the class carries the behaviour: anything the ODD declares a member of
+   model.pPart.transcriptional is struck through like del, named or not */
+.s-3-editoriale>[data-el="del"],.s-3-editoriale.t-del,.t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
 .t-sign{color:var(--soft)}

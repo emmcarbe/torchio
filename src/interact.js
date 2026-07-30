@@ -66,6 +66,10 @@ body.notes-dense.notes-off .t-note-mark{cursor:default}
 .t-choice .t-orig,.t-choice .t-abbr,.t-choice .t-sic{display:none}
 body.mode-dipl .t-choice .t-orig,body.mode-dipl .t-choice .t-abbr,body.mode-dipl .t-choice .t-sic{display:inline}
 body.mode-dipl .t-choice .t-reg,body.mode-dipl .t-choice .t-expan,body.mode-dipl .t-choice .t-corr{display:none}
+/* behaviour by class, not by tag: an element that declares itself a member
+   of a TEI model class behaves like the class, whatever it is called */
+body.mode-read .s-3-editoriale [data-el="del"],body.mode-read .t-del{display:none}
+body.mode-dipl .s-3-editoriale .t-orig,body.mode-dipl .s-3-editoriale .t-abbr{display:inline}
 body.mode-read .t-del{display:none}
 body.mode-read .t-am{display:none}
 body.mode-dipl .t-ex{display:none}
