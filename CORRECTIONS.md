@@ -89,6 +89,7 @@ editorial genre.
 | 2026-07-30 | C63 | third machine audit, on chapter 12 of the Guidelines | extension | only one of the three ways of tying an apparatus to a text was derived. The press now tells them apart by what the `app` declares and wires all three: parallel segmentation in place, double-end-point attachment through its two anchors (the text between them becomes the clickable span), location-referenced through the canonical place its `@loc` names. An apparatus written outside the text now reaches it |
 | 2026-07-31 | C64 | third machine audit | structural change | the press was one block: a thousand-line module with a single function inside it, which is a door closed to anyone else. The page shell (chrome, header labels, safe serialization into a script, the register's own program) now lives in its own module, and the split was made under the only condition that proves it harmless: the pressed pages are byte-identical before and after |
 | 2026-07-31 | C65 | third machine audit | structural change | the map page follows the shell out of the block: it is a page with its own subject (coordinates, provenance, a sketch that holds without scripts and a slippy map where they run), and it now lives in its own module. Same condition as before: the pressed pages are byte-identical |
+| 2026-07-31 | C66 | third machine audit | structural change | the lemma page leaves the block as well: forms, frequencies and concordance, with the grouping strategy the edition declared, are one subject and now one module. Byte-identical, as before |
 
-As of 31 July 2026: 65 corrections applied (44 assignments, 16 extensions, 5
+As of 31 July 2026: 66 corrections applied (44 assignments, 16 extensions, 6
 structural changes), 1 open.
