@@ -44,6 +44,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -74,6 +75,50 @@ export function buildInteractJS(t) {
 (function(){
   var body=document.body; body.classList.add('mode-read');
   if(document.querySelector('.app-band'))body.classList.add('has-band');
+  /* words covered by an apparatus entry become triggers: the reader clicks
+     the word and sees its variants (positions from the declared @from/@to) */
+  function wireWords(){
+    document.querySelectorAll('.app-band').forEach(function(band){
+      try{
+      var l=band.previousElementSibling;
+      if(!l||l.getAttribute('data-el')!=='l')return;
+      if(l.querySelector('.wv'))return;
+      var entries=[].slice.call(band.querySelectorAll('.band-e[data-from]'));
+      if(!entries.length)return;
+      var map={};
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        for(var w=Math.ceil(f/2); w<=Math.floor(t/2); w++){ if(map[w]==null)map[w]=e; }
+      });
+      var walker=document.createTreeWalker(l,NodeFilter.SHOW_TEXT,null);
+      var nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+      var idx=0, carry=false;
+      nodes.forEach(function(tn){
+        var v=tn.nodeValue;
+        if(!/\\S/.test(v)){ if(/\\s/.test(v))carry=false; return; }
+        var parts=v.split(/(\\s+)/);
+        var frag=document.createDocumentFragment();
+        var continuing=carry&&!/^\\s/.test(v);
+        parts.forEach(function(pt){
+          if(!pt)return;
+          if(/^\\s+$/.test(pt)){continuing=false;frag.appendChild(document.createTextNode(pt));return;}
+          /* a word split across inline elements is one token */
+          if(continuing){continuing=false;}
+          else idx++;
+          var e=map[idx];
+          if(!e){frag.appendChild(document.createTextNode(pt));return;}
+          var sp=document.createElement('span');
+          sp.className='wv';sp.textContent=pt;sp._be=e;
+          frag.appendChild(sp);
+        });
+        tn.parentNode.replaceChild(frag,tn);
+        carry=!/\\s$/.test(v);
+      });
+      }catch(e){/* one bad band must not silence the rest */}
+    });
+  }
+  if(document.readyState==='complete')wireWords();
+  else window.addEventListener('load',wireWords);
   var pop=null, lastTrigger=null;
   function closePop(){
     clearZone();
@@ -156,7 +201,25 @@ export function buildInteractJS(t) {
         withAlign(function(map){
           var row=map[bandk.getAttribute('data-ent')]||{};
           var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
-          if(tgt)location.href=tgt;
+          if(!tgt)return;
+          var file=tgt.split('#')[0], id=tgt.split('#')[1];
+          /* the witness's passage in a small window: the reader stays put */
+          try{
+            fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+              if(!html){location.href=tgt;return;}
+              var doc=new DOMParser().parseFromString(html,'text/html');
+              var el=doc.getElementById(id);
+              var txt='';
+              if(el){
+                var cl=el.cloneNode(true);
+                cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
+                txt=cl.textContent.replace(/\s+/g,' ').trim();
+              }
+              openPop('<span class="k">'+esc(sig)+'</span>'
+                +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
+                +'<div class="meta"><a href="'+tgt+'">${t.openPage}</a></div>',bw);
+            })['catch'](function(){location.href=tgt;});
+          }catch(e){location.href=tgt;}
         });
         ev.stopPropagation();return;
       }
@@ -198,6 +261,13 @@ export function buildInteractJS(t) {
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(ent.textContent.trim())+'</div>'
         +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'${t.occurrenceOne}':'${t.occurrenceMany}')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    var wv=ev.target.closest&&ev.target.closest('.wv');
+    if(wv&&wv._be){
+      var wband=wv._be.closest('.app-band');
+      openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
     }
     var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');

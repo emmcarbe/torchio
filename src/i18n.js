@@ -9,7 +9,7 @@
 const STRINGS = {
   en: {
     edition: 'Edition', text: 'Text', indices: 'Indices', data: 'Data',
-    archive: 'Archive', dsa: 'digital archive',
+    archive: 'Archive', dsa: 'digital archive', texts: 'Texts',
     reading: 'Reading', diplomatic: 'Diplomatic', apparatus: 'Apparatus',
     aboutFile: 'About this file', notes: 'Notes',
     dse: 'digital scholarly edition',
@@ -23,6 +23,7 @@ const STRINGS = {
     mapNote: 'Positional sketch. Filled dots: coordinates declared in the TEI or confirmed by the editor. Hollow dots: gazetteer suggestions awaiting review. Each place links to OpenStreetMap. Coastlines: Natural Earth (public domain).',
     front: 'Front matter', back: 'Back matter',
     lacking: 'lacking in',
+    openPage: 'open the page',
     sectionsN: 'sections', sectionOne: 'Section', contents: 'Contents',
     bookLabel: 'Book',
     register: 'Register', documentsN: 'documents',
@@ -50,7 +51,7 @@ const STRINGS = {
   },
   it: {
     edition: 'Edizione', text: 'Testo', indices: 'Indici', data: 'Dati',
-    archive: 'Archivio', dsa: 'archivio digitale',
+    archive: 'Archivio', dsa: 'archivio digitale', texts: 'Testi',
     // the canonical pair of the Italian tradition (diplomatica /
     // interpretativa), not a calque of the English "reading text"
     reading: 'Interpretativa', diplomatic: 'Diplomatica', apparatus: 'Apparato',
@@ -66,6 +67,7 @@ const STRINGS = {
     mapNote: 'Schizzo posizionale. Punti pieni: coordinate dichiarate nel TEI o confermate dall\u2019editore. Punti vuoti: suggerimenti del gazetteer in attesa di revisione. Ogni luogo rimanda a OpenStreetMap. Coste: Natural Earth (pubblico dominio).',
     front: 'Pagine iniziali', back: 'Pagine finali',
     lacking: 'manca in',
+    openPage: 'apri la pagina',
     sectionsN: 'sezioni', sectionOne: 'Sezione', contents: 'Indice delle sezioni',
     bookLabel: 'Libro',
     register: 'Registro', documentsN: 'documenti',

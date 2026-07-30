@@ -281,7 +281,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const DEFAULT = [
     ['index', model.collection ? T.archive : T.edition],
     ...(frontNode ? [['front', frontLabel]] : []),
-    ['text', T.text],
+    ['text', isCollection ? T.texts : T.text],
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
@@ -297,7 +297,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     pageList = manifest.pages
       .filter((p) => EXISTS[p.id])
       .map((p) => [p.id, p.label || DEFAULT.find(([id]) => id === p.id)?.[1] || p.id]);
-    if (!pageList.some(([id]) => id === 'text')) pageList.push(['text', T.text]);
+    if (!pageList.some(([id]) => id === 'text')) pageList.push(['text', isCollection ? T.texts : T.text]);
   }
   const pages = pageList.map(([id, label]) => [`${id}.html`, label]);
   const wanted = new Set(pageList.map(([id]) => id));
@@ -547,6 +547,27 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       });
     }
   } else {
+    // a document whose body is entries of bare app elements IS an
+    // apparatus: it renders expanded as a variant map (C41), and the
+    // register lists it apart from the texts
+    const isApparatusDoc = (doc) => {
+      const textNode = doc.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
+      const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
+      if (!body) return false;
+      let hasAb = false, ok = true;
+      const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
+      const check = (nd) => {
+        for (const c of nd.children) {
+          if (!ok) return;
+          if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
+          if (c.element === 'app') continue;
+          if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
+          ok = false;
+        }
+      };
+      check(body);
+      return ok && hasAb;
+    };
     // the register: columns exist only if the markup populates them
     const cards = model.documents.map((d) => d.card || { id: d.id });
     const has = {
@@ -557,22 +578,35 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       place: cards.some((c) => c.place),
       idno: cards.some((c) => c.idno),
     };
-    const cols = [
-      ...(has.date ? [['date', T.dateCol]] : []),
-      ['title', T.titleCol],
-      ...(has.from ? [['from', T.fromCol]] : []),
-      ...(has.to ? [['to', T.toCol]] : []),
-      ...(!has.from && has.author ? [['author', T.authorCol]] : []),
-      ...(has.place ? [['place', T.placeCol]] : []),
-      ...(has.idno ? [['idno', T.idnoCol]] : []),
-    ];
+    // two shapes of register, decided by the majority of the markup: a
+    // correspondence reads from-to-date, an archive of works reads
+    // author-title-year; the manifest chooses otherwise when it wants
+    const COL_LABELS = {
+      date: T.dateCol, title: T.titleCol, from: T.fromCol, to: T.toCol,
+      author: T.authorCol, place: T.placeCol, idno: T.idnoCol,
+    };
+    const corr = cards.filter((c) => c.from && c.from.length).length
+      > cards.filter((c) => c.author).length;
+    let colKeys = corr
+      ? ['date', 'title', 'from', 'to', 'place', 'idno']
+      : ['author', 'title', 'date', 'place', 'idno'];
+    if (manifest.register && manifest.register.columns && manifest.register.columns.length) {
+      colKeys = manifest.register.columns;
+      // the title column is the way into the documents: it always stays
+      if (!colKeys.includes('title')) colKeys = ['title', ...colKeys];
+    }
+    const cols = colKeys
+      .filter((k) => k === 'title' || has[k])
+      .map((k) => [k, COL_LABELS[k]]);
     let reg = `<main id="main" class="torchio" style="max-width:64rem">`
       + `<input class="reg-filter" type="search" placeholder="${T.filter}" aria-label="${T.filter}">`
-      + `<span class="reg-count">${cards.length} / ${cards.length}</span>`
+      + `<span class="reg-count">${model.documents.filter((d) => !isApparatusDoc(d)).length} ${T.documentsN}</span>`
       + `<table class="reg-table idx-table"><thead><tr>`
       + cols.map(([, label]) => `<th scope="col">${escapeHTML(label)}</th>`).join('')
       + `</tr></thead><tbody>`;
-    for (const d of model.documents) {
+    const textDocs = model.documents.filter((d) => !isApparatusDoc(d));
+    const appDocs = model.documents.filter((d) => isApparatusDoc(d));
+    for (const d of textDocs) {
       const c = d.card || {};
       const cells = cols.map(([key]) => {
         if (key === 'title') {
@@ -588,7 +622,15 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         .filter(Boolean).join(' ').toLowerCase();
       reg += `<tr data-search="${escapeHTML(search)}">${cells}</tr>`;
     }
-    reg += '</tbody></table></main>';
+    reg += '</tbody></table>';
+    if (appDocs.length) {
+      reg += `<h2 class="sec">${T.apparatus}</h2><table class="wit-table">`;
+      for (const d of appDocs) {
+        reg += `<tr><td><a href="${docFiles.get(d.id)}">${escapeHTML((d.card && d.card.title) || d.id)}</a></td></tr>`;
+      }
+      reg += '</table>';
+    }
+    reg += '</main>';
     out['text.html'] = chrome({
       title: t, sub: `${model.documents.length} ${T.documentsN}`, active: 'text.html',
       pages, body: reg, script: registerJS, t: T, lang, theme, parent,
@@ -598,27 +640,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     for (let i = 0; i < model.documents.length; i++) {
       const d = model.documents[i];
       const c = d.card || {};
-      // a document whose body is entries of bare app elements IS an
-      // apparatus: it renders expanded, every reading with its witnesses
-      // and count, not only the lemmata (C32)
-      const isAppDoc = (() => {
-        const textNode = d.tree.children.find((c) => typeof c !== 'string' && c.element === 'text');
-        const body = textNode && textNode.children.find((c) => typeof c !== 'string' && c.element === 'body');
-        if (!body) return false;
-        let hasAb = false, ok = true;
-        const WRAP = new Set(['TEI', 'text', 'body', 'ab']);
-        const check = (nd) => {
-          for (const c of nd.children) {
-            if (!ok) return;
-            if (typeof c === 'string') { if (c.trim()) ok = false; continue; }
-            if (c.element === 'app') continue;
-            if (WRAP.has(c.element)) { if (c.element === 'ab') hasAb = true; check(c); continue; }
-            ok = false;
-          }
-        };
-        check(body);
-        return ok && hasAb;
-      })();
+      const isAppDoc = isApparatusDoc(d);
       // the classical convention for long lemmata: first words, dots, last words
       const abbrev = (txt, head = 4, tail = 3, max = 12) => {
         const w = txt.split(/\s+/).filter(Boolean);
@@ -674,7 +696,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           for (const a of [...apps].sort((x, y) => Number(x.from || 0) - Number(y.from || 0))) {
             const others = a.readings.filter((r) => !r.isLemma && r.text.trim() !== (a.lemma || '').trim());
             if (!others.length) continue;
-            entries.push(`<span class="band-e"><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
+            entries.push(`<span class="band-e"${a.from ? ` data-from="${escapeHTML(a.from)}" data-to="${escapeHTML(a.to || a.from)}"` : ''}><span class="band-lem">${escapeHTML(abbrev(a.lemma || ''))}</span>] `
               + others.map((r) => `${escapeHTML(abbrev(r.text.trim(), 8, 4, 20) || '(om.)')} <span class="band-wit">`
                 + r.witnesses.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')
                 + `</span>`).join('; ')
