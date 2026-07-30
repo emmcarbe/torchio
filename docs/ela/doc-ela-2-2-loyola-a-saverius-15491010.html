@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_2_loyola_a_saverius_15491010:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_2_loyola_a_saverius_15491010:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_2_loyola_a_saverius_15491010:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></div>
+           <p id="ELA_2_2_loyola_a_saverius_15491010:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></p>
         </span>
         <span id="ELA_2_2_loyola_a_saverius_15491010:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_2_loyola_a_saverius_15491010:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
-           </div>
+           <p id="ELA_2_2_loyola_a_saverius_15491010:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
+           </p>
         </span>
       </span>
      <span id="ELA_2_2_loyola_a_saverius_15491010:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -349,11 +351,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
      <div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0" class="t-body s-1-struttura" data-el="body"> 
         <div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0" class="t-div s-1-struttura" data-el="div">
            <span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.0" class="t-pb" role="separator" title="page break">[129]</span>
-<div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">1. Cum, crescente in dies diversis in regionibus numero eorum qui nostrum institutum sequuntur, per Domini nostri Iesu Christi gratiam, crescat etiam rebus multis providendi et consequenter hoc onus cum aliis partiendi necessitas, visum est in Domino expedire ut aliquem ex fratribus nostris nobis substituendo, et praepositum omnium illorum qui in <a id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.1.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</a> et aliis transmarinis regionibus serenissimo regi Portugalliae subiectis et ultra eas, sub obedientia Societatis nostrae vivunt, constituendo, eidem caetera omnia quae nostri officii essent committeremus.</div>
-<div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">2. Nos ergo, cum de tua pietate et prudentia quae est in Christo Iesu plurimum confidamus, te in praepositum provincialem omnium nostrorum qui in praedictis regionibus versantur, cum omni ea auctoritate quam <a id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.2.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Sedes Apostolica</a> nobis concessit et constitutiones nostrae Societatis nobis tribuunt, creamus et instituimus. Ac in virtute sanctae obedientiae [iniungi<span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.2.1" class="t-pb" role="separator" title="page break">[130]</span>mus] ut hanc curae nostrae partem et auctoritatis suscipiendo, eadem ad inquirendum, ordinandum, reformandum, iubendum, prohibendum, admittendum in Societatem ad probationem 4 et ab eadem repellendum quos videbitur; constituendum etiam in quovis officio et deponendum, et in summa, ad disponendum de omnibus quae nos, si praesentes essemus, circa loca, res et personas quae ad Societatem pertinent possemus disponere, et ad Dei gloriam facere iudicabis, plenissime utaris.</div>      
-<div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">3. Hoc enim, gratiam Dei in te considerantes, ad ipsius honorem et ad eorum spiritualem profectum qui nostrae curae sunt commissi, et ad communem animarum salutem fore in Domino speramus.</div>
-<div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">Datum <a id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.4.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Romae</a>, <span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.4.1" class="t-date s-2-date" data-el="date" data-when="1549-10-10">sexto idus octobris 1549</span>.</div>
-<div id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.5" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Ignatius">[Ignatius]</span></div>
+<p id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">1. Cum, crescente in dies diversis in regionibus numero eorum qui nostrum institutum sequuntur, per Domini nostri Iesu Christi gratiam, crescat etiam rebus multis providendi et consequenter hoc onus cum aliis partiendi necessitas, visum est in Domino expedire ut aliquem ex fratribus nostris nobis substituendo, et praepositum omnium illorum qui in <a id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.1.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</a> et aliis transmarinis regionibus serenissimo regi Portugalliae subiectis et ultra eas, sub obedientia Societatis nostrae vivunt, constituendo, eidem caetera omnia quae nostri officii essent committeremus.</p>
+<p id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">2. Nos ergo, cum de tua pietate et prudentia quae est in Christo Iesu plurimum confidamus, te in praepositum provincialem omnium nostrorum qui in praedictis regionibus versantur, cum omni ea auctoritate quam <a id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.2.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Sedes Apostolica</a> nobis concessit et constitutiones nostrae Societatis nobis tribuunt, creamus et instituimus. Ac in virtute sanctae obedientiae [iniungi<span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.2.1" class="t-pb" role="separator" title="page break">[130]</span>mus] ut hanc curae nostrae partem et auctoritatis suscipiendo, eadem ad inquirendum, ordinandum, reformandum, iubendum, prohibendum, admittendum in Societatem ad probationem 4 et ab eadem repellendum quos videbitur; constituendum etiam in quovis officio et deponendum, et in summa, ad disponendum de omnibus quae nos, si praesentes essemus, circa loca, res et personas quae ad Societatem pertinent possemus disponere, et ad Dei gloriam facere iudicabis, plenissime utaris.</p>      
+<p id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">3. Hoc enim, gratiam Dei in te considerantes, ad ipsius honorem et ad eorum spiritualem profectum qui nostrae curae sunt commissi, et ad communem animarum salutem fore in Domino speramus.</p>
+<p id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">Datum <a id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.4.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Romae</a>, <span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.4.1" class="t-date s-2-date" data-el="date" data-when="1549-10-10">sexto idus octobris 1549</span>.</p>
+<p id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.5" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_loyola_a_saverius_15491010:0.1.0.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Ignatius">[Ignatius]</span></p>
        </div>      
       </div>
   </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-lancillottus-epistola-15461105.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-loyola-a-saverius-15491223.html">next ›</a></nav></main>
@@ -398,16 +400,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -589,6 +610,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

@@ -1,24 +1,9 @@
 {
  "meta": {
-  "title": "To Theo van Gogh. The Hague, Sunday, 29 September 1872.",
   "licence": {
    "target": "http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode",
    "text": "Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)"
-  },
-  "responsibility": [
-   {
-    "role": "editor",
-    "name": "Leo Jansen"
-   },
-   {
-    "role": "editor",
-    "name": "Hans Luijten"
-   },
-   {
-    "role": "editor",
-    "name": "Nienke Bakker"
-   }
-  ]
+  }
  },
  "documents": [
   {
@@ -99386,6 +99371,12 @@
  "generator": {
   "name": "torchio",
   "tei": "P5 Version 4.12.0. Last updated on\n        28th July 2026, revision 113e933e2"
+ },
+ "collection": {
+  "count": 30,
+  "years": null,
+  "licenceVaries": false,
+  "contributors": []
  },
  "lemmas": null
 }

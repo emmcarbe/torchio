@@ -44,12 +44,15 @@ principles, contest them, improve them.
    servers die with their servers. The field is charted by two catalogues,
    Sahle's [Catalog of Digital Scholarly Editions](https://www.digitale-edition.de/)
    and Franzini's [Catalogue of Digital Editions](https://github.com/gfranzini/digEds_cat);
-   the figures here come from the structured data of the latter: of 358 recorded editions, 242 declare a TEI
-   transcription, but only 104 publish the source XML, and 95 are still
-   online. Two TEI editions out of three do not provide their source.
-   -> This figure comes from a census run with Claude, and should therefore
-   be verified. The sustainability problem is in any case familiar to
-   everyone working in this field.
+   the figures here come from the structured data of the latter (commit
+   `7ddf229`, 29 May 2026): of 358 recorded editions, 242 declare a TEI
+   transcription, and of those only 104 publish the source XML. Three TEI
+   editions out of five do not provide their source. Of the 104, 95 are
+   still reachable: those are the ones a tool can actually be tested
+   against, and they are the contrast corpus described in the Method. The
+   census has since been recounted from the catalogue's CSV and the figures
+   hold. The sustainability problem is in any case familiar to everyone
+   working in this field.
 3. **The classic pipeline is a funnel.** TEI to XSLT to HTML: the stylesheet
    destroys the model at the border. Months of semantic encoding flattened
    into presentational markup that can no longer be queried. The resulting
@@ -68,8 +71,17 @@ positions, one representative each, not every existing tool.
 - **[CETEIcean](https://github.com/TEIC/CETEIcean)** (TEI-C) renders every TEI element as a custom element in the
   browser, without conversion: guaranteed rendering, with some limits: no
   apparatus, indices, facsimile, export.
-- **[TEI Publisher](https://teipublisher.com/)** (e-editiones) has a static route, but generating it
-  still requires a running instance.
+- **[TEI Publisher](https://teipublisher.com/)** (e-editiones) implements the
+  **TEI Processing Model** (Turska, Cummings and Rahtz, 2016), where the ODD
+  carries not only the schema but the behaviour: `<model behaviour="...">`
+  declares how a construct is to be rendered, and the tool executes it. This
+  is the direct ancestor of principle 4, and the position Torchio has to
+  distinguish itself from. The differences are three: behaviour is assigned
+  to model classes rather than to individual elements, so an edition
+  inherits without declaring anything; coverage of the whole P5 is asserted
+  by the test suite rather than promised; and there is no runtime, since the
+  static route of TEI Publisher still requires a running instance to
+  generate it.
 - **[TEI Boilerplate](https://github.com/TEI-Boilerplate/TEI-Boilerplate)** (John Walsh) makes a TEI file render itself in the
   browser, through an XSLT stylesheet linked from the document itself: no
   build, no server. It is the earliest statement of the self-rendering
@@ -247,7 +259,7 @@ model, the entities and the apparatus; reconciliation of places against a
 GeoNames gazetteer with the editor in the loop; canonical alignment across
 the documents of a collection, with the classical apparatus band derived
 under the edited text; the same press as a single self-contained page in
-the browser. The test suite counts 149 assertions.
+the browser. The test suite counts 174 assertions.
 Eight demonstration editions with rights verified or granted: the Odyssey (Perseus),
 thirty Van Gogh letters (Van Gogh Museum and Huygens ING), the Bellum
 Alexandrinum (Digital Latin Library, with a three-register critical
@@ -340,6 +352,12 @@ reproducible.
 
 ## References
 
+- Turska, Magdalena, James Cummings, and Sebastian Rahtz. 2016. "Challenging
+  the Myth of Presentation in Digital Editions." *Journal of the Text
+  Encoding Initiative* 9. https://doi.org/10.4000/jtei.1453.
+- Turska, Magdalena. 2017. "TEI Simple Processing Model: An Abstraction Layer
+  for XML Processing." In *Advances in Digital Scholarly Editing*. Leiden:
+  Sidestone Press.
 - Zenzaro, Simone, Angelo Mario Del Grosso, Federico Boschetti, and Graziano
   Ranocchia. 2025. "CoPhiEditor: The DSL-Based DSE Methodology within the
   ERC Advanced Grant 885222-GreekSchools." *Umanistica Digitale* 9 (20):

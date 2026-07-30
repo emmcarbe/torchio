@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -107,7 +106,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -124,6 +123,10 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -244,8 +247,22 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
-.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
-  padding-left:1.2em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
 .app-band .bw{color:var(--accent);cursor:pointer}
 .app-band .bw:hover{text-decoration:underline}
@@ -255,6 +272,10 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -273,7 +294,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div class="tt"><h1>Specimen</h1><p class="sub">dati</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edizione</a><a href="text.html">Testo</a><a href="indices.html">Indici</a><a href="map.html">Mappa</a><a href="data.html" class="on">Dati</a></nav>
 </header>
-<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>il modello dell'edizione: documenti, registri, apparati (JSON)</td><td class="occ">23.2 KB</td></tr><tr><td class="sigla"><a href="data/entities.csv">entities.csv</a></td><td>persone, luoghi e organizzazioni con conteggio delle occorrenze e coordinate</td><td class="occ">0.2 KB</td></tr><tr><td class="sigla"><a href="data/apparatus.csv">apparatus.csv</a></td><td>ogni lezione di apparato con i suoi testimoni, una riga per lezione</td><td class="occ">0.3 KB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>il flusso dei token del testo di lettura: posizione, lingua, forma, lemma, ancora</td><td class="occ">3.0 KB</td></tr><tr><td class="sigla"><a href="data/source.xml">source.xml</a></td><td>il file TEI sorgente, senza modifiche</td><td class="occ">3.5 KB</td></tr></table><p class="occ">Riuso secondo la licenza dell'edizione (vedi la pagina Edizione).</p></main>
+<main id="main" class="torchio"><table class="idx-table"><tr><td class="sigla"><a href="data/model.json">model.json</a></td><td>il modello dell&#39;edizione: documenti, registri, apparati (JSON)</td><td class="occ">23.5 KB</td></tr><tr><td class="sigla"><a href="data/entities.csv">entities.csv</a></td><td>persone, luoghi e organizzazioni con conteggio delle occorrenze e coordinate</td><td class="occ">0.2 KB</td></tr><tr><td class="sigla"><a href="data/apparatus.csv">apparatus.csv</a></td><td>ogni lezione di apparato con i suoi testimoni, una riga per lezione</td><td class="occ">0.3 KB</td></tr><tr><td class="sigla"><a href="data/tokens.csv">tokens.csv</a></td><td>il flusso dei token del testo di lettura: posizione, lingua, forma, lemma, ancora</td><td class="occ">3.7 KB</td></tr></table><p class="occ">Riuso secondo la licenza dell'edizione (vedi la pagina Edizione).</p></main>
 <footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0</footer>
 
 </body>

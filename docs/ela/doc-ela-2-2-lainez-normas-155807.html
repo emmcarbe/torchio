@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_2_lainez_normas_155807:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_2_lainez_normas_155807:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_2_lainez_normas_155807:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</div>
+           <p id="ELA_2_2_lainez_normas_155807:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
         </span>
         <span id="ELA_2_2_lainez_normas_155807:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_2_lainez_normas_155807:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">[sin firma]
-            </div>
+           <p id="ELA_2_2_lainez_normas_155807:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">[sin firma]
+            </p>
         </span>
       </span>
      <span id="ELA_2_2_lainez_normas_155807:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -348,15 +350,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
   </div><div id="ELA_2_2_lainez_normas_155807:0.1" class="t-text s-7-struttura-documento" data-el="text">
      <div id="ELA_2_2_lainez_normas_155807:0.1.0" class="t-body s-1-struttura" data-el="body"> 
         <div id="ELA_2_2_lainez_normas_155807:0.1.0.0" class="t-div s-1-struttura" data-el="div"><span id="ELA_2_2_lainez_normas_155807:0.1.0.0.0" class="t-pb" role="separator" title="page break">[129]</span>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">De rebus particularibus <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.1.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Portugalliae provinciae">provinciae Portugalliae</span> quae a praeposito generali in privata congregatione fuerunt constituta</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">1. Constituit [<span id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.0" class="t-hi s-1-inline" data-el="hi">praepositus generalis</span>] ut provincialis Portugalliae curam haberet rerum indicarum et superintendentiam, <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.1" class="t-pb" role="separator" title="page break">[130]</span> non quasi ex officio ordinario sed commissario, ad id praecipue ut res transmarinas, tam <a id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.2" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Indiae</a> et <a id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.3" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/39274" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/39274" data-key="Aethiopia">Aethiopiae</a> quam Brasiliae, et si quae aliae fuerint regi Portugaliae subditae, promoveat cum principibus et cum commissario <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Hispaniae provinciae">provinciarum Hispaniae</span> et cum ipso praeposito generali [ ].</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">2. Primo ex parte Praepositi Generalis et totius Congregationis supplicetur serenissimae Reginae Portugaliae ut suo favore impensius faveat novam conversionem <a id="ELA_2_2_lainez_normas_155807:0.1.0.0.3.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Indiae</a> commendando serio gubernatoribus ut novarum plantationum peculiarem habeant curam [ ].</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">3. Pater <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Nuñez Barreto, Melchior">Melchior Nunes</span>, si non emissit professionem votorum, emittat eam.</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">4. Quod attinet ad Patrem <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Cosimus de Torres">Cosmum de Torres</span> committitur eidem Patri <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.5.1" class="t-persName s-2-entita" data-el="persName" data-key="Nuñez Barreto, Melchior">Melchiori Nunes</span> ut statuat quo in gradu sit ille constituendus, an scilicet inter professos 4 vel trium votorum an inter coadiutores spirituales, visis Constitutionibus.</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.6" class="t-p s-1-struttura" data-el="p">5. Pater Nicolaus Lancillotus professionem emittat trium votorum [ ].</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.7" class="t-p s-1-struttura" data-el="p">6. Pater <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.7.0" class="t-persName s-2-entita" data-el="persName" data-key="Dies, Balthasar">Balthasar Dies</span> admittatur in coadiutorem spiritualem formatum.</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.8" class="t-p s-1-struttura" data-el="p">7. Pater <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.8.0" class="t-persName s-2-entita" data-el="persName" data-key="Balthasar Gago">Balthasar Gago</span> emittat professionem 4 vel trium votorum, vel sit coadiutor spiritualis, prout videbitur Patri <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.8.1" class="t-persName s-2-entita" data-el="persName" data-key="Nuñez Barreto, Melchior">Melchiori Nunes</span> [ ].</div>
-           <div id="ELA_2_2_lainez_normas_155807:0.1.0.0.9" class="t-p s-1-struttura" data-el="p">8. De <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.9.0" class="t-persName s-2-entita" data-el="persName" data-key="Villela, Gasparo">Gasparo Villela</span> idem.</div>    
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">De rebus particularibus <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.1.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Portugalliae provinciae">provinciae Portugalliae</span> quae a praeposito generali in privata congregatione fuerunt constituta</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">1. Constituit [<span id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.0" class="t-hi s-1-inline" data-el="hi">praepositus generalis</span>] ut provincialis Portugalliae curam haberet rerum indicarum et superintendentiam, <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.1" class="t-pb" role="separator" title="page break">[130]</span> non quasi ex officio ordinario sed commissario, ad id praecipue ut res transmarinas, tam <a id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.2" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Indiae</a> et <a id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.3" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/39274" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/39274" data-key="Aethiopia">Aethiopiae</a> quam Brasiliae, et si quae aliae fuerint regi Portugaliae subditae, promoveat cum principibus et cum commissario <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.2.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Hispaniae provinciae">provinciarum Hispaniae</span> et cum ipso praeposito generali [ ].</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">2. Primo ex parte Praepositi Generalis et totius Congregationis supplicetur serenissimae Reginae Portugaliae ut suo favore impensius faveat novam conversionem <a id="ELA_2_2_lainez_normas_155807:0.1.0.0.3.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Indiae</a> commendando serio gubernatoribus ut novarum plantationum peculiarem habeant curam [ ].</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">3. Pater <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Nuñez Barreto, Melchior">Melchior Nunes</span>, si non emissit professionem votorum, emittat eam.</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">4. Quod attinet ad Patrem <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Cosimus de Torres">Cosmum de Torres</span> committitur eidem Patri <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.5.1" class="t-persName s-2-entita" data-el="persName" data-key="Nuñez Barreto, Melchior">Melchiori Nunes</span> ut statuat quo in gradu sit ille constituendus, an scilicet inter professos 4 vel trium votorum an inter coadiutores spirituales, visis Constitutionibus.</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.6" class="t-p s-1-struttura" data-el="p">5. Pater Nicolaus Lancillotus professionem emittat trium votorum [ ].</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.7" class="t-p s-1-struttura" data-el="p">6. Pater <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.7.0" class="t-persName s-2-entita" data-el="persName" data-key="Dies, Balthasar">Balthasar Dies</span> admittatur in coadiutorem spiritualem formatum.</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.8" class="t-p s-1-struttura" data-el="p">7. Pater <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.8.0" class="t-persName s-2-entita" data-el="persName" data-key="Balthasar Gago">Balthasar Gago</span> emittat professionem 4 vel trium votorum, vel sit coadiutor spiritualis, prout videbitur Patri <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.8.1" class="t-persName s-2-entita" data-el="persName" data-key="Nuñez Barreto, Melchior">Melchiori Nunes</span> [ ].</p>
+           <p id="ELA_2_2_lainez_normas_155807:0.1.0.0.9" class="t-p s-1-struttura" data-el="p">8. De <span id="ELA_2_2_lainez_normas_155807:0.1.0.0.9.0" class="t-persName s-2-entita" data-el="persName" data-key="Villela, Gasparo">Gasparo Villela</span> idem.</p>    
         </div>
       </div>
   </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-iohannesdemontecorvino-epistula3.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-lancillottus-epistola-15461105.html">next ›</a></nav></main>
@@ -401,16 +403,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -592,6 +613,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

@@ -14,7 +14,7 @@
  */
 
 import { walkModel, textOfModel } from './model.js';
-import { renderBase, structuralCSS, escapeHTML } from './render.js';
+import { renderBase, structuralCSS, escapeHTML, safeURL } from './render.js';
 import { interactCSS, buildInteractJS, toolbarHTML } from './interact.js';
 import { normalizeManifest } from './manifest.js';
 import { buildExports } from './exports.js';
@@ -61,7 +61,8 @@ function jsonForScript(value) {
 }
 
 function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
-  const nav = (parent ? `<a href="${escapeHTML(parent.href)}" class="up">${escapeHTML(parent.label)}</a>` : '')
+  const parentHref = parent ? safeURL(parent.href) : null;
+  const nav = (parentHref ? `<a href="${escapeHTML(parentHref)}" class="up">${escapeHTML(parent.label)}</a>` : '')
     + pages
     .map(([file, label]) =>
       `<a href="${file}"${file === active ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
@@ -430,7 +431,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
   if (model.meta.licence) {
     const l = model.meta.licence;
-    about += `<dt>${T.licence}</dt><dd>${l.target ? `<a href="${escapeHTML(l.target)}">${escapeHTML(l.text || l.target)}</a>` : escapeHTML(l.text || '')}</dd>`;
+    const lt = safeURL(l.target);
+    about += `<dt>${T.licence}</dt><dd>${lt ? `<a href="${escapeHTML(lt)}">${escapeHTML(l.text || lt)}</a>` : escapeHTML(l.text || l.target || '')}</dd>`;
   }
   if (reg.witnesses.length) {
     about += `<dt>${T.witnesses}</dt><dd><table class="wit-table">`;

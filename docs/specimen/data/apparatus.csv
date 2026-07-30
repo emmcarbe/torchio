@@ -1,5 +1,5 @@
 register,entry,lemma,reading,witnesses,type,isLemma
-critical,doc0:0.1.0.0.1.0.1,multiforme,multiforme,A C,,true
-critical,doc0:0.1.0.0.1.0.1,multiforme,moltiforme,B,,false
-critical,doc0:0.1.0.0.1.4.0,indol,indol,A,,true
-critical,doc0:0.1.0.0.1.4.0,indol,indole,B C,ortografica,false
+critical,specimen:0.1.0.0.1.0.1,multiforme,multiforme,A C,,true
+critical,specimen:0.1.0.0.1.0.1,multiforme,moltiforme,B,,false
+critical,specimen:0.1.0.0.1.4.0,indol,indol,A,,true
+critical,specimen:0.1.0.0.1.4.0,indol,indole,B C,ortografica,false

@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -107,7 +106,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -121,6 +120,18 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
 .torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* a verse followed by its apparatus band opens the scheme on click */
+body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
+.torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
+.torchio-pop .popband .band-e{display:block;margin:.35em 0}
+.torchio-pop .popband .band-lem{font-style:italic}
+.torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
+.torchio-pop .popband .bw:hover{text-decoration:underline}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
@@ -236,10 +247,35 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -256,9 +292,9 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>Vincent van Gogh, the letters</h1><p class="sub">30 documents</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html" class="on">Texts</a><a href="data.html">Data</a></nav>
 </header>
-<main id="main" class="torchio" style="max-width:64rem"><input class="reg-filter" type="search" placeholder="Filter…" aria-label="Filter…"><span class="reg-count">30 / 30</span><table class="reg-table idx-table"><thead><tr><th scope="col">Title</th><th scope="col">Ref.</th></tr></thead><tbody><tr data-search="to theo van gogh. the hague, sunday, 29 september 1872. 001"><td><a href="doc-let001.html">To Theo van Gogh. The Hague, Sunday, 29 September 1872.</a></td><td>001</td></tr><tr data-search="to hendrik verzijl. the hague, saturday, 26 october 1872. 001a"><td><a href="doc-let001a.html">To Hendrik Verzijl. The Hague, Saturday, 26 October 1872.</a></td><td>001a</td></tr><tr data-search="to theo van gogh. the hague, friday, 13 december 1872. 002"><td><a href="doc-let002.html">To Theo van Gogh. The Hague, Friday, 13 December 1872.</a></td><td>002</td></tr><tr data-search="to theo van gogh. the hague, mid-january 1873. 003"><td><a href="doc-let003.html">To Theo van Gogh. The Hague, mid-January 1873.</a></td><td>003</td></tr><tr data-search="to theo van gogh. the hague, tuesday, 28 january 1873. 004"><td><a href="doc-let004.html">To Theo van Gogh. The Hague, Tuesday, 28 January 1873.</a></td><td>004</td></tr><tr data-search="to theo van gogh. the hague, monday, 17 march 1873. 005"><td><a href="doc-let005.html">To Theo van Gogh. The Hague, Monday, 17 March 1873.</a></td><td>005</td></tr><tr data-search="to theo van gogh. the hague, monday, 24 march 1873. 006"><td><a href="doc-let006.html">To Theo van Gogh. The Hague, Monday, 24 March 1873.</a></td><td>006</td></tr><tr data-search="to theo van gogh. the hague, monday, 5 may 1873. 007"><td><a href="doc-let007.html">To Theo van Gogh. The Hague, Monday, 5 May 1873.</a></td><td>007</td></tr><tr data-search="to theo van gogh. the hague, friday, 9 may 1873. 008"><td><a href="doc-let008.html">To Theo van Gogh. The Hague, Friday, 9 May 1873.</a></td><td>008</td></tr><tr data-search="to theo van gogh. london, friday, 13 june 1873. 009"><td><a href="doc-let009.html">To Theo van Gogh. London, Friday, 13 June 1873.</a></td><td>009</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, wednesday, 2 july 1873. 010"><td><a href="doc-let010.html">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</a></td><td>010</td></tr><tr data-search="to theo van gogh. london, sunday, 20 july 1873. 011"><td><a href="doc-let011.html">To Theo van Gogh. London, Sunday, 20 July 1873.</a></td><td>011</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, thursday, 7 august 1873. 012"><td><a href="doc-let012.html">To Willem and Caroline van Stockum-Haanebeek. London, Thursday, 7 August 1873.</a></td><td>012</td></tr><tr data-search="to theo van gogh. london, saturday, 13 september 1873. 013"><td><a href="doc-let013.html">To Theo van Gogh. London, Saturday, 13 September 1873.</a></td><td>013</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, between about thursday, 16 october and friday, 31 october 1873. 014"><td><a href="doc-let014.html">To Willem and Caroline van Stockum-Haanebeek. London, between about Thursday, 16 October and Friday, 31 October 1873.</a></td><td>014</td></tr><tr data-search="to theo van gogh. london, wednesday, 19 november 1873. 015"><td><a href="doc-let015.html">To Theo van Gogh. London, Wednesday, 19 November 1873.</a></td><td>015</td></tr><tr data-search="to caroline van stockum-haanebeek. london, thursday, 20 november 1873. 016"><td><a href="doc-let016.html">To Caroline van Stockum-Haanebeek. London, Thursday, 20 November 1873.</a></td><td>016</td></tr><tr data-search="to theo van gogh. london, beginning of january 1874. 017"><td><a href="doc-let017.html">To Theo van Gogh. London, beginning of January 1874.</a></td><td>017</td></tr><tr data-search="to caroline van stockum-haanebeek. london, monday, 9 february 1874. 018"><td><a href="doc-let018.html">To Caroline van Stockum-Haanebeek. London, Monday, 9 February 1874.</a></td><td>018</td></tr><tr data-search="to theo van gogh. london, friday, 20 february 1874. 019"><td><a href="doc-let019.html">To Theo van Gogh. London, Friday, 20 February 1874.</a></td><td>019</td></tr><tr data-search="to caroline and willem van stockum-haanebeek. london, tuesday, 3 march 1874. 020"><td><a href="doc-let020.html">To Caroline and Willem van Stockum-Haanebeek. London, Tuesday, 3 March 1874.</a></td><td>020</td></tr><tr data-search="to theo van gogh. london, monday, 30 march 1874. 021"><td><a href="doc-let021.html">To Theo van Gogh. London, Monday, 30 March 1874.</a></td><td>021</td></tr><tr data-search="to theo van gogh. london, thursday, 30 april 1874. 022"><td><a href="doc-let022.html">To Theo van Gogh. London, Thursday, 30 April 1874.</a></td><td>022</td></tr><tr data-search="to theo van gogh. london, tuesday, 16 june 1874. 023"><td><a href="doc-let023.html">To Theo van Gogh. London, Tuesday, 16 June 1874.</a></td><td>023</td></tr><tr data-search="to betsy tersteeg. helvoirt, tuesday, 7 july 1874. 024"><td><a href="doc-let024.html">To Betsy Tersteeg. Helvoirt, Tuesday, 7 July 1874.</a></td><td>024</td></tr><tr data-search="to theo van gogh. helvoirt, friday, 10 july 1874. 025"><td><a href="doc-let025.html">To Theo van Gogh. Helvoirt, Friday, 10 July 1874.</a></td><td>025</td></tr><tr data-search="to theo van gogh. london, tuesday, 21 july 1874. 026"><td><a href="doc-let026.html">To Theo van Gogh. London, Tuesday, 21 July 1874.</a></td><td>026</td></tr><tr data-search="to theo van gogh. london, friday, 31 july 1874. 027"><td><a href="doc-let027.html">To Theo van Gogh. London, Friday, 31 July 1874.</a></td><td>027</td></tr><tr data-search="to theo van gogh. london, monday, 10 august 1874. 028"><td><a href="doc-let028.html">To Theo van Gogh. London, Monday, 10 August 1874.</a></td><td>028</td></tr><tr data-search="to theo van gogh. london, between monday, 4 january and friday, 5 march 1875. 029"><td><a href="doc-let029.html">To Theo van Gogh. London, between Monday, 4 January and Friday, 5 March 1875.</a></td><td>029</td></tr></tbody></table></main>
+<main id="main" class="torchio" style="max-width:64rem"><input class="reg-filter" type="search" placeholder="Filter…" aria-label="Filter…"><span class="reg-count">30 documents</span><table class="reg-table idx-table"><thead><tr><th scope="col">Title</th><th scope="col">Ref.</th></tr></thead><tbody><tr data-search="to theo van gogh. the hague, sunday, 29 september 1872. 001"><td><a href="doc-let001.html">To Theo van Gogh. The Hague, Sunday, 29 September 1872.</a></td><td>001</td></tr><tr data-search="to hendrik verzijl. the hague, saturday, 26 october 1872. 001a"><td><a href="doc-let001a.html">To Hendrik Verzijl. The Hague, Saturday, 26 October 1872.</a></td><td>001a</td></tr><tr data-search="to theo van gogh. the hague, friday, 13 december 1872. 002"><td><a href="doc-let002.html">To Theo van Gogh. The Hague, Friday, 13 December 1872.</a></td><td>002</td></tr><tr data-search="to theo van gogh. the hague, mid-january 1873. 003"><td><a href="doc-let003.html">To Theo van Gogh. The Hague, mid-January 1873.</a></td><td>003</td></tr><tr data-search="to theo van gogh. the hague, tuesday, 28 january 1873. 004"><td><a href="doc-let004.html">To Theo van Gogh. The Hague, Tuesday, 28 January 1873.</a></td><td>004</td></tr><tr data-search="to theo van gogh. the hague, monday, 17 march 1873. 005"><td><a href="doc-let005.html">To Theo van Gogh. The Hague, Monday, 17 March 1873.</a></td><td>005</td></tr><tr data-search="to theo van gogh. the hague, monday, 24 march 1873. 006"><td><a href="doc-let006.html">To Theo van Gogh. The Hague, Monday, 24 March 1873.</a></td><td>006</td></tr><tr data-search="to theo van gogh. the hague, monday, 5 may 1873. 007"><td><a href="doc-let007.html">To Theo van Gogh. The Hague, Monday, 5 May 1873.</a></td><td>007</td></tr><tr data-search="to theo van gogh. the hague, friday, 9 may 1873. 008"><td><a href="doc-let008.html">To Theo van Gogh. The Hague, Friday, 9 May 1873.</a></td><td>008</td></tr><tr data-search="to theo van gogh. london, friday, 13 june 1873. 009"><td><a href="doc-let009.html">To Theo van Gogh. London, Friday, 13 June 1873.</a></td><td>009</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, wednesday, 2 july 1873. 010"><td><a href="doc-let010.html">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</a></td><td>010</td></tr><tr data-search="to theo van gogh. london, sunday, 20 july 1873. 011"><td><a href="doc-let011.html">To Theo van Gogh. London, Sunday, 20 July 1873.</a></td><td>011</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, thursday, 7 august 1873. 012"><td><a href="doc-let012.html">To Willem and Caroline van Stockum-Haanebeek. London, Thursday, 7 August 1873.</a></td><td>012</td></tr><tr data-search="to theo van gogh. london, saturday, 13 september 1873. 013"><td><a href="doc-let013.html">To Theo van Gogh. London, Saturday, 13 September 1873.</a></td><td>013</td></tr><tr data-search="to willem and caroline van stockum-haanebeek. london, between about thursday, 16 october and friday, 31 october 1873. 014"><td><a href="doc-let014.html">To Willem and Caroline van Stockum-Haanebeek. London, between about Thursday, 16 October and Friday, 31 October 1873.</a></td><td>014</td></tr><tr data-search="to theo van gogh. london, wednesday, 19 november 1873. 015"><td><a href="doc-let015.html">To Theo van Gogh. London, Wednesday, 19 November 1873.</a></td><td>015</td></tr><tr data-search="to caroline van stockum-haanebeek. london, thursday, 20 november 1873. 016"><td><a href="doc-let016.html">To Caroline van Stockum-Haanebeek. London, Thursday, 20 November 1873.</a></td><td>016</td></tr><tr data-search="to theo van gogh. london, beginning of january 1874. 017"><td><a href="doc-let017.html">To Theo van Gogh. London, beginning of January 1874.</a></td><td>017</td></tr><tr data-search="to caroline van stockum-haanebeek. london, monday, 9 february 1874. 018"><td><a href="doc-let018.html">To Caroline van Stockum-Haanebeek. London, Monday, 9 February 1874.</a></td><td>018</td></tr><tr data-search="to theo van gogh. london, friday, 20 february 1874. 019"><td><a href="doc-let019.html">To Theo van Gogh. London, Friday, 20 February 1874.</a></td><td>019</td></tr><tr data-search="to caroline and willem van stockum-haanebeek. london, tuesday, 3 march 1874. 020"><td><a href="doc-let020.html">To Caroline and Willem van Stockum-Haanebeek. London, Tuesday, 3 March 1874.</a></td><td>020</td></tr><tr data-search="to theo van gogh. london, monday, 30 march 1874. 021"><td><a href="doc-let021.html">To Theo van Gogh. London, Monday, 30 March 1874.</a></td><td>021</td></tr><tr data-search="to theo van gogh. london, thursday, 30 april 1874. 022"><td><a href="doc-let022.html">To Theo van Gogh. London, Thursday, 30 April 1874.</a></td><td>022</td></tr><tr data-search="to theo van gogh. london, tuesday, 16 june 1874. 023"><td><a href="doc-let023.html">To Theo van Gogh. London, Tuesday, 16 June 1874.</a></td><td>023</td></tr><tr data-search="to betsy tersteeg. helvoirt, tuesday, 7 july 1874. 024"><td><a href="doc-let024.html">To Betsy Tersteeg. Helvoirt, Tuesday, 7 July 1874.</a></td><td>024</td></tr><tr data-search="to theo van gogh. helvoirt, friday, 10 july 1874. 025"><td><a href="doc-let025.html">To Theo van Gogh. Helvoirt, Friday, 10 July 1874.</a></td><td>025</td></tr><tr data-search="to theo van gogh. london, tuesday, 21 july 1874. 026"><td><a href="doc-let026.html">To Theo van Gogh. London, Tuesday, 21 July 1874.</a></td><td>026</td></tr><tr data-search="to theo van gogh. london, friday, 31 july 1874. 027"><td><a href="doc-let027.html">To Theo van Gogh. London, Friday, 31 July 1874.</a></td><td>027</td></tr><tr data-search="to theo van gogh. london, monday, 10 august 1874. 028"><td><a href="doc-let028.html">To Theo van Gogh. London, Monday, 10 August 1874.</a></td><td>028</td></tr><tr data-search="to theo van gogh. london, between monday, 4 january and friday, 5 march 1875. 029"><td><a href="doc-let029.html">To Theo van Gogh. London, between Monday, 4 January and Friday, 5 March 1875.</a></td><td>029</td></tr></tbody></table></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 <script>
 (function(){

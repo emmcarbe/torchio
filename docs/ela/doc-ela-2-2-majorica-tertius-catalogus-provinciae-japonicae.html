@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></div>
+           <p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></p>
         </span>
         <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
-           </div>
+           <p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
+           </p>
         </span>
       </span>
      <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -350,26 +352,26 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         <div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0" class="t-div s-1-struttura" data-el="div">
            <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.0" class="t-pb" role="separator" title="page break">[J.25 168]</span>
            <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.1" class="t-pb" role="separator" title="page break">[1117]</span>
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Sunt intra <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Provinciam</a> Japonicam de Societate omnino 44: in Collegio <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Amacaensi</span> 36; sit ne quis Nostrum in <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span> non constat. In Missione Tunkinica quinque; in Cocicinica, Macasarìca, Cambogensi unus in singulis; in <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Haynanica">Haynanica</span> nemo. Ab <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.4" class="t-date s-2-date" data-el="date" data-when="1650">anno 1650</span> inclusive usque in hanc diem admissi in Societatem 19, dimissi 7, vita functi 14.</div>
-           <div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">Habet haec Provincia redditus qui sequuntur: ex locatione domorum singulis annis recipit 518 argenteos, quibus alere potest ad summum sex e Nostris; nam in domorum restauratione reddituum partem insumit. Pecuniam quam vocat Orphanorum accepit mutuam ad mille et quinque argenteos. Ad haec solvit Provincia quotannis Seminario Japonico pro accepta inde pecunia 334 argenteos. Ab anno <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.0" class="t-date s-2-date" data-el="date" data-when="1650">anno 1650</span> ad hunc annum labentem damna in pecunia, aliisque rebus passi sumus ad 4.884 argenteos. Annui Provinciae redditus in <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.1" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</a> fere accedunt ad quatuor mille argenteos, quos vulgo Patacas appellamus. Redditus, quos olim habebat ex negotiatione a <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.2" class="t-persName s-2-entita" data-el="persName" data-key="Papa">Summo Pontifice</span> huic Provinciae permissa, modo sunt exigui aut pene nulli propter interclusum in <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span> et <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manila</span> cum hac civitate comercium. Indiget duodecim mille argenteis ad annuam Nostrorum sustentationem. Ad 56 millia xerafinorum ascendit aes alienum ab hac Provincia contractum <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.5" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Amacai</span>, in <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.6" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</a> et <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.7" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/981529" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/981529" data-key="Lusitania">Lusitania</a>, ubi ad sumptus in <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.8" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/991376" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/991376" data-key="Europa">Europa</a> necessarios redditus habet exiguos, quos refert ex praedio Carcavelli. Nihil ex  aliena largitate nacti sumus ab anno 650 ad hunc annum. Reliquum aerarii ad septem mille argenteos fere ascendit.</div>
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Sunt intra <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Provinciam</a> Japonicam de Societate omnino 44: in Collegio <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Amacaensi</span> 36; sit ne quis Nostrum in <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span> non constat. In Missione Tunkinica quinque; in Cocicinica, Macasarìca, Cambogensi unus in singulis; in <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Haynanica">Haynanica</span> nemo. Ab <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.2.4" class="t-date s-2-date" data-el="date" data-when="1650">anno 1650</span> inclusive usque in hanc diem admissi in Societatem 19, dimissi 7, vita functi 14.</p>
+           <p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">Habet haec Provincia redditus qui sequuntur: ex locatione domorum singulis annis recipit 518 argenteos, quibus alere potest ad summum sex e Nostris; nam in domorum restauratione reddituum partem insumit. Pecuniam quam vocat Orphanorum accepit mutuam ad mille et quinque argenteos. Ad haec solvit Provincia quotannis Seminario Japonico pro accepta inde pecunia 334 argenteos. Ab anno <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.0" class="t-date s-2-date" data-el="date" data-when="1650">anno 1650</span> ad hunc annum labentem damna in pecunia, aliisque rebus passi sumus ad 4.884 argenteos. Annui Provinciae redditus in <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.1" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</a> fere accedunt ad quatuor mille argenteos, quos vulgo Patacas appellamus. Redditus, quos olim habebat ex negotiatione a <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.2" class="t-persName s-2-entita" data-el="persName" data-key="Papa">Summo Pontifice</span> huic Provinciae permissa, modo sunt exigui aut pene nulli propter interclusum in <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span> et <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manila</span> cum hac civitate comercium. Indiget duodecim mille argenteis ad annuam Nostrorum sustentationem. Ad 56 millia xerafinorum ascendit aes alienum ab hac Provincia contractum <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.5" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Amacai</span>, in <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.6" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="India">India</a> et <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.7" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/981529" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/981529" data-key="Lusitania">Lusitania</a>, ubi ad sumptus in <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.3.8" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/991376" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/991376" data-key="Europa">Europa</a> necessarios redditus habet exiguos, quos refert ex praedio Carcavelli. Nihil ex  aliena largitate nacti sumus ab anno 650 ad hunc annum. Reliquum aerarii ad septem mille argenteos fere ascendit.</p>
            
 <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.4" class="t-pb" role="separator" title="page break">[1118]</span>
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5" class="t-p s-1-struttura" data-el="p"> <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Collegium Amacaense</span>
-   <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.1" class="t-lb"><br/></span>In <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Sinae">Sinensi Imperio</span> Collegium habemus <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Amacaense</span>, <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonicae</span> Provinciae caput. Sunt in eo 36 omnino e Nostris, quorum sunt sacerdotes 20, scholastici approbati duo, reliqui coadiutores, uno e sex tyronibus excepto, qui in scholasticum fuit admissus. Habet Collegium decem domos locabiles, ex quibus singulis annis recipit 313 argenteos, quibus quatuor capita vix ali possunt. Ad haec habet praedia duo ad aegrotorum levamentum et solitam recreationem. Alterum, quod Insulam Viridem appellamus, terrae fructibus, quos inde recipimus, aegre sumptus exaequat. Alterum (dicunt Oytem) gregi et armento pascua suppeditat. Collegio vero deductis expensis non amplius hactenus quam 100 argenteos. Sperant tamen rerum periti fore ut annis insequentibus, si res e voto succedat, recipiantur inde argentei 500. Non tenetur ex ulla obligatione Collegium ad docendas scientias aut litteras, quod hactenus careat fundatione, sed ex charitate dumtaxat classes olim aperuit. Hoc anno grammaticam superiorem et infimam, elementa litterarum, necnon arithmeticam, cum musicis numeris pueros docet. Octo sociorum Collegii redditibus, reliqui Provinciae aluntur impensis.</div>
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5" class="t-p s-1-struttura" data-el="p"> <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Collegium Amacaense</span>
+   <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.1" class="t-lb"><br/></span>In <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Sinae">Sinensi Imperio</span> Collegium habemus <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Amacaense</span>, <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.5.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonicae</span> Provinciae caput. Sunt in eo 36 omnino e Nostris, quorum sunt sacerdotes 20, scholastici approbati duo, reliqui coadiutores, uno e sex tyronibus excepto, qui in scholasticum fuit admissus. Habet Collegium decem domos locabiles, ex quibus singulis annis recipit 313 argenteos, quibus quatuor capita vix ali possunt. Ad haec habet praedia duo ad aegrotorum levamentum et solitam recreationem. Alterum, quod Insulam Viridem appellamus, terrae fructibus, quos inde recipimus, aegre sumptus exaequat. Alterum (dicunt Oytem) gregi et armento pascua suppeditat. Collegio vero deductis expensis non amplius hactenus quam 100 argenteos. Sperant tamen rerum periti fore ut annis insequentibus, si res e voto succedat, recipiantur inde argentei 500. Non tenetur ex ulla obligatione Collegium ad docendas scientias aut litteras, quod hactenus careat fundatione, sed ex charitate dumtaxat classes olim aperuit. Hoc anno grammaticam superiorem et infimam, elementa litterarum, necnon arithmeticam, cum musicis numeris pueros docet. Octo sociorum Collegii redditibus, reliqui Provinciae aluntur impensis.</p>
            
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span>
-   <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6.1" class="t-lb"><br/></span>In <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span> annis propius elapsis socii degebant duo, de his quid actum sit, vivantne, an vixerint, propter interclusam illuc navigationem plane non constat, ut eos propterea in numerum sociorum supra positum recensendos visum non fuerit.</div>
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span>
+   <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6.1" class="t-lb"><br/></span>In <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.6.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span> annis propius elapsis socii degebant duo, de his quid actum sit, vivantne, an vixerint, propter interclusam illuc navigationem plane non constat, ut eos propterea in numerum sociorum supra positum recensendos visum non fuerit.</p>
            
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.7" class="t-p s-1-struttura" data-el="p">Missio Cocincinica
-<span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.7.0" class="t-lb"><br/></span>Missioni Cocincinicae, quam nunc unus tantum Pater moderatur, debet Provincia Japonica <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.7.1" class="t-pb" role="separator" title="page break">[168v]</span> 2300 argenteos, quos ad illius Residentiae fundationem nobilis faemina legavit, ea lege, ut ex commercio japonico lucro augerentur, donec ad eam summam perveniet, quae praedictae fundationi sufficeret. Verum propter interclusum commercium nondum huic oneri Provincia satisfecit. Quare et summam ipsam, et, si Paternitati Vestrae videbitur, cum lucra inde cessantia, tum damna emergentia debet Missioni Cocincinicae.</div>
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.7" class="t-p s-1-struttura" data-el="p">Missio Cocincinica
+<span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.7.0" class="t-lb"><br/></span>Missioni Cocincinicae, quam nunc unus tantum Pater moderatur, debet Provincia Japonica <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.7.1" class="t-pb" role="separator" title="page break">[168v]</span> 2300 argenteos, quos ad illius Residentiae fundationem nobilis faemina legavit, ea lege, ut ex commercio japonico lucro augerentur, donec ad eam summam perveniet, quae praedictae fundationi sufficeret. Verum propter interclusum commercium nondum huic oneri Provincia satisfecit. Quare et summam ipsam, et, si Paternitati Vestrae videbitur, cum lucra inde cessantia, tum damna emergentia debet Missioni Cocincinicae.</p>
            
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.8" class="t-p s-1-struttura" data-el="p">Missio Tunkinica
-<span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.8.0" class="t-lb"><br/></span>In Missione Tunkinica quinque degunt Patres in quinque Residentiis. Nulli Missioni sunt redditus. Sumptus illi necessarios Provinciae (ut dictum est) aerarium suppeditat.</div>
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.8" class="t-p s-1-struttura" data-el="p">Missio Tunkinica
+<span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.8.0" class="t-lb"><br/></span>In Missione Tunkinica quinque degunt Patres in quinque Residentiis. Nulli Missioni sunt redditus. Sumptus illi necessarios Provinciae (ut dictum est) aerarium suppeditat.</p>
            
 <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.9" class="t-pb" role="separator" title="page break">[1119]</span>
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10" class="t-p s-1-struttura" data-el="p"> Missiones reliquae.
-   <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.0" class="t-lb"><br/></span><span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Haynanica">Haynanica</span>, <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Cambodja">Cambogensis</span> et <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Macazarica">Macazarica</span> Missio Provinciae aluntur impensis, quod hactenus careant fundatione. Primam nemo obtinet. Reliquarum singulas unus duntaxat excolit operarius.</div>	
-<div id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.11" class="t-p s-1-struttura" data-el="p">† <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.11.0" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/42085352" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/42085352" data-key="Maiorica, Hieronymus S.J.">Hieronymus Mayorica</a></div>
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10" class="t-p s-1-struttura" data-el="p"> Missiones reliquae.
+   <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.0" class="t-lb"><br/></span><span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Haynanica">Haynanica</span>, <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Cambodja">Cambogensis</span> et <span id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.10.3" class="t-placeName s-2-entita" data-el="placeName" data-key="Macazarica">Macazarica</span> Missio Provinciae aluntur impensis, quod hactenus careant fundatione. Primam nemo obtinet. Reliquarum singulas unus duntaxat excolit operarius.</p>	
+<p id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.11" class="t-p s-1-struttura" data-el="p">† <a id="ELA_2_2_majorica_tertius_catalogus_provinciae_japonicae:0.1.0.0.11.0" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/42085352" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/42085352" data-key="Maiorica, Hieronymus S.J.">Hieronymus Mayorica</a></p>
            
        </div>      
       </div>
@@ -415,16 +417,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -606,6 +627,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

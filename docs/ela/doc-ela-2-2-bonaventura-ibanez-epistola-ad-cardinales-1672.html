@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</div>
+           <p id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
         </span>
         <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">  
-           </div>
+           <p id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">  
+           </p>
         </span>
       </span>
      <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -349,14 +351,14 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
      <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0" class="t-body s-1-struttura" data-el="body"> 
         <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.0" class="t-pb" role="separator" title="page break">[100]</span>
            <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1" class="t-div s-1-struttura" data-el="div">
-              <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.0" class="t-head s-1-struttura" data-el="head">Emi DD. Cardinales de Propaganda Fide.</div>
-              <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1" class="t-p s-1-struttura" data-el="p">1. De <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/1027" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/1027" data-key="Hispania">Hispania</a> ad <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Philippinas">insulas Philippinas</span> perventus cum meis sociis a vestris EE. DD. asignatis 6 sacerdotibus theologis et uno laico, scripsi ad VV.EE.DD. rationem dando et etiam de morte P. Fr. <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.2" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/31140267" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/31140267" data-key="Antonius de Sancta Maria">Antonii a S. Maria</a> qui obiit exulatus in civitate <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.3" class="t-placeName s-2-entita ent-ext" href="https://www.geonames.org/5149222" target="_blank" rel="noopener" data-el="placeName" data-ref="https://www.geonames.org/5149222" data-key="Canton">Canton</a>; illa[m] epistolam misi per viam occidentalem. Postea ex <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manila</span> cum quatuor sociis tantum me contuli ad hanc insulam et civitatem <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.5" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Macao</span> vasallis Regis Portugaliȩ populatam, ut exhinc facilior pos[s]im <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.6" class="t-placeName s-2-entita" data-el="placeName" data-key="China">regnum sinicum</span> ingredi. Et adhuc non sum ingressus, quia, Deo teste, patres societatis Iesu nobis iter impediunt. Hoc in curia romana erit omnibus incredibile, et sic tacens non amplius de hoc loquar sperans a Deo suum auxilium.</div>
+              <h2 id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.0" class="t-head s-1-struttura" data-el="head">Emi DD. Cardinales de Propaganda Fide.</h2>
+              <p id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1" class="t-p s-1-struttura" data-el="p">1. De <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/1027" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/1027" data-key="Hispania">Hispania</a> ad <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Philippinas">insulas Philippinas</span> perventus cum meis sociis a vestris EE. DD. asignatis 6 sacerdotibus theologis et uno laico, scripsi ad VV.EE.DD. rationem dando et etiam de morte P. Fr. <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.2" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/31140267" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/31140267" data-key="Antonius de Sancta Maria">Antonii a S. Maria</a> qui obiit exulatus in civitate <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.3" class="t-placeName s-2-entita ent-ext" href="https://www.geonames.org/5149222" target="_blank" rel="noopener" data-el="placeName" data-ref="https://www.geonames.org/5149222" data-key="Canton">Canton</a>; illa[m] epistolam misi per viam occidentalem. Postea ex <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manila</span> cum quatuor sociis tantum me contuli ad hanc insulam et civitatem <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.5" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Macao</span> vasallis Regis Portugaliȩ populatam, ut exhinc facilior pos[s]im <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.1.6" class="t-placeName s-2-entita" data-el="placeName" data-key="China">regnum sinicum</span> ingredi. Et adhuc non sum ingressus, quia, Deo teste, patres societatis Iesu nobis iter impediunt. Hoc in curia romana erit omnibus incredibile, et sic tacens non amplius de hoc loquar sperans a Deo suum auxilium.</p>
               <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.2" class="t-pb" role="separator" title="page break">[101]</span>
-              <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3" class="t-p s-1-struttura" data-el="p">2. In hac civitate alteram ad VV. EE. DD. scripsi epistolam, quam remisi ad illustrissimos DD. Episcopos ac vicarios apostolicos D.Petrum Lambert ac D.  <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Palude">Franciscum Palude</span>, qui in regno Siam persistunt, ut ipsi per viam orientalem ad VV. EE. DD. remittant. Nunc iterum per viam occidentalem ad VV. EE. DD. scribo circa quod iam notum feci in prȩteritis epistolis pro morte P. Fr. Antonii a S. Mariaasignando de meis sociis unum nomine Ioannem Marti tanquam dignum in primo loco optinendi vacuam prȩfecturam apostolicam nostrȩ sinicȩ missionis. Hic nunc quadam infirmitate prolixa iam manet inpossibilitatus ad missionem sinicam ingrediendum et ex sua complexione debilis est natura, et sic potest S. Congregatio hoc munus Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.1" class="t-persName s-2-entita" data-el="persName" data-key="Augustinus de Paschalis O.F.M.">Augustino de S. Pascual</span>  tribuere, religioso omnibus ad hoc requisitis ornato, qui iam ipse solus in sinicam missionem abscondite ingressus est, de quo spero tam in scientia et virtute quam in zelo animarum salutis erit alter Fr. <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.2" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/31140267" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/31140267" data-key="Antonius de Sancta Maria">Antonius a S. Maria</a>, prȩterea habet naturam et complexionem robustam, quȩ in missionariis valde sunt necessariȩ. Huic plus similis in supra dictis requisitis Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.3" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Conceptione">Franciscus de Conceptione</span> tenet secundum locum et Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.4" class="t-persName s-2-entita" data-el="persName" data-key="Taurinus, Iacobus O.F.M.">Iacobus Tarin</span> tertium locum.</div>
-              <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4" class="t-p s-1-struttura" data-el="p">3. Litterȩ apostolicȩ a S. Congregatione ad nos mittendȩ veniant per viam S. tribunalis inquisitionis usque ad <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Philippinas">insulas Philippinas</span> et ad manus dicti tribunalis comissarii, qui assistit in civitate <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manilȩ</span> ut ipse tradat eas P. Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.2" class="t-persName s-2-entita" data-el="persName" data-key="Rodrigues, Sebastiano">Sebastiano Rodrigues</span> nostro    <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.3" class="t-pb" role="separator" title="page break">[102]</span>agenti, quo defuncto, nostrȩ provinciȩ S. Gregorii procuratori, ut ipse per securam viam ad nos remittat vel ipsimet comissario sanctȩ inquisitionis. Et humiliter peto quod dictȩ litterȩ veniant duplicatȩ aliȩ per viam orientalem et aliȩ per viam occidentalem, ut aliquȩ ad nos possint devenire. Interea in nostris orationibus et sanctis sacrificiis, rogamus et rogabimus Deum pro VV. EE. DD. In civitate <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Macao</span> et combentu nostri ordinis, hodie <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.5" class="t-date s-2-date" data-el="date" data-when="1672-11-05">5 novembris anni 1672</span>.</div>
-                 <div id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5" class="t-p s-1-struttura" data-el="p">Vestris EE. DD. S. Congregationis de Propaganda Fide Cardinalibus subditus, 
+              <p id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3" class="t-p s-1-struttura" data-el="p">2. In hac civitate alteram ad VV. EE. DD. scripsi epistolam, quam remisi ad illustrissimos DD. Episcopos ac vicarios apostolicos D.Petrum Lambert ac D.  <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Palude">Franciscum Palude</span>, qui in regno Siam persistunt, ut ipsi per viam orientalem ad VV. EE. DD. remittant. Nunc iterum per viam occidentalem ad VV. EE. DD. scribo circa quod iam notum feci in prȩteritis epistolis pro morte P. Fr. Antonii a S. Mariaasignando de meis sociis unum nomine Ioannem Marti tanquam dignum in primo loco optinendi vacuam prȩfecturam apostolicam nostrȩ sinicȩ missionis. Hic nunc quadam infirmitate prolixa iam manet inpossibilitatus ad missionem sinicam ingrediendum et ex sua complexione debilis est natura, et sic potest S. Congregatio hoc munus Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.1" class="t-persName s-2-entita" data-el="persName" data-key="Augustinus de Paschalis O.F.M.">Augustino de S. Pascual</span>  tribuere, religioso omnibus ad hoc requisitis ornato, qui iam ipse solus in sinicam missionem abscondite ingressus est, de quo spero tam in scientia et virtute quam in zelo animarum salutis erit alter Fr. <a id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.2" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/31140267" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/31140267" data-key="Antonius de Sancta Maria">Antonius a S. Maria</a>, prȩterea habet naturam et complexionem robustam, quȩ in missionariis valde sunt necessariȩ. Huic plus similis in supra dictis requisitis Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.3" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Conceptione">Franciscus de Conceptione</span> tenet secundum locum et Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.3.4" class="t-persName s-2-entita" data-el="persName" data-key="Taurinus, Iacobus O.F.M.">Iacobus Tarin</span> tertium locum.</p>
+              <p id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4" class="t-p s-1-struttura" data-el="p">3. Litterȩ apostolicȩ a S. Congregatione ad nos mittendȩ veniant per viam S. tribunalis inquisitionis usque ad <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Philippinas">insulas Philippinas</span> et ad manus dicti tribunalis comissarii, qui assistit in civitate <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manilȩ</span> ut ipse tradat eas P. Fr. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.2" class="t-persName s-2-entita" data-el="persName" data-key="Rodrigues, Sebastiano">Sebastiano Rodrigues</span> nostro    <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.3" class="t-pb" role="separator" title="page break">[102]</span>agenti, quo defuncto, nostrȩ provinciȩ S. Gregorii procuratori, ut ipse per securam viam ad nos remittat vel ipsimet comissario sanctȩ inquisitionis. Et humiliter peto quod dictȩ litterȩ veniant duplicatȩ aliȩ per viam orientalem et aliȩ per viam occidentalem, ut aliquȩ ad nos possint devenire. Interea in nostris orationibus et sanctis sacrificiis, rogamus et rogabimus Deum pro VV. EE. DD. In civitate <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.4" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">Macao</span> et combentu nostri ordinis, hodie <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.4.5" class="t-date s-2-date" data-el="date" data-when="1672-11-05">5 novembris anni 1672</span>.</p>
+                 <p id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5" class="t-p s-1-struttura" data-el="p">Vestris EE. DD. S. Congregationis de Propaganda Fide Cardinalibus subditus, 
                     <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5.0" class="t-lb"><br/></span>FR. <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5.1" class="t-persName s-2-entita" data-el="persName" data-key="Ibañez, Bonaventura, O.F.M.">Bonaventura Ybañes</span>, 
-                    <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5.2" class="t-lb"><br/></span>Viceprȩfectus apostolicus missionis nostrȩ seraphicȩ ordinis in regno <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5.3" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Sinȩ</span>. </div>  
+                    <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5.2" class="t-lb"><br/></span>Viceprȩfectus apostolicus missionis nostrȩ seraphicȩ ordinis in regno <span id="ELA_2_2_bonaventura_ibanez_epistola_ad_cardinales_1672:0.1.0.1.5.3" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Sinȩ</span>. </p>  
         </div>
       </div>
   </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-benedictuspolonus-relatio.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-bonaventura-ibanez-epistola-ad-cardinales-iulio1672.html">next ›</a></nav></main>
@@ -401,16 +403,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -592,6 +613,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

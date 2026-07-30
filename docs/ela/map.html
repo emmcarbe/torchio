@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -301,7 +303,10 @@ var group=[];
 pts.forEach(function(p){
   var m=L.circleMarker([p.lat,p.lon],{radius:7,color:'#B01E28',weight:2,
     fillColor:'#B01E28',fillOpacity:p.unconfirmed?0:0.9}).addTo(map);
-  m.bindPopup(p.label+(p.unconfirmed?' <span style="color:#888">(?)</span>':''));
+  var pc=document.createElement('span');
+  pc.textContent=p.label;
+  if(p.unconfirmed){var q=document.createElement('span');q.style.color='#888';q.textContent=' (?)';pc.appendChild(q);}
+  m.bindPopup(pc);
   group.push(m);
 });
 var lats=pts.map(function(p){return p.lat}),lons=pts.map(function(p){return p.lon});

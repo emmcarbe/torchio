@@ -5,13 +5,15 @@
  * only HTML that comes out is the HTML we make.
  */
 
-import { escapeHTML } from './render.js';
+import { escapeHTML, safeURL } from './render.js';
 
 function inline(s) {
   return s
     .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, text, href) =>
-      /^(https?:|\/|#|\.)/.test(href) ? `<a href="${href}">${text}</a>` : m)
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, text, href) => {
+      const u = safeURL(href);
+      return u && /^(https?:|\/|#|\.)/.test(u) ? `<a href="${escapeHTML(u)}">${text}</a>` : m;
+    })
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>');
 }

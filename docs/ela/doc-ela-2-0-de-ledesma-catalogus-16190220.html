@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></div>
+           <p id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></p>
         </span>
         <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    non inseriti numeri di f. e p.
-           </div>
+           <p id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    non inseriti numeri di f. e p.
+           </p>
         </span>
       </span>
      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -350,96 +352,96 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0" class="t-div s-1-struttura" data-el="div">
 <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.0" class="t-pb" role="separator" title="page break">[118]</span>
 <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.1" class="t-pb" role="separator" title="page break">[791]</span>
-<div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Qui ex Iaponia venerunt</div>
-<div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3" class="t-table s-1-liste" data-el="table">
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0" class="t-row s-1-figure" data-el="row">
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.0" class="t-cell s-1-figure" data-el="cell">Nomen</span>   
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.1" class="t-cell s-1-figure" data-el="cell">P. García Garcés</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.2" class="t-cell s-1-figure" data-el="cell">G. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.2.0" class="t-persName s-2-entita" data-el="persName" data-key="Ruan, Georgius">Georgius Ruan</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.3" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.3.0" class="t-persName s-2-entita" data-el="persName" data-key="Román Taraura">Román Taraura</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.4" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Matzuda, Michael S.J.">Michael Matzuda</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.5" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Figueredo, Thomas de">Thomas de Figueredo</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.6" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.6.0" class="t-persName s-2-entita" data-el="persName" data-key="Petrus Chiquan S.J.">Petrus Chiquam</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.7" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.7.0" class="t-persName s-2-entita" data-el="persName" data-key="Vota, Agustinus S.J.">Augustinus Vota</span></span>
-   </div>
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1" class="t-row s-1-figure" data-el="row">
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.0" class="t-cell s-1-figure" data-el="cell">Patria</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.1" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.1.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Molina">Molina</span>,  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.1.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Siguntinae">diaecesis Siguntinae</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.2" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.2.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Arima">Arima</span> in <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.2.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.3" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.3.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Bungo">Bungo</span> in <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.3.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.4" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.4.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Higo">Fingo</span> in <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.4.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.5" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.5.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Hirado">Firando</span> in  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.5.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.6" class="t-cell s-1-figure" data-el="cell">Figem in  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.6.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.7" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.7.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Nangasaci">Nangasaqui</span> in  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.7.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></span>   
-   </div>
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2" class="t-row s-1-figure" data-el="row">
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.0" class="t-cell s-1-figure" data-el="cell">Aetas</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.1" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.1.0" class="t-date s-2-date" data-el="date" data-when="1558">1558</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.2" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.2.0" class="t-date s-2-date" data-el="date" data-when="1574">1574</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.3" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.3.0" class="t-date s-2-date" data-el="date" data-when="1554">1554</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.4" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.4.0" class="t-date s-2-date" data-el="date" data-when="1578">1578</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.5" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.5.0" class="t-date s-2-date" data-el="date" data-when="1552">1552</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.6" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.6.0" class="t-date s-2-date" data-el="date" data-when="1566">1566</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.7" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.7.0" class="t-date s-2-date" data-el="date" data-when="1574">1574</span></span>
-   </div>
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3" class="t-row s-1-figure" data-el="row">
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.0" class="t-cell s-1-figure" data-el="cell">Valetudo</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.1" class="t-cell s-1-figure" data-el="cell">Bona</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.2" class="t-cell s-1-figure" data-el="cell">Bona</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.3" class="t-cell s-1-figure" data-el="cell">Firma</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.4" class="t-cell s-1-figure" data-el="cell">Bona</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.5" class="t-cell s-1-figure" data-el="cell">Firma</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.6" class="t-cell s-1-figure" data-el="cell">Bona</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.7" class="t-cell s-1-figure" data-el="cell">Bona</span>
-   </div>        
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4" class="t-row s-1-figure" data-el="row">
-   <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.0" class="t-cell s-1-figure" data-el="cell">Tempus Societatis</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.1" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.1.0" class="t-date s-2-date" data-el="date" data-when="1572">1572</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.2" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.2.0" class="t-date s-2-date" data-el="date" data-when="1607">1607</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.3" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.3.0" class="t-date s-2-date" data-el="date" data-when="1593">1593</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.4" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.4.0" class="t-date s-2-date" data-el="date" data-when="1588">1588</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.5" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.5.0" class="t-date s-2-date" data-el="date" data-when="1582">1582</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.6" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.6.0" class="t-date s-2-date" data-el="date" data-when="1585">1585</span></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.7" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.7.0" class="t-date s-2-date" data-el="date" data-when="1604-11-01">1604, 1. Novembris</span></span>
+<p id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Qui ex Iaponia venerunt</p>
+<table id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3" class="t-table s-1-liste" data-el="table">
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0" class="t-row s-1-figure" data-el="row">
+      <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.0" class="t-cell s-1-figure" data-el="cell">Nomen</th>   
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.1" class="t-cell s-1-figure" data-el="cell">P. García Garcés</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.2" class="t-cell s-1-figure" data-el="cell">G. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.2.0" class="t-persName s-2-entita" data-el="persName" data-key="Ruan, Georgius">Georgius Ruan</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.3" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.3.0" class="t-persName s-2-entita" data-el="persName" data-key="Román Taraura">Román Taraura</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.4" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Matzuda, Michael S.J.">Michael Matzuda</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.5" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Figueredo, Thomas de">Thomas de Figueredo</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.6" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.6.0" class="t-persName s-2-entita" data-el="persName" data-key="Petrus Chiquan S.J.">Petrus Chiquam</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.7" class="t-cell s-1-figure" data-el="cell">F. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.0.7.0" class="t-persName s-2-entita" data-el="persName" data-key="Vota, Agustinus S.J.">Augustinus Vota</span></td>
+   </tr>
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1" class="t-row s-1-figure" data-el="row">
+      <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.0" class="t-cell s-1-figure" data-el="cell">Patria</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.1" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.1.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Molina">Molina</span>,  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.1.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Siguntinae">diaecesis Siguntinae</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.2" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.2.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Arima">Arima</span> in <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.2.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.3" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.3.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Bungo">Bungo</span> in <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.3.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.4" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.4.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Higo">Fingo</span> in <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.4.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.5" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.5.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Hirado">Firando</span> in  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.5.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.6" class="t-cell s-1-figure" data-el="cell">Figem in  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.6.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.7" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.7.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Nangasaci">Nangasaqui</span> in  <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.1.7.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">Japonia</span></td>   
+   </tr>
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2" class="t-row s-1-figure" data-el="row">
+      <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.0" class="t-cell s-1-figure" data-el="cell">Aetas</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.1" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.1.0" class="t-date s-2-date" data-el="date" data-when="1558">1558</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.2" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.2.0" class="t-date s-2-date" data-el="date" data-when="1574">1574</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.3" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.3.0" class="t-date s-2-date" data-el="date" data-when="1554">1554</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.4" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.4.0" class="t-date s-2-date" data-el="date" data-when="1578">1578</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.5" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.5.0" class="t-date s-2-date" data-el="date" data-when="1552">1552</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.6" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.6.0" class="t-date s-2-date" data-el="date" data-when="1566">1566</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.7" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.2.7.0" class="t-date s-2-date" data-el="date" data-when="1574">1574</span></td>
+   </tr>
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3" class="t-row s-1-figure" data-el="row">
+      <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.0" class="t-cell s-1-figure" data-el="cell">Valetudo</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.1" class="t-cell s-1-figure" data-el="cell">Bona</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.2" class="t-cell s-1-figure" data-el="cell">Bona</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.3" class="t-cell s-1-figure" data-el="cell">Firma</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.4" class="t-cell s-1-figure" data-el="cell">Bona</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.5" class="t-cell s-1-figure" data-el="cell">Firma</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.6" class="t-cell s-1-figure" data-el="cell">Bona</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.3.7" class="t-cell s-1-figure" data-el="cell">Bona</td>
+   </tr>        
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4" class="t-row s-1-figure" data-el="row">
+   <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.0" class="t-cell s-1-figure" data-el="cell">Tempus Societatis</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.1" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.1.0" class="t-date s-2-date" data-el="date" data-when="1572">1572</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.2" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.2.0" class="t-date s-2-date" data-el="date" data-when="1607">1607</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.3" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.3.0" class="t-date s-2-date" data-el="date" data-when="1593">1593</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.4" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.4.0" class="t-date s-2-date" data-el="date" data-when="1588">1588</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.5" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.5.0" class="t-date s-2-date" data-el="date" data-when="1582">1582</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.6" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.6.0" class="t-date s-2-date" data-el="date" data-when="1585">1585</span></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.7" class="t-cell s-1-figure" data-el="cell"><span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.4.7.0" class="t-date s-2-date" data-el="date" data-when="1604-11-01">1604, 1. Novembris</span></td>
       
-   </div>  
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5" class="t-row s-1-figure" data-el="row">
-   <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.0" class="t-cell s-1-figure" data-el="cell">Studia &amp; gradus</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.1" class="t-cell s-1-figure" data-el="cell">3 annos philosophiae, 4 annos theologiae</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.2" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.3" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.4" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.5" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.6" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.7" class="t-cell s-1-figure" data-el="cell"></span>
-   </div>  
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6" class="t-row s-1-figure" data-el="row">
-   <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.0" class="t-cell s-1-figure" data-el="cell">Ministeria</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.1" class="t-cell s-1-figure" data-el="cell">Concionator Hispanorum,</span> 
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.2" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.3" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.4" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.5" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.6" class="t-cell s-1-figure" data-el="cell"></span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.7" class="t-cell s-1-figure" data-el="cell"></span>
-   </div>  
-   <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7" class="t-row s-1-figure" data-el="row">
-   <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.0" class="t-cell s-1-figure" data-el="cell">Gradus in Societate</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.1" class="t-cell s-1-figure" data-el="cell">Professus 4 votorum <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.1.0" class="t-date s-2-date" data-el="date" data-when="1601-07-10">1601, 10. Iulii</span>.</span> 
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.2" class="t-cell s-1-figure" data-el="cell">Coadiutor</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.3" class="t-cell s-1-figure" data-el="cell">Coadiutor Temporalis formatus anno <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.3.0" class="t-date s-2-date" data-el="date" data-when="1608">1608</span>.</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.4" class="t-cell s-1-figure" data-el="cell">Coadiutor.</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.5" class="t-cell s-1-figure" data-el="cell">Coadiutor.</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.6" class="t-cell s-1-figure" data-el="cell">Coadiutor.</span>
-      <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.7" class="t-cell s-1-figure" data-el="cell">Coadiutor.</span>
-   </div>  
-   </div> 
-           <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">Defuncti.
+   </tr>  
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5" class="t-row s-1-figure" data-el="row">
+   <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.0" class="t-cell s-1-figure" data-el="cell">Studia &amp; gradus</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.1" class="t-cell s-1-figure" data-el="cell">3 annos philosophiae, 4 annos theologiae</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.2" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.3" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.4" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.5" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.6" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.5.7" class="t-cell s-1-figure" data-el="cell"></td>
+   </tr>  
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6" class="t-row s-1-figure" data-el="row">
+   <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.0" class="t-cell s-1-figure" data-el="cell">Ministeria</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.1" class="t-cell s-1-figure" data-el="cell">Concionator Hispanorum,</td> 
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.2" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.3" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.4" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.5" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.6" class="t-cell s-1-figure" data-el="cell"></td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.6.7" class="t-cell s-1-figure" data-el="cell"></td>
+   </tr>  
+   <tr id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7" class="t-row s-1-figure" data-el="row">
+   <th id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.0" class="t-cell s-1-figure" data-el="cell">Gradus in Societate</th>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.1" class="t-cell s-1-figure" data-el="cell">Professus 4 votorum <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.1.0" class="t-date s-2-date" data-el="date" data-when="1601-07-10">1601, 10. Iulii</span>.</td> 
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.2" class="t-cell s-1-figure" data-el="cell">Coadiutor</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.3" class="t-cell s-1-figure" data-el="cell">Coadiutor Temporalis formatus anno <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.3.0" class="t-date s-2-date" data-el="date" data-when="1608">1608</span>.</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.4" class="t-cell s-1-figure" data-el="cell">Coadiutor.</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.5" class="t-cell s-1-figure" data-el="cell">Coadiutor.</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.6" class="t-cell s-1-figure" data-el="cell">Coadiutor.</td>
+      <td id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.3.7.7" class="t-cell s-1-figure" data-el="cell">Coadiutor.</td>
+   </tr>  
+   </table> 
+           <p id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">Defuncti.
               <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4.0" class="t-lb"><br/></span>P. <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4.1" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus Calderón S.J.">Franciscus Calderón</span>, <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manilae</span> <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4.3" class="t-date s-2-date" data-el="date" data-when="1618-12-04">4 Decembris anni 1618</span>.
-              <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4.4" class="t-lb"><br/></span>(Sigillum)</div>
-           <div id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">. . . . . . . .       
+              <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.4.4" class="t-lb"><br/></span>(Sigillum)</p>
+           <p id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">. . . . . . . .       
               Scriptum <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Manila">Manilae</span>, <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5.1" class="t-date s-2-date" data-el="date" data-when="1619-02-20">20. Februarii anni 1619</span>.
-              <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5.2" class="t-lb"><br/></span> <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5.3" class="t-persName s-2-entita" data-el="persName" data-key="Valerius de Ledesma S.J.">VALERIUS DE LEDESMA</span></div>
+              <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5.2" class="t-lb"><br/></span> <span id="ELA_2_0_de_ledesma_catalogus_16190220:0.1.0.0.5.3" class="t-persName s-2-entita" data-el="persName" data-key="Valerius de Ledesma S.J.">VALERIUS DE LEDESMA</span></p>
            
            
    </div>    
@@ -487,16 +489,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -678,6 +699,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

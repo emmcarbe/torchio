@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -107,7 +106,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -124,6 +123,10 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
 .torchio-pop .popband .band-e{display:block;margin:.35em 0}
 .torchio-pop .popband .band-lem{font-style:italic}
@@ -244,8 +247,22 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
-.app-band{font-size:.72em;line-height:1.55;color:var(--soft);margin:.1em 0 .55em;
-  padding-left:1.2em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
 .app-band .bw{color:var(--accent);cursor:pointer}
 .app-band .bw:hover{text-decoration:underline}
@@ -255,6 +272,10 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -282,7 +303,10 @@ var group=[];
 pts.forEach(function(p){
   var m=L.circleMarker([p.lat,p.lon],{radius:7,color:'#B01E28',weight:2,
     fillColor:'#B01E28',fillOpacity:p.unconfirmed?0:0.9}).addTo(map);
-  m.bindPopup(p.label+(p.unconfirmed?' <span style="color:#888">(?)</span>':''));
+  var pc=document.createElement('span');
+  pc.textContent=p.label;
+  if(p.unconfirmed){var q=document.createElement('span');q.style.color='#888';q.textContent=' (?)';pc.appendChild(q);}
+  m.bindPopup(pc);
   group.push(m);
 });
 var lats=pts.map(function(p){return p.lat}),lons=pts.map(function(p){return p.lon});

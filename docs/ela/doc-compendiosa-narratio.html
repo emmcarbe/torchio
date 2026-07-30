@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -326,12 +328,12 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         </div>
         <span id="compendiosa_narratio:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
             <span id="compendiosa_narratio:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-               <div id="compendiosa_narratio:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Transcribed for the ELA Project, codified in TEI for the Serica Project.</div>
+               <p id="compendiosa_narratio:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Transcribed for the ELA Project, codified in TEI for the Serica Project.</p>
             </span>
             <span id="compendiosa_narratio:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
                 
-                <div id="compendiosa_narratio:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab"> Trascritta la j con la i, distinta la u dalla v, eliminati i segni di vocale
-                    lunga e di vocale breve. Sciolte le abbreviazioni.</div>
+                <p id="compendiosa_narratio:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab"> Trascritta la j con la i, distinta la u dalla v, eliminati i segni di vocale
+                    lunga e di vocale breve. Sciolte le abbreviazioni.</p>
             </span>
             
             <span id="compendiosa_narratio:0.0.1.2" class="t-charDecl s-7-header" data-el="charDecl">
@@ -367,7 +369,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     </div><div id="compendiosa_narratio:0.1" class="t-text s-7-struttura-documento" data-el="text">
         
         <div id="compendiosa_narratio:0.1.0" class="t-front s-1-struttura" data-el="front">
-            <div id="compendiosa_narratio:0.1.0.0" class="t-head s-1-struttura" data-el="head">
+            <h2 id="compendiosa_narratio:0.1.0.0" class="t-head s-1-struttura" data-el="head">
                 <span id="compendiosa_narratio:0.1.0.0.0" class="t-lb"><br/></span>COMPENDIOSA
                 <span id="compendiosa_narratio:0.1.0.0.1" class="t-lb"><br/></span>NARRATIO.
                 <span id="compendiosa_narratio:0.1.0.0.2" class="t-lb"><br/></span>DE
@@ -375,8 +377,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 <span id="compendiosa_narratio:0.1.0.0.4" class="t-lb"><br/></span>CHINENSIS.
                 <span id="compendiosa_narratio:0.1.0.0.5" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.0.0.6" class="t-date s-2-date" data-el="date">Ab anno 1581 usque ad
                     <span id="compendiosa_narratio:0.1.0.0.6.0" class="t-lb"><br/></span>Annum 1669</span>
-            </div>
-           <div id="compendiosa_narratio:0.1.0.1" class="t-p s-1-struttura" data-el="p">
+            </h2>
+           <p id="compendiosa_narratio:0.1.0.1" class="t-p s-1-struttura" data-el="p">
                <span id="compendiosa_narratio:0.1.0.1.0" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.0.1.1" class="t-hi s-1-inline" data-el="hi">Oblata</span>
                <span id="compendiosa_narratio:0.1.0.1.2" class="t-lb"><br/></span>Eminentissimis DD. Cardinalibus
                <span id="compendiosa_narratio:0.1.0.1.3" class="t-lb"><br/></span>Sacrae Congregationis de propaganda Fide
@@ -389,27 +391,27 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                <span id="compendiosa_narratio:0.1.0.1.12" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.0.1.13" class="t-date s-2-date" data-el="date" data-when="1671-04-14">Anno 1671. 14. Aprilis</span>,
                <span id="compendiosa_narratio:0.1.0.1.14" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.0.1.15" class="t-placeName s-2-entita" data-el="placeName">Romae</span>.
                <span id="compendiosa_narratio:0.1.0.1.16" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.0.1.17" class="t-hi s-1-inline" data-el="hi">Permissu Superiorum</span>
-           </div>
+           </p>
         </div>
         <div id="compendiosa_narratio:0.1.1" class="t-body s-1-struttura" data-el="body">
             
                <span id="compendiosa_narratio:0.1.1.0" class="t-pb" role="separator" title="page break">[353]</span>
-               <div id="compendiosa_narratio:0.1.1.1" class="t-p s-1-struttura" data-el="p">Eminentissimi Domini. Ex <span id="compendiosa_narratio:0.1.1.1.0" class="t-placeName s-2-entita" data-el="placeName">China</span> venio, ultima
+               <p id="compendiosa_narratio:0.1.1.1" class="t-p s-1-struttura" data-el="p">Eminentissimi Domini. Ex <span id="compendiosa_narratio:0.1.1.1.0" class="t-placeName s-2-entita" data-el="placeName">China</span> venio, ultima
                         <span id="compendiosa_narratio:0.1.1.1.1" class="t-placeName s-2-entita" data-el="placeName">Asiae</span> parte, missus Procurator a Patribus Societatis
                     IESU, ut impraesentiarum provolutus omnium nomine ad pedes Eminentiarum
                     Vestrarum, certiores Easdem reddam de summa veneratione et affectu, quo tota
                     illa Communitas Sacram hanc Congregationem prosequitur; <span id="compendiosa_narratio:0.1.1.1.2" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.1.2.0" class="t-abbr s-3-editoriale" data-el="abbr">simulq<span id="compendiosa_narratio:0.1.1.1.2.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.1.2.1" class="t-expan s-3-editoriale" data-el="expan">simulq<span id="compendiosa_narratio:0.1.1.1.2.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> paucis his lineis statum amplissimae illius Missionis in Compendio
                     describam, quo tanquam Patres ac Propagatores sanctae nostrae Fidei, eandem
-                    porro paterna cura <span id="compendiosa_narratio:0.1.1.1.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.1.3.0" class="t-abbr s-3-editoriale" data-el="abbr">amoreq<span id="compendiosa_narratio:0.1.1.1.3.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.1.3.1" class="t-expan s-3-editoriale" data-el="expan">amoreq<span id="compendiosa_narratio:0.1.1.1.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> protegere dignentur.</div>
-               <div id="compendiosa_narratio:0.1.1.2" class="t-p s-1-struttura" data-el="p">Est haec Missio dives laborum, ob spatiosum quindecim Provinciarum seu Regnorum
+                    porro paterna cura <span id="compendiosa_narratio:0.1.1.1.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.1.3.0" class="t-abbr s-3-editoriale" data-el="abbr">amoreq<span id="compendiosa_narratio:0.1.1.1.3.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.1.3.1" class="t-expan s-3-editoriale" data-el="expan">amoreq<span id="compendiosa_narratio:0.1.1.1.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> protegere dignentur.</p>
+               <p id="compendiosa_narratio:0.1.1.2" class="t-p s-1-struttura" data-el="p">Est haec Missio dives laborum, ob spatiosum quindecim Provinciarum seu Regnorum
                     campum; nec minus fertilis, ut in iisdem Christianae Religionis saluberrimus
                     fructus <span id="compendiosa_narratio:0.1.1.2.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.2.0.0" class="t-abbr s-3-editoriale" data-el="abbr">usq<span id="compendiosa_narratio:0.1.1.2.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.2.0.1" class="t-expan s-3-editoriale" data-el="expan">usq<span id="compendiosa_narratio:0.1.1.2.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> ad maturationem succrescat: inops tamen temporalibus bonis, et fine
                     fundatione alicuius Collegii, ut plurimum ex Eleemosynis victitans, ab Europaeis
                         <span id="compendiosa_narratio:0.1.1.2.1" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Chinensi Regno</span> vicimoribus cor<span id="compendiosa_narratio:0.1.1.2.2" class="t-pb" role="separator" title="page break">[354]</span>rogatis. <span id="compendiosa_narratio:0.1.1.2.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.2.3.0" class="t-abbr s-3-editoriale" data-el="abbr">Neq<span id="compendiosa_narratio:0.1.1.2.3.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.2.3.1" class="t-expan s-3-editoriale" data-el="expan">Neq<span id="compendiosa_narratio:0.1.1.2.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> enim fas nobis est victum a Chinensibus mendicare, ut quam longissime
                     suspicionem declinemus, quasi illorum Bonziis similes essemus, aut nostra
                     doctrina aeque, ac illorum sit mendax: Hi enim pauperes, et otiosi in patria,
-                    Provincias mendicando pererrant perditi Hypocritae; <span id="compendiosa_narratio:0.1.1.2.4" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.2.4.0" class="t-abbr s-3-editoriale" data-el="abbr">sicq<span id="compendiosa_narratio:0.1.1.2.4.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.2.4.1" class="t-expan s-3-editoriale" data-el="expan">sicq<span id="compendiosa_narratio:0.1.1.2.4.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> novis Religionis figmentis populo illudunt, ut ventrem repleant. <span id="compendiosa_narratio:0.1.1.2.5" class="t-hi s-1-inline" data-el="hi">Quorum DEUS venter est</span>.</div>
-               <div id="compendiosa_narratio:0.1.1.3" class="t-p s-1-struttura" data-el="p">Hac ergo intentione ab omni mundano emolumento longissime remota, iam inde ab
+                    Provincias mendicando pererrant perditi Hypocritae; <span id="compendiosa_narratio:0.1.1.2.4" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.2.4.0" class="t-abbr s-3-editoriale" data-el="abbr">sicq<span id="compendiosa_narratio:0.1.1.2.4.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.2.4.1" class="t-expan s-3-editoriale" data-el="expan">sicq<span id="compendiosa_narratio:0.1.1.2.4.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> novis Religionis figmentis populo illudunt, ut ventrem repleant. <span id="compendiosa_narratio:0.1.1.2.5" class="t-hi s-1-inline" data-el="hi">Quorum DEUS venter est</span>.</p>
+               <p id="compendiosa_narratio:0.1.1.3" class="t-p s-1-struttura" data-el="p">Hac ergo intentione ab omni mundano emolumento longissime remota, iam inde ab
                         <span id="compendiosa_narratio:0.1.1.3.0" class="t-date s-2-date" data-el="date" data-when="1581">anno 1581.</span> quo a Patribus Societatis,
                         <span id="compendiosa_narratio:0.1.1.3.1" class="t-persName s-2-entita" data-el="persName">Michaele Rogerio</span>, <span id="compendiosa_narratio:0.1.1.3.2" class="t-persName s-2-entita" data-el="persName">Francisco Patio</span>,
                     et <span id="compendiosa_narratio:0.1.1.3.3" class="t-persName s-2-entita" data-el="persName">Matthaeo Riccio</span>
@@ -438,8 +440,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                    Dominicani Ecclesias 21. Residentias 2. <span id="compendiosa_narratio:0.1.1.3.30" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.3.30.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.3.30.0.0" class="t-am s-3-editoriale" data-el="am">.</span>P<span id="compendiosa_narratio:0.1.1.3.30.0.1" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.3.30.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.3.30.1.0" class="t-ex s-3-editoriale" data-el="ex">atres</span></span></span> Franciscani Ecclesias tres,
                    Residentiam unam. <span id="compendiosa_narratio:0.1.1.3.31" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.3.31.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.3.31.0.0" class="t-am s-3-editoriale" data-el="am">.</span>P<span id="compendiosa_narratio:0.1.1.3.31.0.1" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.3.31.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.3.31.1.0" class="t-ex s-3-editoriale" data-el="ex">atres</span></span></span> Societatis Ecclesias 159. Residentias 38. Non recenseo
                     hic Oratoria privata, quae sunt sine numero, sed solum Ecclesias omnibus
-                    communes.</div>
-               <div id="compendiosa_narratio:0.1.1.4" class="t-p s-1-struttura" data-el="p">Porro Status nostrae Missionis sub annis Missionis sub annis <span id="compendiosa_narratio:0.1.1.4.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperii
+                    communes.</p>
+               <p id="compendiosa_narratio:0.1.1.4" class="t-p s-1-struttura" data-el="p">Porro Status nostrae Missionis sub annis Missionis sub annis <span id="compendiosa_narratio:0.1.1.4.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperii
                         Chinensis</span>
                     <span id="compendiosa_narratio:0.1.1.4.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.4.1.0" class="t-abbr s-3-editoriale" data-el="abbr">utcunq<span id="compendiosa_narratio:0.1.1.4.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.4.1.1" class="t-expan s-3-editoriale" data-el="expan">utcunq<span id="compendiosa_narratio:0.1.1.4.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> diversus fuit ab eo, qui nunc est sub moderno <span id="compendiosa_narratio:0.1.1.4.2" class="t-placeName s-2-entita" data-el="placeName">Tartarorum
                         Imperio</span>, qui <span id="compendiosa_narratio:0.1.1.4.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.4.3.0" class="t-abbr s-3-editoriale" data-el="abbr">hodieq<span id="compendiosa_narratio:0.1.1.4.3.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.4.3.1" class="t-expan s-3-editoriale" data-el="expan">hodieq<span id="compendiosa_narratio:0.1.1.4.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> omnibus <span id="compendiosa_narratio:0.1.1.4.4" class="t-placeName s-2-entita" data-el="placeName">Chinae</span> Provinciis dominantur, nec ideo
@@ -451,8 +453,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     indiscretus obstitisset Zelus, et modica quorundam Missionariorum experientia,
                     recens in <span id="compendiosa_narratio:0.1.1.4.10" class="t-placeName s-2-entita" data-el="placeName">Chinam</span> per <span id="compendiosa_narratio:0.1.1.4.11" class="t-placeName s-2-entita" data-el="placeName">Philippinas</span>
                     intrantium) non tamen ultra processit Furor, sed solo indiscretorum exilio
-                    contentus, Chinensium Conversioni pristinum reliquit progressum.</div>
-               <div id="compendiosa_narratio:0.1.1.5" class="t-p s-1-struttura" data-el="p">Translato dein sub annum <span id="compendiosa_narratio:0.1.1.5.0" class="t-date s-2-date" data-el="date" data-when="1643">1643.</span> ad orientalem
+                    contentus, Chinensium Conversioni pristinum reliquit progressum.</p>
+               <p id="compendiosa_narratio:0.1.1.5" class="t-p s-1-struttura" data-el="p">Translato dein sub annum <span id="compendiosa_narratio:0.1.1.5.0" class="t-date s-2-date" data-el="date" data-when="1643">1643.</span> ad orientalem
                         <span id="compendiosa_narratio:0.1.1.5.1" class="t-placeName s-2-entita" data-el="placeName">Tartarum</span>, <span id="compendiosa_narratio:0.1.1.5.2" class="t-persName s-2-entita" data-el="persName">XÚN CHÌ</span> dictum,
                         Chinensium imperio, Fidei etiam Propagatio ex occulto
                    in apricum vindicata est. Cum enim <span id="compendiosa_narratio:0.1.1.5.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.5.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.5.3.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.5.3.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.5.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ater</span></span></span> <span id="compendiosa_narratio:0.1.1.5.4" class="t-persName s-2-entita" data-el="persName">Ioannes Adamus Schall</span>
@@ -469,15 +471,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     Familia librum edidit unum tribus tomis distinctum) aperta templa, et ab omnibus
                     honorifice culta: Celebrati magna cum pompa Festi per annum Dies solenniores,
                     exstructae novae, ac sumptuosae Ecclesiarum fabricae; verbo, Fides Christiana
-                    felicissimis progressibus ad Bonziorum <span id="compendiosa_narratio:0.1.1.5.12" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.5.12.0" class="t-abbr s-3-editoriale" data-el="abbr">Orciq<span id="compendiosa_narratio:0.1.1.5.12.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.5.12.1" class="t-expan s-3-editoriale" data-el="expan">Orciq<span id="compendiosa_narratio:0.1.1.5.12.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> invidiam propagata.</div>
-               <div id="compendiosa_narratio:0.1.1.6" class="t-p s-1-struttura" data-el="p">Cum ecce post <span id="compendiosa_narratio:0.1.1.6.0" class="t-persName s-2-entita" data-el="persName">XÚN-CHÌ</span> Benevolentissimi Imperatoris mortem,
+                    felicissimis progressibus ad Bonziorum <span id="compendiosa_narratio:0.1.1.5.12" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.5.12.0" class="t-abbr s-3-editoriale" data-el="abbr">Orciq<span id="compendiosa_narratio:0.1.1.5.12.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.5.12.1" class="t-expan s-3-editoriale" data-el="expan">Orciq<span id="compendiosa_narratio:0.1.1.5.12.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> invidiam propagata.</p>
+               <p id="compendiosa_narratio:0.1.1.6" class="t-p s-1-struttura" data-el="p">Cum ecce post <span id="compendiosa_narratio:0.1.1.6.0" class="t-persName s-2-entita" data-el="persName">XÚN-CHÌ</span> Benevolentissimi Imperatoris mortem,
                     quae anno <span id="compendiosa_narratio:0.1.1.6.1" class="t-date s-2-date" data-el="date" data-when="1664-09">1664. Septembri mense</span> secuta est, mutata
                     repente scena prodiit in campum dirus Satanae Minister <span id="compendiosa_narratio:0.1.1.6.2" class="t-persName s-2-entita" data-el="persName"><span id="compendiosa_narratio:0.1.1.6.2.0" class="t-hi s-1-inline" data-el="hi">Yàm-quàm-sien</span></span> appellatus: Is, quum
                     Diabolicis Chinensium sectis ceu author <span id="compendiosa_narratio:0.1.1.6.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.6.3.0" class="t-abbr s-3-editoriale" data-el="abbr">Fautorq<span id="compendiosa_narratio:0.1.1.6.3.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.6.3.1" class="t-expan s-3-editoriale" data-el="expan">Fautorq<span id="compendiosa_narratio:0.1.1.6.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> praesideret, scriptam adversus Apostolicos vi<span id="compendiosa_narratio:0.1.1.6.4" class="t-pb" role="separator" title="page break">[358]</span>ros Tabellam (Memoriale vocant) simulque plenum in divinam Legem blasphemiis
                     librum ad quatuor Imperii Gubernatorum Tribunal detulit. Tartari hi erant omnes,
                     a Defuncto <span id="compendiosa_narratio:0.1.1.6.5" class="t-persName s-2-entita" data-el="persName">XÚN-CHÌ</span> protectores nominati Infantis
-                        <span id="compendiosa_narratio:0.1.1.6.6" class="t-persName s-2-entita" data-el="persName">CAM-HÍ</span>, Filii secundo geniti, ac Imperii Haeredis.</div>
-               <div id="compendiosa_narratio:0.1.1.7" class="t-p s-1-struttura" data-el="p">Summa memorialis fuit: quod moliremur rebellionem, quod legem praedicaremus
+                        <span id="compendiosa_narratio:0.1.1.6.6" class="t-persName s-2-entita" data-el="persName">CAM-HÍ</span>, Filii secundo geniti, ac Imperii Haeredis.</p>
+               <p id="compendiosa_narratio:0.1.1.7" class="t-p s-1-struttura" data-el="p">Summa memorialis fuit: quod moliremur rebellionem, quod legem praedicaremus
                     falsam, cuius Caput sit Crucifixus, mortuus in medio duorum Latronum; quod
                     erraremus, in regulis Mathematicae Europeae, per quam antiquissimam Chinensium
                     Mathematicam obscurare, <span id="compendiosa_narratio:0.1.1.7.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.7.0.0" class="t-abbr s-3-editoriale" data-el="abbr">Domumq<span id="compendiosa_narratio:0.1.1.7.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.7.0.1" class="t-expan s-3-editoriale" data-el="expan">Domumq<span id="compendiosa_narratio:0.1.1.7.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> Regiam destruere conaremur. Susceptum est Memoriale a quatuor
@@ -504,15 +506,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     Europaei omnes, per Imperii urbes <span id="compendiosa_narratio:0.1.1.7.9" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.7.9.0" class="t-abbr s-3-editoriale" data-el="abbr">Terrasq<span id="compendiosa_narratio:0.1.1.7.9.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.7.9.1" class="t-expan s-3-editoriale" data-el="expan">Terrasq<span id="compendiosa_narratio:0.1.1.7.9.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> diligentissime conquisiti, ad Aulam secure ducantur; comburantur
                     Doctrinae Christianae libri <span id="compendiosa_narratio:0.1.1.7.10" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.7.10.0" class="t-abbr s-3-editoriale" data-el="abbr">aliiq<span id="compendiosa_narratio:0.1.1.7.10.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.7.10.1" class="t-expan s-3-editoriale" data-el="expan">aliiq<span id="compendiosa_narratio:0.1.1.7.10.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> similes, iubentur tradere Christiani, quas colunt, Imagines; ipsi
                     tamen com<span id="compendiosa_narratio:0.1.1.7.11" class="t-pb" role="separator" title="page break">[360]</span>prehensi non sunt, nec sublatae etiam Imagines
-                    publice in Ecclesiis expositae, sed Templa clausa, et aliis custodienda tradita.</div>
-               <div id="compendiosa_narratio:0.1.1.8" class="t-p s-1-struttura" data-el="p">Mandatum est Executioni Decretum per omnes Provincias, sed rigore plurimum
+                    publice in Ecclesiis expositae, sed Templa clausa, et aliis custodienda tradita.</p>
+               <p id="compendiosa_narratio:0.1.1.8" class="t-p s-1-struttura" data-el="p">Mandatum est Executioni Decretum per omnes Provincias, sed rigore plurimum
                     inaequali, pro maiore scilicet, aut minore Praefectorum in nos, <span id="compendiosa_narratio:0.1.1.8.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.8.0.0" class="t-abbr s-3-editoriale" data-el="abbr">nostramq<span id="compendiosa_narratio:0.1.1.8.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.8.0.1" class="t-expan s-3-editoriale" data-el="expan">nostramq<span id="compendiosa_narratio:0.1.1.8.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> Legem affectu, qui maxime in executione eluxit. Pars maior Patrum, per
                     Provincias sparsorum comprehensi, et per aliquot menses in carceres coniecti, <span id="compendiosa_narratio:0.1.1.8.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.8.1.0" class="t-abbr s-3-editoriale" data-el="abbr">indeq<span id="compendiosa_narratio:0.1.1.8.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.8.1.1" class="t-expan s-3-editoriale" data-el="expan">indeq<span id="compendiosa_narratio:0.1.1.8.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> ad Aulam stipante militum manu deducti: alii collo catenis inserto,
                     alii liberi; multis libri omnes tum Europaei, tum Chinenses combusti, aliquibus
                     servati intacti. Quarundam Ecclesiarum, cum clauderentur, claves Christianis
                     traditae, aliae militibus, vel Tribunalium ministris pro habitatione relictae:
-                    in aliquibus urbibus afflicti Christiani, sublatis e templis imaginibus sacris, <span id="compendiosa_narratio:0.1.1.8.2" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.8.2.0" class="t-abbr s-3-editoriale" data-el="abbr">rebusq<span id="compendiosa_narratio:0.1.1.8.2.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.8.2.1" class="t-expan s-3-editoriale" data-el="expan">rebusq<span id="compendiosa_narratio:0.1.1.8.2.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> nostris divenditis, non item in aliis.</div>
-               <div id="compendiosa_narratio:0.1.1.9" class="t-p s-1-struttura" data-el="p">Sub hac tum Inquisitionis, tum Executionis per Imperii urbes varietate,
+                    in aliquibus urbibus afflicti Christiani, sublatis e templis imaginibus sacris, <span id="compendiosa_narratio:0.1.1.8.2" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.8.2.0" class="t-abbr s-3-editoriale" data-el="abbr">rebusq<span id="compendiosa_narratio:0.1.1.8.2.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.8.2.1" class="t-expan s-3-editoriale" data-el="expan">rebusq<span id="compendiosa_narratio:0.1.1.8.2.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> nostris divenditis, non item in aliis.</p>
+               <p id="compendiosa_narratio:0.1.1.9" class="t-p s-1-struttura" data-el="p">Sub hac tum Inquisitionis, tum Executionis per Imperii urbes varietate,
                     omnipotentia divina ad Innocentiae tutelam, <span id="compendiosa_narratio:0.1.1.9.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.9.0.0" class="t-abbr s-3-editoriale" data-el="abbr">suaeq<span id="compendiosa_narratio:0.1.1.9.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.9.0.1" class="t-expan s-3-editoriale" data-el="expan">suaeq<span id="compendiosa_narratio:0.1.1.9.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> sanctissimae Legis gloriam, iteratis horrendis terrae motibus, <span id="compendiosa_narratio:0.1.1.9.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.9.1.0" class="t-abbr s-3-editoriale" data-el="abbr">aliisq<span id="compendiosa_narratio:0.1.1.9.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.9.1.1" class="t-expan s-3-editoriale" data-el="expan">aliisq<span id="compendiosa_narratio:0.1.1.9.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> prodigiis Aulam Pequinianam adeo conterruit, ut Tribunalium Praefectos
                     cogeret mutata mortis, virgarum, exiliique <span id="compendiosa_narratio:0.1.1.9.2" class="t-pb" role="separator" title="page break">[361]</span>sententia,
                     Nostros his malis iam destinatos, liberare repente ex aerumnoso carcere, et in
@@ -524,8 +526,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     plebis clamoribus attenderent, sed potius debito supplicio prosequerentur
                     abolitionem Legis falsae, eiusque Praedicatorum, ac Mathematicae praesertim
                     peregrinae, quae mortis Filioli Principis Primogeniti, omniumque Regni
-                    calamitatum causa fuisset.</div>
-               <div id="compendiosa_narratio:0.1.1.10" class="t-p s-1-struttura" data-el="p">Eo denique processit Iniquitas, ut de Christianis Chinensibus quinque, iidemque
+                    calamitatum causa fuisset.</p>
+               <p id="compendiosa_narratio:0.1.1.10" class="t-p s-1-struttura" data-el="p">Eo denique processit Iniquitas, ut de Christianis Chinensibus quinque, iidemque
                     literati, et Tribunalis Mathematicae Praefecti, <span id="compendiosa_narratio:0.1.1.10.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.10.0.0" class="t-abbr s-3-editoriale" data-el="abbr">eoq<span id="compendiosa_narratio:0.1.1.10.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.10.0.1" class="t-expan s-3-editoriale" data-el="expan">eoq<span id="compendiosa_narratio:0.1.1.10.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> <span id="compendiosa_narratio:0.1.1.10.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.10.1.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.10.1.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.10.1.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.10.1.1.0" class="t-ex s-3-editoriale" data-el="ex">atri</span></span></span> <span id="compendiosa_narratio:0.1.1.10.2" class="t-persName s-2-entita" data-el="persName">Ioanni Adamo</span> subordinati, capite plexi
                     fuerint; <span id="compendiosa_narratio:0.1.1.10.3" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.10.3.0" class="t-abbr s-3-editoriale" data-el="abbr">Neq<span id="compendiosa_narratio:0.1.1.10.3.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.10.3.1" class="t-expan s-3-editoriale" data-el="expan">Neq<span id="compendiosa_narratio:0.1.1.10.3.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> hoc Innocentum Christi Agnorum sanguine emollitum est Hydrae huius
                     infernalis adamantinum pectus, quin semper avidius Europaeorum praecipue, ceu
@@ -543,8 +545,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     Sacerdotes in ultimam Australem Provinciam, <span id="compendiosa_narratio:0.1.1.10.9" class="t-placeName s-2-entita" data-el="placeName">Cantonem</span>
                     vocant, destinatum scilicet exilio locum ablegarentur, quatuor solum Societatis
                     Patribus in aula et eiusdem orientali Ecclesia relictis, additis tamen ad portas
-                    custodibus, et prohibita Christianarum functionum administratione.</div>
-               <div id="compendiosa_narratio:0.1.1.11" class="t-p s-1-struttura" data-el="p">Discessimus ex Aula 25 Patres. <span id="compendiosa_narratio:0.1.1.11.0" class="t-date s-2-date" data-el="date" data-when="1665-09-13">13. Septembris, Anni
+                    custodibus, et prohibita Christianarum functionum administratione.</p>
+               <p id="compendiosa_narratio:0.1.1.11" class="t-p s-1-struttura" data-el="p">Discessimus ex Aula 25 Patres. <span id="compendiosa_narratio:0.1.1.11.0" class="t-date s-2-date" data-el="date" data-when="1665-09-13">13. Septembris, Anni
                         1665.</span> militum globo stipati; <span id="compendiosa_narratio:0.1.1.11.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.11.1.0" class="t-abbr s-3-editoriale" data-el="abbr">neq<span id="compendiosa_narratio:0.1.1.11.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.11.1.1" class="t-expan s-3-editoriale" data-el="expan">neq<span id="compendiosa_narratio:0.1.1.11.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> Navigatio nostra, quam secundo flumine instituimus, multum molestiae
                     habuit: Deducti enim sumus Navibus Honorariis peramplis, et <span id="compendiosa_narratio:0.1.1.11.2" class="t-pb" role="separator" title="page break">[363]</span>Regiorum Praefectorum propriis. <span id="compendiosa_narratio:0.1.1.11.3" class="t-date s-2-date" data-el="date" data-when="1666-03">Post sex
                         menses</span> Navigationi insumptos, ad exilii locum appulimus, ubi rursus
@@ -559,14 +561,14 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     impetravit illico a 4. Gubernatoribus, ut una Ecclesiarum
                         <span id="compendiosa_narratio:0.1.1.11.7" class="t-placeName s-2-entita" data-el="placeName">Pequini</span>, orientalis scilicet, dissolveretur, altera
                     vero traderetur eidem, ut eam in speculam seu Turrim verteret, ad stellas
-                    observandas.</div>
-               <div id="compendiosa_narratio:0.1.1.12" class="t-p s-1-struttura" data-el="p">In hac Eventuum ambiguitate, opportunissimum nobis tempus relictum est,
+                    observandas.</p>
+               <p id="compendiosa_narratio:0.1.1.12" class="t-p s-1-struttura" data-el="p">In hac Eventuum ambiguitate, opportunissimum nobis tempus relictum est,
                     examinandi non sine fructu, libros, ritus, <span id="compendiosa_narratio:0.1.1.12.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.12.0.0" class="t-abbr s-3-editoriale" data-el="abbr">ususq<span id="compendiosa_narratio:0.1.1.12.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.12.0.1" class="t-expan s-3-editoriale" data-el="expan">ususq<span id="compendiosa_narratio:0.1.1.12.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> ac consuetudines nostrae Missionis, per quadraginta et plures
                     Conferentiarum dies: eum in finem, ut in futurum omnes, easdem praxes, <span id="compendiosa_narratio:0.1.1.12.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.12.1.0" class="t-abbr s-3-editoriale" data-el="abbr">modosq<span id="compendiosa_narratio:0.1.1.12.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.12.1.1" class="t-expan s-3-editoriale" data-el="expan">modosq<span id="compendiosa_narratio:0.1.1.12.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> nec non Doctrinae Conformitatem, et Charitatis Unionem intra variorum
                     Ordinum <span id="compendiosa_narratio:0.1.1.12.2" class="t-pb" role="separator" title="page break">[364]</span>Religiosos observaremus; DEO praesertim, non
                     sine speciali Divinae suae Providentiae consilio, uno nos loco congregante, et
-                    aptissimum huic negotio tempus suppeditante.</div>
-                <div id="compendiosa_narratio:0.1.1.13" class="t-p s-1-struttura" data-el="p">Porro Nobis exilio damnatis, dissoluta item Aulae Ecclesia, ac demum <span id="compendiosa_narratio:0.1.1.13.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.13.0.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.13.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.13.0.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.13.0.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span>
+                    aptissimum huic negotio tempus suppeditante.</p>
+                <p id="compendiosa_narratio:0.1.1.13" class="t-p s-1-struttura" data-el="p">Porro Nobis exilio damnatis, dissoluta item Aulae Ecclesia, ac demum <span id="compendiosa_narratio:0.1.1.13.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.13.0.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.13.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.13.0.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.13.0.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span>
                         <span id="compendiosa_narratio:0.1.1.13.1" class="t-persName s-2-entita" data-el="persName">Ioanne Adamo</span> in eadem Aula, solis aerumnis et
                     Persecutionis doloribus, quibus ipse, licet senio annisque, prae quam ceteri,
                     gravis, multo violentius premebatur, confecto, ac mortuo; ipsa etiam Elementa
@@ -580,8 +582,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     <span id="compendiosa_narratio:0.1.1.13.4" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.13.4.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="compendiosa_narratio:0.1.1.13.4.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.13.4.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="compendiosa_narratio:0.1.1.13.4.1.0" class="t-ex s-3-editoriale" data-el="ex">ater</span></span></span>
                     <span id="compendiosa_narratio:0.1.1.13.5" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.13.5.0" class="t-abbr s-3-editoriale" data-el="abbr">F<span id="compendiosa_narratio:0.1.1.13.5.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.13.5.1" class="t-expan s-3-editoriale" data-el="expan">F<span id="compendiosa_narratio:0.1.1.13.5.1.0" class="t-ex s-3-editoriale" data-el="ex">rater</span></span></span>
                         <span id="compendiosa_narratio:0.1.1.13.6" class="t-persName s-2-entita" data-el="persName">Dominicus Maria Sarpetri</span> ex sacro Praedicatorum Ordine
-                    Missionarius in <span id="compendiosa_narratio:0.1.1.13.7" class="t-placeName s-2-entita" data-el="placeName">China</span>, et Operarius optimus.</div>
-               <div id="compendiosa_narratio:0.1.1.14" class="t-p s-1-struttura" data-el="p">Recensebo tamen breviter Extinctae iam Persecutionis praeludia, et de Patrum
+                    Missionarius in <span id="compendiosa_narratio:0.1.1.13.7" class="t-placeName s-2-entita" data-el="placeName">China</span>, et Operarius optimus.</p>
+               <p id="compendiosa_narratio:0.1.1.14" class="t-p s-1-struttura" data-el="p">Recensebo tamen breviter Extinctae iam Persecutionis praeludia, et de Patrum
                     Exulum ad suas Ecclesias restitutione laetissima nova. <span id="compendiosa_narratio:0.1.1.14.0" class="t-pb" role="separator" title="page break">[365]</span>Post meum e <span id="compendiosa_narratio:0.1.1.14.1" class="t-placeName s-2-entita" data-el="placeName">China</span> discessum Tres Societatis Patres,
                         <span id="compendiosa_narratio:0.1.1.14.2" class="t-persName s-2-entita" data-el="persName">Gabriel Magaglianes</span>, <span id="compendiosa_narratio:0.1.1.14.3" class="t-persName s-2-entita" data-el="persName">Ludovicus
                         Buglio</span>, et <span id="compendiosa_narratio:0.1.1.14.4" class="t-persName s-2-entita" data-el="persName">Ferdinandus Verbiest</span>, qui iam
@@ -606,8 +608,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     restitutos, et quidem cum gaudio universali, non solum Christianorum iis in <span id="compendiosa_narratio:0.1.1.14.19" class="t-pb" role="separator" title="page break">[366]</span>partibus, sed <span id="compendiosa_narratio:0.1.1.14.20" class="t-placeName s-2-entita" data-el="placeName">Chinae</span> totius,
                     solis Bonziis <span id="compendiosa_narratio:0.1.1.14.21" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.14.21.0" class="t-abbr s-3-editoriale" data-el="abbr">eorumq<span id="compendiosa_narratio:0.1.1.14.21.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.14.21.1" class="t-expan s-3-editoriale" data-el="expan">eorumq<span id="compendiosa_narratio:0.1.1.14.21.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> Sectariis exceptis; siquidem Innocentia sanctissimae nostrae Legis
                     toti <span id="compendiosa_narratio:0.1.1.14.22" class="t-placeName s-2-entita" data-el="placeName">Chinae</span> fuit notissima, et perinde pristina nostra
-                    libertas ab omnibus desiderata.</div>
-               <div id="compendiosa_narratio:0.1.1.15" class="t-p s-1-struttura" data-el="p">Dico <span id="compendiosa_narratio:0.1.1.15.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.15.0.0" class="t-abbr s-3-editoriale" data-el="abbr">itaq<span id="compendiosa_narratio:0.1.1.15.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.15.0.1" class="t-expan s-3-editoriale" data-el="expan">itaq<span id="compendiosa_narratio:0.1.1.15.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span>, ad consummandum Christiani illius Gregis <span id="compendiosa_narratio:0.1.1.15.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.15.1.0" class="t-abbr s-3-editoriale" data-el="abbr">Patrumq<span id="compendiosa_narratio:0.1.1.15.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.15.1.1" class="t-expan s-3-editoriale" data-el="expan">Patrumq<span id="compendiosa_narratio:0.1.1.15.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> Missionariorum perfectum gaudium nihil porro deesse, quam plurimorum
+                    libertas ab omnibus desiderata.</p>
+               <p id="compendiosa_narratio:0.1.1.15" class="t-p s-1-struttura" data-el="p">Dico <span id="compendiosa_narratio:0.1.1.15.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.15.0.0" class="t-abbr s-3-editoriale" data-el="abbr">itaq<span id="compendiosa_narratio:0.1.1.15.0.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.15.0.1" class="t-expan s-3-editoriale" data-el="expan">itaq<span id="compendiosa_narratio:0.1.1.15.0.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span>, ad consummandum Christiani illius Gregis <span id="compendiosa_narratio:0.1.1.15.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.15.1.0" class="t-abbr s-3-editoriale" data-el="abbr">Patrumq<span id="compendiosa_narratio:0.1.1.15.1.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="compendiosa_narratio:0.1.1.15.1.1" class="t-expan s-3-editoriale" data-el="expan">Patrumq<span id="compendiosa_narratio:0.1.1.15.1.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> Missionariorum perfectum gaudium nihil porro deesse, quam plurimorum
                     Operariorum subsidium, tum ad complendas et animandas Ecclesias etiamnum vacuas,
                     tum ad messem quam plurimam colligendam, quae pro Coelesti Granario, iam matura
                     offertur. Sentio equidem, pro hoc Chinensi agro duo Operariorum millia neutiquam
@@ -622,18 +624,18 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     preces, et lamen<span id="compendiosa_narratio:0.1.1.15.6" class="t-pb" role="separator" title="page break">[367]</span>tabilia Militantis Ecclesiae Chinensis
                     suspiria, ad permovendam Clementiam Divinam, ac Fidelium pietatem, ut
                     liberaliter concurrant, ad promotionem Operis, in se tam sancti, et ad
-                    Chinensium Conversionem tam necessarii, et denique pro DEI Honore tam gloriosi.</div>
-               <div id="compendiosa_narratio:0.1.1.16" class="t-p s-1-struttura" data-el="p">Atque hic est, Eminentissimi Domini, ab integro prope seculo Chinensis Ecclesiae
+                    Chinensium Conversionem tam necessarii, et denique pro DEI Honore tam gloriosi.</p>
+               <p id="compendiosa_narratio:0.1.1.16" class="t-p s-1-struttura" data-el="p">Atque hic est, Eminentissimi Domini, ab integro prope seculo Chinensis Ecclesiae
                     status, descriptus a me hoc brevi Compendio, quod ego hodie Eminentiarum
                     Vestrarum pedibus humillime substerno, nec aliud laboribus meis praemium expeto,
                     quam ut ab Eisdem clementissime acceptetur, id quod pro lucro simul et solatio
-                    reputabo.</div>
+                    reputabo.</p>
                 
-                <div id="compendiosa_narratio:0.1.1.17" class="t-p s-1-struttura" data-el="p"><span id="compendiosa_narratio:0.1.1.17.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.17.0.0" class="t-abbr s-3-editoriale" data-el="abbr">E<span id="compendiosa_narratio:0.1.1.17.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span> E<span id="compendiosa_narratio:0.1.1.17.0.0.1" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.17.0.1" class="t-expan s-3-editoriale" data-el="expan">E<span id="compendiosa_narratio:0.1.1.17.0.1.0" class="t-ex s-3-editoriale" data-el="ex">minentiis</span></span></span>
+                <p id="compendiosa_narratio:0.1.1.17" class="t-p s-1-struttura" data-el="p"><span id="compendiosa_narratio:0.1.1.17.0" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.17.0.0" class="t-abbr s-3-editoriale" data-el="abbr">E<span id="compendiosa_narratio:0.1.1.17.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span> E<span id="compendiosa_narratio:0.1.1.17.0.0.1" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.17.0.1" class="t-expan s-3-editoriale" data-el="expan">E<span id="compendiosa_narratio:0.1.1.17.0.1.0" class="t-ex s-3-editoriale" data-el="ex">minentiis</span></span></span>
                     <span id="compendiosa_narratio:0.1.1.17.1" class="t-choice s-3-editoriale" data-el="choice"><span id="compendiosa_narratio:0.1.1.17.1.0" class="t-abbr s-3-editoriale" data-el="abbr">V<span id="compendiosa_narratio:0.1.1.17.1.0.0" class="t-am s-3-editoriale" data-el="am">.</span> V<span id="compendiosa_narratio:0.1.1.17.1.0.1" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="compendiosa_narratio:0.1.1.17.1.1" class="t-expan s-3-editoriale" data-el="expan">V<span id="compendiosa_narratio:0.1.1.17.1.1.0" class="t-ex s-3-editoriale" data-el="ex">estris</span></span></span>
                     <span id="compendiosa_narratio:0.1.1.17.2" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.1.17.3" class="t-hi s-1-inline" data-el="hi">Indignissimus et Humillimus Servus
                         <span id="compendiosa_narratio:0.1.1.17.3.0" class="t-lb"><br/></span>in Domino</span>
-                    <span id="compendiosa_narratio:0.1.1.17.4" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.1.17.5" class="t-persName s-2-entita" data-el="persName">PROSPER INTORCETTA</span></div>          
+                    <span id="compendiosa_narratio:0.1.1.17.4" class="t-lb"><br/></span><span id="compendiosa_narratio:0.1.1.17.5" class="t-persName s-2-entita" data-el="persName">PROSPER INTORCETTA</span></p>          
         </div>
     </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-3-3-syllabus-jap-1654.html">‹ previous</a><a href="text.html">Register</a><a href="doc-de-bello-tartarico-historia.html">next ›</a></nav></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
@@ -677,16 +679,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -868,6 +889,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

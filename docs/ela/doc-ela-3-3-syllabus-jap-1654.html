@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_3_3_syllabus_jap_1654:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_3_3_syllabus_jap_1654:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_3_3_syllabus_jap_1654:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></div>
+           <p id="ELA_3_3_syllabus_jap_1654:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></p>
         </span>
         <span id="ELA_3_3_syllabus_jap_1654:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_3_3_syllabus_jap_1654:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
-           </div>
+           <p id="ELA_3_3_syllabus_jap_1654:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
+           </p>
         </span>
       </span>
      <span id="ELA_3_3_syllabus_jap_1654:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -350,11 +352,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         <div id="ELA_3_3_syllabus_jap_1654:0.1.0.0" class="t-div s-1-struttura" data-el="div">
            <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.0" class="t-pb" role="separator" title="page break">[159v]</span>
            <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.1" class="t-pb" role="separator" title="page break">[1101]</span>   
-             <div id="ELA_3_3_syllabus_jap_1654:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">SYLLABUS ALPHABETICUS PATRUM ET FRATRUM<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.2.0" class="t-lb"><br/></span>
+             <p id="ELA_3_3_syllabus_jap_1654:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">SYLLABUS ALPHABETICUS PATRUM ET FRATRUM<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.2.0" class="t-lb"><br/></span>
                 QUI SUNT INTRA PROVINCIAM JAPONICAM<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.2.1" class="t-lb"><br/></span>
-                ET CONTINENTUR IN PRIMO CATALOGO.</div>
+                ET CONTINENTUR IN PRIMO CATALOGO.</p>
 <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.3" class="t-lb"><br/></span>
-<div id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">
+<p id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">
 1. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.0" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.0.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.0.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.1" class="t-persName s-2-entita" data-el="persName" data-key="Aloysius Piñerius">Aloysius Pinherius</span> Pag. 3 n. 26<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.2" class="t-lb"><br/></span>
 2. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.3" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.3.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.4" class="t-persName s-2-entita" data-el="persName" data-key="Fereira, Antonius S.J.">Antonius Ferreira</span> Pag. 1 n. 7<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.5" class="t-lb"><br/></span>
 3. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.6" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.6.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.6.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.7" class="t-persName s-2-entita" data-el="persName" data-key="López, Antonius S.J.">Antonius López</span> Pag. 3 n. 25<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.8" class="t-lb"><br/></span>
@@ -373,7 +375,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 16. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.44" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.44.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.44.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.45" class="t-persName s-2-entita" data-el="persName" data-key="Nogheira, Iohannes S.J.">Joannes Nogheira</span> Pag. 3 n. 23<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.46" class="t-lb"><br/></span>
 17. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.47" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.47.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.47.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <a id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.48" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/77146111" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/77146111" data-key="Núnez, Iohannes S.J.">Joannes Nunes</a>	Pag. 3 n. 21<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.49" class="t-lb"><br/></span>
 18. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.50" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.50.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.50.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.51" class="t-persName s-2-entita" data-el="persName" data-key="Coelho, Martinus S.J.">Martinus Coelho</span> Pag. 1 n. 3<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.52" class="t-lb"><br/></span>
-19. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.53" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.53.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.53.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.54" class="t-persName s-2-entita" data-el="persName" data-key="Matthias de Amaya S.J.">Matthias d'Amaya</span> [!] Pag. 2 n. 17<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.55" class="t-lb"><br/></span>
+19. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.53" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.53.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.53.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.54" class="t-persName s-2-entita" data-el="persName" data-key="Matthias de Amaya S.J.">Matthias d&#39;Amaya</span> [!] Pag. 2 n. 17<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.55" class="t-lb"><br/></span>
 20. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.56" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.56.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.56.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.57" class="t-persName s-2-entita" data-el="persName" data-key="Metellus Sacanus">Metellus Saccanus</span> Pag. 2 n. 10<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.58" class="t-lb"><br/></span>
 21. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.59" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.59.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.59.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.60" class="t-persName s-2-entita" data-el="persName" data-key="Borges, Onufrius S.J.">Onufrius Borges</span> Pag. 2 n. 11<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.61" class="t-lb"><br/></span>
 22. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.62" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.62.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.62.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.63" class="t-persName s-2-entita" data-el="persName" data-key="Petro Marchio S.J.">Petrus Márquez</span> Pag. 3 n. 22<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.64" class="t-lb"><br/></span>
@@ -398,7 +400,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 41. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.119" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.119.0" class="t-abbr s-3-editoriale" data-el="abbr">F.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.119.1" class="t-expan s-3-editoriale" data-el="expan">Frater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.120" class="t-persName s-2-entita" data-el="persName" data-key="Pereira, Iohannes S.J.">Joannes Pereira</span> Pag. 6 n. 46<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.121" class="t-lb"><br/></span>
 42. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.122" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.122.0" class="t-abbr s-3-editoriale" data-el="abbr">F.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.122.1" class="t-expan s-3-editoriale" data-el="expan">Frater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.123" class="t-persName s-2-entita" data-el="persName" data-key="Vaz, Mattheus S.J.">Mattheus Vaz</span> Pag. 5 n. 41<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.124" class="t-lb"><br/></span>
 43. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.125" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.125.0" class="t-abbr s-3-editoriale" data-el="abbr">F.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.125.1" class="t-expan s-3-editoriale" data-el="expan">Frater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.126" class="t-persName s-2-entita" data-el="persName" data-key="Monterius, Michael S.J.">Michael Monterius</span> Pag. 5 n. 42<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.127" class="t-lb"><br/></span>
-44. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.128" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.128.0" class="t-abbr s-3-editoriale" data-el="abbr">F.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.128.1" class="t-expan s-3-editoriale" data-el="expan">Frater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.129" class="t-persName s-2-entita" data-el="persName" data-key="Pasqualis Fernandez S.J.">Pasqualis Fernández</span> Pag. 6 n. 43<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.130" class="t-lb"><br/></span></div>
+44. <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.128" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.128.0" class="t-abbr s-3-editoriale" data-el="abbr">F.</span><span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.128.1" class="t-expan s-3-editoriale" data-el="expan">Frater</span></span> <span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.129" class="t-persName s-2-entita" data-el="persName" data-key="Pasqualis Fernandez S.J.">Pasqualis Fernández</span> Pag. 6 n. 43<span id="ELA_3_3_syllabus_jap_1654:0.1.0.0.4.130" class="t-lb"><br/></span></p>
        </div>      
       </div>
   </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-3-2-valignanus-catechismus.html">‹ previous</a><a href="text.html">Register</a><a href="doc-compendiosa-narratio.html">next ›</a></nav></main>
@@ -443,16 +445,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -634,6 +655,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

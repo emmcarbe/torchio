@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -326,13 +328,13 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         </div>
         <span id="de_bello_tartarico_historia:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
             <span id="de_bello_tartarico_historia:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-                <div id="de_bello_tartarico_historia:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Transcribed for the ELA Project, codified in TEI for the Serica Project.</div>
+                <p id="de_bello_tartarico_historia:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Transcribed for the ELA Project, codified in TEI for the Serica Project.</p>
             </span>
             <span id="de_bello_tartarico_historia:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
                 
-                <div id="de_bello_tartarico_historia:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">Trascritta la j con la i, distinta la u dalla v, normalizzata la q con accento acuto, 
+                <p id="de_bello_tartarico_historia:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">Trascritta la j con la i, distinta la u dalla v, normalizzata la q con accento acuto, 
                     normalizzata la ę, eliminati i segni di vocale lunga, di vocale breve, e i segni di dieresi.
-                    Sciolte le abbreviazioni, corretti gli errori evidenti.</div>
+                    Sciolte le abbreviazioni, corretti gli errori evidenti.</p>
             </span>
             
             <span id="de_bello_tartarico_historia:0.0.1.2" class="t-charDecl s-7-header" data-el="charDecl">
@@ -370,7 +372,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
             
             <div id="de_bello_tartarico_historia:0.1.0.0" class="t-div s-1-struttura" data-el="div">
                 <span id="de_bello_tartarico_historia:0.1.0.0.0" class="t-pb" role="separator" title="page break">[1]</span>
-                <div id="de_bello_tartarico_historia:0.1.0.0.1" class="t-head s-1-struttura" data-el="head">
+                <h2 id="de_bello_tartarico_historia:0.1.0.0.1" class="t-head s-1-struttura" data-el="head">
                     <span id="de_bello_tartarico_historia:0.1.0.0.1.0" class="t-lb"><br/></span>DE BELLO
                     <span id="de_bello_tartarico_historia:0.1.0.0.1.1" class="t-lb"><br/></span>TARTARICO
                     <span id="de_bello_tartarico_historia:0.1.0.0.1.2" class="t-lb"><br/></span>HISTORIA;
@@ -379,8 +381,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     <span id="de_bello_tartarico_historia:0.1.0.0.1.5" class="t-lb"><br/></span>invaserint, ac fere totum
                     <span id="de_bello_tartarico_historia:0.1.0.0.1.6" class="t-lb"><br/></span>occuparint, narratur; eorumque
                     <span id="de_bello_tartarico_historia:0.1.0.0.1.7" class="t-lb"><br/></span>mores breviter describuntur.
-                </div>
-                <div id="de_bello_tartarico_historia:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">
+                </h2>
+                <p id="de_bello_tartarico_historia:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.0.2.0" class="t-lb"><br/></span>Auctore <span id="de_bello_tartarico_historia:0.1.0.0.2.1" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.0.0.2.1.0" class="t-abbr s-3-editoriale" data-el="abbr">R<span id="de_bello_tartarico_historia:0.1.0.0.2.1.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.0.0.2.1.1" class="t-expan s-3-editoriale" data-el="expan">R<span id="de_bello_tartarico_historia:0.1.0.0.2.1.1.0" class="t-ex s-3-editoriale" data-el="ex">everendo</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.0.0.2.2" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.0.0.2.2.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.0.0.2.2.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.0.0.2.2.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.0.0.2.2.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.0.0.2.3" class="t-persName s-2-entita" data-el="persName">Martino Martinio</span>,
@@ -392,13 +394,13 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     <span id="de_bello_tartarico_historia:0.1.0.0.2.11" class="t-lb"><br/></span>EX OFFICINA PLANTINIANA
                     <span id="de_bello_tartarico_historia:0.1.0.0.2.12" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.0.0.2.13" class="t-persName s-2-entita" data-el="persName">BALTHASARIS MORETI</span>
                     <span id="de_bello_tartarico_historia:0.1.0.0.2.14" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.0.0.2.15" class="t-date s-2-date" data-el="date" data-when="1654">M.DC.LIV</span>
-               </div>
+               </p>
             </div>
 
             
             <div id="de_bello_tartarico_historia:0.1.0.1" class="t-div s-1-struttura" data-el="div">
                 <span id="de_bello_tartarico_historia:0.1.0.1.0" class="t-pb" role="separator" title="page break">[3]</span>
-                <div id="de_bello_tartarico_historia:0.1.0.1.1" class="t-p s-1-struttura" data-el="p">
+                <p id="de_bello_tartarico_historia:0.1.0.1.1" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.1.1.0" class="t-lb"><br/></span>AUGUSTISSIMO
                     <span id="de_bello_tartarico_historia:0.1.0.1.1.1" class="t-lb"><br/></span>POTENTISSIMOQUE
                     <span id="de_bello_tartarico_historia:0.1.0.1.1.2" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.0.1.1.3" class="t-persName s-2-entita" data-el="persName">IOANNI
@@ -434,13 +436,13 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     <span id="de_bello_tartarico_historia:0.1.0.1.1.18" class="t-lb"><br/></span>MAIESTATI VESTRAE
                     <span id="de_bello_tartarico_historia:0.1.0.1.1.19" class="t-lb"><br/></span>aeternum devotus
                     <span id="de_bello_tartarico_historia:0.1.0.1.1.20" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.0.1.1.21" class="t-persName s-2-entita" data-el="persName"><span id="de_bello_tartarico_historia:0.1.0.1.1.21.0" class="t-hi s-1-inline" data-el="hi">Martinus Martinius</span></span>
-               </div>
+               </p>
             </div>
 
             
             <div id="de_bello_tartarico_historia:0.1.0.2" class="t-div s-1-struttura" data-el="div">
                 <span id="de_bello_tartarico_historia:0.1.0.2.0" class="t-pb" role="separator" title="page break">[8]</span>
-                <div id="de_bello_tartarico_historia:0.1.0.2.1" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.0.2.1.0" class="t-lb"><br/></span>LECTORI
+                <p id="de_bello_tartarico_historia:0.1.0.2.1" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.0.2.1.0" class="t-lb"><br/></span>LECTORI
                     <span id="de_bello_tartarico_historia:0.1.0.2.1.1" class="t-lb"><br/></span>SALUTEM.
                     <span id="de_bello_tartarico_historia:0.1.0.2.1.2" class="t-lb"><br/></span>SOLENT, <span id="de_bello_tartarico_historia:0.1.0.2.1.3" class="t-hi s-1-inline" data-el="hi">Candide
                         Lector, qui peregrinis lustratis regionibus revertuntur in patriam,
@@ -459,8 +461,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         cum variis, decem per annos ibidem commemoratus assequi potui, ea vulgata
                         typis omnibus facere communia, et quod sermone non possum, scriptis
                         unumquemque meis convenire.</span>
-               </div>
-                <div id="de_bello_tartarico_historia:0.1.0.2.2" class="t-p s-1-struttura" data-el="p">
+               </p>
+                <p id="de_bello_tartarico_historia:0.1.0.2.2" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.2.2.0" class="t-hi s-1-inline" data-el="hi">Eo consilio, cum anno <span id="de_bello_tartarico_historia:0.1.0.2.2.0.0" class="t-date s-2-date" data-el="date" data-when="1651">M.DC.LI</span>
                         Superiorum meorum designatione <span id="de_bello_tartarico_historia:0.1.0.2.2.0.1" class="t-pb" role="separator" title="page break">[10]</span>destinatus
                             <span id="de_bello_tartarico_historia:0.1.0.2.2.0.2" class="t-placeName s-2-entita" data-el="placeName">Romam</span> essem, adolescentis apud Sinas Religionis
@@ -487,8 +489,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         quatuor fere annorum millibus, per <span id="de_bello_tartarico_historia:0.1.0.2.2.0.12" class="t-pb" role="separator" title="page break">[12]</span>continuos
                         saeculorum gradus deductos, redigendos a se in compendium, evulgandosque
                         addixerat.</span>
-               </div>
-                <div id="de_bello_tartarico_historia:0.1.0.2.3" class="t-p s-1-struttura" data-el="p">
+               </p>
+                <p id="de_bello_tartarico_historia:0.1.0.2.3" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.2.3.0" class="t-hi s-1-inline" data-el="hi">Hos ergo promissos Annales ego primum <span id="de_bello_tartarico_historia:0.1.0.2.3.0.0" class="t-placeName s-2-entita" data-el="placeName">Philippinis
                             in Insulis</span>, dum navigii opportunitatem per aliquot menses
                         exspecto, ordinare aggressus sum. Deinde ab Hollandis captus, delatus in
@@ -506,7 +508,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         atque in <span id="de_bello_tartarico_historia:0.1.0.2.3.0.15" class="t-placeName s-2-entita" data-el="placeName">Hollan<span id="de_bello_tartarico_historia:0.1.0.2.3.0.15.0" class="t-pb" role="separator" title="page break">[13]</span>diam</span>, uti et
                             <span id="de_bello_tartarico_historia:0.1.0.2.3.0.16" class="t-placeName s-2-entita" data-el="placeName">Antverpiam</span>
                         <span id="de_bello_tartarico_historia:0.1.0.2.3.0.17" class="t-placeName s-2-entita" data-el="placeName">Bruxellamque</span> deveni: unde et haec in lucem dedi.</span>
-               </div>
+               </p>
                 <div id="de_bello_tartarico_historia:0.1.0.2.4" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.2.4.0" class="t-hi s-1-inline" data-el="hi">Ceterum in superiore illa septem mensium continua navigatione
                         (tantum enim semel ad <span id="de_bello_tartarico_historia:0.1.0.2.4.0.0" class="t-geogName s-2-entita" data-el="geogName">Africum Bonae Spei Promontorium</span>
@@ -537,7 +539,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         ut illa novae lucis felix aurora <span id="de_bello_tartarico_historia:0.1.0.2.5.3.0" class="t-pb" role="separator" title="page break">[16]</span>procedat, et
                         crescat usque ad perfectum diem.</span>
                </div>
-                <div id="de_bello_tartarico_historia:0.1.0.2.6" class="t-p s-1-struttura" data-el="p">
+                <p id="de_bello_tartarico_historia:0.1.0.2.6" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.2.6.0" class="t-hi s-1-inline" data-el="hi">Te porro, mi Lector, illud rogo, ut si quando incultam
                         sermonis asperitatem et barbariem in hoc Opusculo deprehenderis, Barbaricum
                         Bellum te legere memineris; et ab eo quidem scriptum, qui omnem Latini
@@ -545,8 +547,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         addiscendae primum studio, usu deinde, penitus obliterarit; cuique faciendis
                         magis, quam scribendis pro divina gloria arduis rebus per annos plures
                         occupato, rudis incultique styli vitium facile, uti spero, condonabis.</span>
-               </div>
-                <div id="de_bello_tartarico_historia:0.1.0.2.7" class="t-p s-1-struttura" data-el="p">
+               </p>
+                <p id="de_bello_tartarico_historia:0.1.0.2.7" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.2.7.0" class="t-hi s-1-inline" data-el="hi">Ceterum cum in toto passim Historiae sequentis contextu
                         frequens incidat mentio praecipuarum <span id="de_bello_tartarico_historia:0.1.0.2.7.0.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperii Sinici</span> Provincia<span id="de_bello_tartarico_historia:0.1.0.2.7.0.1" class="t-pb" role="separator" title="page break">[17]</span>rum et Urbium, quae a variis exercitibus expugnatae,
                         propugnatae, occupatae, vastatae sunt, a Septemtrione ad Austrum, et ab
@@ -556,8 +558,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         Urbium catalogum praemittere, cum Tabula Geographica itinerum duce; non
                         accurata illa quidem, sed ab ipsis tamen Sinarum Philosophis delineata, et
                         quae ad praesens negotium sufficere videatur.</span>
-               </div>
-                <div id="de_bello_tartarico_historia:0.1.0.2.8" class="t-p s-1-struttura" data-el="p">
+               </p>
+                <p id="de_bello_tartarico_historia:0.1.0.2.8" class="t-p s-1-struttura" data-el="p">
                     <span id="de_bello_tartarico_historia:0.1.0.2.8.0" class="t-hi s-1-inline" data-el="hi">Accuratiores autem eiusdem <span id="de_bello_tartarico_historia:0.1.0.2.8.0.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperii</span> mappas, Universales et
                         Particulares, cum exactissima <span id="de_bello_tartarico_historia:0.1.0.2.8.0.1" class="t-pb" role="separator" title="page break">[18]</span>Provinciarum, et
                         Urbium singularum, rerumque in illis contentarum descriptione; Longitudinum
@@ -565,21 +567,21 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         Geographicae Naturalem et Humanam Historiam pertinent, Atlanti meo Sinico
                         reservandas esse, prudens quilibet facile animadvertet; ne debitam ampliori
                         Operi gratiam ostentatione praematura subtrahamus.</span>
-               </div>
+               </p>
             </div>
         </div>
                
         <div id="de_bello_tartarico_historia:0.1.1" class="t-body s-1-struttura" data-el="body">
             
             <span id="de_bello_tartarico_historia:0.1.1.0" class="t-pb" role="separator" title="page break">[19]</span>
-            <div id="de_bello_tartarico_historia:0.1.1.1" class="t-head s-1-struttura" data-el="head"><span id="de_bello_tartarico_historia:0.1.1.1.0" class="t-lb"><br/></span>DE BELLO
+            <h2 id="de_bello_tartarico_historia:0.1.1.1" class="t-head s-1-struttura" data-el="head"><span id="de_bello_tartarico_historia:0.1.1.1.0" class="t-lb"><br/></span>DE BELLO
                 <span id="de_bello_tartarico_historia:0.1.1.1.1" class="t-lb"><br/></span>TARTARICO
-                <span id="de_bello_tartarico_historia:0.1.1.1.2" class="t-lb"><br/></span>HISTORIA;</div>
-            <div id="de_bello_tartarico_historia:0.1.1.2" class="t-p s-1-struttura" data-el="p">
+                <span id="de_bello_tartarico_historia:0.1.1.1.2" class="t-lb"><br/></span>HISTORIA;</h2>
+            <p id="de_bello_tartarico_historia:0.1.1.2" class="t-p s-1-struttura" data-el="p">
                 <span id="de_bello_tartarico_historia:0.1.1.2.0" class="t-hi s-1-inline" data-el="hi">In qua, quo pacto Tartari hac nostra aetate <span id="de_bello_tartarico_historia:0.1.1.2.0.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Sinicum Imperium</span>
                     invaserint, ac fere totum occuparint, narratur; eorumque mores breviter
                     describuntur.</span>
-          </div>
+          </p>
             <div id="de_bello_tartarico_historia:0.1.1.3" class="t-p s-1-struttura" data-el="p">TARTARI<span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.3.0" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.3.0.0" class="t-hi s-1-inline" data-el="hi">Tartari, antiqui Sinarum hostes.</span></div>(antiquissima in <span id="de_bello_tartarico_historia:0.1.1.3.1" class="t-placeName s-2-entita" data-el="placeName">Asia</span> gens, et multarum gentium principium, iam a
                 quatuor millibus annorum <span id="de_bello_tartarico_historia:0.1.1.3.2" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Sinico imperio</span> inimica) saepe acria bella cum Sinis
                 gesserunt, et quamvis aliquoties victi fuerint, saepius tamen victores extiterunt.
@@ -1110,7 +1112,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 Subsequentur deinceps res ab altero gestae.</div>
             <div id="de_bello_tartarico_historia:0.1.1.33" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.1.33.0" class="t-date s-2-date" data-el="date" data-when="1641">Anno itaque M.DC.XLI.</span> latrones<span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.33.1" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.33.1.0" class="t-hi s-1-inline" data-el="hi">Latrones Provincias <span id="de_bello_tartarico_historia:0.1.1.33.1.0.0" class="t-placeName s-2-entita" data-el="placeName">Xensi</span> et <span id="de_bello_tartarico_historia:0.1.1.33.1.0.1" class="t-placeName s-2-entita" data-el="placeName">Honan</span> vexant.</span></div> ex <span id="de_bello_tartarico_historia:0.1.1.33.2" class="t-placeName s-2-entita" data-el="placeName">Provincia Xensi</span> (ubi quamplurimas civitates
                 ac oppida expilaverant) ingenti numero in amoenissimam <span id="de_bello_tartarico_historia:0.1.1.33.3" class="t-placeName s-2-entita" data-el="placeName">Honan Provinciam</span> irrumpunt,
-                et recta nobilissimam metropolim, <span id="de_bello_tartarico_historia:0.1.1.33.4" class="t-placeName s-2-entita" data-el="placeName">C'aifung</span> dictam, petunt ac obsident. Illam
+                et recta nobilissimam metropolim, <span id="de_bello_tartarico_historia:0.1.1.33.4" class="t-placeName s-2-entita" data-el="placeName">C&#39;aifung</span> dictam, petunt ac obsident. Illam
                 ingens defendebat praesidium; unde <span id="de_bello_tartarico_historia:0.1.1.33.5" class="t-pb" role="separator" title="page break">[60]</span>tormentorum curulium
                 saeviente in eos procella, cum clade obsidionem deserere coacti sunt. Inde
                 populabundi circumvicinas invadunt civitates ac urbes, et quamplurimas diripiunt.
@@ -1306,7 +1308,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 genus a latronibus praetermissum: quae ut referre longum, ita recordari molestum
                 fuerit. Atque hac tam barbara immanitate <span id="de_bello_tartarico_historia:0.1.1.37.4" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperium</span>, quod felicissime occuparat, ac
                 comitate servare potuisset, merito perdidit.</div>
-            <span id="de_bello_tartarico_historia:0.1.1.38" class="t-pb" role="separator" title="page break">[75]</span><div id="de_bello_tartarico_historia:0.1.1.39" class="t-p s-1-struttura" data-el="p">Inter alios quos cepit Praefectos, senex fuit, <span id="de_bello_tartarico_historia:0.1.1.39.0" class="t-persName s-2-entita" data-el="persName">Us</span> dictus,
+            <span id="de_bello_tartarico_historia:0.1.1.38" class="t-pb" role="separator" title="page break">[75]</span><p id="de_bello_tartarico_historia:0.1.1.39" class="t-p s-1-struttura" data-el="p">Inter alios quos cepit Praefectos, senex fuit, <span id="de_bello_tartarico_historia:0.1.1.39.0" class="t-persName s-2-entita" data-el="persName">Us</span> dictus,
                 cuius filius <span id="de_bello_tartarico_historia:0.1.1.39.1" class="t-persName s-2-entita" data-el="persName">Usangueius</span> contra Tartaros in confinibus <span id="de_bello_tartarico_historia:0.1.1.39.2" class="t-placeName s-2-entita" data-el="placeName">Leaotung</span> excubabat, totius
                 exercitus Sinici summam exercens Praefecturam. Huic ergo crudelissimam mortem
                 minitatur <span id="de_bello_tartarico_historia:0.1.1.39.3" class="t-persName s-2-entita" data-el="persName">Licungzus</span>, nisi filium in suum obsequium cum toto exercitu iurare vi
@@ -1317,7 +1319,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     necessitas in virtutem mutanda, ut eius tyrannidem evitemus, ac crudelissimam
                     mortem; liberalitatem vero experiamur. Regalem tibi promittit Dignitatem, si cum
                     tuis eum agnoscas Imperatorem. Ex tua responsione vita mea pendet: quid illi
-                    debeas, qui tibi vitam dedit, considera.</span></div>
+                    debeas, qui tibi vitam dedit, considera.</span></p>
             <div id="de_bello_tartarico_historia:0.1.1.40" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.1.40.0" class="t-persName s-2-entita" data-el="persName">Usangueius</span> filius brevissimis verbis <span id="de_bello_tartarico_historia:0.1.1.40.1" class="t-pb" role="separator" title="page break">[76]</span>tale dedit responsum:
                     <span id="de_bello_tartarico_historia:0.1.1.40.2" class="t-hi s-1-inline" data-el="hi">Qui Imperatori suo fidus non est, mihi quoque non erit mi
                     pater: et si tu ipse debitam Imperatori tuo fidelitatem oblitus es, me nemo
@@ -1545,7 +1547,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 ingrederentur: hos vero milites extra urbem positos undique infectantur, ac necant;
                 sed multo plures<span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.47.43" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.47.43.0" class="t-hi s-1-inline" data-el="hi">Multi milites hauriuntur.</span></div> aquae hauserunt, quam sagittae Tartarorum aut acinaces: ad
                 Australem enim urbis portam ingens labitur fluvius ultra leucam latus, cui nomen
-                <span id="de_bello_tartarico_historia:0.1.1.47.44" class="t-geogName s-2-entita" data-el="geogName">C'ienthang</span>; hunc fugitivi milites superare, omnes confusione ac timore pleni,
+                <span id="de_bello_tartarico_historia:0.1.1.47.44" class="t-geogName s-2-entita" data-el="geogName">C&#39;ienthang</span>; hunc fugitivi milites superare, omnes confusione ac timore pleni,
                 contendunt: naves plus aequo onerant, dum debito plures conscendunt, ac ita
                 merguntur; alii ab aliis in flumen proiiciuntur: multa sic millia periere. Expulsis
                 in hunc modum aut necatis militibus, cum naves Tartari <span id="de_bello_tartarico_historia:0.1.1.47.45" class="t-pb" role="separator" title="page break">[94]</span>non
@@ -1556,7 +1558,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
             <div id="de_bello_tartarico_historia:0.1.1.48" class="t-p s-1-struttura" data-el="p">Habet eadem urbs <span id="de_bello_tartarico_historia:0.1.1.48.0" class="t-placeName s-2-entita" data-el="placeName">Hangcheu</span> ad Boream navigabilem canalem arte factum, per quem ad
                 Boreales partes patet navigatio: hic solo aggere separatur ab Australi fluvio. Ex
                 hoc igitur canali Tartari celerrime quamplurimas naves per terram aggeris tractas,
-                deducunt ad <span id="de_bello_tartarico_historia:0.1.1.48.1" class="t-geogName s-2-entita" data-el="geogName">fluvium C'ienthang</span>, quibus, nullo obstante, eumdem transmittunt, ac
+                deducunt ad <span id="de_bello_tartarico_historia:0.1.1.48.1" class="t-geogName s-2-entita" data-el="geogName">fluvium C&#39;ienthang</span>, quibus, nullo obstante, eumdem transmittunt, ac
                 totius <span id="de_bello_tartarico_historia:0.1.1.48.2" class="t-placeName s-2-entita" data-el="placeName">Sinae</span> pulcherrimam <span id="de_bello_tartarico_historia:0.1.1.48.3" class="t-placeName s-2-entita" data-el="placeName">urbem Xaoking</span><span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.48.4" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.48.4.0" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.1.48.4.0.0" class="t-placeName s-2-entita" data-el="placeName">Xaoking</span> urbs capitur.</span></div> facilem ad deditionem reperiunt. Haec
                 urbs magnitudine quidem multis cedit; sed nitore ac munditia omnes facile superat:
                 in aqua dulci iacet, ac tota extra ac intra moenia navigio lutrari potest: plateas
@@ -1612,7 +1614,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 retardaret, in tres partes copias diviserunt; una pars per <span id="de_bello_tartarico_historia:0.1.1.48.40" class="t-placeName s-2-entita" data-el="placeName">Khiucheu urbem</span> ac
                 montes, alia per <span id="de_bello_tartarico_historia:0.1.1.48.41" class="t-placeName s-2-entita" data-el="placeName">Vencheu</span> ac littora maris, <span id="de_bello_tartarico_historia:0.1.1.48.42" class="t-placeName s-2-entita" data-el="placeName">Fokien Provinciam</span> petebat; reliqua<span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.48.43" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.48.43.0" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.1.48.43.0.0" class="t-placeName s-2-entita" data-el="placeName">Kinhoa urbs</span> capitur ac vastatur.</span></div>
                 <span id="de_bello_tartarico_historia:0.1.1.48.44" class="t-placeName s-2-entita" data-el="placeName">Kinhoa</span> pertinaciter obsidebat.</div>
-            <span id="de_bello_tartarico_historia:0.1.1.49" class="t-pb" role="separator" title="page break">[99]</span><div id="de_bello_tartarico_historia:0.1.1.50" class="t-p s-1-struttura" data-el="p">Quo tempore ego ab Imperatore <span id="de_bello_tartarico_historia:0.1.1.50.0" class="t-persName s-2-entita" data-el="persName">Lunguuo</span> missus, <span id="de_bello_tartarico_historia:0.1.1.50.1" class="t-placeName s-2-entita" data-el="placeName">Venxui</span>
+            <span id="de_bello_tartarico_historia:0.1.1.49" class="t-pb" role="separator" title="page break">[99]</span><p id="de_bello_tartarico_historia:0.1.1.50" class="t-p s-1-struttura" data-el="p">Quo tempore ego ab Imperatore <span id="de_bello_tartarico_historia:0.1.1.50.0" class="t-persName s-2-entita" data-el="persName">Lunguuo</span> missus, <span id="de_bello_tartarico_historia:0.1.1.50.1" class="t-placeName s-2-entita" data-el="placeName">Venxui</span>
                 civitatem, urbi <span id="de_bello_tartarico_historia:0.1.1.50.2" class="t-placeName s-2-entita" data-el="placeName">Vencheu</span> subiectam, ingressus sum. Adfuere quam mox Tartari, ac
                 urbem quidem <span id="de_bello_tartarico_historia:0.1.1.50.3" class="t-placeName s-2-entita" data-el="placeName">Vencheu</span> primo facile impetu occuparunt, neque multo difficilius illi
                 subditas civitates. Ego domum quamdam ampliorem <span id="de_bello_tartarico_historia:0.1.1.50.4" class="t-placeName s-2-entita" data-el="placeName">Venxui</span> civitatis, quae tota
@@ -1639,7 +1641,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 moenia disiicientes, urbem tandem occuparunt, totamque ferro ac igne misere
                 vastarunt. Ipse Praefectus, ne in Tartarorum manus perveniret, cum tota familia
                 seipsum combussit, dolio <span id="de_bello_tartarico_historia:0.1.1.50.9" class="t-pb" role="separator" title="page break">[101]</span>tormentarii pulveris admonens
-                ignem intra palatium in quo habitabat.</div>
+                ignem intra palatium in quo habitabat.</p>
             <div id="de_bello_tartarico_historia:0.1.1.51" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.1.51.0" class="t-placeName s-2-entita" data-el="placeName">Fokien Provincia</span> a tribus Provinciis, <span id="de_bello_tartarico_historia:0.1.1.51.1" class="t-placeName s-2-entita" data-el="placeName">Quangtung</span> nimirum, <span id="de_bello_tartarico_historia:0.1.1.51.2" class="t-placeName s-2-entita" data-el="placeName">Kiangsi</span>, ac
                 <span id="de_bello_tartarico_historia:0.1.1.51.3" class="t-placeName s-2-entita" data-el="placeName">Chekiang</span>, continuis separatur montibus; per quos ut ingrediaris, trium dierum iter
                 est asperrimum; altissimi undique colles, ac profundissimae valles, horridique
@@ -2296,13 +2298,13 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 aqua abluentes, qui ex carnificum manibus in Caelum evolaturi erant; atque ita
                 immanis tyranni crudelitas parvulis illis profuit, ut <span id="de_bello_tartarico_historia:0.1.1.81.10" class="t-persName s-2-entita" data-el="persName">Herodis</span> Innocentibus: magnum
                 plane Divinae praedestinationis testimonium.</div>
-            <div id="de_bello_tartarico_historia:0.1.1.82" class="t-p s-1-struttura" data-el="p">Scribunt, tantum sanguinis hic fusum, ut magni <span id="de_bello_tartarico_historia:0.1.1.82.0" class="t-geogName s-2-entita" data-el="geogName">Kiang fluminis</span> (quod urbem
+            <p id="de_bello_tartarico_historia:0.1.1.82" class="t-p s-1-struttura" data-el="p">Scribunt, tantum sanguinis hic fusum, ut magni <span id="de_bello_tartarico_historia:0.1.1.82.0" class="t-geogName s-2-entita" data-el="geogName">Kiang fluminis</span> (quod urbem
                 praeterfluit) aquas auxerit: imo ipsa corpora in flumen proiecta sunt; a quo
                 abrepta, reliquis urbibus ac civitatibus, ne meliora a tyranno sperarent,
                 nuntiabant. Nec diu dilata res est: nam tyrannus, eodem modo undique dimissis
                 exercitibus, reliquarum urbium ac civitatum incolas, quoscumque assequi potuit,
                 occidit: ita totam pene populosissimam <span id="de_bello_tartarico_historia:0.1.1.82.1" class="t-placeName s-2-entita" data-el="placeName">Suchuen Provinciam</span> incredibili vastitate
-                corrupit.</div>
+                corrupit.</p>
             <div id="de_bello_tartarico_historia:0.1.1.83" class="t-p s-1-struttura" data-el="p">His peractis, milites omnes congregavit in campo, quem pro militaribus exercitiis
                 quaelibet urbs in <span id="de_bello_tartarico_historia:0.1.1.83.0" class="t-placeName s-2-entita" data-el="placeName">Sinis</span> habet (<span id="de_bello_tartarico_historia:0.1.1.83.1" class="t-placeName s-2-entita" data-el="placeName">Kioochang</span> vocant) ubi eos ita est allocutus: <span id="de_bello_tartarico_historia:0.1.1.83.2" class="t-hi s-1-inline" data-el="hi">Orbis <span id="de_bello_tartarico_historia:0.1.1.83.2.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperium</span>, expulsis Tartaris, vestra virtute me consecuturum
                     spero: sed expeditiores ac prom<span id="de_bello_tartarico_historia:0.1.1.83.2.1" class="t-pb" role="separator" title="page break">[153]</span>ptiores vos volo, quam
@@ -2350,11 +2352,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 et mox in <span id="de_bello_tartarico_historia:0.1.1.85.5" class="t-placeName s-2-entita" data-el="placeName">Suchuen Provincia</span><span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.85.6" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.85.6.0" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.1.85.6.0.0" class="t-placeName s-2-entita" data-el="placeName">Suchuen Provincia</span> Tartaris subiicitur.</span></div> miferae hominum reliquiae, tamquam servatores suos,
                 accipiunt Tartaros: atque ita haec etiam Provincia Tartaris paruit, quae in
                 Occidente ultima Sinarum est, <span id="de_bello_tartarico_historia:0.1.1.85.7" class="t-placeName s-2-entita" data-el="placeName">Tibetano Regno</span> vicina.</div>
-            <div id="de_bello_tartarico_historia:0.1.1.86" class="t-p s-1-struttura" data-el="p">Stabilitis exinde rebus, ac relictis praesidiis in hac Provincia, ad <span id="de_bello_tartarico_historia:0.1.1.86.0" class="t-placeName s-2-entita" data-el="placeName">Peking</span> Regiam
+            <p id="de_bello_tartarico_historia:0.1.1.86" class="t-p s-1-struttura" data-el="p">Stabilitis exinde rebus, ac relictis praesidiis in hac Provincia, ad <span id="de_bello_tartarico_historia:0.1.1.86.0" class="t-placeName s-2-entita" data-el="placeName">Peking</span> Regiam
                 reditum parabat Tartarorum Dux; quando Patres nostri, iam liberi, facultatem ab ipso
                 petierunt remanendi in <span id="de_bello_tartarico_historia:0.1.1.86.1" class="t-placeName s-2-entita" data-el="placeName">Suchuen</span>. Hanc vero concedere noluit; sed tantos hospites
                 <span id="de_bello_tartarico_historia:0.1.1.86.2" class="t-placeName s-2-entita" data-el="placeName">Peking</span> secum ad Imperatorem transire debere dixit; in qua urbe ego ipse eos
-                reliqui <span id="de_bello_tartarico_historia:0.1.1.86.3" class="t-date s-2-date" data-el="date" data-when="1650">anno M.DC.L.</span></div>
+                reliqui <span id="de_bello_tartarico_historia:0.1.1.86.3" class="t-date s-2-date" data-el="date" data-when="1650">anno M.DC.L.</span></p>
             <div id="de_bello_tartarico_historia:0.1.1.87" class="t-p s-1-struttura" data-el="p">Ceterum ante commemoratus Dux,<span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.1.87.0" class="t-note s-1-note" data-el="note" data-place="margin"><span id="de_bello_tartarico_historia:0.1.1.87.0.0" class="t-hi s-1-inline" data-el="hi">Patruus Imperatoris non bene excipitur:</span></div> post tantam victoriam, ab <span id="de_bello_tartarico_historia:0.1.1.87.1" class="t-persName s-2-entita" data-el="persName">Amavango</span> fratre male est
                 exceptus; et ubi triumphum sperabat, mortem invenit. Cum enim longissimo plurium
                 mensium itinere, laborum assidua perpessione, <span id="de_bello_tartarico_historia:0.1.1.87.2" class="t-pb" role="separator" title="page break">[157]</span>ac continuis
@@ -2368,7 +2370,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 praeclare gesta facinora merebantur. Non defuere qui hoc ex <span id="de_bello_tartarico_historia:0.1.1.87.4" class="t-persName s-2-entita" data-el="persName">Amavangi</span> aemulatione
                 ortum affirment; sed credo <span id="de_bello_tartarico_historia:0.1.1.87.5" class="t-persName s-2-entita" data-el="persName">Amavangum</span> ad haec adductum, quod rebus Tartaricis non
                 parum timeret ab hoc fortissimo, sed praecipitis ingenii fratre.</div>
-            <div id="de_bello_tartarico_historia:0.1.1.88" class="t-p s-1-struttura" data-el="p">Atque hic esto narrationis meae finis, qua Bellum Tartaricum breviter descripsi, <span id="de_bello_tartarico_historia:0.1.1.88.0" class="t-date s-2-date" data-el="date" data-when="1651-01">ad
+            <p id="de_bello_tartarico_historia:0.1.1.88" class="t-p s-1-struttura" data-el="p">Atque hic esto narrationis meae finis, qua Bellum Tartaricum breviter descripsi, <span id="de_bello_tartarico_historia:0.1.1.88.0" class="t-date s-2-date" data-el="date" data-when="1651-01">ad
                 <span id="de_bello_tartarico_historia:0.1.1.88.0.0" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.1.88.0.0.0" class="t-abbr s-3-editoriale" data-el="abbr">initi<span id="de_bello_tartarico_historia:0.1.1.88.0.0.0.0" class="t-am s-3-editoriale" data-el="am">ū</span></span><span id="de_bello_tartarico_historia:0.1.1.88.0.0.1" class="t-expan s-3-editoriale" data-el="expan">initi<span id="de_bello_tartarico_historia:0.1.1.88.0.0.1.0" class="t-ex s-3-editoriale" data-el="ex">um</span></span></span> usque anni M.DC.LI.</span> quo tempore ex <span id="de_bello_tartarico_historia:0.1.1.88.1" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Sinarum Regno</span> in <span id="de_bello_tartarico_historia:0.1.1.88.2" class="t-pb" role="separator" title="page break">[158]</span><span id="de_bello_tartarico_historia:0.1.1.88.3" class="t-placeName s-2-entita" data-el="placeName">Europam</span> a Superioribus meis missus discessi. Ex hac porro, si
                 nihil aliud, illud certe mirum et omni observatione dignum apparet, quemadmodum
                 brevi septem annorum spatio Tartari plus terrarum occuparint, quam exercitus integer
@@ -2376,7 +2378,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 et <span id="de_bello_tartarico_historia:0.1.1.88.5" class="t-placeName s-2-entita" data-el="placeName">Coraeam</span>, ac <span id="de_bello_tartarico_historia:0.1.1.88.6" class="t-placeName s-2-entita" data-el="placeName">Leaotung</span> ingentes terrarum tractus. Quid vero post haec actum
                 sit, cum in charam mihi <span id="de_bello_tartarico_historia:0.1.1.88.7" class="t-placeName s-2-entita" data-el="placeName">Sinam</span> rediero, Deo bene favente, vel cum a Sociis
                 admonitus per litteras fuero, faciam quoque ut <span id="de_bello_tartarico_historia:0.1.1.88.8" class="t-placeName s-2-entita" data-el="placeName">Europa</span> huius belli finem non diu
-                desideret.</div>
+                desideret.</p>
 
         </div>
 
@@ -2384,8 +2386,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
             
             <div id="de_bello_tartarico_historia:0.1.2.0" class="t-div s-1-struttura" data-el="div">
                 <span id="de_bello_tartarico_historia:0.1.2.0.0" class="t-pb" role="separator" title="page break">[159]</span>
-                <div id="de_bello_tartarico_historia:0.1.2.0.1" class="t-head s-1-struttura" data-el="head">APPENDIX.</div>
-                <div id="de_bello_tartarico_historia:0.1.2.0.2" class="t-p s-1-struttura" data-el="p">P<span id="de_bello_tartarico_historia:0.1.2.0.2.0" class="t-hi s-1-inline" data-el="hi">ostquam typis vulgata prodiit nostra de Tartarico bello
+                <h2 id="de_bello_tartarico_historia:0.1.2.0.1" class="t-head s-1-struttura" data-el="head">APPENDIX.</h2>
+                <p id="de_bello_tartarico_historia:0.1.2.0.2" class="t-p s-1-struttura" data-el="p">P<span id="de_bello_tartarico_historia:0.1.2.0.2.0" class="t-hi s-1-inline" data-el="hi">ostquam typis vulgata prodiit nostra de Tartarico bello
                     Historia, cum <span id="de_bello_tartarico_historia:0.1.2.0.2.0.0" class="t-placeName s-2-entita" data-el="placeName">Amstelodamo</span> (ubi Atlantem Sinicum quanta potui celeritate ad
                     editionem perduxi) <span id="de_bello_tartarico_historia:0.1.2.0.2.0.1" class="t-placeName s-2-entita" data-el="placeName">Bruxellas</span> reversus essem, ibi a Romanis nostris ad me
                         transmissas postremas Sinensium litteras, quarum summo tenebar desiderio,
@@ -2395,7 +2397,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         exaratae erant. Quod autem existimem Europaeis non ingratum me facturum, si
                         privatum nuntium in publicum emitterem; narratiunculam, uti eam excerpsi e
                         litteris, subtexo.</span>
-               </div>
+               </p>
                 <div id="de_bello_tartarico_historia:0.1.2.0.3" class="t-p s-1-struttura" data-el="p">Ad saniorem iam statum <span id="de_bello_tartarico_historia:0.1.2.0.3.0" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperium Sinense</span> perductum est, postquam <span id="de_bello_tartarico_historia:0.1.2.0.3.1" class="t-persName s-2-entita" data-el="persName">Amavangus</span>,<span class="t-note-mark" aria-hidden="true">°</span><div id="de_bello_tartarico_historia:0.1.2.0.3.2" class="t-note s-1-note" data-el="note" data-place="margin">De quo supra <span id="de_bello_tartarico_historia:0.1.2.0.3.2.0" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.3.2.0.0" class="t-abbr s-3-editoriale" data-el="abbr">fol<span id="de_bello_tartarico_historia:0.1.2.0.3.2.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.0.3.2.0.1" class="t-expan s-3-editoriale" data-el="expan">fol<span id="de_bello_tartarico_historia:0.1.2.0.3.2.0.1.0" class="t-ex s-3-editoriale" data-el="ex">io</span></span></span>82. <span id="de_bello_tartarico_historia:0.1.2.0.3.2.1" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.2.0.3.2.1.0" class="t-persName s-2-entita" data-el="persName">Amavangus</span> suspectus, post mortem punitus.</span></div>
                     adolescentuli Regis patruus ac tutor, e vivis excessit; cuius in occupando
                     alieno <span id="de_bello_tartarico_historia:0.1.2.0.3.3" class="t-placeName s-2-entita" data-el="placeName" data-key="China">Imperio</span> vel ocitati, in retinendo vigilantiae fortu nam tam felicem
@@ -2434,7 +2436,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     deducta. Quae Tartarorum potentia, ut nullis limitibus cohiberi se patitur, ita
                     modo totam <span id="de_bello_tartarico_historia:0.1.2.0.4.10" class="t-placeName s-2-entita" data-el="placeName">Quangtung Provinciam</span> si subegit: ex qua in <span id="de_bello_tartarico_historia:0.1.2.0.4.11" class="t-placeName s-2-entita" data-el="placeName">Quangsi</span> quoque
                     fluminis more inundantes Tartari eam ditioni suae adiunxere. Igitur ex ea
-                    profugus cum Eunuchorum principe <span id="de_bello_tartarico_historia:0.1.2.0.4.12" class="t-persName s-2-entita" data-el="persName">P'ang Achilleo</span> Christiano <span id="de_bello_tartarico_historia:0.1.2.0.4.13" class="t-persName s-2-entita" data-el="persName">Iunglieus</span> Sinarum
+                    profugus cum Eunuchorum principe <span id="de_bello_tartarico_historia:0.1.2.0.4.12" class="t-persName s-2-entita" data-el="persName">P&#39;ang Achilleo</span> Christiano <span id="de_bello_tartarico_historia:0.1.2.0.4.13" class="t-persName s-2-entita" data-el="persName">Iunglieus</span> Sinarum
                     Rex, ad confinia <span id="de_bello_tartarico_historia:0.1.2.0.4.14" class="t-placeName s-2-entita" data-el="placeName">Tungking</span> substitit, <span id="de_bello_tartarico_historia:0.1.2.0.4.15" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.4.15.0" class="t-abbr s-3-editoriale" data-el="abbr">totoq<span id="de_bello_tartarico_historia:0.1.2.0.4.15.0.0" class="t-am s-3-editoriale" data-el="am">;</span></span><span id="de_bello_tartarico_historia:0.1.2.0.4.15.1" class="t-expan s-3-editoriale" data-el="expan">totoq<span id="de_bello_tartarico_historia:0.1.2.0.4.15.1.0" class="t-ex s-3-editoriale" data-el="ex">ue</span></span></span> fere regno exclusus dicitur.
                     <span id="de_bello_tartarico_historia:0.1.2.0.4.16" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.4.16.0" class="t-abbr s-3-editoriale" data-el="abbr">R<span id="de_bello_tartarico_historia:0.1.2.0.4.16.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.0.4.16.1" class="t-expan s-3-editoriale" data-el="expan">R<span id="de_bello_tartarico_historia:0.1.2.0.4.16.1.0" class="t-ex s-3-editoriale" data-el="ex">everendus</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.2.0.4.17" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.4.17.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.0.4.17.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.0.4.17.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.0.4.17.1.0" class="t-ex s-3-editoriale" data-el="ex">ater</span></span></span> <span id="de_bello_tartarico_historia:0.1.2.0.4.18" class="t-persName s-2-entita" data-el="persName">Simon de Cunha</span> Lusitanus ex <span id="de_bello_tartarico_historia:0.1.2.0.4.19" class="t-placeName s-2-entita" data-el="placeName">Fokien Provincia</span> in suis
@@ -2443,7 +2445,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     <span id="de_bello_tartarico_historia:0.1.2.0.4.22" class="t-persName s-2-entita" data-el="persName">Iunglieum</span> sequebatur, eiusque filium, uxorem, <span id="de_bello_tartarico_historia:0.1.2.0.4.23" class="t-pb" role="separator" title="page break">[163]</span>matrem
                     aliosque plurimos Baptismo sacro abluerat, nulla hactenus mentio; adeoque quid
                     de eo actum sit, prorsus ignoratur.</div>
-                <div id="de_bello_tartarico_historia:0.1.2.0.5" class="t-p s-1-struttura" data-el="p">Ceterum dum <span id="de_bello_tartarico_historia:0.1.2.0.5.0" class="t-placeName s-2-entita" data-el="placeName">Quangsi Provinciam</span> <span id="de_bello_tartarico_historia:0.1.2.0.5.1" class="t-persName s-2-entita" data-el="persName">C'ung</span> <span id="de_bello_tartarico_historia:0.1.2.0.5.2" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.5.2.0" class="t-abbr s-3-editoriale" data-el="abbr">Tartaror<span id="de_bello_tartarico_historia:0.1.2.0.5.2.0.0" class="t-am s-3-editoriale" data-el="am">ū</span></span><span id="de_bello_tartarico_historia:0.1.2.0.5.2.1" class="t-expan s-3-editoriale" data-el="expan">Tartaror<span id="de_bello_tartarico_historia:0.1.2.0.5.2.1.0" class="t-ex s-3-editoriale" data-el="ex">um</span></span></span> Regulus domat, Colaus, qui
+                <div id="de_bello_tartarico_historia:0.1.2.0.5" class="t-p s-1-struttura" data-el="p">Ceterum dum <span id="de_bello_tartarico_historia:0.1.2.0.5.0" class="t-placeName s-2-entita" data-el="placeName">Quangsi Provinciam</span> <span id="de_bello_tartarico_historia:0.1.2.0.5.1" class="t-persName s-2-entita" data-el="persName">C&#39;ung</span> <span id="de_bello_tartarico_historia:0.1.2.0.5.2" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.5.2.0" class="t-abbr s-3-editoriale" data-el="abbr">Tartaror<span id="de_bello_tartarico_historia:0.1.2.0.5.2.0.0" class="t-am s-3-editoriale" data-el="am">ū</span></span><span id="de_bello_tartarico_historia:0.1.2.0.5.2.1" class="t-expan s-3-editoriale" data-el="expan">Tartaror<span id="de_bello_tartarico_historia:0.1.2.0.5.2.1.0" class="t-ex s-3-editoriale" data-el="ex">um</span></span></span> Regulus domat, Colaus, qui
                     <span id="de_bello_tartarico_historia:0.1.2.0.5.3" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.5.3.0" class="t-abbr s-3-editoriale" data-el="abbr">summ<span id="de_bello_tartarico_historia:0.1.2.0.5.3.0.0" class="t-am s-3-editoriale" data-el="am">ā</span></span><span id="de_bello_tartarico_historia:0.1.2.0.5.3.1" class="t-expan s-3-editoriale" data-el="expan">summ<span id="de_bello_tartarico_historia:0.1.2.0.5.3.1.0" class="t-ex s-3-editoriale" data-el="ex">am</span></span></span> Praefecturam gerebat, et Christianus erat, in <span id="de_bello_tartarico_historia:0.1.2.0.5.4" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.0.5.4.0" class="t-abbr s-3-editoriale" data-el="abbr">potestat<span id="de_bello_tartarico_historia:0.1.2.0.5.4.0.0" class="t-am s-3-editoriale" data-el="am">ē</span></span><span id="de_bello_tartarico_historia:0.1.2.0.5.4.1" class="t-expan s-3-editoriale" data-el="expan">potestat<span id="de_bello_tartarico_historia:0.1.2.0.5.4.1.0" class="t-ex s-3-editoriale" data-el="ex">em</span></span></span> hostium venit:
                     Tartarus victor, triduo ab omni in eum crudelitate abstinuit, ratus egregii
                     Philosophi animum dignitatibus praemiisque propositis ad obsequium flecti posse.
@@ -2501,10 +2503,10 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
             
             <div id="de_bello_tartarico_historia:0.1.2.1" class="t-div s-1-struttura" data-el="div">
                 <span id="de_bello_tartarico_historia:0.1.2.1.0" class="t-pb" role="separator" title="page break">[167]</span>
-                <div id="de_bello_tartarico_historia:0.1.2.1.1" class="t-head s-1-struttura" data-el="head"><span id="de_bello_tartarico_historia:0.1.2.1.1.0" class="t-lb"><br/></span>FACULTAS
+                <h2 id="de_bello_tartarico_historia:0.1.2.1.1" class="t-head s-1-struttura" data-el="head"><span id="de_bello_tartarico_historia:0.1.2.1.1.0" class="t-lb"><br/></span>FACULTAS
                     <span id="de_bello_tartarico_historia:0.1.2.1.1.1" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.2.1.1.2" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.1.1.2.0" class="t-abbr s-3-editoriale" data-el="abbr">R<span id="de_bello_tartarico_historia:0.1.2.1.1.2.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.1.1.2.1" class="t-expan s-3-editoriale" data-el="expan">R<span id="de_bello_tartarico_historia:0.1.2.1.1.2.1.0" class="t-ex s-3-editoriale" data-el="ex">EVERENDI</span></span></span>
-                    <span id="de_bello_tartarico_historia:0.1.2.1.1.3" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.1.1.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.1.1.3.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.1.1.3.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.1.1.3.1.0" class="t-ex s-3-editoriale" data-el="ex"></span>ATRIS</span></span> PROVINCIALIS.</div>
-                <div id="de_bello_tartarico_historia:0.1.2.1.2" class="t-p s-1-struttura" data-el="p">EGO <span id="de_bello_tartarico_historia:0.1.2.1.2.0" class="t-hi s-1-inline" data-el="hi">infrascriptus Societatis</span> IESU <span id="de_bello_tartarico_historia:0.1.2.1.2.1" class="t-hi s-1-inline" data-el="hi">per
+                    <span id="de_bello_tartarico_historia:0.1.2.1.1.3" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.1.1.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.1.1.3.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.1.1.3.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.1.1.3.1.0" class="t-ex s-3-editoriale" data-el="ex"></span>ATRIS</span></span> PROVINCIALIS.</h2>
+                <p id="de_bello_tartarico_historia:0.1.2.1.2" class="t-p s-1-struttura" data-el="p">EGO <span id="de_bello_tartarico_historia:0.1.2.1.2.0" class="t-hi s-1-inline" data-el="hi">infrascriptus Societatis</span> IESU <span id="de_bello_tartarico_historia:0.1.2.1.2.1" class="t-hi s-1-inline" data-el="hi">per
                     <span id="de_bello_tartarico_historia:0.1.2.1.2.1.0" class="t-placeName s-2-entita" data-el="placeName">Flandro-Belgicam</span> Praepositus Provincialis, potestate ad hoc mihi facta ab
                     admodum Reverendo <span id="de_bello_tartarico_historia:0.1.2.1.2.1.1" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.1.2.1.1.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.1.2.1.1.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.1.2.1.1.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.1.2.1.1.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span> N. <span id="de_bello_tartarico_historia:0.1.2.1.2.1.2" class="t-persName s-2-entita" data-el="persName">Gosuvino Nickel</span>, Societatis eiusdem Praeposito
                     Generali, do facultatem <span id="de_bello_tartarico_historia:0.1.2.1.2.1.3" class="t-persName s-2-entita" data-el="persName">Balthasari Moreto</span>, Architypographo Regio, typis
@@ -2512,25 +2514,25 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                     <span id="de_bello_tartarico_historia:0.1.2.1.2.3" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.1.2.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.1.2.3.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.1.2.3.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.1.2.3.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.2.1.2.4" class="t-persName s-2-entita" data-el="persName">Martino Martinio</span>, <span id="de_bello_tartarico_historia:0.1.2.1.2.5" class="t-placeName s-2-entita" data-el="placeName">Provinciae Sinensis</span> Societatis nostrae ad Urbem misso
                     Procuratore. <span id="de_bello_tartarico_historia:0.1.2.1.2.6" class="t-hi s-1-inline" data-el="hi">In quorum fidem has manu mea signatas, et sigillo
-                        officii mei munitas dedi. <span id="de_bello_tartarico_historia:0.1.2.1.2.6.0" class="t-placeName s-2-entita" data-el="placeName">Antverpiae</span></span> <span id="de_bello_tartarico_historia:0.1.2.1.2.7" class="t-date s-2-date" data-el="date" data-when="1654-02-13">XIII. <span id="de_bello_tartarico_historia:0.1.2.1.2.7.0" class="t-hi s-1-inline" data-el="hi">Februarii</span>, M.DC.LIV.</span> <span id="de_bello_tartarico_historia:0.1.2.1.2.8" class="t-persName s-2-entita" data-el="persName">Ioannes Baptista Engelgrave</span>.</div>
+                        officii mei munitas dedi. <span id="de_bello_tartarico_historia:0.1.2.1.2.6.0" class="t-placeName s-2-entita" data-el="placeName">Antverpiae</span></span> <span id="de_bello_tartarico_historia:0.1.2.1.2.7" class="t-date s-2-date" data-el="date" data-when="1654-02-13">XIII. <span id="de_bello_tartarico_historia:0.1.2.1.2.7.0" class="t-hi s-1-inline" data-el="hi">Februarii</span>, M.DC.LIV.</span> <span id="de_bello_tartarico_historia:0.1.2.1.2.8" class="t-persName s-2-entita" data-el="persName">Ioannes Baptista Engelgrave</span>.</p>
             </div>
             
             <div id="de_bello_tartarico_historia:0.1.2.2" class="t-div s-1-struttura" data-el="div">
-                <div id="de_bello_tartarico_historia:0.1.2.2.0" class="t-head s-1-struttura" data-el="head"><span id="de_bello_tartarico_historia:0.1.2.2.0.0" class="t-lb"><br/></span>APPROBATIO
-                    <span id="de_bello_tartarico_historia:0.1.2.2.0.1" class="t-lb"><br/></span>CENSORIS.</div>
-                <div id="de_bello_tartarico_historia:0.1.2.2.1" class="t-p s-1-struttura" data-el="p">HISTORIA haec <span id="de_bello_tartarico_historia:0.1.2.2.1.0" class="t-hi s-1-inline" data-el="hi">De bello Tartarico, a <span id="de_bello_tartarico_historia:0.1.2.2.1.0.0" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.0" class="t-abbr s-3-editoriale" data-el="abbr">R<span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.1" class="t-expan s-3-editoriale" data-el="expan">R<span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.1.0" class="t-ex s-3-editoriale" data-el="ex">everendo</span></span></span>
+                <h2 id="de_bello_tartarico_historia:0.1.2.2.0" class="t-head s-1-struttura" data-el="head"><span id="de_bello_tartarico_historia:0.1.2.2.0.0" class="t-lb"><br/></span>APPROBATIO
+                    <span id="de_bello_tartarico_historia:0.1.2.2.0.1" class="t-lb"><br/></span>CENSORIS.</h2>
+                <p id="de_bello_tartarico_historia:0.1.2.2.1" class="t-p s-1-struttura" data-el="p">HISTORIA haec <span id="de_bello_tartarico_historia:0.1.2.2.1.0" class="t-hi s-1-inline" data-el="hi">De bello Tartarico, a <span id="de_bello_tartarico_historia:0.1.2.2.1.0.0" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.0" class="t-abbr s-3-editoriale" data-el="abbr">R<span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.1" class="t-expan s-3-editoriale" data-el="expan">R<span id="de_bello_tartarico_historia:0.1.2.2.1.0.0.1.0" class="t-ex s-3-editoriale" data-el="ex">everendo</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.2.2.1.0.1" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.2.1.0.1.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.2.1.0.1.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.2.1.0.1.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.2.1.0.1.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.2.2.1.0.2" class="t-persName s-2-entita" data-el="persName">Martino Martinio</span>, Societatis IESU</span>, apte concinnata, et in nullo Fidei
                     Catholicae aut bonis moribus dissona, luce publica dignissima est. Actum <span id="de_bello_tartarico_historia:0.1.2.2.1.1" class="t-date s-2-date" data-el="date" data-when="1654-03-06">VI.
                         Martii, M.DC.LIV.</span> <span id="de_bello_tartarico_historia:0.1.2.2.1.2" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.2.2.1.2.0" class="t-persName s-2-entita" data-el="persName">Guilielmus Bolognino</span> <span id="de_bello_tartarico_historia:0.1.2.2.1.2.1" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.0" class="t-abbr s-3-editoriale" data-el="abbr">S<span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.0.0" class="t-am s-3-editoriale" data-el="am">.</span>T<span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.0.1" class="t-am s-3-editoriale" data-el="am">.</span>L<span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.0.2" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.1" class="t-expan s-3-editoriale" data-el="expan">S<span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.1.0" class="t-ex s-3-editoriale" data-el="ex">acrae</span>
                             T<span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.1.1" class="t-ex s-3-editoriale" data-el="ex">heologiae</span> L<span id="de_bello_tartarico_historia:0.1.2.2.1.2.1.1.2" class="t-ex s-3-editoriale" data-el="ex">icentiatus</span></span></span>  <span id="de_bello_tartarico_historia:0.1.2.2.1.2.2" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.2.1.2.2.0" class="t-abbr s-3-editoriale" data-el="abbr">Can<span id="de_bello_tartarico_historia:0.1.2.2.1.2.2.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.2.1.2.2.1" class="t-expan s-3-editoriale" data-el="expan">Can<span id="de_bello_tartarico_historia:0.1.2.2.1.2.2.1.0" class="t-ex s-3-editoriale" data-el="ex">onicus</span></span></span> et <span id="de_bello_tartarico_historia:0.1.2.2.1.2.3" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.2.1.2.3.0" class="t-abbr s-3-editoriale" data-el="abbr">Libr<span id="de_bello_tartarico_historia:0.1.2.2.1.2.3.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.2.1.2.3.1" class="t-expan s-3-editoriale" data-el="expan">Libr<span id="de_bello_tartarico_historia:0.1.2.2.1.2.3.1.0" class="t-ex s-3-editoriale" data-el="ex">orum</span></span></span> Censor <span id="de_bello_tartarico_historia:0.1.2.2.1.2.4" class="t-placeName s-2-entita" data-el="placeName">Antverpiae</span>.</span>
-               </div>
+               </p>
             </div>
             
             <div id="de_bello_tartarico_historia:0.1.2.3" class="t-div s-1-struttura" data-el="div">
                 <span id="de_bello_tartarico_historia:0.1.2.3.0" class="t-pb" role="separator" title="page break">[168]</span>
-                <div id="de_bello_tartarico_historia:0.1.2.3.1" class="t-head s-1-struttura" data-el="head">SUMMA PRIVILEGII.</div>
-                <div id="de_bello_tartarico_historia:0.1.2.3.2" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.2.3.2.0" class="t-persName s-2-entita" data-el="persName">PHILIPPUS IV</span> <span id="de_bello_tartarico_historia:0.1.2.3.2.1" class="t-hi s-1-inline" data-el="hi">Hispaniarum et Indiarum Rex Catholicus, ac
+                <h2 id="de_bello_tartarico_historia:0.1.2.3.1" class="t-head s-1-struttura" data-el="head">SUMMA PRIVILEGII.</h2>
+                <p id="de_bello_tartarico_historia:0.1.2.3.2" class="t-p s-1-struttura" data-el="p"><span id="de_bello_tartarico_historia:0.1.2.3.2.0" class="t-persName s-2-entita" data-el="persName">PHILIPPUS IV</span> <span id="de_bello_tartarico_historia:0.1.2.3.2.1" class="t-hi s-1-inline" data-el="hi">Hispaniarum et Indiarum Rex Catholicus, ac
                         Potentissimus Belgarum et Burgundionum Princeps, Diplomate suo sanxit, ne
                         quis </span>De Bello Tartarico Historiam, Auctore <span id="de_bello_tartarico_historia:0.1.2.3.2.2" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.3.2.2.0" class="t-abbr s-3-editoriale" data-el="abbr">R<span id="de_bello_tartarico_historia:0.1.2.3.2.2.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.3.2.2.1" class="t-expan s-3-editoriale" data-el="expan">R<span id="de_bello_tartarico_historia:0.1.2.3.2.2.1.0" class="t-ex s-3-editoriale" data-el="ex">everendo</span></span></span>
                     <span id="de_bello_tartarico_historia:0.1.2.3.2.3" class="t-choice s-3-editoriale" data-el="choice"><span id="de_bello_tartarico_historia:0.1.2.3.2.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P<span id="de_bello_tartarico_historia:0.1.2.3.2.3.0.0" class="t-am s-3-editoriale" data-el="am">.</span></span><span id="de_bello_tartarico_historia:0.1.2.3.2.3.1" class="t-expan s-3-editoriale" data-el="expan">P<span id="de_bello_tartarico_historia:0.1.2.3.2.3.1.0" class="t-ex s-3-editoriale" data-el="ex">atre</span></span></span> <span id="de_bello_tartarico_historia:0.1.2.3.2.4" class="t-persName s-2-entita" data-el="persName">Martino
@@ -2540,7 +2542,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         gravi poena multabitur; uti latius patet in litteris datis <span id="de_bello_tartarico_historia:0.1.2.3.2.6.2" class="t-placeName s-2-entita" data-el="placeName">Bruxella</span></span> <span id="de_bello_tartarico_historia:0.1.2.3.2.7" class="t-date s-2-date" data-el="date" data-when="1654-03-12">XII.
                             <span id="de_bello_tartarico_historia:0.1.2.3.2.7.0" class="t-hi s-1-inline" data-el="hi">Martii</span>, M.DC.LIV.</span>
                     <span id="de_bello_tartarico_historia:0.1.2.3.2.8" class="t-lb"><br/></span>Signat
-                    <span id="de_bello_tartarico_historia:0.1.2.3.2.9" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.2.3.2.10" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.2.3.2.10.0" class="t-persName s-2-entita" data-el="persName">D. Fren</span></span></div>
+                    <span id="de_bello_tartarico_historia:0.1.2.3.2.9" class="t-lb"><br/></span><span id="de_bello_tartarico_historia:0.1.2.3.2.10" class="t-hi s-1-inline" data-el="hi"><span id="de_bello_tartarico_historia:0.1.2.3.2.10.0" class="t-persName s-2-entita" data-el="persName">D. Fren</span></span></p>
             </div>
         </div>
 
@@ -2586,16 +2588,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -2777,6 +2798,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY Fine Reader, checked and codified in TEI for the ELA-Eurasian Latin Archive</div>
+           <p id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY Fine Reader, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
         </span>
         <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">
-           </div>
+           <p id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">
+           </p>
         </span>
       </span>
      <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -349,10 +351,10 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
      <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0" class="t-body s-1-struttura" data-el="body"> 
         <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0" class="t-div s-1-struttura" data-el="div">
         <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.0" class="t-pb" role="separator" title="page break">[510]</span>
-           <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">Fr. vero <a id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.0" class="t-persName s-2-entita ent-ext" href="http://viaf.org/viaf/90635332" target="_blank" rel="noopener" data-el="persName" data-ref="http://viaf.org/viaf/90635332" data-key="Iohannes de Marignollis O.F.M.">Iohannes [de Marignolli]</a> cum aliis fratribus suam legationem complevit. Et dum fuit prope <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Almaligh">Amalech</span>, audivit de novo [quod] decesserat <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.2" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span>, qui fratres Minores in tantum diligebat, ut Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.3" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Alexandria O.F.M.">Franciscum de Alexandria</span>, qui ipsum a cancro et fistula miraculose curaverat, patrem suum vocaret et sibi proprium filium tradidisset ad nutriendum et postea baptizandum. Audivit etiam nova, quod quidam religiosus saracenus, Alisoldani nomine, factus fuerat <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.4" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span>. Qui primam crudelitatem in christianos ostendens, ferali edicto praecepit quod omnes christiani occiderentur, nisi vellent effici saraceni, fide catholica abnegata. Tunc fuerunt capti omnes fratres, qui erant in conventu <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.5" class="t-placeName s-2-entita" data-el="placeName" data-key="Almaligh">Amalech</span>, videlicet : Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.6" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Alexandria O.F.M.">Franciscus de Alexandria</span>, praefatus pater Imperatoris, Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.7" class="t-persName s-2-entita" data-el="persName" data-key="Richardus de Burgundia O.F.M.">Richardus de Burgundia</span>, Episcopus, Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.8" class="t-persName s-2-entita" data-el="persName" data-key="Raymundus Ruphi de Provincia O.F.M.">Raymundus Ruphi</span>, provincialis, Fr. Pa<span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.9" class="t-pb" role="separator" title="page break">[511]</span>schalis Hispanus de Victoria, sacerdotes; necnon Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.10" class="t-persName s-2-entita" data-el="persName" data-key="Laurentius de Alexandria vel de Ancona O.F.M.">Laurentius de Alexandria</span> et Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.11" class="t-persName s-2-entita" data-el="persName" data-key="Petrus Martelli de Provincia O.F.M.">Petrus Martelli de Provincia</span>, laici, qui aedificabant ecclesiam, quam eis concesserat <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.12" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span> defunctus.</div>
-         <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Qui inducti et multipliciter examinati, ut saltem unirni verbum negationis fidei proferrent, in fide invictissimi, ab illa se nunquam velle recedere, sed potius pro illa mori clamantes, traditi sunt sarecenorum furiae populari. Qui primo fratres sanctos gladiolis parvis in diversis partibus corporis pungentes et vulnerantes, cum adhuc fidem Christi confiterentur constanter, irruentes contra eos in furia saraceni, cum gladiis eos lacerantes crudeliter occiderunt. Et sic glorioso martyrio Deo suas animas reddiderunt.</div>
-           <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.3" class="t-p s-1-struttura" data-el="p"> Martyrizatus etiam tunc fuit interpres Episcopi Cambaliensis et <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.3.0" class="t-persName s-2-entita" data-el="persName" data-key="Guglielmus de Mutina">Guglielmus de Mutina</span>, mercator <a id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.3.1" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/383664/" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/383664/" data-key="Genua">Ianuensis</a>. Omnes alii christiani qui erant ibi, fidem negantes timore mortis, facti sunt saraceni.</div>
-         <div id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.4" class="t-p s-1-struttura" data-el="p"> Tunc locum fratrum destruxerunt, et libros et alia vel rapuerunt vel igne combusserunt. Post modicum vero temporis, dictus <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span> Alisoldani, clamante sanctorum fratrum sanguine, fuit crudeliter interfectus et omnia sua combusta, ut secundum quantitatem culpae esset et plagarum modus.</div>
+           <p id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">Fr. vero <a id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.0" class="t-persName s-2-entita ent-ext" href="http://viaf.org/viaf/90635332" target="_blank" rel="noopener" data-el="persName" data-ref="http://viaf.org/viaf/90635332" data-key="Iohannes de Marignollis O.F.M.">Iohannes [de Marignolli]</a> cum aliis fratribus suam legationem complevit. Et dum fuit prope <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.1" class="t-placeName s-2-entita" data-el="placeName" data-key="Almaligh">Amalech</span>, audivit de novo [quod] decesserat <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.2" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span>, qui fratres Minores in tantum diligebat, ut Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.3" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Alexandria O.F.M.">Franciscum de Alexandria</span>, qui ipsum a cancro et fistula miraculose curaverat, patrem suum vocaret et sibi proprium filium tradidisset ad nutriendum et postea baptizandum. Audivit etiam nova, quod quidam religiosus saracenus, Alisoldani nomine, factus fuerat <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.4" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span>. Qui primam crudelitatem in christianos ostendens, ferali edicto praecepit quod omnes christiani occiderentur, nisi vellent effici saraceni, fide catholica abnegata. Tunc fuerunt capti omnes fratres, qui erant in conventu <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.5" class="t-placeName s-2-entita" data-el="placeName" data-key="Almaligh">Amalech</span>, videlicet : Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.6" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus de Alexandria O.F.M.">Franciscus de Alexandria</span>, praefatus pater Imperatoris, Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.7" class="t-persName s-2-entita" data-el="persName" data-key="Richardus de Burgundia O.F.M.">Richardus de Burgundia</span>, Episcopus, Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.8" class="t-persName s-2-entita" data-el="persName" data-key="Raymundus Ruphi de Provincia O.F.M.">Raymundus Ruphi</span>, provincialis, Fr. Pa<span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.9" class="t-pb" role="separator" title="page break">[511]</span>schalis Hispanus de Victoria, sacerdotes; necnon Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.10" class="t-persName s-2-entita" data-el="persName" data-key="Laurentius de Alexandria vel de Ancona O.F.M.">Laurentius de Alexandria</span> et Fr. <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.11" class="t-persName s-2-entita" data-el="persName" data-key="Petrus Martelli de Provincia O.F.M.">Petrus Martelli de Provincia</span>, laici, qui aedificabant ecclesiam, quam eis concesserat <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.1.12" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span> defunctus.</p>
+         <p id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">Qui inducti et multipliciter examinati, ut saltem unirni verbum negationis fidei proferrent, in fide invictissimi, ab illa se nunquam velle recedere, sed potius pro illa mori clamantes, traditi sunt sarecenorum furiae populari. Qui primo fratres sanctos gladiolis parvis in diversis partibus corporis pungentes et vulnerantes, cum adhuc fidem Christi confiterentur constanter, irruentes contra eos in furia saraceni, cum gladiis eos lacerantes crudeliter occiderunt. Et sic glorioso martyrio Deo suas animas reddiderunt.</p>
+           <p id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.3" class="t-p s-1-struttura" data-el="p"> Martyrizatus etiam tunc fuit interpres Episcopi Cambaliensis et <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.3.0" class="t-persName s-2-entita" data-el="persName" data-key="Guglielmus de Mutina">Guglielmus de Mutina</span>, mercator <a id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.3.1" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/383664/" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/383664/" data-key="Genua">Ianuensis</a>. Omnes alii christiani qui erant ibi, fidem negantes timore mortis, facti sunt saraceni.</p>
+         <p id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.4" class="t-p s-1-struttura" data-el="p"> Tunc locum fratrum destruxerunt, et libros et alia vel rapuerunt vel igne combusserunt. Post modicum vero temporis, dictus <span id="ELA_2_2_martyrium_fr_minorum_almaligh:0.1.0.0.4.0" class="t-persName s-2-entita" data-el="persName" data-key="Yesün Temür Khan">Imperator</span> Alisoldani, clamante sanctorum fratrum sanguine, fuit crudeliter interfectus et omnia sua combusta, ut secundum quantitatem culpae esset et plagarum modus.</p>
       </div>
      </div>
   </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-martini-brevis-relatio.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-montefusculus-acta-congregationis-1650.html">next ›</a></nav></main>
@@ -397,16 +399,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -588,6 +609,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

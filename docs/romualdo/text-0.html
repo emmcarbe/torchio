@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -292,103 +294,103 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div class="tt"><h1>Historia universalis, divisio etatum · Romualdus Salernitanus, Chronicon</h1><p class="sub">Romualdus Salernitanus, Chronicon</p></div>
 <nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="front.html">Introduction</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="app" aria-pressed="true">Apparatus</button><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Contents"><span></span><a href="text.html">Contents</a><a href="text-1.html">next ›</a></nav><div id="doc0:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
-        <div id="doc0:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
-            <span id="doc0:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
-                <span id="doc0:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Chronicon</span>
-                <span id="doc0:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Romualdus Salernitanus</span>
-                <span id="doc0:0.0.0.0.2" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-                    <span id="doc0:0.0.0.0.2.0" class="t-resp s-1-struttura" data-el="resp" data-key="print_editor">Print edition</span>
-                    <span id="doc0:0.0.0.0.2.1" class="t-name s-2-entita" data-el="name">Born-digital critical edition. See source description for the collation exemplars</span>
+<div class="torchio-bar"><div class="inner"><button class="sw" data-sw="app" aria-pressed="true">Apparatus</button><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Contents"><span></span><a href="text.html">Contents</a><a href="text-1.html">next ›</a></nav><div id="chronicon:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+        <div id="chronicon:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
+            <span id="chronicon:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
+                <span id="chronicon:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Chronicon</span>
+                <span id="chronicon:0.0.0.0.1" class="t-author s-1-bibliografia" data-el="author">Romualdus Salernitanus</span>
+                <span id="chronicon:0.0.0.0.2" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+                    <span id="chronicon:0.0.0.0.2.0" class="t-resp s-1-struttura" data-el="resp" data-key="print_editor">Print edition</span>
+                    <span id="chronicon:0.0.0.0.2.1" class="t-name s-2-entita" data-el="name">Born-digital critical edition. See source description for the collation exemplars</span>
                 </span>
-                <span id="doc0:0.0.0.0.3" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-                    <span id="doc0:0.0.0.0.3.0" class="t-resp s-1-struttura" data-el="resp" data-key="ALIM2_3">Born-digital TEI XML digital scholarly edition by</span>
+                <span id="chronicon:0.0.0.0.3" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+                    <span id="chronicon:0.0.0.0.3.0" class="t-resp s-1-struttura" data-el="resp" data-key="ALIM2_3">Born-digital TEI XML digital scholarly edition by</span>
                     <span id="pm" class="t-name s-2-entita" data-el="name" data-key="PM">Paolo Monella</span>
                 </span>
-                <span id="doc0:0.0.0.0.4" class="t-respStmt s-1-bibliografia" data-el="respStmt">
-                    <span id="doc0:0.0.0.0.4.0" class="t-resp s-1-struttura" data-el="resp" data-key="collation">Conversion from Juxta comparison set to TEI-conformant markup</span>
-                    <span id="doc0:0.0.0.0.4.1" class="t-name s-2-entita" data-el="name">Generated by Juxta Commons, reviewed manually</span>
+                <span id="chronicon:0.0.0.0.4" class="t-respStmt s-1-bibliografia" data-el="respStmt">
+                    <span id="chronicon:0.0.0.0.4.0" class="t-resp s-1-struttura" data-el="resp" data-key="collation">Conversion from Juxta comparison set to TEI-conformant markup</span>
+                    <span id="chronicon:0.0.0.0.4.1" class="t-name s-2-entita" data-el="name">Generated by Juxta Commons, reviewed manually</span>
                 </span>
             </span>
-            <span id="doc0:0.0.0.1" class="t-extent s-1-bibliografia" data-el="extent">
-                <span id="doc0:0.0.0.1.0" class="t-measure s-1-inline" data-el="measure">Words: 104290</span>
-                <span id="doc0:0.0.0.1.1" class="t-measure s-1-inline" data-el="measure">Characters (withous spaces): 642387</span>
+            <span id="chronicon:0.0.0.1" class="t-extent s-1-bibliografia" data-el="extent">
+                <span id="chronicon:0.0.0.1.0" class="t-measure s-1-inline" data-el="measure">Words: 104290</span>
+                <span id="chronicon:0.0.0.1.1" class="t-measure s-1-inline" data-el="measure">Characters (withous spaces): 642387</span>
             </span>
-            <span id="doc0:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
-                <span id="doc0:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">
-                    <span id="doc0:0.0.0.2.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://alim.unisi.it/">ALIM</span>
+            <span id="chronicon:0.0.0.2" class="t-publicationStmt s-7-header" data-el="publicationStmt">
+                <span id="chronicon:0.0.0.2.0" class="t-publisher s-1-bibliografia" data-el="publisher">
+                    <span id="chronicon:0.0.0.2.0.0" class="t-ref s-2-corrispondenza" data-el="ref" data-target="http://alim.unisi.it/">ALIM</span>
                 </span>
-                <span id="doc0:0.0.0.2.1" class="t-date s-2-date" data-el="date" data-when="2020-02-03">03/02/2020</span>
-                <span id="doc0:0.0.0.2.2" class="t-availability s-1-bibliografia" data-el="availability">
-                    <div id="doc0:0.0.0.2.2.0" class="t-p s-1-struttura" data-el="p">Copyright 2006- progetto ALIM</div>
+                <span id="chronicon:0.0.0.2.1" class="t-date s-2-date" data-el="date" data-when="2020-02-03">03/02/2020</span>
+                <span id="chronicon:0.0.0.2.2" class="t-availability s-1-bibliografia" data-el="availability">
+                    <p id="chronicon:0.0.0.2.2.0" class="t-p s-1-struttura" data-el="p">Copyright 2006- progetto ALIM</p>
                 </span>
             </span>
-            <div id="doc0:0.0.0.3" class="t-sourceDesc s-7-header" data-el="sourceDesc">
-                <div id="doc0:0.0.0.3.0" class="t-listWit s-1-liste" data-el="listWit">
+            <div id="chronicon:0.0.0.3" class="t-sourceDesc s-7-header" data-el="sourceDesc">
+                <div id="chronicon:0.0.0.3.0" class="t-listWit s-1-liste" data-el="listWit">
                     <div id="a" class="t-witness s-4-apparato" data-el="witness">
-                        <div id="doc0:0.0.0.3.0.0.0" class="t-msDesc s-1-bibliografia" data-el="msDesc">
-                            <span id="doc0:0.0.0.3.0.0.0.0" class="t-msIdentifier s-1-bibliografia" data-el="msIdentifier">
-                                <span id="doc0:0.0.0.3.0.0.0.0.0" class="t-settlement s-2-entita" data-el="settlement">Biblioteca Apostolica Vaticana</span>
-                                <span id="doc0:0.0.0.3.0.0.0.0.1" class="t-idno s-2-entita" data-el="idno">Vat. lat. 3973</span>
+                        <div id="chronicon:0.0.0.3.0.0.0" class="t-msDesc s-1-bibliografia" data-el="msDesc">
+                            <span id="chronicon:0.0.0.3.0.0.0.0" class="t-msIdentifier s-1-bibliografia" data-el="msIdentifier">
+                                <span id="chronicon:0.0.0.3.0.0.0.0.0" class="t-settlement s-2-entita" data-el="settlement">Biblioteca Apostolica Vaticana</span>
+                                <span id="chronicon:0.0.0.3.0.0.0.0.1" class="t-idno s-2-entita" data-el="idno">Vat. lat. 3973</span>
                             </span>
                         </div>
                     </div>
                     <div id="a2" class="t-witness s-4-apparato" data-el="witness">
-                        <div id="doc0:0.0.0.3.0.1.0" class="t-msDesc s-1-bibliografia" data-el="msDesc">
-                            <span id="doc0:0.0.0.3.0.1.0.0" class="t-msIdentifier s-1-bibliografia" data-el="msIdentifier">
-                                <span id="doc0:0.0.0.3.0.1.0.0.0" class="t-settlement s-2-entita" data-el="settlement">Biblioteca Apostolica Vaticana</span>
-                                <span id="doc0:0.0.0.3.0.1.0.0.1" class="t-idno s-2-entita" data-el="idno">Vat. lat. 3973</span>
+                        <div id="chronicon:0.0.0.3.0.1.0" class="t-msDesc s-1-bibliografia" data-el="msDesc">
+                            <span id="chronicon:0.0.0.3.0.1.0.0" class="t-msIdentifier s-1-bibliografia" data-el="msIdentifier">
+                                <span id="chronicon:0.0.0.3.0.1.0.0.0" class="t-settlement s-2-entita" data-el="settlement">Biblioteca Apostolica Vaticana</span>
+                                <span id="chronicon:0.0.0.3.0.1.0.0.1" class="t-idno s-2-entita" data-el="idno">Vat. lat. 3973</span>
                             </span>
-                            <div id="doc0:0.0.0.3.0.1.0.1" class="t-ab s-1-struttura" data-el="ab">This siglum represents a later hand, probably of the XVII century, in this manuscript</div>
+                            <p id="chronicon:0.0.0.3.0.1.0.1" class="t-ab s-1-struttura" data-el="ab">This siglum represents a later hand, probably of the XVII century, in this manuscript</p>
                         </div>
                     </div>
                     <div id="o" class="t-witness s-4-apparato" data-el="witness">
-                        <div id="doc0:0.0.0.3.0.2.0" class="t-msDesc s-1-bibliografia" data-el="msDesc">
-                            <span id="doc0:0.0.0.3.0.2.0.0" class="t-msIdentifier s-1-bibliografia" data-el="msIdentifier">
-                                <span id="doc0:0.0.0.3.0.2.0.0.0" class="t-settlement s-2-entita" data-el="settlement">Ottobonianus</span>
-                                <span id="doc0:0.0.0.3.0.2.0.0.1" class="t-idno s-2-entita" data-el="idno">Latinus 2940, 1st fragment, folios 16r-18v</span>
+                        <div id="chronicon:0.0.0.3.0.2.0" class="t-msDesc s-1-bibliografia" data-el="msDesc">
+                            <span id="chronicon:0.0.0.3.0.2.0.0" class="t-msIdentifier s-1-bibliografia" data-el="msIdentifier">
+                                <span id="chronicon:0.0.0.3.0.2.0.0.0" class="t-settlement s-2-entita" data-el="settlement">Ottobonianus</span>
+                                <span id="chronicon:0.0.0.3.0.2.0.0.1" class="t-idno s-2-entita" data-el="idno">Latinus 2940, 1st fragment, folios 16r-18v</span>
                             </span>
                         </div>
                     </div>
                     <div id="g" class="t-witness s-4-apparato" data-el="witness">
-                        <span id="doc0:0.0.0.3.0.3.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
-                            <span id="doc0:0.0.0.3.0.3.0.0" class="t-monogr s-1-struttura" data-el="monogr">
-                                <span id="doc0:0.0.0.3.0.3.0.0.0" class="t-author s-1-bibliografia" data-el="author">Guarna, Romualdus</span>
-                                <span id="doc0:0.0.0.3.0.3.0.0.1" class="t-title s-1-inline" data-el="title">Romualdi Salernitani Chronicon (A.m. 130-A.C. 1178)</span>
-                                <span id="doc0:0.0.0.3.0.3.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Garufi, Carlo Alberto</span>
-                                <span id="doc0:0.0.0.3.0.3.0.0.3" class="t-imprint s-1-struttura" data-el="imprint">
-                                    <span id="doc0:0.0.0.3.0.3.0.0.3.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Città di Castello</span>
-                                    <span id="doc0:0.0.0.3.0.3.0.0.3.1" class="t-publisher s-1-bibliografia" data-el="publisher">S. Lapi</span>
-                                    <span id="doc0:0.0.0.3.0.3.0.0.3.2" class="t-date s-2-date" data-el="date">1914</span>
+                        <span id="chronicon:0.0.0.3.0.3.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
+                            <span id="chronicon:0.0.0.3.0.3.0.0" class="t-monogr s-1-struttura" data-el="monogr">
+                                <span id="chronicon:0.0.0.3.0.3.0.0.0" class="t-author s-1-bibliografia" data-el="author">Guarna, Romualdus</span>
+                                <span id="chronicon:0.0.0.3.0.3.0.0.1" class="t-title s-1-inline" data-el="title">Romualdi Salernitani Chronicon (A.m. 130-A.C. 1178)</span>
+                                <span id="chronicon:0.0.0.3.0.3.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Garufi, Carlo Alberto</span>
+                                <span id="chronicon:0.0.0.3.0.3.0.0.3" class="t-imprint s-1-struttura" data-el="imprint">
+                                    <span id="chronicon:0.0.0.3.0.3.0.0.3.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Città di Castello</span>
+                                    <span id="chronicon:0.0.0.3.0.3.0.0.3.1" class="t-publisher s-1-bibliografia" data-el="publisher">S. Lapi</span>
+                                    <span id="chronicon:0.0.0.3.0.3.0.0.3.2" class="t-date s-2-date" data-el="date">1914</span>
                                 </span>
                             </span>
-                            <span id="doc0:0.0.0.3.0.3.0.1" class="t-series s-1-bibliografia" data-el="series">
-                                <span id="doc0:0.0.0.3.0.3.0.1.0" class="t-title s-1-inline" data-el="title">Rerum italicarum scriptores: Nuova edizione</span>
-                                <span id="doc0:0.0.0.3.0.3.0.1.1" class="t-biblScope s-1-bibliografia" data-el="biblScope">7</span>
-                                <span id="doc0:0.0.0.3.0.3.0.1.2" class="t-biblScope s-1-bibliografia" data-el="biblScope">1</span>
+                            <span id="chronicon:0.0.0.3.0.3.0.1" class="t-series s-1-bibliografia" data-el="series">
+                                <span id="chronicon:0.0.0.3.0.3.0.1.0" class="t-title s-1-inline" data-el="title">Rerum italicarum scriptores: Nuova edizione</span>
+                                <span id="chronicon:0.0.0.3.0.3.0.1.1" class="t-biblScope s-1-bibliografia" data-el="biblScope">7</span>
+                                <span id="chronicon:0.0.0.3.0.3.0.1.2" class="t-biblScope s-1-bibliografia" data-el="biblScope">1</span>
                             </span>
-                            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0.3.0.2" class="t-note s-1-note" data-el="note">Garufi's edition was the collation exemplar from the beginning of the text
+                            <span class="t-note-mark" aria-hidden="true">°</span><div id="chronicon:0.0.0.3.0.3.0.2" class="t-note s-1-note" data-el="note">Garufi&#39;s edition was the collation exemplar from the beginning of the text
 			    until (and including) paragraph g163.1-163.5.</div>
                         </span>
                     </div>
                     <div id="b" class="t-witness s-4-apparato" data-el="witness">
-                        <span id="doc0:0.0.0.3.0.4.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
-                            <span id="doc0:0.0.0.3.0.4.0.0" class="t-monogr s-1-struttura" data-el="monogr">
-                                <span id="doc0:0.0.0.3.0.4.0.0.0" class="t-author s-1-bibliografia" data-el="author">Guarna, Romualdus</span>
-                                <span id="doc0:0.0.0.3.0.4.0.0.1" class="t-title s-1-inline" data-el="title">Romualdo II Guarna, Chronicon</span>
-                                <span id="doc0:0.0.0.3.0.4.0.0.2" class="t-idno s-2-entita" data-el="idno" data-type="ISBN">9788883090561</span>
-                                <span id="doc0:0.0.0.3.0.4.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">Bonetti, Cinzia</span>
-                                <span id="doc0:0.0.0.3.0.4.0.0.4" class="t-imprint s-1-struttura" data-el="imprint">
-                                    <span id="doc0:0.0.0.3.0.4.0.0.4.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Salerno</span>
-                                    <span id="doc0:0.0.0.3.0.4.0.0.4.1" class="t-publisher s-1-bibliografia" data-el="publisher">Avagliano</span>
-                                    <span id="doc0:0.0.0.3.0.4.0.0.4.2" class="t-date s-2-date" data-el="date">2001</span>
+                        <span id="chronicon:0.0.0.3.0.4.0" class="t-biblStruct s-1-bibliografia" data-el="biblStruct">
+                            <span id="chronicon:0.0.0.3.0.4.0.0" class="t-monogr s-1-struttura" data-el="monogr">
+                                <span id="chronicon:0.0.0.3.0.4.0.0.0" class="t-author s-1-bibliografia" data-el="author">Guarna, Romualdus</span>
+                                <span id="chronicon:0.0.0.3.0.4.0.0.1" class="t-title s-1-inline" data-el="title">Romualdo II Guarna, Chronicon</span>
+                                <span id="chronicon:0.0.0.3.0.4.0.0.2" class="t-idno s-2-entita" data-el="idno" data-type="ISBN">9788883090561</span>
+                                <span id="chronicon:0.0.0.3.0.4.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">Bonetti, Cinzia</span>
+                                <span id="chronicon:0.0.0.3.0.4.0.0.4" class="t-imprint s-1-struttura" data-el="imprint">
+                                    <span id="chronicon:0.0.0.3.0.4.0.0.4.0" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Salerno</span>
+                                    <span id="chronicon:0.0.0.3.0.4.0.0.4.1" class="t-publisher s-1-bibliografia" data-el="publisher">Avagliano</span>
+                                    <span id="chronicon:0.0.0.3.0.4.0.0.4.2" class="t-date s-2-date" data-el="date">2001</span>
                                 </span>
                             </span>
-                            <span id="doc0:0.0.0.3.0.4.0.1" class="t-series s-1-bibliografia" data-el="series">
-                                <span id="doc0:0.0.0.3.0.4.0.1.0" class="t-title s-1-inline" data-el="title">Schola Salernitana. Studi e testi</span>
-                                <span id="doc0:0.0.0.3.0.4.0.1.1" class="t-biblScope s-1-bibliografia" data-el="biblScope">6</span>
+                            <span id="chronicon:0.0.0.3.0.4.0.1" class="t-series s-1-bibliografia" data-el="series">
+                                <span id="chronicon:0.0.0.3.0.4.0.1.0" class="t-title s-1-inline" data-el="title">Schola Salernitana. Studi e testi</span>
+                                <span id="chronicon:0.0.0.3.0.4.0.1.1" class="t-biblScope s-1-bibliografia" data-el="biblScope">6</span>
                             </span>
-                            <span class="t-note-mark" aria-hidden="true">°</span><div id="doc0:0.0.0.3.0.4.0.2" class="t-note s-1-note" data-el="note">Bonetti's edition was the collation exemplar for the collation
+                            <span class="t-note-mark" aria-hidden="true">°</span><div id="chronicon:0.0.0.3.0.4.0.2" class="t-note s-1-note" data-el="note">Bonetti&#39;s edition was the collation exemplar for the collation
 			    from (and including) paragraph g163.6-163.7 to the end of the text.
 			</div>
                         </span>
@@ -396,116 +398,116 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                 </div>
             </div>
         </div>
-        <span id="doc0:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
-            <span id="doc0:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-                <div id="doc0:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Testo codificato nel formato TEI XML, versione P5, per essere incluso fra i testi che compongono il progetto
-          ALIM - Archivio della Latinità Italiana del Medioevo.</div>
+        <span id="chronicon:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
+            <span id="chronicon:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
+                <p id="chronicon:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Testo codificato nel formato TEI XML, versione P5, per essere incluso fra i testi che compongono il progetto
+          ALIM - Archivio della Latinità Italiana del Medioevo.</p>
             </span>
-            <span id="doc0:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-                <div id="doc0:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab" data-type="level">ALIM2_3</div>
-		<div id="doc0:0.0.1.1.1" class="t-ab s-1-struttura" data-el="ab" data-type="specific">Born-digital scholarly edition.
-			See the introduction in the 'front' element for editorial details</div>
+            <span id="chronicon:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
+                <p id="chronicon:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab" data-type="level">ALIM2_3</p>
+		<p id="chronicon:0.0.1.1.1" class="t-ab s-1-struttura" data-el="ab" data-type="specific">Born-digital scholarly edition.
+			See the introduction in the &#39;front&#39; element for editorial details</p>
             </span>
       	    <span id="longversion" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-		<div id="doc0:0.0.1.2.0" class="t-ab s-1-struttura" data-el="ab" data-type="specific">Paragraph including one of the additions
-			distinguishing the 'short' from the 'long' version of the work</div>
+		<p id="chronicon:0.0.1.2.0" class="t-ab s-1-struttura" data-el="ab" data-type="specific">Paragraph including one of the additions
+			distinguishing the &#39;short&#39; from the &#39;long&#39; version of the work</p>
             </span>
-            <span id="doc0:0.0.1.3" class="t-variantEncoding s-7-header" data-el="variantEncoding"></span>
+            <span id="chronicon:0.0.1.3" class="t-variantEncoding s-7-header" data-el="variantEncoding"></span>
         </span>
-        <span id="doc0:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
-            <span id="doc0:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
-                <span id="doc0:0.0.2.0.0" class="t-language s-7-header" data-el="language">Latino</span>
+        <span id="chronicon:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
+            <span id="chronicon:0.0.2.0" class="t-langUsage s-7-header" data-el="langUsage">
+                <span id="chronicon:0.0.2.0.0" class="t-language s-7-header" data-el="language">Latino</span>
             </span>
-            <span id="doc0:0.0.2.1" class="t-textClass s-7-header" data-el="textClass">
-                <span id="doc0:0.0.2.1.0" class="t-keywords s-7-header" data-el="keywords">
-                    <span id="doc0:0.0.2.1.0.0" class="t-term s-1-inline" data-el="term" data-type="form">Prosa</span>
-                    <span id="doc0:0.0.2.1.0.1" class="t-term s-1-inline" data-el="term" data-type="source">Letteraria</span>
-                    <span id="doc0:0.0.2.1.0.2" class="t-term s-1-inline" data-el="term" data-type="genre">Storiografia</span>
+            <span id="chronicon:0.0.2.1" class="t-textClass s-7-header" data-el="textClass">
+                <span id="chronicon:0.0.2.1.0" class="t-keywords s-7-header" data-el="keywords">
+                    <span id="chronicon:0.0.2.1.0.0" class="t-term s-1-inline" data-el="term" data-type="form">Prosa</span>
+                    <span id="chronicon:0.0.2.1.0.1" class="t-term s-1-inline" data-el="term" data-type="source">Letteraria</span>
+                    <span id="chronicon:0.0.2.1.0.2" class="t-term s-1-inline" data-el="term" data-type="genre">Storiografia</span>
                 </span>
             </span>
-            <span id="doc0:0.0.2.2" class="t-creation s-7-header" data-el="creation">
-                <span id="doc0:0.0.2.2.0" class="t-date s-2-date" data-el="date">XII secolo</span>
+            <span id="chronicon:0.0.2.2" class="t-creation s-7-header" data-el="creation">
+                <span id="chronicon:0.0.2.2.0" class="t-date s-2-date" data-el="date">XII secolo</span>
             </span>
         </span>
-        <span id="doc0:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
-            <div id="doc0:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="2020-02">Prima edizione nel formato TEI P5 [livello ALIM2_3]</div>
+        <span id="chronicon:0.0.3" class="t-revisionDesc s-7-header" data-el="revisionDesc">
+            <div id="chronicon:0.0.3.0" class="t-change s-7-header" data-el="change" data-when="2020-02">Prima edizione nel formato TEI P5 [livello ALIM2_3]</div>
         </span>
     </div><div id="universal-history-ages" class="t-div s-1-struttura" data-el="div" data-n="0">
-    <div id="doc0:0.1.1.0.0" class="t-head s-1-struttura" data-el="head">Historia universalis, divisio etatum</div>
+    <h2 id="chronicon:0.1.1.0.0" class="t-head s-1-struttura" data-el="head">Historia universalis, divisio etatum</h2>
 
-<div id="g3.1-3.1" class="t-p s-1-struttura" data-el="p">
-<span id="doc0:0.1.1.0.1.0" class="t-pb" role="separator" title="page break">[15r]</span> 
-<span id="doc0:0.1.1.0.1.1" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.1.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">de etatibus</span><span id="doc0:0.1.1.0.1.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a"></span></span> 
-</div>
+<p id="g3.1-3.1" class="t-p s-1-struttura" data-el="p">
+<span id="chronicon:0.1.1.0.1.0" class="t-pb" role="separator" title="page break">[15r]</span> 
+<span id="chronicon:0.1.1.0.1.1" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.1.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">de etatibus</span><span id="chronicon:0.1.1.0.1.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a"></span></span> 
+</p>
  
-<div id="g3.2-3.6" class="t-p s-1-struttura" data-el="p">
+<p id="g3.2-3.6" class="t-p s-1-struttura" data-el="p">
 Prima mundi etas est ab Adam usque ad diluuium, continens annos, iuxta hebraicam ueritatem 
-<span id="doc0:0.1.1.0.2.0" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.2.0.0" class="t-lem s-4-apparato" data-el="lem">,</span><span id="doc0:0.1.1.0.2.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g"> </span></span> mille sexcentos quinquaginta sex, iuxta Septuaginta uero interpretes duo milia ducentos quadraginta duos; generationes uero iuxta utramque editionem numero decem, que uniuersali est deleta diluuio, sicut primam cuiusque hominis obliuio demergere consueuit etatem. 
-</div>
+<span id="chronicon:0.1.1.0.2.0" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.2.0.0" class="t-lem s-4-apparato" data-el="lem">,</span><span id="chronicon:0.1.1.0.2.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g"> </span></span> mille sexcentos quinquaginta sex, iuxta Septuaginta uero interpretes duo milia ducentos quadraginta duos; generationes uero iuxta utramque editionem numero decem, que uniuersali est deleta diluuio, sicut primam cuiusque hominis obliuio demergere consueuit etatem. 
+</p>
  
-<div id="g3.7-3.16" class="t-p s-1-struttura" data-el="p">
-Fuerunt Noe filii tres ex quibus ita sunt orte gentes. De Iaphet quindecim, de Chan triginta, de Sem XXVII. Sem annos duos post diluuium genuit Arfaxad a quo sunt Chaldei. Arfaxad genuit Salem a quo Samarite et Indi. Salem genuit Heber, a quo Hebrei. Heber genuit Falech, cuius tempore turris edificatur et linguarum diuisio sit. In solo Heber prisca remansit lingua, quia in ea conspiratione non fuit. Turris uero altitudo duo milia CLXXIV dicitur passuum. Hanc Nebroth gigas construxit. Hac etate Scytarum regnum oritur ubi primus regnauit Thannus. Tunc et regnum Egiptiorum ubi primus regnauit Thoes. Dehinc regnum Assyriorum, ubi primus regnauit Belus, quem dicunt Saturnum quidam; deinde Ninus qui condidit' Niniuem. Hoc tempore Abraham nascitur, et post mortem Nini a Semiramide regina rehedificata est Babilonia, ubi regnauit annos quadraginta.
-</div>
+<p id="g3.7-3.16" class="t-p s-1-struttura" data-el="p">
+Fuerunt Noe filii tres ex quibus ita sunt orte gentes. De Iaphet quindecim, de Chan triginta, de Sem XXVII. Sem annos duos post diluuium genuit Arfaxad a quo sunt Chaldei. Arfaxad genuit Salem a quo Samarite et Indi. Salem genuit Heber, a quo Hebrei. Heber genuit Falech, cuius tempore turris edificatur et linguarum diuisio sit. In solo Heber prisca remansit lingua, quia in ea conspiratione non fuit. Turris uero altitudo duo milia CLXXIV dicitur passuum. Hanc Nebroth gigas construxit. Hac etate Scytarum regnum oritur ubi primus regnauit Thannus. Tunc et regnum Egiptiorum ubi primus regnauit Thoes. Dehinc regnum Assyriorum, ubi primus regnauit Belus, quem dicunt Saturnum quidam; deinde Ninus qui condidit&#39; Niniuem. Hoc tempore Abraham nascitur, et post mortem Nini a Semiramide regina rehedificata est Babilonia, ubi regnauit annos quadraginta.
+</p>
  
-<div id="g3.17-4.2" class="t-p s-1-struttura" data-el="p">
+<p id="g3.17-4.2" class="t-p s-1-struttura" data-el="p">
 Secunda etas a Noe usque ad Abraam generationes iuxta hebraicam 
-<span id="doc0:0.1.1.0.4.0" class="t-pb" role="separator" title="page break">[15v]</span> 
+<span id="chronicon:0.1.1.0.4.0" class="t-pb" role="separator" title="page break">[15v]</span> 
 ueritatem complexa 
-<span id="doc0:0.1.1.0.4.1" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.4.1.0" class="t-lem s-4-apparato" data-el="lem"></span><span id="doc0:0.1.1.0.4.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">,</span></span> decem, annos autem ducentos nonaginta duos 
-<span id="doc0:0.1.1.0.4.2" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.4.2.0" class="t-lem s-4-apparato" data-el="lem">.</span><span id="doc0:0.1.1.0.4.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">;</span></span> 
-<span id="doc0:0.1.1.0.4.3" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.4.3.0" class="t-lem s-4-apparato" data-el="lem">Porro</span><span id="doc0:0.1.1.0.4.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g #a">porro</span></span> iuxta Septuaginta interpretes anni MLXXII. Generationes uero XI 
-<span id="doc0:0.1.1.0.4.4" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.4.4.0" class="t-lem s-4-apparato" data-el="lem">.</span><span id="doc0:0.1.1.0.4.4.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g"></span></span> 
-<span id="doc0:0.1.1.0.4.5" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.4.5.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#a">Hec</span><span id="doc0:0.1.1.0.4.5.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">haec</span></span> uero quasi pueritia fuit generationis populi Dei 
-<span id="doc0:0.1.1.0.4.6" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.4.6.0" class="t-lem s-4-apparato" data-el="lem">. Et</span><span id="doc0:0.1.1.0.4.6.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">, et</span></span> ideo in lingua inuenta est hebrea 
-<span id="doc0:0.1.1.0.4.7" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.4.7.0" class="t-lem s-4-apparato" data-el="lem">. A</span><span id="doc0:0.1.1.0.4.7.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">, a</span></span> pueritia namque homo incipit nosse loqui, que idcirco appellata est, quod fari non potest. Ab Adam itaque usque ad Abraham iuxta hebraicam ueritatem computantur anni mille nungenti quadraginta octo, secundum Septuaginta interpretes fiunt anni tria milia trecenti XIV. 
-</div>
+<span id="chronicon:0.1.1.0.4.1" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.4.1.0" class="t-lem s-4-apparato" data-el="lem"></span><span id="chronicon:0.1.1.0.4.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">,</span></span> decem, annos autem ducentos nonaginta duos 
+<span id="chronicon:0.1.1.0.4.2" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.4.2.0" class="t-lem s-4-apparato" data-el="lem">.</span><span id="chronicon:0.1.1.0.4.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">;</span></span> 
+<span id="chronicon:0.1.1.0.4.3" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.4.3.0" class="t-lem s-4-apparato" data-el="lem">Porro</span><span id="chronicon:0.1.1.0.4.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g #a">porro</span></span> iuxta Septuaginta interpretes anni MLXXII. Generationes uero XI 
+<span id="chronicon:0.1.1.0.4.4" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.4.4.0" class="t-lem s-4-apparato" data-el="lem">.</span><span id="chronicon:0.1.1.0.4.4.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g"></span></span> 
+<span id="chronicon:0.1.1.0.4.5" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.4.5.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#a">Hec</span><span id="chronicon:0.1.1.0.4.5.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">haec</span></span> uero quasi pueritia fuit generationis populi Dei 
+<span id="chronicon:0.1.1.0.4.6" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.4.6.0" class="t-lem s-4-apparato" data-el="lem">. Et</span><span id="chronicon:0.1.1.0.4.6.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">, et</span></span> ideo in lingua inuenta est hebrea 
+<span id="chronicon:0.1.1.0.4.7" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.4.7.0" class="t-lem s-4-apparato" data-el="lem">. A</span><span id="chronicon:0.1.1.0.4.7.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">, a</span></span> pueritia namque homo incipit nosse loqui, que idcirco appellata est, quod fari non potest. Ab Adam itaque usque ad Abraham iuxta hebraicam ueritatem computantur anni mille nungenti quadraginta octo, secundum Septuaginta interpretes fiunt anni tria milia trecenti XIV. 
+</p>
  
-<div id="g4.3-4.10" class="t-p s-1-struttura" data-el="p">
+<p id="g4.3-4.10" class="t-p s-1-struttura" data-el="p">
 Tertia ab 
-<span id="doc0:0.1.1.0.5.0" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.5.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">Abraam</span><span id="doc0:0.1.1.0.5.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">Abraham</span></span> usque ad Dauid 
-<span id="doc0:0.1.1.0.5.1" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="doc0:0.1.1.0.5.1.0" class="t-lem s-4-apparato" data-el="lem">,</span><span id="doc0:0.1.1.0.5.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g"></span></span> generationes iuxta utramque auctoritatem 
-<span id="doc0:0.1.1.0.5.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.5.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">XIV</span><span id="doc0:0.1.1.0.5.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">XIII</span></span> annos uero, secundum Hebreorum auctoritatem nungentos quadraginta duos complectens; iuxta Septuaginta uero interpretes anni tria milia 
-<span id="doc0:0.1.1.0.5.3" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.5.3.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">CXXXVII</span><span id="doc0:0.1.1.0.5.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">C XXXVII</span></span>. Hec uelud quedam adolescentia fuit populi Dei, a qua etate incipit homo posse generare, propterea Matheus euangelista generationum ab Abraham sumpsit exordium, qui etiam pater multarum gentium constitutus est, quando mutatum nomen accepit. Ab Adam uero iuxta Hebreorum auctoritatem usque ad Dauid fiunt anni duo 
-<span id="doc0:0.1.1.0.5.4" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.5.4.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">millia</span><span id="doc0:0.1.1.0.5.4.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">milia</span></span> octingenti nonaginta, secundum Septuaginta interpretes tria milia CV. Cur autem annorum hec diuersitas sit, in sequentibus ostendetur. 
-</div>
+<span id="chronicon:0.1.1.0.5.0" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.5.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">Abraam</span><span id="chronicon:0.1.1.0.5.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">Abraham</span></span> usque ad Dauid 
+<span id="chronicon:0.1.1.0.5.1" class="t-app s-4-apparato" data-el="app" data-type="punctuation"><span id="chronicon:0.1.1.0.5.1.0" class="t-lem s-4-apparato" data-el="lem">,</span><span id="chronicon:0.1.1.0.5.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g"></span></span> generationes iuxta utramque auctoritatem 
+<span id="chronicon:0.1.1.0.5.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.5.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">XIV</span><span id="chronicon:0.1.1.0.5.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">XIII</span></span> annos uero, secundum Hebreorum auctoritatem nungentos quadraginta duos complectens; iuxta Septuaginta uero interpretes anni tria milia 
+<span id="chronicon:0.1.1.0.5.3" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.5.3.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">CXXXVII</span><span id="chronicon:0.1.1.0.5.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">C XXXVII</span></span>. Hec uelud quedam adolescentia fuit populi Dei, a qua etate incipit homo posse generare, propterea Matheus euangelista generationum ab Abraham sumpsit exordium, qui etiam pater multarum gentium constitutus est, quando mutatum nomen accepit. Ab Adam uero iuxta Hebreorum auctoritatem usque ad Dauid fiunt anni duo 
+<span id="chronicon:0.1.1.0.5.4" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.5.4.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">millia</span><span id="chronicon:0.1.1.0.5.4.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">milia</span></span> octingenti nonaginta, secundum Septuaginta interpretes tria milia CV. Cur autem annorum hec diuersitas sit, in sequentibus ostendetur. 
+</p>
  
-<div id="g4.11-4.17" class="t-p s-1-struttura" data-el="p">
+<p id="g4.11-4.17" class="t-p s-1-struttura" data-el="p">
 Quarta a Dauid usque ad transmigrationem Babilonis annos habens, iuxta hebraicam ueritatem, CDLXXIII, iuxta uero Septuaginta translationem XII amplius generationes iuxta utrosque codices XVII, 
-<span id="doc0:0.1.1.0.6.0" class="t-pb" role="separator" title="page break">[16r]</span> 
+<span id="chronicon:0.1.1.0.6.0" class="t-pb" role="separator" title="page break">[16r]</span> 
 quas tamen euangelista Matheus 
-<span id="doc0:0.1.1.0.6.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.6.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#a">certi</span><span id="doc0:0.1.1.0.6.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">certii</span></span> misterii gratia XIV ponit a qua uelud iuuenili 
-<span id="doc0:0.1.1.0.6.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.6.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">etate</span><span id="doc0:0.1.1.0.6.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">etati</span></span> populo Dei regum tempora ceperunt; hec namque in hominibus etas apta gubernando solet existere regno. Ab exordio autem prime etatis, usque ad trasmigrationem Babilonis computantur anni tria milia CCCLXXIII secundum Hebreorum auctoritatem, iuxta LXX uero interpretes anni tria milia quingenti nonaginta. 
-</div>
+<span id="chronicon:0.1.1.0.6.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.6.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#a">certi</span><span id="chronicon:0.1.1.0.6.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">certii</span></span> misterii gratia XIV ponit a qua uelud iuuenili 
+<span id="chronicon:0.1.1.0.6.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.6.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">etate</span><span id="chronicon:0.1.1.0.6.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">etati</span></span> populo Dei regum tempora ceperunt; hec namque in hominibus etas apta gubernando solet existere regno. Ab exordio autem prime etatis, usque ad trasmigrationem Babilonis computantur anni tria milia CCCLXXIII secundum Hebreorum auctoritatem, iuxta LXX uero interpretes anni tria milia quingenti nonaginta. 
+</p>
  
-<div id="g4.18-4.25" class="t-p s-1-struttura" data-el="p">
+<p id="g4.18-4.25" class="t-p s-1-struttura" data-el="p">
 Quinta quasi senilis etas a transmigratione Babilonis usque 
-<span id="doc0:0.1.1.0.7.0" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.7.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">ad</span><span id="doc0:0.1.1.0.7.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">in</span></span> aduentum Domini Saluatoris in carne. Generationibus et ipsa XIV. Porro annis, secundum Hebreorum auctoritatem, quingentis octoginta IX extenta; iuxta Septuaginta autem annis quingentis Septuaginta VIII, in qua graue senectute fessa malis crebrioribus plebs hebrea quassatur. Taliter itaque ab exordio temporum usque ad incarnationem Christi Domini secundum Hebreorum auctoritatem prosequente beato 
-<span id="doc0:0.1.1.0.7.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.7.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">Hieronymo</span><span id="doc0:0.1.1.0.7.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">Ieronimo</span></span> fiunt anni tria milia CMLII. Uerum iuxta Septuaginta interpretes, quos omnino Greci secuntur, numerantur anni VDVIII. Eusebius autem, quem Orosius secutus est, inter utrosque numerat annos VCXCIX quibus pene omnes 
-<span id="doc0:0.1.1.0.7.2" class="t-pb" role="separator" title="page break">[16v]</span> 
+<span id="chronicon:0.1.1.0.7.0" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.7.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">ad</span><span id="chronicon:0.1.1.0.7.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">in</span></span> aduentum Domini Saluatoris in carne. Generationibus et ipsa XIV. Porro annis, secundum Hebreorum auctoritatem, quingentis octoginta IX extenta; iuxta Septuaginta autem annis quingentis Septuaginta VIII, in qua graue senectute fessa malis crebrioribus plebs hebrea quassatur. Taliter itaque ab exordio temporum usque ad incarnationem Christi Domini secundum Hebreorum auctoritatem prosequente beato 
+<span id="chronicon:0.1.1.0.7.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.7.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">Hieronymo</span><span id="chronicon:0.1.1.0.7.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">Ieronimo</span></span> fiunt anni tria milia CMLII. Uerum iuxta Septuaginta interpretes, quos omnino Greci secuntur, numerantur anni VDVIII. Eusebius autem, quem Orosius secutus est, inter utrosque numerat annos VCXCIX quibus pene omnes 
+<span id="chronicon:0.1.1.0.7.2" class="t-pb" role="separator" title="page break">[16v]</span> 
 latini utuntur. 
-</div>
+</p>
  
-<div id="g4.26-5.2" class="t-p s-1-struttura" data-el="p">
+<p id="g4.26-5.2" class="t-p s-1-struttura" data-el="p">
 Sexta etas, que nunc agitur, nulla generationum, uel 
-<span id="doc0:0.1.1.0.8.0" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.8.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">temporum</span><span id="doc0:0.1.1.0.8.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">teporum</span></span> serie certa, sed ut etas decrepita, ipsa totius seculi morte 
-<span id="doc0:0.1.1.0.8.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.8.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">consumenda</span><span id="doc0:0.1.1.0.8.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">comsumenda</span></span>: has erumpnosas, plenasque laboribus mundi etates, quique beati felici morte uicerunt septimam iam sabbati perhennis etatem suscepti, octauam beate resurrectionis etatem, in qua semper cum Domino regnent, expectant. 
-</div>
+<span id="chronicon:0.1.1.0.8.0" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.8.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">temporum</span><span id="chronicon:0.1.1.0.8.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">teporum</span></span> serie certa, sed ut etas decrepita, ipsa totius seculi morte 
+<span id="chronicon:0.1.1.0.8.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.8.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">consumenda</span><span id="chronicon:0.1.1.0.8.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">comsumenda</span></span>: has erumpnosas, plenasque laboribus mundi etates, quique beati felici morte uicerunt septimam iam sabbati perhennis etatem suscepti, octauam beate resurrectionis etatem, in qua semper cum Domino regnent, expectant. 
+</p>
  
-<div id="g5.3-5.10" class="t-p s-1-struttura" data-el="p">
+<p id="g5.3-5.10" class="t-p s-1-struttura" data-el="p">
 Etas quippe duobus modis dicitur: aut enim hominis, sicut a natiuitate infantia usque in annos septem, pueritia usque ad annos 
-<span id="doc0:0.1.1.0.9.0" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.9.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">quatuordecim</span><span id="doc0:0.1.1.0.9.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">quattuordecim</span></span>, adolescentia a 
-<span id="doc0:0.1.1.0.9.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.9.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">quintodecimo</span><span id="doc0:0.1.1.0.9.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">quinto decimo</span></span> usque in 
-<span id="doc0:0.1.1.0.9.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.9.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#a">uicesimum</span><span id="doc0:0.1.1.0.9.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">uicesimus</span></span> octauum, iuuentus usque ad XLIX, senectus a quinquagesimo usque ad LXXIX, decrepita ab anno octogesimo quousque uita finitur. Aut mundi, cuius prima etas ab Adam usque ad Noe, secunda a Noe usque ad Abraham, tertia ab Abraham usque ad Dauid, quarta a Dauid usque ad captiuitatem Iudeorum in 
-<span id="doc0:0.1.1.0.9.3" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="doc0:0.1.1.0.9.3.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">Babyloniam</span><span id="doc0:0.1.1.0.9.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">Babiloniam</span></span>, quinta deinde usque ad aduentum Saluatoris, sexta, que nunc est usque quo mundus iste finiatur, quarum decursus per generationes, et regna euidentius infra, prout inuenire potui, explicabo. 
-</div>
+<span id="chronicon:0.1.1.0.9.0" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.9.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">quatuordecim</span><span id="chronicon:0.1.1.0.9.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">quattuordecim</span></span>, adolescentia a 
+<span id="chronicon:0.1.1.0.9.1" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.9.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">quintodecimo</span><span id="chronicon:0.1.1.0.9.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">quinto decimo</span></span> usque in 
+<span id="chronicon:0.1.1.0.9.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.9.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#a">uicesimum</span><span id="chronicon:0.1.1.0.9.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#g">uicesimus</span></span> octauum, iuuentus usque ad XLIX, senectus a quinquagesimo usque ad LXXIX, decrepita ab anno octogesimo quousque uita finitur. Aut mundi, cuius prima etas ab Adam usque ad Noe, secunda a Noe usque ad Abraham, tertia ab Abraham usque ad Dauid, quarta a Dauid usque ad captiuitatem Iudeorum in 
+<span id="chronicon:0.1.1.0.9.3" class="t-app s-4-apparato" data-el="app" data-type="orthographic"><span id="chronicon:0.1.1.0.9.3.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">Babyloniam</span><span id="chronicon:0.1.1.0.9.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">Babiloniam</span></span>, quinta deinde usque ad aduentum Saluatoris, sexta, que nunc est usque quo mundus iste finiatur, quarum decursus per generationes, et regna euidentius infra, prout inuenire potui, explicabo. 
+</p>
  
-<div id="g5.11-5.18" class="t-p s-1-struttura" data-el="p">
-<span id="doc0:0.1.1.0.10.0" class="t-pb" role="separator" title="page break">[17r]</span> 
+<p id="g5.11-5.18" class="t-p s-1-struttura" data-el="p">
+<span id="chronicon:0.1.1.0.10.0" class="t-pb" role="separator" title="page break">[17r]</span> 
 Creator omnium uisibilium et inuisibilium, qui trinus et unus Deus est, in principio creauit celum, 
-<span id="doc0:0.1.1.0.10.1" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.10.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g"></span><span id="doc0:0.1.1.0.10.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">et</span></span> terram, mare, et omnia, que in eis sunt, tempora quoque instituit, nam prima die in lucis nomine condidit angelos, secunda die 
-<span id="doc0:0.1.1.0.10.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.10.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">celos</span><span id="doc0:0.1.1.0.10.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a"></span></span> in 
-<span id="doc0:0.1.1.0.10.3" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="doc0:0.1.1.0.10.3.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">appellatione firmamenti, tertia die in</span><span id="doc0:0.1.1.0.10.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a"></span></span> discretionis uocabulo speciem aquarum, quarta luminaria celi, uidelicet solem, et lunam, et stellas, que temporum sunt ordinationes, quinta animantia ex aquis, sexta animantia ex terra, et hominem, quem appellauit Adam, et posuit in paradiso, cuius de latere dormientis costam tollens, mulierem edificauit, ut eius adiutorio genus propagaret humanum, septima autem die requieuit Deus ab omni opere prime ac noue conditionis; hoc autem secundum licteram. 
-</div>
+<span id="chronicon:0.1.1.0.10.1" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.10.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g"></span><span id="chronicon:0.1.1.0.10.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a">et</span></span> terram, mare, et omnia, que in eis sunt, tempora quoque instituit, nam prima die in lucis nomine condidit angelos, secunda die 
+<span id="chronicon:0.1.1.0.10.2" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.10.2.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">celos</span><span id="chronicon:0.1.1.0.10.2.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a"></span></span> in 
+<span id="chronicon:0.1.1.0.10.3" class="t-app s-4-apparato" data-el="app" data-type="substantive"><span id="chronicon:0.1.1.0.10.3.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#g">appellatione firmamenti, tertia die in</span><span id="chronicon:0.1.1.0.10.3.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#a"></span></span> discretionis uocabulo speciem aquarum, quarta luminaria celi, uidelicet solem, et lunam, et stellas, que temporum sunt ordinationes, quinta animantia ex aquis, sexta animantia ex terra, et hominem, quem appellauit Adam, et posuit in paradiso, cuius de latere dormientis costam tollens, mulierem edificauit, ut eius adiutorio genus propagaret humanum, septima autem die requieuit Deus ab omni opere prime ac noue conditionis; hoc autem secundum licteram. 
+</p>
  
 </div><nav class="prevnext" aria-label="Contents"><span></span><a href="text.html">Contents</a><a href="text-1.html">next ›</a></nav></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
@@ -531,36 +533,69 @@ Creator omnium uisibilium et inuisibilium, qui trinus et unus Deus est, in princ
       });
       var walker=document.createTreeWalker(l,NodeFilter.SHOW_TEXT,null);
       var nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
-      var idx=0, carry=false;
+      /* pass 1: tokens (standalone punctuation is not a token) */
+      var toks=[]; var idx=0, carry=false;
       nodes.forEach(function(tn){
         var v=tn.nodeValue;
         if(!/\S/.test(v)){ if(/\s/.test(v))carry=false; return; }
         var parts=v.split(/(\s+)/);
-        var frag=document.createDocumentFragment();
         var continuing=carry&&!/^\s/.test(v);
         parts.forEach(function(pt){
           if(!pt)return;
-          if(/^\s+$/.test(pt)){
-            continuing=false;
-            /* a space inside one variant site keeps the underline running */
-            if(map[idx]&&map[idx]===map[idx+1]){
-              var ss=document.createElement('span');
-              ss.className='wv';ss.textContent=pt;ss._be=map[idx];
-              frag.appendChild(ss);
-            } else frag.appendChild(document.createTextNode(pt));
-            return;
-          }
-          /* a word split across inline elements is one token */
-          if(continuing){continuing=false;}
-          else idx++;
-          var e=map[idx];
-          if(!e){frag.appendChild(document.createTextNode(pt));return;}
+          if(/^\s+$/.test(pt)){continuing=false;toks.push({sp:true,node:tn,text:pt,i:idx});return;}
+          var punct=!/[\p{L}\p{N}]/u.test(pt);
+          if(continuing){continuing=false;toks.push({node:tn,text:pt,i:idx,cont:true});return;}
+          if(punct){toks.push({node:tn,text:pt,i:idx,punct:true});return;}
+          idx++;
+          toks.push({node:tn,text:pt,i:idx});
+        });
+        carry=!/\s$/.test(v);
+      });
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
+      var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        var a=Math.ceil(f/2), b=Math.floor(t/2);
+        var chk=e.getAttribute('data-check')||'';
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
+      });
+      /* pass 3: wrap, spaces inside one site keep the line running */
+      var byNode=new Map();
+      toks.forEach(function(tk){ if(!byNode.has(tk.node))byNode.set(tk.node,[]); byNode.get(tk.node).push(tk); });
+      byNode.forEach(function(list,tn){
+        var frag=document.createDocumentFragment(); var wrapped=false;
+        list.forEach(function(tk){
+          var e=null;
+          if(tk.sp){ if(claim[tk.i]&&claim[tk.i]===claim[tk.i+1])e=claim[tk.i]; }
+          else if(!tk.punct){ e=claim[tk.i]; }
+          if(!e){frag.appendChild(document.createTextNode(tk.text));return;}
           var sp=document.createElement('span');
-          sp.className='wv';sp.textContent=pt;sp._be=e;
-          frag.appendChild(sp);
+          sp.className='wv';sp.textContent=tk.text;sp._be=e;
+          frag.appendChild(sp);wrapped=true;
         });
         tn.parentNode.replaceChild(frag,tn);
-        carry=!/\s$/.test(v);
       });
       }catch(e){/* one bad band must not silence the rest */}
     });
@@ -726,6 +761,15 @@ Creator omnium uisibilium et inuisibilium, qui trinus et unus Deus est, in princ
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

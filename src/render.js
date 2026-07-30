@@ -26,9 +26,49 @@ const BLOCKS = new Set([
 /** Escapes for both text and attribute contexts: quotes included, because
  *  a `&quot;` in a TEI attribute would otherwise close the HTML attribute
  *  and inject markup. Entities render identically as text. */
+/** The HTML element that carries a TEI element's structural meaning: a
+ *  heading is a heading, a list is a list, a table is a table. The class
+ *  and the data-el keep the TEI name, so nothing is lost; what changes is
+ *  that the structure survives without CSS, and assistive technology and
+ *  the plainest browser can read it. */
+function htmlTagFor(node) {
+  const el = node.element;
+  const blockChild = (n) => n.children.some((c) => typeof c !== 'string'
+    && (BLOCKS.has(c.element) || c.element === 'note' || c.element === 'list' || c.element === 'table'));
+  switch (el) {
+    case 'head': return 'h2';
+    case 'list': return /^(ordered|numbered)$/i.test(node.atts.type || '') ? 'ol' : 'ul';
+    case 'item': return 'li';
+    case 'table': return 'table';
+    case 'row': return 'tr';
+    case 'cell': return (node.atts.role || '') === 'label' ? 'th' : 'td';
+    case 'p':
+    case 'ab':
+      // a TEI p may hold blocks, which HTML paragraphs may not
+      return blockChild(node) ? 'div' : 'p';
+    case 'quote':
+    case 'cit':
+      return blockChild(node) ? 'blockquote' : 'span';
+    default:
+      return BLOCKS.has(el) ? 'div' : 'span';
+  }
+}
+
 export const escapeHTML = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+/** A URL that comes from the edition may point out, never run code:
+ *  relative paths, fragments, http(s) and mailto survive; anything else
+ *  (javascript:, data:, unknown schemes) is refused. */
+export function safeURL(value) {
+  const v = String(value == null ? '' : value).trim();
+  if (!v) return null;
+  if (/^[#/.]/.test(v)) return v;                       // fragment or relative
+  if (/^(https?:|mailto:)/i.test(v)) return v;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(v)) return null;      // any other scheme
+  return v;                                             // bare relative name
+}
 
 export function renderBase(node, hooks) {
   if (node.element === 'lb') {
@@ -51,7 +91,14 @@ export function renderBase(node, hooks) {
     return `<span class="t-note-mark" aria-hidden="true">°</span>`
       + `<div id="${escapeHTML(node.id)}" class="t-note s-${node.section}" data-el="note"${nd}>${inner}</div>`;
   }
-  const tag = BLOCKS.has(node.element) ? 'div' : 'span';
+  // editorial signs belong to the text, not to the stylesheet: brackets and
+  // the lacuna mark are real characters, selectable and copyable
+  if (node.element === 'gap') {
+    const reason = node.atts.reason ? ` (${escapeHTML(node.atts.reason)})` : '';
+    return `<span id="${escapeHTML(node.id)}" class="t-gap s-${node.section}" data-el="gap"`
+      + ` title="${escapeHTML((node.atts.reason || 'gap') + (node.atts.quantity ? `, ${node.atts.quantity}` : ''))}">[…]</span>`;
+  }
+  const tag = htmlTagFor(node);
   let cls = `t-${node.element} s-${node.section}`;
   // verse numbering: mark every fifth line so the theme can show its number
   if (node.element === 'l' && /^\d+$/.test(node.atts.n || '') && Number(node.atts.n) % 5 === 0) {
@@ -81,6 +128,10 @@ export function renderBase(node, hooks) {
       && /^https?:\/\//.test(node.atts.ref || '')) {
     return `<a${id} class="${cls} ent-ext" href="${escapeHTML(node.atts.ref)}"`
       + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
+  }
+  if (node.element === 'supplied') {
+    return `<${tag}${id} class="${cls}"${data}>`
+      + `<span class="t-sign">[</span>${inner}<span class="t-sign">]</span></${tag}>${after}`;
   }
   return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>${after}`;
 }
@@ -143,9 +194,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;

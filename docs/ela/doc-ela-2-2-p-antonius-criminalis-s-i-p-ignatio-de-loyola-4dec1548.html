@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -309,7 +311,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
          </span>
          <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2" class="t-sourceDesc s-7-header" data-el="sourceDesc">
             <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2.0" class="t-bibl s-1-bibliografia" data-el="bibl">
-               <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2.0.0" class="t-title s-1-inline" data-el="title" data-ref="https://www.worldcat.org/oclc/7503970" data-key="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud "Monumenta historica Soc. Iesu, 1956, 350-352</span>
+               <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2.0.0" class="t-title s-1-inline" data-el="title" data-ref="https://www.worldcat.org/oclc/7503970" data-key="print-editor">in: Monumenta missionum Societatis Iesu, IV, Missiones Orientales, Documenta Indica I (1540-1549), edited by Josef Wicki, Romae : Apud &quot;Monumenta historica Soc. Iesu, 1956, 350-352</span>
                <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2.0.1" class="t-idno s-2-entita" data-el="idno" data-type="SINICA"></span>
                <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2.0.2" class="t-idno s-2-entita" data-el="idno" data-type="CCT"></span>
                <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.0.2.0.3" class="t-idno s-2-entita" data-el="idno" data-type="URI">https://babel.hathitrust.org/cgi/pt?id=mdp.39015078389007</span>
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
       <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
          <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-            <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</div>
+            <p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1.0.0" class="t-p s-1-struttura" data-el="p">Digitized with ABBYY FineReader 12.1.11, checked and codified in TEI for the ELA-Eurasian Latin Archive</p>
          </span>
          <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-            <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">     
-            </div>
+            <p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">     
+            </p>
          </span>
       </span>
       <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -348,15 +350,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
    </div><div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1" class="t-text s-7-struttura-documento" data-el="text">
       <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0" class="t-body s-1-struttura" data-el="body"> 
          <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0" class="t-div s-1-struttura" data-el="div"><span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.0" class="t-pb" role="separator" title="page break">[350]</span>
-            <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">† Iesus sit sempe[r] cum omnibus</div>  
+            <p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.1" class="t-p s-1-struttura" data-el="p">† Iesus sit sempe[r] cum omnibus</p>  
 <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.2" class="t-lb"><br/></span>
-            <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">1. Tuae humanitati, Venerabi[li]s Pater, me indignum Societatis coadiutorem, benigne placuit admittere: qua in re dabo operam pro viribus, ut tuis votis respondeam, quod quidem, Domino Iesu Christo praestante, spero facturum. Non ideo ad hoc munus me idoneum iudico; nam longe me ad tanti muneris functionem distare reperio: nihilominus sicuti tibi visum est, ita censeo me ad unguem obtemperaturum. Non solum autem coadiutorem, sed et omnium bonorum atque meritorum Societatis participem facis. Insuper omnibus facultatibus, gratiis, autoritateque, non secus ac professis, uti libere concedis. Praeterea doces me, Pater, <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.3.0" class="t-pb" role="separator" title="page break">[351]</span> haec omnia ad aedificationem, non ad destructionem concessa; quod mihi procul dubio ubique terrarum in eodem Domino nostro Iesu Christo persuasi secuturum, et ut melius progrediar, etsi alias <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.3.1" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Romae</a> charissimo in Christo domino Petro Lucensi, ut ita dicam, vota paupertatis, et castitatis, atque obedientiae tibi danda reliqui: rursus, licetque alibi idem pluries voverim, scias velim me non solum Praeposito et professis, coadiutoribusque, sive cooperatoribus, sed cuicumque Societatis nomine existenti, etiam servo, perpetuo astrictum esse.</div>  
-<div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">2. Quod attinet ad illa septem, in quorum unum, si quis incidisset, ad Societatem non admitteretur, et si quoad fleri poterit (sicut Ioannes Polancus charissimus in Christo tuo nomine innuit), omnis cura, diligentiaque adhibebitur, <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.4.0" class="t-pb" role="separator" title="page break">[352]</span> laudetur Dominus noster Iesus Christus, qui me ab illis protexit et eripuit.</div>  
-<div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">3. Reliquum est, ut obtenta facultate a <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus S.J.">magistro Francisco</span>, quibusve expedierit ut eis in Domino utar; nam absque illa omnino abstinendum esse duxi, perinde ac si haec ad me nunquam pervenissent. Interim Domino Deo optimo maximoque gratias agam, ipsum precabor, ut omnes nos ad coelestem Hierusalem pervenire concedat.</div>  
-  <div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6" class="t-p s-1-struttura" data-el="p">Ex istis regionibus <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Indiae</a> Commurini Caput appellatis,
-<span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6.1" class="t-lb"><br/></span>die <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6.2" class="t-date s-2-date" data-el="date" data-when="1548-12-04">4 Decembris 1548</span>.</div>             
-<div id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.0" class="t-pb" role="separator" title="page break">[136v]</span> <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.1" class="t-hi s-1-inline" data-el="hi">Inscriptio</span>: Al molto Reverendo e charissimo Padre messer <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.2" class="t-persName s-2-entita ent-ext" href="http://viaf.org/88881025" target="_blank" rel="noopener" data-el="persName" data-ref="http://viaf.org/88881025" data-key="Loyola, Ignatius de S.J.">Ignatio</a>, Preposito della Compagnia de Iesus in <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.3" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Roma</a>.
- <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.4" class="t-lb"><br/></span>Segunda ‘’.</div>  
+            <p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.3" class="t-p s-1-struttura" data-el="p">1. Tuae humanitati, Venerabi[li]s Pater, me indignum Societatis coadiutorem, benigne placuit admittere: qua in re dabo operam pro viribus, ut tuis votis respondeam, quod quidem, Domino Iesu Christo praestante, spero facturum. Non ideo ad hoc munus me idoneum iudico; nam longe me ad tanti muneris functionem distare reperio: nihilominus sicuti tibi visum est, ita censeo me ad unguem obtemperaturum. Non solum autem coadiutorem, sed et omnium bonorum atque meritorum Societatis participem facis. Insuper omnibus facultatibus, gratiis, autoritateque, non secus ac professis, uti libere concedis. Praeterea doces me, Pater, <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.3.0" class="t-pb" role="separator" title="page break">[351]</span> haec omnia ad aedificationem, non ad destructionem concessa; quod mihi procul dubio ubique terrarum in eodem Domino nostro Iesu Christo persuasi secuturum, et ut melius progrediar, etsi alias <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.3.1" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Romae</a> charissimo in Christo domino Petro Lucensi, ut ita dicam, vota paupertatis, et castitatis, atque obedientiae tibi danda reliqui: rursus, licetque alibi idem pluries voverim, scias velim me non solum Praeposito et professis, coadiutoribusque, sive cooperatoribus, sed cuicumque Societatis nomine existenti, etiam servo, perpetuo astrictum esse.</p>  
+<p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.4" class="t-p s-1-struttura" data-el="p">2. Quod attinet ad illa septem, in quorum unum, si quis incidisset, ad Societatem non admitteretur, et si quoad fleri poterit (sicut Ioannes Polancus charissimus in Christo tuo nomine innuit), omnis cura, diligentiaque adhibebitur, <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.4.0" class="t-pb" role="separator" title="page break">[352]</span> laudetur Dominus noster Iesus Christus, qui me ab illis protexit et eripuit.</p>  
+<p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.5" class="t-p s-1-struttura" data-el="p">3. Reliquum est, ut obtenta facultate a <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.5.0" class="t-persName s-2-entita" data-el="persName" data-key="Franciscus S.J.">magistro Francisco</span>, quibusve expedierit ut eis in Domino utar; nam absque illa omnino abstinendum esse duxi, perinde ac si haec ad me nunquam pervenissent. Interim Domino Deo optimo maximoque gratias agam, ipsum precabor, ut omnes nos ad coelestem Hierusalem pervenire concedat.</p>  
+  <p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6" class="t-p s-1-struttura" data-el="p">Ex istis regionibus <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6.0" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/50004" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/50004" data-key="Indiae Orientalis">Indiae</a> Commurini Caput appellatis,
+<span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6.1" class="t-lb"><br/></span>die <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.6.2" class="t-date s-2-date" data-el="date" data-when="1548-12-04">4 Decembris 1548</span>.</p>             
+<p id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.0" class="t-pb" role="separator" title="page break">[136v]</span> <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.1" class="t-hi s-1-inline" data-el="hi">Inscriptio</span>: Al molto Reverendo e charissimo Padre messer <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.2" class="t-persName s-2-entita ent-ext" href="http://viaf.org/88881025" target="_blank" rel="noopener" data-el="persName" data-ref="http://viaf.org/88881025" data-key="Loyola, Ignatius de S.J.">Ignatio</a>, Preposito della Compagnia de Iesus in <a id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.3" class="t-placeName s-2-entita ent-ext" href="https://pleiades.stoa.org/places/423025" target="_blank" rel="noopener" data-el="placeName" data-ref="https://pleiades.stoa.org/places/423025" data-key="Roma">Roma</a>.
+ <span id="ELA_2_2_p.antonius_criminalis__s.i._p.ignatio_de_loyola_4dec1548:0.1.0.0.7.4" class="t-lb"><br/></span>Segunda ‘’.</p>  
             
          </div>
       </div>
@@ -402,16 +404,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -593,6 +614,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')

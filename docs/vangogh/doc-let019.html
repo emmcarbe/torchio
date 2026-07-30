@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -107,7 +106,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -121,6 +120,18 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
 .torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* a verse followed by its apparatus band opens the scheme on click */
+body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
+.torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
+.torchio-pop .popband .band-e{display:block;margin:.35em 0}
+.torchio-pop .popband .band-lem{font-style:italic}
+.torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
+.torchio-pop .popband .bw:hover{text-decoration:underline}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
@@ -236,10 +247,35 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -256,7 +292,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>To Theo van Gogh. London, Friday, 20 February 1874.</h1><p class="sub">Vincent van Gogh, the letters</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html" class="on">Texts</a><a href="data.html">Data</a></nav>
 </header>
 <div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-let018.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let020.html">next ›</a></nav><div id="let019:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
         <div id="let019:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
@@ -276,7 +312,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <span id="let019:0.0.0.1.3" class="t-date s-2-date" data-el="date" data-type="first" data-when="2009">2009</span>
 <span id="let019:0.0.0.1.4" class="t-availability s-1-bibliografia" data-el="availability">
 <span id="let019:0.0.0.1.4.0" class="t-licence s-7-licenza" data-el="licence" data-target="http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
-<div id="let019:0.0.0.1.4.0.0" class="t-p s-1-struttura" data-el="p">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) </div>
+<p id="let019:0.0.0.1.4.0.0" class="t-p s-1-struttura" data-el="p">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) </p>
                     </span>
                 </span>
 <span id="let019:0.0.0.1.5" class="t-ptr s-2-corrispondenza" data-el="ptr" data-target="http://vangoghletters.org/orig/let019"></span>
@@ -295,19 +331,19 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         <span id="let019:0.0.0.2.0.1.3" class="t-dateLet s-base" data-el="dateLet">Friday, 20 February 1874</span>
                     </span>
                     <span id="let019:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
-<div id="let019:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. London, Friday, 20 February 1874.</div>
+<p id="let019:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. London, Friday, 20 February 1874.</p>
                     </span>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
-<div id="let019:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
+<p id="let019:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</p>
                     </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note" data-type="location">
-<div id="let019:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b14 V/1962</div>
+<p id="let019:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b14 V/1962</p>
                     </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note" data-type="date">
-<div id="let019:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 20 Februari 1874’.</div>
+<p id="let019:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 20 Februari 1874’.</p>
                     </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="additionalDetail" class="t-note s-1-note" data-el="note" data-type="additionalDetail">
-<div id="let019:0.0.0.2.0.6.0" class="t-p s-1-struttura" data-el="p">The way in which the address – ‘Mr. Th. van Gogh’ – is written on the letter itself indicates that it was enclosed in a shipment from Goupil’s London office.</div>
+<p id="let019:0.0.0.2.0.6.0" class="t-p s-1-struttura" data-el="p">The way in which the address – ‘Mr. Th. van Gogh’ – is written on the letter itself indicates that it was enclosed in a shipment from Goupil’s London office.</p>
                     </div>
                 </span>
             </div>
@@ -334,24 +370,24 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div id="let019:0.2.0.0" class="t-div s-1-struttura" data-el="div" data-type="original">
 <span id="pb-orig-1r-1" class="t-pb" role="separator" title="page break">[1]</span>
                 <span id="l-1" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.2" class="t-ab s-1-struttura" data-el="ab">Londen 20 Februari 1874</div>
+<p id="let019:0.2.0.0.2" class="t-ab s-1-struttura" data-el="ab">Londen 20 Februari 1874</p>
 <span id="let019:0.2.0.0.3" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-2" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.5" class="t-ab s-1-struttura" data-el="ab">Waarde Theo,</div>
+<p id="let019:0.2.0.0.5" class="t-ab s-1-struttura" data-el="ab">Waarde Theo,</p>
                 <span id="l-3" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.7" class="t-ab s-1-struttura" data-el="ab">Dank voor je brief.─ ’t Boek heb ik nog <span id="l-4" class="t-lb"><br/></span>niet noodig, maar stuur het echter <span id="l-5" class="t-lb"><br/></span>terug als je het op je gemak uitgelezen <span id="l-6" class="t-lb"><br/></span>hebt.─<span id="note-o-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span> Ik heb ’t boek van van Vlooten<span id="note-o-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> niet <span id="l-7" class="t-lb"><br/></span>gelezen, maar wil het graag eens hebben. <span id="l-8" class="t-lb"><br/></span>Ik heb een ander boek over kunst door <span id="l-9" class="t-lb"><br/></span>v<span id="let019:0.2.0.0.7.8" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span> Vl. gelezen &amp; was ’t niet geheel met hem <span id="l-10" class="t-lb"><br/></span>eens, &amp; ’t was nog al erg geleerd.<span id="note-o-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span> Burger <span id="l-11" class="t-lb"><br/></span>is eenvoudiger &amp; al wat die zegt is <span id="l-12" class="t-lb"><br/></span>waar.─ Ik ben blij je in Amsterdam <span id="l-13" class="t-lb"><br/></span>geweest bent;<span id="note-o-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> bedank Oom Cor als <span id="l-14" class="t-lb"><br/></span>je hem ziet voor de brochure die <span id="l-15" class="t-lb"><br/></span>hij mij zond.</div>
+<p id="let019:0.2.0.0.7" class="t-ab s-1-struttura" data-el="ab">Dank voor je brief.─ ’t Boek heb ik nog <span id="l-4" class="t-lb"><br/></span>niet noodig, maar stuur het echter <span id="l-5" class="t-lb"><br/></span>terug als je het op je gemak uitgelezen <span id="l-6" class="t-lb"><br/></span>hebt.─<span id="note-o-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span> Ik heb ’t boek van van Vlooten<span id="note-o-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> niet <span id="l-7" class="t-lb"><br/></span>gelezen, maar wil het graag eens hebben. <span id="l-8" class="t-lb"><br/></span>Ik heb een ander boek over kunst door <span id="l-9" class="t-lb"><br/></span>v<span id="let019:0.2.0.0.7.8" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span> Vl. gelezen &amp; was ’t niet geheel met hem <span id="l-10" class="t-lb"><br/></span>eens, &amp; ’t was nog al erg geleerd.<span id="note-o-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span> Burger <span id="l-11" class="t-lb"><br/></span>is eenvoudiger &amp; al wat die zegt is <span id="l-12" class="t-lb"><br/></span>waar.─ Ik ben blij je in Amsterdam <span id="l-13" class="t-lb"><br/></span>geweest bent;<span id="note-o-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> bedank Oom Cor als <span id="l-14" class="t-lb"><br/></span>je hem ziet voor de brochure die <span id="l-15" class="t-lb"><br/></span>hij mij zond.</p>
                 <span id="l-16" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.9" class="t-ab s-1-struttura" data-el="ab">Ik ben blij je het bij Roos zoo goed <span id="l-17" class="t-lb"><br/></span>hebt, zoo als ik je reeds door Anna <span id="l-18" class="t-lb"><br/></span>Carbentus<span id="note-o-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> heb laten zeggen heb <span id="l-19" class="t-lb"><br/></span>je groot gelijk aangaande de <span id="l-20" class="t-lb"><br/></span>peen hanniken<span id="let019:0.2.0.0.9.5" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
+<p id="let019:0.2.0.0.9" class="t-ab s-1-struttura" data-el="ab">Ik ben blij je het bij Roos zoo goed <span id="l-17" class="t-lb"><br/></span>hebt, zoo als ik je reeds door Anna <span id="l-18" class="t-lb"><br/></span>Carbentus<span id="note-o-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> heb laten zeggen heb <span id="l-19" class="t-lb"><br/></span>je groot gelijk aangaande de <span id="l-20" class="t-lb"><br/></span>peen hanniken<span id="let019:0.2.0.0.9.5" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
                     <span id="note-o-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> <span id="l-20a" class="t-lb"><br/></span>Ik ben ’t ook met je eens aangaande <span id="l-20b" class="t-lb"><br/></span>B.H.<span id="let019:0.2.0.0.9.9" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span>
-                    <span id="note-o-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> pas echter op je hart, kerel.─</div>
+                    <span id="note-o-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> pas echter op je hart, kerel.─</p>
                 <span id="l-21" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.11" class="t-ab s-1-struttura" data-el="ab">Heb je Mr. Jacobson’s collectie<span id="note-o-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> al <span id="l-22" class="t-lb"><br/></span>eens gezien, dat is de moeite <span id="l-23" class="t-lb"><br/></span>waard, hij zal je wel eens vragen <span id="l-24" class="t-lb"><br/></span>om te komen kijken.─ Groet <span id="l-25" class="t-lb"><br/></span>hem, zoo beleefd als je kunt, <span id="l-26" class="t-lb"><br/></span>voor mij &amp; vertel hem ’t mij <span id="l-27" class="t-lb"><br/></span>hier goed gaat &amp; ik veel moois <span id="l-28" class="t-lb"><br/></span>zie.</div>
+<p id="let019:0.2.0.0.11" class="t-ab s-1-struttura" data-el="ab">Heb je Mr. Jacobson’s collectie<span id="note-o-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> al <span id="l-22" class="t-lb"><br/></span>eens gezien, dat is de moeite <span id="l-23" class="t-lb"><br/></span>waard, hij zal je wel eens vragen <span id="l-24" class="t-lb"><br/></span>om te komen kijken.─ Groet <span id="l-25" class="t-lb"><br/></span>hem, zoo beleefd als je kunt, <span id="l-26" class="t-lb"><br/></span>voor mij &amp; vertel hem ’t mij <span id="l-27" class="t-lb"><br/></span>hier goed gaat &amp; ik veel moois <span id="l-28" class="t-lb"><br/></span>zie.</p>
 <span id="pb-orig-1v-2" class="t-pb" role="separator" title="page break">[2]</span>
                 <span id="l-29" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.14" class="t-ab s-1-struttura" data-el="ab">Het gaat mij all right,<span id="note-o-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span> ik heb het <span id="l-30" class="t-lb"><br/></span>druk.─ Bedank Willem<span id="note-o-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span> voor zijn <span id="l-31" class="t-lb"><br/></span>brief &amp; groet allen bij Roos &amp; Iterson<span id="let019:0.2.0.0.14.4" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> <span id="l-32" class="t-lb"><br/></span>Jan &amp; Piet<span id="note-o-11" class="t-anchor s-1-milestone" data-el="anchor" data-n="11"></span> &amp; allen die naar mij <span id="l-33" class="t-lb"><br/></span>mochten vragen.─ ’t Ga je goed.─</div>
+<p id="let019:0.2.0.0.14" class="t-ab s-1-struttura" data-el="ab">Het gaat mij all right,<span id="note-o-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span> ik heb het <span id="l-30" class="t-lb"><br/></span>druk.─ Bedank Willem<span id="note-o-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span> voor zijn <span id="l-31" class="t-lb"><br/></span>brief &amp; groet allen bij Roos &amp; Iterson<span id="let019:0.2.0.0.14.4" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> <span id="l-32" class="t-lb"><br/></span>Jan &amp; Piet<span id="note-o-11" class="t-anchor s-1-milestone" data-el="anchor" data-n="11"></span> &amp; allen die naar mij <span id="l-33" class="t-lb"><br/></span>mochten vragen.─ ’t Ga je goed.─</p>
 <span id="let019:0.2.0.0.15" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-34" class="t-lb"><br/></span>
-<div id="let019:0.2.0.0.17" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
+<p id="let019:0.2.0.0.17" class="t-ab s-1-struttura" data-el="ab">Vincent</p>
 <span id="let019:0.2.0.0.18" class="t-whiteline s-base" data-el="whiteline"></span>
 <div id="let019:0.2.0.0.19" class="t-div s-1-struttura" data-el="div" data-type="textualNotes">
 <span class="t-note-mark" aria-hidden="true">°</span><div id="let019:0.2.0.0.19.0" class="t-note s-1-note" data-el="note" data-n="-">
@@ -364,64 +400,64 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
             </div>
 <div id="let019:0.2.0.1" class="t-div s-1-struttura" data-el="div" data-type="translation">
 <span id="pb-trans-1r-1" class="t-pb" role="separator" title="page break">[1]</span>
-<div id="let019:0.2.0.1.1" class="t-ab s-1-struttura" data-el="ab">London, 20 February 1874</div>
+<p id="let019:0.2.0.1.1" class="t-ab s-1-struttura" data-el="ab">London, 20 February 1874</p>
 <span id="let019:0.2.0.1.2" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let019:0.2.0.1.3" class="t-ab s-1-struttura" data-el="ab">My dear Theo,</div>
-<div id="let019:0.2.0.1.4" class="t-ab s-1-struttura" data-el="ab">Thanks for your letter. I don’t need the book yet, but send it back anyway when you’ve had time to read it.<span id="note-t-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span> I haven’t read the book by <span id="let019:0.2.0.1.4.1" class="t-rs s-2-entita" data-el="rs" data-key="845" data-type="pers">Van Vloten</span>,<span id="note-t-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> but I’d like to have it sometime. I’ve read another book on art by V. Vl. and didn’t agree with him completely, and it was really quite scholarly.<span id="note-t-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span> <span id="let019:0.2.0.1.4.4" class="t-rs s-2-entita" data-el="rs" data-key="554" data-type="pers">Bürger</span> is simpler, and everything he says is true. I’m glad you went to Amsterdam;<span id="note-t-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> thank <span id="let019:0.2.0.1.4.6" class="t-rs s-2-entita" data-el="rs" data-key="422" data-type="pers">Uncle Cor</span> when you see him for the brochure he sent me.</div>
-<div id="let019:0.2.0.1.5" class="t-ab s-1-struttura" data-el="ab">I’m glad you’re so happy at <span id="let019:0.2.0.1.5.0" class="t-rs s-2-entita" data-el="rs" data-key="642 643" data-type="pers">the Rooses</span>’; as I already asked <span id="let019:0.2.0.1.5.1" class="t-rs s-2-entita" data-el="rs" data-key="322" data-type="pers">Anna Carbentus</span> to tell you,<span id="note-t-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> you’re completely right about pulling the carrot.<span id="note-t-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> I also agree with you about <span id="let019:0.2.0.1.5.4" class="t-rs s-2-entita" data-el="rs" data-key="98" data-type="pers">B.H</span>.,<span id="note-t-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> but beware of your heart, old chap.</div>
-<div id="let019:0.2.0.1.6" class="t-ab s-1-struttura" data-el="ab">Have you seen <span id="let019:0.2.0.1.6.0" class="t-rs s-2-entita" data-el="rs" data-key="458" data-type="pers">Mr Jacobson’</span>s collection<span id="note-t-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> yet? It’s well worth while, he’ll no doubt ask you to come and see it sometime. Give him my regards, as politely as you can, and tell him that I’m doing well here and am seeing a lot of beautiful things. 
+<p id="let019:0.2.0.1.3" class="t-ab s-1-struttura" data-el="ab">My dear Theo,</p>
+<p id="let019:0.2.0.1.4" class="t-ab s-1-struttura" data-el="ab">Thanks for your letter. I don’t need the book yet, but send it back anyway when you’ve had time to read it.<span id="note-t-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span> I haven’t read the book by <span id="let019:0.2.0.1.4.1" class="t-rs s-2-entita" data-el="rs" data-key="845" data-type="pers">Van Vloten</span>,<span id="note-t-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> but I’d like to have it sometime. I’ve read another book on art by V. Vl. and didn’t agree with him completely, and it was really quite scholarly.<span id="note-t-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span> <span id="let019:0.2.0.1.4.4" class="t-rs s-2-entita" data-el="rs" data-key="554" data-type="pers">Bürger</span> is simpler, and everything he says is true. I’m glad you went to Amsterdam;<span id="note-t-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> thank <span id="let019:0.2.0.1.4.6" class="t-rs s-2-entita" data-el="rs" data-key="422" data-type="pers">Uncle Cor</span> when you see him for the brochure he sent me.</p>
+<p id="let019:0.2.0.1.5" class="t-ab s-1-struttura" data-el="ab">I’m glad you’re so happy at <span id="let019:0.2.0.1.5.0" class="t-rs s-2-entita" data-el="rs" data-key="642 643" data-type="pers">the Rooses</span>’; as I already asked <span id="let019:0.2.0.1.5.1" class="t-rs s-2-entita" data-el="rs" data-key="322" data-type="pers">Anna Carbentus</span> to tell you,<span id="note-t-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> you’re completely right about pulling the carrot.<span id="note-t-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> I also agree with you about <span id="let019:0.2.0.1.5.4" class="t-rs s-2-entita" data-el="rs" data-key="98" data-type="pers">B.H</span>.,<span id="note-t-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> but beware of your heart, old chap.</p>
+<p id="let019:0.2.0.1.6" class="t-ab s-1-struttura" data-el="ab">Have you seen <span id="let019:0.2.0.1.6.0" class="t-rs s-2-entita" data-el="rs" data-key="458" data-type="pers">Mr Jacobson’</span>s collection<span id="note-t-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> yet? It’s well worth while, he’ll no doubt ask you to come and see it sometime. Give him my regards, as politely as you can, and tell him that I’m doing well here and am seeing a lot of beautiful things. 
 <span id="pb-trans-1v-2" class="t-pb" role="separator" title="page break">[2]</span>
-                </div>
-<div id="let019:0.2.0.1.7" class="t-ab s-1-struttura" data-el="ab">I’m all right,<span id="note-t-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span> I’m busy. Thank <span id="let019:0.2.0.1.7.1" class="t-rs s-2-entita" data-el="rs" data-key="802" data-type="pers">Willem</span>
-                    <span id="note-t-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span> for his letter and give my regards to everyone at <span id="let019:0.2.0.1.7.3" class="t-rs s-2-entita" data-el="rs" data-key="642 643" data-type="pers">the Rooses</span>’ and <span id="let019:0.2.0.1.7.4" class="t-rs s-2-entita" data-el="rs" data-key="461" data-type="pers">Iterson</span>, Jan and <span id="let019:0.2.0.1.7.5" class="t-rs s-2-entita" data-el="rs" data-key="85" data-type="pers">Piet</span>,<span id="note-t-11" class="t-anchor s-1-milestone" data-el="anchor" data-n="11"></span> and anyone who asks after me. I wish you well.</div>
+                </p>
+<p id="let019:0.2.0.1.7" class="t-ab s-1-struttura" data-el="ab">I’m all right,<span id="note-t-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span> I’m busy. Thank <span id="let019:0.2.0.1.7.1" class="t-rs s-2-entita" data-el="rs" data-key="802" data-type="pers">Willem</span>
+                    <span id="note-t-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span> for his letter and give my regards to everyone at <span id="let019:0.2.0.1.7.3" class="t-rs s-2-entita" data-el="rs" data-key="642 643" data-type="pers">the Rooses</span>’ and <span id="let019:0.2.0.1.7.4" class="t-rs s-2-entita" data-el="rs" data-key="461" data-type="pers">Iterson</span>, Jan and <span id="let019:0.2.0.1.7.5" class="t-rs s-2-entita" data-el="rs" data-key="85" data-type="pers">Piet</span>,<span id="note-t-11" class="t-anchor s-1-milestone" data-el="anchor" data-n="11"></span> and anyone who asks after me. I wish you well.</p>
 <span id="let019:0.2.0.1.8" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let019:0.2.0.1.9" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
+<p id="let019:0.2.0.1.9" class="t-ab s-1-struttura" data-el="ab">Vincent</p>
             </div>
 <div id="let019:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
-<div id="let019:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">Probably <span id="let019:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="554" data-type="pers">E.J.T. Thoré</span> (under the pseudonym W. Bürger), <span id="let019:0.2.0.2.0.0.1" class="t-rs s-2-entita" data-el="rs" data-key="13" data-type="lit">
+<p id="let019:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">Probably <span id="let019:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="554" data-type="pers">E.J.T. Thoré</span> (under the pseudonym W. Bürger), <span id="let019:0.2.0.2.0.0.1" class="t-rs s-2-entita" data-el="rs" data-key="13" data-type="lit">
                             <span id="let019:0.2.0.2.0.0.1.0" class="t-hi s-1-inline" data-el="hi">Musées de la Hollande, <span id="let019:0.2.0.2.0.0.1.0.0" class="t-hi s-1-inline" data-el="hi">i</span>
                             </span>
                         </span>; <span id="let019:0.2.0.2.0.0.2" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let015.xml#n-11">see letter 15, n. 11.</span>
-                    </div>
+                    </p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
-<div id="let019:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">The book by <span id="let019:0.2.0.2.1.0.0" class="t-rs s-2-entita" data-el="rs" data-key="845" data-type="pers">J.M. van Vloten</span> that Theo had mentioned was presumably <span id="let019:0.2.0.2.1.0.1" class="t-rs s-2-entita" data-el="rs" data-key="16" data-type="lit">
+<p id="let019:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">The book by <span id="let019:0.2.0.2.1.0.0" class="t-rs s-2-entita" data-el="rs" data-key="845" data-type="pers">J.M. van Vloten</span> that Theo had mentioned was presumably <span id="let019:0.2.0.2.1.0.1" class="t-rs s-2-entita" data-el="rs" data-key="16" data-type="lit">
                             <span id="let019:0.2.0.2.1.0.1.0" class="t-hi s-1-inline" data-el="hi">Nederlands schilderkunst van de 14e tot de 18e eeuw. Voor het Nederlandsche volk geschetst. Met ruim 50 houtsneden en een portret van Rembrandt, op staal geëtst door J.W. Kaiser.</span>
-                        </span> Amsterdam 1874. The book’s publication was announced in 1873, so it possibly appeared early in 1874.</div>
+                        </span> Amsterdam 1874. The book’s publication was announced in 1873, so it possibly appeared early in 1874.</p>
                 </div>
     <span class="t-note-mark" aria-hidden="true">°</span><div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
-        <div id="let019:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">J.M. van Vloten, <span id="let019:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="17" data-type="lit">
+        <p id="let019:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">J.M. van Vloten, <span id="let019:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="17" data-type="lit">
                             <span id="let019:0.2.0.2.2.0.0.0" class="t-hi s-1-inline" data-el="hi">Aesthetica of schoonheidskunde, in losse hoofdtrekken, naar uit- en in-heemsche bronnen voor Nederlanders geschetst</span>
                         </span>. Deventer 1865; or the second edition of the same: <span id="let019:0.2.0.2.2.0.1" class="t-rs s-2-entita" data-el="rs" data-key="18" data-type="lit">
                             <span id="let019:0.2.0.2.2.0.1.0" class="t-hi s-1-inline" data-el="hi">Aesthetika of leer van den kunstsmaak, naar uit- en inheemsche bronnen voor Nederlanders bewerkt</span>
-                        </span>. Second, greatly expanded and improved edition. 2 vols. Deventer 1871. This tome, a general theoretical treatment of the principles of art, is written in a somewhat academic style.</div>
+                        </span>. Second, greatly expanded and improved edition. 2 vols. Deventer 1871. This tome, a general theoretical treatment of the principles of art, is written in a somewhat academic style.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
-<div id="let019:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">Theo visited <span id="let019:0.2.0.2.3.0.0" class="t-rs s-2-entita" data-el="rs" data-key="422" data-type="pers">Uncle Cor</span> in Amsterdam on 8 February 1874 (FR b2687).</div>
+<p id="let019:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">Theo visited <span id="let019:0.2.0.2.3.0.0" class="t-rs s-2-entita" data-el="rs" data-key="422" data-type="pers">Uncle Cor</span> in Amsterdam on 8 February 1874 (FR b2687).</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
-<div id="let019:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">Vincent and Theo’s cousin <span id="let019:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="322" data-type="pers">Anna Cornelia Carbentus</span>, who lived in The Hague.</div>
+<p id="let019:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">Vincent and Theo’s cousin <span id="let019:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="322" data-type="pers">Anna Cornelia Carbentus</span>, who lived in The Hague.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-6" class="t-note s-1-note" data-el="note" data-n="6" data-target="#note-t-6">
-<div id="let019:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">The precise meaning of ‘de peen hanniken’ or ‘peenhanniken’ is unclear. Neither the <span id="let019:0.2.0.2.5.0.0" class="t-hi s-1-inline" data-el="hi">WNT</span> nor dialect dictionaries contain this expression. In North Brabant dialect the word ‘pee’ is still used as a synonym of ‘biet’ (beet) or ‘wortel’ (carrot). The plural ‘peeën’ is pronounced the same as ‘peen’. In all likelihood ‘hanniken’ is a dialect variant of ‘hakken’ (to hack or to hoe). Sugar beets or mangel-wurzel (mangold) plants grow so close together that they have to be thinned out to prevent crowding. The literal meaning of ‘de peen hakken’ or ‘hanniken’ could therefore be ‘to thin out a row of beets’. In the figurative sense it could mean ‘to make room, or to give oneself the space, to blossom better’, but because the context is unclear, the meaning of this expression remains a mystery.</div>
+<p id="let019:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">The precise meaning of ‘de peen hanniken’ or ‘peenhanniken’ is unclear. Neither the <span id="let019:0.2.0.2.5.0.0" class="t-hi s-1-inline" data-el="hi">WNT</span> nor dialect dictionaries contain this expression. In North Brabant dialect the word ‘pee’ is still used as a synonym of ‘biet’ (beet) or ‘wortel’ (carrot). The plural ‘peeën’ is pronounced the same as ‘peen’. In all likelihood ‘hanniken’ is a dialect variant of ‘hakken’ (to hack or to hoe). Sugar beets or mangel-wurzel (mangold) plants grow so close together that they have to be thinned out to prevent crowding. The literal meaning of ‘de peen hakken’ or ‘hanniken’ could therefore be ‘to thin out a row of beets’. In the figurative sense it could mean ‘to make room, or to give oneself the space, to blossom better’, but because the context is unclear, the meaning of this expression remains a mystery.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-7" class="t-note s-1-note" data-el="note" data-n="7" data-target="#note-t-7">
-<div id="let019:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">In earlier editions of the letters edited by Jo van Gogh-Bonger and the engineer V.W. van Gogh, these initials were replaced by the name ‘<span id="let019:0.2.0.2.6.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1623" data-type="pers">Bertha Hanebeek</span>’. A copy made by Jo van Gogh-Bonger follows the original ‘B.H.’, with the note ‘a young, pretty cousin who died at an early age’ (FR b4535). We could find no trace of a cousin by that name. It is more likely that Van Gogh was referring to <span id="let019:0.2.0.2.6.0.1" class="t-rs s-2-entita" data-el="rs" data-key="98" data-type="pers">Gijsbertha (Bertha) Hamming</span>, an old friend of the Van Gogh children from Zundert, who occurs a number of times in the family correspondence. In the eyes of <span id="let019:0.2.0.2.6.0.2" class="t-rs s-2-entita" data-el="rs" data-key="526" data-type="pers">Mr van Gogh</span>, her behaviour was certainly not beyond reproach, and he advised his children not to have too much to do with her. See, for example, FR b2639 and Kools 1990, pp. 39-41.</div>
+<p id="let019:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">In earlier editions of the letters edited by Jo van Gogh-Bonger and the engineer V.W. van Gogh, these initials were replaced by the name ‘<span id="let019:0.2.0.2.6.0.0" class="t-rs s-2-entita" data-el="rs" data-key="1623" data-type="pers">Bertha Hanebeek</span>’. A copy made by Jo van Gogh-Bonger follows the original ‘B.H.’, with the note ‘a young, pretty cousin who died at an early age’ (FR b4535). We could find no trace of a cousin by that name. It is more likely that Van Gogh was referring to <span id="let019:0.2.0.2.6.0.1" class="t-rs s-2-entita" data-el="rs" data-key="98" data-type="pers">Gijsbertha (Bertha) Hamming</span>, an old friend of the Van Gogh children from Zundert, who occurs a number of times in the family correspondence. In the eyes of <span id="let019:0.2.0.2.6.0.2" class="t-rs s-2-entita" data-el="rs" data-key="526" data-type="pers">Mr van Gogh</span>, her behaviour was certainly not beyond reproach, and he advised his children not to have too much to do with her. See, for example, FR b2639 and Kools 1990, pp. 39-41.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-8" class="t-note s-1-note" data-el="note" data-n="8" data-target="#note-t-8">
-<div id="let019:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">The Hague industrialist <span id="let019:0.2.0.2.7.0.0" class="t-rs s-2-entita" data-el="rs" data-key="458" data-type="pers">Edward Levien Jacobson</span>, art collector and Maecenas, maintained contacts with Goupil’s Hague branch. Some of his extensive collection was sold at auction in 1875 and 1894. See Stolwijk 1998, p. 343 and Henri Reuchlin, ‘Edward Levien Jacobson (1802-1875), profiel van een verzamelaar en industrieel pionier rond het midden van de negentiende eeuw’, <span id="let019:0.2.0.2.7.0.1" class="t-hi s-1-inline" data-el="hi">Rotterdams jaarboekje</span> (1976), pp. 168-181.</div>
+<p id="let019:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">The Hague industrialist <span id="let019:0.2.0.2.7.0.0" class="t-rs s-2-entita" data-el="rs" data-key="458" data-type="pers">Edward Levien Jacobson</span>, art collector and Maecenas, maintained contacts with Goupil’s Hague branch. Some of his extensive collection was sold at auction in 1875 and 1894. See Stolwijk 1998, p. 343 and Henri Reuchlin, ‘Edward Levien Jacobson (1802-1875), profiel van een verzamelaar en industrieel pionier rond het midden van de negentiende eeuw’, <span id="let019:0.2.0.2.7.0.1" class="t-hi s-1-inline" data-el="hi">Rotterdams jaarboekje</span> (1976), pp. 168-181.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-9" class="t-note s-1-note" data-el="note" data-n="9" data-target="#note-t-9">
-<div id="let019:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">On 24 February 1874 <span id="let019:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="412" data-type="pers">Anna</span>, in Leeuwarden, wrote a letter to Theo in which she told of a letter she had received from Vincent, from which she had inferred that he seemed ‘always in good-spirits’, writing further in English: ‘I got too a very kind letter from <span id="let019:0.2.0.2.8.0.1" class="t-rs s-2-entita" data-el="rs" data-key="498" data-type="pers">Eugénie</span>, she seems to be a natural and admiable <span id="let019:0.2.0.2.8.0.2" class="t-hi s-1-inline" data-el="hi">[sic]</span> girl. Vincent wrote me that she was engaged; with a good natured youth, who would know to appreciate her. I am very curious to know more about him and <span id="let019:0.2.0.2.8.0.3" class="t-rs s-2-entita" data-el="rs" data-key="445" data-type="pers">Annet</span>, we two are just old people who try to know all about persons who are in love. But I am very glad for Vincent that he has found such a kind family to live, you know now yourself, how agreable <span id="let019:0.2.0.2.8.0.4" class="t-hi s-1-inline" data-el="hi">[sic]</span> it is. He seems to be always in good-spirits. In the last letter he writes me: “I fear that after all the sunshine I enjoy from there could be very soon rain – but I will only enjoy as long as possible the sunshine, and have my umbrella in the neighbourhood for the rain that could come”’ (FR b2689).</div>
+<p id="let019:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">On 24 February 1874 <span id="let019:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="412" data-type="pers">Anna</span>, in Leeuwarden, wrote a letter to Theo in which she told of a letter she had received from Vincent, from which she had inferred that he seemed ‘always in good-spirits’, writing further in English: ‘I got too a very kind letter from <span id="let019:0.2.0.2.8.0.1" class="t-rs s-2-entita" data-el="rs" data-key="498" data-type="pers">Eugénie</span>, she seems to be a natural and admiable <span id="let019:0.2.0.2.8.0.2" class="t-hi s-1-inline" data-el="hi">[sic]</span> girl. Vincent wrote me that she was engaged; with a good natured youth, who would know to appreciate her. I am very curious to know more about him and <span id="let019:0.2.0.2.8.0.3" class="t-rs s-2-entita" data-el="rs" data-key="445" data-type="pers">Annet</span>, we two are just old people who try to know all about persons who are in love. But I am very glad for Vincent that he has found such a kind family to live, you know now yourself, how agreable <span id="let019:0.2.0.2.8.0.4" class="t-hi s-1-inline" data-el="hi">[sic]</span> it is. He seems to be always in good-spirits. In the last letter he writes me: “I fear that after all the sunshine I enjoy from there could be very soon rain – but I will only enjoy as long as possible the sunshine, and have my umbrella in the neighbourhood for the rain that could come”’ (FR b2689).</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-10" class="t-note s-1-note" data-el="note" data-n="10" data-target="#note-t-10">
-<div id="let019:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">
-                        <span id="let019:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="802" data-type="pers">Willem Marinus Valkis</span>.</div>
+<p id="let019:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let019:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="802" data-type="pers">Willem Marinus Valkis</span>.</p>
                 </div>
     <span class="t-note-mark" aria-hidden="true">°</span><div id="n-11" class="t-note s-1-note" data-el="note" data-n="11" data-target="#note-t-11">
-<div id="let019:0.2.0.2.10.0" class="t-ab s-1-struttura" data-el="ab">Employees of Goupil in The Hague. The first could be the one to whom <span id="let019:0.2.0.2.10.0.0" class="t-rs s-2-entita" data-el="rs" data-key="524 526" data-type="pers">Mr and Mrs van Gogh</span> refer in their letters as ‘Jan the assistant’; cf. ‘How adversely the party last Sunday of Jan the assistant was affected by the weather ... I hope that <span id="let019:0.2.0.2.10.0.1" class="t-rs s-2-entita" data-el="rs" data-key="787" data-type="pers">Mr Tersteeg</span> will have been satisfied with it. It is certainly very nice indeed to give such evidence that one holds the assistants in esteem’ (FR b2551, Mr van Gogh in a letter to Theo, 16 August 1877).</div>
-<div id="let019:0.2.0.2.10.1" class="t-ab s-1-struttura" data-el="ab">The second, Piet, could be the one who was a foreman and frame-maker at Goupil’s during Van Gogh’s second stay in The Hague at the beginning of the 1880s, namely <span id="let019:0.2.0.2.10.1.0" class="t-rs s-2-entita" data-el="rs" data-key="85" data-type="pers">P.W. Gisolf</span>. Cf. Visser 1973, p. 1.</div>
+<p id="let019:0.2.0.2.10.0" class="t-ab s-1-struttura" data-el="ab">Employees of Goupil in The Hague. The first could be the one to whom <span id="let019:0.2.0.2.10.0.0" class="t-rs s-2-entita" data-el="rs" data-key="524 526" data-type="pers">Mr and Mrs van Gogh</span> refer in their letters as ‘Jan the assistant’; cf. ‘How adversely the party last Sunday of Jan the assistant was affected by the weather ... I hope that <span id="let019:0.2.0.2.10.0.1" class="t-rs s-2-entita" data-el="rs" data-key="787" data-type="pers">Mr Tersteeg</span> will have been satisfied with it. It is certainly very nice indeed to give such evidence that one holds the assistants in esteem’ (FR b2551, Mr van Gogh in a letter to Theo, 16 August 1877).</p>
+<p id="let019:0.2.0.2.10.1" class="t-ab s-1-struttura" data-el="ab">The second, Piet, could be the one who was a foreman and frame-maker at Goupil’s during Van Gogh’s second stay in The Hague at the beginning of the 1880s, namely <span id="let019:0.2.0.2.10.1.0" class="t-rs s-2-entita" data-el="rs" data-key="85" data-type="pers">P.W. Gisolf</span>. Cf. Visser 1973, p. 1.</p>
                 </div>
             </div>
         </div>
@@ -430,6 +466,94 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
+  if(document.querySelector('.app-band'))body.classList.add('has-band');
+  if(window.TORCHIO_ALIGN)body.classList.add('has-align');
+  /* words covered by an apparatus entry become triggers: the reader clicks
+     the word and sees its variants (positions from the declared @from/@to) */
+  function wireWords(){
+    document.querySelectorAll('.app-band').forEach(function(band){
+      try{
+      var l=band.previousElementSibling;
+      if(!l||l.getAttribute('data-el')!=='l')return;
+      if(l.querySelector('.wv'))return;
+      var entries=[].slice.call(band.querySelectorAll('.band-e[data-from]'));
+      if(!entries.length)return;
+      var map={};
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        for(var w=Math.ceil(f/2); w<=Math.floor(t/2); w++){ if(map[w]==null)map[w]=e; }
+      });
+      var walker=document.createTreeWalker(l,NodeFilter.SHOW_TEXT,null);
+      var nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+      /* pass 1: tokens (standalone punctuation is not a token) */
+      var toks=[]; var idx=0, carry=false;
+      nodes.forEach(function(tn){
+        var v=tn.nodeValue;
+        if(!/\S/.test(v)){ if(/\s/.test(v))carry=false; return; }
+        var parts=v.split(/(\s+)/);
+        var continuing=carry&&!/^\s/.test(v);
+        parts.forEach(function(pt){
+          if(!pt)return;
+          if(/^\s+$/.test(pt)){continuing=false;toks.push({sp:true,node:tn,text:pt,i:idx});return;}
+          var punct=!/[\p{L}\p{N}]/u.test(pt);
+          if(continuing){continuing=false;toks.push({node:tn,text:pt,i:idx,cont:true});return;}
+          if(punct){toks.push({node:tn,text:pt,i:idx,punct:true});return;}
+          idx++;
+          toks.push({node:tn,text:pt,i:idx});
+        });
+        carry=!/\s$/.test(v);
+      });
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
+      var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        var a=Math.ceil(f/2), b=Math.floor(t/2);
+        var chk=e.getAttribute('data-check')||'';
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
+      });
+      /* pass 3: wrap, spaces inside one site keep the line running */
+      var byNode=new Map();
+      toks.forEach(function(tk){ if(!byNode.has(tk.node))byNode.set(tk.node,[]); byNode.get(tk.node).push(tk); });
+      byNode.forEach(function(list,tn){
+        var frag=document.createDocumentFragment(); var wrapped=false;
+        list.forEach(function(tk){
+          var e=null;
+          if(tk.sp){ if(claim[tk.i]&&claim[tk.i]===claim[tk.i+1])e=claim[tk.i]; }
+          else if(!tk.punct){ e=claim[tk.i]; }
+          if(!e){frag.appendChild(document.createTextNode(tk.text));return;}
+          var sp=document.createElement('span');
+          sp.className='wv';sp.textContent=tk.text;sp._be=e;
+          frag.appendChild(sp);wrapped=true;
+        });
+        tn.parentNode.replaceChild(frag,tn);
+      });
+      }catch(e){/* one bad band must not silence the rest */}
+    });
+  }
+  if(document.readyState==='complete')wireWords();
+  else window.addEventListener('load',wireWords);
   var pop=null, lastTrigger=null;
   function closePop(){
     clearZone();
@@ -481,7 +605,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
     makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
-  document.querySelectorAll('[data-ref]').forEach(function(el){
+  document.querySelectorAll('[data-ref],[data-key]').forEach(function(el){
+    if(el.classList.contains('ent-ext'))return; /* external links stay links */
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
@@ -493,16 +618,57 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     }
   });
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  var ALIGNMAP=null;
+  function withAlign(cb){
+    if(ALIGNMAP){cb(ALIGNMAP);return;}
+    try{
+      fetch('alignment.json').then(function(r){return r.ok?r.json():null;})
+        .then(function(j){if(j){ALIGNMAP=j;cb(j);}})['catch'](function(){});
+    }catch(e){}
+  }
   function sigla(w){return (w||'').split(/\s+/).filter(Boolean).map(function(x){return x.replace(/^#/,'');}).join(' ');}
 
   document.addEventListener('click',function(ev){
+    var bw=ev.target.closest&&ev.target.closest('.bw');
+    if(bw){
+      var bandk=bw.closest('[data-ent]');
+      var sig=bw.getAttribute('data-sig');
+      if(bandk&&sig){
+        withAlign(function(map){
+          var row=map[bandk.getAttribute('data-ent')]||{};
+          var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
+          if(!tgt)return;
+          var file=tgt.split('#')[0], id=tgt.split('#')[1];
+          /* the witness's passage in a small window: the reader stays put */
+          try{
+            fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+              if(!html){location.href=tgt;return;}
+              var doc=new DOMParser().parseFromString(html,'text/html');
+              var el=doc.getElementById(id);
+              var txt='';
+              if(el){
+                var cl=el.cloneNode(true);
+                cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
+                txt=cl.textContent.replace(/s+/g,' ').trim();
+              }
+              openPop('<span class="k">'+esc(sig)+'</span>'
+                +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
+                +'<div class="meta"><a href="'+tgt+'">open the page</a></div>',bw);
+            })['catch'](function(){location.href=tgt;});
+          }catch(e){location.href=tgt;}
+        });
+        ev.stopPropagation();return;
+      }
+    }
     if(pop&&pop.contains(ev.target))return;
     var app=ev.target.closest&&ev.target.closest('.t-app');
     if(app&&!body.classList.contains('app-off')){
       var rows='';
       app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
+        var rr=r.cloneNode(true);
+        rr.querySelectorAll('[data-el="wit"],[data-el="witDetail"]').forEach(function(x){x.remove();});
         rows+='<div class="rdgline"><span class="sig">'+esc(sigla(r.dataset.wit)||(r.dataset.el==='lem'?'lem.':'—'))+'</span>'
-          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
+          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
       var extra='';
@@ -524,13 +690,70 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       });
       if(rows){openPop(rows,ch);ev.stopPropagation();return;}
     }
-    var ent=ev.target.closest&&ev.target.closest('[data-ref]');
-    if(ent&&!body.classList.contains('ent-off')&&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
-      var ref=ent.dataset.ref;
-      var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
+    var ent=ev.target.closest&&ev.target.closest('[data-ref],[data-key]');
+    if(ent&&!ent.classList.contains('ent-ext')&&!body.classList.contains('ent-off')
+       &&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
+      /* the normalized name leads the card: @key IS the canonical form */
+      var ref=ent.dataset.ref||'';var key=ent.dataset.key||'';
+      var sel=ref?('[data-ref="'+CSS.escape(ref)+'"]'):('[data-key="'+CSS.escape(key)+'"]');
+      var all=document.querySelectorAll(sel);
+      var head=key||ent.textContent.trim();
+      var meta=[];
+      if(key&&ent.textContent.trim()!==key)meta.push(esc(ent.textContent.trim()));
+      if(ref)meta.push(esc(ref));
+      meta.push(all.length+' '+(all.length===1?'occurrence':'occurrences'));
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
-        +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
+        +'<div>'+esc(head)+'</div>'
+        +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    var wv=ev.target.closest&&ev.target.closest('.wv');
+    if(wv&&wv._be&&!body.classList.contains('app-off')){
+      var wband=wv._be.closest('.app-band');
+      openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
+      ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
+    }
+    var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')
+       &&!(lw.nextElementSibling&&lw.nextElementSibling.classList&&lw.nextElementSibling.classList.contains('app-band'))){
+      var CFG=window.TORCHIO_ALIGN;
+      var key=String(lw.getAttribute('data-n'));
+      try{ if(CFG.strip)key=key.replace(new RegExp(CFG.strip),''); if(CFG.suffix)key=key.replace(new RegExp(CFG.suffix),''); }catch(e){}
+      withAlign(function(map){
+        var row=map[key]; if(!row)return;
+        var tgt=null;
+        (CFG.apps||[]).some(function(a){ if(row[a]){tgt=row[a];return true;} return false; });
+        if(!tgt)return;
+        var file=tgt.split('#')[0], id=tgt.split('#')[1];
+        fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+          if(!html)return;
+          var doc=new DOMParser().parseFromString(html,'text/html');
+          var el=doc.getElementById(id);
+          var sec=el&&el.closest?el.closest('.vmap')||el:el;
+          if(!sec)return;
+          openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
+            +'<div class="popband" data-ent="'+esc(key)+'">'+sec.innerHTML+'</div>'
+            +'<div class="meta"><a href="'+tgt+'">open the page</a></div>',lw);
+        })['catch'](function(){});
+      });
+      ev.stopPropagation();return;
+    }
+    var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lv&&lv.nextElementSibling&&lv.nextElementSibling.classList
+       &&lv.nextElementSibling.classList.contains('app-band')){
+      var bd=lv.nextElementSibling;
+      openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+(bd.getAttribute('data-ent')||'')+'">'+bd.innerHTML+'</div>',lv);
       ev.stopPropagation();return;
     }
     var np=ev.target.closest&&ev.target.closest('[data-notepop]');

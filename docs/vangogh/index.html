@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -107,7 +106,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -121,6 +120,18 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
 .torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* a verse followed by its apparatus band opens the scheme on click */
+body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
+.torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
+.torchio-pop .popband .band-e{display:block;margin:.35em 0}
+.torchio-pop .popband .band-lem{font-style:italic}
+.torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
+.torchio-pop .popband .bw:hover{text-decoration:underline}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
@@ -236,10 +247,35 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -256,60 +292,9 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>Vincent van Gogh, the letters</h1><p class="sub">a sample of 30 letters · Van Gogh Museum and Huygens ING · CC BY-NC-SA 4.0</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html" class="on">Edition</a><a href="text.html">Text</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html" class="on">Archive</a><a href="text.html">Texts</a><a href="data.html">Data</a></nav>
 </header>
-<main id="main" class="torchio about"><dl><dt>Responsibility</dt><dd>Leo Jansen · Hans Luijten · Nienke Bakker</dd><dt>Licence</dt><dd><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a></dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl><h2 class="sec">The full header (teiHeader)</h2><p class="occ">Everything the file declares, rendered as it is.</p><div class="header-full"><div id="let001:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
-        <div id="let001:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
-<span id="let001:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
-<span id="let001:0.0.0.0.0" class="t-title s-1-inline" data-el="title">To Theo van Gogh. The Hague, Sunday, 29 September 1872.</span>
-<span id="let001:0.0.0.0.1" class="t-editor s-1-bibliografia" data-el="editor">Leo Jansen</span>
-<span id="let001:0.0.0.0.2" class="t-editor s-1-bibliografia" data-el="editor">Hans Luijten</span>
-<span id="let001:0.0.0.0.3" class="t-editor s-1-bibliografia" data-el="editor">Nienke Bakker</span>
-            </span>
-<span id="let001:0.0.0.1" class="t-publicationStmt s-7-header" data-el="publicationStmt">
-<span id="let001:0.0.0.1.0" class="t-publisher s-1-bibliografia" data-el="publisher">
-                    <span id="let001:0.0.0.1.0.0" class="t-name s-2-entita" data-el="name">Huygens Instituut voor Nederlandse Geschiedenis (KNAW)</span>
-                    <span id="let001:0.0.0.1.0.1" class="t-email s-2-entita" data-el="email">info@huygens.knaw.nl</span>
-                </span>
-<span id="let001:0.0.0.1.1" class="t-publisher s-1-bibliografia" data-el="publisher">Van Gogh Museum</span>
-<span id="let001:0.0.0.1.2" class="t-pubPlace s-1-bibliografia" data-el="pubPlace">Amsterdam</span>
-<span id="let001:0.0.0.1.3" class="t-date s-2-date" data-el="date" data-type="first" data-when="2009">2009</span>
-<span id="let001:0.0.0.1.4" class="t-availability s-1-bibliografia" data-el="availability">
-<span id="let001:0.0.0.1.4.0" class="t-licence s-7-licenza" data-el="licence" data-target="http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
-<div id="let001:0.0.0.1.4.0.0" class="t-p s-1-struttura" data-el="p">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) </div>
-                    </span>
-                </span>
-<span id="let001:0.0.0.1.5" class="t-ptr s-2-corrispondenza" data-el="ptr" data-target="http://vangoghletters.org/orig/let001"></span>
-            </span>
-            <div id="let001:0.0.0.2" class="t-sourceDesc s-7-header" data-el="sourceDesc">
-                <span id="let001:0.0.0.2.0" class="t-letDesc s-base" data-el="letDesc">
-                    <span id="let001:0.0.0.2.0.0" class="t-letIdentifier s-base" data-el="letIdentifier">
-<span id="let001:0.0.0.2.0.0.0" class="t-idno s-2-entita" data-el="idno" data-type="jlb">001</span>
-<span id="let001:0.0.0.2.0.0.1" class="t-idno s-2-entita" data-el="idno" data-type="collectedletters">1</span>
-<span id="let001:0.0.0.2.0.0.2" class="t-idno s-2-entita" data-el="idno" data-type="brieven1990">001</span>
-                    </span>
-                    <span id="let001:0.0.0.2.0.1" class="t-letHeading s-base" data-el="letHeading">
-                        <span id="let001:0.0.0.2.0.1.0" class="t-author s-1-bibliografia" data-el="author">Vincent van Gogh</span>
-                        <span id="let001:0.0.0.2.0.1.1" class="t-addressee s-base" data-el="addressee">Theo van Gogh</span>
-                        <span id="let001:0.0.0.2.0.1.2" class="t-placeLet s-base" data-el="placeLet">The Hague</span>
-                        <span id="let001:0.0.0.2.0.1.3" class="t-dateLet s-base" data-el="dateLet">Sunday, 29 September 1872</span>
-                    </span>
-                    <span id="let001:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
-<div id="let001:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Theo van Gogh. The Hague, Sunday, 29 September 1872.</div>
-                    </span>
-<span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
-<div id="let001:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
-                    </div>
-<span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note" data-type="location">
-<div id="let001:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. no. b1 V/1962</div>
-                    </div>
-<span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note" data-type="date">
-    <div id="let001:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘<span id="let001:0.0.0.2.0.5.0.0" class="t-hi s-1-inline" data-el="hi">[</span>Den Haag, 29 september 187<span id="let001:0.0.0.2.0.5.0.1" class="t-hi s-1-inline" data-el="hi">]</span>2.’ (see <span id="let001:0.0.0.2.0.5.0.2" class="t-hi s-1-inline" data-el="hi">Textual Notes</span>). The date is  based on the harness racing mentioned in the letter <span id="let001:0.0.0.2.0.5.0.3" class="t-ref s-2-corrispondenza" data-el="ref" data-target="#l-18">(l. 18)</span>, which took place on 28 September 1872.</div>
-                    </div>
-                </span>
-            </div>
-        </div>
-    </div></div></main>
+<main id="main" class="torchio about"><dl><dt>Register</dt><dd><a href="text.html">30 documents</a></dd><dt>tokens</dt><dd>23512</dd><dt>Licence</dt><dd><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a></dd><dt>Generator</dt><dd class="occ">Torchio v0 · TEI P5 Version 4.12</dd></dl></main>
 <footer class="torchio">Published with <span class="press">Torchio</span> v0</footer>
 
 </body>

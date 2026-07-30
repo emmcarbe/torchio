@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -107,7 +106,7 @@ footer.torchio .press{color:var(--accent)}
 .t-lem{cursor:pointer}
 .t-choice{cursor:pointer}
 body.app-off .t-lem{border-bottom:none;cursor:inherit}
-[data-ref]{cursor:pointer}
+[data-ref],[data-key]{cursor:pointer}
 
 .torchio-pop{position:absolute;z-index:60;max-width:22rem;background:var(--paper);
   border:1px solid var(--hair);border-radius:2px;padding:12px 14px;
@@ -121,6 +120,18 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 .torchio-pop .is-lem{border-bottom:1px solid var(--hair)}
 .torchio-pop .meta{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-top:8px}
 .torchio-pop .notebody{font-size:14px;line-height:1.5}
+
+/* a verse followed by its apparatus band opens the scheme on click */
+body.has-band [data-el="l"]{cursor:pointer}
+body.has-align [data-el="l"]{cursor:pointer}
+.wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
+body.app-off .wv{border-bottom:none;cursor:inherit}
+body.app-off.has-band [data-el="l"]{cursor:inherit}
+.torchio-pop .popband{font-size:14px;max-height:18rem;overflow-y:auto}
+.torchio-pop .popband .band-e{display:block;margin:.35em 0}
+.torchio-pop .popband .band-lem{font-style:italic}
+.torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
+.torchio-pop .popband .bw:hover{text-decoration:underline}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
@@ -236,10 +247,35 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .reg-table th[aria-sort="ascending"]::after{content:" \2191"}
 .reg-table th[aria-sort="descending"]::after{content:" \2193"}
 .reg-count{font-family:var(--mono);font-size:10.5px;color:var(--soft);margin-left:.8em}
+.vmap{margin:1.4em 0;padding-top:.4em;border-top:1px solid var(--hair)}
+.vmap-n{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);margin:0 0 .3em}
+.vmap-app{margin:.5em 0 .8em}
+.vmap-lem{font-style:italic}
+.vmap-rdg{font-size:.88em;margin:.15em 0 .15em 1.4em;color:var(--ink)}
+.vmap-wit{color:var(--soft)}
+.vmap .bw{color:var(--accent);cursor:pointer}
+.vmap .bw:hover{text-decoration:underline}
+.vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
+/* the band is data: the popups read it, the page does not show it */
+.app-band{display:none}
+.app-band .band-lem{font-style:italic;color:var(--ink)}
+.app-band .bw{color:var(--accent);cursor:pointer}
+.app-band .bw:hover{text-decoration:underline}
+.app-band .band-sep{color:var(--faint)}
+:target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 ol.toc li{margin:.3em 0;break-inside:avoid}
+.idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.idx-toc a{color:var(--accent)}
+.standoff-notes .t-note-mark{display:none}
 .lem-note{font-family:var(--mono);font-size:11px;color:var(--soft);margin:.8em 0}
 details.lemma{border-bottom:1px solid var(--hair);padding:.45em 0}
 details.lemma summary{cursor:pointer;list-style-position:outside}
@@ -256,7 +292,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</h1><p class="sub">Vincent van Gogh, the letters</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edition</a><a href="text.html" class="on">Text</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Archive</a><a href="text.html" class="on">Texts</a><a href="data.html">Data</a></nav>
 </header>
 <div class="torchio-bar"><div class="inner"><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><nav class="prevnext" aria-label="Register"><a href="doc-let009.html">‹ previous</a><a href="text.html">Register</a><a href="doc-let011.html">next ›</a></nav><div id="let010:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
         <div id="let010:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
@@ -276,7 +312,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <span id="let010:0.0.0.1.3" class="t-date s-2-date" data-el="date" data-type="first" data-when="2009">2009</span>
 <span id="let010:0.0.0.1.4" class="t-availability s-1-bibliografia" data-el="availability">
 <span id="let010:0.0.0.1.4.0" class="t-licence s-7-licenza" data-el="licence" data-target="http://creativecommons.org/licenses/by-nc-sa/4.0/ https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
-<div id="let010:0.0.0.1.4.0.0" class="t-p s-1-struttura" data-el="p">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) </div>
+<p id="let010:0.0.0.1.4.0.0" class="t-p s-1-struttura" data-el="p">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) </p>
                     </span>
                 </span>
 <span id="let010:0.0.0.1.5" class="t-ptr s-2-corrispondenza" data-el="ptr" data-target="http://vangoghletters.org/orig/let010"></span>
@@ -295,19 +331,19 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
                         <span id="let010:0.0.0.2.0.1.3" class="t-dateLet s-base" data-el="dateLet">Wednesday, 2 July 1873</span>
                     </span>
                     <span id="let010:0.0.0.2.0.2" class="t-letContents s-base" data-el="letContents">
-<div id="let010:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</div>
+<p id="let010:0.0.0.2.0.2.0" class="t-p s-1-struttura" data-el="p">To Willem and Caroline van Stockum-Haanebeek. London, Wednesday, 2 July 1873.</p>
                     </span>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="sourceStatus" class="t-note s-1-note" data-el="note" data-type="sourceStatus">
-<div id="let010:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</div>
+<p id="let010:0.0.0.2.0.3.0" class="t-p s-1-struttura" data-el="p">Original manuscript</p>
                     </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="location" class="t-note s-1-note" data-el="note" data-type="location">
-    <div id="let010:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. nos. b27a, b28, b27b V/1962</div>
+    <p id="let010:0.0.0.2.0.4.0" class="t-p s-1-struttura" data-el="p">Amsterdam, Van Gogh Museum, inv. nos. b27a, b28, b27b V/1962</p>
                     </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="date" class="t-note s-1-note" data-el="note" data-type="date">
-<div id="let010:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 2 Juli 1873’.</div>
+<p id="let010:0.0.0.2.0.5.0" class="t-p s-1-struttura" data-el="p">Letter headed: ‘Londen 2 Juli 1873’.</p>
                     </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="additionalDetail" class="t-note s-1-note" data-el="note" data-type="additionalDetail">
-<div id="let010:0.0.0.2.0.6.0" class="t-p s-1-struttura" data-el="p">The envelope belonging with this letter has been preserved. The stamp has been torn off. The postmark on the front reads ‘London. W.C. 6 JY 3 73’, and on the back ‘’S GRAVENHAGE 4 JUL 73 12M-4A’. It is addressed to ‘W.J. van Stockum Esq/ Varkenmarkt/ <span id="let010:0.0.0.2.0.6.0.0" class="t-hi s-1-inline" data-el="hi">Holland The Hague</span>’.</div>
+<p id="let010:0.0.0.2.0.6.0" class="t-p s-1-struttura" data-el="p">The envelope belonging with this letter has been preserved. The stamp has been torn off. The postmark on the front reads ‘London. W.C. 6 JY 3 73’, and on the back ‘’S GRAVENHAGE 4 JUL 73 12M-4A’. It is addressed to ‘W.J. van Stockum Esq/ Varkenmarkt/ <span id="let010:0.0.0.2.0.6.0.0" class="t-hi s-1-inline" data-el="hi">Holland The Hague</span>’.</p>
                     </div>
                 </span>
             </div>
@@ -389,231 +425,231 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div id="let010:0.2.0.0" class="t-div s-1-struttura" data-el="div" data-type="original">
 <span id="pb-orig-1r-1" class="t-pb" role="separator" title="page break">[1]</span>
                 <span id="l-1" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.2" class="t-ab s-1-struttura" data-el="ab">Londen 2 Juli 1873</div>
+<p id="let010:0.2.0.0.2" class="t-ab s-1-struttura" data-el="ab">Londen 2 Juli 1873</p>
 <span id="let010:0.2.0.0.3" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-2" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.5" class="t-ab s-1-struttura" data-el="ab">Waarde vrienden,<span id="note-o-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span>
-                </div>
+<p id="let010:0.2.0.0.5" class="t-ab s-1-struttura" data-el="ab">Waarde vrienden,<span id="note-o-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span>
+                </p>
                 <span id="l-3" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.7" class="t-ab s-1-struttura" data-el="ab">reeds eer<span id="let010:0.2.0.0.7.0" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
-                    <span id="l-4" class="t-lb"><br/></span>der heb ik U willen schrijven <span id="l-5" class="t-lb"><br/></span>&amp; nu wil ik het niet langer <span id="l-6" class="t-lb"><br/></span>uitstellen.–</div>
+<p id="let010:0.2.0.0.7" class="t-ab s-1-struttura" data-el="ab">reeds eer<span id="let010:0.2.0.0.7.0" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <span id="l-4" class="t-lb"><br/></span>der heb ik U willen schrijven <span id="l-5" class="t-lb"><br/></span>&amp; nu wil ik het niet langer <span id="l-6" class="t-lb"><br/></span>uitstellen.–</p>
                 <span id="l-7" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.9" class="t-ab s-1-struttura" data-el="ab">Hoe gaat het U, van ter zijde <span id="l-8" class="t-lb"><br/></span>hoorde ik dat jelui huis zoo <span id="l-9" class="t-lb"><br/></span>keurig netjes geworden is, <span id="l-10" class="t-lb"><br/></span>en het U goed gaat.<span id="note-o-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> Als <span id="l-11" class="t-lb"><br/></span>je eens een oogenblikje <span id="l-12" class="t-lb"><br/></span>disponibel hebt, recomman<span id="let010:0.2.0.0.9.6" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
-                    <span id="l-13" class="t-lb"><br/></span>deer ik mij zeer om iets <span id="l-14" class="t-lb"><br/></span>van je te hooren.–</div>
+<p id="let010:0.2.0.0.9" class="t-ab s-1-struttura" data-el="ab">Hoe gaat het U, van ter zijde <span id="l-8" class="t-lb"><br/></span>hoorde ik dat jelui huis zoo <span id="l-9" class="t-lb"><br/></span>keurig netjes geworden is, <span id="l-10" class="t-lb"><br/></span>en het U goed gaat.<span id="note-o-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> Als <span id="l-11" class="t-lb"><br/></span>je eens een oogenblikje <span id="l-12" class="t-lb"><br/></span>disponibel hebt, recomman<span id="let010:0.2.0.0.9.6" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <span id="l-13" class="t-lb"><br/></span>deer ik mij zeer om iets <span id="l-14" class="t-lb"><br/></span>van je te hooren.–</p>
                 <span id="l-15" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.11" class="t-ab s-1-struttura" data-el="ab">Het gaat mij hier goed; <span id="l-16" class="t-lb"><br/></span>ik zie veel nieuws en moois, <span id="l-17" class="t-lb"><br/></span>&amp; heb het goed getroffen <span id="l-18" class="t-lb"><br/></span>met mijn kosthuis, zoodat <span id="l-19" class="t-lb"><br/></span>ik mij betrekkelijk al goed 
+<p id="let010:0.2.0.0.11" class="t-ab s-1-struttura" data-el="ab">Het gaat mij hier goed; <span id="l-16" class="t-lb"><br/></span>ik zie veel nieuws en moois, <span id="l-17" class="t-lb"><br/></span>&amp; heb het goed getroffen <span id="l-18" class="t-lb"><br/></span>met mijn kosthuis, zoodat <span id="l-19" class="t-lb"><br/></span>ik mij betrekkelijk al goed 
 <span id="pb-orig-1v-2" class="t-pb" role="separator" title="page break">[2]</span>
                     <span id="l-20" class="t-lb"><br/></span>hier te huis gevoel.–<span id="note-o-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span>
-                </div>
+                </p>
                 <span id="l-21" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.13" class="t-ab s-1-struttura" data-el="ab">Toch vergeet ik den Haag <span id="l-22" class="t-lb"><br/></span>niet &amp; zou zeer, zeer, gaarne <span id="l-23" class="t-lb"><br/></span>nog eens een avondje in <span id="l-24" class="t-lb"><br/></span>de Poten<span id="note-o-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> doorbrengen &amp; <span id="l-25" class="t-lb"><br/></span>ook bij jelui een kijkje nemen.</div>
+<p id="let010:0.2.0.0.13" class="t-ab s-1-struttura" data-el="ab">Toch vergeet ik den Haag <span id="l-22" class="t-lb"><br/></span>niet &amp; zou zeer, zeer, gaarne <span id="l-23" class="t-lb"><br/></span>nog eens een avondje in <span id="l-24" class="t-lb"><br/></span>de Poten<span id="note-o-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> doorbrengen &amp; <span id="l-25" class="t-lb"><br/></span>ook bij jelui een kijkje nemen.</p>
                 <span id="l-26" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.15" class="t-ab s-1-struttura" data-el="ab">De zaak hier is alleen maga<span id="let010:0.2.0.0.15.0" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
-                    <span id="l-27" class="t-lb"><br/></span>zijn &amp; dus heel ander werk <span id="l-28" class="t-lb"><br/></span>dan te s’Hage; maar dat <span id="l-29" class="t-lb"><br/></span>zal wel wennen.–</div>
+<p id="let010:0.2.0.0.15" class="t-ab s-1-struttura" data-el="ab">De zaak hier is alleen maga<span id="let010:0.2.0.0.15.0" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <span id="l-27" class="t-lb"><br/></span>zijn &amp; dus heel ander werk <span id="l-28" class="t-lb"><br/></span>dan te s’Hage; maar dat <span id="l-29" class="t-lb"><br/></span>zal wel wennen.–</p>
                 <span id="l-30" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.17" class="t-ab s-1-struttura" data-el="ab">Reeds om 6 uur ben ik met <span id="l-31" class="t-lb"><br/></span>mijn werk klaar, zoodat <span id="l-32" class="t-lb"><br/></span>ik nog een mooien tijd <span id="l-33" class="t-lb"><br/></span>voor mij zelven heb, die <span id="l-34" class="t-lb"><br/></span>ik zeer aangenaam door<span id="let010:0.2.0.0.17.4" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
-                    <span id="l-35" class="t-lb"><br/></span>breng met wandelen, lezen <span id="l-36" class="t-lb"><br/></span>&amp; brieven schrijven.–</div>
+<p id="let010:0.2.0.0.17" class="t-ab s-1-struttura" data-el="ab">Reeds om 6 uur ben ik met <span id="l-31" class="t-lb"><br/></span>mijn werk klaar, zoodat <span id="l-32" class="t-lb"><br/></span>ik nog een mooien tijd <span id="l-33" class="t-lb"><br/></span>voor mij zelven heb, die <span id="l-34" class="t-lb"><br/></span>ik zeer aangenaam door<span id="let010:0.2.0.0.17.4" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <span id="l-35" class="t-lb"><br/></span>breng met wandelen, lezen <span id="l-36" class="t-lb"><br/></span>&amp; brieven schrijven.–</p>
                 <span id="l-37" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.19" class="t-ab s-1-struttura" data-el="ab">De buurt waar ik woon is <span id="l-38" class="t-lb"><br/></span>zeer mooi, &amp; zoo rustig &amp; ge<span id="let010:0.2.0.0.19.1" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
-                    <span id="l-39" class="t-lb"><br/></span>zellig dat men bijna vergeet <span id="l-40" class="t-lb"><br/></span>dat men in Londen is.–</div>
+<p id="let010:0.2.0.0.19" class="t-ab s-1-struttura" data-el="ab">De buurt waar ik woon is <span id="l-38" class="t-lb"><br/></span>zeer mooi, &amp; zoo rustig &amp; ge<span id="let010:0.2.0.0.19.1" class="t-c s-5-documentario" data-el="c" data-type="shy">-</span>
+                    <span id="l-39" class="t-lb"><br/></span>zellig dat men bijna vergeet <span id="l-40" class="t-lb"><br/></span>dat men in Londen is.–</p>
                 <span id="l-41" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.21" class="t-ab s-1-struttura" data-el="ab">Voor ieder huis is een kleinen <span id="l-42" class="t-lb"><br/></span>tuin, met bloemen of een paar <span id="l-43" class="t-lb"><br/></span>boomen &amp; vele huizen zijn met <span id="l-44" class="t-lb"><br/></span>veel smaak in eene soort van <span id="l-45" class="t-lb"><br/></span>gothieken stijl gebouwd.</div>
+<p id="let010:0.2.0.0.21" class="t-ab s-1-struttura" data-el="ab">Voor ieder huis is een kleinen <span id="l-42" class="t-lb"><br/></span>tuin, met bloemen of een paar <span id="l-43" class="t-lb"><br/></span>boomen &amp; vele huizen zijn met <span id="l-44" class="t-lb"><br/></span>veel smaak in eene soort van <span id="l-45" class="t-lb"><br/></span>gothieken stijl gebouwd.</p>
                 <span id="l-46" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.23" class="t-ab s-1-struttura" data-el="ab">Toch moet ik nog ruim een 
+<p id="let010:0.2.0.0.23" class="t-ab s-1-struttura" data-el="ab">Toch moet ik nog ruim een 
 <span id="pb-orig-1v-3" class="t-pb" role="separator" title="page break">[3]</span>
-                    <span id="l-47" class="t-lb"><br/></span>half uur wandelen om buiten <span id="l-48" class="t-lb"><br/></span>te zijn.–</div>
+                    <span id="l-47" class="t-lb"><br/></span>half uur wandelen om buiten <span id="l-48" class="t-lb"><br/></span>te zijn.–</p>
                 <span id="l-49" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.25" class="t-ab s-1-struttura" data-el="ab">Wij hebben eene piano in de <span id="l-50" class="t-lb"><br/></span>kamer &amp; er wonen hier nog <span id="l-51" class="t-lb"><br/></span>3 Duitschers in huis die veel <span id="l-52" class="t-lb"><br/></span>van muziek houden, wat <span id="l-53" class="t-lb"><br/></span>zeer aangenaam is.–</div>
+<p id="let010:0.2.0.0.25" class="t-ab s-1-struttura" data-el="ab">Wij hebben eene piano in de <span id="l-50" class="t-lb"><br/></span>kamer &amp; er wonen hier nog <span id="l-51" class="t-lb"><br/></span>3 Duitschers in huis die veel <span id="l-52" class="t-lb"><br/></span>van muziek houden, wat <span id="l-53" class="t-lb"><br/></span>zeer aangenaam is.–</p>
                 <span id="l-54" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.27" class="t-ab s-1-struttura" data-el="ab">Een der mooiste dingen die <span id="l-55" class="t-lb"><br/></span>ik hier gezien heb is Rotten Row <span id="l-56" class="t-lb"><br/></span>in Hyde Park. Dat is eene <span id="l-57" class="t-lb"><br/></span>lange &amp; breede laan, waar <span id="l-58" class="t-lb"><br/></span>honderden van heeren &amp; dames <span id="l-59" class="t-lb"><br/></span>paard rijden.–</div>
+<p id="let010:0.2.0.0.27" class="t-ab s-1-struttura" data-el="ab">Een der mooiste dingen die <span id="l-55" class="t-lb"><br/></span>ik hier gezien heb is Rotten Row <span id="l-56" class="t-lb"><br/></span>in Hyde Park. Dat is eene <span id="l-57" class="t-lb"><br/></span>lange &amp; breede laan, waar <span id="l-58" class="t-lb"><br/></span>honderden van heeren &amp; dames <span id="l-59" class="t-lb"><br/></span>paard rijden.–</p>
                 <span id="l-60" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.29" class="t-ab s-1-struttura" data-el="ab">In alle gedeelten der stad zijn <span id="l-61" class="t-lb"><br/></span>prachtige parken, met een <span id="l-62" class="t-lb"><br/></span>rijkdom van bloemen zooals <span id="l-63" class="t-lb"><br/></span>ik die nergens anders gezien <span id="l-64" class="t-lb"><br/></span>heb.–</div>
+<p id="let010:0.2.0.0.29" class="t-ab s-1-struttura" data-el="ab">In alle gedeelten der stad zijn <span id="l-61" class="t-lb"><br/></span>prachtige parken, met een <span id="l-62" class="t-lb"><br/></span>rijkdom van bloemen zooals <span id="l-63" class="t-lb"><br/></span>ik die nergens anders gezien <span id="l-64" class="t-lb"><br/></span>heb.–</p>
                 <span id="l-65" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.31" class="t-ab s-1-struttura" data-el="ab">Hierbij stuur ik je eene copie <span id="l-66" class="t-lb"><br/></span>van een vers van v. Beers,<span id="note-o-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> dat <span id="l-67" class="t-lb"><br/></span>je misschien niet kent.–</div>
+<p id="let010:0.2.0.0.31" class="t-ab s-1-struttura" data-el="ab">Hierbij stuur ik je eene copie <span id="l-66" class="t-lb"><br/></span>van een vers van v. Beers,<span id="note-o-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> dat <span id="l-67" class="t-lb"><br/></span>je misschien niet kent.–</p>
                 <span id="l-68" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.33" class="t-ab s-1-struttura" data-el="ab">Onze Elisabeth<span id="note-o-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> schreef het voor <span id="l-69" class="t-lb"><br/></span>mij over, den laatsten avond <span id="l-70" class="t-lb"><br/></span>dat ik te Helvoirt was,<span id="note-o-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> <span id="l-71" class="t-lb"><br/></span>omdat zij wist dat ik het <span id="l-72" class="t-lb"><br/></span>zoo mooi vond.</div>
+<p id="let010:0.2.0.0.33" class="t-ab s-1-struttura" data-el="ab">Onze Elisabeth<span id="note-o-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> schreef het voor <span id="l-69" class="t-lb"><br/></span>mij over, den laatsten avond <span id="l-70" class="t-lb"><br/></span>dat ik te Helvoirt was,<span id="note-o-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> <span id="l-71" class="t-lb"><br/></span>omdat zij wist dat ik het <span id="l-72" class="t-lb"><br/></span>zoo mooi vond.</p>
                 <span id="l-73" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.35" class="t-ab s-1-struttura" data-el="ab">Het is echt Braband,<span id="note-o-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> ik <span id="l-74" class="t-lb"><br/></span>dacht je het met pleizier <span id="l-75" class="t-lb"><br/></span>zult lezen &amp; heb het daarom <span id="l-76" class="t-lb"><br/></span>voor je overgeschreven.</div>
+<p id="let010:0.2.0.0.35" class="t-ab s-1-struttura" data-el="ab">Het is echt Braband,<span id="note-o-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> ik <span id="l-74" class="t-lb"><br/></span>dacht je het met pleizier <span id="l-75" class="t-lb"><br/></span>zult lezen &amp; heb het daarom <span id="l-76" class="t-lb"><br/></span>voor je overgeschreven.</p>
 <span id="pb-orig-1r-4" class="t-pb" role="separator" title="page break">[4]</span>
                 <span id="l-77" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.38" class="t-ab s-1-struttura" data-el="ab">Het was zeer attent van <span id="l-78" class="t-lb"><br/></span>je zuster Marie om mij eene <span id="l-79" class="t-lb"><br/></span>kennisgeving te sturen. <span id="l-80" class="t-lb"><br/></span>Ik ben zeer verlangend om <span id="l-81" class="t-lb"><br/></span>iets van de trouwpartij te <span id="l-82" class="t-lb"><br/></span>hooren, waarmede ik ook <span id="l-83" class="t-lb"><br/></span>jelui feliciteer.–<span id="note-o-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span>
-                </div>
+<p id="let010:0.2.0.0.38" class="t-ab s-1-struttura" data-el="ab">Het was zeer attent van <span id="l-78" class="t-lb"><br/></span>je zuster Marie om mij eene <span id="l-79" class="t-lb"><br/></span>kennisgeving te sturen. <span id="l-80" class="t-lb"><br/></span>Ik ben zeer verlangend om <span id="l-81" class="t-lb"><br/></span>iets van de trouwpartij te <span id="l-82" class="t-lb"><br/></span>hooren, waarmede ik ook <span id="l-83" class="t-lb"><br/></span>jelui feliciteer.–<span id="note-o-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span>
+                </p>
                 <span id="l-84" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.40" class="t-ab s-1-struttura" data-el="ab">Zou je zoo goed willen zijn <span id="l-85" class="t-lb"><br/></span>mij bij gelegenheid eens een <span id="l-86" class="t-lb"><br/></span>lijstje van jelui verjaardagen <span id="l-87" class="t-lb"><br/></span>te sturen. Ik heb er een gehad <span id="l-88" class="t-lb"><br/></span>dat ik verloren ben.–</div>
+<p id="let010:0.2.0.0.40" class="t-ab s-1-struttura" data-el="ab">Zou je zoo goed willen zijn <span id="l-85" class="t-lb"><br/></span>mij bij gelegenheid eens een <span id="l-86" class="t-lb"><br/></span>lijstje van jelui verjaardagen <span id="l-87" class="t-lb"><br/></span>te sturen. Ik heb er een gehad <span id="l-88" class="t-lb"><br/></span>dat ik verloren ben.–</p>
                 <span id="l-89" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.42" class="t-ab s-1-struttura" data-el="ab">En nu gegroet, zeg allen <span id="l-90" class="t-lb"><br/></span>in de Poten voor mij goeden <span id="l-91" class="t-lb"><br/></span>dag &amp; heb het allen goed. <span id="l-92" class="t-lb"><br/></span>Verschoon het slechte schrift<span id="let010:0.2.0.0.42.3" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> <span id="l-93" class="t-lb"><br/></span>het is reeds laat &amp; tijd om <span id="l-94" class="t-lb"><br/></span>naar bed te gaan.–</div>
+<p id="let010:0.2.0.0.42" class="t-ab s-1-struttura" data-el="ab">En nu gegroet, zeg allen <span id="l-90" class="t-lb"><br/></span>in de Poten voor mij goeden <span id="l-91" class="t-lb"><br/></span>dag &amp; heb het allen goed. <span id="l-92" class="t-lb"><br/></span>Verschoon het slechte schrift<span id="let010:0.2.0.0.42.3" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> <span id="l-93" class="t-lb"><br/></span>het is reeds laat &amp; tijd om <span id="l-94" class="t-lb"><br/></span>naar bed te gaan.–</p>
                 <span id="l-95" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.44" class="t-ab s-1-struttura" data-el="ab">Wel te rusten<span id="let010:0.2.0.0.44.0" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
-                </div> <span id="let010:0.2.0.0.45" class="t-whiteline s-base" data-el="whiteline"></span>
+<p id="let010:0.2.0.0.44" class="t-ab s-1-struttura" data-el="ab">Wel te rusten<span id="let010:0.2.0.0.44.0" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
+                </p> <span id="let010:0.2.0.0.45" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-96" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.47" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
+<p id="let010:0.2.0.0.47" class="t-ab s-1-struttura" data-el="ab">Vincent</p>
 <span id="let010:0.2.0.0.48" class="t-whiteline s-base" data-el="whiteline"></span>
 <span id="pb-orig-2r-5" class="t-pb" role="separator" title="page break">[5]</span>
                 <span id="l-97" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.51" class="t-ab s-1-struttura" data-el="ab">
+<p id="let010:0.2.0.0.51" class="t-ab s-1-struttura" data-el="ab">
                     <span id="let010:0.2.0.0.51.0" class="t-hi s-1-inline" data-el="hi">De Avondstond.</span>
                     <span id="note-o-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span>
-                </div>
+                </p>
 <span id="let010:0.2.0.0.52" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-98" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.54" class="t-ab s-1-struttura" data-el="ab">Langzaem galmde ’t getamp der beeklok over de velden,</div>
+<p id="let010:0.2.0.0.54" class="t-ab s-1-struttura" data-el="ab">Langzaem galmde ’t getamp der beeklok over de velden,</p>
                 <span id="l-99" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.56" class="t-ab s-1-struttura" data-el="ab">Die, volzalig in ’t goud van de avondzonne zich baedden.</div>
+<p id="let010:0.2.0.0.56" class="t-ab s-1-struttura" data-el="ab">Die, volzalig in ’t goud van de avondzonne zich baedden.</p>
                 <span id="l-100" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.58" class="t-ab s-1-struttura" data-el="ab">Plegtig roerende stond! als in ’t dorp elk moederken eensklaps,</div>
+<p id="let010:0.2.0.0.58" class="t-ab s-1-struttura" data-el="ab">Plegtig roerende stond! als in ’t dorp elk moederken eensklaps,</p>
                 <span id="l-101" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.60" class="t-ab s-1-struttura" data-el="ab">Stakende ’t snorren van ’t wiel, met het teeken des kruises zich zegent;</div>
+<p id="let010:0.2.0.0.60" class="t-ab s-1-struttura" data-el="ab">Stakende ’t snorren van ’t wiel, met het teeken des kruises zich zegent;</p>
 <span id="let010:0.2.0.0.61" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-102" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.63" class="t-ab s-1-struttura" data-el="ab">Wijl op den akker de boer, zijn dampende rossen weerhoudend,</div>
+<p id="let010:0.2.0.0.63" class="t-ab s-1-struttura" data-el="ab">Wijl op den akker de boer, zijn dampende rossen weerhoudend,</p>
                 <span id="l-103" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.65" class="t-ab s-1-struttura" data-el="ab">Achter de ploeg, zich ’t hoofd ontbloot om een ave te preev’len.–</div>
+<p id="let010:0.2.0.0.65" class="t-ab s-1-struttura" data-el="ab">Achter de ploeg, zich ’t hoofd ontbloot om een ave te preev’len.–</p>
                 <span id="l-104" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.67" class="t-ab s-1-struttura" data-el="ab">Plegtig roerende stond! als de klok, die ’t einde der dag taek</div>
+<p id="let010:0.2.0.0.67" class="t-ab s-1-struttura" data-el="ab">Plegtig roerende stond! als de klok, die ’t einde der dag taek</p>
                 <span id="l-105" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.69" class="t-ab s-1-struttura" data-el="ab">Wijd en zijd verkondt, die krachtige, druipende hoofden</div>
+<p id="let010:0.2.0.0.69" class="t-ab s-1-struttura" data-el="ab">Wijd en zijd verkondt, die krachtige, druipende hoofden</p>
                 <span id="l-106" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.71" class="t-ab s-1-struttura" data-el="ab">Neer doet buigen voor hem, die ’t zweet in de voor laet gedijen.</div>
+<p id="let010:0.2.0.0.71" class="t-ab s-1-struttura" data-el="ab">Neer doet buigen voor hem, die ’t zweet in de voor laet gedijen.</p>
 <span id="let010:0.2.0.0.72" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-107" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.74" class="t-ab s-1-struttura" data-el="ab">Ook den kunstnaer, die ginds, op de helling des lommrigen heuvels,</div>
+<p id="let010:0.2.0.0.74" class="t-ab s-1-struttura" data-el="ab">Ook den kunstnaer, die ginds, op de helling des lommrigen heuvels,</p>
                 <span id="l-108" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.76" class="t-ab s-1-struttura" data-el="ab">Reeds van vroeg in den dag, zoo druk heeft zitten te schilderen</div>
+<p id="let010:0.2.0.0.76" class="t-ab s-1-struttura" data-el="ab">Reeds van vroeg in den dag, zoo druk heeft zitten te schilderen</p>
                 <span id="l-109" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.78" class="t-ab s-1-struttura" data-el="ab">Klonk nu de Angelusklok als een aftogtsteeken; hij wischte</div>
+<p id="let010:0.2.0.0.78" class="t-ab s-1-struttura" data-el="ab">Klonk nu de Angelusklok als een aftogtsteeken; hij wischte</p>
                 <span id="l-110" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.80" class="t-ab s-1-struttura" data-el="ab">Traeg penseel &amp; palet, die hij borg, bij zijn doek in de draegkas,</div>
+<p id="let010:0.2.0.0.80" class="t-ab s-1-struttura" data-el="ab">Traeg penseel &amp; palet, die hij borg, bij zijn doek in de draegkas,</p>
                 <span id="l-111" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.82" class="t-ab s-1-struttura" data-el="ab">Vouwde zijn veldstoel digt, &amp; daelde al droomende ’t pad af</div>
+<p id="let010:0.2.0.0.82" class="t-ab s-1-struttura" data-el="ab">Vouwde zijn veldstoel digt, &amp; daelde al droomende ’t pad af</p>
                 <span id="l-112" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.84" class="t-ab s-1-struttura" data-el="ab">Dat door ’t bloemrijk dal zacht kronkelend leidt naer het dorp.</div>
+<p id="let010:0.2.0.0.84" class="t-ab s-1-struttura" data-el="ab">Dat door ’t bloemrijk dal zacht kronkelend leidt naer het dorp.</p>
 <span id="let010:0.2.0.0.85" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-113" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.87" class="t-ab s-1-struttura" data-el="ab">Doch hoe dikwijls, eer hij de delling, beneden, bereikt had</div>
+<p id="let010:0.2.0.0.87" class="t-ab s-1-struttura" data-el="ab">Doch hoe dikwijls, eer hij de delling, beneden, bereikt had</p>
                 <span id="l-114" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.89" class="t-ab s-1-struttura" data-el="ab">Stond hij bewonderend stil, om ’t frissche tafreel dat daeronder</div>
+<p id="let010:0.2.0.0.89" class="t-ab s-1-struttura" data-el="ab">Stond hij bewonderend stil, om ’t frissche tafreel dat daeronder</p>
                 <span id="l-115" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.91" class="t-ab s-1-struttura" data-el="ab">Zich voor zijne oogen ontrolde, nog eens in zijn ziele te printen.</div>
+<p id="let010:0.2.0.0.91" class="t-ab s-1-struttura" data-el="ab">Zich voor zijne oogen ontrolde, nog eens in zijn ziele te printen.</p>
 <span id="let010:0.2.0.0.92" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-116" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.94" class="t-ab s-1-struttura" data-el="ab">Vlak voor hem lag ’t dorp, met een heuvel ten Noorde &amp; ten Zuide,</div>
+<p id="let010:0.2.0.0.94" class="t-ab s-1-struttura" data-el="ab">Vlak voor hem lag ’t dorp, met een heuvel ten Noorde &amp; ten Zuide,</p>
                 <span id="l-117" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.96" class="t-ab s-1-struttura" data-el="ab">Tusschen wier ruggen de zon, hoogrood weg zinkende in ’t Westen</div>
+<p id="let010:0.2.0.0.96" class="t-ab s-1-struttura" data-el="ab">Tusschen wier ruggen de zon, hoogrood weg zinkende in ’t Westen</p>
                 <span id="l-118" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.98" class="t-ab s-1-struttura" data-el="ab">Gansch den schat van haer kleuren &amp; stralengetoover deed stroomen.</div>
+<p id="let010:0.2.0.0.98" class="t-ab s-1-struttura" data-el="ab">Gansch den schat van haer kleuren &amp; stralengetoover deed stroomen.</p>
                 <span id="l-119" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.100" class="t-ab s-1-struttura" data-el="ab">’t Klokje, in den grijzen, met zwartgroen veil omslingerden toren</div>
+<p id="let010:0.2.0.0.100" class="t-ab s-1-struttura" data-el="ab">’t Klokje, in den grijzen, met zwartgroen veil omslingerden toren</p>
                 <span id="l-120" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.102" class="t-ab s-1-struttura" data-el="ab">Zweeg nu.– Roerloos hingen, daerginds op de hoogte de bruine</div>
+<p id="let010:0.2.0.0.102" class="t-ab s-1-struttura" data-el="ab">Zweeg nu.– Roerloos hingen, daerginds op de hoogte de bruine</p>
                 <span id="l-121" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.104" class="t-ab s-1-struttura" data-el="ab">Molenwieken; het loof stond roerloos, &amp; boven de hutten</div>
+<p id="let010:0.2.0.0.104" class="t-ab s-1-struttura" data-el="ab">Molenwieken; het loof stond roerloos, &amp; boven de hutten</p>
                 <span id="l-122" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.106" class="t-ab s-1-struttura" data-el="ab">Stegen de blauwe wolkjes der schadden zoo regt uit de schouwen,</div>
+<p id="let010:0.2.0.0.106" class="t-ab s-1-struttura" data-el="ab">Stegen de blauwe wolkjes der schadden zoo regt uit de schouwen,</p>
                 <span id="l-123" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.108" class="t-ab s-1-struttura" data-el="ab">Dat ze in de tint’lende lucht ook roerloos schenen te hangen.</div>
+<p id="let010:0.2.0.0.108" class="t-ab s-1-struttura" data-el="ab">Dat ze in de tint’lende lucht ook roerloos schenen te hangen.</p>
                 <span id="l-124" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.110" class="t-ab s-1-struttura" data-el="ab">’t Was of dit dorpken<span id="let010:0.2.0.0.110.0" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> dit veld, die heuvels, of alles in ’t ronde</div>
+<p id="let010:0.2.0.0.110" class="t-ab s-1-struttura" data-el="ab">’t Was of dit dorpken<span id="let010:0.2.0.0.110.0" class="t-c s-5-documentario" data-el="c" data-type="kk">/</span> dit veld, die heuvels, of alles in ’t ronde</p>
                 <span id="l-125" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.112" class="t-ab s-1-struttura" data-el="ab">Eer het zich wikkelde in ’t kleed van d’avonddauw om te slapen</div>
+<p id="let010:0.2.0.0.112" class="t-ab s-1-struttura" data-el="ab">Eer het zich wikkelde in ’t kleed van d’avonddauw om te slapen</p>
                 <span id="l-126" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.114" class="t-ab s-1-struttura" data-el="ab">Onder den afscheidskus der zon, stilzwijgend &amp; dankbaer</div>
+<p id="let010:0.2.0.0.114" class="t-ab s-1-struttura" data-el="ab">Onder den afscheidskus der zon, stilzwijgend &amp; dankbaer</p>
                 <span id="l-127" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.116" class="t-ab s-1-struttura" data-el="ab">Eens nog den vrede &amp; de weelde herdacht, die het weder gesmaekt had.–</div>
+<p id="let010:0.2.0.0.116" class="t-ab s-1-struttura" data-el="ab">Eens nog den vrede &amp; de weelde herdacht, die het weder gesmaekt had.–</p>
 <span id="let010:0.2.0.0.117" class="t-whiteline s-base" data-el="whiteline"></span>
 <span id="pb-orig-2v-6" class="t-pb" role="separator" title="page break">[6]</span>
                 <span id="l-128" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.120" class="t-ab s-1-struttura" data-el="ab">Ras werd dit zwijgen nogtans door de zoete geluiden des avonds</div>
+<p id="let010:0.2.0.0.120" class="t-ab s-1-struttura" data-el="ab">Ras werd dit zwijgen nogtans door de zoete geluiden des avonds</p>
                 <span id="l-129" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.122" class="t-ab s-1-struttura" data-el="ab">Lieflijk verstoord. In de verte uit een zonk van den heuvel weerklonken</div>
+<p id="let010:0.2.0.0.122" class="t-ab s-1-struttura" data-el="ab">Lieflijk verstoord. In de verte uit een zonk van den heuvel weerklonken</p>
                 <span id="l-130" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.124" class="t-ab s-1-struttura" data-el="ab">Langzaem slepend, &amp; ’t vee oproepend, de toonen des toethoorns.</div>
+<p id="let010:0.2.0.0.124" class="t-ab s-1-struttura" data-el="ab">Langzaem slepend, &amp; ’t vee oproepend, de toonen des toethoorns.</p>
                 <span id="l-131" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.126" class="t-ab s-1-struttura" data-el="ab">En op dit sein van hun hoeder, verscheen weldra in de holle</div>
+<p id="let010:0.2.0.0.126" class="t-ab s-1-struttura" data-el="ab">En op dit sein van hun hoeder, verscheen weldra in de holle</p>
                 <span id="l-132" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.128" class="t-ab s-1-struttura" data-el="ab">Zandige bergstraet heel de bontkleurige kudde der koeijen<span id="let010:0.2.0.0.128.0" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
-                </div>
+<p id="let010:0.2.0.0.128" class="t-ab s-1-struttura" data-el="ab">Zandige bergstraet heel de bontkleurige kudde der koeijen<span id="let010:0.2.0.0.128.0" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
+                </p>
                 <span id="l-133" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.130" class="t-ab s-1-struttura" data-el="ab">Knallende en schallende dreef nu de klets des knapen hen voorwaerts</div>
+<p id="let010:0.2.0.0.130" class="t-ab s-1-struttura" data-el="ab">Knallende en schallende dreef nu de klets des knapen hen voorwaerts</p>
                 <span id="l-134" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.132" class="t-ab s-1-struttura" data-el="ab">Wijl ze, als bij beurte, den hals uitstrekkend met vriendlijk loeijen</div>
+<p id="let010:0.2.0.0.132" class="t-ab s-1-struttura" data-el="ab">Wijl ze, als bij beurte, den hals uitstrekkend met vriendlijk loeijen</p>
                 <span id="l-135" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.134" class="t-ab s-1-struttura" data-el="ab">Reeds van ver den stal begroeteden, waer hen de melkster</div>
+<p id="let010:0.2.0.0.134" class="t-ab s-1-struttura" data-el="ab">Reeds van ver den stal begroeteden, waer hen de melkster</p>
                 <span id="l-136" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.136" class="t-ab s-1-struttura" data-el="ab">Iedren avond wacht, die hun spannenden uijer weer licht maekt.</div>
+<p id="let010:0.2.0.0.136" class="t-ab s-1-struttura" data-el="ab">Iedren avond wacht, die hun spannenden uijer weer licht maekt.</p>
                 <span id="l-137" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.138" class="t-ab s-1-struttura" data-el="ab">En zoo kwam er allengs op de paden die even als speeken</div>
+<p id="let010:0.2.0.0.138" class="t-ab s-1-struttura" data-el="ab">En zoo kwam er allengs op de paden die even als speeken</p>
                 <span id="l-138" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.140" class="t-ab s-1-struttura" data-el="ab">Rond hunne as, van ’t dorp uitstraelden, beweging en leven.</div>
+<p id="let010:0.2.0.0.140" class="t-ab s-1-struttura" data-el="ab">Rond hunne as, van ’t dorp uitstraelden, beweging en leven.</p>
                 <span id="l-139" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.142" class="t-ab s-1-struttura" data-el="ab">Hier was ’t een boer, die egge of ploeg, op de veldslet huiswaerts</div>
+<p id="let010:0.2.0.0.142" class="t-ab s-1-struttura" data-el="ab">Hier was ’t een boer, die egge of ploeg, op de veldslet huiswaerts</p>
                 <span id="l-140" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.144" class="t-ab s-1-struttura" data-el="ab">Sleepte, en een deuntje floot, ter zijde op zijn bruintje gezeten;</div>
+<p id="let010:0.2.0.0.144" class="t-ab s-1-struttura" data-el="ab">Sleepte, en een deuntje floot, ter zijde op zijn bruintje gezeten;</p>
                 <span id="l-141" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.146" class="t-ab s-1-struttura" data-el="ab">Daer, een blozende deern, met een bussel geurige klaver</div>
+<p id="let010:0.2.0.0.146" class="t-ab s-1-struttura" data-el="ab">Daer, een blozende deern, met een bussel geurige klaver</p>
                 <span id="l-142" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.148" class="t-ab s-1-struttura" data-el="ab">Vol madelieven &amp; kol op ’t hoofd, die den andren van verre,</div>
+<p id="let010:0.2.0.0.148" class="t-ab s-1-struttura" data-el="ab">Vol madelieven &amp; kol op ’t hoofd, die den andren van verre,</p>
                 <span id="l-143" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.150" class="t-ab s-1-struttura" data-el="ab">Hertlijk &amp; lustig te gaer, heur helder “goên avond” toeriep.</div>
+<p id="let010:0.2.0.0.150" class="t-ab s-1-struttura" data-el="ab">Hertlijk &amp; lustig te gaer, heur helder “goên avond” toeriep.</p>
                 <span id="l-144" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.152" class="t-ab s-1-struttura" data-el="ab">Verder... Maer juist op de baen waer ’t padje gevolgd door den schilder <span id="l-145" class="t-lb"><br/></span>Heenliep, klonk hem op eens een schaterend juichen tegen;</div>
+<p id="let010:0.2.0.0.152" class="t-ab s-1-struttura" data-el="ab">Verder... Maer juist op de baen waer ’t padje gevolgd door den schilder <span id="l-145" class="t-lb"><br/></span>Heenliep, klonk hem op eens een schaterend juichen tegen;</p>
                 <span id="l-146" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.154" class="t-ab s-1-struttura" data-el="ab">Zwenkend van hot naer haer, kwam daer een wagen, tot klinkens</div>
+<p id="let010:0.2.0.0.154" class="t-ab s-1-struttura" data-el="ab">Zwenkend van hot naer haer, kwam daer een wagen, tot klinkens</p>
                 <span id="l-147" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.156" class="t-ab s-1-struttura" data-el="ab">Opgestapeld van de oogst der boekweit, nader gebolderd,</div>
+<p id="let010:0.2.0.0.156" class="t-ab s-1-struttura" data-el="ab">Opgestapeld van de oogst der boekweit, nader gebolderd,</p>
                 <span id="l-148" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.158" class="t-ab s-1-struttura" data-el="ab">Peerd en vracht was gesierd met fladdrende linten &amp; meijen,</div>
+<p id="let010:0.2.0.0.158" class="t-ab s-1-struttura" data-el="ab">Peerd en vracht was gesierd met fladdrende linten &amp; meijen,</p>
                 <span id="l-149" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.160" class="t-ab s-1-struttura" data-el="ab">Kindren, elk met een krans van bloemen op ’t vlas blond kopje</div>
+<p id="let010:0.2.0.0.160" class="t-ab s-1-struttura" data-el="ab">Kindren, elk met een krans van bloemen op ’t vlas blond kopje</p>
                 <span id="l-150" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.162" class="t-ab s-1-struttura" data-el="ab">Zaten boven er op, blij zwaeiend met elzene takken,</div>
+<p id="let010:0.2.0.0.162" class="t-ab s-1-struttura" data-el="ab">Zaten boven er op, blij zwaeiend met elzene takken,</p>
                 <span id="l-151" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.164" class="t-ab s-1-struttura" data-el="ab">Of een regen van loof &amp; bloemen naer onderen strooijend,</div>
+<p id="let010:0.2.0.0.164" class="t-ab s-1-struttura" data-el="ab">Of een regen van loof &amp; bloemen naer onderen strooijend,</p>
                 <span id="l-152" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.166" class="t-ab s-1-struttura" data-el="ab">Wijl om den wagen, benêen, een troep van meiden &amp; knechten</div>
+<p id="let010:0.2.0.0.166" class="t-ab s-1-struttura" data-el="ab">Wijl om den wagen, benêen, een troep van meiden &amp; knechten</p>
                 <span id="l-153" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.168" class="t-ab s-1-struttura" data-el="ab">Sprongen en zongen, dat gansch de insluimrende vlakte er van opschrok.–</div>
+<p id="let010:0.2.0.0.168" class="t-ab s-1-struttura" data-el="ab">Sprongen en zongen, dat gansch de insluimrende vlakte er van opschrok.–</p>
 <span id="let010:0.2.0.0.169" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-154" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.171" class="t-ab s-1-struttura" data-el="ab">Stil glimlachende zag de Schilder, van achter de heesters</div>
+<p id="let010:0.2.0.0.171" class="t-ab s-1-struttura" data-el="ab">Stil glimlachende zag de Schilder, van achter de heesters</p>
                 <span id="l-155" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.173" class="t-ab s-1-struttura" data-el="ab">Over de hobb’lige baen het getier traeg verder zich sling’ren<span id="let010:0.2.0.0.173.0" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
-                </div>
+<p id="let010:0.2.0.0.173" class="t-ab s-1-struttura" data-el="ab">Over de hobb’lige baen het getier traeg verder zich sling’ren<span id="let010:0.2.0.0.173.0" class="t-c s-5-documentario" data-el="c" data-type="kp">_</span>
+                </p>
                 <span id="l-156" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.175" class="t-ab s-1-struttura" data-el="ab">“Ja, – zoo mompelde hij – ja ’t moet den Heere</div>
+<p id="let010:0.2.0.0.175" class="t-ab s-1-struttura" data-el="ab">“Ja, – zoo mompelde hij – ja ’t moet den Heere</p>
                 <span id="l-157" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.177" class="t-ab s-1-struttura" data-el="ab">Lieflijk klinken, het blijde gejuich waermede die herten,</div>
+<p id="let010:0.2.0.0.177" class="t-ab s-1-struttura" data-el="ab">Lieflijk klinken, het blijde gejuich waermede die herten,</p>
 <span id="pb-orig-2r-7" class="t-pb" role="separator" title="page break">[7]</span>
                 <span id="l-158" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.180" class="t-ab s-1-struttura" data-el="ab">Zoo eenvoudig hun dank uitstorten bij ’t zaemlen der laetste</div>
+<p id="let010:0.2.0.0.180" class="t-ab s-1-struttura" data-el="ab">Zoo eenvoudig hun dank uitstorten bij ’t zaemlen der laetste</p>
                 <span id="l-159" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.182" class="t-ab s-1-struttura" data-el="ab">Vruchten, die hij elk jaar volop uit hun zwoegen laet rijpen.</div>
+<p id="let010:0.2.0.0.182" class="t-ab s-1-struttura" data-el="ab">Vruchten, die hij elk jaar volop uit hun zwoegen laet rijpen.</p>
                 <span id="l-160" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.184" class="t-ab s-1-struttura" data-el="ab">Ja, want het schoonste gebed van eenvoud en onschuld is vreugde!”</div>
+<p id="let010:0.2.0.0.184" class="t-ab s-1-struttura" data-el="ab">Ja, want het schoonste gebed van eenvoud en onschuld is vreugde!”</p>
 <span id="let010:0.2.0.0.185" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-161" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.187" class="t-ab s-1-struttura" data-el="ab">En dus mijmrend aen ’t kalme en diepe genot dat de ziele,</div>
+<p id="let010:0.2.0.0.187" class="t-ab s-1-struttura" data-el="ab">En dus mijmrend aen ’t kalme en diepe genot dat de ziele,</p>
                 <span id="l-162" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.189" class="t-ab s-1-struttura" data-el="ab">Smaekt op ’t veld; of nog eens het heerlijk tooneel van daereven,</div>
+<p id="let010:0.2.0.0.189" class="t-ab s-1-struttura" data-el="ab">Smaekt op ’t veld; of nog eens het heerlijk tooneel van daereven,</p>
                 <span id="l-163" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.191" class="t-ab s-1-struttura" data-el="ab">Met zijn kunstnaersgeest opbouwend in stille verrukking,</div>
+<p id="let010:0.2.0.0.191" class="t-ab s-1-struttura" data-el="ab">Met zijn kunstnaersgeest opbouwend in stille verrukking,</p>
                 <span id="l-164" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.193" class="t-ab s-1-struttura" data-el="ab">Kwam hij zonder het zelf te bemerken, in ’t dorpken geslenterd.–</div>
+<p id="let010:0.2.0.0.193" class="t-ab s-1-struttura" data-el="ab">Kwam hij zonder het zelf te bemerken, in ’t dorpken geslenterd.–</p>
 <span id="let010:0.2.0.0.194" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-165" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.196" class="t-ab s-1-struttura" data-el="ab">Reeds was ’t purper en geel tot grijs in ’t Westen verzwonden,</div>
+<p id="let010:0.2.0.0.196" class="t-ab s-1-struttura" data-el="ab">Reeds was ’t purper en geel tot grijs in ’t Westen verzwonden,</p>
                 <span id="l-166" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.198" class="t-ab s-1-struttura" data-el="ab">En in ’t Oosten verrees vlak neven het kerksken de volle</div>
+<p id="let010:0.2.0.0.198" class="t-ab s-1-struttura" data-el="ab">En in ’t Oosten verrees vlak neven het kerksken de volle</p>
                 <span id="l-167" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.200" class="t-ab s-1-struttura" data-el="ab">Koperkleurige schijf der maen, van dampen omschemerd,</div>
+<p id="let010:0.2.0.0.200" class="t-ab s-1-struttura" data-el="ab">Koperkleurige schijf der maen, van dampen omschemerd,</p>
                 <span id="l-168" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.202" class="t-ab s-1-struttura" data-el="ab">Toen hij trad in de Zwaen, de herberg waer hij te huis lag.–</div>
+<p id="let010:0.2.0.0.202" class="t-ab s-1-struttura" data-el="ab">Toen hij trad in de Zwaen, de herberg waer hij te huis lag.–</p>
 <span id="let010:0.2.0.0.203" class="t-whiteline s-base" data-el="whiteline"></span>
                 <span id="l-169" class="t-lb"><br/></span>
-<div id="let010:0.2.0.0.205" class="t-ab s-1-struttura" data-el="ab">
+<p id="let010:0.2.0.0.205" class="t-ab s-1-struttura" data-el="ab">
                     <span id="let010:0.2.0.0.205.0" class="t-hi s-1-inline" data-el="hi">Jan van Beers</span>
-                </div>
+                </p>
                 <span id="l-170" class="t-lb"><br/></span>
-    <div id="let010:0.2.0.0.207" class="t-ab s-1-struttura" data-el="ab">(De bestedeling)</div>
+    <p id="let010:0.2.0.0.207" class="t-ab s-1-struttura" data-el="ab">(De bestedeling)</p>
                 <span id="pb-orig-3r-8" class="t-pb" role="separator" title="page break">[8]</span>
                 <span id="pb-orig-3v-9" class="t-pb" role="separator" title="page break">[9]</span>
 <span id="let010:0.2.0.0.210" class="t-whiteline s-base" data-el="whiteline"></span>
@@ -627,174 +663,174 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
             </div>
 <div id="let010:0.2.0.1" class="t-div s-1-struttura" data-el="div" data-type="translation">
 <span id="pb-trans-1r-1" class="t-pb" role="separator" title="page break">[1]</span>
-<div id="let010:0.2.0.1.1" class="t-ab s-1-struttura" data-el="ab">London, 2 July 1873</div>
+<p id="let010:0.2.0.1.1" class="t-ab s-1-struttura" data-el="ab">London, 2 July 1873</p>
 <span id="let010:0.2.0.1.2" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.3" class="t-ab s-1-struttura" data-el="ab">My dear friends,<span id="note-t-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span>
-                </div>
-<div id="let010:0.2.0.1.4" class="t-ab s-1-struttura" data-el="ab">I wanted to write to you even earlier, and now I don’t want to put it off any longer.</div>
-<div id="let010:0.2.0.1.5" class="t-ab s-1-struttura" data-el="ab">How are you? I’ve heard that you have made your house as neat as a new pin and that you’re doing well.<span id="note-t-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> I commend myself expressly to hear something from you, should you have a moment at your disposal.</div>
-<div id="let010:0.2.0.1.6" class="t-ab s-1-struttura" data-el="ab">I’m doing well here; I’m seeing a lot of new and beautiful things, and have had luck in finding a good boarding-house, so that I already feel relatively 
+<p id="let010:0.2.0.1.3" class="t-ab s-1-struttura" data-el="ab">My dear friends,<span id="note-t-1" class="t-anchor s-1-milestone" data-el="anchor" data-n="1"></span>
+                </p>
+<p id="let010:0.2.0.1.4" class="t-ab s-1-struttura" data-el="ab">I wanted to write to you even earlier, and now I don’t want to put it off any longer.</p>
+<p id="let010:0.2.0.1.5" class="t-ab s-1-struttura" data-el="ab">How are you? I’ve heard that you have made your house as neat as a new pin and that you’re doing well.<span id="note-t-2" class="t-anchor s-1-milestone" data-el="anchor" data-n="2"></span> I commend myself expressly to hear something from you, should you have a moment at your disposal.</p>
+<p id="let010:0.2.0.1.6" class="t-ab s-1-struttura" data-el="ab">I’m doing well here; I’m seeing a lot of new and beautiful things, and have had luck in finding a good boarding-house, so that I already feel relatively 
 <span id="pb-trans-1v-2" class="t-pb" role="separator" title="page break">[2]</span> settled here.<span id="note-t-3" class="t-anchor s-1-milestone" data-el="anchor" data-n="3"></span>
-                </div>
-<div id="let010:0.2.0.1.7" class="t-ab s-1-struttura" data-el="ab">Still, I haven’t forgotten The Hague and should very, very much like to spend another evening in the Poten,<span id="note-t-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> and also look in on you.</div>
-<div id="let010:0.2.0.1.8" class="t-ab s-1-struttura" data-el="ab">This branch is just a stockroom and is therefore completely different from working in The Hague, though I’m sure I’ll get used to it.</div>
-<div id="let010:0.2.0.1.9" class="t-ab s-1-struttura" data-el="ab">I’m already finished with my work at 6 o’clock, so I still have a fair amount of time for myself, which I spend very pleasantly walking, reading and writing letters.</div>
-<div id="let010:0.2.0.1.10" class="t-ab s-1-struttura" data-el="ab">The neighbourhood where I live is very pretty, and so peaceful and convivial that one almost forgets one is in London.</div>
-<div id="let010:0.2.0.1.11" class="t-ab s-1-struttura" data-el="ab">In front of every house is a small garden with flowers or a couple of trees, and many houses are built very tastefully in a sort of Gothic style.</div>
-<div id="let010:0.2.0.1.12" class="t-ab s-1-struttura" data-el="ab">Still, I have to walk for more than 
-<span id="pb-trans-1v-3" class="t-pb" role="separator" title="page break">[3]</span> half an hour to reach the countryside.</div>
-<div id="let010:0.2.0.1.13" class="t-ab s-1-struttura" data-el="ab">We have a piano in the drawing room, and there are also three Germans living here who really love music, which is most agreeable.</div>
-<div id="let010:0.2.0.1.14" class="t-ab s-1-struttura" data-el="ab">One of the nicest things I’ve seen here is Rotten Row in Hyde Park, which is a long, broad avenue where hundreds of ladies and gentlemen go riding.</div>
-<div id="let010:0.2.0.1.15" class="t-ab s-1-struttura" data-el="ab">In every part of the city there are splendid parks with a wealth of flowers such as I’ve seen nowhere else.</div>
-<div id="let010:0.2.0.1.16" class="t-ab s-1-struttura" data-el="ab">I enclose a copy of a poem by <span id="let010:0.2.0.1.16.0" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Van Beers</span>,<span id="note-t-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> which you may not know.</div>
-<div id="let010:0.2.0.1.17" class="t-ab s-1-struttura" data-el="ab">Our <span id="let010:0.2.0.1.17.0" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Elisabeth</span>
-                    <span id="note-t-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> copied it out for me on my last evening in Helvoirt,<span id="note-t-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> because she knew how much I liked it.</div>
-<div id="let010:0.2.0.1.18" class="t-ab s-1-struttura" data-el="ab">It’s Brabant to a T.<span id="note-t-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> I thought you’d enjoy reading it, so I’ve copied it out for you. 
+                </p>
+<p id="let010:0.2.0.1.7" class="t-ab s-1-struttura" data-el="ab">Still, I haven’t forgotten The Hague and should very, very much like to spend another evening in the Poten,<span id="note-t-4" class="t-anchor s-1-milestone" data-el="anchor" data-n="4"></span> and also look in on you.</p>
+<p id="let010:0.2.0.1.8" class="t-ab s-1-struttura" data-el="ab">This branch is just a stockroom and is therefore completely different from working in The Hague, though I’m sure I’ll get used to it.</p>
+<p id="let010:0.2.0.1.9" class="t-ab s-1-struttura" data-el="ab">I’m already finished with my work at 6 o’clock, so I still have a fair amount of time for myself, which I spend very pleasantly walking, reading and writing letters.</p>
+<p id="let010:0.2.0.1.10" class="t-ab s-1-struttura" data-el="ab">The neighbourhood where I live is very pretty, and so peaceful and convivial that one almost forgets one is in London.</p>
+<p id="let010:0.2.0.1.11" class="t-ab s-1-struttura" data-el="ab">In front of every house is a small garden with flowers or a couple of trees, and many houses are built very tastefully in a sort of Gothic style.</p>
+<p id="let010:0.2.0.1.12" class="t-ab s-1-struttura" data-el="ab">Still, I have to walk for more than 
+<span id="pb-trans-1v-3" class="t-pb" role="separator" title="page break">[3]</span> half an hour to reach the countryside.</p>
+<p id="let010:0.2.0.1.13" class="t-ab s-1-struttura" data-el="ab">We have a piano in the drawing room, and there are also three Germans living here who really love music, which is most agreeable.</p>
+<p id="let010:0.2.0.1.14" class="t-ab s-1-struttura" data-el="ab">One of the nicest things I’ve seen here is Rotten Row in Hyde Park, which is a long, broad avenue where hundreds of ladies and gentlemen go riding.</p>
+<p id="let010:0.2.0.1.15" class="t-ab s-1-struttura" data-el="ab">In every part of the city there are splendid parks with a wealth of flowers such as I’ve seen nowhere else.</p>
+<p id="let010:0.2.0.1.16" class="t-ab s-1-struttura" data-el="ab">I enclose a copy of a poem by <span id="let010:0.2.0.1.16.0" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Van Beers</span>,<span id="note-t-5" class="t-anchor s-1-milestone" data-el="anchor" data-n="5"></span> which you may not know.</p>
+<p id="let010:0.2.0.1.17" class="t-ab s-1-struttura" data-el="ab">Our <span id="let010:0.2.0.1.17.0" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Elisabeth</span>
+                    <span id="note-t-6" class="t-anchor s-1-milestone" data-el="anchor" data-n="6"></span> copied it out for me on my last evening in Helvoirt,<span id="note-t-7" class="t-anchor s-1-milestone" data-el="anchor" data-n="7"></span> because she knew how much I liked it.</p>
+<p id="let010:0.2.0.1.18" class="t-ab s-1-struttura" data-el="ab">It’s Brabant to a T.<span id="note-t-8" class="t-anchor s-1-milestone" data-el="anchor" data-n="8"></span> I thought you’d enjoy reading it, so I’ve copied it out for you. 
 <span id="pb-trans-1r-4" class="t-pb" role="separator" title="page break">[4]</span>
-                </div>
-<div id="let010:0.2.0.1.19" class="t-ab s-1-struttura" data-el="ab">It was very thoughtful of your sister <span id="let010:0.2.0.1.19.0" class="t-rs s-2-entita" data-el="rs" data-key="762" data-type="pers">Marie</span> to send me an announcement. I’m longing to hear about the wedding, on which I congratulate you as well.<span id="note-t-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span>
-                </div>
-<div id="let010:0.2.0.1.20" class="t-ab s-1-struttura" data-el="ab">Would you be so kind as to send me a list of your birthdays when you get the opportunity? I had one which I’ve lost.</div>
-<div id="let010:0.2.0.1.21" class="t-ab s-1-struttura" data-el="ab">And now, regards, bid everyone in the Poten good-day from me, and I wish you all well. Excuse the poor handwriting, it’s already late and time to go to bed.</div>
-<div id="let010:0.2.0.1.22" class="t-ab s-1-struttura" data-el="ab">Good-night.</div>
+                </p>
+<p id="let010:0.2.0.1.19" class="t-ab s-1-struttura" data-el="ab">It was very thoughtful of your sister <span id="let010:0.2.0.1.19.0" class="t-rs s-2-entita" data-el="rs" data-key="762" data-type="pers">Marie</span> to send me an announcement. I’m longing to hear about the wedding, on which I congratulate you as well.<span id="note-t-9" class="t-anchor s-1-milestone" data-el="anchor" data-n="9"></span>
+                </p>
+<p id="let010:0.2.0.1.20" class="t-ab s-1-struttura" data-el="ab">Would you be so kind as to send me a list of your birthdays when you get the opportunity? I had one which I’ve lost.</p>
+<p id="let010:0.2.0.1.21" class="t-ab s-1-struttura" data-el="ab">And now, regards, bid everyone in the Poten good-day from me, and I wish you all well. Excuse the poor handwriting, it’s already late and time to go to bed.</p>
+<p id="let010:0.2.0.1.22" class="t-ab s-1-struttura" data-el="ab">Good-night.</p>
 <span id="let010:0.2.0.1.23" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.24" class="t-ab s-1-struttura" data-el="ab">Vincent</div>
+<p id="let010:0.2.0.1.24" class="t-ab s-1-struttura" data-el="ab">Vincent</p>
 <span id="let010:0.2.0.1.25" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.26" class="t-ab s-1-struttura" data-el="ab">
+<p id="let010:0.2.0.1.26" class="t-ab s-1-struttura" data-el="ab">
                     <span id="pb-trans-2r-5" class="t-pb" role="separator" title="page break">[5]</span>
-                </div>
-<div id="let010:0.2.0.1.27" class="t-ab s-1-struttura" data-el="ab">
+                </p>
+<p id="let010:0.2.0.1.27" class="t-ab s-1-struttura" data-el="ab">
                     <span id="let010:0.2.0.1.27.0" class="t-hi s-1-inline" data-el="hi">The evening hour</span>
                     <span id="note-t-10" class="t-anchor s-1-milestone" data-el="anchor" data-n="10"></span>
-                </div>
+                </p>
 <span id="let010:0.2.0.1.28" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.29" class="t-ab s-1-struttura" data-el="ab">Slowly the toll of the angelus-bell resounded o’er the fields,</div>
-<div id="let010:0.2.0.1.30" class="t-ab s-1-struttura" data-el="ab">As they blissfully bathed in the gold of the evening sun.</div>
-<div id="let010:0.2.0.1.31" class="t-ab s-1-struttura" data-el="ab">O solemn, moving moment! When every mother in the village suddenly</div>
-<div id="let010:0.2.0.1.32" class="t-ab s-1-struttura" data-el="ab">Stops the whirring of the wheel to bless herself with the sign of the cross;</div>
+<p id="let010:0.2.0.1.29" class="t-ab s-1-struttura" data-el="ab">Slowly the toll of the angelus-bell resounded o’er the fields,</p>
+<p id="let010:0.2.0.1.30" class="t-ab s-1-struttura" data-el="ab">As they blissfully bathed in the gold of the evening sun.</p>
+<p id="let010:0.2.0.1.31" class="t-ab s-1-struttura" data-el="ab">O solemn, moving moment! When every mother in the village suddenly</p>
+<p id="let010:0.2.0.1.32" class="t-ab s-1-struttura" data-el="ab">Stops the whirring of the wheel to bless herself with the sign of the cross;</p>
 <span id="let010:0.2.0.1.33" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.34" class="t-ab s-1-struttura" data-el="ab">While in the field the farmer reins in his steaming horses,</div>
-<div id="let010:0.2.0.1.35" class="t-ab s-1-struttura" data-el="ab">And, behind the plough, bares his head to murmur an Ave.</div>
-<div id="let010:0.2.0.1.36" class="t-ab s-1-struttura" data-el="ab">O solemn, moving moment! When the bell that proclaims far and wide</div>
-<div id="let010:0.2.0.1.37" class="t-ab s-1-struttura" data-el="ab">The end of the day’s work makes those powerful, dripping heads</div>
-<div id="let010:0.2.0.1.38" class="t-ab s-1-struttura" data-el="ab">Bow down for Him who causes the sweat in the furrow to thrive.</div>
+<p id="let010:0.2.0.1.34" class="t-ab s-1-struttura" data-el="ab">While in the field the farmer reins in his steaming horses,</p>
+<p id="let010:0.2.0.1.35" class="t-ab s-1-struttura" data-el="ab">And, behind the plough, bares his head to murmur an Ave.</p>
+<p id="let010:0.2.0.1.36" class="t-ab s-1-struttura" data-el="ab">O solemn, moving moment! When the bell that proclaims far and wide</p>
+<p id="let010:0.2.0.1.37" class="t-ab s-1-struttura" data-el="ab">The end of the day’s work makes those powerful, dripping heads</p>
+<p id="let010:0.2.0.1.38" class="t-ab s-1-struttura" data-el="ab">Bow down for Him who causes the sweat in the furrow to thrive.</p>
 <span id="let010:0.2.0.1.39" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.40" class="t-ab s-1-struttura" data-el="ab">For the artist, too, on the slope of yon shady hill,</div>
-<div id="let010:0.2.0.1.41" class="t-ab s-1-struttura" data-el="ab">Absorbed in his painting from the earliest morning,</div>
-<div id="let010:0.2.0.1.42" class="t-ab s-1-struttura" data-el="ab">The angelus now gave the sign to retreat. Slowly he wiped</div>
-<div id="let010:0.2.0.1.43" class="t-ab s-1-struttura" data-el="ab">His brush and palette, which he stowed with his canvas in the valise,</div>
-<div id="let010:0.2.0.1.44" class="t-ab s-1-struttura" data-el="ab">Folded his camp-stool and dreamily descended the path</div>
-<div id="let010:0.2.0.1.45" class="t-ab s-1-struttura" data-el="ab">That leads, gently winding, through the flowery dale to the village.</div>
+<p id="let010:0.2.0.1.40" class="t-ab s-1-struttura" data-el="ab">For the artist, too, on the slope of yon shady hill,</p>
+<p id="let010:0.2.0.1.41" class="t-ab s-1-struttura" data-el="ab">Absorbed in his painting from the earliest morning,</p>
+<p id="let010:0.2.0.1.42" class="t-ab s-1-struttura" data-el="ab">The angelus now gave the sign to retreat. Slowly he wiped</p>
+<p id="let010:0.2.0.1.43" class="t-ab s-1-struttura" data-el="ab">His brush and palette, which he stowed with his canvas in the valise,</p>
+<p id="let010:0.2.0.1.44" class="t-ab s-1-struttura" data-el="ab">Folded his camp-stool and dreamily descended the path</p>
+<p id="let010:0.2.0.1.45" class="t-ab s-1-struttura" data-el="ab">That leads, gently winding, through the flowery dale to the village.</p>
 <span id="let010:0.2.0.1.46" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.47" class="t-ab s-1-struttura" data-el="ab">Yet how oft, before reaching the foot of the hill, did he</div>
-<div id="let010:0.2.0.1.48" class="t-ab s-1-struttura" data-el="ab">Stand admiringly still, to imprint on his mind once again</div>
-<div id="let010:0.2.0.1.49" class="t-ab s-1-struttura" data-el="ab">The refreshing scene down below, unfolding before his eyes.</div>
+<p id="let010:0.2.0.1.47" class="t-ab s-1-struttura" data-el="ab">Yet how oft, before reaching the foot of the hill, did he</p>
+<p id="let010:0.2.0.1.48" class="t-ab s-1-struttura" data-el="ab">Stand admiringly still, to imprint on his mind once again</p>
+<p id="let010:0.2.0.1.49" class="t-ab s-1-struttura" data-el="ab">The refreshing scene down below, unfolding before his eyes.</p>
 <span id="let010:0.2.0.1.50" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.51" class="t-ab s-1-struttura" data-el="ab">Just before him lay the village, with a hill to north and to south,</div>
-<div id="let010:0.2.0.1.52" class="t-ab s-1-struttura" data-el="ab">Between whose crests the sun, inflamed and sinking in the west,</div>
-<div id="let010:0.2.0.1.53" class="t-ab s-1-struttura" data-el="ab">Let flow the whole wealth of its colours and up-conjured glory.</div>
-<div id="let010:0.2.0.1.54" class="t-ab s-1-struttura" data-el="ab">The bell, in the grey tower entwined with black-green ivy,</div>
-<div id="let010:0.2.0.1.55" class="t-ab s-1-struttura" data-el="ab">Was now silent. Hanging motionless on high were the brown</div>
-<div id="let010:0.2.0.1.56" class="t-ab s-1-struttura" data-el="ab">Sails of the windmill; the leaves stood still and above the huts</div>
-<div id="let010:0.2.0.1.57" class="t-ab s-1-struttura" data-el="ab">Blue clouds of peat-smoke ascended so straight from the chimneys</div>
-<div id="let010:0.2.0.1.58" class="t-ab s-1-struttura" data-el="ab">That they, too, seemed to hang motionless in the shimmering air.</div>
-<div id="let010:0.2.0.1.59" class="t-ab s-1-struttura" data-el="ab">’Twas as though this village, this field, those hills, as though everything,</div>
-<div id="let010:0.2.0.1.60" class="t-ab s-1-struttura" data-el="ab">Before wrapping itself in a cloak of evening dew to sleep</div>
-<div id="let010:0.2.0.1.61" class="t-ab s-1-struttura" data-el="ab">Beneath the sun’s parting kiss, silently and gratefully</div>
-<div id="let010:0.2.0.1.62" class="t-ab s-1-struttura" data-el="ab">Recalled once more the peace and plenty it had again savoured.</div>
+<p id="let010:0.2.0.1.51" class="t-ab s-1-struttura" data-el="ab">Just before him lay the village, with a hill to north and to south,</p>
+<p id="let010:0.2.0.1.52" class="t-ab s-1-struttura" data-el="ab">Between whose crests the sun, inflamed and sinking in the west,</p>
+<p id="let010:0.2.0.1.53" class="t-ab s-1-struttura" data-el="ab">Let flow the whole wealth of its colours and up-conjured glory.</p>
+<p id="let010:0.2.0.1.54" class="t-ab s-1-struttura" data-el="ab">The bell, in the grey tower entwined with black-green ivy,</p>
+<p id="let010:0.2.0.1.55" class="t-ab s-1-struttura" data-el="ab">Was now silent. Hanging motionless on high were the brown</p>
+<p id="let010:0.2.0.1.56" class="t-ab s-1-struttura" data-el="ab">Sails of the windmill; the leaves stood still and above the huts</p>
+<p id="let010:0.2.0.1.57" class="t-ab s-1-struttura" data-el="ab">Blue clouds of peat-smoke ascended so straight from the chimneys</p>
+<p id="let010:0.2.0.1.58" class="t-ab s-1-struttura" data-el="ab">That they, too, seemed to hang motionless in the shimmering air.</p>
+<p id="let010:0.2.0.1.59" class="t-ab s-1-struttura" data-el="ab">’Twas as though this village, this field, those hills, as though everything,</p>
+<p id="let010:0.2.0.1.60" class="t-ab s-1-struttura" data-el="ab">Before wrapping itself in a cloak of evening dew to sleep</p>
+<p id="let010:0.2.0.1.61" class="t-ab s-1-struttura" data-el="ab">Beneath the sun’s parting kiss, silently and gratefully</p>
+<p id="let010:0.2.0.1.62" class="t-ab s-1-struttura" data-el="ab">Recalled once more the peace and plenty it had again savoured.</p>
 <span id="let010:0.2.0.1.63" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.64" class="t-ab s-1-struttura" data-el="ab">
+<p id="let010:0.2.0.1.64" class="t-ab s-1-struttura" data-el="ab">
 <span id="pb-trans-2v-6" class="t-pb" role="separator" title="page break">[6]</span>
-                </div>
-<div id="let010:0.2.0.1.65" class="t-ab s-1-struttura" data-el="ab">Soon, though, this silence was gently disturbed by the sweet sounds</div>
-<div id="let010:0.2.0.1.66" class="t-ab s-1-struttura" data-el="ab">Of the evening. In the distance, from a hollow in the hill echoed</div>
-<div id="let010:0.2.0.1.67" class="t-ab s-1-struttura" data-el="ab">Lingeringly the sound of the cow-horn, calling the cattle.</div>
-<div id="let010:0.2.0.1.68" class="t-ab s-1-struttura" data-el="ab">And at this sign from their herdsman there soon appeared in the furrowed,</div>
-<div id="let010:0.2.0.1.69" class="t-ab s-1-struttura" data-el="ab">Sandy mountain road the whole of a colourful herd of cows.</div>
-<div id="let010:0.2.0.1.70" class="t-ab s-1-struttura" data-el="ab">Cracking and smacking, the lad’s lash drove them forward,</div>
-<div id="let010:0.2.0.1.71" class="t-ab s-1-struttura" data-el="ab">While they, as if by turns, their necks outstretched, with friendly lowing</div>
-<div id="let010:0.2.0.1.72" class="t-ab s-1-struttura" data-el="ab">Greeted from afar the cow-shed where the milkmaid</div>
-<div id="let010:0.2.0.1.73" class="t-ab s-1-struttura" data-el="ab">Waited for them each evening to ease their taut udders.</div>
-<div id="let010:0.2.0.1.74" class="t-ab s-1-struttura" data-el="ab">Thus on the paths running out from the village like spokes</div>
-<div id="let010:0.2.0.1.75" class="t-ab s-1-struttura" data-el="ab">From an axle, there slowly came movement and life.</div>
-<div id="let010:0.2.0.1.76" class="t-ab s-1-struttura" data-el="ab">Here, ’twas a farmer, dragging homeward a harrow or plough</div>
-<div id="let010:0.2.0.1.77" class="t-ab s-1-struttura" data-el="ab">On a sledge, whistling a tune and riding beside on his bay;</div>
-<div id="let010:0.2.0.1.78" class="t-ab s-1-struttura" data-el="ab">There, a blushing lass, on her head a lock of sweet clover</div>
-<div id="let010:0.2.0.1.79" class="t-ab s-1-struttura" data-el="ab">Laced with daisies and poppies, called from afar to the others,</div>
-<div id="let010:0.2.0.1.80" class="t-ab s-1-struttura" data-el="ab">Kindly and gaily at once, her clear-toned ‘good evening’.</div>
-<div id="let010:0.2.0.1.81" class="t-ab s-1-struttura" data-el="ab">Further... But on the same track where the painter’s path</div>
-<div id="let010:0.2.0.1.82" class="t-ab s-1-struttura" data-el="ab">Led, he suddenly heard peals of joyous laughter.</div>
-<div id="let010:0.2.0.1.83" class="t-ab s-1-struttura" data-el="ab">Rocking from side to side, a wagon, nearly toppling</div>
-<div id="let010:0.2.0.1.84" class="t-ab s-1-struttura" data-el="ab">Under its load of fresh-harvested buckwheat, came rumbling closer,</div>
-<div id="let010:0.2.0.1.85" class="t-ab s-1-struttura" data-el="ab">Both horse and burden adorned with fluttering ribbons and greenery.</div>
-<div id="let010:0.2.0.1.86" class="t-ab s-1-struttura" data-el="ab">Children, all with wreaths of flowers on their little flaxen heads,</div>
-<div id="let010:0.2.0.1.87" class="t-ab s-1-struttura" data-el="ab">Were seated on top, happily waving branches of alder,</div>
-<div id="let010:0.2.0.1.88" class="t-ab s-1-struttura" data-el="ab">Or scattering flowers and leaves, which rained down on all sides,</div>
-<div id="let010:0.2.0.1.89" class="t-ab s-1-struttura" data-el="ab">While round the wagon a troop of country lads and lasses</div>
-<div id="let010:0.2.0.1.90" class="t-ab s-1-struttura" data-el="ab">Skipped and sang enough to startle the whole drowsy plain.</div>
+                </p>
+<p id="let010:0.2.0.1.65" class="t-ab s-1-struttura" data-el="ab">Soon, though, this silence was gently disturbed by the sweet sounds</p>
+<p id="let010:0.2.0.1.66" class="t-ab s-1-struttura" data-el="ab">Of the evening. In the distance, from a hollow in the hill echoed</p>
+<p id="let010:0.2.0.1.67" class="t-ab s-1-struttura" data-el="ab">Lingeringly the sound of the cow-horn, calling the cattle.</p>
+<p id="let010:0.2.0.1.68" class="t-ab s-1-struttura" data-el="ab">And at this sign from their herdsman there soon appeared in the furrowed,</p>
+<p id="let010:0.2.0.1.69" class="t-ab s-1-struttura" data-el="ab">Sandy mountain road the whole of a colourful herd of cows.</p>
+<p id="let010:0.2.0.1.70" class="t-ab s-1-struttura" data-el="ab">Cracking and smacking, the lad’s lash drove them forward,</p>
+<p id="let010:0.2.0.1.71" class="t-ab s-1-struttura" data-el="ab">While they, as if by turns, their necks outstretched, with friendly lowing</p>
+<p id="let010:0.2.0.1.72" class="t-ab s-1-struttura" data-el="ab">Greeted from afar the cow-shed where the milkmaid</p>
+<p id="let010:0.2.0.1.73" class="t-ab s-1-struttura" data-el="ab">Waited for them each evening to ease their taut udders.</p>
+<p id="let010:0.2.0.1.74" class="t-ab s-1-struttura" data-el="ab">Thus on the paths running out from the village like spokes</p>
+<p id="let010:0.2.0.1.75" class="t-ab s-1-struttura" data-el="ab">From an axle, there slowly came movement and life.</p>
+<p id="let010:0.2.0.1.76" class="t-ab s-1-struttura" data-el="ab">Here, ’twas a farmer, dragging homeward a harrow or plough</p>
+<p id="let010:0.2.0.1.77" class="t-ab s-1-struttura" data-el="ab">On a sledge, whistling a tune and riding beside on his bay;</p>
+<p id="let010:0.2.0.1.78" class="t-ab s-1-struttura" data-el="ab">There, a blushing lass, on her head a lock of sweet clover</p>
+<p id="let010:0.2.0.1.79" class="t-ab s-1-struttura" data-el="ab">Laced with daisies and poppies, called from afar to the others,</p>
+<p id="let010:0.2.0.1.80" class="t-ab s-1-struttura" data-el="ab">Kindly and gaily at once, her clear-toned ‘good evening’.</p>
+<p id="let010:0.2.0.1.81" class="t-ab s-1-struttura" data-el="ab">Further... But on the same track where the painter’s path</p>
+<p id="let010:0.2.0.1.82" class="t-ab s-1-struttura" data-el="ab">Led, he suddenly heard peals of joyous laughter.</p>
+<p id="let010:0.2.0.1.83" class="t-ab s-1-struttura" data-el="ab">Rocking from side to side, a wagon, nearly toppling</p>
+<p id="let010:0.2.0.1.84" class="t-ab s-1-struttura" data-el="ab">Under its load of fresh-harvested buckwheat, came rumbling closer,</p>
+<p id="let010:0.2.0.1.85" class="t-ab s-1-struttura" data-el="ab">Both horse and burden adorned with fluttering ribbons and greenery.</p>
+<p id="let010:0.2.0.1.86" class="t-ab s-1-struttura" data-el="ab">Children, all with wreaths of flowers on their little flaxen heads,</p>
+<p id="let010:0.2.0.1.87" class="t-ab s-1-struttura" data-el="ab">Were seated on top, happily waving branches of alder,</p>
+<p id="let010:0.2.0.1.88" class="t-ab s-1-struttura" data-el="ab">Or scattering flowers and leaves, which rained down on all sides,</p>
+<p id="let010:0.2.0.1.89" class="t-ab s-1-struttura" data-el="ab">While round the wagon a troop of country lads and lasses</p>
+<p id="let010:0.2.0.1.90" class="t-ab s-1-struttura" data-el="ab">Skipped and sang enough to startle the whole drowsy plain.</p>
 <span id="let010:0.2.0.1.91" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.92" class="t-ab s-1-struttura" data-el="ab">Quietly smiling, the Painter, from behind the thicket,</div>
-<div id="let010:0.2.0.1.93" class="t-ab s-1-struttura" data-el="ab">Watched as the revellers slowly wound their way down the rutted road.</div>
-<div id="let010:0.2.0.1.94" class="t-ab s-1-struttura" data-el="ab">‘Aye’, he thus mumbled, ‘Aye, the Lord must think it</div>
-<div id="let010:0.2.0.1.95" class="t-ab s-1-struttura" data-el="ab">A happy sound, the jubilance with which these hearts 
+<p id="let010:0.2.0.1.92" class="t-ab s-1-struttura" data-el="ab">Quietly smiling, the Painter, from behind the thicket,</p>
+<p id="let010:0.2.0.1.93" class="t-ab s-1-struttura" data-el="ab">Watched as the revellers slowly wound their way down the rutted road.</p>
+<p id="let010:0.2.0.1.94" class="t-ab s-1-struttura" data-el="ab">‘Aye’, he thus mumbled, ‘Aye, the Lord must think it</p>
+<p id="let010:0.2.0.1.95" class="t-ab s-1-struttura" data-el="ab">A happy sound, the jubilance with which these hearts 
 <span id="pb-trans-2r-7" class="t-pb" role="separator" title="page break">[7]</span>
-                </div>
-<div id="let010:0.2.0.1.96" class="t-ab s-1-struttura" data-el="ab">So simply pour forth their thanks as they gather the last</div>
-<div id="let010:0.2.0.1.97" class="t-ab s-1-struttura" data-el="ab">Fruits, which He yearly lets grow fully ripe from their toil.</div>
-<div id="let010:0.2.0.1.98" class="t-ab s-1-struttura" data-el="ab">Yea, for the purest prayer of simplicity and innocence is joy!’</div>
+                </p>
+<p id="let010:0.2.0.1.96" class="t-ab s-1-struttura" data-el="ab">So simply pour forth their thanks as they gather the last</p>
+<p id="let010:0.2.0.1.97" class="t-ab s-1-struttura" data-el="ab">Fruits, which He yearly lets grow fully ripe from their toil.</p>
+<p id="let010:0.2.0.1.98" class="t-ab s-1-struttura" data-el="ab">Yea, for the purest prayer of simplicity and innocence is joy!’</p>
 <span id="let010:0.2.0.1.99" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.100" class="t-ab s-1-struttura" data-el="ab">And thus contemplating the calm, deep delight upon which the soul</div>
-<div id="let010:0.2.0.1.101" class="t-ab s-1-struttura" data-el="ab">Feasts in the fields; or with his artist’s mind reconstructing</div>
-<div id="let010:0.2.0.1.102" class="t-ab s-1-struttura" data-el="ab">In silent rapture the glorious scene of a moment ago,</div>
-<div id="let010:0.2.0.1.103" class="t-ab s-1-struttura" data-el="ab">He found he had sauntered, unnoticing, into the village.</div>
+<p id="let010:0.2.0.1.100" class="t-ab s-1-struttura" data-el="ab">And thus contemplating the calm, deep delight upon which the soul</p>
+<p id="let010:0.2.0.1.101" class="t-ab s-1-struttura" data-el="ab">Feasts in the fields; or with his artist’s mind reconstructing</p>
+<p id="let010:0.2.0.1.102" class="t-ab s-1-struttura" data-el="ab">In silent rapture the glorious scene of a moment ago,</p>
+<p id="let010:0.2.0.1.103" class="t-ab s-1-struttura" data-el="ab">He found he had sauntered, unnoticing, into the village.</p>
 <span id="let010:0.2.0.1.104" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.105" class="t-ab s-1-struttura" data-el="ab">Already the purple and yellow had faded to grey in the west,</div>
-<div id="let010:0.2.0.1.106" class="t-ab s-1-struttura" data-el="ab">And in the east there had risen close by the little church the full</div>
-<div id="let010:0.2.0.1.107" class="t-ab s-1-struttura" data-el="ab">Copper-coloured disc of the moon, in mist enshrouded,</div>
-<div id="let010:0.2.0.1.108" class="t-ab s-1-struttura" data-el="ab">When he entered The Swan, the inn where he boarded.</div>
+<p id="let010:0.2.0.1.105" class="t-ab s-1-struttura" data-el="ab">Already the purple and yellow had faded to grey in the west,</p>
+<p id="let010:0.2.0.1.106" class="t-ab s-1-struttura" data-el="ab">And in the east there had risen close by the little church the full</p>
+<p id="let010:0.2.0.1.107" class="t-ab s-1-struttura" data-el="ab">Copper-coloured disc of the moon, in mist enshrouded,</p>
+<p id="let010:0.2.0.1.108" class="t-ab s-1-struttura" data-el="ab">When he entered The Swan, the inn where he boarded.</p>
 <span id="let010:0.2.0.1.109" class="t-whiteline s-base" data-el="whiteline"></span>
-<div id="let010:0.2.0.1.110" class="t-ab s-1-struttura" data-el="ab">
+<p id="let010:0.2.0.1.110" class="t-ab s-1-struttura" data-el="ab">
                     <span id="let010:0.2.0.1.110.0" class="t-hi s-1-inline" data-el="hi">Jan van Beers</span>
-                </div>
-    <div id="let010:0.2.0.1.111" class="t-ab s-1-struttura" data-el="ab">(The boarder)</div>
+                </p>
+    <p id="let010:0.2.0.1.111" class="t-ab s-1-struttura" data-el="ab">(The boarder)</p>
                 <span id="pb-trans-3r-8" class="t-pb" role="separator" title="page break">[8]</span>
                 <span id="pb-trans-3v-9" class="t-pb" role="separator" title="page break">[9]</span>
             </div>
 <div id="let010:0.2.0.2" class="t-div s-1-struttura" data-el="div" data-type="notes">
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-1" class="t-note s-1-note" data-el="note" data-n="1" data-target="#note-t-1">
-<div id="let010:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">
-                        <span id="let010:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="760" data-type="pers">Willem Jacob van Stockum</span> and <span id="let010:0.2.0.2.0.0.1" class="t-rs s-2-entita" data-el="rs" data-key="761" data-type="pers">Carolina Adolphina van Stockum-Haanebeek</span>; Caroline was a distant relative of Vincent on his mother’s side and he had been in contact with her family in The Hague.</div>
+<p id="let010:0.2.0.2.0.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let010:0.2.0.2.0.0.0" class="t-rs s-2-entita" data-el="rs" data-key="760" data-type="pers">Willem Jacob van Stockum</span> and <span id="let010:0.2.0.2.0.0.1" class="t-rs s-2-entita" data-el="rs" data-key="761" data-type="pers">Carolina Adolphina van Stockum-Haanebeek</span>; Caroline was a distant relative of Vincent on his mother’s side and he had been in contact with her family in The Hague.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-2" class="t-note s-1-note" data-el="note" data-n="2" data-target="#note-t-2">
-<div id="let010:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">
-                        <span id="let010:0.2.0.2.1.0.0" class="t-rs s-2-entita" data-el="rs" data-key="760" data-type="pers">Willem</span> and <span id="let010:0.2.0.2.1.0.1" class="t-rs s-2-entita" data-el="rs" data-key="761" data-type="pers">Caroline</span> were married on 30 April 1873 and lived at Varkenmarkt 11a in The Hague.</div>
+<p id="let010:0.2.0.2.1.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let010:0.2.0.2.1.0.0" class="t-rs s-2-entita" data-el="rs" data-key="760" data-type="pers">Willem</span> and <span id="let010:0.2.0.2.1.0.1" class="t-rs s-2-entita" data-el="rs" data-key="761" data-type="pers">Caroline</span> were married on 30 April 1873 and lived at Varkenmarkt 11a in The Hague.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-3" class="t-note s-1-note" data-el="note" data-n="3" data-target="#note-t-3">
-<div id="let010:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">
-                        <span id="let010:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="524" data-type="pers">Mrs van Gogh</span> wrote to Theo: ‘When I last wrote to you, had we received Vincent’s letter in which he said that his salary is 1,080 guilders and that he has such a nice room, where he’s hung up his prints from The Hague and with which he’s very pleased?’ (FR b2638, 2 July 1873).</div>
+<p id="let010:0.2.0.2.2.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let010:0.2.0.2.2.0.0" class="t-rs s-2-entita" data-el="rs" data-key="524" data-type="pers">Mrs van Gogh</span> wrote to Theo: ‘When I last wrote to you, had we received Vincent’s letter in which he said that his salary is 1,080 guilders and that he has such a nice room, where he’s hung up his prints from The Hague and with which he’s very pleased?’ (FR b2638, 2 July 1873).</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-4" class="t-note s-1-note" data-el="note" data-n="4" data-target="#note-t-4">
-<div id="let010:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">Lange Poten 10 in The Hague, Caroline’s parental home.</div>
+<p id="let010:0.2.0.2.3.0" class="t-ab s-1-struttura" data-el="ab">Lange Poten 10 in The Hague, Caroline’s parental home.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-5" class="t-note s-1-note" data-el="note" data-n="5" data-target="#note-t-5">
-<div id="let010:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">
-                        <span id="let010:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Jan van Beers</span>, ‘The evening hour’. See the end of the letter.</div>
+<p id="let010:0.2.0.2.4.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let010:0.2.0.2.4.0.0" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Jan van Beers</span>, ‘The evening hour’. See the end of the letter.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-6" class="t-note s-1-note" data-el="note" data-n="6" data-target="#note-t-6">
-<div id="let010:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">
-                        <span id="let010:0.2.0.2.5.0.0" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Elisabeth (Lies) Huberta van Gogh</span>, sister of Van Gogh. She informed Theo that she was copying out a poem for Vincent to take along with him when he left Helvoirt (FR b2622).</div>
+<p id="let010:0.2.0.2.5.0" class="t-ab s-1-struttura" data-el="ab">
+                        <span id="let010:0.2.0.2.5.0.0" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Elisabeth (Lies) Huberta van Gogh</span>, sister of Van Gogh. She informed Theo that she was copying out a poem for Vincent to take along with him when he left Helvoirt (FR b2622).</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-7" class="t-note s-1-note" data-el="note" data-n="7" data-target="#note-t-7">
-<div id="let010:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">Van Gogh’s last evening at home was Sunday, 11 May 1873.</div>
+<p id="let010:0.2.0.2.6.0" class="t-ab s-1-struttura" data-el="ab">Van Gogh’s last evening at home was Sunday, 11 May 1873.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-8" class="t-note s-1-note" data-el="note" data-n="8" data-target="#note-t-8">
-<div id="let010:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">The province of North Brabant in the south of the Netherlands, where Van Gogh grew up.</div>
+<p id="let010:0.2.0.2.7.0" class="t-ab s-1-struttura" data-el="ab">The province of North Brabant in the south of the Netherlands, where Van Gogh grew up.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-9" class="t-note s-1-note" data-el="note" data-n="9" data-target="#note-t-9">
-<div id="let010:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">On 9 July 1873, <span id="let010:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="762" data-type="pers">Maria Louisa van Stockum</span>, Willem’s sister, married the merchant and broker <span id="let010:0.2.0.2.8.0.1" class="t-rs s-2-entita" data-el="rs" data-key="7" data-type="pers">Jan Bakker</span>.</div>
+<p id="let010:0.2.0.2.8.0" class="t-ab s-1-struttura" data-el="ab">On 9 July 1873, <span id="let010:0.2.0.2.8.0.0" class="t-rs s-2-entita" data-el="rs" data-key="762" data-type="pers">Maria Louisa van Stockum</span>, Willem’s sister, married the merchant and broker <span id="let010:0.2.0.2.8.0.1" class="t-rs s-2-entita" data-el="rs" data-key="7" data-type="pers">Jan Bakker</span>.</p>
                 </div>
 <span class="t-note-mark" aria-hidden="true">°</span><div id="n-10" class="t-note s-1-note" data-el="note" data-n="10" data-target="#note-t-10">
-<div id="let010:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">The poem as cited here was originally the first of four parts comprising the romantic poem ‘<span id="let010:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="3" data-type="lit">De bestedeling</span>’ (The boarder). See <span id="let010:0.2.0.2.9.0.1" class="t-hi s-1-inline" data-el="hi">Levensbeelden. Poezij van Jan van Beers</span>. Amsterdam and Antwerp 1858, pp. 98-104. Vincent probably copied the text from the transcript <span id="let010:0.2.0.2.9.0.2" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Lies</span> made for him (which has not survived). This presumably explains several slight differences between the original text and the version in the letter; ‘The evening hour’ is not <span id="let010:0.2.0.2.9.0.3" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Van Beers</span>’s title. Vincent also sent a version to Theo; <span id="let010:0.2.0.2.9.0.4" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let011.xml">see letter 11</span>.</div>
+<p id="let010:0.2.0.2.9.0" class="t-ab s-1-struttura" data-el="ab">The poem as cited here was originally the first of four parts comprising the romantic poem ‘<span id="let010:0.2.0.2.9.0.0" class="t-rs s-2-entita" data-el="rs" data-key="3" data-type="lit">De bestedeling</span>’ (The boarder). See <span id="let010:0.2.0.2.9.0.1" class="t-hi s-1-inline" data-el="hi">Levensbeelden. Poezij van Jan van Beers</span>. Amsterdam and Antwerp 1858, pp. 98-104. Vincent probably copied the text from the transcript <span id="let010:0.2.0.2.9.0.2" class="t-rs s-2-entita" data-el="rs" data-key="401" data-type="pers">Lies</span> made for him (which has not survived). This presumably explains several slight differences between the original text and the version in the letter; ‘The evening hour’ is not <span id="let010:0.2.0.2.9.0.3" class="t-rs s-2-entita" data-el="rs" data-key="537" data-type="pers">Van Beers</span>’s title. Vincent also sent a version to Theo; <span id="let010:0.2.0.2.9.0.4" class="t-ref s-2-corrispondenza" data-el="ref" data-target="let011.xml">see letter 11</span>.</p>
                 </div>
             </div>
         </div>
@@ -803,6 +839,94 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <script>
 (function(){
   var body=document.body; body.classList.add('mode-read');
+  if(document.querySelector('.app-band'))body.classList.add('has-band');
+  if(window.TORCHIO_ALIGN)body.classList.add('has-align');
+  /* words covered by an apparatus entry become triggers: the reader clicks
+     the word and sees its variants (positions from the declared @from/@to) */
+  function wireWords(){
+    document.querySelectorAll('.app-band').forEach(function(band){
+      try{
+      var l=band.previousElementSibling;
+      if(!l||l.getAttribute('data-el')!=='l')return;
+      if(l.querySelector('.wv'))return;
+      var entries=[].slice.call(band.querySelectorAll('.band-e[data-from]'));
+      if(!entries.length)return;
+      var map={};
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        for(var w=Math.ceil(f/2); w<=Math.floor(t/2); w++){ if(map[w]==null)map[w]=e; }
+      });
+      var walker=document.createTreeWalker(l,NodeFilter.SHOW_TEXT,null);
+      var nodes=[]; while(walker.nextNode())nodes.push(walker.currentNode);
+      /* pass 1: tokens (standalone punctuation is not a token) */
+      var toks=[]; var idx=0, carry=false;
+      nodes.forEach(function(tn){
+        var v=tn.nodeValue;
+        if(!/\S/.test(v)){ if(/\s/.test(v))carry=false; return; }
+        var parts=v.split(/(\s+)/);
+        var continuing=carry&&!/^\s/.test(v);
+        parts.forEach(function(pt){
+          if(!pt)return;
+          if(/^\s+$/.test(pt)){continuing=false;toks.push({sp:true,node:tn,text:pt,i:idx});return;}
+          var punct=!/[\p{L}\p{N}]/u.test(pt);
+          if(continuing){continuing=false;toks.push({node:tn,text:pt,i:idx,cont:true});return;}
+          if(punct){toks.push({node:tn,text:pt,i:idx,punct:true});return;}
+          idx++;
+          toks.push({node:tn,text:pt,i:idx});
+        });
+        carry=!/\s$/.test(v);
+      });
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
+      var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
+      entries.forEach(function(e){
+        var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
+        var a=Math.ceil(f/2), b=Math.floor(t/2);
+        var chk=e.getAttribute('data-check')||'';
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
+      });
+      /* pass 3: wrap, spaces inside one site keep the line running */
+      var byNode=new Map();
+      toks.forEach(function(tk){ if(!byNode.has(tk.node))byNode.set(tk.node,[]); byNode.get(tk.node).push(tk); });
+      byNode.forEach(function(list,tn){
+        var frag=document.createDocumentFragment(); var wrapped=false;
+        list.forEach(function(tk){
+          var e=null;
+          if(tk.sp){ if(claim[tk.i]&&claim[tk.i]===claim[tk.i+1])e=claim[tk.i]; }
+          else if(!tk.punct){ e=claim[tk.i]; }
+          if(!e){frag.appendChild(document.createTextNode(tk.text));return;}
+          var sp=document.createElement('span');
+          sp.className='wv';sp.textContent=tk.text;sp._be=e;
+          frag.appendChild(sp);wrapped=true;
+        });
+        tn.parentNode.replaceChild(frag,tn);
+      });
+      }catch(e){/* one bad band must not silence the rest */}
+    });
+  }
+  if(document.readyState==='complete')wireWords();
+  else window.addEventListener('load',wireWords);
   var pop=null, lastTrigger=null;
   function closePop(){
     clearZone();
@@ -854,7 +978,8 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
     makeTrigger(el,'apparatus entry: '+el.textContent.trim());
   });
-  document.querySelectorAll('[data-ref]').forEach(function(el){
+  document.querySelectorAll('[data-ref],[data-key]').forEach(function(el){
+    if(el.classList.contains('ent-ext'))return; /* external links stay links */
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
@@ -866,16 +991,57 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     }
   });
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  var ALIGNMAP=null;
+  function withAlign(cb){
+    if(ALIGNMAP){cb(ALIGNMAP);return;}
+    try{
+      fetch('alignment.json').then(function(r){return r.ok?r.json():null;})
+        .then(function(j){if(j){ALIGNMAP=j;cb(j);}})['catch'](function(){});
+    }catch(e){}
+  }
   function sigla(w){return (w||'').split(/\s+/).filter(Boolean).map(function(x){return x.replace(/^#/,'');}).join(' ');}
 
   document.addEventListener('click',function(ev){
+    var bw=ev.target.closest&&ev.target.closest('.bw');
+    if(bw){
+      var bandk=bw.closest('[data-ent]');
+      var sig=bw.getAttribute('data-sig');
+      if(bandk&&sig){
+        withAlign(function(map){
+          var row=map[bandk.getAttribute('data-ent')]||{};
+          var tgt=row[sig]||row['ms-'+sig]||row['wit-'+sig];
+          if(!tgt)return;
+          var file=tgt.split('#')[0], id=tgt.split('#')[1];
+          /* the witness's passage in a small window: the reader stays put */
+          try{
+            fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+              if(!html){location.href=tgt;return;}
+              var doc=new DOMParser().parseFromString(html,'text/html');
+              var el=doc.getElementById(id);
+              var txt='';
+              if(el){
+                var cl=el.cloneNode(true);
+                cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
+                txt=cl.textContent.replace(/s+/g,' ').trim();
+              }
+              openPop('<span class="k">'+esc(sig)+'</span>'
+                +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
+                +'<div class="meta"><a href="'+tgt+'">open the page</a></div>',bw);
+            })['catch'](function(){location.href=tgt;});
+          }catch(e){location.href=tgt;}
+        });
+        ev.stopPropagation();return;
+      }
+    }
     if(pop&&pop.contains(ev.target))return;
     var app=ev.target.closest&&ev.target.closest('.t-app');
     if(app&&!body.classList.contains('app-off')){
       var rows='';
       app.querySelectorAll('[data-el="lem"],[data-el="rdg"]').forEach(function(r){
+        var rr=r.cloneNode(true);
+        rr.querySelectorAll('[data-el="wit"],[data-el="witDetail"]').forEach(function(x){x.remove();});
         rows+='<div class="rdgline"><span class="sig">'+esc(sigla(r.dataset.wit)||(r.dataset.el==='lem'?'lem.':'—'))+'</span>'
-          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(r.textContent.trim()||'(om.)')+'</span>'
+          +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span>'
           +(r.dataset.type?'<span class="meta">'+esc(r.dataset.type)+'</span>':'')+'</div>';
       });
       var extra='';
@@ -897,13 +1063,70 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       });
       if(rows){openPop(rows,ch);ev.stopPropagation();return;}
     }
-    var ent=ev.target.closest&&ev.target.closest('[data-ref]');
-    if(ent&&!body.classList.contains('ent-off')&&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
-      var ref=ent.dataset.ref;
-      var all=document.querySelectorAll('[data-ref="'+CSS.escape(ref)+'"]');
+    var ent=ev.target.closest&&ev.target.closest('[data-ref],[data-key]');
+    if(ent&&!ent.classList.contains('ent-ext')&&!body.classList.contains('ent-off')
+       &&/^(persName|placeName|orgName|rs|name)$/.test(ent.dataset.el||'')){
+      /* the normalized name leads the card: @key IS the canonical form */
+      var ref=ent.dataset.ref||'';var key=ent.dataset.key||'';
+      var sel=ref?('[data-ref="'+CSS.escape(ref)+'"]'):('[data-key="'+CSS.escape(key)+'"]');
+      var all=document.querySelectorAll(sel);
+      var head=key||ent.textContent.trim();
+      var meta=[];
+      if(key&&ent.textContent.trim()!==key)meta.push(esc(ent.textContent.trim()));
+      if(ref)meta.push(esc(ref));
+      meta.push(all.length+' '+(all.length===1?'occurrence':'occurrences'));
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
-        +'<div>'+esc(ent.textContent.trim())+'</div>'
-        +'<div class="meta">'+esc(ref)+' · '+all.length+' '+(all.length===1?'occurrence':'occurrences')+'</div>',ent);
+        +'<div>'+esc(head)+'</div>'
+        +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    var wv=ev.target.closest&&ev.target.closest('.wv');
+    if(wv&&wv._be&&!body.classList.contains('app-off')){
+      var wband=wv._be.closest('.app-band');
+      openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
+      ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
+    }
+    var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')
+       &&!(lw.nextElementSibling&&lw.nextElementSibling.classList&&lw.nextElementSibling.classList.contains('app-band'))){
+      var CFG=window.TORCHIO_ALIGN;
+      var key=String(lw.getAttribute('data-n'));
+      try{ if(CFG.strip)key=key.replace(new RegExp(CFG.strip),''); if(CFG.suffix)key=key.replace(new RegExp(CFG.suffix),''); }catch(e){}
+      withAlign(function(map){
+        var row=map[key]; if(!row)return;
+        var tgt=null;
+        (CFG.apps||[]).some(function(a){ if(row[a]){tgt=row[a];return true;} return false; });
+        if(!tgt)return;
+        var file=tgt.split('#')[0], id=tgt.split('#')[1];
+        fetch(file).then(function(r){return r.ok?r.text():null;}).then(function(html){
+          if(!html)return;
+          var doc=new DOMParser().parseFromString(html,'text/html');
+          var el=doc.getElementById(id);
+          var sec=el&&el.closest?el.closest('.vmap')||el:el;
+          if(!sec)return;
+          openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
+            +'<div class="popband" data-ent="'+esc(key)+'">'+sec.innerHTML+'</div>'
+            +'<div class="meta"><a href="'+tgt+'">open the page</a></div>',lw);
+        })['catch'](function(){});
+      });
+      ev.stopPropagation();return;
+    }
+    var lv=ev.target.closest&&ev.target.closest('[data-el="l"]');
+    if(lv&&lv.nextElementSibling&&lv.nextElementSibling.classList
+       &&lv.nextElementSibling.classList.contains('app-band')){
+      var bd=lv.nextElementSibling;
+      openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
+        +'<div class="popband" data-ent="'+(bd.getAttribute('data-ent')||'')+'">'+bd.innerHTML+'</div>',lv);
       ev.stopPropagation();return;
     }
     var np=ev.target.closest&&ev.target.closest('[data-notepop]');

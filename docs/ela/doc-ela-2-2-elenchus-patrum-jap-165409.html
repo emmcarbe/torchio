@@ -48,9 +48,8 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-del{text-decoration:line-through;color:var(--soft)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
-.t-supplied::before{content:'[';color:var(--faint)}
-.t-supplied::after{content:']';color:var(--faint)}
-.t-gap::before{content:'[…]';color:var(--faint);font-family:var(--mono);font-size:.85em}
+.t-sign{color:var(--soft)}
+.t-gap{color:var(--soft);font-family:var(--mono);font-size:.85em}
 .t-abbr{border-bottom:1px dotted var(--faint)}
 
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
@@ -259,6 +258,9 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .vmap .bw:hover{text-decoration:underline}
 .vmap-count{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .vmap-lac .vmap-rdg{color:var(--soft)}
+.vmap-edited{color:var(--ink)}
+.vmap-mark{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent)}
 /* the band is data: the popups read it, the page does not show it */
 .app-band{display:none}
 .app-band .band-lem{font-style:italic;color:var(--ink)}
@@ -318,11 +320,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       </div>
      <span id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1" class="t-encodingDesc s-7-header" data-el="encodingDesc">
         <span id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1.0" class="t-projectDesc s-7-header" data-el="projectDesc">
-           <div id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></div>
+           <p id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1.0.0" class="t-p s-1-struttura" data-el="p"></p>
         </span>
         <span id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1.1" class="t-editorialDecl s-7-header" data-el="editorialDecl">
-           <div id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
-           </div>
+           <p id="ELA_2_2_elenchus_patrum_jap_165409:0.0.1.1.0" class="t-ab s-1-struttura" data-el="ab">    
+           </p>
         </span>
      </span>
      <span id="ELA_2_2_elenchus_patrum_jap_165409:0.0.2" class="t-profileDesc s-7-header" data-el="profileDesc">
@@ -350,13 +352,13 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
          <div id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0" class="t-div s-1-struttura" data-el="div">
             <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.0" class="t-pb" role="separator" title="page break">[Ajuda, Jes. na Asia, 49-IV-61, ff. 336v/337]</span>
             <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.1" class="t-pb" role="separator" title="page break">[610]</span>
-            <div id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">ACTA CONGREGATIONIS PRO <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">JAPPONICA PROVINCIA</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.1" class="t-lb"><br/></span>
+            <p id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2" class="t-p s-1-struttura" data-el="p">ACTA CONGREGATIONIS PRO <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.0" class="t-placeName s-2-entita" data-el="placeName" data-key="Japonia">JAPPONICA PROVINCIA</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.1" class="t-lb"><br/></span>
                HABITAE IN <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.2" class="t-placeName s-2-entita" data-el="placeName" data-key="Macaum">COLLEGIO MACAENSI</span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.3" class="t-date s-2-date" data-el="date" data-when="1654-09-15">ANNO DOMINI 1654,<span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.3.0" class="t-lb"><br/></span>
                   DIE SEPTEMBRIS QUINTA SUPRA DECIMAM INCHOATAE</span>.<span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.4" class="t-lb"><br/></span>
                PRAESIDE <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.5" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.5.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.5.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span><a id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.6" class="t-persName s-2-entita ent-ext" href="http://www.viaf.org/42085352" target="_blank" rel="noopener" data-el="persName" data-ref="http://www.viaf.org/42085352" data-key="Maiorica, Hieronymus S.J."> HYERONIMO MAYORICA</a>, PROVINCIALI<span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.7" class="t-lb"><br/></span>
                PRAESENTIBUS DECEM PATRIBUS IISQUE OMNIBUS<span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.2.8" class="t-lb"><br/></span>
-               QUATUOR VOTORUM PROFESSIS, VIDELICET</div>
-<div id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.0" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.0.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.0.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.1" class="t-persName s-2-entita" data-el="persName" data-key="Iohannes Cabral S.J.">Joanne Cabral</span>, supra numerum, quia fuit Provincialis –
+               QUATUOR VOTORUM PROFESSIS, VIDELICET</p>
+<p id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3" class="t-p s-1-struttura" data-el="p"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.0" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.0.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.0.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.1" class="t-persName s-2-entita" data-el="persName" data-key="Iohannes Cabral S.J.">Joanne Cabral</span>, supra numerum, quia fuit Provincialis –
 <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.2" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.3" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.3.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.3.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.4" class="t-persName s-2-entita" data-el="persName" data-key="Ferreira, Antonius S.J.">Antonio Ferreira</span> –
 <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.5" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.6" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.6.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.6.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.7" class="t-persName s-2-entita" data-el="persName" data-key="Metellus Sacanus">Metello Saccano</span> –
 <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.8" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.9" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.9.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.9.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> Marlino Coelho, Rectore Collegii ac Provinciae Procuratore –
@@ -374,7 +376,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.38" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.39" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.39.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.39.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.40" class="t-persName s-2-entita" data-el="persName" data-key="Agnes, Ioseph S.J.">Joseph Agnes</span> –
 <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.41" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.42" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.42.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.42.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> Onofrius Borges, Superior Missionis Tunkinicae –
 <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.43" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.44" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.44.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.44.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> Philippus Marinis –
-<span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.45" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.46" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.46.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.46.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.47" class="t-persName s-2-entita" data-el="persName" data-key="Torrente, Stanislaus S.J.">Stanislaus Torrente</span> –</div>     
+<span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.45" class="t-lb"><br/></span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.46" class="t-choice s-3-editoriale" data-el="choice"><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.46.0" class="t-abbr s-3-editoriale" data-el="abbr">P.</span><span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.46.1" class="t-expan s-3-editoriale" data-el="expan">Pater</span></span> <span id="ELA_2_2_elenchus_patrum_jap_165409:0.1.0.0.3.47" class="t-persName s-2-entita" data-el="persName" data-key="Torrente, Stanislaus S.J.">Stanislaus Torrente</span> –</p>     
          </div>      
       </div>
    </div><nav class="prevnext" aria-label="Register"><a href="doc-ela-2-2-depolanco-excerpta-e-litteris-155601.html">‹ previous</a><a href="text.html">Register</a><a href="doc-ela-2-2-ibanez-brevis-relatio.html">next ›</a></nav></main>
@@ -419,16 +421,35 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         });
         carry=!/\s$/.test(v);
       });
-      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');}
-      /* pass 2: each entry claims its range only if the words match the lemma */
+      function norm(x){return x.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'').replace(/[\p{Lm}\p{M}]/gu,'');}
+      function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++){if(b[j]===a[i])i++;}return i===a.length;}
+      /* pass 2: the declared positions give the anchor, the declared lemma
+         corrects it: among nearby offsets the one that matches best wins */
       var claim={};
+      function rangeText(a,b){
+        return norm(toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;})
+          .map(function(tk){return tk.text;}).join(''));
+      }
+      function matchScore(chk,got){
+        var i=0,j=0;
+        for(; j<got.length&&i<chk.length; j++){ if(got[j]===chk[i])i++; }
+        return i===chk.length ? (j-chk.length) : -1;
+      }
       entries.forEach(function(e){
         var f=parseInt(e.getAttribute('data-from'),10), t=parseInt(e.getAttribute('data-to'),10);
         var a=Math.ceil(f/2), b=Math.floor(t/2);
-        var got=toks.filter(function(tk){return !tk.sp&&!tk.punct&&tk.i>=a&&tk.i<=b;}).map(function(tk){return tk.text;}).join('');
         var chk=e.getAttribute('data-check')||'';
-        if(chk&&norm(got).slice(0,chk.length)!==chk)return; /* mismatch: no underline */
-        for(var w=a;w<=b;w++){ if(claim[w]==null)claim[w]=e; }
+        var best=null;
+        [0,-1,1,-2,2,-3,3].forEach(function(off){
+          if(a+off<1)return;
+          var got=rangeText(a+off,b+off);
+          if(!got)return;
+          var sc=chk?matchScore(chk,got.slice(0,chk.length+24)):0;
+          if(sc<0)return;
+          if(best===null||sc<best.sc)best={off:off,sc:sc};
+        });
+        if(!best)return;
+        for(var w=a+best.off;w<=b+best.off;w++){ if(claim[w]==null)claim[w]=e; }
       });
       /* pass 3: wrap, spaces inside one site keep the line running */
       var byNode=new Map();
@@ -610,6 +631,15 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       openPop('<span class="k">'+'Apparatus'.toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
+    }
+    var npFirst=ev.target.closest&&ev.target.closest('[data-notepop]');
+    if(npFirst){
+      var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
+      if(nnF&&!body.classList.contains('notes-off')){
+        openPop('<span class="k">'+'Notes'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        showZone(nnF);
+        ev.stopPropagation();return;
+      }
     }
     var lw=ev.target.closest&&ev.target.closest('[data-el="l"]');
     if(lw&&window.TORCHIO_ALIGN&&lw.getAttribute('data-n')
