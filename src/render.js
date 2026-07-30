@@ -59,8 +59,16 @@ export function renderBase(node) {
     if (node.atts[a] != null) data += ` data-${a}="${escapeHTML(node.atts[a])}"`;
   }
   let inner = '';
+  let prevApp = null;
   for (const child of node.children) {
+    if (typeof child !== 'string' && child.element === 'app'
+        && prevApp && Number(child.atts.from) > Number(prevApp.atts.to)) {
+      // segment apparatus (C27): disjoint declared token ranges imply a
+      // separator between adjacent app elements
+      inner += ' ';
+    }
     inner += typeof child === 'string' ? escapeHTML(child) : renderBase(child);
+    prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
   return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>`;
 }
@@ -148,6 +156,9 @@ body.notes-off .t-note-mark{opacity:.25}
 
 .t-app .t-rdg{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
+.t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+  border-bottom:none;margin-right:.5em;vertical-align:.08em}
 .t-app:hover .t-lem,.t-lem:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
 
 footer.torchio{max-width:var(--measure);margin:44px auto 0;padding:16px 20px 36px;

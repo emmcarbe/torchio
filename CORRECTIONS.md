@@ -44,6 +44,8 @@ editorial genre.
 | 2026-07-30 | C23 | Bellum Alexandrinum (DLL), public demo | assignment | witness descriptions were truncated at 80 characters and a `ptr` with no text swallowed its URL, leaving a dangling "URL:": the register now carries the full description and pointer targets surface as links |
 | 2026-07-30 | C24 | all registers | assignment | the 80-character truncation removed by C23 lived in the model itself and applied to every register (people, places, hands, layers), not only witnesses: the model now keeps labels whole; compactness is a concern of the pages |
 | 2026-07-30 | C25 | Ursus Beneventanus (ed. Monella), public demo | assignment | manuscript lineation (`lb`) belongs to the diplomatic level: the reading view flows the prose and `@break="no"` rejoins words split across lines; the base rendering without JavaScript keeps every line break |
+| 2026-07-30 | C26 | Canterbury Tales Project (GP), offered by the editor | assignment | `am` and `ex` mark the diplomatic and the reading level even without a `choice` wrapper: the transcription toggle now counts them and shows each on its level |
+| 2026-07-30 | C27 | Canterbury Tales Project (GP), offered by the editor | assignment | segment apparatus: adjacent `app` elements with declared token ranges (`@from`/`@to`) render glued; disjoint ranges now imply a separator, derived from the declared positions; apparatus entries typed `lac` read their editorial lemma as a compact scope label |
 
-As of 30 July 2026: 24 corrections applied (18 assignments, 6 extensions, 0
+As of 30 July 2026: 26 corrections applied (20 assignments, 6 extensions, 0
 structural changes), 1 open.
