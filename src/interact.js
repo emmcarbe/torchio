@@ -84,6 +84,37 @@ export function buildInteractJS(t) {
     if(/^(persName|placeName|orgName|rs|name)$/.test(el.dataset.el||''))
       makeTrigger(el,null);
   });
+  /* leader lines: a faint thread from each anchor to its margin note */
+  function leaders(){
+    var old=document.getElementById('note-leaders'); if(old)old.remove();
+    if(window.innerWidth<1180||body.classList.contains('notes-off'))return;
+    var main=document.querySelector('main.torchio'); if(!main)return;
+    var mr=main.getBoundingClientRect();
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='note-leaders';
+    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
+    main.style.position='relative';
+    document.querySelectorAll('main.torchio .t-note').forEach(function(n){
+      if(n.closest('.header-full'))return;
+      var m=n.previousElementSibling;
+      if(!m||!m.classList||!m.classList.contains('t-note-mark'))return;
+      var a=m.getBoundingClientRect(), b=n.getBoundingClientRect();
+      if(!a.width&&!a.height)return;
+      var x1=a.right-mr.left+2, y1=a.top-mr.top+a.height*0.35;
+      var x2=b.left-mr.left-6, y2=b.top-mr.top+8;
+      var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+22)+' '+y1+', '+(x2-22)+' '+y2+', '+x2+' '+y2);
+      p.setAttribute('fill','none');
+      p.setAttribute('stroke','var(--faint)');
+      p.setAttribute('stroke-width','1');
+      svg.appendChild(p);
+    });
+    main.appendChild(svg);
+  }
+  if(document.readyState==='complete')leaders();
+  else window.addEventListener('load',leaders);
+  window.addEventListener('resize',leaders);
+
   document.addEventListener('keydown',function(ev){
     if((ev.key==='Enter'||ev.key===' ')&&ev.target.getAttribute&&ev.target.getAttribute('role')==='button'
        &&!ev.target.closest('.torchio-bar')){
@@ -117,6 +148,37 @@ export function buildInteractJS(t) {
     }
     closePop();
   });
+  /* leader lines: a faint thread from each anchor to its margin note */
+  function leaders(){
+    var old=document.getElementById('note-leaders'); if(old)old.remove();
+    if(window.innerWidth<1180||body.classList.contains('notes-off'))return;
+    var main=document.querySelector('main.torchio'); if(!main)return;
+    var mr=main.getBoundingClientRect();
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='note-leaders';
+    svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
+    main.style.position='relative';
+    document.querySelectorAll('main.torchio .t-note').forEach(function(n){
+      if(n.closest('.header-full'))return;
+      var m=n.previousElementSibling;
+      if(!m||!m.classList||!m.classList.contains('t-note-mark'))return;
+      var a=m.getBoundingClientRect(), b=n.getBoundingClientRect();
+      if(!a.width&&!a.height)return;
+      var x1=a.right-mr.left+2, y1=a.top-mr.top+a.height*0.35;
+      var x2=b.left-mr.left-6, y2=b.top-mr.top+8;
+      var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+22)+' '+y1+', '+(x2-22)+' '+y2+', '+x2+' '+y2);
+      p.setAttribute('fill','none');
+      p.setAttribute('stroke','var(--faint)');
+      p.setAttribute('stroke-width','1');
+      svg.appendChild(p);
+    });
+    main.appendChild(svg);
+  }
+  if(document.readyState==='complete')leaders();
+  else window.addEventListener('load',leaders);
+  window.addEventListener('resize',leaders);
+
   document.addEventListener('keydown',function(ev){if(ev.key==='Escape')closePop();});
 
   var bar=document.querySelector('.torchio-bar');
@@ -130,7 +192,7 @@ export function buildInteractJS(t) {
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
-      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();}
+      if(b.dataset.sw==='notes'){body.classList.toggle('notes-off');b.classList.toggle('off');closePop();leaders();}
       if(b.dataset.sw)b.setAttribute('aria-pressed',String(!b.classList.contains('off')));
     });
   }

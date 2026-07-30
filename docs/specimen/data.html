@@ -58,13 +58,15 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
-.t-note-mark{color:var(--accent);font-size:.7em;vertical-align:super;user-select:none}
+.t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
 .t-note-mark:hover + .t-note,.t-note:hover{border-left-color:var(--accent);color:var(--ink)}
 body.notes-off .t-note{display:none}
 body.notes-off .t-note-mark{opacity:.25}
 @media(min-width:1180px){
   .t-note{float:right;clear:right;width:14rem;margin:.1em -16.5rem .6em 1em;
-    font-size:.78em;line-height:1.4}
+    font-size:.78em;line-height:1.4;border-left:0;padding-left:0}
+  .header-full .t-note{float:none;width:auto;margin:.5em 0;
+    border-left:2px solid var(--hair);padding-left:.7em}
 }
 
 .t-app .t-rdg{display:none}
