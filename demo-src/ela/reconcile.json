@@ -13659,10 +13659,10 @@
     "orcid": "0000-0003-4347-011X"
    },
    "0000-0000-0000-0000": {
-    "label": "S. Bettella, Costanza Marzucchi (no ORCID in the source)",
+    "label": "Silvia Bettella, Costanza Marzucchi (no ORCID in the source)",
     "status": "confirmed",
     "source": "editor",
-    "note": "placeholder ORCID 0000-0000-0000-0000 used in the source files for contributors without one; names from the change notes"
+    "note": "placeholder ORCID used for contributors without one; names from the change notes. Paola Mocella belongs to the wider ELA team but does not appear in the files of this demo."
    }
   },
   "org": {}
