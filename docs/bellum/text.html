@@ -120,7 +120,7 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
-body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.62em;padding:.4em .35em;margin:-.4em -.15em}
+body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
 body.notes-dense [data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
 
@@ -145,6 +145,10 @@ header.torchio .tt{min-width:14rem}
 .about dd.scrollbox{max-height:18rem;overflow-y:auto;border:1px solid var(--hair);
   border-radius:2px;padding:0 12px;margin-top:.5em}
 .wit-table,.idx-table{width:100%;border-collapse:collapse;margin:.6em 0}
+.wit-table th{text-align:left;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+  padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.md-table td:first-child{font-size:1.05em;white-space:nowrap}
 .wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
   vertical-align:baseline}
 .sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
@@ -233,7 +237,7 @@ ol.toc li{margin:.3em 0;break-inside:avoid}
 <a class="skip" href="#main">Skip to content</a>
 <header class="torchio">
 <div class="tt"><h1>Bellum Alexandrinum</h1><p class="sub">Cynthia Damon, et al. · Samuel J. Huskey · Virgina K. Felkner · Dallas Simons · Tom Vozar · Marcie Persyn · Maria Kovalchuk · Tim Warnock · Isabella Reinhardt · Brian Credo · Amelia Bensch-Schaus · Wes Hanson</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="front.html">Introduction</a><a href="text.html" class="on">Text</a><a href="back.html">Appendices</a><a href="data.html">Data</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Demos</a><a href="index.html">Edition</a><a href="front.html">Front matter</a><a href="text.html" class="on">Text</a><a href="back.html">Back matter</a><a href="data.html">Data</a></nav>
 </header>
 <div class="torchio-bar"><div class="inner"><button class="sw" data-sw="app" aria-pressed="true">Apparatus</button><button class="sw" data-sw="notes" aria-pressed="true">Notes</button><button class="sw off" data-sw="header" aria-pressed="false">About this file</button></div></div><main id="main" class="torchio"><div id="ldlt-balex:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
       <div id="ldlt-balex:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">

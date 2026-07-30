@@ -227,12 +227,29 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const exports_ = manifest.exports ? buildExports(model, { sourceXML }) : {};
   const hasData = Object.keys(exports_).length > 0;
 
+  // front and back matter name themselves when the markup gives them a
+  // heading; the fallback is neutral (front can be a title page, a preface,
+  // a dedication, a cast list: never presume a genre)
+  const sectionLabel = (node, fallback) => {
+    if (!node) return fallback;
+    const divs = node.children.filter((c) => typeof c !== 'string' && /^div\d?$/.test(c.element));
+    const one = divs.length === 1 ? divs[0] : node;
+    const head = one.children.find((c) => typeof c !== 'string' && c.element === 'head');
+    if (head) {
+      const label = textOfModel(head).trim().replace(/\s+/g, ' ');
+      if (label && label.length <= 40) return label;
+    }
+    return fallback;
+  };
+  const frontLabel = sectionLabel(frontNode, T.front);
+  const backLabel = sectionLabel(backNode, T.back);
+
   // The markup decides existence; the manifest decides presence, order, labels.
   const DEFAULT = [
     ['index', T.edition],
-    ...(frontNode ? [['front', T.front]] : []),
+    ...(frontNode ? [['front', frontLabel]] : []),
     ['text', T.text],
-    ...(backNode ? [['back', T.back]] : []),
+    ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasMap ? [['map', T.map]] : []),
     ...(hasData ? [['data', T.data]] : []),
@@ -372,14 +389,14 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({
-        title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
+        title: t, sub: frontLabel.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
     if (backOnOwnPage) {
       out['back.html'] = chrome({
-        title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
+        title: t, sub: backLabel.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
@@ -412,14 +429,14 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({
-        title: t, sub: T.front.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
+        title: t, sub: frontLabel.toLowerCase(), active: 'front.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(frontNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
     if (backOnOwnPage) {
       out['back.html'] = chrome({
-        title: t, sub: T.back.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
+        title: t, sub: backLabel.toLowerCase(), active: 'back.html', pages, bodyClass: offClasses,
         body: `<main id="main" class="torchio">${renderBase(backNode)}</main>`,
         script: buildInteractJS(T), t: T, lang, theme, parent,
       });
