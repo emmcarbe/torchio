@@ -328,6 +328,16 @@ Fixed the same evening:
   states the matter better than any patch: **editorial data stays data,
   never code**.
 
+**Second round, the same night**, with the repository cloned and run. It
+confirmed the first finding and added three that are as much editorial as
+technical: the TEI structure was leaving as undifferentiated `div`s, so a
+heading was a heading only by the look of it (C54); the brackets of an
+integration and the mark of a lacuna were drawn by the stylesheet, so they
+disappeared from copied text and from screen readers (C55); and URLs taken
+from the edition reached `href` unchecked (C56). The first two are the ones
+that matter here: the layer that survives longest is the markup of the page
+itself, and it was the one not being used.
+
 What the audits raise and remains open: the XML parser is deliberately
 minimal and its supported profile should be stated rather than implied;
 validation of the TEI against the ODD belongs in the edition's CI and is not
