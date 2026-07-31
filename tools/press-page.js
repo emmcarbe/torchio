@@ -15,7 +15,8 @@
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview, markdown, buildZip, i18n, resolveLang,
+   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
+   harvest, applyReconciliation, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -171,16 +172,38 @@
           rows.push(cells);
         }
         const head = rows.shift() || [];
-        const iF = head.indexOf('form'), iLa = head.indexOf('lang'),
-          iLe = head.indexOf('lemma'), iS = head.indexOf('status');
-        const reviewed = rows.filter((r) => r[iF]).map((r) => ({
-          form: r[iF], lang: iLa >= 0 ? r[iLa] : undefined,
-          lemma: r[iLe], status: iS >= 0 ? r[iS] : undefined,
-        }));
-        const base = lemmasJson || { types: reviewed.map((r) => ({ form: r.form, lang: r.lang, lemma: r.lemma, status: 'suggested' })) };
-        lemmasJson = applyReview(base, reviewed);
-        notes.push('Reviewed lemma sheet applied (' + reviewed.length + ' forms).');
-      } catch (err) { notes.push('The lemma sheet could not be read: ' + err.message); }
+        if (head.indexOf('label') >= 0 && head.indexOf('type') >= 0) {
+          // the names sheet: what the editor confirmed becomes the registries
+          const iL = head.indexOf('label'), iT = head.indexOf('type'),
+            iS = head.indexOf('status'), iLa = head.indexOf('lat'),
+            iLo = head.indexOf('lon'), iA = head.indexOf('authority');
+          const entities = { person: {}, place: {}, org: {} };
+          const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
+          for (const r of rows) {
+            const type = r[iT], label = r[iL];
+            if (!entities[type] || !label) continue;
+            const rec = { label, status: iS >= 0 ? (r[iS] || 'suggested') : 'suggested', source: 'editor' };
+            const lat = Number(r[iLa]), lon = Number(r[iLo]);
+            if (Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
+            if (iA >= 0 && r[iA]) rec.viaf = r[iA];
+            entities[type][nk(label)] = rec;
+          }
+          applyReconciliation(model, entities);
+          const kept = Object.values(entities).reduce((n, o) =>
+            n + Object.values(o).filter((r) => r.status === 'confirmed').length, 0);
+          notes.push('Reviewed names sheet applied (' + kept + ' confirmed).');
+        } else {
+          const iF = head.indexOf('form'), iLa = head.indexOf('lang'),
+            iLe = head.indexOf('lemma'), iS = head.indexOf('status');
+          const reviewed = rows.filter((r) => r[iF]).map((r) => ({
+            form: r[iF], lang: iLa >= 0 ? r[iLa] : undefined,
+            lemma: r[iLe], status: iS >= 0 ? r[iS] : undefined,
+          }));
+          const base = lemmasJson || { types: reviewed.map((r) => ({ form: r.form, lang: r.lang, lemma: r.lemma, status: 'suggested' })) };
+          lemmasJson = applyReview(base, reviewed);
+          notes.push('Reviewed lemma sheet applied (' + reviewed.length + ' forms).');
+        }
+      } catch (err) { notes.push('The review sheet could not be read: ' + err.message); }
     }
     attachLemmas(model, lemmasJson);
 
@@ -341,6 +364,33 @@
     a.href = URL.createObjectURL(new Blob([xlsx],
       { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
     a.download = (S.slug || 'edition') + '-lemmas.xlsx';
+    a.click();
+  }
+
+  // the entity review: the names the markup declares, laid out for the editor
+  // to confirm. What is confirmed becomes the indices; a place with coordinates
+  // becomes a point on the map. Nothing is looked up
+  function downloadEntitySheet() {
+    const h = harvest(S.model);
+    const header = ['label', 'type', 'status', 'lat', 'lon', 'authority', 'occurrences'];
+    const rows = [];
+    for (const type of ['person', 'place', 'org']) {
+      for (const e of h[type]) {
+        rows.push([e.label, type, 'suggested',
+          type === 'place' ? '' : '', type === 'place' ? '' : '', '',
+          (e.occurrences || []).length]);
+      }
+    }
+    if (!rows.length) { alert('This edition names no persons, places or organisations to index.'); return; }
+    rows.sort((a, b) => a[1].localeCompare(b[1]) || String(a[0]).localeCompare(String(b[0])));
+    const xlsx = buildXLSX(header, rows, {
+      sheet: 'Names', widths: [22, 8, 12, 10, 10, 20, 11],
+      choices: { col: 2, options: ['confirmed', 'rejected', 'suggested'] },
+    });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([xlsx],
+      { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+    a.download = (S.slug || 'edition') + '-names.xlsx';
     a.click();
   }
 
@@ -603,6 +653,11 @@
         + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Open it, correct what is wrong, '
         + 'choose confirmed or rejected in the last column, save, and drop it back in with the files.</span>' : '')
       + '</div>'
+      + '<div class="lemma-flow"><button type="button" id="c-entities-sheet">List the names to index and map</button>'
+      + '<span class="note">The persons, places and organisations your text names. '
+      + 'Confirm the real ones in a spreadsheet (for a place, fill its latitude and longitude, or leave them '
+      + 'for the map to stay empty), save, and drop it back in. The indices and the map are drawn from what '
+      + 'you confirmed. No name is looked up anywhere.</span></div>'
       + '</fieldset>';
 
     // the simple-page editor, hidden until needed
@@ -645,6 +700,8 @@
     if (lemBtn) lemBtn.addEventListener('click', lemmatize);
     const sheetBtn = document.getElementById('c-lemma-sheet');
     if (sheetBtn) sheetBtn.addEventListener('click', downloadLemmaSheet);
+    const entBtn = document.getElementById('c-entities-sheet');
+    if (entBtn) entBtn.addEventListener('click', downloadEntitySheet);
     // the order of the pages is the order of the menu: it is dragged here
     // and travels in the manifest, so the site keeps it
     let dragged = null;
