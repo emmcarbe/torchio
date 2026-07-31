@@ -63,14 +63,20 @@ principles, contest them, improve them.
 A first survey, to be deepened and corrected. It records architectural
 positions, one representative each, not every existing tool.
 
-- **[EVT 2](https://evt.labcd.unipi.it/)** is the most widely used tool in Italy and among the best known
-  internationally. It rests on AngularJS, unsupported since 2021. **[EVT 3](https://github.com/evt-project/evt-viewer-angular)**
-  is published as a pre-release (currently 1.0.0-beta), with the migration
-  to Angular under way. The tool is continuously
-  developed and remains one of the most important visualization projects.
+- **[EVT](https://evt.labcd.unipi.it/)** is the most widely used tool in Italy and among the best known
+  internationally, and it is the reference for the bond between text and image:
+  hotspots derived from `zone` and `@facs`, a magnifying lens, synchronised
+  views, IIIF, three levels of transcription, a witness view, internal search.
+  Those are the functions this project does not have. The difference in
+  position is elsewhere: EVT is a viewer that runs on a framework (AngularJS
+  for EVT 2, Angular for **[EVT 3](https://github.com/evt-project/evt-viewer-angular)**, in pre-release), so the life of the
+  edition is tied to the life of that framework; here the edition is a site
+  that needs nothing in order to be read.
 - **[CETEIcean](https://github.com/TEIC/CETEIcean)** (TEI-C) renders every TEI element as a custom element in the
-  browser, without conversion: guaranteed rendering, with some limits: no
-  apparatus, indices, facsimile, export.
+  browser, without conversion: guaranteed rendering, and nothing is lost because
+  nothing is transformed. It renders `graphic`, which this project does not yet
+  do. It is a library for behaviours, not a publisher of editions: no apparatus,
+  no indices, no export, and each edition writes its own behaviours.
 - **[TEI Publisher](https://teipublisher.com/)** (e-editiones) implements the
   **TEI Processing Model** (Turska, Cummings and Rahtz, 2016), where the ODD
   carries not only the schema but the behaviour: `<model behaviour="...">`

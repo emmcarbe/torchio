@@ -6,7 +6,7 @@
  * source XML travels alongside untouched: the repository is the edition.
  */
 
-function csvCell(v) {
+export function csvCell(v) {
   let s = v == null ? '' : String(v);
   // a cell that opens with =, +, - or @ is a formula for spreadsheets:
   // editorial text must arrive as text
@@ -118,7 +118,27 @@ export function buildExports(model, { sourceXML = null, only = null } = {}) {
   // and is switched off explicitly ("exports": {"model": false})
   const want = (k) => !only || only[k] !== false;
   const files = {};
-  if (want('model')) files['data/model.json'] = modelJSON(model);
+  if (want('model')) {
+    const json = modelJSON(model);
+    // a file the repository cannot carry is not published: GitHub refuses any
+    // blob over 100 MB, so an edition that emits one cannot be pushed at all,
+    // and the Data page would promise a download that answers 404. The model
+    // is then split per document, which is also the shape a reader wants
+    const MAX = 90 * 1024 * 1024;
+    if (json.length <= MAX) files['data/model.json'] = json;
+    else if (model.documents && model.documents.length > 1) {
+      const index = { split: true, reason: 'the whole model exceeds what a repository can carry',
+        bytes: json.length, documents: [] };
+      for (const d of model.documents) {
+        const one = JSON.stringify({ meta: model.meta, generator: model.generator,
+          documents: [d] }, null, 1);
+        const name = `data/model/${String(d.id).replace(/[^\w.-]/g, '_')}.json`;
+        files[name] = one;
+        index.documents.push({ id: d.id, file: name.replace('data/', ''), bytes: one.length });
+      }
+      files['data/model.json'] = JSON.stringify(index, null, 1);
+    }
+  }
   const reg = model.registries;
   if (want('entities') && reg.people.length + reg.places.length + reg.orgs.length > 0) {
     files['data/entities.csv'] = entitiesCSV(model);

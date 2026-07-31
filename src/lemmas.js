@@ -22,6 +22,10 @@
  */
 
 import { walkModel, textOfModel } from './model.js';
+// one definition only: two functions of the same name, flattened into one
+// script by the browser build, silently overwrite each other, and the one
+// that lost carried the guard against spreadsheet formulas
+import { csvCell } from './exports.js';
 
 // excluded from the reading layer (diplomatic variants, editorial prose)
 const SKIP = new Set(['teiHeader', 'note', 'rdg', 'orig', 'abbr', 'sic', 'del', 'fw']);
@@ -272,10 +276,7 @@ export function typesFromVotes(votes, formFilter = null, lang = null) {
 /* A CSV the editor opens in a spreadsheet, sorted by what deserves    */
 /* the eye first: entries the tagger itself doubted, then frequency.   */
 
-function csvCell(v) {
-  const s = String(v ?? '');
-  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-}
+
 
 export function reviewCSV(types) {
   const rows = [['form', 'lang', 'pos', 'lemma', 'status', 'count', 'alternatives']];
