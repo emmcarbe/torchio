@@ -137,6 +137,18 @@ async function main() {
     await writeFile(args[outIdx + 1], JSON.stringify({ summary, rows }, null, 2));
     console.log(`\nledger → ${args[outIdx + 1]}`);
   }
+  // the durable corpus: the examples themselves (ident, kind, source), so the
+  // worlds can press them without the 4 MB p5subset. This is object #1, the
+  // contrast corpus, in its authoritative form: the Guidelines' own examples
+  const corpusIdx = args.indexOf('--corpus');
+  if (corpusIdx >= 0 && args[corpusIdx + 1]) {
+    const corpus = exempla.map((e) => ({
+      ident: e.spec ? e.spec.ident : '?', kind: e.spec ? e.spec.kind : '?', xml: e.xml }));
+    await writeFile(args[corpusIdx + 1], JSON.stringify({
+      source: 'TEI P5 p5subset (TEI Consortium, CC BY / BSD)', count: corpus.length,
+      examples: corpus }, null, 1));
+    console.log(`corpus → ${args[corpusIdx + 1]} (${corpus.length} examples)`);
+  }
   console.log('');
 }
 
