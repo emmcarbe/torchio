@@ -92,6 +92,7 @@ header.torchio .tt{min-width:14rem}
 .md-table td:first-child{font-size:1.05em;white-space:nowrap}
 .wit-table td,.idx-table td{padding:6px 10px 6px 0;border-bottom:1px solid var(--hair);
   vertical-align:baseline}
+.agree-bar{display:inline-block;height:7px;background:var(--accent-soft);border-radius:2px;min-width:2px}
 .sigla{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
   white-space:nowrap}
 .occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}

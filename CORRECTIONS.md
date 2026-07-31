@@ -92,5 +92,7 @@ editorial genre.
 
 | 2026-07-31 | C69 | the philologist's reading | assignment | an impression that does not say which press produced it cannot be collated with another: every page now carries a colophon with the version of the press, the commit it was pressed from and the date. Determinism becomes verifiable by the reader, not only asserted |
 
-As of 31 July 2026: 69 corrections applied (45 assignments, 16 extensions, 8
+| 2026-07-31 | C70 | the philologist's reading | extension | the evidence for a stemma, which the model already held without showing it: how often two witnesses carry the same reading, counted from the apparatus and shown on the edition page. The stemma itself is never derived, because it is the editor's argument; what the press can do is lay out the agreements it is built from |
+
+As of 31 July 2026: 70 corrections applied (45 assignments, 17 extensions, 8
 structural changes), 1 open.

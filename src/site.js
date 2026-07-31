@@ -266,6 +266,20 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
     about += `</table></dd>`;
   }
+  if (model.agreement && model.agreement.pairs.length) {
+    // the evidence for a stemma, not a stemma: the editor argues, the press
+    // counts. Pairs that share readings most often come first
+    const top = model.agreement.pairs.slice(0, 12);
+    const max = top[0].together || 1;
+    about += `<dt>${T.agreement}</dt><dd><table class="wit-table">`;
+    for (const p of top) {
+      const bar = Math.round((p.together / max) * 100);
+      about += `<tr><td class="sigla">${escapeHTML(p.a)} · ${escapeHTML(p.b)}</td>`
+        + `<td><span class="agree-bar" style="width:${bar}%"></span></td>`
+        + `<td class="occ">${p.together}</td></tr>`;
+    }
+    about += `</table><p class="occ">${T.agreementNote}</p></dd>`;
+  }
   if (model.apparatus.length) {
     about += `<dt>${T.apparatusRegisters}</dt><dd>${model.apparatus
       .map((a) => `${escapeHTML(a.type)} (${a.entries.length} ${T.entries})`).join(' · ')}</dd>`;

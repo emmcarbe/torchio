@@ -185,6 +185,37 @@ export function buildModel(docs, classMap) {
   }
   model.apparatus = [...appByType.values()];
 
+  // agreement between witnesses: how often two of them carry the same
+  // reading. The stemma is the editor's argument, never derived; this is
+  // the evidence an editor weighs while building it (D6)
+  const wits = model.registries.witnesses.map((w) => w.id);
+  if (wits.length > 1) {
+    const pair = new Map();
+    const seen = new Map();
+    for (const reg of model.apparatus) {
+      for (const e of reg.entries) {
+        for (const r of e.readings) {
+          const ws = (r.witnesses || []).filter((w) => wits.includes(w));
+          for (const w of ws) seen.set(w, (seen.get(w) || 0) + 1);
+          for (let i = 0; i < ws.length; i++) {
+            for (let j = i + 1; j < ws.length; j++) {
+              const k = [ws[i], ws[j]].sort().join('\u0000');
+              pair.set(k, (pair.get(k) || 0) + 1);
+            }
+          }
+        }
+      }
+    }
+    if (pair.size) {
+      model.agreement = {
+        witnesses: [...seen.entries()].map(([id, readings]) => ({ id, readings })),
+        pairs: [...pair.entries()]
+          .map(([k, n]) => { const [a, b] = k.split('\u0000'); return { a, b, together: n }; })
+          .sort((x, y) => y.together - x.together),
+      };
+    }
+  }
+
   // occurrences: nodes pointing into registries via @ref/@key. An external
   // authority URI is an identity declaration of its own: mentions sharing
   // the same VIAF/Wikidata/GeoNames reference are one entity, and enter the

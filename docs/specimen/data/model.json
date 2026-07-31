@@ -972,5 +972,33 @@
   "name": "torchio",
   "tei": "P5 Version 4.12.0. Last updated on\n        28th July 2026, revision 113e933e2"
  },
+ "agreement": {
+  "witnesses": [
+   {
+    "id": "A",
+    "readings": 2
+   },
+   {
+    "id": "C",
+    "readings": 2
+   },
+   {
+    "id": "B",
+    "readings": 2
+   }
+  ],
+  "pairs": [
+   {
+    "a": "A",
+    "b": "C",
+    "together": 1
+   },
+   {
+    "a": "B",
+    "b": "C",
+    "together": 1
+   }
+  ]
+ },
  "lemmas": null
 }
