@@ -412,7 +412,9 @@
     html += '<fieldset><legend>Pages</legend>';
     for (const id of Object.keys(ui.pages)) {
       const p = ui.pages[id];
-      html += '<div class="frow pagerow"><label><input type="checkbox" data-page="' + esc(id) + '"'
+      html += '<div class="frow pagerow" draggable="true" data-row="' + esc(id) + '">'
+        + '<span class="grip" aria-hidden="true">\u2261</span>'
+        + '<label><input type="checkbox" data-page="' + esc(id) + '"'
         + (p.on ? ' checked' : '') + '> ' + esc(id) + '</label>'
         + '<input type="text" data-pagelabel="' + esc(id) + '" value="' + esc(p.label)
         + '" placeholder="' + esc(pageDefaultLabel(id)) + '" aria-label="Label of the page '
@@ -517,6 +519,27 @@
     bind('c-map', (el) => { ui.pieces.map = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
+    // the order of the pages is the order of the menu: it is dragged here
+    // and travels in the manifest, so the site keeps it
+    let dragged = null;
+    for (const row of composeBox.querySelectorAll('.pagerow[data-row]')) {
+      row.addEventListener('dragstart', () => { dragged = row; row.classList.add('dragging'); });
+      row.addEventListener('dragend', () => { row.classList.remove('dragging'); dragged = null; });
+      row.addEventListener('dragover', (ev) => { ev.preventDefault(); row.classList.add('over'); });
+      row.addEventListener('dragleave', () => row.classList.remove('over'));
+      row.addEventListener('drop', (ev) => {
+        ev.preventDefault(); row.classList.remove('over');
+        if (!dragged || dragged === row) return;
+        const ids = [...composeBox.querySelectorAll('.pagerow[data-row]')].map((r) => r.dataset.row);
+        const from = ids.indexOf(dragged.dataset.row), to = ids.indexOf(row.dataset.row);
+        ids.splice(to, 0, ids.splice(from, 1)[0]);
+        const reordered = {};
+        for (const id of ids) reordered[id] = S.ui.pages[id];
+        for (const id of Object.keys(S.ui.pages)) if (!(id in reordered)) reordered[id] = S.ui.pages[id];
+        S.ui.pages = reordered;
+        renderPanel();
+      });
+    }
     bind('c-entities', (el) => { ui.pieces.entities = el.checked; });
     bind('c-choice', (el) => { ui.pieces.choice = el.checked; });
     bind('c-exports', (el) => { ui.exports = el.checked; });

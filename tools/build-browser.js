@@ -137,6 +137,9 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .frow>label:first-child{min-width:7.5rem}
 .frow input[type=text]{flex:1;min-width:12rem}
 .pagerow>label{min-width:9rem}
+.pagerow .grip{cursor:grab;color:#bbb;margin-right:.5em;user-select:none}
+.pagerow.dragging{opacity:.5}
+.pagerow.over{box-shadow:inset 0 2px 0 #b01e28}
 .pageoff{min-width:9rem;color:#6A6A66}
 #pageeditor{border:1px solid #E5E2D9;padding:.8rem 1rem;margin:1rem 0}
 #pages{margin:.8rem 0}
