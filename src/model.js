@@ -205,6 +205,9 @@ export function buildModel(docs, classMap) {
         if (!GENETIC.has(n.element)) continue;
         const layer = (n.atts.change || '').replace(/^#/, '') || null;
         const hand = (n.atts.hand || '').replace(/^#/, '') || current;
+        // the hand in force is stamped on the operation, so the page can show
+        // whose hand it is even where the markup left it to the handShift (C79)
+        if (!n.atts.hand && current) n.atts.hand = '#' + current;
         if (!layer && !hand) continue;
         ops.push({
           id: n.id, doc: doc.id, element: n.element, layer, hand,

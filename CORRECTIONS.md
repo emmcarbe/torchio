@@ -98,5 +98,7 @@ editorial genre.
 | 2026-07-31 | C77 | the editor's own reading | extension | the map and the lemma index become the editor's choice like every other piece (`pieces.map`, `pieces.lemmas`), and the edition can declare what kind of thing it is (`genre`: edition, archive, correspondence, tradition), each explained where it is chosen. The markup makes a page possible, the editor decides whether it belongs |
 | 2026-07-31 | C78 | Van Gogh letters, public demo | assignment | a standoff note is written apart from the text and declares where it belongs (`@target`): its mark was staying where the note was written, so the letters ended with a row of marks anchored to nothing. Marks now travel to the passage they name, and a mark whose note the press does not show is removed rather than left mute |
 
-As of 31 July 2026: 77 corrections applied (50 assignments, 19 extensions, 8
+| 2026-07-31 | C79 | Shelley-Godwin Archive, contrast corpus | assignment | the hand in force from a handShift was reaching the stratigraphy but not the text: 46 operations of Frankenstein carried a hand, the other 438 looked anonymous on the page. The hand is now stamped on every operation it governs, so clicking a deletion or an addition names whose hand it is and links to its stratum |
+
+As of 31 July 2026: 78 corrections applied (51 assignments, 19 extensions, 8
 structural changes), 1 open.
