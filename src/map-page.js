@@ -106,7 +106,7 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
     // holds. It sits over the tiles and leaves only when a real tile has
     // actually arrived; offline, the reader keeps coasts and dots
     let mapBody = `<main id="main" class="torchio" style="max-width:64rem">`
-      + `<link rel="stylesheet" href="assets/leaflet/leaflet.css">`
+      + `<link rel="stylesheet" href="assets/leaflet/leaflet.css"/>`
       + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px;position:relative" role="region" aria-label="${T.mapAria}">`
       + `<div id="sketch" style="position:absolute;inset:0;z-index:800;background:var(--paper)">`
       + `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:100%;display:block">${landPath}${grid}${dots}</svg></div></div>`

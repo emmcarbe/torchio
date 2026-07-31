@@ -498,6 +498,68 @@ function buildClassMap(odd = null, data = { p5: P5, sections: SECTIONS }) {
   return { resolve, elements, classes, teiVersion: p5.version };
 }
 
+// ---- src/decode.js ----
+/**
+ * Read a TEI file in the encoding it declares, not the one we hope for.
+ *
+ * A TEI edition is not always UTF-8. An Arabic, Chinese or Japanese text
+ * digitised before Unicode was universal is often Shift-JIS, GB18030, Big5,
+ * or ISO-8859-6, and the XML declaration says so:
+ *
+ *   <?xml version="1.0" encoding="Shift_JIS"?>
+ *
+ * Reading those bytes as UTF-8 turns every character into U+FFFD, silently,
+ * and the press reports success. That is the worst loss there is, because it
+ * leaves no trace. So: sniff the declared encoding from the first bytes,
+ * decode with it, and if the platform has no decoder for it, REFUSE the file
+ * with a message that names the encoding, never a page of replacement marks.
+ */
+
+
+/** The BOM and the encoding= of the XML declaration, read from raw bytes.
+ *  The declaration is ASCII by construction, so a byte-wise read is safe. */
+function declaredEncoding(bytes) {
+  if (bytes.length >= 3 && bytes[0] === 0xEF && bytes[1] === 0xBB && bytes[2] === 0xBF) return 'utf-8';
+  if (bytes.length >= 2 && bytes[0] === 0xFF && bytes[1] === 0xFE) return 'utf-16le';
+  if (bytes.length >= 2 && bytes[0] === 0xFE && bytes[1] === 0xFF) return 'utf-16be';
+  // the declaration, if any, is in the first few hundred ASCII bytes
+  const head = Buffer.from(bytes.subarray(0, 256)).toString('latin1');
+  const m = head.match(/<\?xml[^>]*\bencoding\s*=\s*["']([^"']+)["']/i);
+  return m ? m[1].toLowerCase() : 'utf-8';
+}
+
+/** Read a file as text, honouring its declared encoding. Throws with the
+ *  encoding named if the platform cannot decode it. */
+async function readText(path) {
+  const bytes = await readFile(path);
+  const enc = declaredEncoding(bytes);
+  const label = enc.replace(/^utf-?8$/, 'utf-8').replace(/[_\s]/g, '-');
+  // ASCII-superset UTF-8 is the common case: keep the fast path
+  if (label === 'utf-8') {
+    const text = bytes.toString('utf-8');
+    // a lone U+FFFD in a file that claims UTF-8 means the bytes are not UTF-8:
+    // do not publish mojibake, say it
+    if (text.includes('�') && !bytes.includes(0xEF)) {
+      throw new Error(`declared UTF-8 but the bytes are not valid UTF-8 (${path}): `
+        + `save the file as UTF-8, or declare its real encoding in the XML declaration`);
+    }
+    return text;
+  }
+  try {
+    // TextDecoder in Node covers the WHATWG encodings: the Japanese, Chinese,
+    // Korean, Cyrillic and Arabic legacy encodings a historical TEI file uses
+    const dec = new TextDecoder(label, { fatal: true, ignoreBOM: false });
+    return dec.decode(bytes);
+  } catch (err) {
+    if (err instanceof RangeError || /encoding/i.test(err.message)) {
+      throw new Error(`the file declares encoding "${enc}", which this platform `
+        + `cannot decode (${path}): re-save it as UTF-8`);
+    }
+    throw new Error(`"${enc}" declared, but the bytes do not decode as ${enc} (${path}): `
+      + `the declaration and the file disagree`);
+  }
+}
+
 // ---- src/exports.js ----
 /**
  * Exports — the edition as reusable data.
@@ -2280,7 +2342,8 @@ const BLOCKS = new Set([
 function htmlTagFor(node) {
   const el = node.element;
   const blockChild = (n) => n.children.some((c) => typeof c !== 'string'
-    && (BLOCKS.has(c.element) || c.element === 'note' || c.element === 'list' || c.element === 'table'));
+    && (BLOCKS.has(c.element) || c.element === 'note' || c.element === 'list'
+      || c.element === 'table' || blockChild(c)));
   switch (el) {
     case 'head': return 'h2';
     case 'list': return /^(ordered|numbered)$/i.test(node.atts.type || '') ? 'ol' : 'ul';
@@ -2296,7 +2359,12 @@ function htmlTagFor(node) {
     case 'cit':
       return blockChild(node) ? 'blockquote' : 'span';
     default:
-      return BLOCKS.has(el) ? 'div' : 'span';
+      // An element not on the list is not therefore a phrase: what decides is
+      // what it holds. A span that contains a div is invalid HTML, and the
+      // page then cannot be re-parsed, which is how a static edition is
+      // verified. Ten thousand such cases came from a list of sixty-three
+      // names against the 588 elements of P5 (C83)
+      return BLOCKS.has(el) || blockChild(node) ? 'div' : 'span';
   }
 }
 
@@ -2569,8 +2637,8 @@ function pressPage(model, { title } = {}) {
   return `<!DOCTYPE html>
 <html${(model.meta.languages && model.meta.languages[0]) ? ` lang="${escapeHTML(model.meta.languages[0])}"` : ''}>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${escapeHTML(t)}</title>
 <style>${baseCSS}
 ${interactCSS}</style>
@@ -2683,8 +2751,8 @@ function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', 
   return `<!DOCTYPE html>
 <html${(TEXT_LANG || lang) ? ` lang="${escapeHTML(TEXT_LANG || lang)}"` : ''}${TEXT_LANG && RTL_UI.has(String(TEXT_LANG).split('-')[0].toLowerCase()) ? ' dir="rtl"' : ''}>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${escapeHTML(title)}</title>
 <style>${themeCSS(theme)}${structuralCSS}
 ${interactCSS}
@@ -3057,7 +3125,7 @@ function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
       + `<p class="lem-note">${T.lemmaCoverage}: ${coverage} ${T.tokensWord} · ${prov.join(' · ')}`
       + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
       + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
-      + ` aria-label="${T.filter}"> <span class="reg-count">${L.entries.length}</span>`;
+      + ` aria-label="${T.filter}"/> <span class="reg-count">${L.entries.length}</span>`;
     let currentLang = null;
     for (const e of L.entries) {
       if (multilingual && e.lang !== currentLang) {
@@ -3596,9 +3664,9 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     + `<p class="occ"><b>${L.total}</b> ${T.lexTokens} · <b>${L.distinct}</b> ${T.lexForms} · `
     + `${T.lexTTR} <b>${L.ttr}</b></p>`
     + `<div class="lx-bar-top">`
-    + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}">`
+    + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}"/>`
     + langFilter + stopSel
-    + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"> ${T.lexHideStop}</label>`
+    + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"/> ${T.lexHideStop}</label>`
     + (chosen.length > 1 ? `<span class="lx-views" role="group">`
       + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
       + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')
@@ -3745,7 +3813,10 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
 
 
 
-const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas', 'map', 'data'];
+// every page the engine knows how to make: a manifest that names its pages
+// must not silently drop the apparatus of a critical edition (C84)
+const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas',
+  'lexicon', 'apparatus', 'genesis', 'map', 'data'];
 const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 function normalizeManifest(raw = {}) {
@@ -3938,7 +4009,7 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
     // holds. It sits over the tiles and leaves only when a real tile has
     // actually arrived; offline, the reader keeps coasts and dots
     let mapBody = `<main id="main" class="torchio" style="max-width:64rem">`
-      + `<link rel="stylesheet" href="assets/leaflet/leaflet.css">`
+      + `<link rel="stylesheet" href="assets/leaflet/leaflet.css"/>`
       + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px;position:relative" role="region" aria-label="${T.mapAria}">`
       + `<div id="sketch" style="position:absolute;inset:0;z-index:800;background:var(--paper)">`
       + `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:100%;display:block">${landPath}${grid}${dots}</svg></div></div>`
@@ -4503,7 +4574,7 @@ function pressRegister({ model, docFiles, isApparatusDoc, manifest, t, T, lang, 
       .filter((k) => k === 'title' || has[k])
       .map((k) => [k, COL_LABELS[k]]);
     let reg = `<main id="main" class="torchio" style="max-width:64rem">`
-      + `<input class="reg-filter" type="search" placeholder="${T.filter}" aria-label="${T.filter}">`
+      + `<input class="reg-filter" type="search" placeholder="${T.filter}" aria-label="${T.filter}"/>`
       + `<span class="reg-count">${model.documents.filter((d) => !isApparatusDoc(d)).length} ${T.documentsN}</span>`
       + `<table class="reg-table idx-table"><thead><tr>`
       + cols.map(([, label]) => `<th scope="col">${escapeHTML(label)}</th>`).join('')
@@ -5203,7 +5274,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     // finding a name must be cheap: a search over everything, and a small
     // red alphabet under each heading to jump straight to a letter
     if (totalEntries > 20) {
-      idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}">`;
+      idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}"/>`;
     }
     let secIdx = -1;
     for (const [label, entries] of sections) {

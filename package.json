@@ -1,11 +1,14 @@
 {
   "name": "torchio",
-  "version": "0.1.0",
-  "description": "Presses TEI P5 files into static digital scholarly editions",
+  "version": "0.2.0-beta.1",
+  "description": "Presses TEI P5 files into static digital scholarly editions: multipage sites published from a git repository, no server, no database",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "node test/run.js"
+    "test": "node test/run.js",
+    "worlds": "node test/worlds.js",
+    "tei-version": "node tools/tei-version.js",
+    "build": "node tools/build-browser.js"
   },
   "engines": {
     "node": ">=18"
@@ -22,5 +25,28 @@
     "USAGE.md",
     "PRINCIPLES.md",
     "LICENSE"
-  ]
+  ],
+  "keywords": [
+    "TEI",
+    "digital scholarly edition",
+    "critical apparatus",
+    "static site",
+    "minimal computing",
+    "digital humanities",
+    "philology",
+    "XML"
+  ],
+  "author": {
+    "name": "Emmanuela Carbé",
+    "affiliation": "Ca' Foscari University of Venice, VeDPH",
+    "url": "https://orcid.org/0000-0003-4347-011X"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emmcarbe/torchio.git"
+  },
+  "homepage": "https://github.com/emmcarbe/torchio#readme",
+  "bugs": {
+    "url": "https://github.com/emmcarbe/torchio/issues"
+  }
 }

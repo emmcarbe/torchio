@@ -38,7 +38,8 @@ const BLOCKS = new Set([
 function htmlTagFor(node) {
   const el = node.element;
   const blockChild = (n) => n.children.some((c) => typeof c !== 'string'
-    && (BLOCKS.has(c.element) || c.element === 'note' || c.element === 'list' || c.element === 'table'));
+    && (BLOCKS.has(c.element) || c.element === 'note' || c.element === 'list'
+      || c.element === 'table' || blockChild(c)));
   switch (el) {
     case 'head': return 'h2';
     case 'list': return /^(ordered|numbered)$/i.test(node.atts.type || '') ? 'ol' : 'ul';
@@ -54,7 +55,12 @@ function htmlTagFor(node) {
     case 'cit':
       return blockChild(node) ? 'blockquote' : 'span';
     default:
-      return BLOCKS.has(el) ? 'div' : 'span';
+      // An element not on the list is not therefore a phrase: what decides is
+      // what it holds. A span that contains a div is invalid HTML, and the
+      // page then cannot be re-parsed, which is how a static edition is
+      // verified. Ten thousand such cases came from a list of sixty-three
+      // names against the 588 elements of P5 (C83)
+      return BLOCKS.has(el) || blockChild(node) ? 'div' : 'span';
   }
 }
 
@@ -327,8 +333,8 @@ export function pressPage(model, { title } = {}) {
   return `<!DOCTYPE html>
 <html${(model.meta.languages && model.meta.languages[0]) ? ` lang="${escapeHTML(model.meta.languages[0])}"` : ''}>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${escapeHTML(t)}</title>
 <style>${baseCSS}
 ${interactCSS}</style>

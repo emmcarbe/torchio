@@ -74,8 +74,8 @@ export function chrome({ title, sub, active, pages, body, script = '', bodyClass
   return `<!DOCTYPE html>
 <html${(TEXT_LANG || lang) ? ` lang="${escapeHTML(TEXT_LANG || lang)}"` : ''}${TEXT_LANG && RTL_UI.has(String(TEXT_LANG).split('-')[0].toLowerCase()) ? ' dir="rtl"' : ''}>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${escapeHTML(title)}</title>
 <style>${themeCSS(theme)}${structuralCSS}
 ${interactCSS}

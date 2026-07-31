@@ -26,7 +26,10 @@
 
 import { isTheme } from './themes.js';
 
-const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas', 'map', 'data'];
+// every page the engine knows how to make: a manifest that names its pages
+// must not silently drop the apparatus of a critical edition (C84)
+const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas',
+  'lexicon', 'apparatus', 'genesis', 'map', 'data'];
 const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 export function normalizeManifest(raw = {}) {

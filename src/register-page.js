@@ -43,7 +43,7 @@ export function pressRegister({ model, docFiles, isApparatusDoc, manifest, t, T,
       .filter((k) => k === 'title' || has[k])
       .map((k) => [k, COL_LABELS[k]]);
     let reg = `<main id="main" class="torchio" style="max-width:64rem">`
-      + `<input class="reg-filter" type="search" placeholder="${T.filter}" aria-label="${T.filter}">`
+      + `<input class="reg-filter" type="search" placeholder="${T.filter}" aria-label="${T.filter}"/>`
       + `<span class="reg-count">${model.documents.filter((d) => !isApparatusDoc(d)).length} ${T.documentsN}</span>`
       + `<table class="reg-table idx-table"><thead><tr>`
       + cols.map(([, label]) => `<th scope="col">${escapeHTML(label)}</th>`).join('')

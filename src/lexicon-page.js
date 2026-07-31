@@ -38,9 +38,9 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     + `<p class="occ"><b>${L.total}</b> ${T.lexTokens} · <b>${L.distinct}</b> ${T.lexForms} · `
     + `${T.lexTTR} <b>${L.ttr}</b></p>`
     + `<div class="lx-bar-top">`
-    + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}">`
+    + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}"/>`
     + langFilter + stopSel
-    + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"> ${T.lexHideStop}</label>`
+    + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"/> ${T.lexHideStop}</label>`
     + (chosen.length > 1 ? `<span class="lx-views" role="group">`
       + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
       + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')

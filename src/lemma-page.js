@@ -31,7 +31,7 @@ export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, page
       + `<p class="lem-note">${T.lemmaCoverage}: ${coverage} ${T.tokensWord} · ${prov.join(' · ')}`
       + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
       + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
-      + ` aria-label="${T.filter}"> <span class="reg-count">${L.entries.length}</span>`;
+      + ` aria-label="${T.filter}"/> <span class="reg-count">${L.entries.length}</span>`;
     let currentLang = null;
     for (const e of L.entries) {
       if (multilingual && e.lang !== currentLang) {

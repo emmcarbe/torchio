@@ -5,6 +5,7 @@
  * This is a development tool; the real paths are the browser engine (path A)
  * and the GitHub Action (path B), both built on the same modules.
  */
+import { readText } from '../src/decode.js';
 import { readFile, writeFile, mkdir, stat, readdir, cp } from 'node:fs/promises';
 import { dirname, join, basename, resolve, sep } from 'node:path';
 import { parseXML, inTEINamespace } from '../src/xml.js';
@@ -17,6 +18,14 @@ import { pressSite } from '../src/site.js';
 import { analyze } from '../src/analyze.js';
 import { applyReconciliation } from '../src/reconcile.js';
 import { attachLemmas, attachLexicon } from '../src/lemmas.js';
+
+// a tool an editor runs from the terminal must fail with a sentence, not a
+// stack trace: a malformed file, a wrong encoding, a missing input are things
+// the user can fix, and the message must say what
+process.on('unhandledRejection', (err) => {
+  console.error(`\nnot pressed: ${err && err.message ? err.message : err}`);
+  process.exit(1);
+});
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const site = process.argv.includes('--site');
@@ -56,7 +65,7 @@ if (inputStat.isDirectory()) {
   const names = (await readdir(input)).filter((n) => /\.(xml|odd)$/i.test(n)).sort();
   for (const n of names) {
     try {
-      const src = await readFile(join(input, n), 'utf-8');
+      const src = await readText(join(input, n));
       const r = parseXML(src);
       if (isODD(r)) {
         if (odd) { if (!oddFile || n !== basename(oddFile)) console.error(`second ODD ignored: ${n}`); continue; }
@@ -65,7 +74,7 @@ if (inputStat.isDirectory()) {
         continue;
       }
       if (!inTEINamespace(r)) continue;
-      await resolveIncludes(r, (href) => readFile(within(input, href), 'utf-8'));
+      await resolveIncludes(r, (href) => readText(within(input, href)));
       roots.push({ id: n.replace(/\.xml$/i, ''), root: r });
     } catch (err) {
       console.error(`skipped ${n}: ${err.message}`);
@@ -73,7 +82,8 @@ if (inputStat.isDirectory()) {
   }
   console.error(`directory input: ${roots.length} TEI documents`);
 } else {
-  xml = await readFile(input, 'utf-8');
+  try { xml = await readText(input); }
+  catch (err) { console.error(`not pressed: ${err.message}`); process.exit(1); }
   const root = parseXML(xml);
   if (isODD(root)) {
     console.error('the input is an ODD: a schema, not an edition (pass it with --odd= next to a TEI input)');
@@ -83,7 +93,7 @@ if (inputStat.isDirectory()) {
     console.error('warning: root element is not in the TEI namespace; pressing anyway (nothing is invisible)');
   }
   const { resolved, unresolved } = await resolveIncludes(root, (href) =>
-    readFile(within(dirname(input), href), 'utf-8'));
+    readText(within(dirname(input), href)));
   if (resolved) console.error(`xinclude: ${resolved} resolved`);
   for (const u of unresolved) console.error(`xinclude unresolved: ${u.href} (${u.reason})`);
   roots = [root];

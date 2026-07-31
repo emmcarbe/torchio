@@ -659,7 +659,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     // finding a name must be cheap: a search over everything, and a small
     // red alphabet under each heading to jump straight to a letter
     if (totalEntries > 20) {
-      idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}">`;
+      idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}"/>`;
     }
     let secIdx = -1;
     for (const [label, entries] of sections) {
