@@ -726,6 +726,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       'data/apparatus.csv': T.descrApparatus,
       'data/lemmas.csv': T.descrLemmas,
       'data/tokens.csv': T.descrTokens,
+      'data/frequencies.csv': T.descrFrequencies,
+      'data/concordance.csv': T.descrConcordance,
+      'data/lemma-concordance.csv': T.descrLemmaConcordance,
       'data/source.xml': T.descrSource,
     };
     let dataPage = '<main id="main" class="torchio"><table class="idx-table">';

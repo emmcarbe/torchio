@@ -49,14 +49,34 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
     + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
     + `<th class="lx-num">${T.lexAbs}</th><th class="lx-num">${T.lexRel}</th>`
-    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>` : '')
+    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody>${
+      // the rows live in the markup: a page whose content exists only inside a
+      // script is a page that says nothing when the script does not run, and
+      // this one is the lexicon of an edition, not an application
+      L.frequencies.slice(0, 1500).map((f) => `<tr data-form="${escapeHTML(f.form)}"`
+        + `${f.lang ? ` data-lang="${escapeHTML(f.lang)}"` : ''}${f.stop ? ' class="is-stop"' : ''}>`
+        + `<td class="lx-w">${escapeHTML(f.form)}</td>`
+        + (multi ? `<td class="lx-lang">${escapeHTML(f.lang || '')}</td>` : '')
+        + `<td class="lx-num">${f.count}</td>`
+        + `<td class="lx-num lx-rel">${f.rel.toFixed(3)}\u2030</td>`
+        + `<td class="lx-num"><button class="lx-flip">${f.stop ? '\u25CF' : '\u25CB'}</button></td>`
+        + `</tr>`).join('')
+    }</tbody></table>${L.frequencies.length > 1500
+      ? `<p class="occ">${L.frequencies.length - 1500} ${T.lexMoreForms || 'more forms in the data export'}</p>` : ''}</section>` : '')
     + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
     + (views.cloud ? `<section class="lx-view lx-cloud"${first === 'cloud' ? '' : ' hidden'}></section>` : '')
     + `</main>`;
 
+  // the concordance of every form of a long text is megabytes: a page that
+  // cannot be opened preserves nothing. The forms a reader reaches from this
+  // page carry their contexts; the whole concordance is in the data export
+  const CONC_FORMS = 400, CONC_OCC = 12;
   const conc = {};
+  const wanted = new Set(L.frequencies.slice(0, CONC_FORMS).map((f) => f.form));
   for (const [form, occ] of Object.entries(L.concordance)) {
-    conc[form] = occ.map((o) => ({ b: o.before, k: o.form, a: o.after, href: `${pageFor(o.anchor)}#${o.anchor}` }));
+    if (!wanted.has(form)) continue;
+    conc[form] = occ.slice(0, CONC_OCC)
+      .map((o) => ({ b: o.before, k: o.form, a: o.after, href: `${pageFor(o.anchor)}#${o.anchor}` }));
   }
 
   const script = `

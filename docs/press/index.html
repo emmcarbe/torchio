@@ -577,6 +577,43 @@ function lemmasCSV(model) {
  * Assemble the export files for an edition.
  * @returns {Object<string,string>} path (relative to the site root) -> content
  */
+/** Word frequencies, in full: what the page shows is what a page can carry,
+ *  this is everything. Absolute count, per-thousand, language, stopword flag. */
+function frequenciesCSV(model) {
+  const L = model.lexicon;
+  if (!L) return '';
+  const rows = [['form', 'lang', 'count', 'per_thousand', 'stopword']];
+  for (const f of L.frequencies) {
+    rows.push([f.form, f.lang || '', f.count, f.rel, f.stop ? 'yes' : 'no']);
+  }
+  return rows.map((r) => r.map(csvCell).join(',')).join('\n') + '\n';
+}
+
+/** The concordance of the attested forms: every occurrence with its context
+ *  and the anchor that leads back into the text. */
+function concordanceCSV(model) {
+  const L = model.lexicon;
+  if (!L) return '';
+  const rows = [['form', 'doc', 'before', 'keyword', 'after', 'anchor']];
+  for (const [form, occ] of Object.entries(L.concordance)) {
+    for (const o of occ) rows.push([form, o.docId, o.before, o.form, o.after, o.anchor]);
+  }
+  return rows.map((r) => r.map(csvCell).join(',')).join('\n') + '\n';
+}
+
+/** The concordance under the lemma, where the edition has lemmas: the same
+ *  evidence grouped as the editor grouped it. */
+function lemmaConcordanceCSV(model) {
+  if (!model.lemmas) return '';
+  const rows = [['lemma', 'lang', 'form', 'doc', 'before', 'keyword', 'after', 'anchor']];
+  for (const e of model.lemmas.entries) {
+    for (const o of e.occurrences || []) {
+      rows.push([e.lemma, e.lang || '', o.form, o.docId, o.before, o.form, o.after, o.anchor]);
+    }
+  }
+  return rows.map((r) => r.map(csvCell).join(',')).join('\n') + '\n';
+}
+
 function buildExports(model, { sourceXML = null, only = null } = {}) {
   // `only` is the manifest's exports object: each piece defaults to true
   // and is switched off explicitly ("exports": {"model": false})
@@ -592,6 +629,11 @@ function buildExports(model, { sourceXML = null, only = null } = {}) {
   }
   if (want('lemmas') && model.lemmas && model.lemmas.entries.length) {
     files['data/lemmas.csv'] = lemmasCSV(model);
+    files['data/lemma-concordance.csv'] = lemmaConcordanceCSV(model);
+  }
+  if (want('lexicon') && model.lexicon && model.lexicon.total) {
+    files['data/frequencies.csv'] = frequenciesCSV(model);
+    files['data/concordance.csv'] = concordanceCSV(model);
   }
   if (want('tokens') && model.tokens && model.tokens.length) {
     files['data/tokens.csv'] = tokensCSV(model, model.tokens);
@@ -1994,6 +2036,9 @@ const STRINGS = {
     lexConcordance: 'Concordance', lexCloud: 'Cloud', lexPick: 'Pick a word to see it in context.',
     lexLanguage: 'Language', lexAllLangs: 'all', lexStoplist: 'Stopwords',
     lexStopNone: 'none', lexHideStop: 'hide stopwords', lexWord: 'word', lexLang: 'lang',
+    descrFrequencies: 'Every attested form with its count, its share per thousand and whether the stopword list you chose covers it.',
+    descrConcordance: 'Every occurrence of every form, with the words around it and the anchor back into the text.',
+    descrLemmaConcordance: 'The same evidence grouped under the dictionary form, where the edition has lemmas.',
     lexAbs: 'count', lexRel: 'per 1000', lexStats: 'Lexical statistics', lexStopCol: 'stop', lexStopNote: 'Frequencies and cloud drop the stopwords you choose; the concordance keeps every word.',
     genesisNote: 'The campaigns of correction the edition declares, in its own order, with the writing operations attributed to each. Every operation links to the place where it happened.',
     agreement: 'Agreement between witnesses',
@@ -2055,6 +2100,9 @@ const STRINGS = {
     lexConcordance: 'Concordanza', lexCloud: 'Nuvola', lexPick: 'Scegli una parola per vederla in contesto.',
     lexLanguage: 'Lingua', lexAllLangs: 'tutte', lexStoplist: 'Stopword',
     lexStopNone: 'nessuna', lexHideStop: 'nascondi le stopword', lexWord: 'parola', lexLang: 'lingua',
+    descrFrequencies: 'Ogni forma attestata con il suo conteggio, la quota per mille e se la lista di stopword scelta la copre.',
+    descrConcordance: 'Ogni occorrenza di ogni forma, con le parole intorno e il rimando al punto del testo.',
+    descrLemmaConcordance: 'Le stesse occorrenze raggruppate sotto la forma di dizionario, dove l\'edizione ha i lemmi.',
     lexAbs: 'assoluta', lexRel: 'per 1000', lexStats: 'Statistica lessicale', lexStopCol: 'stop', lexStopNote: 'Frequenze e nuvola tolgono le stopword scelte; la concordanza tiene ogni parola.',
     genesisNote: 'Le campagne correttorie dichiarate dall\u2019edizione, nel suo ordine, con le operazioni di scrittura attribuite a ciascuna. Ogni operazione rimanda al punto in cui è avvenuta.',
     agreement: 'Accordi fra testimoni',
@@ -3538,14 +3586,34 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
     + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
     + `<th class="lx-num">${T.lexAbs}</th><th class="lx-num">${T.lexRel}</th>`
-    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>` : '')
+    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody>${
+      // the rows live in the markup: a page whose content exists only inside a
+      // script is a page that says nothing when the script does not run, and
+      // this one is the lexicon of an edition, not an application
+      L.frequencies.slice(0, 1500).map((f) => `<tr data-form="${escapeHTML(f.form)}"`
+        + `${f.lang ? ` data-lang="${escapeHTML(f.lang)}"` : ''}${f.stop ? ' class="is-stop"' : ''}>`
+        + `<td class="lx-w">${escapeHTML(f.form)}</td>`
+        + (multi ? `<td class="lx-lang">${escapeHTML(f.lang || '')}</td>` : '')
+        + `<td class="lx-num">${f.count}</td>`
+        + `<td class="lx-num lx-rel">${f.rel.toFixed(3)}\u2030</td>`
+        + `<td class="lx-num"><button class="lx-flip">${f.stop ? '\u25CF' : '\u25CB'}</button></td>`
+        + `</tr>`).join('')
+    }</tbody></table>${L.frequencies.length > 1500
+      ? `<p class="occ">${L.frequencies.length - 1500} ${T.lexMoreForms || 'more forms in the data export'}</p>` : ''}</section>` : '')
     + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
     + (views.cloud ? `<section class="lx-view lx-cloud"${first === 'cloud' ? '' : ' hidden'}></section>` : '')
     + `</main>`;
 
+  // the concordance of every form of a long text is megabytes: a page that
+  // cannot be opened preserves nothing. The forms a reader reaches from this
+  // page carry their contexts; the whole concordance is in the data export
+  const CONC_FORMS = 400, CONC_OCC = 12;
   const conc = {};
+  const wanted = new Set(L.frequencies.slice(0, CONC_FORMS).map((f) => f.form));
   for (const [form, occ] of Object.entries(L.concordance)) {
-    conc[form] = occ.map((o) => ({ b: o.before, k: o.form, a: o.after, href: `${pageFor(o.anchor)}#${o.anchor}` }));
+    if (!wanted.has(form)) continue;
+    conc[form] = occ.slice(0, CONC_OCC)
+      .map((o) => ({ b: o.before, k: o.form, a: o.after, href: `${pageFor(o.anchor)}#${o.anchor}` }));
   }
 
   const script = `
@@ -5181,6 +5249,9 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       'data/apparatus.csv': T.descrApparatus,
       'data/lemmas.csv': T.descrLemmas,
       'data/tokens.csv': T.descrTokens,
+      'data/frequencies.csv': T.descrFrequencies,
+      'data/concordance.csv': T.descrConcordance,
+      'data/lemma-concordance.csv': T.descrLemmaConcordance,
       'data/source.xml': T.descrSource,
     };
     let dataPage = '<main id="main" class="torchio"><table class="idx-table">';
