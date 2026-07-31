@@ -169,10 +169,38 @@ if (site) {
     await writeFile(join(out, name), content);
   }
   if ('map.html' in files) {
+
     await cp(new URL('../data-assets/leaflet', import.meta.url),
       join(out, 'assets', 'leaflet'), { recursive: true });
     console.error('assets: leaflet copied');
   }
+
+  // the sources travel with the edition: every TEI file that went into it,
+  // including the ones pulled in by XInclude, is downloadable from the site
+  try {
+    const srcDir = join(out, 'data', 'source');
+    await mkdir(srcDir, { recursive: true });
+    const base = (await stat(input)).isDirectory() ? input : dirname(input);
+    const copied = [];
+    const walkDir = async (dir, rel = '') => {
+      for (const e of await readdir(dir, { withFileTypes: true })) {
+        if (e.name.startsWith('.')) continue;
+        const from = join(dir, e.name), r = rel ? `${rel}/${e.name}` : e.name;
+        if (e.isDirectory()) { await walkDir(from, r); continue; }
+        if (!/\.(xml|odd|rng|json)$/i.test(e.name)) continue;
+        await mkdir(dirname(join(srcDir, r)), { recursive: true });
+        await cp(from, join(srcDir, r));
+        copied.push(r);
+      }
+    };
+    await walkDir(base);
+    // always the same place and the same rule, whatever the size: the
+    // sources of an edition are part of the edition. index.json lists them,
+    // so a reader with a thousand files takes the archive instead of the list
+    await writeFile(join(srcDir, 'index.json'),
+      JSON.stringify({ files: copied.sort(), count: copied.length }, null, 1));
+    console.error(`sources: ${copied.length} files copied to data/source/`);
+  } catch (err) { console.error(`sources not copied: ${err.message}`); }
   console.error(`pressed site: ${out}/ (${Object.keys(files).length} files)`);
 } else {
   out = output || basename(input).replace(/\.xml$/i, '') + '.html';
