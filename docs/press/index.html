@@ -2885,7 +2885,7 @@ ${interactCSS}
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
 .torchio-nav a.up{color:var(--accent-soft)}
-.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;padding:10px 0 12px;margin:0 0 1.2em;border-bottom:1px solid var(--hair)}
+.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;max-width:var(--measure);margin:0 auto 1.2em;padding:10px 20px 12px;border-bottom:1px solid var(--hair)}
 .torchio-subnav a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--soft);text-transform:uppercase}
 .torchio-subnav a.on{color:var(--accent)}
 .torchio-subnav a:hover{color:var(--ink);text-decoration:none}
@@ -3939,11 +3939,14 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     var w=e.target.closest('[data-form]');
     if(w){concord(w.getAttribute('data-form'));if(main.querySelector('.lx-conc'))show('conc');}
   });
-  // a red alphabet in the concordance: pick a letter, see the first form under it
+  // a red alphabet in the concordance: pick a letter, see the first (most
+  // frequent) form under it. The letter is the BASE letter, diacritics stripped,
+  // so Greek does not explode into every accented variant (\\u03ac, \\u1f00 ...)
   var alpha=main.querySelector('.lx-alpha');
   if(alpha){
+    function baseLetter(s){return (String(s).charAt(0)||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase();}
     var firstOf={};
-    FREQ.forEach(function(f){var L=(f.form[0]||'').toUpperCase();if(L&&!(L in firstOf))firstOf[L]=f.form;});
+    FREQ.forEach(function(f){var L=baseLetter(f.form);if(L&&/\\p{L}/u.test(L)&&!(L in firstOf))firstOf[L]=f.form;});
     alpha.innerHTML=Object.keys(firstOf).sort().map(function(L){return '<a href="#" data-letter="'+esc(L)+'">'+esc(L)+'</a>';}).join('');
     alpha.addEventListener('click',function(e){var a=e.target.closest('[data-letter]');if(a){e.preventDefault();concord(firstOf[a.getAttribute('data-letter')]);}});
   }

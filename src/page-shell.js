@@ -84,7 +84,7 @@ ${interactCSS}
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
 .torchio-nav a.up{color:var(--accent-soft)}
-.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;padding:10px 0 12px;margin:0 0 1.2em;border-bottom:1px solid var(--hair)}
+.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;max-width:var(--measure);margin:0 auto 1.2em;padding:10px 20px 12px;border-bottom:1px solid var(--hair)}
 .torchio-subnav a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--soft);text-transform:uppercase}
 .torchio-subnav a.on{color:var(--accent)}
 .torchio-subnav a:hover{color:var(--ink);text-decoration:none}
