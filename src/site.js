@@ -136,6 +136,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const labSubnav = (activeFile) => labItems
     .map(([file, label]) => `<a href="${file}"${file === activeFile ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
     .join('');
+  // "Lab" in the top menu goes straight to the first analysis, not to a landing
+  // page that would make you click again (worse still when there is only one)
+  const labFirst = labItems.length ? labItems[0][0] : null;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -202,7 +205,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       .map((p) => [p.id, p.label || DEFAULT.find(([id]) => id === p.id)?.[1] || p.id]);
     if (!pageList.some(([id]) => id === 'text')) pageList.push(['text', isCollection ? T.texts : T.text]);
   }
-  const pages = pageList.map(([id, label]) => [`${id}.html`, label]);
+  const pages = pageList.map(([id, label]) => [id === 'lab' && labFirst ? labFirst : `${id}.html`, label]);
   const wanted = new Set(pageList.map(([id]) => id));
 
   const out = {};
@@ -719,7 +722,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   var up=document.querySelector('.totop');
   if(up){window.addEventListener('scroll',function(){up.hidden=window.scrollY<600;},{passive:true});}
 })();`;
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'lab.html', subnav: labSubnav('indices.html'), pages, body: idx, script: idxJS, t: T, lang, theme, parent });
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: labFirst, subnav: labSubnav('indices.html'), pages, body: idx, script: idxJS, t: T, lang, theme, parent });
   }
 
   /* ---- genesis.html: the strata of the writing ---- */
@@ -730,26 +733,22 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
   if (hasLemmas && wanted.has('lab')) {
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages,
-      active: 'lab.html', subnav: labSubnav('lemmas.html') });
+      active: labFirst, subnav: labSubnav('lemmas.html') });
   }
 
   /* ---- lab.html: the analytical layer, with the lexicon and the map beneath
    *      it. Kept apart from the edition: derived, not attested. ---- */
   if (hasLab && wanted.has('lab')) {
-    // the Lab landing: the sub-menu is in the chrome; the body says what Lab is
-    out['lab.html'] = chrome({ title: t, sub: T.lab.toLowerCase(), active: 'lab.html', pages,
-      subnav: labSubnav('lab.html'),
-      body: `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p></main>`,
-      t: T, lang, theme, parent });
-    // the subpages light "Lab" in the top menu and their own entry in the
-    // sub-menu; the indices and the lemmas are pressed above, with the same subnav
+    // no landing page: "Lab" in the menu leads straight to the first analysis
+    // (labFirst); every Lab subpage lights "Lab" in the top menu and carries the
+    // sub-menu, so the reader moves among them without a click into emptiness
     if (hasLexicon) {
       out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme,
-        parent, active: 'lab.html', subnav: labSubnav('lexicon.html'), pages, views: lexViews });
+        parent, active: labFirst, subnav: labSubnav('lexicon.html'), pages, views: lexViews });
     }
     if (hasMap) {
       out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme,
-        parent, active: 'lab.html', subnav: labSubnav('map.html'), pages });
+        parent, active: labFirst, subnav: labSubnav('map.html'), pages });
     }
   }
 

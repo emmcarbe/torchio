@@ -3791,7 +3791,7 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   const DOCS = (model.documents || []).map((d) => (d.card && d.card.title) || d.id);
   const docSelHTML = DOCS.length > 1
     ? `<label class="lx-ctl">${T.lexDocument} <select class="lx-docsel"><option value="">${T.lexWholeEdition}</option>`
-      + DOCS.map((label, i) => `<option value="${i}">${escapeHTML(label)}</option>`).join('')
+      + DOCS.map((label, i) => `<option value="${i}"${i === 0 ? ' selected' : ''}>${escapeHTML(label)}</option>`).join('')
       + `</select></label>`
     : '';
 
@@ -3869,7 +3869,10 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   var STOP=${jsonForScript(STOPWORDS)};
   var MULTI=${multi ? 'true' : 'false'};
   var KWIC=6, MAXROWS=300;
-  var FREQ_ALL=FREQ, docFilter=null; // null = the whole edition; else a doc index
+  // a collection opens on its FIRST document, not on all of them merged: for a
+  // collated tradition the merged lexicon is a blur. "All documents" stays an
+  // option, it is just not the default
+  var FREQ_ALL=FREQ, docFilter=DOCS.length>1?0:null;
   var TOKLBL=${JSON.stringify(T.lexTokens)}, FORMLBL=${JSON.stringify(T.lexForms)}, TTRLBL=${JSON.stringify(T.lexTTR)};
   var TOTAL_ALL=${L.total}, DISTINCT_ALL=${L.distinct};
   var main=document.querySelector('main.lexicon');
@@ -3937,8 +3940,9 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   function applyDoc(){
     if(docFilter===null){FREQ=FREQ_ALL;setStats(TOTAL_ALL,DISTINCT_ALL);}
     else{var fr=computeFreq(docFilter);FREQ=fr.rows;setStats(fr.total,fr.distinct);}
-    render();
-    var q=search.value.trim(); if(q)concord(q);
+    render(); buildAlpha();
+    var q=search.value.trim();
+    concord(q||(function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];return f?f.form:'';})());
   }
   // the concordance over the stream: every form, every occurrence, the
   // before/after taken from the adjacent tokens of the same document; when a
@@ -3987,23 +3991,23 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   // a red alphabet in the concordance: pick a letter, see the first (most
   // frequent) form under it. The letter is the BASE letter, diacritics stripped,
   // so Greek does not explode into every accented variant (\\u03ac, \\u1f00 ...)
-  var alpha=main.querySelector('.lx-alpha');
-  if(alpha){
-    function baseLetter(s){return (String(s).charAt(0)||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase();}
-    var firstOf={};
-    FREQ.forEach(function(f){var L=baseLetter(f.form);if(L&&/\\p{L}/u.test(L)&&!(L in firstOf))firstOf[L]=f.form;});
-    alpha.innerHTML=Object.keys(firstOf).sort().map(function(L){return '<a href="#" data-letter="'+esc(L)+'">'+esc(L)+'</a>';}).join('');
-    alpha.addEventListener('click',function(e){var a=e.target.closest('[data-letter]');if(a){e.preventDefault();concord(firstOf[a.getAttribute('data-letter')]);}});
+  var alpha=main.querySelector('.lx-alpha'), alphaFirst={};
+  function baseLetter(s){return (String(s).charAt(0)||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase();}
+  function buildAlpha(){
+    if(!alpha)return; alphaFirst={};
+    FREQ.forEach(function(f){var L=baseLetter(f.form);if(L&&/\\p{L}/u.test(L)&&!(L in alphaFirst))alphaFirst[L]=f.form;});
+    alpha.innerHTML=Object.keys(alphaFirst).sort().map(function(L){return '<a href="#" data-letter="'+esc(L)+'">'+esc(L)+'</a>';}).join('');
   }
+  if(alpha)alpha.addEventListener('click',function(e){var a=e.target.closest('[data-letter]');if(a){e.preventDefault();concord(alphaFirst[a.getAttribute('data-letter')]);}});
   var timer;
   search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q)concord(q);},150);});
   if(docsel)docsel.addEventListener('change',function(){docFilter=docsel.value===''?null:parseInt(docsel.value,10);applyDoc();});
   if(langsel)langsel.addEventListener('change',render);
   stopsel.addEventListener('change',render);
   hidestop.addEventListener('change',render);
-  render();
-  // the concordance is not empty on arrival: the first content word is shown
-  (function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];if(f)concord(f.form);})();
+  // open on the default: for a collection, the first document; else the whole,
+  // with the first content word already in the concordance
+  applyDoc();
 })();`;
 
   return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, subnav, pages,
@@ -4977,6 +4981,9 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const labSubnav = (activeFile) => labItems
     .map(([file, label]) => `<a href="${file}"${file === activeFile ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
     .join('');
+  // "Lab" in the top menu goes straight to the first analysis, not to a landing
+  // page that would make you click again (worse still when there is only one)
+  const labFirst = labItems.length ? labItems[0][0] : null;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -5043,7 +5050,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
       .map((p) => [p.id, p.label || DEFAULT.find(([id]) => id === p.id)?.[1] || p.id]);
     if (!pageList.some(([id]) => id === 'text')) pageList.push(['text', isCollection ? T.texts : T.text]);
   }
-  const pages = pageList.map(([id, label]) => [`${id}.html`, label]);
+  const pages = pageList.map(([id, label]) => [id === 'lab' && labFirst ? labFirst : `${id}.html`, label]);
   const wanted = new Set(pageList.map(([id]) => id));
 
   const out = {};
@@ -5560,7 +5567,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   var up=document.querySelector('.totop');
   if(up){window.addEventListener('scroll',function(){up.hidden=window.scrollY<600;},{passive:true});}
 })();`;
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'lab.html', subnav: labSubnav('indices.html'), pages, body: idx, script: idxJS, t: T, lang, theme, parent });
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: labFirst, subnav: labSubnav('indices.html'), pages, body: idx, script: idxJS, t: T, lang, theme, parent });
   }
 
   /* ---- genesis.html: the strata of the writing ---- */
@@ -5571,26 +5578,22 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
   if (hasLemmas && wanted.has('lab')) {
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages,
-      active: 'lab.html', subnav: labSubnav('lemmas.html') });
+      active: labFirst, subnav: labSubnav('lemmas.html') });
   }
 
   /* ---- lab.html: the analytical layer, with the lexicon and the map beneath
    *      it. Kept apart from the edition: derived, not attested. ---- */
   if (hasLab && wanted.has('lab')) {
-    // the Lab landing: the sub-menu is in the chrome; the body says what Lab is
-    out['lab.html'] = chrome({ title: t, sub: T.lab.toLowerCase(), active: 'lab.html', pages,
-      subnav: labSubnav('lab.html'),
-      body: `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p></main>`,
-      t: T, lang, theme, parent });
-    // the subpages light "Lab" in the top menu and their own entry in the
-    // sub-menu; the indices and the lemmas are pressed above, with the same subnav
+    // no landing page: "Lab" in the menu leads straight to the first analysis
+    // (labFirst); every Lab subpage lights "Lab" in the top menu and carries the
+    // sub-menu, so the reader moves among them without a click into emptiness
     if (hasLexicon) {
       out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme,
-        parent, active: 'lab.html', subnav: labSubnav('lexicon.html'), pages, views: lexViews });
+        parent, active: labFirst, subnav: labSubnav('lexicon.html'), pages, views: lexViews });
     }
     if (hasMap) {
       out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme,
-        parent, active: 'lab.html', subnav: labSubnav('map.html'), pages });
+        parent, active: labFirst, subnav: labSubnav('map.html'), pages });
     }
   }
 

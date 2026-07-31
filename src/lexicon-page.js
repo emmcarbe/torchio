@@ -29,7 +29,7 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   const DOCS = (model.documents || []).map((d) => (d.card && d.card.title) || d.id);
   const docSelHTML = DOCS.length > 1
     ? `<label class="lx-ctl">${T.lexDocument} <select class="lx-docsel"><option value="">${T.lexWholeEdition}</option>`
-      + DOCS.map((label, i) => `<option value="${i}">${escapeHTML(label)}</option>`).join('')
+      + DOCS.map((label, i) => `<option value="${i}"${i === 0 ? ' selected' : ''}>${escapeHTML(label)}</option>`).join('')
       + `</select></label>`
     : '';
 
@@ -107,7 +107,10 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   var STOP=${jsonForScript(STOPWORDS)};
   var MULTI=${multi ? 'true' : 'false'};
   var KWIC=6, MAXROWS=300;
-  var FREQ_ALL=FREQ, docFilter=null; // null = the whole edition; else a doc index
+  // a collection opens on its FIRST document, not on all of them merged: for a
+  // collated tradition the merged lexicon is a blur. "All documents" stays an
+  // option, it is just not the default
+  var FREQ_ALL=FREQ, docFilter=DOCS.length>1?0:null;
   var TOKLBL=${JSON.stringify(T.lexTokens)}, FORMLBL=${JSON.stringify(T.lexForms)}, TTRLBL=${JSON.stringify(T.lexTTR)};
   var TOTAL_ALL=${L.total}, DISTINCT_ALL=${L.distinct};
   var main=document.querySelector('main.lexicon');
@@ -175,8 +178,9 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   function applyDoc(){
     if(docFilter===null){FREQ=FREQ_ALL;setStats(TOTAL_ALL,DISTINCT_ALL);}
     else{var fr=computeFreq(docFilter);FREQ=fr.rows;setStats(fr.total,fr.distinct);}
-    render();
-    var q=search.value.trim(); if(q)concord(q);
+    render(); buildAlpha();
+    var q=search.value.trim();
+    concord(q||(function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];return f?f.form:'';})());
   }
   // the concordance over the stream: every form, every occurrence, the
   // before/after taken from the adjacent tokens of the same document; when a
@@ -225,23 +229,23 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   // a red alphabet in the concordance: pick a letter, see the first (most
   // frequent) form under it. The letter is the BASE letter, diacritics stripped,
   // so Greek does not explode into every accented variant (\\u03ac, \\u1f00 ...)
-  var alpha=main.querySelector('.lx-alpha');
-  if(alpha){
-    function baseLetter(s){return (String(s).charAt(0)||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase();}
-    var firstOf={};
-    FREQ.forEach(function(f){var L=baseLetter(f.form);if(L&&/\\p{L}/u.test(L)&&!(L in firstOf))firstOf[L]=f.form;});
-    alpha.innerHTML=Object.keys(firstOf).sort().map(function(L){return '<a href="#" data-letter="'+esc(L)+'">'+esc(L)+'</a>';}).join('');
-    alpha.addEventListener('click',function(e){var a=e.target.closest('[data-letter]');if(a){e.preventDefault();concord(firstOf[a.getAttribute('data-letter')]);}});
+  var alpha=main.querySelector('.lx-alpha'), alphaFirst={};
+  function baseLetter(s){return (String(s).charAt(0)||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase();}
+  function buildAlpha(){
+    if(!alpha)return; alphaFirst={};
+    FREQ.forEach(function(f){var L=baseLetter(f.form);if(L&&/\\p{L}/u.test(L)&&!(L in alphaFirst))alphaFirst[L]=f.form;});
+    alpha.innerHTML=Object.keys(alphaFirst).sort().map(function(L){return '<a href="#" data-letter="'+esc(L)+'">'+esc(L)+'</a>';}).join('');
   }
+  if(alpha)alpha.addEventListener('click',function(e){var a=e.target.closest('[data-letter]');if(a){e.preventDefault();concord(alphaFirst[a.getAttribute('data-letter')]);}});
   var timer;
   search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q)concord(q);},150);});
   if(docsel)docsel.addEventListener('change',function(){docFilter=docsel.value===''?null:parseInt(docsel.value,10);applyDoc();});
   if(langsel)langsel.addEventListener('change',render);
   stopsel.addEventListener('change',render);
   hidestop.addEventListener('change',render);
-  render();
-  // the concordance is not empty on arrival: the first content word is shown
-  (function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];if(f)concord(f.form);})();
+  // open on the default: for a collection, the first document; else the whole,
+  // with the first content word already in the concordance
+  applyDoc();
 })();`;
 
   return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, subnav, pages,
