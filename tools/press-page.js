@@ -297,6 +297,8 @@
         lexicon: !!(raw.pieces && raw.pieces.lexicon === true),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
+      version: typeof raw.version === 'string' ? raw.version
+        : (raw.version != null ? String(raw.version) : ''),
       // pages: id -> {on, label}; filled after the first pressing, when the
       // derived pages are known
       pages: null,
@@ -439,6 +441,7 @@
     if (ui.lang) m.lang = ui.lang;
     if (ui.theme) m.theme = ui.theme;
     if (ui.genre) m.genre = ui.genre;
+    if (ui.version) m.version = ui.version;
     const off = {};
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
@@ -552,7 +555,12 @@
 
   function renderPanel() {
     const ui = S.ui;
+    const STEPS = [['edition', 'Edition'], ['pages', 'Pages'], ['pieces', 'Pieces'],
+      ['words', 'Words'], ['names', 'Names']];
     let html = '<h2>Composition</h2>'
+      + '<nav class="stepnav">' + STEPS.map(([id, label], i) =>
+        '<button type="button" data-goto="' + id + '"' + (i === 0 ? ' class="on"' : '') + '>'
+        + (i + 1) + '. ' + label + '</button>').join('') + '</nav>'
       + '<p class="note">Decisions taken here are written to a small file, '
       + '<code>torchio.json</code>, shipped inside the archive: keep it next '
       + 'to your XML and every future pressing repeats them.</p>'
@@ -560,6 +568,7 @@
         ? '<p class="note">A collection borrows the title of its first document '
           + 'until you give it one of its own, below.</p>'
         : '')
+      + '<fieldset data-step="edition"><legend>Edition</legend>'
       + '<div class="frow"><label for="c-title">Title</label>'
       + '<input id="c-title" type="text" value="' + esc(ui.title) + '" placeholder="'
       + esc(S.model.meta.title || '') + '"></div>'
@@ -574,7 +583,14 @@
       + ['', 'savi', 'pergamena', 'moderno'].map((t) =>
         '<option value="' + t + '"' + (ui.theme === t ? ' selected' : '') + '>'
         + (t || 'savi (default)') + '</option>').join('')
-      + '</select></div>';
+      + '</select></div>'
+      + '<div class="frow"><label for="c-version">Version</label>'
+      + '<input id="c-version" type="text" value="' + esc(ui.version || '') + '" '
+      + 'placeholder="e.g. 1, 1.2, second edition" style="max-width:16rem"></div>'
+      + '<p class="note">The version of the edition, yours to set: raise it when you press again '
+      + 'after correcting. It is stamped in the colophon of every page, so two impressions can be '
+      + 'told apart and collated.</p>'
+      + '</fieldset>';
 
     // pages the markup did not activate: shown off, with their source named
     // (the markup decides existence; the panel decides presence)
@@ -592,7 +608,7 @@
         + 'from what you confirmed, and nobody is looked up while your edition is being read.',
     };
 
-    html += '<fieldset><legend>What this edition is</legend>'
+    html += '<fieldset data-step="edition"><legend>What this edition is</legend>'
       + '<div class="frow"><label>Kind</label><select id="c-genre">'
       + '<option value="">from the markup</option>'
       + '<option value="edition">critical edition</option>'
@@ -606,7 +622,7 @@
       + 'A <b>tradition</b> presses the witnesses side by side, with the apparatus apart. '
       + 'Left to the markup, the shape is derived from what the files declare.</p>'
       + '</fieldset>';
-    html += '<fieldset><legend>Pages</legend>';
+    html += '<fieldset data-step="pages"><legend>Pages</legend>';
     // the section pages of a long text are the divisions the markup declares:
     // shown as one summary line, not one checkbox each
     const chunkIds = Object.keys(ui.pages).filter((id) => /^text-/.test(id));
@@ -657,7 +673,7 @@
         ? ['date', 'title', 'from', 'to', 'place', 'idno']
         : ['author', 'title', 'date', 'place', 'idno']).filter((k) => avail.includes(k));
       const current = ui.registerColumns || engineDefault;
-      html += '<fieldset><legend>Register columns</legend>';
+      html += '<fieldset data-step="pages"><legend>Register columns</legend>';
       for (const k of avail) {
         html += '<label><input type="checkbox" data-regcol="' + esc(k) + '"'
           + (current.includes(k) ? ' checked' : '') + (k === 'title' ? ' disabled' : '')
@@ -668,7 +684,7 @@
     }
 
     // 1. the interactive layers of the text
-    html += '<fieldset><legend>Pieces</legend>'
+    html += '<fieldset data-step="pieces"><legend>Pieces</legend>'
       + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
@@ -681,7 +697,7 @@
       + 'never the base rendering: nothing becomes invisible.</p></fieldset>';
 
     // 2. words: lemmas and the lexicon, with their own review round trip
-    html += '<fieldset class="flow"><legend>Words: lemmas and lexicon</legend>'
+    html += '<fieldset class="flow" data-step="words"><legend>Words: lemmas and lexicon</legend>'
       + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
       + '> index of lemmas, where the edition declares them</label> '
       + '<label><input type="checkbox" id="c-lexicon"' + (ui.pieces.lexicon ? ' checked' : '')
@@ -698,7 +714,7 @@
       + '</fieldset>';
 
     // 3. names: the indices and the map, with their own review round trip
-    html += '<fieldset class="flow"><legend>Names: indices and map</legend>'
+    html += '<fieldset class="flow" data-step="names"><legend>Names: indices and map</legend>'
       + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
       + '> index of persons</label> '
       + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
@@ -715,6 +731,9 @@
       + '(or with the files).</span></div>'
       + '</fieldset>';
 
+    html += '<div class="stepmove"><button type="button" class="step-back">\u2039 back</button>'
+      + '<button type="button" class="step-fwd">next \u203a</button></div>';
+
     // the simple-page editor, hidden until needed
     html += '<div id="pageeditor" hidden>'
       + '<h3 id="pe-title">New page</h3>'
@@ -728,6 +747,28 @@
 
     composeBox.innerHTML = html;
     composeBox.hidden = false;
+    // one step at a time: the nav shows the group, the rest is hidden
+    const order = STEPS.map(([id]) => id);
+    let stepAt = 0;
+    const showStep = (id) => {
+      stepAt = Math.max(0, order.indexOf(id));
+      composeBox.querySelectorAll('fieldset[data-step]').forEach((fs) => {
+        fs.style.display = fs.getAttribute('data-step') === id ? '' : 'none';
+      });
+      composeBox.querySelectorAll('.stepnav button').forEach((b) => {
+        b.classList.toggle('on', b.getAttribute('data-goto') === id);
+      });
+      const back = composeBox.querySelector('.step-back'), fwd = composeBox.querySelector('.step-fwd');
+      if (back) back.disabled = stepAt === 0;
+      if (fwd) fwd.disabled = stepAt === order.length - 1;
+    };
+    composeBox.querySelectorAll('.stepnav button').forEach((b) => {
+      b.addEventListener('click', () => showStep(b.getAttribute('data-goto')));
+    });
+    const backBtn = composeBox.querySelector('.step-back'), fwdBtn = composeBox.querySelector('.step-fwd');
+    if (backBtn) backBtn.addEventListener('click', () => showStep(order[Math.max(0, stepAt - 1)]));
+    if (fwdBtn) fwdBtn.addEventListener('click', () => showStep(order[Math.min(order.length - 1, stepAt + 1)]));
+    showStep('edition');
     wirePanel();
   }
 
@@ -755,6 +796,7 @@
     bind('c-lexicon', (el) => { ui.pieces.lexicon = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
+    bind('c-version', (el) => { ui.version = el.value.trim(); });
     const lemBtn = document.getElementById('c-lemmatize');
     if (lemBtn) lemBtn.addEventListener('click', lemmatize);
     const sheetBtn = document.getElementById('c-lemma-sheet');

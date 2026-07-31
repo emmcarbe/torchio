@@ -139,6 +139,13 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .flow legend{color:var(--accent,#b01e28)}
 .dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
+.stepmove{display:flex;justify-content:space-between;margin:1.2em 0}
+.stepmove button{font-family:var(--mono,monospace);font-size:12px;padding:8px 16px;border:1px solid #ccc;border-radius:2px;background:#fff;cursor:pointer}
+.stepmove button:disabled{opacity:.4;cursor:default}
+.stepnav{display:flex;flex-wrap:wrap;gap:4px;margin:1em 0 1.4em;border-bottom:1px solid #e5e0d8}
+.stepnav button{font-family:var(--mono,monospace);font-size:12px;color:#888;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;padding:8px 14px;margin-bottom:-1px}
+.stepnav button.on{color:#b01e28;border-bottom-color:#b01e28}
+.stepnav button:hover{color:#333}
 .pagerow>label{min-width:9rem}
 .pagerow .grip{cursor:grab;color:#bbb;margin-right:.5em;user-select:none}
 .pagerow.dragging{opacity:.5}

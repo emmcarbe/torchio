@@ -57,6 +57,9 @@ let COLOPHON = null;
 export function setColophon(text) { COLOPHON = text; }
 function colophon() { return COLOPHON || 'v0.1.0'; }
 
+export let EDITION_VERSION = null;
+export function setEditionVersion(v) { EDITION_VERSION = v || null; }
+
 export function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
   const parentHref = parent ? safeURL(parent.href) : null;
   const nav = (parentHref ? `<a href="${escapeHTML(parentHref)}" class="up">${escapeHTML(parent.label)}</a>` : '')
@@ -197,7 +200,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <nav class="torchio-nav">${nav}</nav>
 </header>
 ${body}
-<footer class="torchio">${t.publishedWith} <span class="press">Torchio</span> ${escapeHTML(colophon())}</footer>
+<footer class="torchio">${EDITION_VERSION ? `${t.version || 'version'} ${escapeHTML(EDITION_VERSION)} · ` : ''}${t.publishedWith} <span class="press">Torchio</span> ${escapeHTML(colophon())}</footer>
 ${script ? `<script>${script}</script>` : ''}
 </body>
 </html>`;
