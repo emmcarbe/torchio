@@ -2193,6 +2193,7 @@ const STRINGS = {
     lexTTR: 'type-token ratio', lexSearch: 'search a word\u2026', lexFrequencies: 'Frequencies',
     lexConcordance: 'Concordance', lexPick: 'Pick a word to see it in context.',
     lexLanguage: 'Language', lexAllLangs: 'all', lexStoplist: 'Stopwords',
+    lexDocument: 'Document', lexWholeEdition: 'whole edition',
     lexStopNone: 'none', lexHideStop: 'hide stopwords', lexWord: 'word', lexLang: 'lang',
     descrFrequencies: 'Every attested form with its count, its share per thousand and whether the stopword list you chose covers it.',
     descrConcordance: 'Every occurrence of every form, with the words around it and the anchor back into the text.',
@@ -2262,6 +2263,7 @@ const STRINGS = {
     lexTTR: 'type-token ratio', lexSearch: 'cerca una parola\u2026', lexFrequencies: 'Frequenze',
     lexConcordance: 'Concordanza', lexPick: 'Scegli una parola per vederla in contesto.',
     lexLanguage: 'Lingua', lexAllLangs: 'tutte', lexStoplist: 'Stopword',
+    lexDocument: 'Documento', lexWholeEdition: 'tutta l\'edizione',
     lexStopNone: 'nessuna', lexHideStop: 'nascondi le stopword', lexWord: 'parola', lexLang: 'lingua',
     descrFrequencies: 'Ogni forma attestata con il suo conteggio, la quota per mille e se la lista di stopword scelta la copre.',
     descrConcordance: 'Ogni occorrenza di ogni forma, con le parole intorno e il rimando al punto del testo.',
@@ -3781,6 +3783,18 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   const chosen = ['freq', 'conc'].filter((v) => views[v]);
   const first = chosen[0] || 'freq';
 
+  // the documents of a collection, in the model's order, so the reader can see
+  // the lexicon of one witness or letter alone (its own frequencies, TTR,
+  // concordance) and not only the whole. The index is shared with the token
+  // stream below, so a selected document filters exactly its tokens
+  const docIdx = new Map((model.documents || []).map((d, i) => [d.id, i]));
+  const DOCS = (model.documents || []).map((d) => (d.card && d.card.title) || d.id);
+  const docSelHTML = DOCS.length > 1
+    ? `<label class="lx-ctl">${T.lexDocument} <select class="lx-docsel"><option value="">${T.lexWholeEdition}</option>`
+      + DOCS.map((label, i) => `<option value="${i}">${escapeHTML(label)}</option>`).join('')
+      + `</select></label>`
+    : '';
+
   const langFilter = multi
     ? `<label class="lx-ctl">${T.lexLanguage} <select class="lx-langsel"><option value="">${T.lexAllLangs}</option>`
       + L.languages.map((l) => `<option value="${escapeHTML(l)}">${escapeHTML(l)}</option>`).join('')
@@ -3795,11 +3809,11 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     + `</select></label>`;
 
   const body = `<main id="main" class="torchio lexicon">`
-    + `<p class="occ"><b>${L.total}</b> ${T.lexTokens} · <b>${L.distinct}</b> ${T.lexForms} · `
+    + `<p class="occ lx-stats"><b>${L.total}</b> ${T.lexTokens} · <b>${L.distinct}</b> ${T.lexForms} · `
     + `${T.lexTTR} <b>${L.ttr}</b></p>`
     + `<div class="lx-bar-top">`
     + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}"/>`
-    + langFilter + stopSel
+    + docSelHTML + langFilter + stopSel
     + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"/> ${T.lexHideStop}</label>`
     + (chosen.length > 1 ? `<span class="lx-views" role="group">`
       + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
@@ -3832,16 +3846,15 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   // is never cut to a top-N. To keep it compact the stream is dictionary-coded:
   // each token is [formIndex, hrefIndex, docIndex], and forms, hrefs (anchors
   // deduplicated, since many tokens share a line) and docs are listed once
-  const formIdx = new Map(); const formList = [];
+  const formIdx = new Map(); const formList = []; const formLangList = [];
   const hrefIdx = new Map(); const hrefs = [];
-  const docIdx = new Map();
   const stream = (model.tokens || []).map((tok) => {
     let fi = formIdx.get(tok.form);
-    if (fi === undefined) { fi = formList.length; formList.push(tok.form); formIdx.set(tok.form, fi); }
+    if (fi === undefined) { fi = formList.length; formList.push(tok.form); formLangList.push(tok.lang || ''); formIdx.set(tok.form, fi); }
     let hi = hrefIdx.get(tok.anchor);
     if (hi === undefined) { hi = hrefs.length; hrefs.push(`${pageFor(tok.anchor)}#${tok.anchor}`); hrefIdx.set(tok.anchor, hi); }
     let di = docIdx.get(tok.docId);
-    if (di === undefined) { di = docIdx.size; docIdx.set(tok.docId, di); }
+    if (di === undefined) { di = DOCS.length; DOCS.push(tok.docId); docIdx.set(tok.docId, di); }
     return [fi, hi, di];
   });
 
@@ -3851,14 +3864,20 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   var STREAM=${jsonForScript(stream)};
   var FORMS=${jsonForScript(formList)};
   var HREFS=${jsonForScript(hrefs)};
+  var FLANG=${jsonForScript(formLangList)};
+  var DOCS=${jsonForScript(DOCS)};
   var STOP=${jsonForScript(STOPWORDS)};
   var MULTI=${multi ? 'true' : 'false'};
   var KWIC=6, MAXROWS=300;
+  var FREQ_ALL=FREQ, docFilter=null; // null = the whole edition; else a doc index
+  var TOKLBL=${JSON.stringify(T.lexTokens)}, FORMLBL=${JSON.stringify(T.lexForms)}, TTRLBL=${JSON.stringify(T.lexTTR)};
+  var TOTAL_ALL=${L.total}, DISTINCT_ALL=${L.distinct};
   var main=document.querySelector('main.lexicon');
   var tbody=main.querySelector('.lx-freq tbody');
   var search=main.querySelector('.lx-search');
   var langsel=main.querySelector('.lx-langsel');
   var stopsel=main.querySelector('.lx-stopsel');
+  var docsel=main.querySelector('.lx-docsel');
   var hidestop=main.querySelector('.lx-hidestop');
   var manual={}; // words the reader flipped by hand: form -> true(stop)/false(kept)
   var sortKey='count', sortDir=-1; // default: most frequent first
@@ -3897,11 +3916,37 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     }).join('');
     arrows();
   }
-  // the concordance over the WHOLE stream: every form, every occurrence, the
-  // before/after taken from the adjacent tokens of the same document
+  // per-document frequencies, computed over the stream: a witness or a letter
+  // seen alone, with its own running-words, distinct forms and TTR, so a
+  // collection is not a single blur of all its documents at once
+  function computeFreq(df){
+    var counts={}, total=0;
+    for(var i=0;i<STREAM.length;i++){
+      if(df!==null&&STREAM[i][2]!==df)continue;
+      total++; var fi=STREAM[i][0]; counts[fi]=(counts[fi]||0)+1;
+    }
+    var rows=[];
+    for(var k in counts){var c=counts[k];rows.push({form:FORMS[k],count:c,lang:FLANG[k]||'',rel:total?Math.round(c/total*1000000)/1000:0});}
+    return {rows:rows,total:total,distinct:rows.length};
+  }
+  function setStats(total,distinct){
+    var s=main.querySelector('.lx-stats');
+    if(s)s.innerHTML='<b>'+total+'</b> '+esc(TOKLBL)+' \\u00b7 <b>'+distinct+'</b> '+esc(FORMLBL)
+      +' \\u00b7 '+esc(TTRLBL)+' <b>'+(total?Math.round(distinct/total*10000)/10000:0)+'</b>';
+  }
+  function applyDoc(){
+    if(docFilter===null){FREQ=FREQ_ALL;setStats(TOTAL_ALL,DISTINCT_ALL);}
+    else{var fr=computeFreq(docFilter);FREQ=fr.rows;setStats(fr.total,fr.distinct);}
+    render();
+    var q=search.value.trim(); if(q)concord(q);
+  }
+  // the concordance over the stream: every form, every occurrence, the
+  // before/after taken from the adjacent tokens of the same document; when a
+  // document is chosen, only its own occurrences
   function kwic(word){
     var w=word.toLowerCase(), rows=[], total=0;
     for(var i=0;i<STREAM.length;i++){
+      if(docFilter!==null&&STREAM[i][2]!==docFilter)continue;
       if(FORMS[STREAM[i][0]].toLowerCase()!==w)continue;
       total++;
       if(rows.length>=MAXROWS)continue;
@@ -3952,6 +3997,7 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   }
   var timer;
   search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q)concord(q);},150);});
+  if(docsel)docsel.addEventListener('change',function(){docFilter=docsel.value===''?null:parseInt(docsel.value,10);applyDoc();});
   if(langsel)langsel.addEventListener('change',render);
   stopsel.addEventListener('change',render);
   hidestop.addEventListener('change',render);
