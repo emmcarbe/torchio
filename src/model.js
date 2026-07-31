@@ -52,7 +52,23 @@ export function buildModel(docs, classMap) {
     generator: { name: 'torchio', tei: classMap.teiVersion },
   };
 
-  const byXmlId = new Map(); // '#id' -> registry entry
+  // xml:id is unique PER DOCUMENT, not per collection (XML 1.0). Two documents
+  // may both declare <person xml:id="p1">, and a #p1 in document A must resolve
+  // to A's entry, never to whichever document happened to be read last (C86).
+  // The corpus header is the one shared scope: its listWit is referenced from
+  // every document by design (C29)
+  const ids = { corpus: new Map(), docs: new Map() };
+  const idScope = (docId) => {
+    if (docId == null) return ids.corpus;
+    let m = ids.docs.get(docId);
+    if (!m) { m = new Map(); ids.docs.set(docId, m); }
+    return m;
+  };
+  const resolveId = (raw, docId) => {
+    const id = raw.startsWith('#') ? raw.slice(1) : raw;
+    const local = ids.docs.get(docId);
+    return (local && local.get(id)) || ids.corpus.get(id) || null;
+  };
   const appByType = new Map();
 
   let corpusMeta = null;
@@ -175,12 +191,13 @@ export function buildModel(docs, classMap) {
   // declares registry entries (C29: a collection's listWit lives there)
   if (model.corpusHeaderTree) {
     for (const node of walkModel(model.corpusHeaderTree)) {
-      collectRegistries(node, model.registries, byXmlId);
+      collectRegistries(node, model.registries, idScope(null));
     }
   }
   for (const doc of model.documents) {
+    const scope = idScope(doc.id);
     for (const node of walkModel(doc.tree)) {
-      collectRegistries(node, model.registries, byXmlId);
+      collectRegistries(node, model.registries, scope);
       collectApparatus(node, appByType);
     }
   }
@@ -205,13 +222,20 @@ export function buildModel(docs, classMap) {
         }
         if (!GENETIC.has(n.element)) continue;
         const layer = (n.atts.change || '').replace(/^#/, '') || null;
-        const hand = (n.atts.hand || '').replace(/^#/, '') || current;
-        // the hand in force is stamped on the operation, so the page can show
-        // whose hand it is even where the markup left it to the handShift (C79)
-        if (!n.atts.hand && current) n.atts.hand = '#' + current;
+        const attestedHand = (n.atts.hand || '').replace(/^#/, '');
+        const hand = attestedHand || current;
+        // the hand in force reaches the operation even where the markup left
+        // it to the handShift, but INFERENCE IS NOT ATTESTATION (C85): the
+        // deduced hand never enters n.atts, where it would look identical to a
+        // hand the source declares. It lives apart, and every consumer that
+        // shows it says it is inferred
+        if (!attestedHand && current) {
+          n.inferred = { ...(n.inferred || {}), hand: '#' + current, handRule: 'handShift' };
+        }
         if (!layer && !hand) continue;
         ops.push({
           id: n.id, doc: doc.id, element: n.element, layer, hand,
+          handInferred: !attestedHand && !!current,
           place: n.atts.place || null, seq: n.atts.seq || null,
           text: textOfModel(n).trim().replace(/\s+/g, ' ').slice(0, 160),
         });
@@ -294,7 +318,7 @@ export function buildModel(docs, classMap) {
     for (const node of walkModel(doc.tree)) {
       if (node.atts.ref) {
         for (const t of node.atts.ref.split(/\s+/)) {
-          const entry = byXmlId.get(t.startsWith('#') ? t.slice(1) : t);
+          const entry = resolveId(t, doc.id);
           if (entry) { entry.occurrences.push(node.id); continue; }
           if (/^https?:\/\//.test(t) && MENTION_REGISTRY[node.element]) {
             addIdentity(MENTION_REGISTRY[node.element], t,
@@ -305,7 +329,7 @@ export function buildModel(docs, classMap) {
       if (node.atts.key) {
         const k = node.atts.key.trim();
         if (!k) continue;
-        const entry = byXmlId.get(k.startsWith('#') ? k.slice(1) : k);
+        const entry = resolveId(k, doc.id);
         if (entry) entry.occurrences.push(node.id);
         else if (MENTION_REGISTRY[node.element]) {
           addIdentity(MENTION_REGISTRY[node.element], k, k, node, false);
@@ -533,7 +557,7 @@ const MENTION_REGISTRY = {
   orgName: 'orgs', institution: 'orgs', repository: 'orgs',
 };
 
-function collectRegistries(node, reg, byXmlId) {
+function collectRegistries(node, reg, idMap) {
   const key = REGISTRY_ELEMENTS[node.element];
   if (!key) return;
   // layers only from listChange, witnesses only from listWit-ish contexts are
@@ -558,7 +582,7 @@ function collectRegistries(node, reg, byXmlId) {
   if (key === 'hands') entry.scope = node.atts.scope || null;
   if (key === 'layers') entry.order = reg.layers.length;
   reg[key].push(entry);
-  if (node.atts['xml:id']) byXmlId.set(node.atts['xml:id'], entry);
+  if (node.atts['xml:id']) idMap.set(node.atts['xml:id'], entry);
 }
 
 /** Text with pointers surfaced: a ptr or an empty ref yields its @target,

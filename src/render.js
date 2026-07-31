@@ -135,6 +135,12 @@ export function renderBase(node, hooks) {
   for (const a of DATA_ATTS) {
     if (node.atts[a] != null) data += ` data-${a}="${escapeHTML(node.atts[a])}"`;
   }
+  // an inferred value (the hand a handShift puts in force where the markup is
+  // silent) is emitted as its own attribute and flagged: the page can act on
+  // it, and a reader or a machine can tell it from what the source declares
+  if (node.inferred && node.inferred.hand && node.atts.hand == null) {
+    data += ` data-hand="${escapeHTML(node.inferred.hand)}" data-hand-inferred="true"`;
+  }
   let inner = '';
   let prevApp = null;
   for (const child of node.children) {
