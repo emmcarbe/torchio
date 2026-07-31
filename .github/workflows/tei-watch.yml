@@ -23,42 +23,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Read the version this repository was built from
-        id: local
-        run: |
-          v=$(node -e "const d=require('./data/p5-classes.json');
-            const m=String(d.version||'').match(/(\d+\.\d+(?:\.\d+)?)/);
-            process.stdout.write(m?m[1]:'unknown')")
-          echo "version=$v" >> "$GITHUB_OUTPUT"
-          echo "This repository carries P5 $v"
-
-      - name: Ask the TEI Consortium for the current release
-        id: remote
-        run: |
-          json=$(curl -sSL -H 'Accept: application/vnd.github+json' \
-            https://api.github.com/repos/TEIC/TEI/releases/latest)
-          tag=$(printf '%s' "$json" | node -e "
-            let s='';process.stdin.on('data',c=>s+=c).on('end',()=>{
-              try{const r=JSON.parse(s);
-                const t=String(r.tag_name||'').match(/(\d+\.\d+(?:\.\d+)?)/);
-                process.stdout.write(t?t[1]:'');
-              }catch(e){process.stdout.write('')}})")
-          echo "version=$tag" >> "$GITHUB_OUTPUT"
-          echo "The TEI Consortium publishes P5 ${tag:-unknown}"
+      - name: Ask what we build from, and what the Consortium publishes
+        id: v
+        run: node tools/tei-version.js >> "$GITHUB_OUTPUT"
 
       - name: Open an issue when the two differ
-        if: steps.remote.outputs.version != '' && steps.remote.outputs.version != steps.local.outputs.version
+        if: steps.v.outputs.remote != '' && steps.v.outputs.remote != steps.v.outputs.local
         env:
           GH_TOKEN: ${{ github.token }}
-          LOCAL: ${{ steps.local.outputs.version }}
-          REMOTE: ${{ steps.remote.outputs.version }}
+          LOCAL: ${{ steps.v.outputs.local }}
+          REMOTE: ${{ steps.v.outputs.remote }}
         run: |
           title="TEI P5 $REMOTE is out (this repository is built from $LOCAL)"
           # one issue per release, never a new one every morning
-          if gh issue list --state all --search "$title in:title" --json title \
-              --jq '.[].title' | grep -Fqx "$title"; then
+          if gh issue list --state all --limit 100 --json title --jq '.[].title' \
+              | grep -Fqx "$title"; then
             echo "already reported"; exit 0
           fi
+          gh label create tei --description "the Guidelines moved" --color 0E8A16 2>/dev/null || true
           gh issue create --title "$title" --label "tei" --body "$(cat <<EOF
 The TEI Consortium has released **P5 $REMOTE**. \`data/p5-classes.json\` in this
 repository is derived from **P5 $LOCAL**.
