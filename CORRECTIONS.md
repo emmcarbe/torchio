@@ -103,5 +103,7 @@ editorial genre.
 | 2026-07-31 | C75 | the composer, on a long text | assignment | the composer listed one checkbox per section of a long text: those are the divisions the markup declares, not choices the editor makes. One line now says how many follow the text page |
 | 2026-07-31 | C76 | the editor's own reading | extension | the map and the lemma index become the editor's choice like every other piece (`pieces.map`, `pieces.lemmas`), and the edition can declare what kind of thing it is (`genre`: edition, archive, correspondence, tradition), each explained where it is chosen. The markup makes a page possible, the editor decides whether it belongs |
 
-As of 31 July 2026: 76 corrections applied (49 assignments, 19 extensions, 8
+| 2026-07-31 | C77 | Van Gogh letters, public demo | assignment | a standoff note is written apart from the text and declares where it belongs (`@target`): its mark was staying where the note was written, so the letters ended with a row of marks anchored to nothing. Marks now travel to the passage they name, and a mark whose note the press does not show is removed rather than left mute |
+
+As of 31 July 2026: 77 corrections applied (50 assignments, 19 extensions, 8
 structural changes), 1 open.

@@ -479,11 +479,28 @@ export function buildInteractJS(t) {
       // document order, so a mark is never left without its note (C74)
       var marks=[].slice.call(document.querySelectorAll('main.torchio .t-note-mark'))
         .filter(function(m){return !m.closest('.header-full')&&!m.closest('.t-teiHeader');});
+      /* a mark whose note the press does not show (a note of the header, or
+         one filtered out) is not a mark: it is a leftover, and it goes */
+      if(marks.length>notes.length){
+        marks.slice(notes.length).forEach(function(m){m.remove();});
+        marks=marks.slice(0,notes.length);
+      }
       notes.forEach(function(n,i){
         if(n.dataset.npi)return;
         n.dataset.npi=String(i);
         var res=anchorOf(n);
         var el=(res&&res.el)||marks[i];
+        /* a standoff note is written apart and declares where it belongs:
+           its mark goes to the passage, not to the place it was written */
+        var tg=n.dataset.target;
+        if(tg&&el&&el.classList&&el.classList.contains('t-note-mark')){
+          var id=tg.split(/\s+/)[0].replace(/^#/,'');
+          var dest=document.getElementById(id);
+          if(dest&&!dest.contains(el)){
+            if(dest.nextSibling)dest.parentNode.insertBefore(el,dest.nextSibling);
+            else dest.parentNode.appendChild(el);
+          }
+        }
         if(el){el.setAttribute('data-notepop',String(i));
           el.removeAttribute('aria-hidden');makeTrigger(el,null);}
       });
