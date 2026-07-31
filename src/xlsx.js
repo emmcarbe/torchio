@@ -25,7 +25,7 @@ const colName = (i) => {
  * @param {{sheet?: string, widths?: number[]}} opts
  * @returns {Uint8Array} the .xlsx file
  */
-export function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null } = {}) {
+export function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null, choices2 = null } = {}) {
   const all = [header, ...rows];
   const body = all.map((row, r) => {
     const cells = row.map((v, c) => {
@@ -73,11 +73,16 @@ export function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices
       + cols
       + `<sheetData>${body}</sheetData>`
       + (choices ? (() => {
-          const col = colName(choices.col);
-          const list = choices.options.map((o) => o.replace(/"/g, '')).join(',');
-          return `<dataValidations count="1"><dataValidation type="list" allowBlank="1"`
-            + ` showInputMessage="1" showErrorMessage="1" sqref="${col}2:${col}${all.length}">`
-            + `<formula1>&quot;${esc(list)}&quot;</formula1></dataValidation></dataValidations>`;
+          const dv = (c) => {
+            const col = colName(c.col);
+            const list = c.options.map((o) => o.replace(/"/g, '')).join(',');
+            return `<dataValidation type="list" allowBlank="1" showInputMessage="1"`
+              + ` showErrorMessage="1" sqref="${col}2:${col}${all.length}">`
+              + `<formula1>&quot;${esc(list)}&quot;</formula1></dataValidation>`;
+          };
+          const parts = [dv(choices)];
+          if (choices2) parts.push(dv(choices2));
+          return `<dataValidations count="${parts.length}">${parts.join('')}</dataValidations>`;
         })() : '')
       + `</worksheet>`,
   };

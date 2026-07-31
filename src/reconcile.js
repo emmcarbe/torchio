@@ -172,3 +172,122 @@ export function applyReconciliation(model, entities) {
   }
   return model;
 }
+
+/**
+ * A marked entity teaches its hidden occurrences (C, declarative): where the
+ * editor confirmed an entity, the same label found as bare text elsewhere is
+ * a mention too. Only the exact form is matched: variants (Roma / Romae) and
+ * the authority behind them (GeoNames) are a further, gazetteer-driven layer,
+ * never guessed here. Returns the number of occurrences added.
+ * @param confirmed Set< occId >, where occId = `${docId}#${type}:${label}#${n}`
+ *        marks the n-th bare occurrence of that label in that document.
+ */
+// every harvestable label, from marked entities and registry
+function bareLabels(model) {
+  const h = harvest(model);
+  const out = [];
+  for (const type of ['place', 'person', 'org']) {
+    for (const e of h[type]) out.push({ type, label: e.label });
+  }
+  return out;
+}
+
+/** One entry per bare-text occurrence of a harvestable label, with the words
+ *  around it, so the editor can judge each in place (Roma the city here, a
+ *  surname there). occId is the same key expandMentions confirms against. */
+export function listBareOccurrences(model, { context = 6 } = {}) {
+  const labels = bareLabels(model).sort((a, b) => b.label.length - a.label.length);
+  const seen = new Map();
+  const list = [];
+  const isBoundary = (ch) => ch === undefined || !/[\p{L}\p{N}]/u.test(ch);
+  const scan = (node, docId, buf) => {
+    if (node.element === 'teiHeader') return; // context is the text, not the metadata
+    if (ANCHORS.place.has(node.element) || ANCHORS.person.has(node.element)
+      || ANCHORS.org.has(node.element)) { buf.text += textOfModel(node); return; }
+    for (const child of node.children) {
+      if (typeof child !== 'string') { scan(child, docId, buf); continue; }
+      let cursor = child, base = buf.text.length;
+      let offset = 0;
+      while (cursor.length) {
+        let best = null;
+        for (const w of labels) {
+          const i = cursor.indexOf(w.label);
+          if (i >= 0 && isBoundary(cursor[i - 1]) && isBoundary(cursor[i + w.label.length])
+            && (best === null || i < best.i)) best = { i, w };
+        }
+        if (!best) { buf.text += cursor; break; }
+        const { i, w } = best;
+        buf.text += cursor.slice(0, i + w.label.length);
+        const stem = `${docId}#${w.type}:${w.label}`;
+        const n = (seen.get(stem) || 0); seen.set(stem, n + 1);
+        list.push({ occId: `${stem}#${n}`, type: w.type, label: w.label, at: buf.text.length - w.label.length });
+        cursor = cursor.slice(i + w.label.length);
+      }
+    }
+  };
+  for (const doc of model.documents) {
+    const buf = { text: '' };
+    scan(doc.tree, doc.id, buf);
+    for (const item of list) {
+      if (item.before !== undefined) continue;
+      const words = (s) => s.split(/\s+/).filter(Boolean);
+      item.before = words(buf.text.slice(0, item.at)).slice(-context).join(' ');
+      item.after = words(buf.text.slice(item.at + item.label.length)).slice(0, context).join(' ');
+    }
+  }
+  return list;
+}
+
+export function expandMentions(model, confirmed) {
+  if (!confirmed || !confirmed.size) return 0;
+  const PRIMARY = { place: 'placeName', person: 'persName', org: 'orgName' };
+  const wanted = bareLabels(model); // {type,label} of every harvestable entity
+  const byKey = {};
+  for (const type of ['place', 'person', 'org']) {
+    byKey[type] = new Map(registryFor(model, type).map((e) => [normalizeKey(e.label), e]));
+  }
+  const seen = new Map(); // "docId#type:label" -> running index
+  let added = 0, serial = 0;
+  const isBoundary = (ch) => ch === undefined || !/[\p{L}\p{N}]/u.test(ch);
+  const labels = wanted.sort((a, b) => b.label.length - a.label.length);
+  const scan = (node, docId) => {
+    if (ANCHORS.place.has(node.element) || ANCHORS.person.has(node.element)
+      || ANCHORS.org.has(node.element)) return;
+    const out = [];
+    for (const child of node.children) {
+      if (typeof child !== 'string') { scan(child, docId); out.push(child); continue; }
+      let cursor = child; const pieces = []; let touched = false;
+      outer: while (cursor.length) {
+        let best = null;
+        for (const w of labels) {
+          const i = cursor.indexOf(w.label);
+          if (i >= 0 && isBoundary(cursor[i - 1]) && isBoundary(cursor[i + w.label.length])
+            && (best === null || i < best.i)) best = { i, w };
+        }
+        if (!best) break;
+        const { i, w } = best;
+        const stem = `${docId}#${w.type}:${w.label}`;
+        const n = (seen.get(stem) || 0); seen.set(stem, n + 1);
+        const occId = `${stem}#${n}`;
+        if (i > 0) pieces.push(cursor.slice(0, i));
+        if (confirmed.has(occId)) {
+          const entry = byKey[w.type].get(normalizeKey(w.label));
+          if (entry) {
+            const id = `${docId}:mention.${serial++}`;
+            pieces.push({ id, element: PRIMARY[w.type], section: 'base', atts: {}, children: [w.label] });
+            entry.occurrences = entry.occurrences || [];
+            entry.occurrences.push(id);
+            added++;
+            touched = true;
+          } else pieces.push(w.label);
+        } else pieces.push(w.label);
+        cursor = cursor.slice(i + w.label.length);
+      }
+      if (touched) { if (cursor) pieces.push(cursor); out.push(...pieces); }
+      else out.push(child);
+    }
+    node.children = out;
+  };
+  for (const doc of model.documents) scan(doc.tree, doc.id);
+  return added;
+}

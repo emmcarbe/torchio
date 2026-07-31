@@ -16,7 +16,7 @@
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
    attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
-   harvest, applyReconciliation, markdown, buildZip, i18n, resolveLang,
+   harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -174,24 +174,32 @@
         const head = rows.shift() || [];
         if (head.indexOf('label') >= 0 && head.indexOf('type') >= 0) {
           // the names sheet: what the editor confirmed becomes the registries
-          const iL = head.indexOf('label'), iT = head.indexOf('type'),
+          const iL = head.indexOf('label'), iT = head.indexOf('type'), iK = head.indexOf('kind'),
             iS = head.indexOf('status'), iLa = head.indexOf('lat'),
-            iLo = head.indexOf('lon'), iA = head.indexOf('authority');
+            iLo = head.indexOf('lon'), iA = head.indexOf('authority'), iO = head.indexOf('occId');
           const entities = { person: {}, place: {}, org: {} };
+          const confirmedOcc = new Set();
           const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
           for (const r of rows) {
-            const type = r[iT], label = r[iL];
+            const type = r[iT], label = r[iL], status = iS >= 0 ? (r[iS] || 'suggested') : 'suggested';
             if (!entities[type] || !label) continue;
-            const rec = { label, status: iS >= 0 ? (r[iS] || 'suggested') : 'suggested', source: 'editor' };
+            const kind = iK >= 0 ? r[iK] : 'marked';
+            if (kind === 'unmarked') {
+              // an occurrence judged in place: confirmed here means "yes, Roma is Roma here"
+              if (status === 'confirmed' && iO >= 0 && r[iO]) confirmedOcc.add(r[iO]);
+              continue;
+            }
+            const rec = { label, status, source: 'editor' };
             const lat = Number(r[iLa]), lon = Number(r[iLo]);
             if (Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
             if (iA >= 0 && r[iA]) rec.viaf = r[iA];
             entities[type][nk(label)] = rec;
           }
           applyReconciliation(model, entities);
+          const grown = confirmedOcc.size ? expandMentions(model, confirmedOcc) : 0;
           const kept = Object.values(entities).reduce((n, o) =>
             n + Object.values(o).filter((r) => r.status === 'confirmed').length, 0);
-          notes.push('Reviewed names sheet applied (' + kept + ' confirmed).');
+          notes.push('Reviewed names sheet applied (' + kept + ' entities, ' + grown + ' further occurrences confirmed).');
         } else {
           const iF = head.indexOf('form'), iLa = head.indexOf('lang'),
             iLe = head.indexOf('lemma'), iS = head.indexOf('status');
@@ -372,20 +380,24 @@
   // becomes a point on the map. Nothing is looked up
   function downloadEntitySheet() {
     const h = harvest(S.model);
-    const header = ['label', 'type', 'status', 'lat', 'lon', 'authority', 'occurrences'];
+    const header = ['label', 'type', 'kind', 'status', 'context', 'lat', 'lon', 'authority', 'occId'];
     const rows = [];
+    // the entities the markup already declares: confirm them, and their coordinates
     for (const type of ['person', 'place', 'org']) {
       for (const e of h[type]) {
-        rows.push([e.label, type, 'suggested',
-          type === 'place' ? '' : '', type === 'place' ? '' : '', '',
-          (e.occurrences || []).length]);
+        rows.push([e.label, type, 'marked', 'suggested', '', '', '', '', '']);
       }
     }
+    // one row per bare occurrence, with its own context, so Roma the city and
+    // Roma the surname are judged apart
+    for (const o of listBareOccurrences(S.model)) {
+      rows.push([o.label, o.type, 'unmarked', 'suggested',
+        o.before + '  [ ' + o.label + ' ]  ' + o.after, '', '', '', o.occId]);
+    }
     if (!rows.length) { alert('This edition names no persons, places or organisations to index.'); return; }
-    rows.sort((a, b) => a[1].localeCompare(b[1]) || String(a[0]).localeCompare(String(b[0])));
     const xlsx = buildXLSX(header, rows, {
-      sheet: 'Names', widths: [22, 8, 12, 10, 10, 20, 11],
-      choices: { col: 2, options: ['confirmed', 'rejected', 'suggested'] },
+      sheet: 'Names', widths: [18, 8, 9, 12, 52, 9, 9, 18, 1],
+      choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],

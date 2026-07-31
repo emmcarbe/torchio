@@ -3693,6 +3693,125 @@ function applyReconciliation(model, entities) {
   return model;
 }
 
+/**
+ * A marked entity teaches its hidden occurrences (C, declarative): where the
+ * editor confirmed an entity, the same label found as bare text elsewhere is
+ * a mention too. Only the exact form is matched: variants (Roma / Romae) and
+ * the authority behind them (GeoNames) are a further, gazetteer-driven layer,
+ * never guessed here. Returns the number of occurrences added.
+ * @param confirmed Set< occId >, where occId = `${docId}#${type}:${label}#${n}`
+ *        marks the n-th bare occurrence of that label in that document.
+ */
+// every harvestable label, from marked entities and registry
+function bareLabels(model) {
+  const h = harvest(model);
+  const out = [];
+  for (const type of ['place', 'person', 'org']) {
+    for (const e of h[type]) out.push({ type, label: e.label });
+  }
+  return out;
+}
+
+/** One entry per bare-text occurrence of a harvestable label, with the words
+ *  around it, so the editor can judge each in place (Roma the city here, a
+ *  surname there). occId is the same key expandMentions confirms against. */
+function listBareOccurrences(model, { context = 6 } = {}) {
+  const labels = bareLabels(model).sort((a, b) => b.label.length - a.label.length);
+  const seen = new Map();
+  const list = [];
+  const isBoundary = (ch) => ch === undefined || !/[\p{L}\p{N}]/u.test(ch);
+  const scan = (node, docId, buf) => {
+    if (node.element === 'teiHeader') return; // context is the text, not the metadata
+    if (ANCHORS.place.has(node.element) || ANCHORS.person.has(node.element)
+      || ANCHORS.org.has(node.element)) { buf.text += textOfModel(node); return; }
+    for (const child of node.children) {
+      if (typeof child !== 'string') { scan(child, docId, buf); continue; }
+      let cursor = child, base = buf.text.length;
+      let offset = 0;
+      while (cursor.length) {
+        let best = null;
+        for (const w of labels) {
+          const i = cursor.indexOf(w.label);
+          if (i >= 0 && isBoundary(cursor[i - 1]) && isBoundary(cursor[i + w.label.length])
+            && (best === null || i < best.i)) best = { i, w };
+        }
+        if (!best) { buf.text += cursor; break; }
+        const { i, w } = best;
+        buf.text += cursor.slice(0, i + w.label.length);
+        const stem = `${docId}#${w.type}:${w.label}`;
+        const n = (seen.get(stem) || 0); seen.set(stem, n + 1);
+        list.push({ occId: `${stem}#${n}`, type: w.type, label: w.label, at: buf.text.length - w.label.length });
+        cursor = cursor.slice(i + w.label.length);
+      }
+    }
+  };
+  for (const doc of model.documents) {
+    const buf = { text: '' };
+    scan(doc.tree, doc.id, buf);
+    for (const item of list) {
+      if (item.before !== undefined) continue;
+      const words = (s) => s.split(/\s+/).filter(Boolean);
+      item.before = words(buf.text.slice(0, item.at)).slice(-context).join(' ');
+      item.after = words(buf.text.slice(item.at + item.label.length)).slice(0, context).join(' ');
+    }
+  }
+  return list;
+}
+
+function expandMentions(model, confirmed) {
+  if (!confirmed || !confirmed.size) return 0;
+  const PRIMARY = { place: 'placeName', person: 'persName', org: 'orgName' };
+  const wanted = bareLabels(model); // {type,label} of every harvestable entity
+  const byKey = {};
+  for (const type of ['place', 'person', 'org']) {
+    byKey[type] = new Map(registryFor(model, type).map((e) => [normalizeKey(e.label), e]));
+  }
+  const seen = new Map(); // "docId#type:label" -> running index
+  let added = 0, serial = 0;
+  const isBoundary = (ch) => ch === undefined || !/[\p{L}\p{N}]/u.test(ch);
+  const labels = wanted.sort((a, b) => b.label.length - a.label.length);
+  const scan = (node, docId) => {
+    if (ANCHORS.place.has(node.element) || ANCHORS.person.has(node.element)
+      || ANCHORS.org.has(node.element)) return;
+    const out = [];
+    for (const child of node.children) {
+      if (typeof child !== 'string') { scan(child, docId); out.push(child); continue; }
+      let cursor = child; const pieces = []; let touched = false;
+      outer: while (cursor.length) {
+        let best = null;
+        for (const w of labels) {
+          const i = cursor.indexOf(w.label);
+          if (i >= 0 && isBoundary(cursor[i - 1]) && isBoundary(cursor[i + w.label.length])
+            && (best === null || i < best.i)) best = { i, w };
+        }
+        if (!best) break;
+        const { i, w } = best;
+        const stem = `${docId}#${w.type}:${w.label}`;
+        const n = (seen.get(stem) || 0); seen.set(stem, n + 1);
+        const occId = `${stem}#${n}`;
+        if (i > 0) pieces.push(cursor.slice(0, i));
+        if (confirmed.has(occId)) {
+          const entry = byKey[w.type].get(normalizeKey(w.label));
+          if (entry) {
+            const id = `${docId}:mention.${serial++}`;
+            pieces.push({ id, element: PRIMARY[w.type], section: 'base', atts: {}, children: [w.label] });
+            entry.occurrences = entry.occurrences || [];
+            entry.occurrences.push(id);
+            added++;
+            touched = true;
+          } else pieces.push(w.label);
+        } else pieces.push(w.label);
+        cursor = cursor.slice(i + w.label.length);
+      }
+      if (touched) { if (cursor) pieces.push(cursor); out.push(...pieces); }
+      else out.push(child);
+    }
+    node.children = out;
+  };
+  for (const doc of model.documents) scan(doc.tree, doc.id);
+  return added;
+}
+
 // ---- src/register-page.js ----
 /**
  * The register of a collection: one row per document, and a column only
@@ -4738,7 +4857,7 @@ const colName = (i) => {
  * @param {{sheet?: string, widths?: number[]}} opts
  * @returns {Uint8Array} the .xlsx file
  */
-function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null } = {}) {
+function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null, choices2 = null } = {}) {
   const all = [header, ...rows];
   const body = all.map((row, r) => {
     const cells = row.map((v, c) => {
@@ -4786,11 +4905,16 @@ function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null
       + cols
       + `<sheetData>${body}</sheetData>`
       + (choices ? (() => {
-          const col = colName(choices.col);
-          const list = choices.options.map((o) => o.replace(/"/g, '')).join(',');
-          return `<dataValidations count="1"><dataValidation type="list" allowBlank="1"`
-            + ` showInputMessage="1" showErrorMessage="1" sqref="${col}2:${col}${all.length}">`
-            + `<formula1>&quot;${esc(list)}&quot;</formula1></dataValidation></dataValidations>`;
+          const dv = (c) => {
+            const col = colName(c.col);
+            const list = c.options.map((o) => o.replace(/"/g, '')).join(',');
+            return `<dataValidation type="list" allowBlank="1" showInputMessage="1"`
+              + ` showErrorMessage="1" sqref="${col}2:${col}${all.length}">`
+              + `<formula1>&quot;${esc(list)}&quot;</formula1></dataValidation>`;
+          };
+          const parts = [dv(choices)];
+          if (choices2) parts.push(dv(choices2));
+          return `<dataValidations count="${parts.length}">${parts.join('')}</dataValidations>`;
         })() : '')
       + `</worksheet>`,
   };
@@ -4938,7 +5062,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
    attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
-   harvest, applyReconciliation, markdown, buildZip, i18n, resolveLang,
+   harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -5096,24 +5220,32 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         const head = rows.shift() || [];
         if (head.indexOf('label') >= 0 && head.indexOf('type') >= 0) {
           // the names sheet: what the editor confirmed becomes the registries
-          const iL = head.indexOf('label'), iT = head.indexOf('type'),
+          const iL = head.indexOf('label'), iT = head.indexOf('type'), iK = head.indexOf('kind'),
             iS = head.indexOf('status'), iLa = head.indexOf('lat'),
-            iLo = head.indexOf('lon'), iA = head.indexOf('authority');
+            iLo = head.indexOf('lon'), iA = head.indexOf('authority'), iO = head.indexOf('occId');
           const entities = { person: {}, place: {}, org: {} };
+          const confirmedOcc = new Set();
           const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
           for (const r of rows) {
-            const type = r[iT], label = r[iL];
+            const type = r[iT], label = r[iL], status = iS >= 0 ? (r[iS] || 'suggested') : 'suggested';
             if (!entities[type] || !label) continue;
-            const rec = { label, status: iS >= 0 ? (r[iS] || 'suggested') : 'suggested', source: 'editor' };
+            const kind = iK >= 0 ? r[iK] : 'marked';
+            if (kind === 'unmarked') {
+              // an occurrence judged in place: confirmed here means "yes, Roma is Roma here"
+              if (status === 'confirmed' && iO >= 0 && r[iO]) confirmedOcc.add(r[iO]);
+              continue;
+            }
+            const rec = { label, status, source: 'editor' };
             const lat = Number(r[iLa]), lon = Number(r[iLo]);
             if (Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
             if (iA >= 0 && r[iA]) rec.viaf = r[iA];
             entities[type][nk(label)] = rec;
           }
           applyReconciliation(model, entities);
+          const grown = confirmedOcc.size ? expandMentions(model, confirmedOcc) : 0;
           const kept = Object.values(entities).reduce((n, o) =>
             n + Object.values(o).filter((r) => r.status === 'confirmed').length, 0);
-          notes.push('Reviewed names sheet applied (' + kept + ' confirmed).');
+          notes.push('Reviewed names sheet applied (' + kept + ' entities, ' + grown + ' further occurrences confirmed).');
         } else {
           const iF = head.indexOf('form'), iLa = head.indexOf('lang'),
             iLe = head.indexOf('lemma'), iS = head.indexOf('status');
@@ -5294,20 +5426,24 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   // becomes a point on the map. Nothing is looked up
   function downloadEntitySheet() {
     const h = harvest(S.model);
-    const header = ['label', 'type', 'status', 'lat', 'lon', 'authority', 'occurrences'];
+    const header = ['label', 'type', 'kind', 'status', 'context', 'lat', 'lon', 'authority', 'occId'];
     const rows = [];
+    // the entities the markup already declares: confirm them, and their coordinates
     for (const type of ['person', 'place', 'org']) {
       for (const e of h[type]) {
-        rows.push([e.label, type, 'suggested',
-          type === 'place' ? '' : '', type === 'place' ? '' : '', '',
-          (e.occurrences || []).length]);
+        rows.push([e.label, type, 'marked', 'suggested', '', '', '', '', '']);
       }
     }
+    // one row per bare occurrence, with its own context, so Roma the city and
+    // Roma the surname are judged apart
+    for (const o of listBareOccurrences(S.model)) {
+      rows.push([o.label, o.type, 'unmarked', 'suggested',
+        o.before + '  [ ' + o.label + ' ]  ' + o.after, '', '', '', o.occId]);
+    }
     if (!rows.length) { alert('This edition names no persons, places or organisations to index.'); return; }
-    rows.sort((a, b) => a[1].localeCompare(b[1]) || String(a[0]).localeCompare(String(b[0])));
     const xlsx = buildXLSX(header, rows, {
-      sheet: 'Names', widths: [22, 8, 12, 10, 10, 20, 11],
-      choices: { col: 2, options: ['confirmed', 'rejected', 'suggested'] },
+      sheet: 'Names', widths: [18, 8, 9, 12, 52, 9, 9, 18, 1],
+      choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
