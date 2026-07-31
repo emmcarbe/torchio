@@ -67,8 +67,25 @@ No dependencies, ES modules, Node >= 18.
 
 ## Licence
 
-MIT. Geographic lookups use data derived from
-[GeoNames](https://www.geonames.org/) (CC BY 4.0).
+The engine is MIT. It bundles or draws on a few external things, each under
+its own terms; only the first is redistributed with the code.
+
+- **[Leaflet](https://leafletjs.com/)** (BSD-2), vendored in `data-assets/`
+  and copied into any pressed site that has a map. Its licence travels with
+  it (`data-assets/leaflet/LICENSE`).
+- **[GeoNames](https://www.geonames.org/)** (CC BY 4.0): the place gazetteer
+  built by `tools/build-gazetteer.py`, including the historical and Latin
+  forms from its alternate-names file. Not in the repository (regenerable);
+  attribution required wherever its coordinates appear.
+- **[Natural Earth](https://www.naturalearthdata.com/)** (public domain):
+  the coastlines of the dependency-free map sketch.
+- **OpenStreetMap** contributors (ODbL): the map tiles, loaded from the OSM
+  servers when a reader opens a map page, not stored.
+- **[UDPipe](https://lindat.mff.cuni.cz/services/udpipe/)** (Charles
+  University, Prague; models CC BY-NC-SA): the optional lemmatizer sends the
+  edition's text to that service when the editor asks for dictionary forms.
+  It is never called by the press itself, and the editor is told before the
+  text leaves the machine.
 
 ## Credits
 
