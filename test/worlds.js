@@ -278,6 +278,36 @@ const WORLDS = [
     },
   },
 
+  // ---- inference is not attestation, and identity is per document ----
+  {
+    name: 'an inferred hand does not look like an attested one',
+    why: 'the hand a handShift puts in force is deduced, not declared: it must be distinguishable',
+    xml: tei(`<p>T <handShift new="#a"/><add>x</add>.</p>`
+      + `<!--h-->`).replace(HEADER, HEADER.replace('</fileDesc>',
+        '</fileDesc><profileDesc><handNotes><handNote xml:id="a"><persName>A</persName></handNote></handNotes></profileDesc>')),
+    check: ({ model, html }) => {
+      const add = [...walkModel(model.documents[0].tree)].find((n) => n.element === 'add');
+      if (add && add.atts.hand != null) return 'the deduced hand was written into atts, where the source\'s own attributes live';
+      if (!/data-hand-inferred="true"/.test(html)) return 'the page does not flag the hand as inferred';
+      return null;
+    },
+  },
+  {
+    name: 'the same xml:id in two documents stays two entities',
+    why: 'xml:id is unique per document (XML 1.0): #p1 in one must not resolve to another',
+    xml: `<?xml version="1.0"?><teiCorpus xmlns="http://www.tei-c.org/ns/1.0">${HEADER}`
+      + `<TEI>${HEADER}<text><body><p><persName ref="#p1">Dante</persName></p>`
+      + `<listPerson><person xml:id="p1"><persName>Dante Alighieri</persName></person></listPerson></body></text></TEI>`
+      + `<TEI>${HEADER}<text><body><p><persName ref="#p1">Petrarca</persName></p>`
+      + `<listPerson><person xml:id="p1"><persName>Francesco Petrarca</persName></person></listPerson></body></text></TEI></teiCorpus>`,
+    check: ({ model }) => {
+      const people = model.registries.people || [];
+      if (people.length < 2) return `${people.length} person(s): the two p1 collided`;
+      const occ = people.every((p) => (p.occurrences || []).length === 1);
+      return occ ? null : 'the reference resolved across documents';
+    },
+  },
+
   // ---- security: editorial data must never become code ----
   {
     name: 'an obfuscated javascript URL does not survive',
