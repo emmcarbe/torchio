@@ -399,11 +399,17 @@ function extractMeta(header) {
       meta.responsibility.push({ role: n.element, name: textOfModel(n).trim().replace(/\s+/g, ' ') });
     }
     if (n.element === 'respStmt') {
+      // a respStmt may name more than one person: all of them are responsible
       const resp = findFirst(n, 'resp');
-      const name = findFirst(n, 'name') || findFirst(n, 'persName');
+      const names = [];
+      for (const c of walkModel(n)) {
+        if (c.element === 'name' || c.element === 'persName' || c.element === 'orgName') {
+          names.push(textOfModel(c).trim().replace(/\s+/g, ' '));
+        }
+      }
       meta.responsibility.push({
         role: resp ? textOfModel(resp).trim() : 'resp',
-        name: name ? textOfModel(name).trim() : '',
+        name: names.filter(Boolean).join(', '),
       });
     }
   }

@@ -129,6 +129,14 @@ export function renderBase(node, hooks) {
     return `<a${id} class="${cls} ent-ext" href="${escapeHTML(node.atts.ref)}"`
       + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
   }
+  // a metamark is the writer's sign about the text (the caret of an
+  // insertion, a renumbering), not text of the work: shown as it is, but
+  // explained on hover so a reader is not left guessing
+  if (node.element === 'metamark') {
+    const fn = node.atts.function ? `: ${node.atts.function}` : '';
+    return `<${tag}${id} class="${cls}"${data}`
+      + ` title="${escapeHTML(`a sign of the writing hand${fn}`)}">${inner}</${tag}>${after}`;
+  }
   if (node.element === 'supplied') {
     return `<${tag}${id} class="${cls}"${data}>`
       + `<span class="t-sign">[</span>${inner}<span class="t-sign">]</span></${tag}>${after}`;

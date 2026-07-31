@@ -198,25 +198,44 @@
             iS = head.indexOf('status'), iLa = head.indexOf('lat'),
             iLo = head.indexOf('lon'), iA = head.indexOf('authority'), iO = head.indexOf('occId');
           const entities = { person: {}, place: {}, org: {} };
-          const confirmedOcc = new Set();
+          const confirmedOcc = new Map(); // occId -> the editor's type
+          const sheetLabels = new Map(); // label -> {type,label}: the exact proposal set
           const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
+          const parseAuth = (rec, v) => {
+            for (const part of String(v).split(/[\s;]+/)) {
+              const m = part.match(/^(wikidata|viaf|gnd|isil):(.+)$/i);
+              if (m) rec[m[1].toLowerCase()] = m[2];
+              else if (/^Q\d+$/i.test(part)) rec.wikidata = part;
+              else if (/^\d+$/.test(part)) rec.viaf = part;
+            }
+          };
           for (const r of rows) {
             const type = r[iT], label = r[iL], status = iS >= 0 ? (r[iS] || 'suggested') : 'suggested';
-            if (!entities[type] || !label) continue;
+            if (!label) continue;
             const kind = iK >= 0 ? r[iK] : 'marked';
-            if (kind === 'unmarked') {
-              // an occurrence judged in place: confirmed here means "yes, Roma is Roma here"
-              if (status === 'confirmed' && iO >= 0 && r[iO]) confirmedOcc.add(r[iO]);
+            if (!sheetLabels.has(label)) sheetLabels.set(label, { type: type || '', label });
+            if (kind === 'unmarked' || kind === 'candidate') {
+              // an occurrence judged in place: confirmed here means "yes, and
+              // it is a person / place / org", the type from this very row
+              if (status === 'confirmed' && iO >= 0 && r[iO] && entities[type]) {
+                confirmedOcc.set(r[iO], type);
+                // a confirmed candidate needs its entity to exist
+                if (!entities[type][nk(label)]) {
+                  entities[type][nk(label)] = { label, status: 'confirmed', source: 'editor' };
+                }
+              }
               continue;
             }
+            if (!entities[type]) continue;
             const rec = { label, status, source: 'editor' };
             const lat = Number(r[iLa]), lon = Number(r[iLo]);
             if (Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
-            if (iA >= 0 && r[iA]) rec.viaf = r[iA];
+            if (iA >= 0 && r[iA]) parseAuth(rec, r[iA]);
             entities[type][nk(label)] = rec;
           }
           applyReconciliation(model, entities);
-          const grown = confirmedOcc.size ? expandMentions(model, confirmedOcc) : 0;
+          const grown = confirmedOcc.size
+            ? expandMentions(model, confirmedOcc, { labels: [...sheetLabels.values()] }) : 0;
           const kept = Object.values(entities).reduce((n, o) =>
             n + Object.values(o).filter((r) => r.status === 'confirmed').length, 0);
           notes.push('Reviewed names sheet applied (' + kept + ' entities, ' + grown + ' further occurrences confirmed).');
@@ -402,35 +421,171 @@
     a.click();
   }
 
-  // the entity review: the names the markup declares, laid out for the editor
-  // to confirm. What is confirmed becomes the indices; a place with coordinates
-  // becomes a point on the map. Nothing is looked up
-  function downloadEntitySheet() {
+  // the entity review: the names the markup declares, the bare occurrences
+  // of those names, and (if asked) the candidates the grammar proposes. What
+  // the editor confirms becomes the indices; a place with coordinates becomes
+  // a point on the map
+  function entityLabels() {
     const h = harvest(S.model);
-    const header = ['label', 'type', 'kind', 'status', 'context', 'lat', 'lon', 'authority', 'occId'];
-    const rows = [];
-    // the entities the markup already declares: confirm them, and their coordinates
+    const out = [];
+    const seen = new Set();
     for (const type of ['person', 'place', 'org']) {
       for (const e of h[type]) {
-        rows.push([e.label, type, 'marked', 'suggested', '', '', '', '', '']);
+        if (seen.has(e.label)) continue;
+        seen.add(e.label);
+        out.push({ type, label: e.label, marked: (e.occurrences || []).length });
       }
     }
+    for (const c of (S.nameCandidates || [])) {
+      if (!seen.has(c)) { seen.add(c); out.push({ type: '', label: c, marked: 0 }); }
+    }
+    return out;
+  }
+
+  function downloadEntitySheet() {
+    const labels = entityLabels();
+    if (!labels.length) { alert('This edition names nothing to index. You can propose candidates from the grammar first.'); return; }
+    const header = ['label', 'type', 'kind', 'status', 'context', 'lat', 'lon', 'authority', 'occId'];
+    const rows = [];
+    const sug = S.authoritySuggestions || new Map();
+    // the entities the markup already declares: confirm them, with the
+    // authority proposed by Wikidata where one was searched
+    for (const w of labels) {
+      if (!w.marked) continue;
+      const a = sug.get(w.label);
+      rows.push([w.label, w.type, 'marked', 'suggested',
+        a ? (a.description || '') : '',
+        a && a.lat != null ? a.lat : '', a && a.lon != null ? a.lon : '',
+        a ? 'wikidata:' + a.qid + (a.viaf ? ' viaf:' + a.viaf : '') : '', '']);
+    }
     // one row per bare occurrence, with its own context, so Roma the city and
-    // Roma the surname are judged apart
-    for (const o of listBareOccurrences(S.model)) {
-      rows.push([o.label, o.type, 'unmarked', 'suggested',
+    // Roma the surname are judged apart. Candidates arrive the same way, with
+    // the type left for the editor to set
+    for (const o of listBareOccurrences(S.model, { labels })) {
+      rows.push([o.label, o.type, o.type ? 'unmarked' : 'candidate', 'suggested',
         o.before + '  [ ' + o.label + ' ]  ' + o.after, '', '', '', o.occId]);
     }
-    if (!rows.length) { alert('This edition names no persons, places or organisations to index.'); return; }
     const xlsx = buildXLSX(header, rows, {
-      sheet: 'Names', widths: [18, 8, 9, 12, 52, 9, 9, 18, 1],
+      sheet: 'Names', widths: [18, 8, 10, 12, 52, 9, 9, 24, 1],
       choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
+      choices2: { col: 1, options: ['person', 'place', 'org'] },
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
       { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
     a.download = (S.slug || 'edition') + '-names.xlsx';
     a.click();
+  }
+
+  // candidates from the grammar: the tagger marks proper nouns (PROPN), and
+  // consecutive ones merge (Marco Polo). Works for any language UDPipe knows,
+  // typed by nobody: the type is the editor's call, in the sheet
+  async function findCandidates() {
+    const btn = document.getElementById('c-candidates');
+    const tokens = collectTokens(S.model);
+    if (!tokens.length) { alert('This edition has no running words.'); return; }
+    const byLang = new Map();
+    for (const t of tokens) {
+      const l = normLang(t.lang) || 'la';
+      if (!byLang.has(l)) byLang.set(l, []);
+      byLang.get(l).push(t.form);
+    }
+    const langs = [...byLang.keys()].filter((l) => UDMODEL[l]);
+    if (!langs.length) { alert('No language service is known for this edition (' + [...byLang.keys()].join(', ') + ').'); return; }
+    if (!confirm('The text of this edition (' + tokens.length + ' words) will be sent to UDPipe, '
+      + 'at lindat.mff.cuni.cz, to find the proper nouns. They come back untyped: you say '
+      + 'which are persons, places or organisations, one occurrence at a time. Proceed?')) return;
+    btn.disabled = true; btn.textContent = 'asking UDPipe\u2026';
+    try {
+      const known = new Set(entityLabels().map((w) => w.label.toLowerCase()));
+      const found = new Map(); // label -> count
+      for (const l of langs) {
+        const text = byLang.get(l).join(' ');
+        for (let i = 0; i < text.length; i += 40000) {
+          const body = new URLSearchParams({ model: UDMODEL[l], tokenizer: '', tagger: '',
+            data: text.slice(i, i + 40000) });
+          const res = await fetch(UDPIPE, { method: 'POST', body });
+          if (!res.ok) throw new Error('UDPipe HTTP ' + res.status);
+          const conllu = (await res.json()).result || '';
+          let run = [];
+          const flush = () => {
+            if (run.length) {
+              const name = run.join(' ');
+              if (name.length > 2 && !known.has(name.toLowerCase())) {
+                found.set(name, (found.get(name) || 0) + 1);
+              }
+            }
+            run = [];
+          };
+          for (const line of conllu.split('\n')) {
+            if (!line || line.startsWith('#')) { flush(); continue; }
+            const cols = line.split('\t');
+            if (cols.length < 4 || cols[0].includes('-') || cols[0].includes('.')) continue;
+            if (cols[3] === 'PROPN') run.push(cols[1]); else flush();
+          }
+          flush();
+        }
+      }
+      S.nameCandidates = [...found.entries()]
+        .sort((a, b) => b[1] - a[1]).slice(0, 300).map(([n]) => n);
+      renderPanel();
+      if (!S.nameCandidates.length) alert('The grammar found no unknown proper nouns.');
+    } catch (err) {
+      alert('The service could not be reached: ' + err.message);
+      btn.disabled = false; btn.textContent = 'Propose candidates from the grammar';
+    }
+  }
+
+  // the authorities: each declared name is searched on Wikidata, and the
+  // editor sees the candidate identifier with its one-line description in the
+  // sheet. A suggestion, like every other: nothing is written unconfirmed
+  async function searchAuthorities() {
+    const btn = document.getElementById('c-authorities');
+    const labels = entityLabels().filter((w) => w.marked);
+    if (!labels.length) { alert('No marked names to search. The authorities attach to declared entities.'); return; }
+    const capped = labels.slice(0, 40);
+    if (!confirm(capped.length + ' names of this edition will be sent to wikidata.org to look for '
+      + 'their public identifiers (Wikidata, VIAF) and, for places, coordinates. You confirm '
+      + 'each one in the sheet. Proceed?')) return;
+    btn.disabled = true; btn.textContent = 'asking Wikidata\u2026';
+    try {
+      const lang = (S.model.meta.languages && S.model.meta.languages[0]) || 'en';
+      const sug = new Map();
+      for (const w of capped) {
+        const u = 'https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&origin=*'
+          + '&limit=1&language=' + encodeURIComponent(lang) + '&uselang=' + encodeURIComponent(lang)
+          + '&search=' + encodeURIComponent(w.label);
+        const res = await fetch(u);
+        if (!res.ok) continue;
+        const hit = ((await res.json()).search || [])[0];
+        if (hit) sug.set(w.label, { qid: hit.id, description: hit.description || '', type: w.type });
+      }
+      // one batch for the claims: VIAF (P214) and coordinates (P625)
+      const qids = [...sug.values()].map((a) => a.qid);
+      for (let i = 0; i < qids.length; i += 50) {
+        const u = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*'
+          + '&props=claims&ids=' + qids.slice(i, i + 50).join('|');
+        const res = await fetch(u);
+        if (!res.ok) continue;
+        const ents = (await res.json()).entities || {};
+        for (const a of sug.values()) {
+          const claims = (ents[a.qid] || {}).claims || {};
+          const first = (pid) => claims[pid] && claims[pid][0] && claims[pid][0].mainsnak
+            && claims[pid][0].mainsnak.datavalue && claims[pid][0].mainsnak.datavalue.value;
+          const viaf = first('P214');
+          if (viaf) a.viaf = viaf;
+          const geo = first('P625');
+          if (geo && a.type === 'place') { a.lat = Math.round(geo.latitude * 1e4) / 1e4; a.lon = Math.round(geo.longitude * 1e4) / 1e4; }
+        }
+      }
+      S.authoritySuggestions = sug;
+      btn.disabled = false; btn.textContent = 'Search the authorities (Wikidata)';
+      alert(sug.size + ' of ' + capped.length + ' names found an authority candidate. '
+        + 'Download the names sheet: each proposal is there, with its description, to confirm or reject.');
+    } catch (err) {
+      alert('Wikidata could not be reached: ' + err.message);
+      btn.disabled = false; btn.textContent = 'Search the authorities (Wikidata)';
+    }
   }
 
   function buildManifest() {
@@ -716,7 +871,15 @@
       + '</fieldset>';
 
     // 3. names: the indices and the map, with their own review round trip
+    const markedCount = entityLabels().filter((w) => w.marked).length;
     html += '<fieldset class="flow" data-step="names"><legend>Names: indices and map</legend>'
+      + (markedCount
+        ? '<p class="note">Your markup already declares <b>' + markedCount + '</b> named '
+          + 'entities. You can confirm them, look for the unmarked occurrences of the same names, '
+          + 'and search their public identifiers.</p>'
+        : '<p class="note">Your markup declares no named entities. You can still have indices and '
+          + 'a map: ask the grammar to propose candidates, then say which are persons, places or '
+          + 'organisations, one occurrence at a time.</p>')
       + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
       + '> index of persons</label> '
       + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
@@ -725,10 +888,24 @@
       + '> index of organisations</label> '
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
       + '> map, where places carry coordinates</label>'
-      + '<p><button type="button" id="c-entities-sheet">List the names to index and map</button>'
-      + '<span class="note">The persons, places and organisations your text names. Confirm the real ones '
-      + '(for a place, fill its latitude and longitude), save. Indices and map are drawn from what you '
-      + 'confirmed; no name is looked up anywhere.</span></p>'
+      + '<p><button type="button" id="c-candidates">Propose candidates from the grammar</button>'
+      + '<span class="note">The proper nouns of your text, found by the same language service as '
+      + 'the lemmas (UDPipe: <b>the text is sent to that service</b>). They come back untyped: '
+      + 'you decide what each one is.'
+      + (S.nameCandidates ? ' <b>' + S.nameCandidates.length + ' candidates found.</b>' : '')
+      + '</span></p>'
+      + (markedCount
+        ? '<p><button type="button" id="c-authorities">Search the authorities (Wikidata)</button>'
+          + '<span class="note">Each declared name is looked up on wikidata.org (<b>the names are '
+          + 'sent there</b>): the sheet then proposes its public identifier, a one-line description '
+          + 'to judge it by, and coordinates for places. You confirm or reject each one.'
+          + (S.authoritySuggestions ? ' <b>' + S.authoritySuggestions.size + ' proposals ready.</b>' : '')
+          + '</span></p>'
+        : '')
+      + '<p><button type="button" id="c-entities-sheet">Download the names sheet</button>'
+      + '<span class="note">Everything above lands in one spreadsheet: the declared names, the '
+      + 'unmarked occurrences with their context, the candidates, the authority proposals. Confirm, '
+      + 'set the types, fill coordinates, save.</span></p>'
       + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
       + '(or with the files).</span></div>'
       + '</fieldset>';
@@ -805,6 +982,10 @@
     if (sheetBtn) sheetBtn.addEventListener('click', downloadLemmaSheet);
     const entBtn = document.getElementById('c-entities-sheet');
     if (entBtn) entBtn.addEventListener('click', downloadEntitySheet);
+    const candBtn = document.getElementById('c-candidates');
+    if (candBtn) candBtn.addEventListener('click', findCandidates);
+    const authBtn = document.getElementById('c-authorities');
+    if (authBtn) authBtn.addEventListener('click', searchAuthorities);
     // each review has its own dropzone: drop the corrected sheet, it is
     // pressed together with the files already loaded
     for (const id of ['drop-lemmas', 'drop-names']) {
