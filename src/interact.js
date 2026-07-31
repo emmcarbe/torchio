@@ -45,6 +45,8 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
 body.has-align [data-el="l"]{cursor:pointer}
+[data-change],[data-hand]{cursor:pointer}
+.t-add[data-change],.t-add[data-hand]{border-bottom:1px dotted var(--accent-soft)}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .app-anchored{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 body.app-off .app-anchored{border-bottom:none;cursor:inherit}
@@ -384,6 +386,18 @@ export function buildInteractJS(t) {
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(head)+'</div>'
         +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    /* a writing operation belongs to a campaign and a hand: clicking it says
+       which, and links to the stratum it belongs to */
+    var op=ev.target.closest&&ev.target.closest('[data-change],[data-hand]');
+    if(op&&/^(add|del|subst|restore|retrace|mod|transpose|metamark)$/.test(op.dataset.el||'')){
+      var lab=(op.dataset.change||'').replace(/^#/,''), hd=(op.dataset.hand||'').replace(/^#/,'');
+      var strat=lab?document.querySelector('[data-el="change"][id$="'+lab+'"]'):null;
+      openPop('<span class="k">'+esc(op.dataset.el)+'</span>'
+        +'<div class="notebody">'+esc(op.textContent.replace(/\s+/g,' ').trim().slice(0,140))+'</div>'
+        +'<div class="meta">'+(lab?esc(lab):'')+(hd?' · '+esc(hd):'')
+        +' <a href="genesis.html">${t.genesis}</a></div>',op);
       ev.stopPropagation();return;
     }
     var anc=ev.target.closest&&ev.target.closest('[data-appref]');

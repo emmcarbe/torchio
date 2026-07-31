@@ -142,7 +142,7 @@ const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
 const DATA_ATTS = ['wit', 'source', 'resp', 'cert', 'ref', 'key', 'type', 'n',
-  'place', 'hand', 'target', 'when', 'from', 'to', 'loc'];
+  'place', 'hand', 'target', 'when', 'from', 'to', 'loc', 'change', 'new'];
 
 /**
  * Default theme. Visual language after Emmanuela Carbé's "Risposte dei Savi"
