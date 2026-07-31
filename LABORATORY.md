@@ -9,7 +9,7 @@ between the two so the line is never crossed by accident.
 
 ## The principle, named
 
-> **Encode for the edition, not for the viewer.**
+> **Model for the edition, not for the viewer.**
 >
 > Torchio adapts publication to the edition's model, instead of adapting the
 > edition's model to the capabilities of the publication software.

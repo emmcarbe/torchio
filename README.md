@@ -2,6 +2,8 @@
 
 # Torchio
 
+*Model for the edition, not for the viewer.*
+
 Torchio turns XML-TEI P5 encoded texts into static digital scholarly editions:
 multi-page sites with reading text, critical apparatus, indices, maps and
 data exports, published from a git repository (GitHub Pages or any static

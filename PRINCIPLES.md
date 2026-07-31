@@ -2,6 +2,8 @@
 
 # Torchio. Principles of a project in the making
 
+*Model for the edition, not for the viewer.*
+
 First document, 30 July 2026. It records the state of the project at the
 moment of its publication on GitHub and opens the phase of collaboration,
 revision and implementation.
