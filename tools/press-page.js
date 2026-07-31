@@ -431,8 +431,11 @@
       }
     }
     if (chunkIds.length) {
-      html += '<p class="note">' + chunkIds.length
-        + ' section pages follow the text page: they are the divisions the markup declares, not choices to make here.</p>';
+      html += '<div class="frow pagerow"><label>'
+        + esc(chunkIds[0]) + ' \u2026 ' + esc(chunkIds[chunkIds.length - 1])
+        + '</label><span class="note">' + chunkIds.length
+        + ' section pages, one per division the markup declares. They follow the text page'
+        + ' and take their names from it.</span></div>';
     }
     html += '<p><button type="button" id="c-addpage">Add a simple page</button> '
       + '<span class="note">your own prose (an introduction, credits, a bibliography), '
