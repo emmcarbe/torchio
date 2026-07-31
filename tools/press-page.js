@@ -416,7 +416,11 @@
       + 'Left to the markup, the shape is derived from what the files declare.</p>'
       + '</fieldset>';
     html += '<fieldset><legend>Pages</legend>';
+    // the section pages of a long text are the divisions the markup declares:
+    // shown as one summary line, not one checkbox each
+    const chunkIds = Object.keys(ui.pages).filter((id) => /^text-/.test(id));
     for (const id of Object.keys(ui.pages)) {
+      if (/^text-/.test(id)) continue;
       const p = ui.pages[id];
       html += '<div class="frow pagerow" draggable="true" data-row="' + esc(id) + '">'
         + '<span class="grip" aria-hidden="true">\u2261</span>'
