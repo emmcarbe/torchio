@@ -1331,8 +1331,13 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
 `;
 
 function buildInteractJS(t) {
+  // The labels come from the edition (manifest.labels): they are editorial
+  // data, and editorial data never becomes code. They enter as one JSON
+  // object, so an apostrophe in "L'apparato" is a character, not a quote
+  // that closes a string and breaks every interactive layer of the page.
   return `
 (function(){
+  var T=${JSON.stringify(t).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')};
   var body=document.body; body.classList.add('mode-read');
   if(document.querySelector('.app-band'))body.classList.add('has-band');
   if(window.TORCHIO_ALIGN)body.classList.add('has-align');
@@ -1474,7 +1479,7 @@ function buildInteractJS(t) {
         +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span></div>';
     });
     if(!rows)return false;
-    openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'+rows,el);
+    openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'+rows,el);
     return true;
   }
   if(document.readyState==='complete'){wireWords();wirePointing();}
@@ -1528,7 +1533,7 @@ function buildInteractJS(t) {
   }
   function showZone(n){clearZone();zoneOf(n).forEach(function(e){e.classList.add('note-hi');hiZone.push(e);});}
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'${t.appEntry}: '+el.textContent.trim());
+    makeTrigger(el,''+esc(T.appEntry)+': '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref],[data-key]').forEach(function(el){
     if(el.classList.contains('ent-ext'))return; /* external links stay links */
@@ -1579,7 +1584,7 @@ function buildInteractJS(t) {
               }
               openPop('<span class="k">'+esc(sig)+'</span>'
                 +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
-                +'<div class="meta"><a href="'+tgt+'">${t.openPage}</a></div>',bw);
+                +'<div class="meta"><a href="'+tgt+'">'+esc(T.openPage)+'</a></div>',bw);
             })['catch'](function(){location.href=tgt;});
           }catch(e){location.href=tgt;}
         });
@@ -1605,12 +1610,12 @@ function buildInteractJS(t) {
       app.querySelectorAll('.t-note').forEach(function(nn){
         extra+='<div class="meta">'+esc(nn.textContent.replace(/\s+/g,' ').trim())+'</div>';
       });
-      openPop('<span class="k">${t.apparatus.toLowerCase()}'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
+      openPop('<span class="k">'+esc(T.apparatus.toLowerCase())+''+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
       ev.stopPropagation();return;
     }
     var ch=ev.target.closest&&ev.target.closest('.t-choice');
     if(ch&&!ch.closest('.t-app')){
-      var kinds={abbr:'${t.diplomatic}',orig:'${t.diplomatic}',sic:'${t.diplomatic}',expan:'${t.reading}',reg:'${t.reading}',corr:'${t.reading}'};
+      var kinds={abbr:esc(T.diplomatic),orig:esc(T.diplomatic),sic:esc(T.diplomatic),expan:esc(T.reading),reg:esc(T.reading),corr:esc(T.reading)};
       var rows='';
       [].slice.call(ch.children).forEach(function(c){
         var k=c.dataset&&c.dataset.el; if(!kinds[k])return;
@@ -1631,7 +1636,7 @@ function buildInteractJS(t) {
       var meta=[];
       if(key&&ent.textContent.trim()!==key)meta.push(esc(ent.textContent.trim()));
       if(ref)meta.push(esc(ref));
-      meta.push(all.length+' '+(all.length===1?'${t.occurrenceOne}':'${t.occurrenceMany}'));
+      meta.push(all.length+' '+(all.length===1?esc(T.occurrenceOne):esc(T.occurrenceMany)));
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(head)+'</div>'
         +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
@@ -1646,7 +1651,7 @@ function buildInteractJS(t) {
       openPop('<span class="k">'+esc(op.dataset.el)+'</span>'
         +'<div class="notebody">'+esc(op.textContent.replace(/\s+/g,' ').trim().slice(0,140))+'</div>'
         +'<div class="meta">'+(lab?esc(lab):'')+(hd?' · '+esc(hd):'')
-        +' <a href="genesis.html">${t.genesis}</a></div>',op);
+        +' <a href="genesis.html">'+esc(T.genesis)+'</a></div>',op);
       ev.stopPropagation();return;
     }
     var anc=ev.target.closest&&ev.target.closest('[data-appref]');
@@ -1654,7 +1659,7 @@ function buildInteractJS(t) {
     var wv=ev.target.closest&&ev.target.closest('.wv');
     if(wv&&wv._be&&!body.classList.contains('app-off')){
       var wband=wv._be.closest('.app-band');
-      openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+      openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
     }
@@ -1662,7 +1667,7 @@ function buildInteractJS(t) {
     if(npFirst){
       var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
       if(nnF&&!body.classList.contains('notes-off')){
-        openPop('<span class="k">'+'${t.notes}'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        openPop('<span class="k">'+esc(T.notes).toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
         showZone(nnF);
         ev.stopPropagation();return;
       }
@@ -1685,9 +1690,9 @@ function buildInteractJS(t) {
           var el=doc.getElementById(id);
           var sec=el&&el.closest?el.closest('.vmap')||el:el;
           if(!sec)return;
-          openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+          openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'
             +'<div class="popband" data-ent="'+esc(key)+'">'+sec.innerHTML+'</div>'
-            +'<div class="meta"><a href="'+tgt+'">${t.openPage}</a></div>',lw);
+            +'<div class="meta"><a href="'+tgt+'">'+esc(T.openPage)+'</a></div>',lw);
         })['catch'](function(){});
       });
       ev.stopPropagation();return;
@@ -1696,7 +1701,7 @@ function buildInteractJS(t) {
     if(lv&&lv.nextElementSibling&&lv.nextElementSibling.classList
        &&lv.nextElementSibling.classList.contains('app-band')){
       var bd=lv.nextElementSibling;
-      openPop('<span class="k">'+'${t.apparatus}'.toLowerCase()+'</span>'
+      openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+(bd.getAttribute('data-ent')||'')+'">'+bd.innerHTML+'</div>',lv);
       ev.stopPropagation();return;
     }
@@ -1704,7 +1709,7 @@ function buildInteractJS(t) {
     if(np&&!body.classList.contains('notes-off')){
       var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
       if(nn){
-        openPop('<span class="k">'+'${t.notes}'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        openPop('<span class="k">'+esc(T.notes).toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
         showZone(nn);
         ev.stopPropagation();return;
       }
@@ -3466,7 +3471,7 @@ function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
   const total = tokens.length;
   const frequencies = [...forms.entries()]
     .map(([form, v]) => ({ form, count: v.count, lang: v.lang,
-      rel: Math.round((v.count / total) * 100000) / 1000, // per thousand, 3 decimals
+      rel: Math.round((v.count / total) * 1000000) / 1000, // per thousand, 3 decimals
       stop: (stopByLang.get(v.lang) || stop).has(form) }))
     .sort((a, b) => b.count - a.count || a.form.localeCompare(b.form));
   model.lexicon = {

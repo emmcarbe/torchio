@@ -438,7 +438,7 @@ export function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
   const total = tokens.length;
   const frequencies = [...forms.entries()]
     .map(([form, v]) => ({ form, count: v.count, lang: v.lang,
-      rel: Math.round((v.count / total) * 100000) / 1000, // per thousand, 3 decimals
+      rel: Math.round((v.count / total) * 1000000) / 1000, // per thousand, 3 decimals
       stop: (stopByLang.get(v.lang) || stop).has(form) }))
     .sort((a, b) => b.count - a.count || a.form.localeCompare(b.form));
   model.lexicon = {
