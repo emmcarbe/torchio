@@ -25,7 +25,7 @@ const colName = (i) => {
  * @param {{sheet?: string, widths?: number[]}} opts
  * @returns {Uint8Array} the .xlsx file
  */
-export function buildXLSX(header, rows, { sheet = 'Review', widths = [] } = {}) {
+export function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null } = {}) {
   const all = [header, ...rows];
   const body = all.map((row, r) => {
     const cells = row.map((v, c) => {
@@ -71,7 +71,15 @@ export function buildXLSX(header, rows, { sheet = 'Review', widths = [] } = {}) 
       + `<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>`
       + `</sheetView></sheetViews>`
       + cols
-      + `<sheetData>${body}</sheetData></worksheet>`,
+      + `<sheetData>${body}</sheetData>`
+      + (choices ? (() => {
+          const col = colName(choices.col);
+          const list = choices.options.map((o) => o.replace(/"/g, '')).join(',');
+          return `<dataValidations count="1"><dataValidation type="list" allowBlank="1"`
+            + ` showInputMessage="1" showErrorMessage="1" sqref="${col}2:${col}${all.length}">`
+            + `<formula1>&quot;${esc(list)}&quot;</formula1></dataValidation></dataValidations>`;
+        })() : '')
+      + `</worksheet>`,
   };
   return buildZip(files);
 }
