@@ -275,6 +275,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
   }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
+  if (manifest.apparatusKind) {
+    about += `<dt>${T.apparatus}</dt><dd>${manifest.apparatusKind === 'genetic' ? T.apparatusGenetic : T.apparatusCritical}</dd>`;
+  }
   if (hasLexStats) {
     const L = model.lexicon;
     about += `<dt>${T.lexStats}</dt><dd>${L.total} ${T.lexTokens} · ${L.distinct} ${T.lexForms}`
@@ -294,7 +297,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
     about += `</table></dd>`;
   }
-  if (model.agreement && model.agreement.pairs.length) {
+  if (model.agreement && model.agreement.pairs.length && manifest.apparatusKind !== 'genetic') {
     // the evidence for a stemma, not a stemma: the editor argues, the press
     // counts. Pairs that share readings most often come first
     const top = model.agreement.pairs.slice(0, 12);
