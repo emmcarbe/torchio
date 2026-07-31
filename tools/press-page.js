@@ -15,7 +15,7 @@
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, markdown, buildZip, i18n, resolveLang,
+   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -66,7 +66,13 @@
 
   async function doPress(fileList) {
     const texts = new Map();
-    for (const f of fileList) texts.set(f.name, await f.text());
+    let reviewSheet = null;
+    for (const f of fileList) {
+      // a reviewed lemma sheet comes back as .xlsx: read it here, so the
+      // editor never touches the JSON
+      if (/\.xlsx$/i.test(f.name)) { reviewSheet = new Uint8Array(await f.arrayBuffer()); continue; }
+      texts.set(f.name, await f.text());
+    }
 
     const notes = [];
 
@@ -151,6 +157,30 @@
     if (texts.has('lemmas.json')) {
       try { lemmasJson = JSON.parse(texts.get('lemmas.json')); }
       catch (err) { notes.push('lemmas.json ignored: ' + err.message); }
+    }
+    // the reviewed spreadsheet becomes the lemma decisions, merged over any
+    // lemmas.json already present
+    if (reviewSheet) {
+      try {
+        const parts = readZip(reviewSheet);
+        const sheet = parts.get('xl/worksheets/sheet1.xml') || '';
+        const rows = [];
+        for (const rowXml of sheet.match(/<row[\s\S]*?<\/row>/g) || []) {
+          const cells = [...rowXml.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)]
+            .map((m) => m[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
+          rows.push(cells);
+        }
+        const head = rows.shift() || [];
+        const iF = head.indexOf('form'), iLa = head.indexOf('lang'),
+          iLe = head.indexOf('lemma'), iS = head.indexOf('status');
+        const reviewed = rows.filter((r) => r[iF]).map((r) => ({
+          form: r[iF], lang: iLa >= 0 ? r[iLa] : undefined,
+          lemma: r[iLe], status: iS >= 0 ? r[iS] : undefined,
+        }));
+        const base = lemmasJson || { types: reviewed.map((r) => ({ form: r.form, lang: r.lang, lemma: r.lemma, status: 'suggested' })) };
+        lemmasJson = applyReview(base, reviewed);
+        notes.push('Reviewed lemma sheet applied (' + reviewed.length + ' forms).');
+      } catch (err) { notes.push('The lemma sheet could not be read: ' + err.message); }
     }
     attachLemmas(model, lemmasJson);
 
