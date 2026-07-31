@@ -355,3 +355,78 @@ export function mergeLemmaTypes(existing, fresh, generator = null) {
     (a.lang || '').localeCompare(b.lang || '') || a.form.localeCompare(b.form));
   return out;
 }
+
+/** A small stopword list per language: function words carry no lexical
+ *  weight, so frequencies and the cloud drop them. It is a declaration, not
+ *  a rule: an edition can replace it, and the concordance never applies it. */
+export const STOPWORDS = {
+  it: 'il lo la i gli le un uno una di a da in con su per tra fra e o ma se che chi cui non ne ci vi si mi ti come dove quando perche del dello della dei degli delle al allo alla ai agli alle dal dalla nel nella sul sulla è era sono ho hai ha abbiamo essere avere questo questa quello quella'.split(' '),
+  la: 'et in ad de cum ex per pro sed non nec ut si quod qui quae quod is ea id hic haec hoc ille illa illud sum es est sunt erat esse atque aut vel enim autem tamen iam etiam ac a ab e'.split(' '),
+  en: 'the a an of to in on at by for with and or but if that which who whom this these those is are was were be been being have has had do does did not no as it its from'.split(' '),
+  grc: 'ὁ ἡ τό καί δέ τε γάρ μέν οὖν ἐν εἰς ἐκ ἐπί πρός διά κατά μετά ἀλλά οὐ μή τις τι ὡς εἰ γε'.split(' '),
+  fr: 'le la les un une des de du au aux et ou mais si que qui dont ne pas ce cette ces son sa ses leur dans sur pour par avec est sont était être avoir je tu il elle nous vous ils'.split(' '),
+  de: 'der die das ein eine und oder aber wenn dass welche wer den dem des in auf mit für von zu aus bei nach ist sind war sein haben ich du er sie es wir ihr nicht kein'.split(' '),
+  es: 'el la los las un una de a en con por para y o pero si que quien cuyo no ni se le lo su sus del al es son era ser haber este esta ese esa aquel'.split(' '),
+  // historical stages need their own lists: an earlier language is not the modern one
+  enm: 'the a an of to in on at by for with and or but if that whiche who this thise tho is are was were be ben have hath had nat no as it his hir hem ther thanne'.split(' '),  // Middle English
+  ang: 'se seo þæt and ac gif þe þa þonne on in to of mid for is wæs wæron beon habban ne na þis he heo hit we ge hi'.split(' '),  // Old English
+  fro: 'li le la les un une de a en et ou mais se que qui ne pas ce cist cele son sa ses lor dedenz sor por par o est sont ert estre avoir jo tu il ele'.split(' '),  // Old French
+};
+
+/** Readable names for the stopword lists, stage included: an editor of a
+ *  Middle English text needs enm, not en. */
+export const STOPWORD_NAMES = {
+  it: 'Italiano', la: 'Latino', en: 'English', grc: 'Ancient Greek', fr: 'Français',
+  de: 'Deutsch', es: 'Español', enm: 'Middle English', ang: 'Old English', fro: 'Ancien français',
+};
+
+/** The lexical statistics of the text: frequencies of the attested forms and
+ *  a concordance, from the same tokens the lemma page uses. It is the raw
+ *  layer (forms, not lemmata); the grouping under a lemma is the other page.
+ *  Attached as model.lexicon, gated by the piece. */
+export function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
+  const tokens = collectTokens(model);
+  if (!tokens.length) { model.lexicon = null; return null; }
+  const langs = [...new Set(tokens.map((t) => normLang(t.lang)).filter(Boolean))];
+  const stop = new Set();
+  for (const l of langs.length ? langs : ['']) {
+    for (const w of (stopwords && stopwords[l]) || STOPWORDS[l] || []) stop.add(w.toLowerCase());
+  }
+  // per-language stopword sets, so a form is judged against its own language
+  const stopByLang = new Map();
+  for (const l of langs.length ? langs : ['']) {
+    stopByLang.set(l, new Set(((stopwords && stopwords[l]) || STOPWORDS[l] || []).map((w) => w.toLowerCase())));
+  }
+  const forms = new Map();
+  const conc = new Map();
+  tokens.forEach((t, i) => {
+    const l = normLang(t.lang) || (langs[0] || '');
+    const key = t.form.toLowerCase();
+    if (!forms.has(key)) forms.set(key, { count: 0, lang: l });
+    forms.get(key).count++;
+    if (!conc.has(key)) conc.set(key, []);
+    if (conc.get(key).length < 60) {
+      const before = tokens.slice(Math.max(0, i - kwic), i)
+        .filter((x) => x.docId === t.docId).map((x) => x.form).join(' ');
+      const after = tokens.slice(i + 1, i + 1 + kwic)
+        .filter((x) => x.docId === t.docId).map((x) => x.form).join(' ');
+      conc.get(key).push({ docId: t.docId, anchor: t.anchor, before, after, form: t.form });
+    }
+  });
+  const total = tokens.length;
+  const frequencies = [...forms.entries()]
+    .map(([form, v]) => ({ form, count: v.count, lang: v.lang,
+      rel: Math.round((v.count / total) * 100000) / 1000, // per thousand, 3 decimals
+      stop: (stopByLang.get(v.lang) || stop).has(form) }))
+    .sort((a, b) => b.count - a.count || a.form.localeCompare(b.form));
+  model.lexicon = {
+    total,
+    distinct: forms.size,
+    // type-token ratio: lexical variety, distinct forms over running words
+    ttr: Math.round((forms.size / total) * 10000) / 10000,
+    frequencies,
+    concordance: Object.fromEntries(conc),
+    languages: langs,
+  };
+  return model.lexicon;
+}

@@ -24,6 +24,7 @@ import { WORLD } from './world-data.js';
 import { chrome, jsonForScript, registerJS } from './page-shell.js';
 import { pressMapPage } from './map-page.js';
 import { pressLemmaPage } from './lemma-page.js';
+import { pressLexiconPage } from './lexicon-page.js';
 import { pressRegister } from './register-page.js';
 import { pressGenesisPage } from './genesis-page.js';
 
@@ -103,6 +104,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
   const hasLemmas = !!(model.lemmas && model.lemmas.entries.length)
     && manifest.pieces.lemmas !== false;
+  const hasLexicon = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexicon === true;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -157,12 +159,13 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
+    ...(hasLexicon ? [['lexicon', T.lexicon]] : []),
     ...(hasMap ? [['map', T.map]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
   const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, genesis: !!model.genetic, back: !!backNode,
-    indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
+    indices: hasIndices, lemmas: hasLemmas, lexicon: hasLexicon, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
   if (manifest.pages) {
@@ -644,6 +647,11 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
   if (hasLemmas && wanted.has('lemmas')) {
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
+  }
+
+  /* ---- lexicon.html: frequencies, concordance, cloud, chosen by the editor ---- */
+  if (hasLexicon && wanted.has('lexicon')) {
+    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages });
   }
 
   /* ---- data.html: the edition as downloadable data ---- */

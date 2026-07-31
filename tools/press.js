@@ -16,7 +16,7 @@ import { pressPage } from '../src/render.js';
 import { pressSite } from '../src/site.js';
 import { analyze } from '../src/analyze.js';
 import { applyReconciliation } from '../src/reconcile.js';
-import { attachLemmas } from '../src/lemmas.js';
+import { attachLemmas, attachLexicon } from '../src/lemmas.js';
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const site = process.argv.includes('--site');
@@ -135,6 +135,7 @@ try {
   lemmasJson = JSON.parse(await readFile(join(dirname(manifestPath), 'lemmas.json'), 'utf-8'));
 } catch { /* no file: the markup alone decides */ }
 const lemmas = attachLemmas(model, lemmasJson);
+attachLexicon(model);
 if (lemmas) {
   console.error(`lemmas: ${lemmas.entries.length} lemmas, ${lemmas.lemmatized}/${lemmas.tokens} tokens`
     + (lemmas.provenance.markup ? ` (markup: ${lemmas.provenance.markup})` : '')

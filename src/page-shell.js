@@ -142,6 +142,37 @@ ${headerLabelCSS()}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+.lx-bar-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:1em 0;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.lx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink);min-width:14rem}
+.lx-ctl{font-family:var(--mono);font-size:11px;color:var(--soft);display:inline-flex;gap:.4em;align-items:center}
+.lx-ctl select{font-family:var(--mono);font-size:12px;padding:4px 6px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink)}
+.lx-views{margin-left:auto;display:inline-flex;border:1px solid var(--hair);border-radius:2px;overflow:hidden}
+.lx-views button{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--soft);background:none;border:none;cursor:pointer;padding:7px 13px}
+.lx-views button.active{background:var(--accent);color:#fff}
+.lx-table{width:100%;border-collapse:collapse}
+.lx-table th{text-align:left;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.lx-table td{padding:4px 10px 4px 0;border-bottom:1px solid var(--faint)}
+.lx-table .lx-num{text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap}
+.lx-table .lx-w{cursor:pointer}
+.lx-table .lx-rel{color:var(--soft)}
+.lx-table tr.is-stop .lx-w{color:var(--soft)}
+.lx-lang{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.lx-flip{font-size:11px;line-height:1;color:var(--accent);background:none;border:none;cursor:pointer;padding:2px 4px}
+.lx-cloud{line-height:1.9;padding:1em 0}
+.lx-cloud-w{cursor:pointer;margin:0 .18em;color:var(--ink);transition:opacity .1s}
+.lx-cloud-w:hover{color:var(--accent)}
+.lx-kwic{width:100%;border-collapse:collapse;font-size:14px}
+.lx-kwic td{padding:3px 8px;vertical-align:baseline}
+.lx-kwic .lx-b{text-align:right;color:var(--soft);width:42%}
+.lx-kwic .lx-k{text-align:center;font-weight:600;color:var(--accent);white-space:nowrap}
+.lx-kwic .lx-k a{color:inherit}
+.lx-kwic .lx-a{color:var(--soft);width:42%}
+.lx-kwic tr:hover td{background:rgba(176,30,40,.04)}
 ol.toc li{margin:.3em 0;break-inside:avoid}
 .idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
   padding-bottom:.8em;border-bottom:1px solid var(--hair)}

@@ -15,7 +15,7 @@
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
+   attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
    harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
@@ -65,7 +65,9 @@
     }
   }
 
+  let lastFiles = [];
   async function doPress(fileList) {
+    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
     // whole archive belongs in the repository that presses itself. Warn
     // rather than freeze, and let the editor go on if they mean to
@@ -232,6 +234,7 @@
       } catch (err) { notes.push('The review sheet could not be read: ' + err.message); }
     }
     attachLemmas(model, lemmasJson);
+    attachLexicon(model);
 
     // extra pages declared by a dropped manifest, resolved among the files
     const droppedExtra = [];
@@ -291,6 +294,7 @@
         persons: !(raw.pieces && raw.pieces.persons === false),
         places: !(raw.pieces && raw.pieces.places === false),
         orgs: !(raw.pieces && raw.pieces.orgs === false),
+        lexicon: !!(raw.pieces && raw.pieces.lexicon === true),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -439,6 +443,7 @@
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
+    if (ui.pieces.lexicon) off.lexicon = true; // off by default, so record when on
     if (Object.keys(off).length) m.pieces = off;
     if (ui.extra.length) {
       m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
@@ -662,11 +667,38 @@
         + 'the title stays: it is the way into the documents.</p></fieldset>';
     }
 
-    html += '<fieldset><legend>Pieces and data</legend>'
+    // 1. the interactive layers of the text
+    html += '<fieldset><legend>Pieces</legend>'
       + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
       + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
+      + '> reading/diplomatic toggle</label> '
+      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
+      + '> data files (model, CSV, source)</label>'
+      + '<p class="note">Switching a piece off disables its interactive layer, '
+      + 'never the base rendering: nothing becomes invisible.</p></fieldset>';
+
+    // 2. words: lemmas and the lexicon, with their own review round trip
+    html += '<fieldset class="flow"><legend>Words: lemmas and lexicon</legend>'
+      + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
+      + '> index of lemmas, where the edition declares them</label> '
+      + '<label><input type="checkbox" id="c-lexicon"' + (ui.pieces.lexicon ? ' checked' : '')
+      + '> lexicon page (frequencies, concordance, cloud)</label>'
+      + '<p><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
+      + '<span class="note">Your text does not say the dictionary form of each word. I can ask a '
+      + 'language service (UDPipe, at the Charles University in Prague): <b>the text of your edition '
+      + 'will be sent to that service.</b> Nothing is decided without you.</span></p>'
+      + (S.lemmaTypes ? '<p><button type="button" id="c-lemma-sheet">Download the review sheet</button>'
+        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Correct what is wrong, choose '
+        + 'confirmed or rejected, save.</span></p>' : '')
+      + '<div class="dropmini" id="drop-lemmas"><span class="note">Drop the corrected lemma sheet here '
+      + '(or with the files).</span></div>'
+      + '</fieldset>';
+
+    // 3. names: the indices and the map, with their own review round trip
+    html += '<fieldset class="flow"><legend>Names: indices and map</legend>'
       + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
       + '> index of persons</label> '
       + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
@@ -674,29 +706,13 @@
       + '<label><input type="checkbox" id="c-orgs"' + (ui.pieces.orgs ? ' checked' : '')
       + '> index of organisations</label> '
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
-      + '> map, where places carry coordinates</label> '
-      + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
-      + '> lemma index, where the edition declares lemmas</label> '
-      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
-      + '> reading/diplomatic toggle</label> '
-      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
-      + '> data files (model, CSV, source)</label>'
-      + '<p class="note">Switching a piece off disables its interactive layer, '
-      + 'never the base rendering: nothing becomes invisible.</p>'
-      + '<div class="lemma-flow"><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
-      + '<span class="note">Your text does not say the dictionary form of each word. '
-      + 'I can ask a language service (UDPipe, at the Charles University in Prague): '
-      + '<b>the text of your edition will be sent to that service.</b> You then review the '
-      + 'suggestions in a spreadsheet and load it back. Nothing is decided without you.</span>'
-      + (S.lemmaTypes ? ' <button type="button" id="c-lemma-sheet">Download the review sheet</button>'
-        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Open it, correct what is wrong, '
-        + 'choose confirmed or rejected in the last column, save, and drop it back in with the files.</span>' : '')
-      + '</div>'
-      + '<div class="lemma-flow"><button type="button" id="c-entities-sheet">List the names to index and map</button>'
-      + '<span class="note">The persons, places and organisations your text names. '
-      + 'Confirm the real ones in a spreadsheet (for a place, fill its latitude and longitude, or leave them '
-      + 'for the map to stay empty), save, and drop it back in. The indices and the map are drawn from what '
-      + 'you confirmed. No name is looked up anywhere.</span></div>'
+      + '> map, where places carry coordinates</label>'
+      + '<p><button type="button" id="c-entities-sheet">List the names to index and map</button>'
+      + '<span class="note">The persons, places and organisations your text names. Confirm the real ones '
+      + '(for a place, fill its latitude and longitude), save. Indices and map are drawn from what you '
+      + 'confirmed; no name is looked up anywhere.</span></p>'
+      + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
+      + '(or with the files).</span></div>'
       + '</fieldset>';
 
     // the simple-page editor, hidden until needed
@@ -736,6 +752,7 @@
     bind('c-persons', (el) => { ui.pieces.persons = el.checked; });
     bind('c-places', (el) => { ui.pieces.places = el.checked; });
     bind('c-orgs', (el) => { ui.pieces.orgs = el.checked; });
+    bind('c-lexicon', (el) => { ui.pieces.lexicon = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     const lemBtn = document.getElementById('c-lemmatize');
@@ -744,6 +761,18 @@
     if (sheetBtn) sheetBtn.addEventListener('click', downloadLemmaSheet);
     const entBtn = document.getElementById('c-entities-sheet');
     if (entBtn) entBtn.addEventListener('click', downloadEntitySheet);
+    // each review has its own dropzone: drop the corrected sheet, it is
+    // pressed together with the files already loaded
+    for (const id of ['drop-lemmas', 'drop-names']) {
+      const zone = document.getElementById(id);
+      if (!zone) continue;
+      zone.addEventListener('dragover', (ev) => { ev.preventDefault(); zone.classList.add('over'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+      zone.addEventListener('drop', (ev) => {
+        ev.preventDefault(); zone.classList.remove('over');
+        if (ev.dataTransfer.files.length) press([...lastFiles, ...ev.dataTransfer.files]);
+      });
+    }
     // the order of the pages is the order of the menu: it is dragged here
     // and travels in the manifest, so the site keeps it
     let dragged = null;

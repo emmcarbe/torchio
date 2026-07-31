@@ -40,6 +40,9 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .frow{display:flex;align-items:baseline;gap:.8rem;margin:.5rem 0;flex-wrap:wrap}
 .frow>label:first-child{min-width:7.5rem}
 .frow input[type=text]{flex:1;min-width:12rem}
+.flow legend{color:var(--accent,#b01e28)}
+.dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
+.dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
 .pagerow>label{min-width:9rem}
 .pagerow .grip{cursor:grab;color:#bbb;margin-right:.5em;user-select:none}
 .pagerow.dragging{opacity:.5}
@@ -1868,6 +1871,12 @@ const STRINGS = {
     front: 'Front matter', back: 'Back matter',
     lacking: 'lacking in', editedText: 'edited text',
     genesis: 'Genesis', hand: 'hand',
+    lexicon: 'Lexicon', lexTokens: 'running words', lexForms: 'distinct forms',
+    lexTTR: 'type-token ratio', lexSearch: 'search a word\u2026', lexFrequencies: 'Frequencies',
+    lexConcordance: 'Concordance', lexCloud: 'Cloud', lexPick: 'Pick a word to see it in context.',
+    lexLanguage: 'Language', lexAllLangs: 'all', lexStoplist: 'Stopwords',
+    lexStopNone: 'none', lexHideStop: 'hide stopwords', lexWord: 'word', lexLang: 'lang',
+    lexAbs: 'count', lexRel: 'per 1000', lexStopCol: 'stop', lexStopNote: 'Frequencies and cloud drop the stopwords you choose; the concordance keeps every word.',
     genesisNote: 'The campaigns of correction the edition declares, in its own order, with the writing operations attributed to each. Every operation links to the place where it happened.',
     agreement: 'Agreement between witnesses',
     agreementNote: 'How often two witnesses carry the same reading. Evidence for a stemma, which remains the editor\u2019s argument.',
@@ -1916,6 +1925,12 @@ const STRINGS = {
     front: 'Pagine iniziali', back: 'Pagine finali',
     lacking: 'manca in', editedText: 'testo critico',
     genesis: 'Genesi', hand: 'mano',
+    lexicon: 'Lessico', lexTokens: 'parole', lexForms: 'forme distinte',
+    lexTTR: 'type-token ratio', lexSearch: 'cerca una parola\u2026', lexFrequencies: 'Frequenze',
+    lexConcordance: 'Concordanza', lexCloud: 'Nuvola', lexPick: 'Scegli una parola per vederla in contesto.',
+    lexLanguage: 'Lingua', lexAllLangs: 'tutte', lexStoplist: 'Stopword',
+    lexStopNone: 'nessuna', lexHideStop: 'nascondi le stopword', lexWord: 'parola', lexLang: 'lingua',
+    lexAbs: 'assoluta', lexRel: 'per 1000', lexStopCol: 'stop', lexStopNote: 'Frequenze e nuvola tolgono le stopword scelte; la concordanza tiene ogni parola.',
     genesisNote: 'Le campagne correttorie dichiarate dall\u2019edizione, nel suo ordine, con le operazioni di scrittura attribuite a ciascuna. Ogni operazione rimanda al punto in cui è avvenuta.',
     agreement: 'Accordi fra testimoni',
     agreementNote: 'Quante volte due testimoni portano la stessa lezione. Materiale per lo stemma, che resta argomento dell\u2019editore.',
@@ -2477,6 +2492,37 @@ ${headerLabelCSS()}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+.lx-bar-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:1em 0;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.lx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink);min-width:14rem}
+.lx-ctl{font-family:var(--mono);font-size:11px;color:var(--soft);display:inline-flex;gap:.4em;align-items:center}
+.lx-ctl select{font-family:var(--mono);font-size:12px;padding:4px 6px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink)}
+.lx-views{margin-left:auto;display:inline-flex;border:1px solid var(--hair);border-radius:2px;overflow:hidden}
+.lx-views button{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--soft);background:none;border:none;cursor:pointer;padding:7px 13px}
+.lx-views button.active{background:var(--accent);color:#fff}
+.lx-table{width:100%;border-collapse:collapse}
+.lx-table th{text-align:left;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.lx-table td{padding:4px 10px 4px 0;border-bottom:1px solid var(--faint)}
+.lx-table .lx-num{text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap}
+.lx-table .lx-w{cursor:pointer}
+.lx-table .lx-rel{color:var(--soft)}
+.lx-table tr.is-stop .lx-w{color:var(--soft)}
+.lx-lang{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.lx-flip{font-size:11px;line-height:1;color:var(--accent);background:none;border:none;cursor:pointer;padding:2px 4px}
+.lx-cloud{line-height:1.9;padding:1em 0}
+.lx-cloud-w{cursor:pointer;margin:0 .18em;color:var(--ink);transition:opacity .1s}
+.lx-cloud-w:hover{color:var(--accent)}
+.lx-kwic{width:100%;border-collapse:collapse;font-size:14px}
+.lx-kwic td{padding:3px 8px;vertical-align:baseline}
+.lx-kwic .lx-b{text-align:right;color:var(--soft);width:42%}
+.lx-kwic .lx-k{text-align:center;font-weight:600;color:var(--accent);white-space:nowrap}
+.lx-kwic .lx-k a{color:inherit}
+.lx-kwic .lx-a{color:var(--soft);width:42%}
+.lx-kwic tr:hover td{background:rgba(176,30,40,.04)}
 ol.toc li{margin:.3em 0;break-inside:avoid}
 .idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
   padding-bottom:.8em;border-bottom:1px solid var(--hair)}
@@ -3128,6 +3174,217 @@ function mergeLemmaTypes(existing, fresh, generator = null) {
   out.types = [...seen.values()].sort((a, b) =>
     (a.lang || '').localeCompare(b.lang || '') || a.form.localeCompare(b.form));
   return out;
+}
+
+/** A small stopword list per language: function words carry no lexical
+ *  weight, so frequencies and the cloud drop them. It is a declaration, not
+ *  a rule: an edition can replace it, and the concordance never applies it. */
+const STOPWORDS = {
+  it: 'il lo la i gli le un uno una di a da in con su per tra fra e o ma se che chi cui non ne ci vi si mi ti come dove quando perche del dello della dei degli delle al allo alla ai agli alle dal dalla nel nella sul sulla è era sono ho hai ha abbiamo essere avere questo questa quello quella'.split(' '),
+  la: 'et in ad de cum ex per pro sed non nec ut si quod qui quae quod is ea id hic haec hoc ille illa illud sum es est sunt erat esse atque aut vel enim autem tamen iam etiam ac a ab e'.split(' '),
+  en: 'the a an of to in on at by for with and or but if that which who whom this these those is are was were be been being have has had do does did not no as it its from'.split(' '),
+  grc: 'ὁ ἡ τό καί δέ τε γάρ μέν οὖν ἐν εἰς ἐκ ἐπί πρός διά κατά μετά ἀλλά οὐ μή τις τι ὡς εἰ γε'.split(' '),
+  fr: 'le la les un une des de du au aux et ou mais si que qui dont ne pas ce cette ces son sa ses leur dans sur pour par avec est sont était être avoir je tu il elle nous vous ils'.split(' '),
+  de: 'der die das ein eine und oder aber wenn dass welche wer den dem des in auf mit für von zu aus bei nach ist sind war sein haben ich du er sie es wir ihr nicht kein'.split(' '),
+  es: 'el la los las un una de a en con por para y o pero si que quien cuyo no ni se le lo su sus del al es son era ser haber este esta ese esa aquel'.split(' '),
+  // historical stages need their own lists: an earlier language is not the modern one
+  enm: 'the a an of to in on at by for with and or but if that whiche who this thise tho is are was were be ben have hath had nat no as it his hir hem ther thanne'.split(' '),  // Middle English
+  ang: 'se seo þæt and ac gif þe þa þonne on in to of mid for is wæs wæron beon habban ne na þis he heo hit we ge hi'.split(' '),  // Old English
+  fro: 'li le la les un une de a en et ou mais se que qui ne pas ce cist cele son sa ses lor dedenz sor por par o est sont ert estre avoir jo tu il ele'.split(' '),  // Old French
+};
+
+/** Readable names for the stopword lists, stage included: an editor of a
+ *  Middle English text needs enm, not en. */
+const STOPWORD_NAMES = {
+  it: 'Italiano', la: 'Latino', en: 'English', grc: 'Ancient Greek', fr: 'Français',
+  de: 'Deutsch', es: 'Español', enm: 'Middle English', ang: 'Old English', fro: 'Ancien français',
+};
+
+/** The lexical statistics of the text: frequencies of the attested forms and
+ *  a concordance, from the same tokens the lemma page uses. It is the raw
+ *  layer (forms, not lemmata); the grouping under a lemma is the other page.
+ *  Attached as model.lexicon, gated by the piece. */
+function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
+  const tokens = collectTokens(model);
+  if (!tokens.length) { model.lexicon = null; return null; }
+  const langs = [...new Set(tokens.map((t) => normLang(t.lang)).filter(Boolean))];
+  const stop = new Set();
+  for (const l of langs.length ? langs : ['']) {
+    for (const w of (stopwords && stopwords[l]) || STOPWORDS[l] || []) stop.add(w.toLowerCase());
+  }
+  // per-language stopword sets, so a form is judged against its own language
+  const stopByLang = new Map();
+  for (const l of langs.length ? langs : ['']) {
+    stopByLang.set(l, new Set(((stopwords && stopwords[l]) || STOPWORDS[l] || []).map((w) => w.toLowerCase())));
+  }
+  const forms = new Map();
+  const conc = new Map();
+  tokens.forEach((t, i) => {
+    const l = normLang(t.lang) || (langs[0] || '');
+    const key = t.form.toLowerCase();
+    if (!forms.has(key)) forms.set(key, { count: 0, lang: l });
+    forms.get(key).count++;
+    if (!conc.has(key)) conc.set(key, []);
+    if (conc.get(key).length < 60) {
+      const before = tokens.slice(Math.max(0, i - kwic), i)
+        .filter((x) => x.docId === t.docId).map((x) => x.form).join(' ');
+      const after = tokens.slice(i + 1, i + 1 + kwic)
+        .filter((x) => x.docId === t.docId).map((x) => x.form).join(' ');
+      conc.get(key).push({ docId: t.docId, anchor: t.anchor, before, after, form: t.form });
+    }
+  });
+  const total = tokens.length;
+  const frequencies = [...forms.entries()]
+    .map(([form, v]) => ({ form, count: v.count, lang: v.lang,
+      rel: Math.round((v.count / total) * 100000) / 1000, // per thousand, 3 decimals
+      stop: (stopByLang.get(v.lang) || stop).has(form) }))
+    .sort((a, b) => b.count - a.count || a.form.localeCompare(b.form));
+  model.lexicon = {
+    total,
+    distinct: forms.size,
+    // type-token ratio: lexical variety, distinct forms over running words
+    ttr: Math.round((forms.size / total) * 10000) / 10000,
+    frequencies,
+    concordance: Object.fromEntries(conc),
+    languages: langs,
+  };
+  return model.lexicon;
+}
+
+// ---- src/lexicon-page.js ----
+/**
+ * The lexicon page: the raw lexical layer of the text. The editor (or the
+ * reader) chooses what to see (frequencies, concordance, cloud), searches,
+ * filters by language, and decides which stopword list applies and which
+ * single words count as stopwords. Nothing is imposed: not every tradition
+ * has stopwords, and when no language is declared none is applied until one
+ * is chosen here.
+ *
+ * Computed at press time, drawn without a library: the page survives its own
+ * scripts and outlives any server, unlike a hosted analysis tool.
+ */
+
+
+
+
+
+function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
+  const L = model.lexicon;
+  const multi = (L.languages || []).length > 1;
+
+  const langFilter = multi
+    ? `<label class="lx-ctl">${T.lexLanguage} <select class="lx-langsel"><option value="">${T.lexAllLangs}</option>`
+      + L.languages.map((l) => `<option value="${escapeHTML(l)}">${escapeHTML(l)}</option>`).join('')
+      + `</select></label>`
+    : '';
+  // which stopword list to apply, defaulting to the edition's own language
+  const stopChoices = Object.keys(STOPWORDS);
+  const defaultStop = L.languages.find((l) => STOPWORDS[l]) || '';
+  const stopSel = `<label class="lx-ctl">${T.lexStoplist} <select class="lx-stopsel">`
+    + `<option value="">${T.lexStopNone}</option>`
+    + stopChoices.map((l) => `<option value="${escapeHTML(l)}"${l === defaultStop ? ' selected' : ''}>${escapeHTML(STOPWORD_NAMES[l] || l)}</option>`).join('')
+    + `</select></label>`;
+
+  const body = `<main id="main" class="torchio lexicon">`
+    + `<p class="occ"><b>${L.total}</b> ${T.lexTokens} · <b>${L.distinct}</b> ${T.lexForms} · `
+    + `${T.lexTTR} <b>${L.ttr}</b></p>`
+    + `<div class="lx-bar-top">`
+    + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}">`
+    + langFilter + stopSel
+    + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"> ${T.lexHideStop}</label>`
+    + `<span class="lx-views" role="group">`
+    + `<button data-view="freq" class="active">${T.lexFrequencies}</button>`
+    + `<button data-view="conc">${T.lexConcordance}</button>`
+    + `<button data-view="cloud">${T.lexCloud}</button></span></div>`
+    + `<section class="lx-view lx-freq"><table class="lx-table"><thead><tr>`
+    + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
+    + `<th class="lx-num">${T.lexAbs}</th><th class="lx-num">${T.lexRel}</th>`
+    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>`
+    + `<section class="lx-view lx-conc" hidden><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>`
+    + `<section class="lx-view lx-cloud" hidden></section>`
+    + `</main>`;
+
+  const conc = {};
+  for (const [form, occ] of Object.entries(L.concordance)) {
+    conc[form] = occ.map((o) => ({ b: o.before, k: o.form, a: o.after, href: `${pageFor(o.anchor)}#${o.anchor}` }));
+  }
+
+  const script = `
+(function(){
+  var FREQ=${jsonForScript(L.frequencies)};
+  var CONC=${jsonForScript(conc)};
+  var STOP=${jsonForScript(STOPWORDS)};
+  var MULTI=${multi ? 'true' : 'false'};
+  var main=document.querySelector('main.lexicon');
+  var tbody=main.querySelector('.lx-freq tbody');
+  var cloud=main.querySelector('.lx-cloud');
+  var search=main.querySelector('.lx-search');
+  var langsel=main.querySelector('.lx-langsel');
+  var stopsel=main.querySelector('.lx-stopsel');
+  var hidestop=main.querySelector('.lx-hidestop');
+  var manual={}; // words the reader flipped by hand: form -> true(stop)/false(kept)
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function isStop(f){
+    if(f.form in manual)return manual[f.form];
+    var list=STOP[stopsel.value]; if(!list)return false;
+    return list.indexOf(f.form)>-1;
+  }
+  function visible(f){
+    var q=search.value.trim().toLowerCase();
+    if(q&&f.form.indexOf(q)===-1)return false;
+    if(langsel&&langsel.value&&f.lang!==langsel.value)return false;
+    if(hidestop.checked&&isStop(f))return false;
+    return true;
+  }
+  function render(){
+    var rows=FREQ.filter(visible);
+    tbody.innerHTML=rows.slice(0,1500).map(function(f){
+      return '<tr data-form="'+esc(f.form)+'"'+(isStop(f)?' class="is-stop"':'')+'>'
+        +'<td class="lx-w">'+esc(f.form)+'</td>'
+        +(MULTI?'<td class="lx-lang">'+esc(f.lang||'')+'</td>':'')
+        +'<td class="lx-num">'+f.count+'</td>'
+        +'<td class="lx-num lx-rel">'+f.rel.toFixed(3)+'\\u2030</td>'
+        +'<td class="lx-num"><button class="lx-flip" title="'+(isStop(f)?'\\u2212':'+')+'">'+(isStop(f)?'\\u25CF':'\\u25CB')+'</button></td>'
+        +'</tr>';
+    }).join('');
+    var content=rows.filter(function(f){return !isStop(f);});
+    var top=content.slice(0,90);
+    var cmax=top.length?top[0].count:1, cmin=top.length?top[top.length-1].count:1;
+    var span=(Math.log(cmax)-Math.log(cmin))||1;
+    cloud.innerHTML=top.map(function(f){
+      var sz=14+Math.round((Math.log(f.count)-Math.log(cmin))/span*34);
+      return '<span class="lx-cloud-w" data-form="'+esc(f.form)+'" style="font-size:'+sz+'px" title="'+f.count+' ('+f.rel.toFixed(2)+'\\u2030)">'+esc(f.form)+'</span>';
+    }).join(' ');
+  }
+  function show(v){
+    main.querySelectorAll('.lx-view').forEach(function(s){s.hidden=!s.classList.contains('lx-'+v);});
+    main.querySelectorAll('.lx-views button').forEach(function(b){b.classList.toggle('active',b.dataset.view===v);});
+  }
+  main.querySelectorAll('.lx-views button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
+  function concord(form){
+    var occ=CONC[form.toLowerCase()]||[];
+    var out=main.querySelector('.lx-conc-out');
+    out.innerHTML=occ.length?'<table class="lx-kwic"><tbody>'+occ.map(function(o){
+      return '<tr><td class="lx-b">'+esc(o.b)+'</td><td class="lx-k"><a href="'+o.href+'">'+esc(o.k)+'</a></td><td class="lx-a">'+esc(o.a)+'</td></tr>';
+    }).join('')+'</tbody></table>':'<p class="occ">\\u2014</p>';
+  }
+  main.addEventListener('click',function(e){
+    var flip=e.target.closest('.lx-flip');
+    if(flip){var row=flip.closest('[data-form]');var form=row.getAttribute('data-form');
+      var f=FREQ.find(function(x){return x.form===form;});manual[form]=!isStop(f);render();e.stopPropagation();return;}
+    var w=e.target.closest('[data-form]');
+    if(w){search.value=w.getAttribute('data-form');concord(w.getAttribute('data-form'));show('conc');}
+  });
+  var timer;
+  search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q&&CONC[q])concord(q);},120);});
+  if(langsel)langsel.addEventListener('change',render);
+  stopsel.addEventListener('change',render);
+  hidestop.addEventListener('change',render);
+  render();
+})();`;
+
+  return chrome({ title: t, sub: T.lexicon.toLowerCase(), active: 'lexicon.html', pages,
+    body, script, t: T, lang, theme, parent });
 }
 
 // ---- src/manifest.js ----
@@ -3952,6 +4209,7 @@ function pressRegister({ model, docFiles, isApparatusDoc, manifest, t, T, lang, 
 
 
 
+
 function docFileName(id, taken) {
   let base = 'doc-' + String(id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   if (base === 'doc-') base = 'doc';
@@ -4028,6 +4286,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
   const hasLemmas = !!(model.lemmas && model.lemmas.entries.length)
     && manifest.pieces.lemmas !== false;
+  const hasLexicon = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexicon === true;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -4082,12 +4341,13 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
+    ...(hasLexicon ? [['lexicon', T.lexicon]] : []),
     ...(hasMap ? [['map', T.map]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
   const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, genesis: !!model.genetic, back: !!backNode,
-    indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
+    indices: hasIndices, lemmas: hasLemmas, lexicon: hasLexicon, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
   if (manifest.pages) {
@@ -4569,6 +4829,11 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
   if (hasLemmas && wanted.has('lemmas')) {
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
+  }
+
+  /* ---- lexicon.html: frequencies, concordance, cloud, chosen by the editor ---- */
+  if (hasLexicon && wanted.has('lexicon')) {
+    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages });
   }
 
   /* ---- data.html: the edition as downloadable data ---- */
@@ -5094,7 +5359,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
+   attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
    harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
@@ -5144,7 +5409,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     }
   }
 
+  let lastFiles = [];
   async function doPress(fileList) {
+    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
     // whole archive belongs in the repository that presses itself. Warn
     // rather than freeze, and let the editor go on if they mean to
@@ -5311,6 +5578,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       } catch (err) { notes.push('The review sheet could not be read: ' + err.message); }
     }
     attachLemmas(model, lemmasJson);
+    attachLexicon(model);
 
     // extra pages declared by a dropped manifest, resolved among the files
     const droppedExtra = [];
@@ -5370,6 +5638,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         persons: !(raw.pieces && raw.pieces.persons === false),
         places: !(raw.pieces && raw.pieces.places === false),
         orgs: !(raw.pieces && raw.pieces.orgs === false),
+        lexicon: !!(raw.pieces && raw.pieces.lexicon === true),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -5518,6 +5787,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
+    if (ui.pieces.lexicon) off.lexicon = true; // off by default, so record when on
     if (Object.keys(off).length) m.pieces = off;
     if (ui.extra.length) {
       m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
@@ -5741,11 +6011,38 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         + 'the title stays: it is the way into the documents.</p></fieldset>';
     }
 
-    html += '<fieldset><legend>Pieces and data</legend>'
+    // 1. the interactive layers of the text
+    html += '<fieldset><legend>Pieces</legend>'
       + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
       + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
+      + '> reading/diplomatic toggle</label> '
+      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
+      + '> data files (model, CSV, source)</label>'
+      + '<p class="note">Switching a piece off disables its interactive layer, '
+      + 'never the base rendering: nothing becomes invisible.</p></fieldset>';
+
+    // 2. words: lemmas and the lexicon, with their own review round trip
+    html += '<fieldset class="flow"><legend>Words: lemmas and lexicon</legend>'
+      + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
+      + '> index of lemmas, where the edition declares them</label> '
+      + '<label><input type="checkbox" id="c-lexicon"' + (ui.pieces.lexicon ? ' checked' : '')
+      + '> lexicon page (frequencies, concordance, cloud)</label>'
+      + '<p><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
+      + '<span class="note">Your text does not say the dictionary form of each word. I can ask a '
+      + 'language service (UDPipe, at the Charles University in Prague): <b>the text of your edition '
+      + 'will be sent to that service.</b> Nothing is decided without you.</span></p>'
+      + (S.lemmaTypes ? '<p><button type="button" id="c-lemma-sheet">Download the review sheet</button>'
+        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Correct what is wrong, choose '
+        + 'confirmed or rejected, save.</span></p>' : '')
+      + '<div class="dropmini" id="drop-lemmas"><span class="note">Drop the corrected lemma sheet here '
+      + '(or with the files).</span></div>'
+      + '</fieldset>';
+
+    // 3. names: the indices and the map, with their own review round trip
+    html += '<fieldset class="flow"><legend>Names: indices and map</legend>'
       + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
       + '> index of persons</label> '
       + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
@@ -5753,29 +6050,13 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '<label><input type="checkbox" id="c-orgs"' + (ui.pieces.orgs ? ' checked' : '')
       + '> index of organisations</label> '
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
-      + '> map, where places carry coordinates</label> '
-      + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
-      + '> lemma index, where the edition declares lemmas</label> '
-      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
-      + '> reading/diplomatic toggle</label> '
-      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
-      + '> data files (model, CSV, source)</label>'
-      + '<p class="note">Switching a piece off disables its interactive layer, '
-      + 'never the base rendering: nothing becomes invisible.</p>'
-      + '<div class="lemma-flow"><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
-      + '<span class="note">Your text does not say the dictionary form of each word. '
-      + 'I can ask a language service (UDPipe, at the Charles University in Prague): '
-      + '<b>the text of your edition will be sent to that service.</b> You then review the '
-      + 'suggestions in a spreadsheet and load it back. Nothing is decided without you.</span>'
-      + (S.lemmaTypes ? ' <button type="button" id="c-lemma-sheet">Download the review sheet</button>'
-        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Open it, correct what is wrong, '
-        + 'choose confirmed or rejected in the last column, save, and drop it back in with the files.</span>' : '')
-      + '</div>'
-      + '<div class="lemma-flow"><button type="button" id="c-entities-sheet">List the names to index and map</button>'
-      + '<span class="note">The persons, places and organisations your text names. '
-      + 'Confirm the real ones in a spreadsheet (for a place, fill its latitude and longitude, or leave them '
-      + 'for the map to stay empty), save, and drop it back in. The indices and the map are drawn from what '
-      + 'you confirmed. No name is looked up anywhere.</span></div>'
+      + '> map, where places carry coordinates</label>'
+      + '<p><button type="button" id="c-entities-sheet">List the names to index and map</button>'
+      + '<span class="note">The persons, places and organisations your text names. Confirm the real ones '
+      + '(for a place, fill its latitude and longitude), save. Indices and map are drawn from what you '
+      + 'confirmed; no name is looked up anywhere.</span></p>'
+      + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
+      + '(or with the files).</span></div>'
       + '</fieldset>';
 
     // the simple-page editor, hidden until needed
@@ -5815,6 +6096,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-persons', (el) => { ui.pieces.persons = el.checked; });
     bind('c-places', (el) => { ui.pieces.places = el.checked; });
     bind('c-orgs', (el) => { ui.pieces.orgs = el.checked; });
+    bind('c-lexicon', (el) => { ui.pieces.lexicon = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     const lemBtn = document.getElementById('c-lemmatize');
@@ -5823,6 +6105,18 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (sheetBtn) sheetBtn.addEventListener('click', downloadLemmaSheet);
     const entBtn = document.getElementById('c-entities-sheet');
     if (entBtn) entBtn.addEventListener('click', downloadEntitySheet);
+    // each review has its own dropzone: drop the corrected sheet, it is
+    // pressed together with the files already loaded
+    for (const id of ['drop-lemmas', 'drop-names']) {
+      const zone = document.getElementById(id);
+      if (!zone) continue;
+      zone.addEventListener('dragover', (ev) => { ev.preventDefault(); zone.classList.add('over'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+      zone.addEventListener('drop', (ev) => {
+        ev.preventDefault(); zone.classList.remove('over');
+        if (ev.dataTransfer.files.length) press([...lastFiles, ...ev.dataTransfer.files]);
+      });
+    }
     // the order of the pages is the order of the menu: it is dragged here
     // and travels in the manifest, so the site keeps it
     let dragged = null;
