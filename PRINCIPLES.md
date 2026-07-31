@@ -312,8 +312,8 @@ Specimen for teaching purposes.
 
 ## Audits
 
-**30 July 2026, 22:00. First machine audit**, run in parallel by three
-assistants (GPT-5.6 Sol, GPT-5.5, Claude Sonnet 5) reading the public
+**30 July 2026, 22:00. First machine audit**, run in parallel by four
+assistants (GPT-5.6 Sol, GPT-5.5, Claude Opus 5, Claude Sonnet 5) reading the public
 repository, and verified here by reproducing each claim against the code
 before touching anything.
 
