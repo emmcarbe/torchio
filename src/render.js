@@ -246,7 +246,10 @@ const DATA_ATTS = ['wit', 'source', 'resp', 'cert', 'ref', 'key', 'type', 'n',
   // (rend), what an image is (url, facs), why a reading is uncertain (reason),
   // how much is missing (unit, extent), the medium of a hand
   'rend', 'url', 'facs', 'reason', 'unit', 'extent', 'medium', 'corresp',
-  'subtype', 'function', 'style', 'rendition'];
+  // a canonical reference (cRef/target on a ref) says which locus a pointer
+  // aligns to (a CTS urn, a Keil citation): it must survive, or the edition
+  // loses the alignment it declared
+  'subtype', 'function', 'style', 'rendition', 'cRef'];
 
 /**
  * Default theme. Visual language after Emmanuela Carbé's "Risposte dei Savi"

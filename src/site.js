@@ -655,9 +655,13 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           .join(' · ')
         + '</nav>';
     }
-    // finding a name must be cheap: a search over everything, and a small
-    // red alphabet under each heading to jump straight to a letter
-    if (totalEntries > 20) {
+    // finding a name must be cheap: a search over everything (every section,
+    // not the first only: the input is page-level and the script filters every
+    // idx-table row), and a small red alphabet under each heading. It appears
+    // when the index is long OR when there is more than one section, so an
+    // edition with places or organisations always gets it, not only a long
+    // index of persons
+    if (totalEntries > 20 || shown.length > 1) {
       idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}"/>`;
     }
     let secIdx = -1;
