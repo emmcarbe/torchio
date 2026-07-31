@@ -2173,7 +2173,8 @@ const STRINGS = {
     skip: 'Skip to content', publishedWith: 'Published with',
     map: 'Map',
     lab: 'Lab',
-    labIntro: 'The analytical layer, kept apart from the edition: derived from the text, not attested by it.',
+    labAnalyses: 'Analyses',
+    labIntro: 'The analytical layer, kept apart from the edition: the indices, the quantitative analysis, the lemmas, the map — derived from the text, not attested by it. Choose one above.',
     labLexDesc: 'Frequencies, concordance (KWIC) and the token / type / TTR count.',
     labMapDesc: 'The places that carry coordinates.',
     mapAria: 'Map of the places of the edition',
@@ -2241,7 +2242,8 @@ const STRINGS = {
     skip: 'Vai al contenuto', publishedWith: 'Pubblicato con',
     map: 'Mappa',
     lab: 'Lab',
-    labIntro: 'Lo strato analitico, tenuto distinto dall\'edizione: derivato dal testo, non attestato da esso.',
+    labAnalyses: 'Analisi',
+    labIntro: 'Lo strato analitico, tenuto distinto dall\'edizione: gli indici, l\'analisi quantitativa, i lemmi, la mappa — derivati dal testo, non attestati da esso. Scegli sopra.',
     labLexDesc: 'Frequenze, concordanza (KWIC) e il conteggio di token / type / TTR.',
     labMapDesc: 'I luoghi che portano coordinate.',
     mapAria: "Mappa dei luoghi dell'edizione",
@@ -2863,7 +2865,7 @@ function setTextLang(l) { TEXT_LANG = l || null; }
 let EDITION_VERSION = null;
 function setEditionVersion(v) { EDITION_VERSION = v || null; }
 
-function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
+function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent, subnav = '' }) {
   const parentHref = parent ? safeURL(parent.href) : null;
   const nav = (parentHref ? `<a href="${escapeHTML(parentHref)}" class="up">${escapeHTML(parent.label)}</a>` : '')
     + pages
@@ -2883,6 +2885,10 @@ ${interactCSS}
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
 .torchio-nav a.up{color:var(--accent-soft)}
+.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;padding:10px 0 12px;margin:0 0 1.2em;border-bottom:1px solid var(--hair)}
+.torchio-subnav a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--soft);text-transform:uppercase}
+.torchio-subnav a.on{color:var(--accent)}
+.torchio-subnav a:hover{color:var(--ink);text-decoration:none}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -3018,6 +3024,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div class="tt"><h1>${escapeHTML(title)}</h1>${sub ? `<p class="sub">${escapeHTML(sub)}</p>` : ''}</div>
 <nav class="torchio-nav">${nav}</nav>
 </header>
+${subnav ? `<nav class="torchio-subnav" aria-label="${escapeHTML(t.lab || 'Lab')}">${subnav}</nav>` : ''}
 ${body}
 <footer class="torchio">${EDITION_VERSION ? `${t.version || 'version'} ${escapeHTML(EDITION_VERSION)} · ` : ''}${t.publishedWith} <span class="press">Torchio</span> ${escapeHTML(colophon())}</footer>
 ${script ? `<script>${script}<\/script>` : ''}
@@ -3228,7 +3235,7 @@ function applyGeoref(model, georefPlaces) {
 
 
 
-function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
+function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages, active = 'lemmas.html', subnav = '' }) {
     const L = model.lemmas;
     const KWIC_MAX = 30;
     const prov = [];
@@ -3286,7 +3293,7 @@ function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
     if(count)count.textContent=n;
   });
 })();`;
-    return chrome({ title: t, sub: T.lemmas.toLowerCase(), active: 'lemmas.html', pages, body: lem, script: lemmaJS, t: T, lang, theme, parent });
+    return chrome({ title: t, sub: T.lemmas.toLowerCase(), active, subnav, pages, body: lem, script: lemmaJS, t: T, lang, theme, parent });
 }
 
 // ---- src/lemmas.js ----
@@ -3768,7 +3775,7 @@ function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
 
 
 function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
-  active = 'lexicon.html', views = { freq: true, conc: true } }) {
+  active = 'lexicon.html', subnav = '', views = { freq: true, conc: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
   const chosen = ['freq', 'conc'].filter((v) => views[v]);
@@ -3950,7 +3957,7 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   (function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];if(f)concord(f.form);})();
 })();`;
 
-  return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, pages,
+  return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, subnav, pages,
     body, script, t: T, lang, theme, parent });
 }
 
@@ -4085,7 +4092,7 @@ const WORLD = [[[-59.57,-80.04],[-59.87,-80.55],[-60.16,-81.0],[-62.26,-80.86],[
 
 
 
-function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages, active = 'map.html' }) {
+function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages, active = 'map.html', subnav = '' }) {
     const lats = geoPlaces.map((p) => p.geo.lat);
     const lons = geoPlaces.map((p) => p.geo.lon);
     // the window widens until some coastline enters it: a single city in a
@@ -4191,7 +4198,7 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
         + `<td class="occ"><a href="https://www.openstreetmap.org/?mlat=${pl.geo.lat}&amp;mlon=${pl.geo.lon}#map=12/${pl.geo.lat}/${pl.geo.lon}">OSM</a></td></tr>`;
     }
     mapBody += '</table></main>';
-    return chrome({ title: t, sub: T.map.toLowerCase(), active, pages, body: mapBody, t: T, lang, theme, parent });
+    return chrome({ title: t, sub: T.map.toLowerCase(), active, subnav, pages, body: mapBody, t: T, lang, theme, parent });
 }
 
 // ---- src/md.js ----
@@ -4907,7 +4914,20 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   // and the map are analysis of the text, not the text the source attests. The
   // indices of names and places stay in the edition (an index is editorial
   // apparatus, not derived analysis)
-  const hasLab = hasLexicon || hasMap;
+  const hasLab = hasLexicon || hasMap || hasIndices || hasLemmas;
+  // Lab is a section with a sub-menu: the derived, analytical pages live under
+  // it — the indices, the quantitative analysis (the lexicon), the lemmas, the
+  // map — so the edition proper stays uncluttered above. A Lab subpage lights
+  // "Lab" in the top menu and its own entry in the sub-menu
+  const labItems = [
+    ...(hasIndices ? [['indices.html', T.indices]] : []),
+    ...(hasLexicon ? [['lexicon.html', T.labAnalyses]] : []),
+    ...(hasLemmas ? [['lemmas.html', T.lemmas]] : []),
+    ...(hasMap ? [['map.html', T.map]] : []),
+  ];
+  const labSubnav = (activeFile) => labItems
+    .map(([file, label]) => `<a href="${file}"${file === activeFile ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
+    .join('');
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -4960,8 +4980,6 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     ...(hasAppDocs ? [['apparatus', T.apparatus]] : []),
     ...(model.genetic ? [['genesis', T.genesis]] : []),
     ...(backNode ? [['back', backLabel]] : []),
-    ...(hasIndices ? [['indices', T.indices]] : []),
-    ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
     ...(hasLab ? [['lab', T.lab]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
@@ -5428,7 +5446,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   }
 
   /* ---- indices.html: the registries as pages ---- */
-  if (hasIndices && wanted.has('indices')) {
+  if (hasIndices && wanted.has('lab')) {
     let idx = '<main id="main" class="torchio">';
     const sections = [
       ...(idxOn.people ? [[T.people, reg.people]] : []),
@@ -5493,7 +5511,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   var up=document.querySelector('.totop');
   if(up){window.addEventListener('scroll',function(){up.hidden=window.scrollY<600;},{passive:true});}
 })();`;
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, script: idxJS, t: T, lang, theme, parent });
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'lab.html', subnav: labSubnav('indices.html'), pages, body: idx, script: idxJS, t: T, lang, theme, parent });
   }
 
   /* ---- genesis.html: the strata of the writing ---- */
@@ -5502,32 +5520,28 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   }
 
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
-  if (hasLemmas && wanted.has('lemmas')) {
-    out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
+  if (hasLemmas && wanted.has('lab')) {
+    out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages,
+      active: 'lab.html', subnav: labSubnav('lemmas.html') });
   }
 
   /* ---- lab.html: the analytical layer, with the lexicon and the map beneath
    *      it. Kept apart from the edition: derived, not attested. ---- */
   if (hasLab && wanted.has('lab')) {
-    const labParent = { href: 'lab.html', label: T.lab };
-    let labBody = `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p>`
-      + `<table class="idx-table">`;
-    if (hasLexicon) labBody += `<tr><td class="sigla"><a href="lexicon.html">${escapeHTML(T.lexicon)}</a></td>`
-      + `<td>${escapeHTML(T.labLexDesc)}</td></tr>`;
-    if (hasMap) labBody += `<tr><td class="sigla"><a href="map.html">${escapeHTML(T.map)}</a></td>`
-      + `<td>${escapeHTML(T.labMapDesc)}</td></tr>`;
-    labBody += `</table></main>`;
+    // the Lab landing: the sub-menu is in the chrome; the body says what Lab is
     out['lab.html'] = chrome({ title: t, sub: T.lab.toLowerCase(), active: 'lab.html', pages,
-      body: labBody, t: T, lang, theme, parent });
-    // the subpages carry Lab as their parent (the up link) and light Lab in the
-    // menu; they are reached through Lab, not as top-level menu items
+      subnav: labSubnav('lab.html'),
+      body: `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p></main>`,
+      t: T, lang, theme, parent });
+    // the subpages light "Lab" in the top menu and their own entry in the
+    // sub-menu; the indices and the lemmas are pressed above, with the same subnav
     if (hasLexicon) {
       out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme,
-        parent: labParent, active: 'lab.html', pages, views: lexViews });
+        parent, active: 'lab.html', subnav: labSubnav('lexicon.html'), pages, views: lexViews });
     }
     if (hasMap) {
       out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme,
-        parent: labParent, active: 'lab.html', pages });
+        parent, active: 'lab.html', subnav: labSubnav('map.html'), pages });
     }
   }
 
@@ -6843,10 +6857,10 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     // reconciled. Add the new ones (on by default); never touch a page already
     // listed, so one the editor deliberately turned off stays off. The list was
     // seeded once and never reconciled: that was the bug
-    // lexicon and map are subpages of lab, chosen in the Pieces step, not
-    // top-level menu items: they never enter the page list
-    const isMenuPage = (n) => n.endsWith('.html') && !n.startsWith('doc-')
-      && n !== 'lexicon.html' && n !== 'map.html';
+    // the Lab subpages (indices, lexicon, lemmas, map) are chosen in the Pieces
+    // step, not top-level menu items: they never enter the page list
+    const LAB_SUB = ['indices.html', 'lexicon.html', 'lemmas.html', 'map.html'];
+    const isMenuPage = (n) => n.endsWith('.html') && !n.startsWith('doc-') && LAB_SUB.indexOf(n) < 0;
     if (S.ui.pages) {
       for (const n of Object.keys(S.files)) {
         if (!isMenuPage(n)) continue;

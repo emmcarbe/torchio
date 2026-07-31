@@ -718,10 +718,10 @@
     // reconciled. Add the new ones (on by default); never touch a page already
     // listed, so one the editor deliberately turned off stays off. The list was
     // seeded once and never reconciled: that was the bug
-    // lexicon and map are subpages of lab, chosen in the Pieces step, not
-    // top-level menu items: they never enter the page list
-    const isMenuPage = (n) => n.endsWith('.html') && !n.startsWith('doc-')
-      && n !== 'lexicon.html' && n !== 'map.html';
+    // the Lab subpages (indices, lexicon, lemmas, map) are chosen in the Pieces
+    // step, not top-level menu items: they never enter the page list
+    const LAB_SUB = ['indices.html', 'lexicon.html', 'lemmas.html', 'map.html'];
+    const isMenuPage = (n) => n.endsWith('.html') && !n.startsWith('doc-') && LAB_SUB.indexOf(n) < 0;
     if (S.ui.pages) {
       for (const n of Object.keys(S.files)) {
         if (!isMenuPage(n)) continue;

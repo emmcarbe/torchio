@@ -15,7 +15,7 @@ import { chrome, jsonForScript } from './page-shell.js';
 import { STOPWORDS, STOPWORD_NAMES } from './lemmas.js';
 
 export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
-  active = 'lexicon.html', views = { freq: true, conc: true } }) {
+  active = 'lexicon.html', subnav = '', views = { freq: true, conc: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
   const chosen = ['freq', 'conc'].filter((v) => views[v]);
@@ -197,6 +197,6 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   (function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];if(f)concord(f.form);})();
 })();`;
 
-  return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, pages,
+  return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, subnav, pages,
     body, script, t: T, lang, theme, parent });
 }

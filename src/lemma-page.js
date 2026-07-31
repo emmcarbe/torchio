@@ -11,7 +11,7 @@
 import { escapeHTML } from './render.js';
 import { chrome } from './page-shell.js';
 
-export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
+export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages, active = 'lemmas.html', subnav = '' }) {
     const L = model.lemmas;
     const KWIC_MAX = 30;
     const prov = [];
@@ -69,5 +69,5 @@ export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, page
     if(count)count.textContent=n;
   });
 })();`;
-    return chrome({ title: t, sub: T.lemmas.toLowerCase(), active: 'lemmas.html', pages, body: lem, script: lemmaJS, t: T, lang, theme, parent });
+    return chrome({ title: t, sub: T.lemmas.toLowerCase(), active, subnav, pages, body: lem, script: lemmaJS, t: T, lang, theme, parent });
 }

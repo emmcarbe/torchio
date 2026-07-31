@@ -12,7 +12,7 @@ import { escapeHTML } from './render.js';
 import { chrome, jsonForScript } from './page-shell.js';
 import { WORLD } from './world-data.js';
 
-export function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages, active = 'map.html' }) {
+export function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages, active = 'map.html', subnav = '' }) {
     const lats = geoPlaces.map((p) => p.geo.lat);
     const lons = geoPlaces.map((p) => p.geo.lon);
     // the window widens until some coastline enters it: a single city in a
@@ -118,5 +118,5 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
         + `<td class="occ"><a href="https://www.openstreetmap.org/?mlat=${pl.geo.lat}&amp;mlon=${pl.geo.lon}#map=12/${pl.geo.lat}/${pl.geo.lon}">OSM</a></td></tr>`;
     }
     mapBody += '</table></main>';
-    return chrome({ title: t, sub: T.map.toLowerCase(), active, pages, body: mapBody, t: T, lang, theme, parent });
+    return chrome({ title: t, sub: T.map.toLowerCase(), active, subnav, pages, body: mapBody, t: T, lang, theme, parent });
 }

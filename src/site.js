@@ -122,7 +122,20 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   // and the map are analysis of the text, not the text the source attests. The
   // indices of names and places stay in the edition (an index is editorial
   // apparatus, not derived analysis)
-  const hasLab = hasLexicon || hasMap;
+  const hasLab = hasLexicon || hasMap || hasIndices || hasLemmas;
+  // Lab is a section with a sub-menu: the derived, analytical pages live under
+  // it — the indices, the quantitative analysis (the lexicon), the lemmas, the
+  // map — so the edition proper stays uncluttered above. A Lab subpage lights
+  // "Lab" in the top menu and its own entry in the sub-menu
+  const labItems = [
+    ...(hasIndices ? [['indices.html', T.indices]] : []),
+    ...(hasLexicon ? [['lexicon.html', T.labAnalyses]] : []),
+    ...(hasLemmas ? [['lemmas.html', T.lemmas]] : []),
+    ...(hasMap ? [['map.html', T.map]] : []),
+  ];
+  const labSubnav = (activeFile) => labItems
+    .map(([file, label]) => `<a href="${file}"${file === activeFile ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
+    .join('');
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -175,8 +188,6 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ...(hasAppDocs ? [['apparatus', T.apparatus]] : []),
     ...(model.genetic ? [['genesis', T.genesis]] : []),
     ...(backNode ? [['back', backLabel]] : []),
-    ...(hasIndices ? [['indices', T.indices]] : []),
-    ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
     ...(hasLab ? [['lab', T.lab]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
@@ -643,7 +654,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   }
 
   /* ---- indices.html: the registries as pages ---- */
-  if (hasIndices && wanted.has('indices')) {
+  if (hasIndices && wanted.has('lab')) {
     let idx = '<main id="main" class="torchio">';
     const sections = [
       ...(idxOn.people ? [[T.people, reg.people]] : []),
@@ -708,7 +719,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   var up=document.querySelector('.totop');
   if(up){window.addEventListener('scroll',function(){up.hidden=window.scrollY<600;},{passive:true});}
 })();`;
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, script: idxJS, t: T, lang, theme, parent });
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'lab.html', subnav: labSubnav('indices.html'), pages, body: idx, script: idxJS, t: T, lang, theme, parent });
   }
 
   /* ---- genesis.html: the strata of the writing ---- */
@@ -717,32 +728,28 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   }
 
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */
-  if (hasLemmas && wanted.has('lemmas')) {
-    out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
+  if (hasLemmas && wanted.has('lab')) {
+    out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages,
+      active: 'lab.html', subnav: labSubnav('lemmas.html') });
   }
 
   /* ---- lab.html: the analytical layer, with the lexicon and the map beneath
    *      it. Kept apart from the edition: derived, not attested. ---- */
   if (hasLab && wanted.has('lab')) {
-    const labParent = { href: 'lab.html', label: T.lab };
-    let labBody = `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p>`
-      + `<table class="idx-table">`;
-    if (hasLexicon) labBody += `<tr><td class="sigla"><a href="lexicon.html">${escapeHTML(T.lexicon)}</a></td>`
-      + `<td>${escapeHTML(T.labLexDesc)}</td></tr>`;
-    if (hasMap) labBody += `<tr><td class="sigla"><a href="map.html">${escapeHTML(T.map)}</a></td>`
-      + `<td>${escapeHTML(T.labMapDesc)}</td></tr>`;
-    labBody += `</table></main>`;
+    // the Lab landing: the sub-menu is in the chrome; the body says what Lab is
     out['lab.html'] = chrome({ title: t, sub: T.lab.toLowerCase(), active: 'lab.html', pages,
-      body: labBody, t: T, lang, theme, parent });
-    // the subpages carry Lab as their parent (the up link) and light Lab in the
-    // menu; they are reached through Lab, not as top-level menu items
+      subnav: labSubnav('lab.html'),
+      body: `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p></main>`,
+      t: T, lang, theme, parent });
+    // the subpages light "Lab" in the top menu and their own entry in the
+    // sub-menu; the indices and the lemmas are pressed above, with the same subnav
     if (hasLexicon) {
       out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme,
-        parent: labParent, active: 'lab.html', pages, views: lexViews });
+        parent, active: 'lab.html', subnav: labSubnav('lexicon.html'), pages, views: lexViews });
     }
     if (hasMap) {
       out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme,
-        parent: labParent, active: 'lab.html', pages });
+        parent, active: 'lab.html', subnav: labSubnav('map.html'), pages });
     }
   }
 

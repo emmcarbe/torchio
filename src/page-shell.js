@@ -64,7 +64,7 @@ export function setTextLang(l) { TEXT_LANG = l || null; }
 let EDITION_VERSION = null;
 export function setEditionVersion(v) { EDITION_VERSION = v || null; }
 
-export function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
+export function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent, subnav = '' }) {
   const parentHref = parent ? safeURL(parent.href) : null;
   const nav = (parentHref ? `<a href="${escapeHTML(parentHref)}" class="up">${escapeHTML(parent.label)}</a>` : '')
     + pages
@@ -84,6 +84,10 @@ ${interactCSS}
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
 .torchio-nav a.up{color:var(--accent-soft)}
+.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;padding:10px 0 12px;margin:0 0 1.2em;border-bottom:1px solid var(--hair)}
+.torchio-subnav a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--soft);text-transform:uppercase}
+.torchio-subnav a.on{color:var(--accent)}
+.torchio-subnav a:hover{color:var(--ink);text-decoration:none}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -219,6 +223,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <div class="tt"><h1>${escapeHTML(title)}</h1>${sub ? `<p class="sub">${escapeHTML(sub)}</p>` : ''}</div>
 <nav class="torchio-nav">${nav}</nav>
 </header>
+${subnav ? `<nav class="torchio-subnav" aria-label="${escapeHTML(t.lab || 'Lab')}">${subnav}</nav>` : ''}
 ${body}
 <footer class="torchio">${EDITION_VERSION ? `${t.version || 'version'} ${escapeHTML(EDITION_VERSION)} · ` : ''}${t.publishedWith} <span class="press">Torchio</span> ${escapeHTML(colophon())}</footer>
 ${script ? `<script>${script}</script>` : ''}
