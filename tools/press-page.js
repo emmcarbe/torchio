@@ -66,6 +66,24 @@
   }
 
   async function doPress(fileList) {
+    // the browser presses in memory: fine for composing and trying, but a
+    // whole archive belongs in the repository that presses itself. Warn
+    // rather than freeze, and let the editor go on if they mean to
+    const xmlCount = [...fileList].filter((f) => /\.(xml|tei)$/i.test(f.name)).length;
+    let totalBytes = 0;
+    for (const f of fileList) totalBytes += f.size || 0;
+    if ((xmlCount > 200 || totalBytes > 60 * 1024 * 1024)
+      && !window.__torchioBig) {
+      window.__torchioBig = true;
+      const big = xmlCount > 200 ? xmlCount + ' files' : Math.round(totalBytes / 1048576) + ' MB';
+      if (!confirm('This is a large edition (' + big + '). The press works entirely in this '
+        + 'browser tab, in memory: past a certain size the tab can run out of memory and stop. '
+        + 'For composing and trying, load a part of the edition here; press the whole from the '
+        + 'repository that presses itself (see USAGE). Try to press all of it anyway?')) {
+        window.__torchioBig = false;
+        throw new Error('Pressing cancelled: load a smaller part here, or press the whole edition from its repository.');
+      }
+    }
     const texts = new Map();
     let reviewSheet = null;
     for (const f of fileList) {
