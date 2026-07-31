@@ -15,6 +15,8 @@ import { resolveIncludes } from '../src/xinclude.js';
 import { loadBaseData, buildClassMap } from '../src/classes.js';
 import { buildModel } from '../src/model.js';
 import { reconcile } from '../src/reconcile.js';
+import { buildXLSX } from '../src/xlsx.js';
+import { readZip } from '../src/zip.js';
 
 const [input, outArg] = process.argv.slice(2);
 if (!input) {
@@ -49,6 +51,35 @@ if (inputStat.isDirectory()) {
 const data = await loadBaseData();
 const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, buildClassMap(null, data));
 
+// a reviewed places sheet (.xlsx) folds the editor's decisions back into
+// reconcile.json: the same round trip as the browser, from the command line
+if (outArg && /\.xlsx$/i.test(outArg)) {
+  const jsonPath = inputStat.isDirectory() ? join(input, 'reconcile.json') : join(dirname(input), 'reconcile.json');
+  let table = { entities: { place: {}, person: {}, org: {} } };
+  try { table = JSON.parse(await readFile(jsonPath, 'utf-8')); } catch {}
+  const parts = readZip(new Uint8Array(await readFile(outArg)));
+  const sheet = parts.get('xl/worksheets/sheet1.xml') || '';
+  const rows = [];
+  for (const rowXml of sheet.match(/<row[\s\S]*?<\/row>/g) || []) {
+    rows.push([...rowXml.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)]
+      .map((m) => m[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')));
+  }
+  const head = rows.shift() || [];
+  const iK = head.indexOf('key'), iS = head.indexOf('status'), iLa = head.indexOf('lat'), iLo = head.indexOf('lon');
+  let applied = 0;
+  for (const r of rows) {
+    const key = r[iK]; if (!key || !table.entities.place[key]) continue;
+    const e = table.entities.place[key];
+    if (iS >= 0 && r[iS]) e.status = r[iS];
+    const lat = Number(r[iLa]), lon = Number(r[iLo]);
+    if (Number.isFinite(lat) && Number.isFinite(lon)) { e.lat = lat; e.lon = lon; }
+    applied++;
+  }
+  await writeFile(jsonPath, JSON.stringify(table, null, 1));
+  console.error(`applied ${applied} reviewed places to ${jsonPath}`);
+  process.exit(0);
+}
+
 let previous = {};
 try { previous = JSON.parse(await readFile(outPath, 'utf-8')).entities || {}; } catch {}
 
@@ -58,6 +89,24 @@ await writeFile(outPath, JSON.stringify({
   howto: 'review each entry: set status to "confirmed" (correcting data if needed) or "rejected"; fill in data for "missing". Your edits survive re-runs.',
   entities,
 }, null, 1));
+
+// the places sheet: what the gazetteer answered, for the editor to judge.
+// The form in the text, the canonical name found, where it came from
+const placeRows = Object.entries(entities.place).map(([key, e]) => [
+  e.label || key, e.found || '', e.matched ? 'variant \u2192 ' + e.found : (e.source || ''),
+  e.lat == null ? '' : e.lat, e.lon == null ? '' : e.lon, e.status || 'suggested',
+  (e.alternatives || []).map((a) => a.name + ' (' + a.country + ')').join('; '), key,
+]);
+if (placeRows.length) {
+  const xlsxPath = outPath.replace(/\.json$/i, '') + '-places.xlsx';
+  const xlsx = buildXLSX(
+    ['label', 'found', 'source', 'lat', 'lon', 'status', 'alternatives', 'key'],
+    placeRows,
+    { sheet: 'Places', widths: [18, 18, 16, 10, 10, 12, 40, 1],
+      choices: { col: 5, options: ['confirmed', 'rejected', 'suggested'] } });
+  await writeFile(xlsxPath, xlsx);
+  console.error(`  places sheet: ${xlsxPath} (open it, confirm or reject, then: node tools/reconcile.js <input> ${xlsxPath})`);
+}
 
 console.error(`reconcile: ${outPath}`);
 console.error(`  suggested: ${stats.suggested} · missing (editor fills in): ${stats.missing} · editor decisions kept: ${stats.kept}`);

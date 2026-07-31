@@ -90,7 +90,11 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const resp = (model.meta.responsibility || []).map((r) => r.name).filter(Boolean).join(' · ');
   const reg = model.registries;
   const hasOcc = (entries) => entries.some((e) => e.occurrences && e.occurrences.length);
-  const hasIndices = hasOcc(reg.people) || hasOcc(reg.places) || hasOcc(reg.orgs);
+  // each index is the editor's own choice: persons, places, organisations
+  const idxOn = { people: manifest.pieces.persons !== false,
+    places: manifest.pieces.places !== false, orgs: manifest.pieces.orgs !== false };
+  const hasIndices = (idxOn.people && hasOcc(reg.people))
+    || (idxOn.places && hasOcc(reg.places)) || (idxOn.orgs && hasOcc(reg.orgs));
   const geoPlaces = reg.places.filter((p) => p.geo);
   // the markup makes a page possible; the editor decides whether it belongs
   // to this edition. A map or a lemma index switched off in the manifest is
@@ -600,7 +604,10 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   /* ---- indices.html: the registries as pages ---- */
   if (hasIndices && wanted.has('indices')) {
     let idx = '<main id="main" class="torchio">';
-    const sections = [[T.people, reg.people], [T.places, reg.places], [T.orgs, reg.orgs]];
+    const sections = [
+      ...(idxOn.people ? [[T.people, reg.people]] : []),
+      ...(idxOn.places ? [[T.places, reg.places]] : []),
+      ...(idxOn.orgs ? [[T.orgs, reg.orgs]] : [])];
     // long indices open with an index of the indices: one line of anchors
     // (index of names, of places...) with the count of each
     const shown = sections.filter(([, entries]) => hasOcc(entries));

@@ -270,6 +270,9 @@
         choice: !(raw.pieces && raw.pieces.choice === false),
         map: !(raw.pieces && raw.pieces.map === false),
         lemmas: !(raw.pieces && raw.pieces.lemmas === false),
+        persons: !(raw.pieces && raw.pieces.persons === false),
+        places: !(raw.pieces && raw.pieces.places === false),
+        orgs: !(raw.pieces && raw.pieces.orgs === false),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -415,7 +418,7 @@
     if (ui.theme) m.theme = ui.theme;
     if (ui.genre) m.genre = ui.genre;
     const off = {};
-    for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas']) {
+    for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
     if (Object.keys(off).length) m.pieces = off;
@@ -646,6 +649,12 @@
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
       + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
+      + '> index of persons</label> '
+      + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
+      + '> index of places</label> '
+      + '<label><input type="checkbox" id="c-orgs"' + (ui.pieces.orgs ? ' checked' : '')
+      + '> index of organisations</label> '
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
       + '> map, where places carry coordinates</label> '
       + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
@@ -706,6 +715,9 @@
     bind('c-theme', (el) => { ui.theme = el.value; });
     bind('c-apparatus', (el) => { ui.pieces.apparatus = el.checked; });
     bind('c-map', (el) => { ui.pieces.map = el.checked; });
+    bind('c-persons', (el) => { ui.pieces.persons = el.checked; });
+    bind('c-places', (el) => { ui.pieces.places = el.checked; });
+    bind('c-orgs', (el) => { ui.pieces.orgs = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     const lemBtn = document.getElementById('c-lemmatize');

@@ -14,6 +14,7 @@ import sys, os, json, io, zipfile, unicodedata, urllib.request
 from collections import defaultdict
 
 URL = "https://download.geonames.org/export/dump/cities1000.zip"
+ALT_URL = "https://download.geonames.org/export/dump/alternateNamesV2.zip"
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "data-local")
 OUT = os.path.join(OUT_DIR, "gazetteer.json")
 
@@ -54,12 +55,52 @@ for line in io.TextIOWrapper(zf.open(name), encoding="utf-8"):
             gaz[k].append(entry)
     rows += 1
 
+# historical and Latin forms live in the full alternateNames file, tagged by
+# language (la for Latin, grc for ancient Greek, plus dated names). An edition
+# of a Latin text needs "Romae" to find Rome: the gazetteer declares it, the
+# engine never guesses it. Pass the alternateNames file as the second argument,
+# or set TORCHIO_ALTNAMES to its path; skipped if absent.
+kept_ids = {e[5] for entries in gaz.values() for e in entries}
+alt_path = sys.argv[2] if len(sys.argv) > 2 else os.environ.get("TORCHIO_ALTNAMES")
+alt_added = 0
+if alt_path and os.path.exists(alt_path):
+    canon = {}
+    for entries in gaz.values():
+        for e in entries:
+            canon.setdefault(e[5], e)
+    azf = zipfile.ZipFile(alt_path)
+    aname = [n for n in azf.namelist() if n.endswith(".txt")][0]
+    HIST_LANGS = {"la", "grc", "lad", ""}  # Latin, ancient Greek, historical, unlabelled
+    for line in io.TextIOWrapper(azf.open(aname), encoding="utf-8"):
+        a = line.rstrip("\n").split("\t")
+        if len(a) < 4:
+            continue
+        gid, lang, alt = a[1], a[2], a[3]
+        try:
+            gid = int(gid)
+        except ValueError:
+            continue
+        if gid not in kept_ids or lang not in HIST_LANGS:
+            continue
+        if not (0 < len(alt) <= 40 and alt.count(" ") <= 3):
+            continue
+        base = canon.get(gid)
+        if base:
+            gaz[norm(alt)].append(base)
+            alt_added += 1
+else:
+    print("note: no alternateNames file (pass it as the 2nd argument or set TORCHIO_ALTNAMES);")
+    print("      Latin and historical variants beyond the inline names will be missing.")
+
 for k in gaz:
-    gaz[k].sort(key=lambda e: -e[4])
-    gaz[k] = gaz[k][:5]
+    # de-duplicate by geonames id, then order by population
+    seen = {}
+    for e in gaz[k]:
+        seen.setdefault(e[5], e)
+    gaz[k] = sorted(seen.values(), key=lambda e: -e[4])[:5]
 
 os.makedirs(OUT_DIR, exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(gaz, fh, ensure_ascii=False, separators=(",", ":"))
-print(f"{OUT}: {rows} GeoNames rows, {len(gaz)} keys")
+print(f"{OUT}: {rows} GeoNames rows, {alt_added} historical/Latin names, {len(gaz)} keys")
 print("Attribution required: GeoNames.org (CC BY 4.0)")

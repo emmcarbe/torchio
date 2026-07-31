@@ -55,7 +55,8 @@ export function normalizeManifest(raw = {}) {
     // register wears and what the pages are called. Declared, never guessed
     genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
       ? raw.genre : null,
-    pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true, ...(raw.pieces || {}) },
+    pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
+      persons: true, places: true, orgs: true, ...(raw.pieces || {}) },
     align: raw.align && typeof raw.align === 'object' ? {
       elements: Array.isArray(raw.align.elements) ? raw.align.elements.map(String) : ['l'],
       strip: raw.align.strip ? String(raw.align.strip) : null,

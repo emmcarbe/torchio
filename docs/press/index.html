@@ -3188,7 +3188,8 @@ function normalizeManifest(raw = {}) {
     // register wears and what the pages are called. Declared, never guessed
     genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
       ? raw.genre : null,
-    pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true, ...(raw.pieces || {}) },
+    pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
+      persons: true, places: true, orgs: true, ...(raw.pieces || {}) },
     align: raw.align && typeof raw.align === 'object' ? {
       elements: Array.isArray(raw.align.elements) ? raw.align.elements.map(String) : ['l'],
       strip: raw.align.strip ? String(raw.align.strip) : null,
@@ -3600,6 +3601,21 @@ function reconcile(model, sources = {}, previous = {}) {
   const harvested = harvest(model);
   const entities = { place: {}, person: {}, org: {} };
   const stats = { suggested: 0, missing: 0, kept: 0 };
+  // the coordinates the editor has already settled, from the TEI or from a
+  // previous confirmation: they pull ambiguous forms toward the right region
+  const anchors = [];
+  for (const e of registryFor(model, 'place')) if (e.geo) anchors.push([e.geo.lat, e.geo.lon]);
+  for (const r of Object.values(previous.place || {})) {
+    if (r && r.status === 'confirmed' && r.lat != null && r.lon != null) anchors.push([r.lat, r.lon]);
+  }
+  const nearest = (lat, lon, pts) => {
+    let best = Infinity;
+    for (const [pa, po] of pts) {
+      const d = (lat - pa) * (lat - pa) + (lon - po) * (lon - po);
+      if (d < best) best = d;
+    }
+    return best;
+  };
 
   for (const type of Object.keys(harvested)) {
     for (const h of harvested[type]) {
@@ -3612,11 +3628,21 @@ function reconcile(model, sources = {}, previous = {}) {
         continue;
       }
       if (type === 'place' && sources.gazetteer) {
-        const hits = sources.gazetteer[h.key] || [];
+        const hits = [...(sources.gazetteer[h.key] || [])];
         if (hits.length) {
+          // spatial coherence: among candidates for one form, the one nearest
+          // the places the editor already confirmed comes first. Suvó in Kyushu
+          // beats Suvó in Fiji when the edition is a Japan mission (declarative
+          // re-rank, never invented: the anchors are the editor's own)
+          if (anchors.length) {
+            hits.sort((a, b) => nearest(a[1], a[2], anchors) - nearest(b[1], b[2], anchors));
+          }
           const [name, lat, lon, country, pop, id] = hits[0];
           entities.place[h.key] = {
             label: h.label, status: 'suggested', source: 'geonames',
+            // provenance: which form was queried and which canonical name the
+            // gazetteer answered with (Romae -> Roma), so the editor can judge
+            found: name, matched: h.label !== name ? h.label : null,
             lat, lon, country, geonames: id,
             alternatives: hits.slice(1, 5).map(([n2, la, lo, c2, p2, i2]) =>
               ({ name: n2, lat: la, lon: lo, country: c2, population: p2, geonames: i2 })),
@@ -3989,7 +4015,11 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const resp = (model.meta.responsibility || []).map((r) => r.name).filter(Boolean).join(' · ');
   const reg = model.registries;
   const hasOcc = (entries) => entries.some((e) => e.occurrences && e.occurrences.length);
-  const hasIndices = hasOcc(reg.people) || hasOcc(reg.places) || hasOcc(reg.orgs);
+  // each index is the editor's own choice: persons, places, organisations
+  const idxOn = { people: manifest.pieces.persons !== false,
+    places: manifest.pieces.places !== false, orgs: manifest.pieces.orgs !== false };
+  const hasIndices = (idxOn.people && hasOcc(reg.people))
+    || (idxOn.places && hasOcc(reg.places)) || (idxOn.orgs && hasOcc(reg.orgs));
   const geoPlaces = reg.places.filter((p) => p.geo);
   // the markup makes a page possible; the editor decides whether it belongs
   // to this edition. A map or a lemma index switched off in the manifest is
@@ -4499,7 +4529,10 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   /* ---- indices.html: the registries as pages ---- */
   if (hasIndices && wanted.has('indices')) {
     let idx = '<main id="main" class="torchio">';
-    const sections = [[T.people, reg.people], [T.places, reg.places], [T.orgs, reg.orgs]];
+    const sections = [
+      ...(idxOn.people ? [[T.people, reg.people]] : []),
+      ...(idxOn.places ? [[T.places, reg.places]] : []),
+      ...(idxOn.orgs ? [[T.orgs, reg.orgs]] : [])];
     // long indices open with an index of the indices: one line of anchors
     // (index of names, of places...) with the count of each
     const shown = sections.filter(([, entries]) => hasOcc(entries));
@@ -5316,6 +5349,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         choice: !(raw.pieces && raw.pieces.choice === false),
         map: !(raw.pieces && raw.pieces.map === false),
         lemmas: !(raw.pieces && raw.pieces.lemmas === false),
+        persons: !(raw.pieces && raw.pieces.persons === false),
+        places: !(raw.pieces && raw.pieces.places === false),
+        orgs: !(raw.pieces && raw.pieces.orgs === false),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -5461,7 +5497,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (ui.theme) m.theme = ui.theme;
     if (ui.genre) m.genre = ui.genre;
     const off = {};
-    for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas']) {
+    for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
     if (Object.keys(off).length) m.pieces = off;
@@ -5692,6 +5728,12 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
       + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
+      + '> index of persons</label> '
+      + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
+      + '> index of places</label> '
+      + '<label><input type="checkbox" id="c-orgs"' + (ui.pieces.orgs ? ' checked' : '')
+      + '> index of organisations</label> '
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
       + '> map, where places carry coordinates</label> '
       + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
@@ -5752,6 +5794,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-theme', (el) => { ui.theme = el.value; });
     bind('c-apparatus', (el) => { ui.pieces.apparatus = el.checked; });
     bind('c-map', (el) => { ui.pieces.map = el.checked; });
+    bind('c-persons', (el) => { ui.pieces.persons = el.checked; });
+    bind('c-places', (el) => { ui.pieces.places = el.checked; });
+    bind('c-orgs', (el) => { ui.pieces.orgs = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     const lemBtn = document.getElementById('c-lemmatize');

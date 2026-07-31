@@ -80,6 +80,21 @@ export function reconcile(model, sources = {}, previous = {}) {
   const harvested = harvest(model);
   const entities = { place: {}, person: {}, org: {} };
   const stats = { suggested: 0, missing: 0, kept: 0 };
+  // the coordinates the editor has already settled, from the TEI or from a
+  // previous confirmation: they pull ambiguous forms toward the right region
+  const anchors = [];
+  for (const e of registryFor(model, 'place')) if (e.geo) anchors.push([e.geo.lat, e.geo.lon]);
+  for (const r of Object.values(previous.place || {})) {
+    if (r && r.status === 'confirmed' && r.lat != null && r.lon != null) anchors.push([r.lat, r.lon]);
+  }
+  const nearest = (lat, lon, pts) => {
+    let best = Infinity;
+    for (const [pa, po] of pts) {
+      const d = (lat - pa) * (lat - pa) + (lon - po) * (lon - po);
+      if (d < best) best = d;
+    }
+    return best;
+  };
 
   for (const type of Object.keys(harvested)) {
     for (const h of harvested[type]) {
@@ -92,11 +107,21 @@ export function reconcile(model, sources = {}, previous = {}) {
         continue;
       }
       if (type === 'place' && sources.gazetteer) {
-        const hits = sources.gazetteer[h.key] || [];
+        const hits = [...(sources.gazetteer[h.key] || [])];
         if (hits.length) {
+          // spatial coherence: among candidates for one form, the one nearest
+          // the places the editor already confirmed comes first. Suvó in Kyushu
+          // beats Suvó in Fiji when the edition is a Japan mission (declarative
+          // re-rank, never invented: the anchors are the editor's own)
+          if (anchors.length) {
+            hits.sort((a, b) => nearest(a[1], a[2], anchors) - nearest(b[1], b[2], anchors));
+          }
           const [name, lat, lon, country, pop, id] = hits[0];
           entities.place[h.key] = {
             label: h.label, status: 'suggested', source: 'geonames',
+            // provenance: which form was queried and which canonical name the
+            // gazetteer answered with (Romae -> Roma), so the editor can judge
+            found: name, matched: h.label !== name ? h.label : null,
             lat, lon, country, geonames: id,
             alternatives: hits.slice(1, 5).map(([n2, la, lo, c2, p2, i2]) =>
               ({ name: n2, lat: la, lon: lo, country: c2, population: p2, geonames: i2 })),
