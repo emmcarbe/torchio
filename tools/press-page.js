@@ -718,9 +718,13 @@
     // reconciled. Add the new ones (on by default); never touch a page already
     // listed, so one the editor deliberately turned off stays off. The list was
     // seeded once and never reconciled: that was the bug
+    // lexicon and map are subpages of lab, chosen in the Pieces step, not
+    // top-level menu items: they never enter the page list
+    const isMenuPage = (n) => n.endsWith('.html') && !n.startsWith('doc-')
+      && n !== 'lexicon.html' && n !== 'map.html';
     if (S.ui.pages) {
       for (const n of Object.keys(S.files)) {
-        if (!n.endsWith('.html') || n.startsWith('doc-')) continue;
+        if (!isMenuPage(n)) continue;
         const id = n.replace(/\.html$/, '');
         if (!(id in S.ui.pages)) S.ui.pages[id] = { on: true, label: '' };
       }
@@ -729,7 +733,7 @@
     // first pressing: learn which pages the markup activates, seed the page list
     if (!S.ui.pages) {
       const ids = Object.keys(S.files)
-        .filter((n) => n.endsWith('.html') && !n.startsWith('doc-'))
+        .filter(isMenuPage)
         .map((n) => n.replace(/\.html$/, ''));
       S.ui.pages = {};
       const fromManifest = new Map();

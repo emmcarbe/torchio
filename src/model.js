@@ -320,8 +320,9 @@ export function buildModel(docs, classMap) {
         for (const t of node.atts.ref.split(/\s+/)) {
           const entry = resolveId(t, doc.id);
           if (entry) { entry.occurrences.push(node.id); continue; }
-          if (/^https?:\/\//.test(t) && MENTION_REGISTRY[node.element]) {
-            addIdentity(MENTION_REGISTRY[node.element], t,
+          const reg = mentionRegistryOf(node);
+          if (/^https?:\/\//.test(t) && reg) {
+            addIdentity(reg, t,
               textOfModel(node).trim().replace(/\s+/g, ' ') || t, node, true);
           }
         }
@@ -331,8 +332,9 @@ export function buildModel(docs, classMap) {
         if (!k) continue;
         const entry = resolveId(k, doc.id);
         if (entry) entry.occurrences.push(node.id);
-        else if (MENTION_REGISTRY[node.element]) {
-          addIdentity(MENTION_REGISTRY[node.element], k, k, node, false);
+        else {
+          const reg = mentionRegistryOf(node);
+          if (reg) addIdentity(reg, k, k, node, false);
         }
       }
     }
@@ -578,8 +580,26 @@ const REGISTRY_ELEMENTS = {
 const MENTION_REGISTRY = {
   persName: 'people', author: 'people',
   placeName: 'places', settlement: 'places', geogName: 'places', origPlace: 'places',
+  region: 'places', country: 'places', district: 'places', bloc: 'places', pubPlace: 'places',
   orgName: 'orgs', institution: 'orgs', repository: 'orgs',
 };
+
+/** Which registry a mention belongs to. An editor may mark a person or a place
+ *  with a dedicated element (persName, placeName) or with a generic <name> or
+ *  <rs> disambiguated by @type: both are recognised, so the tool does not force
+ *  one encoding typology on the edition. A bare generic <name>/<rs> with no
+ *  @type is left unmapped: the machine does not guess what it is. */
+function mentionRegistryOf(node) {
+  const direct = MENTION_REGISTRY[node.element];
+  if (direct) return direct;
+  if (node.element === 'name' || node.element === 'rs') {
+    const t = (node.atts.type || '').toLowerCase();
+    if (/^(person|pers|people|persname)$/.test(t)) return 'people';
+    if (/^(place|loc|location|settlement|geog|geogname|placename)$/.test(t)) return 'places';
+    if (/^(org|organization|organisation|institution|orgname)$/.test(t)) return 'orgs';
+  }
+  return null;
+}
 
 function collectRegistries(node, reg, idMap) {
   const key = REGISTRY_ELEMENTS[node.element];

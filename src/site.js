@@ -117,6 +117,12 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const hasLexicon = !!(model.lexicon && model.lexicon.total)
     && (lexViews.freq || lexViews.conc);
   const hasLexStats = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexStats === true;
+  // the derived, analytical layer lives under one root, "Lab", kept apart from
+  // the edition: the lexicon (frequencies, concordance, the token/type count)
+  // and the map are analysis of the text, not the text the source attests. The
+  // indices of names and places stay in the edition (an index is editorial
+  // apparatus, not derived analysis)
+  const hasLab = hasLexicon || hasMap;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -171,13 +177,12 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
-    ...(hasLexicon ? [['lexicon', T.lexicon]] : []),
-    ...(hasMap ? [['map', T.map]] : []),
+    ...(hasLab ? [['lab', T.lab]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
   const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, genesis: !!model.genetic, back: !!backNode,
-    indices: hasIndices, lemmas: hasLemmas, lexicon: hasLexicon, map: hasMap, data: hasData };
+    indices: hasIndices, lemmas: hasLemmas, lab: hasLab, lexicon: hasLexicon, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
   if (manifest.pages) {
@@ -716,9 +721,29 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
   }
 
-  /* ---- lexicon.html: frequencies, concordance, chosen by the editor ---- */
-  if (hasLexicon && wanted.has('lexicon')) {
-    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages, views: lexViews });
+  /* ---- lab.html: the analytical layer, with the lexicon and the map beneath
+   *      it. Kept apart from the edition: derived, not attested. ---- */
+  if (hasLab && wanted.has('lab')) {
+    const labParent = { href: 'lab.html', label: T.lab };
+    let labBody = `<main id="main" class="torchio"><p class="note">${escapeHTML(T.labIntro)}</p>`
+      + `<table class="idx-table">`;
+    if (hasLexicon) labBody += `<tr><td class="sigla"><a href="lexicon.html">${escapeHTML(T.lexicon)}</a></td>`
+      + `<td>${escapeHTML(T.labLexDesc)}</td></tr>`;
+    if (hasMap) labBody += `<tr><td class="sigla"><a href="map.html">${escapeHTML(T.map)}</a></td>`
+      + `<td>${escapeHTML(T.labMapDesc)}</td></tr>`;
+    labBody += `</table></main>`;
+    out['lab.html'] = chrome({ title: t, sub: T.lab.toLowerCase(), active: 'lab.html', pages,
+      body: labBody, t: T, lang, theme, parent });
+    // the subpages carry Lab as their parent (the up link) and light Lab in the
+    // menu; they are reached through Lab, not as top-level menu items
+    if (hasLexicon) {
+      out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme,
+        parent: labParent, active: 'lab.html', pages, views: lexViews });
+    }
+    if (hasMap) {
+      out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme,
+        parent: labParent, active: 'lab.html', pages });
+    }
   }
 
   /* ---- data.html: the edition as downloadable data ---- */
@@ -744,11 +769,6 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     dataPage += `</table><p class="occ">${T.reuse}</p></main>`;
     out['data.html'] = chrome({ title: t, sub: T.data.toLowerCase(), active: 'data.html', pages, body: dataPage, t: T, lang, theme, parent, parent });
     Object.assign(out, exports_);
-  }
-
-  /* ---- map.html: places with coordinates ---- */
-  if (hasMap && wanted.has('map')) {
-    out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages });
   }
 
   /* ---- the editor's simple pages ---- */
