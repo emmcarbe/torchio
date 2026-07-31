@@ -86,6 +86,22 @@ export function safeURL(value) {
 }
 
 export function renderBase(node, hooks) {
+  // a node from a non-TEI namespace is preserved, never interpreted: it keeps
+  // its qualified name and namespace so nothing is lost and nothing is
+  // falsified, and a later plugin (SVG, MathML) can find it (C87)
+  if (node.foreign) {
+    const tag = node.children.some((c) => typeof c !== 'string') ? 'div' : 'span';
+    let inner = '';
+    for (const child of node.children) {
+      inner += typeof child === 'string' ? escapeHTML(child) : renderBase(child, hooks);
+    }
+    const atts = Object.entries(node.atts)
+      .map(([k, v]) => `${escapeHTML(k)}=${escapeHTML(v)}`).join(' ');
+    return `<${tag} id="${escapeHTML(node.id)}" class="tei-foreign"`
+      + ` data-name="${escapeHTML(node.qname || node.element)}"`
+      + `${node.ns ? ` data-ns="${escapeHTML(node.ns)}"` : ''}`
+      + `${atts ? ` data-atts="${escapeHTML(atts)}"` : ''}>${inner}</${tag}>`;
+  }
   if (node.element === 'lb') {
     // lineation belongs to the diplomatic level: the reading mode flows,
     // and @break="no" rejoins a word split across lines (CSS in interact)

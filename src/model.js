@@ -16,7 +16,7 @@
  * occurrences, typed apparatus. Facsimile and alignments: next iteration.
  */
 
-import { walk, local, textOf } from './xml.js';
+import { walk, local, textOf, TEI_NS } from './xml.js';
 
 export function buildModel(docs, classMap) {
   let list = (Array.isArray(docs) ? docs : [docs]).map((d, i) =>
@@ -343,16 +343,40 @@ export function buildModel(docs, classMap) {
 
 /* ---------------------------------------------------------------- */
 
-function convert(node, docId, path, classMap) {
+/** The namespace in force at this node, from the xmlns declarations gathered
+ *  on the way down. A prefixed name resolves against its prefix; a bare name
+ *  against the default. Absent default is treated as TEI-compatible, because
+ *  Torchio has always pressed non-namespaced TEI. */
+function nsOf(node, nsCtx) {
+  const i = node.name.indexOf(':');
+  if (i >= 0) return nsCtx[node.name.slice(0, i)] || null;
+  return nsCtx[''] || null;
+}
+
+function convert(node, docId, path, classMap, nsCtx = { xml: 'http://www.w3.org/XML/1998/namespace' }) {
+  // extend the namespace scope with this node's own xmlns declarations
+  let ns = nsCtx;
+  for (const a in node.attrs) {
+    if (a === 'xmlns') { ns = ns === nsCtx ? { ...nsCtx } : ns; ns[''] = node.attrs[a]; }
+    else if (a.startsWith('xmlns:')) { ns = ns === nsCtx ? { ...nsCtx } : ns; ns[a.slice(6)] = node.attrs[a]; }
+  }
+  const uri = nsOf(node, ns);
   const element = local(node.name);
+  // the fallback scale: a node the ODD adopts (declared memberOf a TEI class)
+  // is interpreted whatever its namespace, because the edition said so; a node
+  // in a non-TEI namespace that no ODD claims is preserved, never interpreted
+  // as a TEI element with that local name (C87). No namespace, or the TEI
+  // namespace, is TEI as before
   const r = classMap.resolve(element);
+  const foreign = uri != null && uri !== TEI_NS && r.via === 'fallback';
   const out = {
     id: node.attrs['xml:id'] || `${docId}:${path}`, // D1
     element,                                        // D2
-    section: r.section,                             // D2
+    section: foreign ? 'base' : r.section,          // D2
     atts: { ...node.attrs },                        // D3
     children: [],
   };
+  if (foreign) { out.foreign = true; out.qname = node.name; out.ns = uri; }
   let i = 0;
   const wordInternal = WORD_INTERNAL.has(element);
   for (const child of node.children) {
@@ -369,7 +393,7 @@ function convert(node, docId, path, classMap) {
       } else {
         out.children.push(child);
       }
-    } else out.children.push(convert(child, docId, `${path}.${i++}`, classMap));
+    } else out.children.push(convert(child, docId, `${path}.${i++}`, classMap, ns));
   }
   return out;
 }
