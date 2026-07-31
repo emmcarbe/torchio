@@ -4831,7 +4831,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, markdown, buildZip, i18n, resolveLang,
+   attachLemmas, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -5057,6 +5057,79 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   }
 
   /** The manifest the interface writes: only what deviates, never noise. */
+  // the lemma adapter, in the browser: it proposes, the editor disposes.
+  // The one thing that leaves the machine is the text sent to UDPipe, and it
+  // is said plainly before it happens
+  const UDPIPE = 'https://lindat.mff.cuni.cz/services/udpipe/api/process';
+  const UDMODEL = { la: 'latin-ittb-ud-2.12-230717', it: 'italian-isdt-ud-2.12-230717',
+    en: 'english-ewt-ud-2.12-230717', de: 'german-hdt-ud-2.12-230717',
+    fr: 'french-gsd-ud-2.12-230717', grc: 'ancient_greek-perseus-ud-2.12-230717' };
+
+  async function lemmatize() {
+    const btn = document.getElementById('c-lemmatize');
+    const tokens = collectTokens(S.model);
+    if (!tokens.length) { alert('This edition has no running words to lemmatize.'); return; }
+    const byLang = new Map();
+    for (const t of tokens) {
+      const l = normLang(t.lang) || 'la';
+      if (!byLang.has(l)) byLang.set(l, []);
+      byLang.get(l).push(t.form);
+    }
+    const langs = [...byLang.keys()].filter((l) => UDMODEL[l]);
+    if (!langs.length) {
+      alert('No language service is known for this edition (' + [...byLang.keys()].join(', ')
+        + '). You can still add a reviewed lemmas.json by hand.');
+      return;
+    }
+    if (!confirm('The text of this edition (' + tokens.length + ' words, '
+      + langs.join(' and ') + ') will be sent to UDPipe, at lindat.mff.cuni.cz, to propose the '
+      + 'dictionary forms. Nothing is decided automatically: you review every proposal. Proceed?')) return;
+    btn.disabled = true; btn.textContent = 'asking UDPipe…';
+    try {
+      const votes = new Map();
+      const forms = new Set();
+      for (const l of langs) {
+        const text = byLang.get(l).join(' ');
+        for (let i = 0; i < text.length; i += 40000) {
+          const body = new URLSearchParams({ model: UDMODEL[l], tokenizer: '', tagger: '',
+            data: text.slice(i, i + 40000) });
+          const res = await fetch(UDPIPE, { method: 'POST', body });
+          if (!res.ok) throw new Error('UDPipe HTTP ' + res.status);
+          const conllu = (await res.json()).result || '';
+          const v = conlluTypes(conllu);
+          for (const [form, m] of v) {
+            forms.add(form);
+            const g = votes.get(form) || new Map(); votes.set(form, g);
+            for (const [lem, n] of m) g.set(lem, (g.get(lem) || 0) + n);
+          }
+        }
+      }
+      S.lemmaTypes = typesFromVotes(votes, forms, langs.length === 1 ? langs[0] : null);
+      renderPanel();
+    } catch (err) {
+      alert('The lemma service could not be reached: ' + err.message);
+      btn.disabled = false; btn.textContent = 'Suggest the dictionary forms';
+    }
+  }
+
+  function downloadLemmaSheet() {
+    const header = ['form', 'lang', 'lemma', 'status', 'count', 'alternatives'];
+    const rows = [...S.lemmaTypes]
+      .sort((a, b) => (a.status === 'review' ? 0 : 1) - (b.status === 'review' ? 0 : 1)
+        || (b.count || 0) - (a.count || 0) || a.form.localeCompare(b.form))
+      .map((t) => [t.form, t.lang || '', t.lemma, t.status || 'suggested',
+        t.count == null ? '' : t.count, (t.alternatives || []).join(' ')]);
+    const xlsx = buildXLSX(header, rows, {
+      sheet: 'Lemmas', widths: [16, 6, 16, 12, 8, 20],
+      choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
+    });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([xlsx],
+      { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+    a.download = (S.slug || 'edition') + '-lemmas.xlsx';
+    a.click();
+  }
+
   function buildManifest() {
     const ui = S.ui;
     const m = {};
@@ -5307,6 +5380,15 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '> data files (model, CSV, source)</label>'
       + '<p class="note">Switching a piece off disables its interactive layer, '
       + 'never the base rendering: nothing becomes invisible.</p>'
+      + '<div class="lemma-flow"><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
+      + '<span class="note">Your text does not say the dictionary form of each word. '
+      + 'I can ask a language service (UDPipe, at the Charles University in Prague): '
+      + '<b>the text of your edition will be sent to that service.</b> You then review the '
+      + 'suggestions in a spreadsheet and load it back. Nothing is decided without you.</span>'
+      + (S.lemmaTypes ? ' <button type="button" id="c-lemma-sheet">Download the review sheet</button>'
+        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Open it, correct what is wrong, '
+        + 'choose confirmed or rejected in the last column, save, and drop it back in with the files.</span>' : '')
+      + '</div>'
       + '</fieldset>';
 
     // the simple-page editor, hidden until needed
@@ -5345,6 +5427,10 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-map', (el) => { ui.pieces.map = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
+    const lemBtn = document.getElementById('c-lemmatize');
+    if (lemBtn) lemBtn.addEventListener('click', lemmatize);
+    const sheetBtn = document.getElementById('c-lemma-sheet');
+    if (sheetBtn) sheetBtn.addEventListener('click', downloadLemmaSheet);
     // the order of the pages is the order of the menu: it is dragged here
     // and travels in the manifest, so the site keeps it
     let dragged = null;
