@@ -194,10 +194,17 @@ export function buildModel(docs, classMap) {
       'addSpan', 'delSpan', 'transpose', 'metamark']);
     const ops = [];
     for (const doc of model.documents) {
+      // documentary editions do not repeat @hand on every operation: a
+      // handShift declares the hand in force until the next one (C72)
+      let current = null;
       for (const n of walkModel(doc.tree)) {
+        if (n.element === 'handShift') {
+          current = (n.atts.new || '').replace(/^#/, '') || null;
+          continue;
+        }
         if (!GENETIC.has(n.element)) continue;
         const layer = (n.atts.change || '').replace(/^#/, '') || null;
-        const hand = (n.atts.hand || '').replace(/^#/, '') || null;
+        const hand = (n.atts.hand || '').replace(/^#/, '') || current;
         if (!layer && !hand) continue;
         ops.push({
           id: n.id, doc: doc.id, element: n.element, layer, hand,
@@ -207,6 +214,9 @@ export function buildModel(docs, classMap) {
       }
     }
     if (ops.length) {
+      // a change in revisionDesc that names an editor is the file's own
+      // history, not a campaign of the author: only strata with operations
+      // attributed to them are strata (C73)
       const strata = model.registries.layers.map((l) => ({
         id: l.id, label: l.label, order: l.order,
         when: l.atts && (l.atts.when || l.atts.notBefore) || null,
@@ -218,7 +228,8 @@ export function buildModel(docs, classMap) {
             operations: ops.filter((o) => o.hand === h.id).length });
         }
       }
-      model.genetic = { strata, operations: ops };
+      const kept = strata.filter((x) => x.operations > 0);
+      if (kept.length) model.genetic = { strata: kept, operations: ops };
     }
   }
 

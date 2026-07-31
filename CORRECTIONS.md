@@ -96,5 +96,8 @@ editorial genre.
 
 | 2026-07-31 | C71 | the philologist's reading | extension | the three methods of chapter 12 belong to the recensio: they represent variance between witnesses. The genetic apparatus is another thing, and its primary dimension is time. Campaigns declared in `listChange` and hands in `handNotes` become strata, in the order the edition gives them; every writing operation (`add`, `del`, `subst`, `restore`, `retrace`, `transpose`, `metamark`) is attributed to its campaign and its hand, and links to the place where it happened. The registries the model had been building and never showing now carry a page of their own |
 
-As of 31 July 2026: 71 corrections applied (45 assignments, 18 extensions, 8
+| 2026-07-31 | C72 | Shelley-Godwin Archive, contrast corpus | assignment | documentary editions do not repeat `@hand` on every operation: a `handShift` declares the hand in force until the next one. The genetic apparatus now follows the shifts, so Mary Shelley's own deletions and modifications in Frankenstein are attributed to her rather than left anonymous |
+| 2026-07-31 | C73 | Shelley-Godwin Archive, contrast corpus | assignment | a `change` in `revisionDesc` naming an editor is the digital file's own history, not a campaign of the author: three such entries were becoming empty strata. A stratum is only a stratum if writing operations are attributed to it |
+
+As of 31 July 2026: 73 corrections applied (47 assignments, 18 extensions, 8
 structural changes), 1 open.
