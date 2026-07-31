@@ -61,7 +61,7 @@ body.app-off.has-band [data-el="l"]{cursor:inherit}
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
-body.notes-dense [data-notepop]{cursor:pointer}
+[data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
@@ -469,7 +469,12 @@ export function buildInteractJS(t) {
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
+      .filter(function(n){
+        /* a header note is metadata, except a standoff note with a target:
+           that one belongs to the passage it names, wherever it was written */
+        var inHeader=n.closest('.header-full')||n.closest('.t-teiHeader');
+        return !inHeader||!!n.dataset.target;
+      });
     function anchorOf(n){
       var app=n.closest('.t-app');
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
@@ -488,7 +493,10 @@ export function buildInteractJS(t) {
        they collapse to their marks and open on click, like the apparatus */
     var dense=notes.length>12;
     body.classList.toggle('notes-dense',dense);
-    if(dense){
+    /* pairing runs ALWAYS: a mark must answer a click whatever the density
+       or the width of the window; density only decides whether the notes
+       collapse to their marks or sit in the margin */
+    {
       // the renderer emits a mark and its note together: pair them by
       // document order, so a mark is never left without its note (C74)
       var marks=[].slice.call(document.querySelectorAll('main.torchio .t-note-mark'))
@@ -503,20 +511,23 @@ export function buildInteractJS(t) {
         if(n.dataset.npi)return;
         n.dataset.npi=String(i);
         var res=anchorOf(n);
-        var el=(res&&res.el)||marks[i];
+        var mk=marks[i];
         /* a standoff note is written apart and declares where it belongs:
            its mark goes to the passage, not to the place it was written */
         var tg=n.dataset.target;
-        if(tg&&el&&el.classList&&el.classList.contains('t-note-mark')){
+        if(tg&&mk){
           var id=tg.split(/\s+/)[0].replace(/^#/,'');
           var dest=document.getElementById(id);
-          if(dest&&!dest.contains(el)){
-            if(dest.nextSibling)dest.parentNode.insertBefore(el,dest.nextSibling);
-            else dest.parentNode.appendChild(el);
+          if(dest&&!dest.contains(mk)){
+            if(dest.nextSibling)dest.parentNode.insertBefore(mk,dest.nextSibling);
+            else dest.parentNode.appendChild(mk);
           }
         }
-        if(el){el.setAttribute('data-notepop',String(i));
-          el.removeAttribute('aria-hidden');makeTrigger(el,null);}
+        /* both answer the click: the mark, and the anchored passage */
+        if(mk){mk.setAttribute('data-notepop',String(i));
+          mk.removeAttribute('aria-hidden');makeTrigger(mk,null);}
+        var el=res&&res.el;
+        if(el&&el!==mk){el.setAttribute('data-notepop',String(i));makeTrigger(el,null);}
       });
     }
     if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
@@ -623,7 +634,7 @@ export function toolbarHTML({ hasChoice, hasApparatus, hasNotes, t } = {}) {
  */
 const HAND_COLORS = ['#1a5fb4', '#26652c', '#8a4f00', '#7a1f6e', '#00575e', '#5e4b00'];
 
-export function readingAidsHTML({ present, hands, t }) {
+export function readingAidsHTML({ present, hands, t, majorHand = null }) {
   const items = [];
   const add = (sample, text) => items.push(`<li><span class="leg-sample">${sample}</span> ${text}</li>`);
   if (present.has('del')) add(`<span class="t-del">${t.legWord}</span>`, t.legDel);
@@ -632,18 +643,25 @@ export function readingAidsHTML({ present, hands, t }) {
   if (present.has('supplied')) add(`<span class="t-sign">[</span>${t.legWord}<span class="t-sign">]</span>`, t.legSupplied);
   if (present.has('gap')) add('[…]', t.legGap);
   if (present.has('pb')) add('[12]', t.legPb);
-  if (present.has('metamark')) add('^', t.legMetamark);
+  if (present.has('metamark')) add('<span class=\'t-metamark\'>^</span>', t.legMetamark);
   if (present.has('app')) add(`<span class="leg-app">${t.legWord}</span>`, t.legApp);
   if (present.has('note')) add('<sup>1</sup>', t.legNote);
   let handCSS = '';
   let handBar = '';
   if (hands && hands.length > 1) {
+    // isolating a hand must really isolate: everything else fades to grey,
+    // and the base text follows its owner, the major hand of the manuscript
+    handCSS += `body[data-hand-only] #main{color:#b9b3a6}\n`
+      + `body[data-hand-only] #main [data-hand]{opacity:.3}\n`
+      + (majorHand ? `body[data-hand-only="#${majorHand}"] #main{color:var(--ink)}\n` : '');
     const bar = hands.map((h, i) => {
       const c = HAND_COLORS[i % HAND_COLORS.length];
-      handCSS += `[data-hand="#${h.id}"]{background:${c}14;box-shadow:inset 0 -2px ${c}55}\n`
-        + `body[data-hand-only]:not([data-hand-only="#${h.id}"]) [data-hand="#${h.id}"]{opacity:.25}\n`;
+      handCSS += `[data-hand="#${h.id}"]{background:${c}1f;box-shadow:inset 0 -2px ${c}99}\n`
+        + `body[data-hand-only="#${h.id}"] #main [data-hand="#${h.id}"],`
+        + `body[data-hand-only="#${h.id}"] #main [data-hand="#${h.id}"] *{opacity:1;color:var(--ink)}\n`;
       return `<button type="button" class="hand-btn" data-hand-pick="#${h.id}">`
-        + `<span class="hand-dot" style="background:${c}"></span>${h.label || h.id}</button>`;
+        + `<span class="hand-dot" style="background:${c}"></span>${h.label || h.id}`
+        + (majorHand === h.id ? ` <span class="occ">(${t.legMajor})</span>` : '') + `</button>`;
     }).join('');
     handBar = `<div class="hand-bar"><span class="hand-lab">${t.legHands}</span>${bar}`
       + `<button type="button" class="hand-btn" data-hand-pick="">${t.legAllHands}</button></div>`;

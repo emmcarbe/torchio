@@ -71,8 +71,9 @@ export function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pa
     }));
     const leafletInit = `
 var map=L.map('map',{scrollWheelZoom:false});
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,
+var tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,
   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+tiles.once('load',function(){var sk=document.getElementById('sketch');if(sk)sk.remove();});
 var pts=${jsonForScript(markers)};
 var group=[];
 pts.forEach(function(p){
@@ -90,6 +91,7 @@ var cLon=(Math.min.apply(null,lons)+Math.max.apply(null,lons))/2;
 var spanLat=Math.max(Math.max.apply(null,lats)-Math.min.apply(null,lats),0.05)*1.5;
 var spanLon=Math.max(Math.max.apply(null,lons)-Math.min.apply(null,lons),0.05)*1.5;
 function fit(){
+  map.invalidateSize(); // Leaflet caches a zero size measured before layout; force a re-measure
   var s=map.getSize();
   if(!s.x||!s.y){setTimeout(fit,100);return;}
   var z=Math.floor(Math.min(
@@ -100,11 +102,15 @@ function fit(){
 fit();
 window.addEventListener('resize',function(){map.invalidateSize();fit();});
 `;
+    // the sketch is not a fallback for the poor: it is the map that always
+    // holds. It sits over the tiles and leaves only when a real tile has
+    // actually arrived; offline, the reader keeps coasts and dots
     let mapBody = `<main id="main" class="torchio" style="max-width:64rem">`
       + `<link rel="stylesheet" href="assets/leaflet/leaflet.css">`
-      + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px" role="region" aria-label="${T.mapAria}"></div>`
+      + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px;position:relative" role="region" aria-label="${T.mapAria}">`
+      + `<div id="sketch" style="position:absolute;inset:0;z-index:800;background:var(--paper)">`
+      + `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:100%;display:block">${landPath}${grid}${dots}</svg></div></div>`
       + `<script src="assets/leaflet/leaflet.js"></script><script>${leafletInit}</script>`
-      + `<noscript><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:auto;border:1px solid var(--hair);border-radius:2px;background:var(--paper)">${landPath}${grid}${dots}</svg></noscript>`
       + `<p class="occ">${T.mapNote}</p><table class="idx-table">`;
     for (const pl of [...geoPlaces].sort((a, b) => a.label.localeCompare(b.label))) {
       mapBody += `<tr><td>${escapeHTML(pl.label)}${pl.geoSource === 'geonames' ? ' <span class="occ">?</span>' : ''}</td>`

@@ -100,5 +100,8 @@ editorial genre.
 | 2026-07-31 | C79 | Shelley-Godwin Archive, contrast corpus | assignment | the hand in force from a handShift was reaching the stratigraphy but not the text: 46 operations of Frankenstein carried a hand, the other 438 looked anonymous on the page. The hand is now stamped on every operation it governs, so clicking a deletion or an addition names whose hand it is and links to its stratum |
 | 2026-07-31 | C80 | Shelley-Godwin Archive, public demo | structural | a documentary transcription (`sourceDoc`: surface, zone, line) was flattened into prose: words split across lines of the notebook came out broken in the middle of a sentence ("murder rous", "Eliza beth") and the compositor's marks fell into the flow of the text. A line of the page is now a line on screen: the transcription reads as the page does, and what sits on a line stays there. The lesson holds for every line-based edition |
 
-As of 31 July 2026: 79 corrections applied (51 assignments, 19 extensions, 9
+| 2026-07-31 | C81 | Van Gogh letters, Bellum, public demos | assignment | a note mark answered a click only when the page counted as "dense": below the threshold, and wherever the margin could not hold (a narrow window, a standoff note kept in the hidden header), the marks were mute leftovers. Pairing now runs always: every mark answers, and both the mark and its anchored passage open the note |
+| 2026-07-31 | C82 | maps, all demos | structural | with tiles unreachable the map page was a blank box: the dependency-free sketch sat in a noscript nobody with scripts could see. The sketch now sits over the tiles and leaves only when a real tile has arrived; offline, the reader keeps coasts and dots. The sketch is the map that always holds, the tiles are the improvement |
+
+As of 31 July 2026: 81 corrections applied (52 assignments, 19 extensions, 10
 structural changes), 1 open.

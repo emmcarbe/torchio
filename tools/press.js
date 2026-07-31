@@ -182,12 +182,18 @@ if (site) {
     const srcDir = join(out, 'data', 'source');
     await mkdir(srcDir, { recursive: true });
     const base = (await stat(input)).isDirectory() ? input : dirname(input);
+    // never copy the pressed output into its own sources: pressing next to
+    // the input must not nest site/data/source/site/... at every run
+    const outAbs = resolve(out);
     const copied = [];
     const walkDir = async (dir, rel = '') => {
       for (const e of await readdir(dir, { withFileTypes: true })) {
         if (e.name.startsWith('.')) continue;
         const from = join(dir, e.name), r = rel ? `${rel}/${e.name}` : e.name;
-        if (e.isDirectory()) { await walkDir(from, r); continue; }
+        if (e.isDirectory()) {
+          if (resolve(from) === outAbs) continue;
+          await walkDir(from, r); continue;
+        }
         if (!/\.(xml|odd|rng|json)$/i.test(e.name)) continue;
         await mkdir(dirname(join(srcDir, r)), { recursive: true });
         await cp(from, join(srcDir, r));

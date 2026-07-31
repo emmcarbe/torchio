@@ -134,12 +134,21 @@ export function renderBase(node, hooks) {
       + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
   }
   // a metamark is the writer's sign about the text (the caret of an
-  // insertion, a renumbering), not text of the work: shown as it is, but
-  // explained on hover so a reader is not left guessing
+  // insertion, a paragraph mark), not text of the work: shown as it is, but
+  // each explains itself in plain words on hover
   if (node.element === 'metamark') {
-    const fn = node.atts.function ? `: ${node.atts.function}` : '';
+    const MM = {
+      insertion: 'insertion mark: the words written above the line enter here',
+      insert: 'insertion mark: the words written above the line enter here',
+      paragraph: 'paragraph mark: the hand says a new paragraph begins here',
+      transposition: 'transposition mark: the hand says these passages swap places',
+      deletion: 'deletion mark: the hand strikes this out',
+      used: 'the hand marks this passage as used',
+    };
+    const fn = (node.atts.function || '').toLowerCase();
+    const why = MM[fn] || ('a sign of the writing hand' + (fn ? `: ${fn}` : ''));
     return `<${tag}${id} class="${cls}"${data}`
-      + ` title="${escapeHTML(`a sign of the writing hand${fn}`)}">${inner}</${tag}>${after}`;
+      + ` title="${escapeHTML(why)}">${inner}</${tag}>${after}`;
   }
   if (node.element === 'supplied') {
     return `<${tag}${id} class="${cls}"${data}>`
@@ -207,6 +216,7 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 /* the class carries the behaviour: anything the ODD declares a member of
    model.pPart.transcriptional is struck through like del, named or not */
 .s-3-editoriale>[data-el="del"],.s-3-editoriale.t-del,.t-del{text-decoration:line-through;color:var(--soft)}
+.t-metamark{color:var(--soft);font-size:.78em;cursor:help;border-bottom:1px dotted var(--hair)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
 .t-sign{color:var(--soft)}

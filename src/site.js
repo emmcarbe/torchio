@@ -276,7 +276,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
   if (manifest.apparatusKind) {
-    about += `<dt>${T.apparatus}</dt><dd>${manifest.apparatusKind === 'genetic' ? T.apparatusGenetic : T.apparatusCritical}</dd>`;
+    about += `<dt>${T.apparatus}</dt><dd>${manifest.apparatusKind === 'genetic' ? T.apparatusGenetic
+      : manifest.apparatusKind === 'both' ? T.apparatusBoth : T.apparatusCritical}</dd>`;
   }
   if (hasLexStats) {
     const L = model.lexicon;
@@ -359,7 +360,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
   }
   const handList = (model.registries.hands || []).filter((h) => h.id);
-  const readingAids = readingAidsHTML({ present: presentSigns, hands: handList, t: T });
+  const majorHand = (handList.find((h) => h.atts && h.atts.scope === 'major') || {}).id || null;
+  const readingAids = readingAidsHTML({ present: presentSigns, hands: handList, t: T, majorHand });
 
   let hasNotes = false;
   for (const doc of model.documents) {
@@ -651,21 +653,51 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           .join(' · ')
         + '</nav>';
     }
+    // finding a name must be cheap: a search over everything, and a small
+    // red alphabet under each heading to jump straight to a letter
+    if (totalEntries > 20) {
+      idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}">`;
+    }
     let secIdx = -1;
     for (const [label, entries] of sections) {
       if (!hasOcc(entries)) continue; // an authority list without resolved
                                       // occurrences stays in the data exports
       secIdx++;
-      idx += `<h2 class="sec" id="idx-${secIdx}">${label}</h2><table class="idx-table">`;
-      for (const e of [...entries].sort((a, b) => a.label.localeCompare(b.label))) {
+      const sorted = [...entries].sort((a, b) => a.label.localeCompare(b.label));
+      idx += `<h2 class="sec" id="idx-${secIdx}">${label} <a class="idx-up" href="#top" title="${T.backToTop}">\u2191</a></h2>`;
+      // the letters actually present, each anchored to its first entry
+      const seenLetters = new Set();
+      let rows = '';
+      for (const e of sorted) {
+        const initial = (e.label[0] || '').toLocaleUpperCase();
+        const anchor = !seenLetters.has(initial) && initial
+          ? ` id="idx-${secIdx}-${escapeHTML(initial)}"` : '';
+        if (initial) seenLetters.add(initial);
         const occ = e.occurrences.slice(0, 12)
           .map((id, i) => `<a href="${pageFor(id)}#${escapeHTML(id)}">${i + 1}</a>`).join('');
-        idx += `<tr><td>${escapeHTML(e.label)}</td><td class="occ">${e.occurrences.length} occ. ${occ}</td></tr>`;
+        rows += `<tr${anchor} data-label="${escapeHTML(e.label.toLocaleLowerCase())}"><td>${escapeHTML(e.label)}</td><td class="occ">${e.occurrences.length} occ. ${occ}</td></tr>`;
       }
-      idx += '</table>';
+      if (sorted.length > 15 && seenLetters.size > 3) {
+        idx += `<nav class="alpha">` + [...seenLetters].sort().map((L) =>
+          `<a href="#idx-${secIdx}-${escapeHTML(L)}">${escapeHTML(L)}</a>`).join('') + `</nav>`;
+      }
+      idx += `<table class="idx-table">${rows}</table>`;
     }
-    idx += '</main>';
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme, parent, parent });
+    idx += `<a class="totop" href="#top" title="${T.backToTop}" hidden>\u2191</a></main>`;
+    const idxJS = `
+(function(){
+  var q=document.querySelector('.idx-search');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase();
+    document.querySelectorAll('.idx-table tr').forEach(function(r){
+      r.style.display=!v||(r.getAttribute('data-label')||'').indexOf(v)>-1?'':'none';
+    });
+    document.querySelectorAll('.alpha').forEach(function(a){a.style.display=v?'none':'';});
+  });}
+  var up=document.querySelector('.totop');
+  if(up){window.addEventListener('scroll',function(){up.hidden=window.scrollY<600;},{passive:true});}
+})();`;
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, script: idxJS, t: T, lang, theme, parent });
   }
 
   /* ---- genesis.html: the strata of the writing ---- */

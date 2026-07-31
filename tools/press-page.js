@@ -330,7 +330,7 @@
         lexCloud: !!(raw.pieces && (raw.pieces.lexCloud === true || raw.pieces.lexicon === true)),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
-      apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : '',
+      apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : '',
       version: typeof raw.version === 'string' ? raw.version
         : (raw.version != null ? String(raw.version) : ''),
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -897,6 +897,7 @@
       + '<option value=""' + (!ui.apparatusKind ? ' selected' : '') + '>from the markup</option>'
       + '<option value="critical"' + (ui.apparatusKind === 'critical' ? ' selected' : '') + '>critical: variants between witnesses</option>'
       + '<option value="genetic"' + (ui.apparatusKind === 'genetic' ? ' selected' : '') + '>genetic: the strata of one manuscript in time</option>'
+      + '<option value="both"' + (ui.apparatusKind === 'both' ? ' selected' : '') + '>both: witnesses to collate and strata within them</option>'
       + '</select></div>'
       + '<span class="note">Declaring it names it for the reader on the edition page; a genetic edition '
       + 'also gets its Genesis page and hand colours when the markup records them (listChange, handNote).</span></div>'

@@ -1304,7 +1304,7 @@ body.app-off.has-band [data-el="l"]{cursor:inherit}
 /* dense notes: marks only, notes open on click */
 body.notes-dense main.torchio .t-note{display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
-body.notes-dense [data-notepop]{cursor:pointer}
+[data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
@@ -1712,7 +1712,12 @@ function buildInteractJS(t) {
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
+      .filter(function(n){
+        /* a header note is metadata, except a standoff note with a target:
+           that one belongs to the passage it names, wherever it was written */
+        var inHeader=n.closest('.header-full')||n.closest('.t-teiHeader');
+        return !inHeader||!!n.dataset.target;
+      });
     function anchorOf(n){
       var app=n.closest('.t-app');
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
@@ -1731,7 +1736,10 @@ function buildInteractJS(t) {
        they collapse to their marks and open on click, like the apparatus */
     var dense=notes.length>12;
     body.classList.toggle('notes-dense',dense);
-    if(dense){
+    /* pairing runs ALWAYS: a mark must answer a click whatever the density
+       or the width of the window; density only decides whether the notes
+       collapse to their marks or sit in the margin */
+    {
       // the renderer emits a mark and its note together: pair them by
       // document order, so a mark is never left without its note (C74)
       var marks=[].slice.call(document.querySelectorAll('main.torchio .t-note-mark'))
@@ -1746,20 +1754,23 @@ function buildInteractJS(t) {
         if(n.dataset.npi)return;
         n.dataset.npi=String(i);
         var res=anchorOf(n);
-        var el=(res&&res.el)||marks[i];
+        var mk=marks[i];
         /* a standoff note is written apart and declares where it belongs:
            its mark goes to the passage, not to the place it was written */
         var tg=n.dataset.target;
-        if(tg&&el&&el.classList&&el.classList.contains('t-note-mark')){
+        if(tg&&mk){
           var id=tg.split(/\s+/)[0].replace(/^#/,'');
           var dest=document.getElementById(id);
-          if(dest&&!dest.contains(el)){
-            if(dest.nextSibling)dest.parentNode.insertBefore(el,dest.nextSibling);
-            else dest.parentNode.appendChild(el);
+          if(dest&&!dest.contains(mk)){
+            if(dest.nextSibling)dest.parentNode.insertBefore(mk,dest.nextSibling);
+            else dest.parentNode.appendChild(mk);
           }
         }
-        if(el){el.setAttribute('data-notepop',String(i));
-          el.removeAttribute('aria-hidden');makeTrigger(el,null);}
+        /* both answer the click: the mark, and the anchored passage */
+        if(mk){mk.setAttribute('data-notepop',String(i));
+          mk.removeAttribute('aria-hidden');makeTrigger(mk,null);}
+        var el=res&&res.el;
+        if(el&&el!==mk){el.setAttribute('data-notepop',String(i));makeTrigger(el,null);}
       });
     }
     if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
@@ -1866,7 +1877,7 @@ function toolbarHTML({ hasChoice, hasApparatus, hasNotes, t } = {}) {
  */
 const HAND_COLORS = ['#1a5fb4', '#26652c', '#8a4f00', '#7a1f6e', '#00575e', '#5e4b00'];
 
-function readingAidsHTML({ present, hands, t }) {
+function readingAidsHTML({ present, hands, t, majorHand = null }) {
   const items = [];
   const add = (sample, text) => items.push(`<li><span class="leg-sample">${sample}</span> ${text}</li>`);
   if (present.has('del')) add(`<span class="t-del">${t.legWord}</span>`, t.legDel);
@@ -1875,18 +1886,25 @@ function readingAidsHTML({ present, hands, t }) {
   if (present.has('supplied')) add(`<span class="t-sign">[</span>${t.legWord}<span class="t-sign">]</span>`, t.legSupplied);
   if (present.has('gap')) add('[…]', t.legGap);
   if (present.has('pb')) add('[12]', t.legPb);
-  if (present.has('metamark')) add('^', t.legMetamark);
+  if (present.has('metamark')) add('<span class=\'t-metamark\'>^</span>', t.legMetamark);
   if (present.has('app')) add(`<span class="leg-app">${t.legWord}</span>`, t.legApp);
   if (present.has('note')) add('<sup>1</sup>', t.legNote);
   let handCSS = '';
   let handBar = '';
   if (hands && hands.length > 1) {
+    // isolating a hand must really isolate: everything else fades to grey,
+    // and the base text follows its owner, the major hand of the manuscript
+    handCSS += `body[data-hand-only] #main{color:#b9b3a6}\n`
+      + `body[data-hand-only] #main [data-hand]{opacity:.3}\n`
+      + (majorHand ? `body[data-hand-only="#${majorHand}"] #main{color:var(--ink)}\n` : '');
     const bar = hands.map((h, i) => {
       const c = HAND_COLORS[i % HAND_COLORS.length];
-      handCSS += `[data-hand="#${h.id}"]{background:${c}14;box-shadow:inset 0 -2px ${c}55}\n`
-        + `body[data-hand-only]:not([data-hand-only="#${h.id}"]) [data-hand="#${h.id}"]{opacity:.25}\n`;
+      handCSS += `[data-hand="#${h.id}"]{background:${c}1f;box-shadow:inset 0 -2px ${c}99}\n`
+        + `body[data-hand-only="#${h.id}"] #main [data-hand="#${h.id}"],`
+        + `body[data-hand-only="#${h.id}"] #main [data-hand="#${h.id}"] *{opacity:1;color:var(--ink)}\n`;
       return `<button type="button" class="hand-btn" data-hand-pick="#${h.id}">`
-        + `<span class="hand-dot" style="background:${c}"></span>${h.label || h.id}</button>`;
+        + `<span class="hand-dot" style="background:${c}"></span>${h.label || h.id}`
+        + (majorHand === h.id ? ` <span class="occ">(${t.legMajor})</span>` : '') + `</button>`;
     }).join('');
     handBar = `<div class="hand-bar"><span class="hand-lab">${t.legHands}</span>${bar}`
       + `<button type="button" class="hand-btn" data-hand-pick="">${t.legAllHands}</button></div>`;
@@ -1956,10 +1974,10 @@ const STRINGS = {
     legend: 'Legend', legWord: 'word', legDel: 'deleted by the writing hand',
     legAdd: 'added above the line', legUnclear: 'uncertain reading',
     legSupplied: 'supplied by the editor', legGap: 'lost or illegible',
-    legPb: 'page break of the source', legMetamark: 'a sign of the hand about the text',
+    legPb: 'page break of the source', legMetamark: 'a mark of the hand about the text (^ = insert here; hover each mark to read what it does)',
     legApp: 'variant readings: click for the apparatus', legNote: 'note mark',
-    legHands: 'Hands', legAllHands: 'all', legHand: 'the hand of',
-    apparatusCritical: 'critical: variants between witnesses', apparatusGenetic: 'genetic: the strata of one manuscript in time',
+    legHands: 'Hands', legAllHands: 'all', legHand: 'the hand of', idxSearch: 'search a name\u2026', backToTop: 'back to top',
+    apparatusCritical: 'critical: variants between witnesses', apparatusGenetic: 'genetic: the strata of one manuscript in time', apparatusBoth: 'critical and genetic: witnesses to collate, strata within them', legMajor: 'main hand',
     lexicon: 'Lexicon', lexTokens: 'running words', lexForms: 'distinct forms',
     lexTTR: 'type-token ratio', lexSearch: 'search a word\u2026', lexFrequencies: 'Frequencies',
     lexConcordance: 'Concordance', lexCloud: 'Cloud', lexPick: 'Pick a word to see it in context.',
@@ -2017,10 +2035,10 @@ const STRINGS = {
     legend: 'Legenda', legWord: 'parola', legDel: 'cancellato dalla mano che scrive',
     legAdd: 'aggiunto sopra la riga', legUnclear: 'lettura incerta',
     legSupplied: 'integrazione dell\'editore', legGap: 'perduto o illeggibile',
-    legPb: 'cambio di pagina della fonte', legMetamark: 'segno della mano sul testo',
+    legPb: 'cambio di pagina della fonte', legMetamark: 'segno della mano sul testo (^ = inserire qui; passa il mouse su un segno per leggere cosa fa)',
     legApp: 'varianti: clic per l\'apparato', legNote: 'richiamo di nota',
-    legHands: 'Mani', legAllHands: 'tutte', legHand: 'la mano di',
-    apparatusCritical: 'critico: varianti tra testimoni', apparatusGenetic: 'genetico: gli strati di un manoscritto nel tempo',
+    legHands: 'Mani', legAllHands: 'tutte', legHand: 'la mano di', idxSearch: 'cerca un nome\u2026', backToTop: 'torna su',
+    apparatusCritical: 'critico: varianti tra testimoni', apparatusGenetic: 'genetico: gli strati di un manoscritto nel tempo', apparatusBoth: 'critico e genetico: testimoni da collazionare, strati al loro interno', legMajor: 'mano principale',
     lexicon: 'Lessico', lexTokens: 'parole', lexForms: 'forme distinte',
     lexTTR: 'type-token ratio', lexSearch: 'cerca una parola\u2026', lexFrequencies: 'Frequenze',
     lexConcordance: 'Concordanza', lexCloud: 'Nuvola', lexPick: 'Scegli una parola per vederla in contesto.',
@@ -2279,12 +2297,21 @@ function renderBase(node, hooks) {
       + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
   }
   // a metamark is the writer's sign about the text (the caret of an
-  // insertion, a renumbering), not text of the work: shown as it is, but
-  // explained on hover so a reader is not left guessing
+  // insertion, a paragraph mark), not text of the work: shown as it is, but
+  // each explains itself in plain words on hover
   if (node.element === 'metamark') {
-    const fn = node.atts.function ? `: ${node.atts.function}` : '';
+    const MM = {
+      insertion: 'insertion mark: the words written above the line enter here',
+      insert: 'insertion mark: the words written above the line enter here',
+      paragraph: 'paragraph mark: the hand says a new paragraph begins here',
+      transposition: 'transposition mark: the hand says these passages swap places',
+      deletion: 'deletion mark: the hand strikes this out',
+      used: 'the hand marks this passage as used',
+    };
+    const fn = (node.atts.function || '').toLowerCase();
+    const why = MM[fn] || ('a sign of the writing hand' + (fn ? `: ${fn}` : ''));
     return `<${tag}${id} class="${cls}"${data}`
-      + ` title="${escapeHTML(`a sign of the writing hand${fn}`)}">${inner}</${tag}>${after}`;
+      + ` title="${escapeHTML(why)}">${inner}</${tag}>${after}`;
   }
   if (node.element === 'supplied') {
     return `<${tag}${id} class="${cls}"${data}>`
@@ -2352,6 +2379,7 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 /* the class carries the behaviour: anything the ODD declares a member of
    model.pPart.transcriptional is struck through like del, named or not */
 .s-3-editoriale>[data-el="del"],.s-3-editoriale.t-del,.t-del{text-decoration:line-through;color:var(--soft)}
+.t-metamark{color:var(--soft);font-size:.78em;cursor:help;border-bottom:1px dotted var(--hair)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
 .t-sign{color:var(--soft)}
@@ -2603,6 +2631,17 @@ ${headerLabelCSS()}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+.idx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink);min-width:16rem;margin:.6em 0 .2em}
+.alpha{font-family:var(--mono);font-size:11px;letter-spacing:.12em;margin:.3em 0 .6em}
+.alpha a{color:var(--accent);text-decoration:none;padding:0 .18em}
+.alpha a:hover{text-decoration:underline}
+.idx-up{font-size:.7em;color:var(--soft);text-decoration:none;margin-left:.5em}
+.idx-up:hover{color:var(--accent)}
+.totop{position:fixed;right:22px;bottom:22px;width:34px;height:34px;line-height:32px;text-align:center;
+  border:1px solid var(--hair);border-radius:2px;background:var(--paper);color:var(--accent);
+  text-decoration:none;font-size:16px}
+.totop:hover{border-color:var(--accent)}
 .t-line{display:block}
 .t-zone{display:block;margin:0 0 .2em}
 .t-surface{display:block;margin:1.6em 0;padding:1.2em 1.4em;border:1px solid var(--hair);border-radius:2px}
@@ -3588,7 +3627,7 @@ function normalizeManifest(raw = {}) {
     genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
       ? raw.genre : null,
     version: raw.version != null && String(raw.version).trim() ? String(raw.version).trim() : null,
-    apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : null,
+    apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : null,
     pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
       persons: true, places: true, orgs: true, ...(raw.pieces || {}) },
     // the lexicon views are opt-in, each on its own; the old pieces.lexicon
@@ -3716,8 +3755,9 @@ function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages }) 
     }));
     const leafletInit = `
 var map=L.map('map',{scrollWheelZoom:false});
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,
+var tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,
   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+tiles.once('load',function(){var sk=document.getElementById('sketch');if(sk)sk.remove();});
 var pts=${jsonForScript(markers)};
 var group=[];
 pts.forEach(function(p){
@@ -3735,6 +3775,7 @@ var cLon=(Math.min.apply(null,lons)+Math.max.apply(null,lons))/2;
 var spanLat=Math.max(Math.max.apply(null,lats)-Math.min.apply(null,lats),0.05)*1.5;
 var spanLon=Math.max(Math.max.apply(null,lons)-Math.min.apply(null,lons),0.05)*1.5;
 function fit(){
+  map.invalidateSize(); // Leaflet caches a zero size measured before layout; force a re-measure
   var s=map.getSize();
   if(!s.x||!s.y){setTimeout(fit,100);return;}
   var z=Math.floor(Math.min(
@@ -3745,11 +3786,15 @@ function fit(){
 fit();
 window.addEventListener('resize',function(){map.invalidateSize();fit();});
 `;
+    // the sketch is not a fallback for the poor: it is the map that always
+    // holds. It sits over the tiles and leaves only when a real tile has
+    // actually arrived; offline, the reader keeps coasts and dots
     let mapBody = `<main id="main" class="torchio" style="max-width:64rem">`
       + `<link rel="stylesheet" href="assets/leaflet/leaflet.css">`
-      + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px" role="region" aria-label="${T.mapAria}"></div>`
+      + `<div id="map" style="height:26rem;border:1px solid var(--hair);border-radius:2px;position:relative" role="region" aria-label="${T.mapAria}">`
+      + `<div id="sketch" style="position:absolute;inset:0;z-index:800;background:var(--paper)">`
+      + `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:100%;display:block">${landPath}${grid}${dots}</svg></div></div>`
       + `<script src="assets/leaflet/leaflet.js"><\/script><script>${leafletInit}<\/script>`
-      + `<noscript><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T.mapAria}" style="width:100%;height:auto;border:1px solid var(--hair);border-radius:2px;background:var(--paper)">${landPath}${grid}${dots}</svg></noscript>`
       + `<p class="occ">${T.mapNote}</p><table class="idx-table">`;
     for (const pl of [...geoPlaces].sort((a, b) => a.label.localeCompare(b.label))) {
       mapBody += `<tr><td>${escapeHTML(pl.label)}${pl.geoSource === 'geonames' ? ' <span class="occ">?</span>' : ''}</td>`
@@ -4627,7 +4672,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
   if (manifest.apparatusKind) {
-    about += `<dt>${T.apparatus}</dt><dd>${manifest.apparatusKind === 'genetic' ? T.apparatusGenetic : T.apparatusCritical}</dd>`;
+    about += `<dt>${T.apparatus}</dt><dd>${manifest.apparatusKind === 'genetic' ? T.apparatusGenetic
+      : manifest.apparatusKind === 'both' ? T.apparatusBoth : T.apparatusCritical}</dd>`;
   }
   if (hasLexStats) {
     const L = model.lexicon;
@@ -4710,7 +4756,8 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     }
   }
   const handList = (model.registries.hands || []).filter((h) => h.id);
-  const readingAids = readingAidsHTML({ present: presentSigns, hands: handList, t: T });
+  const majorHand = (handList.find((h) => h.atts && h.atts.scope === 'major') || {}).id || null;
+  const readingAids = readingAidsHTML({ present: presentSigns, hands: handList, t: T, majorHand });
 
   let hasNotes = false;
   for (const doc of model.documents) {
@@ -5002,21 +5049,51 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
           .join(' · ')
         + '</nav>';
     }
+    // finding a name must be cheap: a search over everything, and a small
+    // red alphabet under each heading to jump straight to a letter
+    if (totalEntries > 20) {
+      idx += `<input class="idx-search" type="search" placeholder="${T.idxSearch}" aria-label="${T.idxSearch}">`;
+    }
     let secIdx = -1;
     for (const [label, entries] of sections) {
       if (!hasOcc(entries)) continue; // an authority list without resolved
                                       // occurrences stays in the data exports
       secIdx++;
-      idx += `<h2 class="sec" id="idx-${secIdx}">${label}</h2><table class="idx-table">`;
-      for (const e of [...entries].sort((a, b) => a.label.localeCompare(b.label))) {
+      const sorted = [...entries].sort((a, b) => a.label.localeCompare(b.label));
+      idx += `<h2 class="sec" id="idx-${secIdx}">${label} <a class="idx-up" href="#top" title="${T.backToTop}">\u2191</a></h2>`;
+      // the letters actually present, each anchored to its first entry
+      const seenLetters = new Set();
+      let rows = '';
+      for (const e of sorted) {
+        const initial = (e.label[0] || '').toLocaleUpperCase();
+        const anchor = !seenLetters.has(initial) && initial
+          ? ` id="idx-${secIdx}-${escapeHTML(initial)}"` : '';
+        if (initial) seenLetters.add(initial);
         const occ = e.occurrences.slice(0, 12)
           .map((id, i) => `<a href="${pageFor(id)}#${escapeHTML(id)}">${i + 1}</a>`).join('');
-        idx += `<tr><td>${escapeHTML(e.label)}</td><td class="occ">${e.occurrences.length} occ. ${occ}</td></tr>`;
+        rows += `<tr${anchor} data-label="${escapeHTML(e.label.toLocaleLowerCase())}"><td>${escapeHTML(e.label)}</td><td class="occ">${e.occurrences.length} occ. ${occ}</td></tr>`;
       }
-      idx += '</table>';
+      if (sorted.length > 15 && seenLetters.size > 3) {
+        idx += `<nav class="alpha">` + [...seenLetters].sort().map((L) =>
+          `<a href="#idx-${secIdx}-${escapeHTML(L)}">${escapeHTML(L)}</a>`).join('') + `</nav>`;
+      }
+      idx += `<table class="idx-table">${rows}</table>`;
     }
-    idx += '</main>';
-    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme, parent, parent });
+    idx += `<a class="totop" href="#top" title="${T.backToTop}" hidden>\u2191</a></main>`;
+    const idxJS = `
+(function(){
+  var q=document.querySelector('.idx-search');
+  if(q){q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase();
+    document.querySelectorAll('.idx-table tr').forEach(function(r){
+      r.style.display=!v||(r.getAttribute('data-label')||'').indexOf(v)>-1?'':'none';
+    });
+    document.querySelectorAll('.alpha').forEach(function(a){a.style.display=v?'none':'';});
+  });}
+  var up=document.querySelector('.totop');
+  if(up){window.addEventListener('scroll',function(){up.hidden=window.scrollY<600;},{passive:true});}
+})();`;
+    out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, script: idxJS, t: T, lang, theme, parent });
   }
 
   /* ---- genesis.html: the strata of the writing ---- */
@@ -5960,7 +6037,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         lexCloud: !!(raw.pieces && (raw.pieces.lexCloud === true || raw.pieces.lexicon === true)),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
-      apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : '',
+      apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : '',
       version: typeof raw.version === 'string' ? raw.version
         : (raw.version != null ? String(raw.version) : ''),
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -6527,6 +6604,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '<option value=""' + (!ui.apparatusKind ? ' selected' : '') + '>from the markup</option>'
       + '<option value="critical"' + (ui.apparatusKind === 'critical' ? ' selected' : '') + '>critical: variants between witnesses</option>'
       + '<option value="genetic"' + (ui.apparatusKind === 'genetic' ? ' selected' : '') + '>genetic: the strata of one manuscript in time</option>'
+      + '<option value="both"' + (ui.apparatusKind === 'both' ? ' selected' : '') + '>both: witnesses to collate and strata within them</option>'
       + '</select></div>'
       + '<span class="note">Declaring it names it for the reader on the edition page; a genetic edition '
       + 'also gets its Genesis page and hand colours when the markup records them (listChange, handNote).</span></div>'
