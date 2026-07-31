@@ -380,7 +380,7 @@ export function mergeLemmaTypes(existing, fresh, generator = null) {
 }
 
 /** A small stopword list per language: function words carry no lexical
- *  weight, so frequencies and the cloud drop them. It is a declaration, not
+ *  weight, so the frequencies drop them. It is a declaration, not
  *  a rule: an edition can replace it, and the concordance never applies it. */
 export const STOPWORDS = {
   it: 'il lo la i gli le un uno una di a da in con su per tra fra e o ma se che chi cui non ne ci vi si mi ti come dove quando perche del dello della dei degli delle al allo alla ai agli alle dal dalla nel nella sul sulla è era sono ho hai ha abbiamo essere avere questo questa quello quella'.split(' '),

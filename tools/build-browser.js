@@ -136,6 +136,9 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .frow{display:flex;align-items:baseline;gap:.8rem;margin:.5rem 0;flex-wrap:wrap}
 .frow>label:first-child{min-width:7.5rem}
 .frow input[type=text]{flex:1;min-width:12rem}
+.checkrow{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin:.8rem 0}
+.checkrow label{display:inline-flex;align-items:baseline}
+.checkrow input[type=checkbox]{margin-right:.45rem}
 .flow legend{color:var(--accent,#b01e28)}
 .dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}

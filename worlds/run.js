@@ -21,6 +21,7 @@ import { dirname, join } from 'node:path';
 import { loadBaseData, buildClassMap } from '../src/classes.js';
 import { parseXML } from '../src/xml.js';
 import { buildModel, walkModel, textOfModel } from '../src/model.js';
+import { pressPage } from '../src/render.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
@@ -64,6 +65,10 @@ function helpers(model) {
     text: (n) => textOfModel(n).replace(/\s+/g, ' ').trim(),
     modelText,
     has: (s) => modelText.includes(s),
+    // a world may assert on the rendered page, not only the model: a
+    // visualization choice (how a mention, a glyph, a reference is shown) is
+    // a claim about the page, and the page is where it must hold
+    render: () => { try { return pressPage(model); } catch (e) { return ''; } },
   };
 }
 

@@ -40,6 +40,9 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .frow{display:flex;align-items:baseline;gap:.8rem;margin:.5rem 0;flex-wrap:wrap}
 .frow>label:first-child{min-width:7.5rem}
 .frow input[type=text]{flex:1;min-width:12rem}
+.checkrow{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin:.8rem 0}
+.checkrow label{display:inline-flex;align-items:baseline}
+.checkrow input[type=checkbox]{margin-right:.45rem}
 .flow legend{color:var(--accent,#b01e28)}
 .dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
@@ -2163,13 +2166,13 @@ const STRINGS = {
     apparatusCritical: 'critical: variants between witnesses', apparatusGenetic: 'genetic: the strata of one manuscript in time', apparatusBoth: 'critical and genetic: witnesses to collate, strata within them', legMajor: 'main hand',
     lexicon: 'Lexicon', lexTokens: 'running words', lexForms: 'distinct forms',
     lexTTR: 'type-token ratio', lexSearch: 'search a word\u2026', lexFrequencies: 'Frequencies',
-    lexConcordance: 'Concordance', lexCloud: 'Cloud', lexPick: 'Pick a word to see it in context.',
+    lexConcordance: 'Concordance', lexPick: 'Pick a word to see it in context.',
     lexLanguage: 'Language', lexAllLangs: 'all', lexStoplist: 'Stopwords',
     lexStopNone: 'none', lexHideStop: 'hide stopwords', lexWord: 'word', lexLang: 'lang',
     descrFrequencies: 'Every attested form with its count, its share per thousand and whether the stopword list you chose covers it.',
     descrConcordance: 'Every occurrence of every form, with the words around it and the anchor back into the text.',
     descrLemmaConcordance: 'The same evidence grouped under the dictionary form, where the edition has lemmas.',
-    lexAbs: 'count', lexRel: 'per 1000', lexStats: 'Lexical statistics', lexStopCol: 'stop', lexStopNote: 'Frequencies and cloud drop the stopwords you choose; the concordance keeps every word.',
+    lexAbs: 'count', lexRel: 'per 1000', lexStats: 'Lexical statistics', lexStopCol: 'stop', lexStopNote: 'Frequencies drop the stopwords you choose; the concordance keeps every word.',
     genesisNote: 'The campaigns of correction the edition declares, in its own order, with the writing operations attributed to each. Every operation links to the place where it happened.',
     agreement: 'Agreement between witnesses',
     agreementNote: 'How often two witnesses carry the same reading. Evidence for a stemma, which remains the editor\u2019s argument.',
@@ -2227,13 +2230,13 @@ const STRINGS = {
     apparatusCritical: 'critico: varianti tra testimoni', apparatusGenetic: 'genetico: gli strati di un manoscritto nel tempo', apparatusBoth: 'critico e genetico: testimoni da collazionare, strati al loro interno', legMajor: 'mano principale',
     lexicon: 'Lessico', lexTokens: 'parole', lexForms: 'forme distinte',
     lexTTR: 'type-token ratio', lexSearch: 'cerca una parola\u2026', lexFrequencies: 'Frequenze',
-    lexConcordance: 'Concordanza', lexCloud: 'Nuvola', lexPick: 'Scegli una parola per vederla in contesto.',
+    lexConcordance: 'Concordanza', lexPick: 'Scegli una parola per vederla in contesto.',
     lexLanguage: 'Lingua', lexAllLangs: 'tutte', lexStoplist: 'Stopword',
     lexStopNone: 'nessuna', lexHideStop: 'nascondi le stopword', lexWord: 'parola', lexLang: 'lingua',
     descrFrequencies: 'Ogni forma attestata con il suo conteggio, la quota per mille e se la lista di stopword scelta la copre.',
     descrConcordance: 'Ogni occorrenza di ogni forma, con le parole intorno e il rimando al punto del testo.',
     descrLemmaConcordance: 'Le stesse occorrenze raggruppate sotto la forma di dizionario, dove l\'edizione ha i lemmi.',
-    lexAbs: 'assoluta', lexRel: 'per 1000', lexStats: 'Statistica lessicale', lexStopCol: 'stop', lexStopNote: 'Frequenze e nuvola tolgono le stopword scelte; la concordanza tiene ogni parola.',
+    lexAbs: 'assoluta', lexRel: 'per 1000', lexStats: 'Statistica lessicale', lexStopCol: 'stop', lexStopNote: 'Le frequenze tolgono le stopword scelte; la concordanza tiene ogni parola.',
     genesisNote: 'Le campagne correttorie dichiarate dall\u2019edizione, nel suo ordine, con le operazioni di scrittura attribuite a ciascuna. Ogni operazione rimanda al punto in cui è avvenuta.',
     agreement: 'Accordi fra testimoni',
     agreementNote: 'Quante volte due testimoni portano la stessa lezione. Materiale per lo stemma, che resta argomento dell\u2019editore.',
@@ -2524,10 +2527,28 @@ function renderBase(node, hooks) {
   const after = hooks && hooks.after ? hooks.after(node) : '';
   // a mention whose @ref is an external authority URI (VIAF, Wikidata,
   // GeoNames...) is a real link: it opens in its own tab, markup decides
-  if (tag === 'span' && MENTION_ELEMENTS.has(node.element)
-      && /^https?:\/\//.test(node.atts.ref || '')) {
-    return `<a${id} class="${cls} ent-ext" href="${escapeHTML(node.atts.ref)}"`
-      + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
+  if (tag === 'span' && MENTION_ELEMENTS.has(node.element)) {
+    const ref = node.atts.ref || '';
+    // the attributes the source declares about this mention, surfaced verbatim
+    // so a reader sees them on hover without a script and without an invented
+    // gloss (attestation, not inference): the type, the reference, the key
+    const bits = [];
+    for (const a of ['type', 'role', 'ref', 'key', 'cert']) {
+      if (node.atts[a]) bits.push(`${a}: ${node.atts[a]}`);
+    }
+    const title = bits.length ? ` title="${escapeHTML(bits.join(' · '))}"` : '';
+    // an @ref that is an external authority URI (VIAF, Wikidata, GeoNames...) is
+    // a real link: it opens in its own tab, markup decides
+    if (/^https?:\/\//.test(ref)) {
+      return `<a${id} class="${cls} ent-ext" href="${escapeHTML(ref)}"`
+        + ` target="_blank" rel="noopener"${title}${data}>${inner}</a>${after}`;
+    }
+    // an internal reference (#id), a key or a type is not a link, but the
+    // attribute is still shown on hover, so it is never invisible until a
+    // script runs (the earlier behaviour: only external links did anything)
+    if (title) {
+      return `<${tag}${id} class="${cls}"${title}${data}>${inner}</${tag}>${after}`;
+    }
   }
   // a metamark is the writer's sign about the text (the caret of an
   // insertion, a paragraph mark), not text of the work: shown as it is, but
@@ -2567,7 +2588,7 @@ function renderBase(node, hooks) {
 
 /** Entity mentions that may carry an authority reference. */
 const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
-  'settlement', 'geogName', 'institution', 'repository', 'author', 'rs']);
+  'settlement', 'geogName', 'institution', 'repository', 'author', 'rs', 'term']);
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
 /** Scripts written right to left: an edition in these languages must not be
@@ -2932,9 +2953,6 @@ ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 .lx-table tr.is-stop .lx-w{color:var(--soft)}
 .lx-lang{font-family:var(--mono);font-size:10px;color:var(--soft)}
 .lx-flip{font-size:11px;line-height:1;color:var(--accent);background:none;border:none;cursor:pointer;padding:2px 4px}
-.lx-cloud{line-height:1.9;padding:1em 0}
-.lx-cloud-w{cursor:pointer;margin:0 .18em;color:var(--ink);transition:opacity .1s}
-.lx-cloud-w:hover{color:var(--accent)}
 .lx-kwic{width:100%;border-collapse:collapse;font-size:14px}
 .lx-kwic td{padding:3px 8px;vertical-align:baseline}
 .lx-kwic .lx-b{text-align:right;color:var(--soft);width:42%}
@@ -3619,7 +3637,7 @@ function mergeLemmaTypes(existing, fresh, generator = null) {
 }
 
 /** A small stopword list per language: function words carry no lexical
- *  weight, so frequencies and the cloud drop them. It is a declaration, not
+ *  weight, so the frequencies drop them. It is a declaration, not
  *  a rule: an edition can replace it, and the concordance never applies it. */
 const STOPWORDS = {
   it: 'il lo la i gli le un uno una di a da in con su per tra fra e o ma se che chi cui non ne ci vi si mi ti come dove quando perche del dello della dei degli delle al allo alla ai agli alle dal dalla nel nella sul sulla è era sono ho hai ha abbiamo essere avere questo questa quello quella'.split(' '),
@@ -3696,7 +3714,7 @@ function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
 // ---- src/lexicon-page.js ----
 /**
  * The lexicon page: the raw lexical layer of the text. The editor (or the
- * reader) chooses what to see (frequencies, concordance, cloud), searches,
+ * reader) chooses what to see (frequencies, concordance), searches,
  * filters by language, and decides which stopword list applies and which
  * single words count as stopwords. Nothing is imposed: not every tradition
  * has stopwords, and when no language is declared none is applied until one
@@ -3711,10 +3729,10 @@ function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
 
 
 function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
-  views = { freq: true, conc: true, cloud: true } }) {
+  views = { freq: true, conc: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
-  const chosen = ['freq', 'conc', 'cloud'].filter((v) => views[v]);
+  const chosen = ['freq', 'conc'].filter((v) => views[v]);
   const first = chosen[0] || 'freq';
 
   const langFilter = multi
@@ -3740,7 +3758,6 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     + (chosen.length > 1 ? `<span class="lx-views" role="group">`
       + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
       + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')
-      + (views.cloud ? `<button data-view="cloud"${first === 'cloud' ? ' class="active"' : ''}>${T.lexCloud}</button>` : '')
       + `</span>` : '') + `</div>`
     + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
     + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
@@ -3760,7 +3777,6 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
     }</tbody></table>${L.frequencies.length > 1500
       ? `<p class="occ">${L.frequencies.length - 1500} ${T.lexMoreForms || 'more forms in the data export'}</p>` : ''}</section>` : '')
     + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
-    + (views.cloud ? `<section class="lx-view lx-cloud"${first === 'cloud' ? '' : ' hidden'}></section>` : '')
     + `</main>`;
 
   // the concordance of every form of a long text is megabytes: a page that
@@ -3783,7 +3799,6 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
   var MULTI=${multi ? 'true' : 'false'};
   var main=document.querySelector('main.lexicon');
   var tbody=main.querySelector('.lx-freq tbody');
-  var cloud=main.querySelector('.lx-cloud');
   var search=main.querySelector('.lx-search');
   var langsel=main.querySelector('.lx-langsel');
   var stopsel=main.querySelector('.lx-stopsel');
@@ -3813,14 +3828,6 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
         +'<td class="lx-num"><button class="lx-flip" title="'+(isStop(f)?'\\u2212':'+')+'">'+(isStop(f)?'\\u25CF':'\\u25CB')+'</button></td>'
         +'</tr>';
     }).join('');
-    var content=rows.filter(function(f){return !isStop(f);});
-    var top=content.slice(0,90);
-    var cmax=top.length?top[0].count:1, cmin=top.length?top[top.length-1].count:1;
-    var span=(Math.log(cmax)-Math.log(cmin))||1;
-    if(cloud)cloud.innerHTML=top.map(function(f){
-      var sz=14+Math.round((Math.log(f.count)-Math.log(cmin))/span*34);
-      return '<span class="lx-cloud-w" data-form="'+esc(f.form)+'" style="font-size:'+sz+'px" title="'+f.count+' ('+f.rel.toFixed(2)+'\\u2030)">'+esc(f.form)+'</span>';
-    }).join(' ');
   }
   function show(v){
     main.querySelectorAll('.lx-view').forEach(function(s){s.hidden=!s.classList.contains('lx-'+v);});
@@ -4798,10 +4805,9 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   const lexViews = {
     freq: lexAll || manifest.pieces.lexFreq === true,
     conc: lexAll || manifest.pieces.lexConc === true,
-    cloud: lexAll || manifest.pieces.lexCloud === true,
   };
   const hasLexicon = !!(model.lexicon && model.lexicon.total)
-    && (lexViews.freq || lexViews.conc || lexViews.cloud);
+    && (lexViews.freq || lexViews.conc);
   const hasLexStats = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexStats === true;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
@@ -5398,7 +5404,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
   }
 
-  /* ---- lexicon.html: frequencies, concordance, cloud, chosen by the editor ---- */
+  /* ---- lexicon.html: frequencies, concordance, chosen by the editor ---- */
   if (hasLexicon && wanted.has('lexicon')) {
     out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages, views: lexViews });
   }
@@ -6071,6 +6077,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   let currentStep = 'edition'; // survives panel redraws: UDPipe must not send you back to page one
   let nlpLang = ''; // the editor's word on the language; empty = trust the markup
   let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
+  let entitiesAuto = false; // accept machine entity proposals without review (declared in the edition)
   async function doPress(fileList) {
     lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
@@ -6230,8 +6237,13 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
             }
             if (!entities[type]) continue;
             const rec = { label, status, source: 'editor' };
-            const lat = Number(r[iLa]), lon = Number(r[iLo]);
-            if (Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
+            // an empty lat/lon cell is not a coordinate: Number('') is 0, which
+            // would plant the place at 0,0 (the Gulf of Guinea) and drag the
+            // whole map onto empty ocean. A blank cell means "no coordinate"
+            const latRaw = String(r[iLa] == null ? '' : r[iLa]).trim();
+            const lonRaw = String(r[iLo] == null ? '' : r[iLo]).trim();
+            const lat = Number(latRaw), lon = Number(lonRaw);
+            if (latRaw !== '' && lonRaw !== '' && Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
             if (iA >= 0 && r[iA]) parseAuth(rec, r[iA]);
             entities[type][nk(label)] = rec;
           }
@@ -6285,6 +6297,38 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         + ' forms, recorded as suggestions.');
     }
 
+    // machine entity proposals accepted without review: the declared names
+    // become suggestions (never confirmed, so the edition says so), and places
+    // take the coordinates Wikidata proposed, so the map can appear even when
+    // the sheet was never opened. Untyped candidates are not auto-typed: the
+    // machine does not decide whether a bare name is a person or a place
+    if (entitiesAuto && !texts.has('reconcile.json')) {
+      const sug = (S && S.authoritySuggestions) || new Map();
+      const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
+      const entities = { person: {}, place: {}, org: {} };
+      let n = 0;
+      for (const [type, list] of [['person', model.registries.people],
+        ['place', model.registries.places], ['org', model.registries.orgs]]) {
+        for (const e of (list || [])) {
+          const a = sug.get(e.label);
+          const rec = { label: e.label, status: 'suggested', source: 'machine' };
+          if (a) {
+            if (a.qid) rec.wikidata = a.qid;
+            if (a.viaf) rec.viaf = a.viaf;
+            if (a.description) rec.note = a.description;
+            if (a.lat != null && a.lon != null) { rec.lat = a.lat; rec.lon = a.lon; }
+          }
+          entities[type][nk(e.label)] = rec; n++;
+        }
+      }
+      if (n) {
+        applyReconciliation(model, entities);
+        notes.push('Entity proposals accepted without review, as chosen: ' + n
+          + ' entities recorded as machine suggestions'
+          + (sug.size ? ', with the coordinates Wikidata proposed' : '') + '.');
+      }
+    }
+
     const analysis = analyze(roots.map((r) => r.root || r), map);
     const teiNames = parsed.map((p) => p.name);
 
@@ -6329,7 +6373,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         lexStats: !!(raw.pieces && (raw.pieces.lexStats === true || raw.pieces.lexicon === true)),
         lexFreq: !!(raw.pieces && (raw.pieces.lexFreq === true || raw.pieces.lexicon === true)),
         lexConc: !!(raw.pieces && (raw.pieces.lexConc === true || raw.pieces.lexicon === true)),
-        lexCloud: !!(raw.pieces && (raw.pieces.lexCloud === true || raw.pieces.lexicon === true)),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
       apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : '',
@@ -6646,7 +6689,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
-    for (const k of ['lexStats', 'lexFreq', 'lexConc', 'lexCloud']) {
+    for (const k of ['lexStats', 'lexFreq', 'lexConc']) {
       if (ui.pieces[k]) off[k] = true; // off by default, so record when on
     }
     if (Object.keys(off).length) m.pieces = off;
@@ -6676,6 +6719,20 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     }));
     const manifest = buildManifest();
     S.files = pressSite(S.model, { manifest, sourceXML: S.sourceXML, extraPages });
+
+    // pages that come into being on a LATER press must join the menu, or the
+    // editor asks for them and never sees them: a lexicon view opted in after
+    // the first press, an index or a map that exists only once the entities are
+    // reconciled. Add the new ones (on by default); never touch a page already
+    // listed, so one the editor deliberately turned off stays off. The list was
+    // seeded once and never reconciled: that was the bug
+    if (S.ui.pages) {
+      for (const n of Object.keys(S.files)) {
+        if (!n.endsWith('.html') || n.startsWith('doc-')) continue;
+        const id = n.replace(/\.html$/, '');
+        if (!(id in S.ui.pages)) S.ui.pages[id] = { on: true, label: '' };
+      }
+    }
 
     // first pressing: learn which pages the markup activates, seed the page list
     if (!S.ui.pages) {
@@ -6934,9 +6991,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '<label><input type="checkbox" id="c-lexfreq"' + (ui.pieces.lexFreq ? ' checked' : '')
       + '> word frequencies</label> '
       + '<label><input type="checkbox" id="c-lexconc"' + (ui.pieces.lexConc ? ' checked' : '')
-      + '> concordance</label> '
-      + '<label><input type="checkbox" id="c-lexcloud"' + (ui.pieces.lexCloud ? ' checked' : '')
-      + '> word cloud</label>'
+      + '> concordance (KWIC)</label>'
       + '<div class="piece-block"><b>1 \u00b7 Say the language of the text.</b>'
       + '<div class="frow"><label for="c-nlplang">language</label>'
       + '<select id="c-nlplang">' + langOpts + '</select></div>'
@@ -6972,14 +7027,16 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         : '<p class="note">Your markup declares no named entities. You can still have indices and '
           + 'a map: ask the grammar to propose candidates, then say which are persons, places or '
           + 'organisations, one occurrence at a time.</p>')
+      + '<div class="checkrow">'
       + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
-      + '> index of persons</label> '
+      + '>index of persons</label>'
       + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
-      + '> index of places</label> '
+      + '>index of places</label>'
       + '<label><input type="checkbox" id="c-orgs"' + (ui.pieces.orgs ? ' checked' : '')
-      + '> index of organisations</label> '
+      + '>index of organisations</label>'
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
-      + '> map, where places carry coordinates</label>'
+      + '>map, where places carry coordinates</label>'
+      + '</div>'
       + '<p><button type="button" id="c-candidates">Propose candidates from the grammar</button>'
       + '<span class="note">The proper nouns of your text, found by the same language service as '
       + 'the lemmas (UDPipe: <b>the text is sent to that service</b>). They come back untyped: '
@@ -6990,7 +7047,8 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         ? '<p><button type="button" id="c-authorities">Search the authorities (Wikidata)</button>'
           + '<span class="note">Each declared name is looked up on wikidata.org (<b>the names are '
           + 'sent there</b>): the sheet then proposes its public identifier, a one-line description '
-          + 'to judge it by, and coordinates for places. You confirm or reject each one.'
+          + 'to judge it by, and coordinates for places. You confirm or reject each one. '
+          + 'One request per name: for many names this can take several minutes.'
           + (S.authoritySuggestions ? ' <b>' + S.authoritySuggestions.size + ' proposals ready.</b>' : '')
           + '</span></p>'
         : '')
@@ -7000,6 +7058,17 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + 'set the types, fill coordinates, save.</span></p>'
       + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
       + '(or with the files).</span></div>'
+      + '<p class="note"><b>The map needs coordinates.</b> A place appears on the map only when it '
+      + 'carries a latitude and a longitude. For places the proper source is GeoNames: the '
+      + 'repository georeferences against the gazetteer (the georeference step), the editor confirms, '
+      + 'and coordinates the TEI already declares always win. Here in the browser, where the whole '
+      + 'gazetteer is too large to carry, the Wikidata search proposes coordinates instead, or you '
+      + 'fill the lat and lon columns in the sheet by hand. A place without coordinates stays in the '
+      + 'index, off the map.</p>'
+      + '<label class="checkrow" style="margin-top:.6em"><input type="checkbox" id="c-entities-auto"'
+      + (entitiesAuto ? ' checked' : '') + '>or proceed without review: use the proposals as they are, '
+      + 'with the coordinates Wikidata proposed. The edition will say so (every name stays marked as a '
+      + 'machine suggestion)</label>'
       + '</fieldset>';
 
     html += '<div class="stepmove"><button type="button" class="step-back">\u2039 back</button>'
@@ -7078,7 +7147,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-lexstats', (el) => { ui.pieces.lexStats = el.checked; });
     bind('c-lexfreq', (el) => { ui.pieces.lexFreq = el.checked; });
     bind('c-lexconc', (el) => { ui.pieces.lexConc = el.checked; });
-    bind('c-lexcloud', (el) => { ui.pieces.lexCloud = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-version', (el) => { ui.version = el.value.trim(); });
@@ -7087,6 +7155,10 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-lemma-auto', (el) => {
       lemmaAuto = el.checked;
       if (lemmaAuto && S.lemmaTypes && lastFiles.length) press(lastFiles);
+    });
+    bind('c-entities-auto', (el) => {
+      entitiesAuto = el.checked;
+      if (entitiesAuto && lastFiles.length) press(lastFiles);
     });
     const lemBtn = document.getElementById('c-lemmatize');
     if (lemBtn) lemBtn.addEventListener('click', lemmatize);

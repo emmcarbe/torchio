@@ -67,8 +67,12 @@ if (outArg && /\.xlsx$/i.test(outArg)) {
     const key = r[iK]; if (!key || !table.entities.place[key]) continue;
     const e = table.entities.place[key];
     if (iS >= 0 && r[iS]) e.status = r[iS];
-    const lat = Number(r[iLa]), lon = Number(r[iLo]);
-    if (Number.isFinite(lat) && Number.isFinite(lon)) { e.lat = lat; e.lon = lon; }
+    // a blank lat/lon cell is not a coordinate: Number('') is 0, which would
+    // plant the place at 0,0 and pull the map onto empty ocean
+    const latRaw = String(r[iLa] == null ? '' : r[iLa]).trim();
+    const lonRaw = String(r[iLo] == null ? '' : r[iLo]).trim();
+    const lat = Number(latRaw), lon = Number(lonRaw);
+    if (latRaw !== '' && lonRaw !== '' && Number.isFinite(lat) && Number.isFinite(lon)) { e.lat = lat; e.lon = lon; }
     applied++;
   }
   await writeFile(jsonPath, JSON.stringify(table, null, 1));

@@ -172,10 +172,28 @@ export function renderBase(node, hooks) {
   const after = hooks && hooks.after ? hooks.after(node) : '';
   // a mention whose @ref is an external authority URI (VIAF, Wikidata,
   // GeoNames...) is a real link: it opens in its own tab, markup decides
-  if (tag === 'span' && MENTION_ELEMENTS.has(node.element)
-      && /^https?:\/\//.test(node.atts.ref || '')) {
-    return `<a${id} class="${cls} ent-ext" href="${escapeHTML(node.atts.ref)}"`
-      + ` target="_blank" rel="noopener"${data}>${inner}</a>${after}`;
+  if (tag === 'span' && MENTION_ELEMENTS.has(node.element)) {
+    const ref = node.atts.ref || '';
+    // the attributes the source declares about this mention, surfaced verbatim
+    // so a reader sees them on hover without a script and without an invented
+    // gloss (attestation, not inference): the type, the reference, the key
+    const bits = [];
+    for (const a of ['type', 'role', 'ref', 'key', 'cert']) {
+      if (node.atts[a]) bits.push(`${a}: ${node.atts[a]}`);
+    }
+    const title = bits.length ? ` title="${escapeHTML(bits.join(' · '))}"` : '';
+    // an @ref that is an external authority URI (VIAF, Wikidata, GeoNames...) is
+    // a real link: it opens in its own tab, markup decides
+    if (/^https?:\/\//.test(ref)) {
+      return `<a${id} class="${cls} ent-ext" href="${escapeHTML(ref)}"`
+        + ` target="_blank" rel="noopener"${title}${data}>${inner}</a>${after}`;
+    }
+    // an internal reference (#id), a key or a type is not a link, but the
+    // attribute is still shown on hover, so it is never invisible until a
+    // script runs (the earlier behaviour: only external links did anything)
+    if (title) {
+      return `<${tag}${id} class="${cls}"${title}${data}>${inner}</${tag}>${after}`;
+    }
   }
   // a metamark is the writer's sign about the text (the caret of an
   // insertion, a paragraph mark), not text of the work: shown as it is, but
@@ -215,7 +233,7 @@ export function renderBase(node, hooks) {
 
 /** Entity mentions that may carry an authority reference. */
 const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
-  'settlement', 'geogName', 'institution', 'repository', 'author', 'rs']);
+  'settlement', 'geogName', 'institution', 'repository', 'author', 'rs', 'term']);
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
 /** Scripts written right to left: an edition in these languages must not be

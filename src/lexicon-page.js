@@ -1,6 +1,6 @@
 /**
  * The lexicon page: the raw lexical layer of the text. The editor (or the
- * reader) chooses what to see (frequencies, concordance, cloud), searches,
+ * reader) chooses what to see (frequencies, concordance), searches,
  * filters by language, and decides which stopword list applies and which
  * single words count as stopwords. Nothing is imposed: not every tradition
  * has stopwords, and when no language is declared none is applied until one
@@ -15,10 +15,10 @@ import { chrome, jsonForScript } from './page-shell.js';
 import { STOPWORDS, STOPWORD_NAMES } from './lemmas.js';
 
 export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
-  views = { freq: true, conc: true, cloud: true } }) {
+  views = { freq: true, conc: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
-  const chosen = ['freq', 'conc', 'cloud'].filter((v) => views[v]);
+  const chosen = ['freq', 'conc'].filter((v) => views[v]);
   const first = chosen[0] || 'freq';
 
   const langFilter = multi
@@ -44,7 +44,6 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     + (chosen.length > 1 ? `<span class="lx-views" role="group">`
       + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
       + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')
-      + (views.cloud ? `<button data-view="cloud"${first === 'cloud' ? ' class="active"' : ''}>${T.lexCloud}</button>` : '')
       + `</span>` : '') + `</div>`
     + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
     + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
@@ -64,7 +63,6 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     }</tbody></table>${L.frequencies.length > 1500
       ? `<p class="occ">${L.frequencies.length - 1500} ${T.lexMoreForms || 'more forms in the data export'}</p>` : ''}</section>` : '')
     + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
-    + (views.cloud ? `<section class="lx-view lx-cloud"${first === 'cloud' ? '' : ' hidden'}></section>` : '')
     + `</main>`;
 
   // the concordance of every form of a long text is megabytes: a page that
@@ -87,7 +85,6 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   var MULTI=${multi ? 'true' : 'false'};
   var main=document.querySelector('main.lexicon');
   var tbody=main.querySelector('.lx-freq tbody');
-  var cloud=main.querySelector('.lx-cloud');
   var search=main.querySelector('.lx-search');
   var langsel=main.querySelector('.lx-langsel');
   var stopsel=main.querySelector('.lx-stopsel');
@@ -117,14 +114,6 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
         +'<td class="lx-num"><button class="lx-flip" title="'+(isStop(f)?'\\u2212':'+')+'">'+(isStop(f)?'\\u25CF':'\\u25CB')+'</button></td>'
         +'</tr>';
     }).join('');
-    var content=rows.filter(function(f){return !isStop(f);});
-    var top=content.slice(0,90);
-    var cmax=top.length?top[0].count:1, cmin=top.length?top[top.length-1].count:1;
-    var span=(Math.log(cmax)-Math.log(cmin))||1;
-    if(cloud)cloud.innerHTML=top.map(function(f){
-      var sz=14+Math.round((Math.log(f.count)-Math.log(cmin))/span*34);
-      return '<span class="lx-cloud-w" data-form="'+esc(f.form)+'" style="font-size:'+sz+'px" title="'+f.count+' ('+f.rel.toFixed(2)+'\\u2030)">'+esc(f.form)+'</span>';
-    }).join(' ');
   }
   function show(v){
     main.querySelectorAll('.lx-view').forEach(function(s){s.hidden=!s.classList.contains('lx-'+v);});

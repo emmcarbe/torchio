@@ -113,10 +113,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const lexViews = {
     freq: lexAll || manifest.pieces.lexFreq === true,
     conc: lexAll || manifest.pieces.lexConc === true,
-    cloud: lexAll || manifest.pieces.lexCloud === true,
   };
   const hasLexicon = !!(model.lexicon && model.lexicon.total)
-    && (lexViews.freq || lexViews.conc || lexViews.cloud);
+    && (lexViews.freq || lexViews.conc);
   const hasLexStats = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexStats === true;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
@@ -713,7 +712,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     out['lemmas.html'] = pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages });
   }
 
-  /* ---- lexicon.html: frequencies, concordance, cloud, chosen by the editor ---- */
+  /* ---- lexicon.html: frequencies, concordance, chosen by the editor ---- */
   if (hasLexicon && wanted.has('lexicon')) {
     out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages, views: lexViews });
   }

@@ -69,6 +69,7 @@
   let currentStep = 'edition'; // survives panel redraws: UDPipe must not send you back to page one
   let nlpLang = ''; // the editor's word on the language; empty = trust the markup
   let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
+  let entitiesAuto = false; // accept machine entity proposals without review (declared in the edition)
   async function doPress(fileList) {
     lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
@@ -228,8 +229,13 @@
             }
             if (!entities[type]) continue;
             const rec = { label, status, source: 'editor' };
-            const lat = Number(r[iLa]), lon = Number(r[iLo]);
-            if (Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
+            // an empty lat/lon cell is not a coordinate: Number('') is 0, which
+            // would plant the place at 0,0 (the Gulf of Guinea) and drag the
+            // whole map onto empty ocean. A blank cell means "no coordinate"
+            const latRaw = String(r[iLa] == null ? '' : r[iLa]).trim();
+            const lonRaw = String(r[iLo] == null ? '' : r[iLo]).trim();
+            const lat = Number(latRaw), lon = Number(lonRaw);
+            if (latRaw !== '' && lonRaw !== '' && Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
             if (iA >= 0 && r[iA]) parseAuth(rec, r[iA]);
             entities[type][nk(label)] = rec;
           }
@@ -283,6 +289,38 @@
         + ' forms, recorded as suggestions.');
     }
 
+    // machine entity proposals accepted without review: the declared names
+    // become suggestions (never confirmed, so the edition says so), and places
+    // take the coordinates Wikidata proposed, so the map can appear even when
+    // the sheet was never opened. Untyped candidates are not auto-typed: the
+    // machine does not decide whether a bare name is a person or a place
+    if (entitiesAuto && !texts.has('reconcile.json')) {
+      const sug = (S && S.authoritySuggestions) || new Map();
+      const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
+      const entities = { person: {}, place: {}, org: {} };
+      let n = 0;
+      for (const [type, list] of [['person', model.registries.people],
+        ['place', model.registries.places], ['org', model.registries.orgs]]) {
+        for (const e of (list || [])) {
+          const a = sug.get(e.label);
+          const rec = { label: e.label, status: 'suggested', source: 'machine' };
+          if (a) {
+            if (a.qid) rec.wikidata = a.qid;
+            if (a.viaf) rec.viaf = a.viaf;
+            if (a.description) rec.note = a.description;
+            if (a.lat != null && a.lon != null) { rec.lat = a.lat; rec.lon = a.lon; }
+          }
+          entities[type][nk(e.label)] = rec; n++;
+        }
+      }
+      if (n) {
+        applyReconciliation(model, entities);
+        notes.push('Entity proposals accepted without review, as chosen: ' + n
+          + ' entities recorded as machine suggestions'
+          + (sug.size ? ', with the coordinates Wikidata proposed' : '') + '.');
+      }
+    }
+
     const analysis = analyze(roots.map((r) => r.root || r), map);
     const teiNames = parsed.map((p) => p.name);
 
@@ -327,7 +365,6 @@
         lexStats: !!(raw.pieces && (raw.pieces.lexStats === true || raw.pieces.lexicon === true)),
         lexFreq: !!(raw.pieces && (raw.pieces.lexFreq === true || raw.pieces.lexicon === true)),
         lexConc: !!(raw.pieces && (raw.pieces.lexConc === true || raw.pieces.lexicon === true)),
-        lexCloud: !!(raw.pieces && (raw.pieces.lexCloud === true || raw.pieces.lexicon === true)),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
       apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : '',
@@ -644,7 +681,7 @@
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
-    for (const k of ['lexStats', 'lexFreq', 'lexConc', 'lexCloud']) {
+    for (const k of ['lexStats', 'lexFreq', 'lexConc']) {
       if (ui.pieces[k]) off[k] = true; // off by default, so record when on
     }
     if (Object.keys(off).length) m.pieces = off;
@@ -674,6 +711,20 @@
     }));
     const manifest = buildManifest();
     S.files = pressSite(S.model, { manifest, sourceXML: S.sourceXML, extraPages });
+
+    // pages that come into being on a LATER press must join the menu, or the
+    // editor asks for them and never sees them: a lexicon view opted in after
+    // the first press, an index or a map that exists only once the entities are
+    // reconciled. Add the new ones (on by default); never touch a page already
+    // listed, so one the editor deliberately turned off stays off. The list was
+    // seeded once and never reconciled: that was the bug
+    if (S.ui.pages) {
+      for (const n of Object.keys(S.files)) {
+        if (!n.endsWith('.html') || n.startsWith('doc-')) continue;
+        const id = n.replace(/\.html$/, '');
+        if (!(id in S.ui.pages)) S.ui.pages[id] = { on: true, label: '' };
+      }
+    }
 
     // first pressing: learn which pages the markup activates, seed the page list
     if (!S.ui.pages) {
@@ -932,9 +983,7 @@
       + '<label><input type="checkbox" id="c-lexfreq"' + (ui.pieces.lexFreq ? ' checked' : '')
       + '> word frequencies</label> '
       + '<label><input type="checkbox" id="c-lexconc"' + (ui.pieces.lexConc ? ' checked' : '')
-      + '> concordance</label> '
-      + '<label><input type="checkbox" id="c-lexcloud"' + (ui.pieces.lexCloud ? ' checked' : '')
-      + '> word cloud</label>'
+      + '> concordance (KWIC)</label>'
       + '<div class="piece-block"><b>1 \u00b7 Say the language of the text.</b>'
       + '<div class="frow"><label for="c-nlplang">language</label>'
       + '<select id="c-nlplang">' + langOpts + '</select></div>'
@@ -970,14 +1019,16 @@
         : '<p class="note">Your markup declares no named entities. You can still have indices and '
           + 'a map: ask the grammar to propose candidates, then say which are persons, places or '
           + 'organisations, one occurrence at a time.</p>')
+      + '<div class="checkrow">'
       + '<label><input type="checkbox" id="c-persons"' + (ui.pieces.persons ? ' checked' : '')
-      + '> index of persons</label> '
+      + '>index of persons</label>'
       + '<label><input type="checkbox" id="c-places"' + (ui.pieces.places ? ' checked' : '')
-      + '> index of places</label> '
+      + '>index of places</label>'
       + '<label><input type="checkbox" id="c-orgs"' + (ui.pieces.orgs ? ' checked' : '')
-      + '> index of organisations</label> '
+      + '>index of organisations</label>'
       + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
-      + '> map, where places carry coordinates</label>'
+      + '>map, where places carry coordinates</label>'
+      + '</div>'
       + '<p><button type="button" id="c-candidates">Propose candidates from the grammar</button>'
       + '<span class="note">The proper nouns of your text, found by the same language service as '
       + 'the lemmas (UDPipe: <b>the text is sent to that service</b>). They come back untyped: '
@@ -988,7 +1039,8 @@
         ? '<p><button type="button" id="c-authorities">Search the authorities (Wikidata)</button>'
           + '<span class="note">Each declared name is looked up on wikidata.org (<b>the names are '
           + 'sent there</b>): the sheet then proposes its public identifier, a one-line description '
-          + 'to judge it by, and coordinates for places. You confirm or reject each one.'
+          + 'to judge it by, and coordinates for places. You confirm or reject each one. '
+          + 'One request per name: for many names this can take several minutes.'
           + (S.authoritySuggestions ? ' <b>' + S.authoritySuggestions.size + ' proposals ready.</b>' : '')
           + '</span></p>'
         : '')
@@ -998,6 +1050,17 @@
       + 'set the types, fill coordinates, save.</span></p>'
       + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
       + '(or with the files).</span></div>'
+      + '<p class="note"><b>The map needs coordinates.</b> A place appears on the map only when it '
+      + 'carries a latitude and a longitude. For places the proper source is GeoNames: the '
+      + 'repository georeferences against the gazetteer (the georeference step), the editor confirms, '
+      + 'and coordinates the TEI already declares always win. Here in the browser, where the whole '
+      + 'gazetteer is too large to carry, the Wikidata search proposes coordinates instead, or you '
+      + 'fill the lat and lon columns in the sheet by hand. A place without coordinates stays in the '
+      + 'index, off the map.</p>'
+      + '<label class="checkrow" style="margin-top:.6em"><input type="checkbox" id="c-entities-auto"'
+      + (entitiesAuto ? ' checked' : '') + '>or proceed without review: use the proposals as they are, '
+      + 'with the coordinates Wikidata proposed. The edition will say so (every name stays marked as a '
+      + 'machine suggestion)</label>'
       + '</fieldset>';
 
     html += '<div class="stepmove"><button type="button" class="step-back">\u2039 back</button>'
@@ -1076,7 +1139,6 @@
     bind('c-lexstats', (el) => { ui.pieces.lexStats = el.checked; });
     bind('c-lexfreq', (el) => { ui.pieces.lexFreq = el.checked; });
     bind('c-lexconc', (el) => { ui.pieces.lexConc = el.checked; });
-    bind('c-lexcloud', (el) => { ui.pieces.lexCloud = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-version', (el) => { ui.version = el.value.trim(); });
@@ -1085,6 +1147,10 @@
     bind('c-lemma-auto', (el) => {
       lemmaAuto = el.checked;
       if (lemmaAuto && S.lemmaTypes && lastFiles.length) press(lastFiles);
+    });
+    bind('c-entities-auto', (el) => {
+      entitiesAuto = el.checked;
+      if (entitiesAuto && lastFiles.length) press(lastFiles);
     });
     const lemBtn = document.getElementById('c-lemmatize');
     if (lemBtn) lemBtn.addEventListener('click', lemmatize);
