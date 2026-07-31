@@ -413,6 +413,10 @@
           + '<span class="note">' + esc(DERIVED_FROM[id]) + '</span></div>';
       }
     }
+    if (chunkIds.length) {
+      html += '<p class="note">' + chunkIds.length
+        + ' section pages follow the text page: they are the divisions the markup declares, not choices to make here.</p>';
+    }
     html += '<p><button type="button" id="c-addpage">Add a simple page</button> '
       + '<span class="note">your own prose (an introduction, credits, a bibliography), '
       + 'written in Markdown, part of the site navigation</span></p>'
