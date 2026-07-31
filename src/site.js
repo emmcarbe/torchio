@@ -79,7 +79,10 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
           container = divs[0];
           continue;
         }
-        if (divs.length >= 2 && textOfModel(bodyNode).length > 40000) chunks = divs;
+        // a long text becomes pages when its divisions are few enough to be
+        // a table of contents; a hundred chapters are a text, not a site
+        if (divs.length >= 2 && divs.length <= 40
+            && textOfModel(bodyNode).length > 40000) chunks = divs;
         break;
       }
     }

@@ -207,7 +207,10 @@
         apparatus: !(raw.pieces && raw.pieces.apparatus === false),
         entities: !(raw.pieces && raw.pieces.entities === false),
         choice: !(raw.pieces && raw.pieces.choice === false),
+        map: !(raw.pieces && raw.pieces.map === false),
+        lemmas: !(raw.pieces && raw.pieces.lemmas === false),
       },
+      genre: typeof raw.genre === 'string' ? raw.genre : '',
       // pages: id -> {on, label}; filled after the first pressing, when the
       // derived pages are known
       pages: null,
@@ -245,6 +248,12 @@
     if (ui.subtitle.trim()) m.subtitle = ui.subtitle.trim();
     if (ui.lang) m.lang = ui.lang;
     if (ui.theme) m.theme = ui.theme;
+    if (ui.genre) m.genre = ui.genre;
+    const off = {};
+    for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas']) {
+      if (ui.pieces[k] === false) off[k] = false;
+    }
+    if (Object.keys(off).length) m.pieces = off;
     if (ui.extra.length) {
       m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
     }
@@ -258,12 +267,6 @@
       }
     }
     if (ui.registerColumns) m.register = { columns: ui.registerColumns };
-    if (!ui.pieces.apparatus || !ui.pieces.entities || !ui.pieces.choice) {
-      m.pieces = {};
-      for (const k of ['apparatus', 'entities', 'choice']) {
-        if (!ui.pieces[k]) m.pieces[k] = false;
-      }
-    }
     if (!ui.exports) m.exports = false;
     return m;
   }
@@ -463,6 +466,10 @@
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
       + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
+      + '> map, where places carry coordinates</label> '
+      + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
+      + '> lemma index, where the edition declares lemmas</label> '
       + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
       + '> reading/diplomatic toggle</label> '
       + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
@@ -504,6 +511,9 @@
     bind('c-lang', (el) => { ui.lang = el.value; renderPanelSoon(); });
     bind('c-theme', (el) => { ui.theme = el.value; });
     bind('c-apparatus', (el) => { ui.pieces.apparatus = el.checked; });
+    bind('c-map', (el) => { ui.pieces.map = el.checked; });
+    bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
+    bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-entities', (el) => { ui.pieces.entities = el.checked; });
     bind('c-choice', (el) => { ui.pieces.choice = el.checked; });
     bind('c-exports', (el) => { ui.exports = el.checked; });

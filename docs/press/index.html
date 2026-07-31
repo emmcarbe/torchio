@@ -1699,11 +1699,28 @@ function buildInteractJS(t) {
       // document order, so a mark is never left without its note (C74)
       var marks=[].slice.call(document.querySelectorAll('main.torchio .t-note-mark'))
         .filter(function(m){return !m.closest('.header-full')&&!m.closest('.t-teiHeader');});
+      /* a mark whose note the press does not show (a note of the header, or
+         one filtered out) is not a mark: it is a leftover, and it goes */
+      if(marks.length>notes.length){
+        marks.slice(notes.length).forEach(function(m){m.remove();});
+        marks=marks.slice(0,notes.length);
+      }
       notes.forEach(function(n,i){
         if(n.dataset.npi)return;
         n.dataset.npi=String(i);
         var res=anchorOf(n);
         var el=(res&&res.el)||marks[i];
+        /* a standoff note is written apart and declares where it belongs:
+           its mark goes to the passage, not to the place it was written */
+        var tg=n.dataset.target;
+        if(tg&&el&&el.classList&&el.classList.contains('t-note-mark')){
+          var id=tg.split(/\s+/)[0].replace(/^#/,'');
+          var dest=document.getElementById(id);
+          if(dest&&!dest.contains(el)){
+            if(dest.nextSibling)dest.parentNode.insertBefore(el,dest.nextSibling);
+            else dest.parentNode.appendChild(el);
+          }
+        }
         if(el){el.setAttribute('data-notepop',String(i));
           el.removeAttribute('aria-hidden');makeTrigger(el,null);}
       });
@@ -3822,7 +3839,10 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
           container = divs[0];
           continue;
         }
-        if (divs.length >= 2 && textOfModel(bodyNode).length > 40000) chunks = divs;
+        // a long text becomes pages when its divisions are few enough to be
+        // a table of contents; a hundred chapters are a text, not a site
+        if (divs.length >= 2 && divs.length <= 40
+            && textOfModel(bodyNode).length > 40000) chunks = divs;
         break;
       }
     }
@@ -4899,7 +4919,10 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         apparatus: !(raw.pieces && raw.pieces.apparatus === false),
         entities: !(raw.pieces && raw.pieces.entities === false),
         choice: !(raw.pieces && raw.pieces.choice === false),
+        map: !(raw.pieces && raw.pieces.map === false),
+        lemmas: !(raw.pieces && raw.pieces.lemmas === false),
       },
+      genre: typeof raw.genre === 'string' ? raw.genre : '',
       // pages: id -> {on, label}; filled after the first pressing, when the
       // derived pages are known
       pages: null,
@@ -4937,6 +4960,12 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (ui.subtitle.trim()) m.subtitle = ui.subtitle.trim();
     if (ui.lang) m.lang = ui.lang;
     if (ui.theme) m.theme = ui.theme;
+    if (ui.genre) m.genre = ui.genre;
+    const off = {};
+    for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas']) {
+      if (ui.pieces[k] === false) off[k] = false;
+    }
+    if (Object.keys(off).length) m.pieces = off;
     if (ui.extra.length) {
       m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
     }
@@ -4950,12 +4979,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       }
     }
     if (ui.registerColumns) m.register = { columns: ui.registerColumns };
-    if (!ui.pieces.apparatus || !ui.pieces.entities || !ui.pieces.choice) {
-      m.pieces = {};
-      for (const k of ['apparatus', 'entities', 'choice']) {
-        if (!ui.pieces[k]) m.pieces[k] = false;
-      }
-    }
     if (!ui.exports) m.exports = false;
     return m;
   }
@@ -5155,6 +5178,10 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '> apparatus popups</label> '
       + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
       + '> entity cards</label> '
+      + '<label><input type="checkbox" id="c-map"' + (ui.pieces.map ? ' checked' : '')
+      + '> map, where places carry coordinates</label> '
+      + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
+      + '> lemma index, where the edition declares lemmas</label> '
       + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
       + '> reading/diplomatic toggle</label> '
       + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
@@ -5196,6 +5223,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-lang', (el) => { ui.lang = el.value; renderPanelSoon(); });
     bind('c-theme', (el) => { ui.theme = el.value; });
     bind('c-apparatus', (el) => { ui.pieces.apparatus = el.checked; });
+    bind('c-map', (el) => { ui.pieces.map = el.checked; });
+    bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
+    bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-entities', (el) => { ui.pieces.entities = el.checked; });
     bind('c-choice', (el) => { ui.pieces.choice = el.checked; });
     bind('c-exports', (el) => { ui.exports = el.checked; });
