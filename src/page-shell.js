@@ -145,6 +145,10 @@ ${headerLabelCSS()}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+.t-line{display:block}
+.t-zone{display:block;margin:0 0 .2em}
+.t-surface{display:block;margin:1.6em 0;padding:1.2em 1.4em;border:1px solid var(--hair);border-radius:2px}
+.t-surface .t-surface{border:none;margin:0;padding:0}
 .lx-bar-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:1em 0;
   padding-bottom:.8em;border-bottom:1px solid var(--hair)}
 .lx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);

@@ -21,6 +21,10 @@ const BLOCKS = new Set([
   'listWit', 'witness', 'listPerson', 'person', 'listPlace', 'place',
   'listOrg', 'org', 'listChange', 'change', 'listBibl', 'bibl', 'note',
   'teiHeader', 'fileDesc', 'sourceDesc', 'msDesc', 'figure', 'group', 'floatingText',
+  // documentary transcription (sourceDoc): a line of the page is a line on
+  // screen, never joined into prose. A word split across lines stays split,
+  // as it is in the notebook (C80)
+  'sourceDoc', 'surface', 'surfaceGrp', 'zone', 'line',
 ]);
 
 /** Escapes for both text and attribute contexts: quotes included, because
