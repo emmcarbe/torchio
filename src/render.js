@@ -7,7 +7,7 @@
  * rung 1 of the four-rung ladder: whatever happens, this renders.
  */
 
-import { walkModel } from './model.js';
+import { walkModel, textOfModel } from './model.js';
 import { interactCSS, buildInteractJS, toolbarHTML } from './interact.js';
 import { i18n, resolveLang } from './i18n.js';
 import { themeCSS } from './themes.js';
@@ -66,10 +66,15 @@ export const escapeHTML = (s) =>
  *  relative paths, fragments, http(s) and mailto survive; anything else
  *  (javascript:, data:, unknown schemes) is refused. */
 export function safeURL(value) {
-  const v = String(value == null ? '' : value).trim();
+  // browsers strip TAB, LF and CR from a URL before reading its scheme, so
+  // "java\tscript:" runs. Strip them first, then allow instead of deny: an
+  // allowlist cannot be walked around by a scheme nobody thought of
+  const v = String(value == null ? '' : value)
+    .replace(/[\u0000-\u001F\u007F]/g, '').trim();
   if (!v) return null;
+  if (/^\/\//.test(v)) return null;                     // //host is absolute, not relative
   if (/^[#/.]/.test(v)) return v;                       // fragment or relative
-  if (/^(https?:|mailto:)/i.test(v)) return v;
+  if (/^(https?|mailto):/i.test(v)) return v;
   if (/^[a-z][a-z0-9+.-]*:/i.test(v)) return null;      // any other scheme
   return v;                                             // bare relative name
 }
@@ -100,7 +105,9 @@ export function renderBase(node, hooks) {
   if (node.element === 'gap') {
     const reason = node.atts.reason ? ` (${escapeHTML(node.atts.reason)})` : '';
     return `<span id="${escapeHTML(node.id)}" class="t-gap s-${node.section}" data-el="gap"`
-      + ` title="${escapeHTML((node.atts.reason || 'gap') + (node.atts.quantity ? `, ${node.atts.quantity}` : ''))}">[…]</span>`;
+      + ` title="${escapeHTML([node.atts.reason || 'gap',
+        [node.atts.quantity, node.atts.unit].filter(Boolean).join(' ') || node.atts.extent,
+        textOfModel(node).trim()].filter(Boolean).join(', '))}">[…]</span>`;
   }
   const tag = htmlTagFor(node);
   let cls = `t-${node.element} s-${node.section}`;
@@ -110,6 +117,15 @@ export function renderBase(node, hooks) {
   }
   const id = ` id="${escapeHTML(node.id)}"`;
   let data = ` data-el="${escapeHTML(node.element)}"`;
+  // the language the edition declares is not decoration: it governs
+  // hyphenation, quotation marks, the voice of a screen reader and the
+  // direction of the script. It must survive into the page as a real
+  // HTML attribute, never as data-*
+  const xl = node.atts['xml:lang'];
+  if (xl) {
+    data += ` lang="${escapeHTML(xl)}"`;
+    if (RTL.has(String(xl).split('-')[0].toLowerCase())) data += ' dir="rtl"';
+  }
   for (const a of DATA_ATTS) {
     if (node.atts[a] != null) data += ` data-${a}="${escapeHTML(node.atts[a])}"`;
   }
@@ -136,6 +152,18 @@ export function renderBase(node, hooks) {
   // a metamark is the writer's sign about the text (the caret of an
   // insertion, a paragraph mark), not text of the work: shown as it is, but
   // each explains itself in plain words on hover
+  // an apparatus entry says, in the class, what CSS then acts on: no :has()
+  // (a browser without it would print every variant inside the critical text)
+  // and no guessing. An app that points (@from/@to, @loc) has its text in the
+  // base text already: rendering it inline would print the lemma twice
+  if (node.element === 'app') {
+    const hasLem = node.children.some((c) => typeof c !== 'string' && c.element === 'lem');
+    const points = node.atts.loc != null
+      || (node.atts.from != null && /^#/.test(String(node.atts.from)));
+    const appCls = cls + (hasLem ? ' app-has-lem' : ' app-no-lem')
+      + (points ? ' app-pointing' : '');
+    return `<${tag}${id} class="${appCls}"${data}>${inner}</${tag}>${after}`;
+  }
   if (node.element === 'metamark') {
     const MM = {
       insertion: 'insertion mark: the words written above the line enter here',
@@ -162,8 +190,17 @@ const MENTION_ELEMENTS = new Set(['persName', 'placeName', 'orgName', 'name',
   'settlement', 'geogName', 'institution', 'repository', 'author', 'rs']);
 
 /** Attributes surfaced as data-* for the interactive pieces (readable, safe). */
+/** Scripts written right to left: an edition in these languages must not be
+ *  laid out left to right (principle 1: no tradition is the default). */
+const RTL = new Set(['ar', 'he', 'fa', 'ur', 'syr', 'arc', 'sam', 'dv', 'ps', 'yi', 'ku', 'ckb']);
+
 const DATA_ATTS = ['wit', 'source', 'resp', 'cert', 'ref', 'key', 'type', 'n',
-  'place', 'hand', 'target', 'when', 'from', 'to', 'loc', 'change', 'new'];
+  'place', 'hand', 'target', 'when', 'from', 'to', 'loc', 'change', 'new',
+  // what the edition declares about its own writing: how a passage is written
+  // (rend), what an image is (url, facs), why a reading is uncertain (reason),
+  // how much is missing (unit, extent), the medium of a hand
+  'rend', 'url', 'facs', 'reason', 'unit', 'extent', 'medium', 'corresp',
+  'subtype', 'function', 'style', 'rendition'];
 
 /**
  * Default theme. Visual language after Emmanuela Carbé's "Risposte dei Savi"
@@ -245,7 +282,14 @@ body.notes-off .t-note-mark{opacity:.25}
   .t-note.placed{font-size:.78em;line-height:1.4}
 }
 
-.t-app:has([data-el="lem"]) .t-rdg{display:none}
+.t-app.app-has-lem .t-rdg{display:none}
+/* an app without a lem privileges nothing: the first reading stands in the
+   text (the others are in the apparatus), never all of them concatenated */
+.t-app.app-no-lem>[data-el="rdg"]~[data-el="rdg"],
+.t-app.app-no-lem>[data-el="rdgGrp"]~[data-el="rdgGrp"]{display:none}
+/* an app that points to the text (double-end-point, location-referenced)
+   carries no text of its own: the passage is already in the base text */
+.t-app.app-pointing{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
 .t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
@@ -281,7 +325,7 @@ export function pressPage(model, { title } = {}) {
     }
   }
   return `<!DOCTYPE html>
-<html lang="${(model.meta.languages && model.meta.languages[0]) || ''}">
+<html${(model.meta.languages && model.meta.languages[0]) ? ` lang="${escapeHTML(model.meta.languages[0])}"` : ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -21,7 +21,7 @@ import { buildExports } from './exports.js';
 import { i18n, resolveLang } from './i18n.js';
 import { themeCSS } from './themes.js';
 import { WORLD } from './world-data.js';
-import { chrome, jsonForScript, registerJS, setEditionVersion } from './page-shell.js';
+import { chrome, jsonForScript, registerJS, setEditionVersion, setTextLang } from './page-shell.js';
 import { pressMapPage } from './map-page.js';
 import { pressLemmaPage } from './lemma-page.js';
 import { pressLexiconPage } from './lexicon-page.js';
@@ -87,6 +87,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   }
   const taken = new Set();
   const docFiles = new Map(model.documents.map((d) => [d.id, docFileName(d.id, taken) + '.html']));
+  // the page is written in the language of the text, not of the interface:
+  // a Greek edition announced as English is read aloud in the wrong voice
+  setTextLang((model.meta.languages && model.meta.languages[0]) || null);
   setEditionVersion(manifest.version || (model.meta.edition && model.meta.edition.n) || null);
   const t = manifest.title || title || model.meta.title || 'Untitled edition';
   const resp = (model.meta.responsibility || []).map((r) => r.name).filter(Boolean).join(' · ');

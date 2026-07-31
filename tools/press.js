@@ -65,7 +65,7 @@ if (inputStat.isDirectory()) {
         continue;
       }
       if (!inTEINamespace(r)) continue;
-      await resolveIncludes(r, (href) => readFile(join(input, href), 'utf-8'));
+      await resolveIncludes(r, (href) => readFile(within(input, href), 'utf-8'));
       roots.push({ id: n.replace(/\.xml$/i, ''), root: r });
     } catch (err) {
       console.error(`skipped ${n}: ${err.message}`);
@@ -177,8 +177,14 @@ if (site) {
   }
 
   // the sources travel with the edition: every TEI file that went into it,
-  // including the ones pulled in by XInclude, is downloadable from the site
-  try {
+  // including the ones pulled in by XInclude, is downloadable from the site.
+  // UNLESS the editor said no: exports.source false is a rights decision,
+  // and it governs the whole source folder, not only the single-file export
+  const exportsOff = manifest && (manifest.exports === false
+    || (manifest.exports && manifest.exports.source === false));
+  if (exportsOff) {
+    console.error('sources: not copied (exports.source is false in the manifest)');
+  } else try {
     const srcDir = join(out, 'data', 'source');
     await mkdir(srcDir, { recursive: true });
     const base = (await stat(input)).isDirectory() ? input : dirname(input);

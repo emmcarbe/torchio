@@ -167,7 +167,8 @@ export function buildModel(docs, classMap) {
         .sort((a, b) => b.count - a.count || String(a.ref).localeCompare(String(b.ref))),
     };
   } else {
-    model.meta = corpusMeta || (firstHeader ? extractMeta(firstHeader) : {});
+    model.meta = corpusMeta
+      || (firstHeader ? extractMeta(firstHeader, model.documents[0] && model.documents[0].tree) : {});
   }
 
   // registries and apparatus from all documents; the corpus header too
@@ -381,7 +382,7 @@ function findFirst(tree, element) {
 
 /* ---------------------------------------------------------------- */
 
-function extractMeta(header) {
+function extractMeta(header, root = null) {
   const meta = {};
   const titleStmt = findFirst(header, 'titleStmt');
   const title = titleStmt && findFirst(titleStmt, 'title');
@@ -430,6 +431,11 @@ function extractMeta(header) {
     for (const n of walkModel(langUsage)) {
       if (n.element === 'language' && n.atts.ident) meta.languages.push(n.atts.ident);
     }
+  }
+  // an edition may declare its language on the root instead of in langUsage:
+  // both are legitimate, and a text in Greek must not be announced as English
+  if ((!meta.languages || !meta.languages.length) && root && root.atts && root.atts['xml:lang']) {
+    meta.languages = [root.atts['xml:lang']];
   }
   const revisions = [];
   const revDesc = findFirst(header, 'revisionDesc');

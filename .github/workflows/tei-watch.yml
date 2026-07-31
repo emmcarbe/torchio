@@ -1,0 +1,82 @@
+# The Guidelines move, and the press must know it.
+#
+# data/p5-classes.json is derived from a released p5subset, and its version is
+# written inside the file. Once a day this workflow asks the TEI Consortium
+# what the current release is and compares. If they differ it opens an issue:
+# it never regenerates anything by itself, because a new edition of the
+# Guidelines is a fact the maintainer reads, not a patch a robot applies.
+
+name: TEI release watch
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the version this repository was built from
+        id: local
+        run: |
+          v=$(node -e "const d=require('./data/p5-classes.json');
+            const m=String(d.version||'').match(/(\d+\.\d+(?:\.\d+)?)/);
+            process.stdout.write(m?m[1]:'unknown')")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "This repository carries P5 $v"
+
+      - name: Ask the TEI Consortium for the current release
+        id: remote
+        run: |
+          json=$(curl -sSL -H 'Accept: application/vnd.github+json' \
+            https://api.github.com/repos/TEIC/TEI/releases/latest)
+          tag=$(printf '%s' "$json" | node -e "
+            let s='';process.stdin.on('data',c=>s+=c).on('end',()=>{
+              try{const r=JSON.parse(s);
+                const t=String(r.tag_name||'').match(/(\d+\.\d+(?:\.\d+)?)/);
+                process.stdout.write(t?t[1]:'');
+              }catch(e){process.stdout.write('')}})")
+          echo "version=$tag" >> "$GITHUB_OUTPUT"
+          echo "The TEI Consortium publishes P5 ${tag:-unknown}"
+
+      - name: Open an issue when the two differ
+        if: steps.remote.outputs.version != '' && steps.remote.outputs.version != steps.local.outputs.version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LOCAL: ${{ steps.local.outputs.version }}
+          REMOTE: ${{ steps.remote.outputs.version }}
+        run: |
+          title="TEI P5 $REMOTE is out (this repository is built from $LOCAL)"
+          # one issue per release, never a new one every morning
+          if gh issue list --state all --search "$title in:title" --json title \
+              --jq '.[].title' | grep -Fqx "$title"; then
+            echo "already reported"; exit 0
+          fi
+          gh issue create --title "$title" --label "tei" --body "$(cat <<EOF
+The TEI Consortium has released **P5 $REMOTE**. \`data/p5-classes.json\` in this
+repository is derived from **P5 $LOCAL**.
+
+Nothing has been changed automatically: a new edition of the Guidelines is read,
+not merged. What to look at, in order:
+
+1. The release notes, for elements added, renamed or deprecated, and for changes
+   to the model and attribute classes. New classes matter more than new elements:
+   an element inherits, a class decides.
+2. Regenerate the class map from the released p5subset (\`tools/generate-classes.py\`),
+   pinned to $REMOTE, and read the diff. An element that changes class changes
+   behaviour without a line of code being touched.
+3. Run \`npm test\`: the coverage assertion fails when an element resolves to no
+   section, which is how a new module announces itself.
+4. Press the demo editions and compare. If nothing moves, say so in
+   \`CORRECTIONS.md\`: a release that changes nothing is a result too.
+
+Opened by \`.github/workflows/tei-watch.yml\`.
+EOF
+)"

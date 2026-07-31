@@ -57,7 +57,11 @@ let COLOPHON = null;
 export function setColophon(text) { COLOPHON = text; }
 function colophon() { return COLOPHON || 'v0.1.0'; }
 
-export let EDITION_VERSION = null;
+export const RTL_UI = new Set(['ar', 'he', 'fa', 'ur', 'syr', 'arc', 'sam', 'dv', 'ps', 'yi', 'ku', 'ckb']);
+let TEXT_LANG = null;
+export function setTextLang(l) { TEXT_LANG = l || null; }
+
+let EDITION_VERSION = null;
 export function setEditionVersion(v) { EDITION_VERSION = v || null; }
 
 export function chrome({ title, sub, active, pages, body, script = '', bodyClass = '', t, lang, theme, parent }) {
@@ -68,7 +72,7 @@ export function chrome({ title, sub, active, pages, body, script = '', bodyClass
       `<a href="${file}"${file === active ? ' class="on"' : ''}>${escapeHTML(label)}</a>`)
     .join('');
   return `<!DOCTYPE html>
-<html lang="${lang || ''}">
+<html${(TEXT_LANG || lang) ? ` lang="${escapeHTML(TEXT_LANG || lang)}"` : ''}${TEXT_LANG && RTL_UI.has(String(TEXT_LANG).split('-')[0].toLowerCase()) ? ' dir="rtl"' : ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
