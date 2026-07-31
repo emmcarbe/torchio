@@ -614,3 +614,71 @@ export function toolbarHTML({ hasChoice, hasApparatus, hasNotes, t } = {}) {
   const notes = hasNotes ? `<button class="sw" data-sw="notes" aria-pressed="true">${t.notes}</button>` : '';
   return `<div class="torchio-bar"><div class="inner">${modes}${app}${notes}<button class="sw off" data-sw="header" aria-pressed="false">${t.aboutFile}</button></div></div>`;
 }
+
+/**
+ * The reading aids of a text page: a legend of the signs actually present
+ * (grey struck text, superscript additions, brackets), and, when more than
+ * one hand wrote, a bar to see each hand in its own colour or alone. Drawn
+ * from what the edition contains: a sign that is not there is not explained.
+ */
+const HAND_COLORS = ['#1a5fb4', '#26652c', '#8a4f00', '#7a1f6e', '#00575e', '#5e4b00'];
+
+export function readingAidsHTML({ present, hands, t }) {
+  const items = [];
+  const add = (sample, text) => items.push(`<li><span class="leg-sample">${sample}</span> ${text}</li>`);
+  if (present.has('del')) add(`<span class="t-del">${t.legWord}</span>`, t.legDel);
+  if (present.has('add')) add(`<span class="t-add">${t.legWord}</span>`, t.legAdd);
+  if (present.has('unclear')) add(`<span class="t-unclear">${t.legWord}</span>`, t.legUnclear);
+  if (present.has('supplied')) add(`<span class="t-sign">[</span>${t.legWord}<span class="t-sign">]</span>`, t.legSupplied);
+  if (present.has('gap')) add('[…]', t.legGap);
+  if (present.has('pb')) add('[12]', t.legPb);
+  if (present.has('metamark')) add('^', t.legMetamark);
+  if (present.has('app')) add(`<span class="leg-app">${t.legWord}</span>`, t.legApp);
+  if (present.has('note')) add('<sup>1</sup>', t.legNote);
+  let handCSS = '';
+  let handBar = '';
+  if (hands && hands.length > 1) {
+    const bar = hands.map((h, i) => {
+      const c = HAND_COLORS[i % HAND_COLORS.length];
+      handCSS += `[data-hand="#${h.id}"]{background:${c}14;box-shadow:inset 0 -2px ${c}55}\n`
+        + `body[data-hand-only]:not([data-hand-only="#${h.id}"]) [data-hand="#${h.id}"]{opacity:.25}\n`;
+      return `<button type="button" class="hand-btn" data-hand-pick="#${h.id}">`
+        + `<span class="hand-dot" style="background:${c}"></span>${h.label || h.id}</button>`;
+    }).join('');
+    handBar = `<div class="hand-bar"><span class="hand-lab">${t.legHands}</span>${bar}`
+      + `<button type="button" class="hand-btn" data-hand-pick="">${t.legAllHands}</button></div>`;
+    hands.forEach((h, i) => {
+      add(`<span class="hand-dot" style="background:${HAND_COLORS[i % HAND_COLORS.length]}"></span>`,
+        `${t.legHand} ${h.label || h.id}`);
+    });
+  }
+  if (!items.length && !handBar) return '';
+  const legend = `<details class="legend"><summary>${t.legend}</summary><ul>${items.join('')}</ul></details>`;
+  const css = `<style>
+.legend{margin:.8em 0;font-size:13px;color:var(--soft)}
+.legend summary{cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.legend ul{list-style:none;padding:.6em 0 0;margin:0;display:flex;flex-wrap:wrap;gap:.5em 1.8em}
+.leg-sample{display:inline-block;min-width:2.2em;text-align:center}
+.leg-app{border-bottom:1px dashed var(--accent)}
+.hand-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:.8em 0}
+.hand-lab{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+.hand-btn{font-size:12px;border:1px solid var(--hair);border-radius:2px;background:var(--paper);color:var(--ink);cursor:pointer;padding:4px 10px;display:inline-flex;align-items:center;gap:6px}
+.hand-btn.on{border-color:var(--accent)}
+.hand-dot{display:inline-block;width:9px;height:9px;border-radius:50%}
+${handCSS}</style>`;
+  return css + handBar + legend;
+}
+
+export function readingAidsJS() {
+  return `
+(function(){
+  document.querySelectorAll('.hand-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var h=b.getAttribute('data-hand-pick');
+      if(h){document.body.setAttribute('data-hand-only',h);}
+      else{document.body.removeAttribute('data-hand-only');}
+      document.querySelectorAll('.hand-btn').forEach(function(x){x.classList.toggle('on',x===b&&!!h);});
+    });
+  });
+})();`;
+}

@@ -15,7 +15,7 @@
 
 import { walkModel, textOfModel } from './model.js';
 import { renderBase, structuralCSS, escapeHTML, safeURL } from './render.js';
-import { interactCSS, buildInteractJS, toolbarHTML } from './interact.js';
+import { interactCSS, buildInteractJS, toolbarHTML, readingAidsHTML, readingAidsJS } from './interact.js';
 import { normalizeManifest } from './manifest.js';
 import { buildExports } from './exports.js';
 import { i18n, resolveLang } from './i18n.js';
@@ -333,6 +333,17 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
   }
   const hasApparatus = model.apparatus.length > 0 && manifest.pieces.apparatus !== false;
+  // the signs the edition actually contains, for the legend of its pages
+  const presentSigns = new Set();
+  {
+    const wantedSigns = new Set(['del', 'add', 'unclear', 'supplied', 'gap', 'pb', 'metamark', 'note', 'app']);
+    for (const d of model.documents) {
+      for (const n of walkModel(d.tree)) if (wantedSigns.has(n.element)) presentSigns.add(n.element);
+    }
+  }
+  const handList = (model.registries.hands || []).filter((h) => h.id);
+  const readingAids = readingAidsHTML({ present: presentSigns, hands: handList, t: T });
+
   let hasNotes = false;
   for (const doc of model.documents) {
     for (const n of walkModel(doc.tree)) {
@@ -420,8 +431,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         : '';
       out[files[i]] = chrome({
         title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
-        script: buildInteractJS(T), t: T, lang, theme, parent,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${readingAids}${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
+        script: buildInteractJS(T) + readingAidsJS(), t: T, lang, theme, parent,
       });
     });
     if (frontOnOwnPage) {
@@ -461,8 +472,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
     out['text.html'] = chrome({
       title: t, sub: resp, active: 'text.html', pages, bodyClass: offClasses,
-      body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${reading}</main>`,
-      script: buildInteractJS(T), t: T, lang, theme, parent,
+      body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${readingAids}${reading}</main>`,
+      script: buildInteractJS(T) + readingAidsJS(), t: T, lang, theme, parent,
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({

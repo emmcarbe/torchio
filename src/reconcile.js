@@ -204,8 +204,11 @@ export function applyReconciliation(model, entities) {
  * a mention too. Only the exact form is matched: variants (Roma / Romae) and
  * the authority behind them (GeoNames) are a further, gazetteer-driven layer,
  * never guessed here. Returns the number of occurrences added.
- * @param confirmed Set< occId >, where occId = `${docId}#${type}:${label}#${n}`
- *        marks the n-th bare occurrence of that label in that document.
+ * @param confirmed Map< occId, type >, where occId = `${docId}#${label}#${n}`
+ *        marks the n-th bare occurrence of that label in that document; the
+ *        type is the editor's, from the sheet row.
+ * @param labels the exact label set the sheet proposed, so proposal and
+ *        confirmation enumerate identically; falls back to the harvest.
  */
 // every harvestable label, from marked entities and registry
 function bareLabels(model) {
@@ -220,8 +223,10 @@ function bareLabels(model) {
 /** One entry per bare-text occurrence of a harvestable label, with the words
  *  around it, so the editor can judge each in place (Roma the city here, a
  *  surname there). occId is the same key expandMentions confirms against. */
-export function listBareOccurrences(model, { context = 6 } = {}) {
-  const labels = bareLabels(model).sort((a, b) => b.label.length - a.label.length);
+export function listBareOccurrences(model, { context = 6, labels: given = null } = {}) {
+  const labels = (given || bareLabels(model))
+    .filter((w) => w.label && w.label.length > 1)
+    .sort((a, b) => b.label.length - a.label.length);
   const seen = new Map();
   const list = [];
   const isBoundary = (ch) => ch === undefined || !/[\p{L}\p{N}]/u.test(ch);
@@ -243,9 +248,9 @@ export function listBareOccurrences(model, { context = 6 } = {}) {
         if (!best) { buf.text += cursor; break; }
         const { i, w } = best;
         buf.text += cursor.slice(0, i + w.label.length);
-        const stem = `${docId}#${w.type}:${w.label}`;
+        const stem = `${docId}#${w.label}`;
         const n = (seen.get(stem) || 0); seen.set(stem, n + 1);
-        list.push({ occId: `${stem}#${n}`, type: w.type, label: w.label, at: buf.text.length - w.label.length });
+        list.push({ occId: `${stem}#${n}`, type: w.type || '', label: w.label, at: buf.text.length - w.label.length });
         cursor = cursor.slice(i + w.label.length);
       }
     }
@@ -263,18 +268,19 @@ export function listBareOccurrences(model, { context = 6 } = {}) {
   return list;
 }
 
-export function expandMentions(model, confirmed) {
+export function expandMentions(model, confirmed, { labels: given = null } = {}) {
   if (!confirmed || !confirmed.size) return 0;
   const PRIMARY = { place: 'placeName', person: 'persName', org: 'orgName' };
-  const wanted = bareLabels(model); // {type,label} of every harvestable entity
+  const wanted = given || bareLabels(model);
   const byKey = {};
   for (const type of ['place', 'person', 'org']) {
     byKey[type] = new Map(registryFor(model, type).map((e) => [normalizeKey(e.label), e]));
   }
-  const seen = new Map(); // "docId#type:label" -> running index
+  const seen = new Map(); // "docId#label" -> running index
   let added = 0, serial = 0;
   const isBoundary = (ch) => ch === undefined || !/[\p{L}\p{N}]/u.test(ch);
-  const labels = wanted.sort((a, b) => b.label.length - a.label.length);
+  const labels = wanted.filter((w) => w.label && w.label.length > 1)
+    .sort((a, b) => b.label.length - a.label.length);
   const scan = (node, docId) => {
     if (ANCHORS.place.has(node.element) || ANCHORS.person.has(node.element)
       || ANCHORS.org.has(node.element)) return;
@@ -291,15 +297,16 @@ export function expandMentions(model, confirmed) {
         }
         if (!best) break;
         const { i, w } = best;
-        const stem = `${docId}#${w.type}:${w.label}`;
+        const stem = `${docId}#${w.label}`;
         const n = (seen.get(stem) || 0); seen.set(stem, n + 1);
         const occId = `${stem}#${n}`;
         if (i > 0) pieces.push(cursor.slice(0, i));
-        if (confirmed.has(occId)) {
-          const entry = byKey[w.type].get(normalizeKey(w.label));
+        const type = confirmed.get(occId); // the editor's type for THIS occurrence
+        if (type && byKey[type]) {
+          const entry = byKey[type].get(normalizeKey(w.label));
           if (entry) {
             const id = `${docId}:mention.${serial++}`;
-            pieces.push({ id, element: PRIMARY[w.type], section: 'base', atts: {}, children: [w.label] });
+            pieces.push({ id, element: PRIMARY[type], section: 'base', atts: {}, children: [w.label] });
             entry.occurrences = entry.occurrences || [];
             entry.occurrences.push(id);
             added++;
