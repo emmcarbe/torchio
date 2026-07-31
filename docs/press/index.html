@@ -5103,8 +5103,15 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       front: 'appears when the TEI has front matter',
       back: 'appears when the TEI has back matter',
       indices: 'appears when a registry entry is referenced from the text',
-      lemmas: 'appears when lemmas exist, from w/@lemma or from a reviewed lemmas.json',
-      map: 'appears when places carry coordinates, from the TEI or from a reviewed reconcile.json',
+      lemmas: 'appears when lemmas exist. Either the edition declares them (w/@lemma), or you run '
+        + 'node tools/lemmatize.js: it proposes them, you review them in a CSV, and the decisions live '
+        + 'in lemmas.json. Note that the lemmatizer sends the text to an external service (UDPipe) '
+        + 'unless you pass an already annotated CoNLL-U file with --conllu. The press itself, here, '
+        + 'sends nothing anywhere.',
+      map: 'appears when places carry coordinates. Either the TEI declares them (geo), or you run '
+        + 'node tools/reconcile.js on the edition: it proposes them from a local GeoNames gazetteer, '
+        + 'you confirm or reject each one in reconcile.json, and your decisions survive every pressing. '
+        + 'Nothing is looked up while the site is read.',
     };
 
     html += '<fieldset><legend>What this edition is</legend>'
