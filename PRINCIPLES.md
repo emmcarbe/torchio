@@ -398,8 +398,8 @@ reproducible.
   the Myth of Presentation in Digital Editions." *Journal of the Text
   Encoding Initiative* 9. https://doi.org/10.4000/jtei.1453.
 - Turska, Magdalena. 2017. "TEI Simple Processing Model: An Abstraction Layer
-  for XML Processing." In *Advances in Digital Scholarly Editing*. Leiden:
-  Sidestone Press.
+  for XML Processing." In [*Advances in Digital Scholarly Editing*](https://cceh.uni-koeln.de/wp-content/uploads/2021/06/Advances-in-Digital-Scholarly-Editing-2017.pdf).
+  Leiden: Sidestone Press.
 - Zenzaro, Simone, Angelo Mario Del Grosso, Federico Boschetti, and Graziano
   Ranocchia. 2025. "CoPhiEditor: The DSL-Based DSE Methodology within the
   ERC Advanced Grant 885222-GreekSchools." *Umanistica Digitale* 9 (20):
