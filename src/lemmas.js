@@ -203,7 +203,10 @@ export function attachLemmas(model, file = null, { kwicWindow = 5 } = {}) {
 /* ------------------------------------------------------------------ */
 /* Helpers for the working tool (tools/lemmatize.js): pure, testable.  */
 
-/** CoNLL-U text -> Map form(lower) -> Map lemma -> votes. */
+/** CoNLL-U text -> Map form(lower) -> Map "lemma\u0000UPOS" -> votes.
+ *  The part of speech travels with the vote: lemmatization depends on it
+ *  (porta the noun goes to porta, porta the verb to portare), and a homograph
+ *  must reach the editor with its reason attached. */
 export function conlluTypes(conllu) {
   const votes = new Map();
   for (const line of String(conllu).split('\n')) {
@@ -213,11 +216,13 @@ export function conlluTypes(conllu) {
     if (cols.length < 3 || cols[0].includes('-') || cols[0].includes('.')) continue;
     const form = cols[1];
     const lemma = cols[2];
+    const upos = cols[3] && cols[3] !== '_' ? cols[3] : '';
     if (!form || !lemma || lemma === '_') continue;
     const key = form.toLowerCase();
     let m = votes.get(key);
     if (!m) { m = new Map(); votes.set(key, m); }
-    m.set(lemma, (m.get(lemma) || 0) + 1);
+    const vk = lemma + '\u0000' + upos;
+    m.set(vk, (m.get(vk) || 0) + 1);
   }
   return votes;
 }
@@ -231,15 +236,32 @@ export function typesFromVotes(votes, formFilter = null, lang = null) {
   const types = [];
   for (const [form, m] of votes) {
     if (formFilter && !formFilter.has(form)) continue;
-    const ranked = [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    // fold the POS-tagged votes by lemma, keeping each lemma's parts of speech
+    const byLemma = new Map();
+    for (const [vk, n] of m) {
+      const [lemma, upos] = vk.split('\u0000');
+      let e = byLemma.get(lemma);
+      if (!e) { e = { n: 0, pos: new Map() }; byLemma.set(lemma, e); }
+      e.n += n;
+      if (upos) e.pos.set(upos, (e.pos.get(upos) || 0) + n);
+    }
+    const ranked = [...byLemma.entries()].sort((a, b) => b[1].n - a[1].n || a[0].localeCompare(b[0]));
+    const posOf = (e) => [...e.pos.keys()].join('+');
     const t = {
       form,
       lemma: ranked[0][0],
       status: 'suggested',
-      count: ranked.reduce((s, [, n]) => s + n, 0),
+      count: ranked.reduce((s, [, e]) => s + e.n, 0),
     };
+    const pos = posOf(ranked[0][1]);
+    if (pos) t.pos = pos;
     if (lang) t.lang = lang;
-    if (ranked.length > 1) { t.status = 'review'; t.alternatives = ranked.map(([l]) => l); }
+    if (ranked.length > 1) {
+      // a homograph: the same form under different lemmas, each explained by
+      // its part of speech (porta: NOUN -> porta, VERB -> portare)
+      t.status = 'review';
+      t.alternatives = ranked.map(([l, e]) => posOf(e) ? `${l} (${posOf(e)})` : l);
+    }
     types.push(t);
   }
   return types.sort((a, b) => a.form.localeCompare(b.form));
@@ -256,14 +278,14 @@ function csvCell(v) {
 }
 
 export function reviewCSV(types) {
-  const rows = [['form', 'lang', 'lemma', 'status', 'count', 'alternatives']];
+  const rows = [['form', 'lang', 'pos', 'lemma', 'status', 'count', 'alternatives']];
   const sorted = [...types].sort((a, b) =>
     (a.status === 'review' ? 0 : 1) - (b.status === 'review' ? 0 : 1)
     || (b.count || 0) - (a.count || 0)
     || a.form.localeCompare(b.form));
   for (const t of sorted) {
-    rows.push([t.form, t.lang || '', t.lemma, t.status || 'suggested',
-      t.count ?? '', (t.alternatives || []).join(' ')]);
+    rows.push([t.form, t.lang || '', t.pos || '', t.lemma, t.status || 'suggested',
+      t.count ?? '', (t.alternatives || []).join('; ')]);
   }
   return rows.map((r) => r.map(csvCell).join(',')).join('\n') + '\n';
 }

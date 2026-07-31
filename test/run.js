@@ -868,8 +868,8 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
 
   // the editor fixes one lemma, sets one status, leaves the rest alone
   const edited = parseReviewCSV(csvText
-    .replace('errò,,erro,suggested', 'errò,,errare,suggested')
-    .replace('legge,,lex,review', 'legge,,lex,confirmed'));
+    .replace('errò,,,erro,suggested', 'errò,,,errare,suggested')
+    .replace('legge,,,lex,review', 'legge,,,lex,confirmed'));
   const { json, decided } = applyReview({ generator: 'test', types }, edited);
   const byForm = Object.fromEntries(json.types.map((t) => [t.form, t]));
   ok(decided === 2

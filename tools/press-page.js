@@ -385,15 +385,15 @@
   }
 
   function downloadLemmaSheet() {
-    const header = ['form', 'lang', 'lemma', 'status', 'count', 'alternatives'];
+    const header = ['form', 'lang', 'pos', 'lemma', 'status', 'count', 'alternatives'];
     const rows = [...S.lemmaTypes]
       .sort((a, b) => (a.status === 'review' ? 0 : 1) - (b.status === 'review' ? 0 : 1)
         || (b.count || 0) - (a.count || 0) || a.form.localeCompare(b.form))
-      .map((t) => [t.form, t.lang || '', t.lemma, t.status || 'suggested',
-        t.count == null ? '' : t.count, (t.alternatives || []).join(' ')]);
+      .map((t) => [t.form, t.lang || '', t.pos || '', t.lemma, t.status || 'suggested',
+        t.count == null ? '' : t.count, (t.alternatives || []).join('; ')]);
     const xlsx = buildXLSX(header, rows, {
-      sheet: 'Lemmas', widths: [16, 6, 16, 12, 8, 20],
-      choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
+      sheet: 'Lemmas', widths: [16, 6, 9, 16, 12, 8, 26],
+      choices: { col: 4, options: ['confirmed', 'rejected', 'suggested'] },
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
@@ -555,8 +555,10 @@
 
   function renderPanel() {
     const ui = S.ui;
-    const STEPS = [['edition', 'Edition'], ['pages', 'Pages'], ['pieces', 'Pieces'],
-      ['words', 'Words'], ['names', 'Names']];
+    // the menu comes last: pages are arranged once the editor knows what the
+    // edition contains (map, indices, lexicon), not before
+    const STEPS = [['edition', 'Edition'], ['pieces', 'Pieces'],
+      ['words', 'Words'], ['names', 'Names'], ['pages', 'Menu and pages']];
     let html = '<h2>Composition</h2>'
       + '<nav class="stepnav">' + STEPS.map(([id, label], i) =>
         '<button type="button" data-goto="' + id + '"' + (i === 0 ? ' class="on"' : '') + '>'
