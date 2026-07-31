@@ -179,6 +179,11 @@ optional:
       "parent": { "href": "../", "label": "Home" }
     }
 
+- `pieces`: what belongs to this edition, each on by default and switched
+  off explicitly: `apparatus`, `entities`, `choice`, `map`, `lemmas`.
+  `"pieces": { "map": false, "lemmas": false }` presses neither page, even
+  where the markup would allow them: the markup makes a page possible, the
+  editor decides whether it belongs here.
 - `align`: canonical alignment for collections whose documents share a
   numbering. Declares which elements carry it, how to normalise their `@n`
   to one key, and (optionally) under which document the classical apparatus

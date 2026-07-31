@@ -92,9 +92,13 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const hasOcc = (entries) => entries.some((e) => e.occurrences && e.occurrences.length);
   const hasIndices = hasOcc(reg.people) || hasOcc(reg.places) || hasOcc(reg.orgs);
   const geoPlaces = reg.places.filter((p) => p.geo);
-  const hasMap = geoPlaces.length > 0;
+  // the markup makes a page possible; the editor decides whether it belongs
+  // to this edition. A map or a lemma index switched off in the manifest is
+  // not pressed at all (pieces.map, pieces.lemmas)
+  const hasMap = geoPlaces.length > 0 && manifest.pieces.map !== false;
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
-  const hasLemmas = !!(model.lemmas && model.lemmas.entries.length);
+  const hasLemmas = !!(model.lemmas && model.lemmas.entries.length)
+    && manifest.pieces.lemmas !== false;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
