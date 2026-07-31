@@ -105,7 +105,16 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
   const hasLemmas = !!(model.lemmas && model.lemmas.entries.length)
     && manifest.pieces.lemmas !== false;
-  const hasLexicon = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexicon === true;
+  // each lexicon view is its own choice; the old pieces.lexicon turns on all
+  const lexAll = manifest.pieces.lexicon === true;
+  const lexViews = {
+    freq: lexAll || manifest.pieces.lexFreq === true,
+    conc: lexAll || manifest.pieces.lexConc === true,
+    cloud: lexAll || manifest.pieces.lexCloud === true,
+  };
+  const hasLexicon = !!(model.lexicon && model.lexicon.total)
+    && (lexViews.freq || lexViews.conc || lexViews.cloud);
+  const hasLexStats = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexStats === true;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -266,6 +275,11 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
   }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
+  if (hasLexStats) {
+    const L = model.lexicon;
+    about += `<dt>${T.lexStats}</dt><dd>${L.total} ${T.lexTokens} · ${L.distinct} ${T.lexForms}`
+      + ` · ${T.lexTTR} ${L.ttr}</dd>`;
+  }
   if (model.meta.licence) {
     const l = model.meta.licence;
     const lt = safeURL(l.target);
@@ -663,7 +677,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
 
   /* ---- lexicon.html: frequencies, concordance, cloud, chosen by the editor ---- */
   if (hasLexicon && wanted.has('lexicon')) {
-    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages });
+    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages, views: lexViews });
   }
 
   /* ---- data.html: the edition as downloadable data ---- */

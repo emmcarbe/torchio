@@ -14,9 +14,12 @@ import { escapeHTML } from './render.js';
 import { chrome, jsonForScript } from './page-shell.js';
 import { STOPWORDS, STOPWORD_NAMES } from './lemmas.js';
 
-export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
+export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
+  views = { freq: true, conc: true, cloud: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
+  const chosen = ['freq', 'conc', 'cloud'].filter((v) => views[v]);
+  const first = chosen[0] || 'freq';
 
   const langFilter = multi
     ? `<label class="lx-ctl">${T.lexLanguage} <select class="lx-langsel"><option value="">${T.lexAllLangs}</option>`
@@ -38,16 +41,17 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}">`
     + langFilter + stopSel
     + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"> ${T.lexHideStop}</label>`
-    + `<span class="lx-views" role="group">`
-    + `<button data-view="freq" class="active">${T.lexFrequencies}</button>`
-    + `<button data-view="conc">${T.lexConcordance}</button>`
-    + `<button data-view="cloud">${T.lexCloud}</button></span></div>`
-    + `<section class="lx-view lx-freq"><table class="lx-table"><thead><tr>`
+    + (chosen.length > 1 ? `<span class="lx-views" role="group">`
+      + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
+      + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')
+      + (views.cloud ? `<button data-view="cloud"${first === 'cloud' ? ' class="active"' : ''}>${T.lexCloud}</button>` : '')
+      + `</span>` : '') + `</div>`
+    + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
     + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
     + `<th class="lx-num">${T.lexAbs}</th><th class="lx-num">${T.lexRel}</th>`
-    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>`
-    + `<section class="lx-view lx-conc" hidden><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>`
-    + `<section class="lx-view lx-cloud" hidden></section>`
+    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>` : '')
+    + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
+    + (views.cloud ? `<section class="lx-view lx-cloud"${first === 'cloud' ? '' : ' hidden'}></section>` : '')
     + `</main>`;
 
   const conc = {};
@@ -84,7 +88,7 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   }
   function render(){
     var rows=FREQ.filter(visible);
-    tbody.innerHTML=rows.slice(0,1500).map(function(f){
+    if(tbody)tbody.innerHTML=rows.slice(0,1500).map(function(f){
       return '<tr data-form="'+esc(f.form)+'"'+(isStop(f)?' class="is-stop"':'')+'>'
         +'<td class="lx-w">'+esc(f.form)+'</td>'
         +(MULTI?'<td class="lx-lang">'+esc(f.lang||'')+'</td>':'')
@@ -97,7 +101,7 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     var top=content.slice(0,90);
     var cmax=top.length?top[0].count:1, cmin=top.length?top[top.length-1].count:1;
     var span=(Math.log(cmax)-Math.log(cmin))||1;
-    cloud.innerHTML=top.map(function(f){
+    if(cloud)cloud.innerHTML=top.map(function(f){
       var sz=14+Math.round((Math.log(f.count)-Math.log(cmin))/span*34);
       return '<span class="lx-cloud-w" data-form="'+esc(f.form)+'" style="font-size:'+sz+'px" title="'+f.count+' ('+f.rel.toFixed(2)+'\\u2030)">'+esc(f.form)+'</span>';
     }).join(' ');
@@ -108,8 +112,9 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   }
   main.querySelectorAll('.lx-views button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
   function concord(form){
-    var occ=CONC[form.toLowerCase()]||[];
     var out=main.querySelector('.lx-conc-out');
+    if(!out)return;
+    var occ=CONC[form.toLowerCase()]||[];
     out.innerHTML=occ.length?'<table class="lx-kwic"><tbody>'+occ.map(function(o){
       return '<tr><td class="lx-b">'+esc(o.b)+'</td><td class="lx-k"><a href="'+o.href+'">'+esc(o.k)+'</a></td><td class="lx-a">'+esc(o.a)+'</td></tr>';
     }).join('')+'</tbody></table>':'<p class="occ">\\u2014</p>';
@@ -119,7 +124,7 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
     if(flip){var row=flip.closest('[data-form]');var form=row.getAttribute('data-form');
       var f=FREQ.find(function(x){return x.form===form;});manual[form]=!isStop(f);render();e.stopPropagation();return;}
     var w=e.target.closest('[data-form]');
-    if(w){search.value=w.getAttribute('data-form');concord(w.getAttribute('data-form'));show('conc');}
+    if(w){search.value=w.getAttribute('data-form');concord(w.getAttribute('data-form'));if(main.querySelector('.lx-conc'))show('conc');}
   });
   var timer;
   search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q&&CONC[q])concord(q);},120);});

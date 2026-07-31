@@ -56,8 +56,11 @@ export function normalizeManifest(raw = {}) {
     genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
       ? raw.genre : null,
     version: raw.version != null && String(raw.version).trim() ? String(raw.version).trim() : null,
+    apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : null,
     pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
       persons: true, places: true, orgs: true, ...(raw.pieces || {}) },
+    // the lexicon views are opt-in, each on its own; the old pieces.lexicon
+    // switches all three on
     align: raw.align && typeof raw.align === 'object' ? {
       elements: Array.isArray(raw.align.elements) ? raw.align.elements.map(String) : ['l'],
       strip: raw.align.strip ? String(raw.align.strip) : null,

@@ -15,9 +15,25 @@ import { WORLD } from './world-data.js';
 export function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages }) {
     const lats = geoPlaces.map((p) => p.geo.lat);
     const lons = geoPlaces.map((p) => p.geo.lon);
-    const pad = 1.5;
-    const minLat = Math.min(...lats) - pad, maxLat = Math.max(...lats) + pad;
-    const minLon = Math.min(...lons) - pad, maxLon = Math.max(...lons) + pad;
+    // the window widens until some coastline enters it: a single city in a
+    // 3-degree box is a dot in the blue, which orients nobody. The sketch
+    // must stand on its own where no script (and no tile) ever runs
+    let pad = 1.5;
+    let minLat, maxLat, minLon, maxLon;
+    const someLand = () => WORLD.some((ring) => {
+      let minx = 999, maxx = -999, miny = 999, maxy = -999;
+      for (const [x, y] of ring) {
+        if (x < minx) minx = x; if (x > maxx) maxx = x;
+        if (y < miny) miny = y; if (y > maxy) maxy = y;
+      }
+      return !(maxx < minLon || minx > maxLon || maxy < minLat || miny > maxLat);
+    });
+    do {
+      minLat = Math.min(...lats) - pad; maxLat = Math.max(...lats) + pad;
+      minLon = Math.min(...lons) - pad * 1.4; maxLon = Math.max(...lons) + pad * 1.4;
+      if (someLand() || pad >= 40) break;
+      pad *= 2;
+    } while (true);
     const W = 720, H = 440;
     const px = (lon) => ((lon - minLon) / (maxLon - minLon)) * (W - 40) + 20;
     const py = (lat) => H - (((lat - minLat) / (maxLat - minLat)) * (H - 40) + 20);

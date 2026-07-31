@@ -17,6 +17,7 @@ import { buildModel } from '../src/model.js';
 import { reconcile } from '../src/reconcile.js';
 import { buildXLSX } from '../src/xlsx.js';
 import { readZip } from '../src/zip.js';
+import { reviewRows } from '../src/xlsx.js';
 
 const [input, outArg] = process.argv.slice(2);
 if (!input) {
@@ -58,13 +59,8 @@ if (outArg && /\.xlsx$/i.test(outArg)) {
   let table = { entities: { place: {}, person: {}, org: {} } };
   try { table = JSON.parse(await readFile(jsonPath, 'utf-8')); } catch {}
   const parts = readZip(new Uint8Array(await readFile(outArg)));
-  const sheet = parts.get('xl/worksheets/sheet1.xml') || '';
-  const rows = [];
-  for (const rowXml of sheet.match(/<row[\s\S]*?<\/row>/g) || []) {
-    rows.push([...rowXml.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)]
-      .map((m) => m[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')));
-  }
-  const head = rows.shift() || [];
+  const rows = reviewRows(parts, ['key']);
+  const head = (rows.shift() || []).map((c) => String(c).trim());
   const iK = head.indexOf('key'), iS = head.indexOf('status'), iLa = head.indexOf('lat'), iLo = head.indexOf('lon');
   let applied = 0;
   for (const r of rows) {
@@ -103,7 +99,19 @@ if (placeRows.length) {
     ['label', 'found', 'source', 'lat', 'lon', 'status', 'alternatives', 'key'],
     placeRows,
     { sheet: 'Places', widths: [18, 18, 16, 10, 10, 12, 40, 1],
-      choices: { col: 5, options: ['confirmed', 'rejected', 'suggested'] } });
+      choices: { col: 5, options: ['confirmed', 'rejected', 'suggested'] },
+      howto: [
+        'WHAT THIS IS \u2014 the places of your edition, each with what the gazetteer proposed.',
+        '',
+        'COLUMNS: "label" is the form in your text; "found" the canonical name the gazetteer answered',
+        '(Romae \u2192 Roma means a historical variant matched); "lat"/"lon" its coordinates;',
+        '"alternatives" other candidates, nearest-first when your edition already has confirmed places.',
+        '',
+        'WHAT TO DO: check each row; correct lat/lon if the proposed place is the wrong one',
+        '(see "alternatives"); set status to confirmed or rejected; save. Then run:',
+        '  node tools/reconcile.js <your input> <this file>',
+        'and the decisions land in reconcile.json, which the press applies at every pressing.',
+      ] });
   await writeFile(xlsxPath, xlsx);
   console.error(`  places sheet: ${xlsxPath} (open it, confirm or reject, then: node tools/reconcile.js <input> ${xlsxPath})`);
 }

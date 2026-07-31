@@ -15,7 +15,7 @@
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
+   attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, reviewRows, applyReview,
    harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
@@ -66,6 +66,9 @@
   }
 
   let lastFiles = [];
+  let currentStep = 'edition'; // survives panel redraws: UDPipe must not send you back to page one
+  let nlpLang = ''; // the editor's word on the language; empty = trust the markup
+  let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
   async function doPress(fileList) {
     lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
@@ -184,14 +187,11 @@
     if (reviewSheet) {
       try {
         const parts = readZip(reviewSheet);
-        const sheet = parts.get('xl/worksheets/sheet1.xml') || '';
-        const rows = [];
-        for (const rowXml of sheet.match(/<row[\s\S]*?<\/row>/g) || []) {
-          const cells = [...rowXml.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)]
-            .map((m) => m[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
-          rows.push(cells);
-        }
-        const head = rows.shift() || [];
+        // Excel resaves in its own dialect (sharedStrings, numeric cells):
+        // the reader understands both ours and Excel's, and finds the data
+        // sheet by its header wherever the spreadsheet put it
+        const rows = reviewRows(parts, ['form', 'label', 'key']);
+        const head = (rows.shift() || []).map((c) => String(c).trim());
         if (head.indexOf('label') >= 0 && head.indexOf('type') >= 0) {
           // the names sheet: what the editor confirmed becomes the registries
           const iL = head.indexOf('label'), iT = head.indexOf('type'), iK = head.indexOf('kind'),
@@ -274,6 +274,15 @@
       }
     }
 
+    // machine lemmas accepted without review: the editor chose speed, the
+    // edition says so (they stay "suggested", and the page marks them)
+    const prevLemmaTypes = S && S.lemmaTypes;
+    if (!lemmasJson && !reviewSheet && lemmaAuto && prevLemmaTypes) {
+      attachLemmas(model, { generator: 'UDPipe (accepted without review)', types: prevLemmaTypes });
+      notes.push('Machine lemmas accepted without review, as chosen: ' + prevLemmaTypes.length
+        + ' forms, recorded as suggestions.');
+    }
+
     const analysis = analyze(roots.map((r) => r.root || r), map);
     const teiNames = parsed.map((p) => p.name);
 
@@ -288,6 +297,7 @@
       slug: teiNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
       ui: seedUI(model, droppedManifest, droppedExtra),
       files: null,
+      lemmaTypes: prevLemmaTypes || null,
     };
 
     compose();
@@ -314,8 +324,13 @@
         places: !(raw.pieces && raw.pieces.places === false),
         orgs: !(raw.pieces && raw.pieces.orgs === false),
         lexicon: !!(raw.pieces && raw.pieces.lexicon === true),
+        lexStats: !!(raw.pieces && (raw.pieces.lexStats === true || raw.pieces.lexicon === true)),
+        lexFreq: !!(raw.pieces && (raw.pieces.lexFreq === true || raw.pieces.lexicon === true)),
+        lexConc: !!(raw.pieces && (raw.pieces.lexConc === true || raw.pieces.lexicon === true)),
+        lexCloud: !!(raw.pieces && (raw.pieces.lexCloud === true || raw.pieces.lexicon === true)),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
+      apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : '',
       version: typeof raw.version === 'string' ? raw.version
         : (raw.version != null ? String(raw.version) : ''),
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -355,21 +370,30 @@
   const UDMODEL = { la: 'latin-ittb-ud-2.12-230717', it: 'italian-isdt-ud-2.12-230717',
     en: 'english-ewt-ud-2.12-230717', de: 'german-hdt-ud-2.12-230717',
     fr: 'french-gsd-ud-2.12-230717', grc: 'ancient_greek-perseus-ud-2.12-230717' };
-
-  async function lemmatize() {
-    const btn = document.getElementById('c-lemmatize');
-    const tokens = collectTokens(S.model);
-    if (!tokens.length) { alert('This edition has no running words to lemmatize.'); return; }
+  const UDNAMES = { la: 'Latin', it: 'italiano', en: 'English', de: 'Deutsch',
+    fr: 'fran\u00e7ais', grc: 'ancient Greek' };
+  // the editor's word beats the markup: an edition without xml:lang (or with
+  // the wrong one) can still be analyzed in the language its editor names
+  function nlpGroups(tokens) {
+    if (nlpLang) return new Map([[nlpLang, tokens.map((t) => t.form)]]);
     const byLang = new Map();
     for (const t of tokens) {
       const l = normLang(t.lang) || 'la';
       if (!byLang.has(l)) byLang.set(l, []);
       byLang.get(l).push(t.form);
     }
+    return byLang;
+  }
+
+  async function lemmatize() {
+    const btn = document.getElementById('c-lemmatize');
+    const tokens = collectTokens(S.model);
+    if (!tokens.length) { alert('This edition has no running words to lemmatize.'); return; }
+    const byLang = nlpGroups(tokens);
     const langs = [...byLang.keys()].filter((l) => UDMODEL[l]);
     if (!langs.length) {
-      alert('No language service is known for this edition (' + [...byLang.keys()].join(', ')
-        + '). You can still add a reviewed lemmas.json by hand.');
+      alert('No language service matches (' + [...byLang.keys()].join(', ')
+        + '). Choose the language of the text above, or add a reviewed lemmas.json by hand.');
       return;
     }
     if (!confirm('The text of this edition (' + tokens.length + ' words, '
@@ -413,6 +437,18 @@
     const xlsx = buildXLSX(header, rows, {
       sheet: 'Lemmas', widths: [16, 6, 9, 16, 12, 8, 26],
       choices: { col: 4, options: ['confirmed', 'rejected', 'suggested'] },
+      howto: [
+        'WHAT THIS IS \u2014 every distinct word of your text, with the dictionary form a language service proposed.',
+        '',
+        'WHAT TO DO:',
+        '1. Look at the "lemma" column. If the dictionary form is right, you can leave the row alone.',
+        '2. If it is wrong, write the correct form over it: an edited lemma counts as confirmed.',
+        '3. In the "status" column, pick: confirmed (it is right), rejected (this word must not be lemmatized).',
+        '4. Rows marked "review" are the ones the service itself doubted (a homograph, e.g. porta NOUN / portare VERB): the "alternatives" column shows the options. Those deserve your eye first; they are at the top.',
+        '5. Save the file, go back to the press, and drop it in the "Words" step (or together with your XML files).',
+        '',
+        'You do not have to finish: only confirmed and rejected rows count, everything else stays a suggestion.',
+      ],
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
@@ -469,6 +505,17 @@
       sheet: 'Names', widths: [18, 8, 10, 12, 52, 9, 9, 24, 1],
       choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
       choices2: { col: 1, options: ['person', 'place', 'org'] },
+      howto: [
+        'WHAT THIS IS \u2014 the names of your edition: persons, places, organisations.',
+        '',
+        'THE "kind" COLUMN TELLS YOU WHAT EACH ROW IS:',
+        '\u2022 marked \u2014 a name your files already declare. Set status to confirmed to put it in the indices; for a place, fill lat and lon to put it on the map. If an authority is proposed (wikidata:Q\u2026), the "context" column describes who or what it is: keep it or delete it.',
+        '\u2022 unmarked \u2014 one more occurrence of a declared name, found as plain text. The "context" column shows the passage: confirm only if, THERE, the name really is that person or place (Roma the city, not Roma a surname).',
+        '\u2022 candidate \u2014 a proper noun the grammar found, not yet an entity. Read the context, choose its type (person / place / org) in the "type" column, and confirm; or ignore it.',
+        '',
+        'Then save, go back to the press, and drop this file in the "Names" step (or together with your XML files).',
+        'Only confirmed rows enter the edition. Nothing is looked up while your edition is read.',
+      ],
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
@@ -484,14 +531,9 @@
     const btn = document.getElementById('c-candidates');
     const tokens = collectTokens(S.model);
     if (!tokens.length) { alert('This edition has no running words.'); return; }
-    const byLang = new Map();
-    for (const t of tokens) {
-      const l = normLang(t.lang) || 'la';
-      if (!byLang.has(l)) byLang.set(l, []);
-      byLang.get(l).push(t.form);
-    }
+    const byLang = nlpGroups(tokens);
     const langs = [...byLang.keys()].filter((l) => UDMODEL[l]);
-    if (!langs.length) { alert('No language service is known for this edition (' + [...byLang.keys()].join(', ') + ').'); return; }
+    if (!langs.length) { alert('No language service matches. Choose the language of the text in the Words step.'); return; }
     if (!confirm('The text of this edition (' + tokens.length + ' words) will be sent to UDPipe, '
       + 'at lindat.mff.cuni.cz, to find the proper nouns. They come back untyped: you say '
       + 'which are persons, places or organisations, one occurrence at a time. Proceed?')) return;
@@ -597,11 +639,14 @@
     if (ui.theme) m.theme = ui.theme;
     if (ui.genre) m.genre = ui.genre;
     if (ui.version) m.version = ui.version;
+    if (ui.apparatusKind) m.apparatusKind = ui.apparatusKind;
     const off = {};
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
-    if (ui.pieces.lexicon) off.lexicon = true; // off by default, so record when on
+    for (const k of ['lexStats', 'lexFreq', 'lexConc', 'lexCloud']) {
+      if (ui.pieces[k]) off[k] = true; // off by default, so record when on
+    }
     if (Object.keys(off).length) m.pieces = off;
     if (ui.extra.length) {
       m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
@@ -840,34 +885,78 @@
         + 'the title stays: it is the way into the documents.</p></fieldset>';
     }
 
-    // 1. the interactive layers of the text
+    // 1. the interactive layers of the text, each explained where it is chosen
     html += '<fieldset data-step="pieces"><legend>Pieces</legend>'
-      + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
-      + '> apparatus popups</label> '
-      + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
-      + '> entity cards</label> '
-      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
-      + '> reading/diplomatic toggle</label> '
-      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
-      + '> data files (model, CSV, source)</label>'
       + '<p class="note">Switching a piece off disables its interactive layer, '
-      + 'never the base rendering: nothing becomes invisible.</p></fieldset>';
+      + 'never the base rendering: nothing becomes invisible.</p>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
+      + '> <b>apparatus</b></label>'
+      + '<span class="note">If your files record variant readings (app, rdg, lem), every word that varies '
+      + 'becomes clickable: a small window shows what each witness reads. Off: the text stays, the windows go.</span>'
+      + '<div class="frow"><label for="c-appkind">kind of apparatus</label><select id="c-appkind">'
+      + '<option value=""' + (!ui.apparatusKind ? ' selected' : '') + '>from the markup</option>'
+      + '<option value="critical"' + (ui.apparatusKind === 'critical' ? ' selected' : '') + '>critical: variants between witnesses</option>'
+      + '<option value="genetic"' + (ui.apparatusKind === 'genetic' ? ' selected' : '') + '>genetic: the strata of one manuscript in time</option>'
+      + '</select></div>'
+      + '<span class="note">Declaring it names it for the reader on the edition page; a genetic edition '
+      + 'also gets its Genesis page and hand colours when the markup records them (listChange, handNote).</span></div>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
+      + '> <b>entity cards</b></label>'
+      + '<span class="note">If your files mark names (persName, placeName, orgName), each becomes clickable: '
+      + 'a card says who or what it is, lists its occurrences, links its identifiers. The indices are the same '
+      + 'names in one page; you choose them in the Names step.</span></div>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
+      + '> <b>reading / diplomatic toggle</b></label>'
+      + '<span class="note">If your files encode both the abbreviated and the expanded form (choice, am/ex, '
+      + 'orig/reg), the reader can switch between the diplomatic text and the reading text.</span></div>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
+      + '> <b>data files</b></label>'
+      + '<span class="note">The edition ships its own data for anyone to reuse: the model (JSON), the '
+      + 'registers (CSV), and your XML sources in data/source. The edition is the repository.</span></div>'
+      + '</fieldset>';
 
     // 2. words: lemmas and the lexicon, with their own review round trip
+    const langOpts = '<option value=""' + (!nlpLang ? ' selected' : '') + '>from the markup (xml:lang)</option>'
+      + Object.keys(UDMODEL).map((l) => '<option value="' + l + '"' + (nlpLang === l ? ' selected' : '') + '>'
+        + (UDNAMES[l] || l) + '</option>').join('');
     html += '<fieldset class="flow" data-step="words"><legend>Words: lemmas and lexicon</legend>'
+      + '<p class="note"><b>What you can add here.</b> An index of dictionary forms (every word of the '
+      + 'text grouped under its lemma: porta, porte \u2192 porta, with concordances), and the lexicon '
+      + 'pages. If your files already declare the lemmas (w/@lemma), the index appears by itself and '
+      + 'there is nothing to do. If not, follow the numbered path below.</p>'
       + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
-      + '> index of lemmas, where the edition declares them</label> '
-      + '<label><input type="checkbox" id="c-lexicon"' + (ui.pieces.lexicon ? ' checked' : '')
-      + '> lexicon page (frequencies, concordance, cloud)</label>'
-      + '<p><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
-      + '<span class="note">Your text does not say the dictionary form of each word. I can ask a '
-      + 'language service (UDPipe, at the Charles University in Prague): <b>the text of your edition '
-      + 'will be sent to that service.</b> Nothing is decided without you.</span></p>'
-      + (S.lemmaTypes ? '<p><button type="button" id="c-lemma-sheet">Download the review sheet</button>'
-        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Correct what is wrong, choose '
-        + 'confirmed or rejected, save.</span></p>' : '')
-      + '<div class="dropmini" id="drop-lemmas"><span class="note">Drop the corrected lemma sheet here '
-      + '(or with the files).</span></div>'
+      + '> index of dictionary forms</label> '
+      + '<label><input type="checkbox" id="c-lexstats"' + (ui.pieces.lexStats ? ' checked' : '')
+      + '> statistics on the edition page (words, forms, type-token ratio)</label> '
+      + '<label><input type="checkbox" id="c-lexfreq"' + (ui.pieces.lexFreq ? ' checked' : '')
+      + '> word frequencies</label> '
+      + '<label><input type="checkbox" id="c-lexconc"' + (ui.pieces.lexConc ? ' checked' : '')
+      + '> concordance</label> '
+      + '<label><input type="checkbox" id="c-lexcloud"' + (ui.pieces.lexCloud ? ' checked' : '')
+      + '> word cloud</label>'
+      + '<div class="piece-block"><b>1 \u00b7 Say the language of the text.</b>'
+      + '<div class="frow"><label for="c-nlplang">language</label>'
+      + '<select id="c-nlplang">' + langOpts + '</select></div>'
+      + '<span class="note">If your files declare it (xml:lang) you can leave "from the markup". '
+      + 'If they do not, or declare it wrong, your word wins: the analysis runs in the language '
+      + 'you choose here.</span></div>'
+      + '<div class="piece-block"><b>2 \u00b7 Ask the language service.</b><br>'
+      + '<button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
+      + '<span class="note">This is linguistic analysis (NLP), done by UDPipe at the Charles '
+      + 'University in Prague: <b>the text of your edition is sent to that service.</b> The pipeline '
+      + 'is: the text is split into words, each word is tagged with its part of speech, and only '
+      + 'then a dictionary form is proposed (the lemma depends on the part of speech: porta the '
+      + 'noun \u2192 porta, porta the verb \u2192 portare). Nothing is decided here.</span></div>'
+      + '<div class="piece-block"><b>3 \u00b7 Decide what to trust.</b>'
+      + (S.lemmaTypes ? '<br><button type="button" id="c-lemma-sheet">Download the review sheet ('
+        + S.lemmaTypes.length + ' forms)</button>'
+        + '<span class="note">The file opens on a READ ME FIRST sheet that walks you through it. '
+        + 'Correct, confirm or reject, save, and drop the file below.</span>' : '')
+      + '<label style="display:block;margin-top:.5em"><input type="checkbox" id="c-lemma-auto"'
+      + (lemmaAuto ? ' checked' : '') + '> or proceed without review: use the proposals as they are. '
+      + 'The edition will say so (every form stays marked as a machine suggestion)</label></div>'
+      + '<div class="dropmini" id="drop-lemmas"><span class="note">4 \u00b7 Drop the corrected sheet '
+      + 'here (or with the files).</span></div>'
       + '</fieldset>';
 
     // 3. names: the indices and the map, with their own review round trip
@@ -931,6 +1020,7 @@
     let stepAt = 0;
     const showStep = (id) => {
       stepAt = Math.max(0, order.indexOf(id));
+      currentStep = order[stepAt];
       composeBox.querySelectorAll('fieldset[data-step]').forEach((fs) => {
         fs.style.display = fs.getAttribute('data-step') === id ? '' : 'none';
       });
@@ -939,15 +1029,25 @@
       });
       const back = composeBox.querySelector('.step-back'), fwd = composeBox.querySelector('.step-fwd');
       if (back) back.disabled = stepAt === 0;
-      if (fwd) fwd.disabled = stepAt === order.length - 1;
+      if (fwd) {
+        // on the last step the way forward IS the download: nobody should
+        // have to guess that the button lives further down the page
+        const last = stepAt === order.length - 1;
+        fwd.disabled = false;
+        fwd.textContent = last ? 'Download the pressed edition \u2913' : 'next \u203a';
+        fwd.classList.toggle('step-download', last);
+      }
     };
     composeBox.querySelectorAll('.stepnav button').forEach((b) => {
       b.addEventListener('click', () => showStep(b.getAttribute('data-goto')));
     });
     const backBtn = composeBox.querySelector('.step-back'), fwdBtn = composeBox.querySelector('.step-fwd');
     if (backBtn) backBtn.addEventListener('click', () => showStep(order[Math.max(0, stepAt - 1)]));
-    if (fwdBtn) fwdBtn.addEventListener('click', () => showStep(order[Math.min(order.length - 1, stepAt + 1)]));
-    showStep('edition');
+    if (fwdBtn) fwdBtn.addEventListener('click', () => {
+      if (stepAt === order.length - 1) { downloadBtn.click(); return; }
+      showStep(order[Math.min(order.length - 1, stepAt + 1)]);
+    });
+    showStep(order.includes(currentStep) ? currentStep : 'edition');
     wirePanel();
   }
 
@@ -972,10 +1072,19 @@
     bind('c-persons', (el) => { ui.pieces.persons = el.checked; });
     bind('c-places', (el) => { ui.pieces.places = el.checked; });
     bind('c-orgs', (el) => { ui.pieces.orgs = el.checked; });
-    bind('c-lexicon', (el) => { ui.pieces.lexicon = el.checked; });
+    bind('c-lexstats', (el) => { ui.pieces.lexStats = el.checked; });
+    bind('c-lexfreq', (el) => { ui.pieces.lexFreq = el.checked; });
+    bind('c-lexconc', (el) => { ui.pieces.lexConc = el.checked; });
+    bind('c-lexcloud', (el) => { ui.pieces.lexCloud = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-version', (el) => { ui.version = el.value.trim(); });
+    bind('c-appkind', (el) => { ui.apparatusKind = el.value; });
+    bind('c-nlplang', (el) => { nlpLang = el.value; });
+    bind('c-lemma-auto', (el) => {
+      lemmaAuto = el.checked;
+      if (lemmaAuto && S.lemmaTypes && lastFiles.length) press(lastFiles);
+    });
     const lemBtn = document.getElementById('c-lemmatize');
     if (lemBtn) lemBtn.addEventListener('click', lemmatize);
     const sheetBtn = document.getElementById('c-lemma-sheet');

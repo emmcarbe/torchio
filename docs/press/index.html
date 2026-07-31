@@ -45,6 +45,7 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
 .stepmove{display:flex;justify-content:space-between;margin:1.2em 0}
 .stepmove button{font-family:var(--mono,monospace);font-size:12px;padding:8px 16px;border:1px solid #ccc;border-radius:2px;background:#fff;cursor:pointer}
+.stepmove button.step-download{background:#b01e28;color:#fff;border-color:#b01e28}
 .stepmove button:disabled{opacity:.4;cursor:default}
 .stepnav{display:flex;flex-wrap:wrap;gap:4px;margin:1em 0 1.4em;border-bottom:1px solid #e5e0d8}
 .stepnav button{font-family:var(--mono,monospace);font-size:12px;color:#888;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;padding:8px 14px;margin-bottom:-1px}
@@ -1963,7 +1964,7 @@ const STRINGS = {
     lexConcordance: 'Concordance', lexCloud: 'Cloud', lexPick: 'Pick a word to see it in context.',
     lexLanguage: 'Language', lexAllLangs: 'all', lexStoplist: 'Stopwords',
     lexStopNone: 'none', lexHideStop: 'hide stopwords', lexWord: 'word', lexLang: 'lang',
-    lexAbs: 'count', lexRel: 'per 1000', lexStopCol: 'stop', lexStopNote: 'Frequencies and cloud drop the stopwords you choose; the concordance keeps every word.',
+    lexAbs: 'count', lexRel: 'per 1000', lexStats: 'Lexical statistics', lexStopCol: 'stop', lexStopNote: 'Frequencies and cloud drop the stopwords you choose; the concordance keeps every word.',
     genesisNote: 'The campaigns of correction the edition declares, in its own order, with the writing operations attributed to each. Every operation links to the place where it happened.',
     agreement: 'Agreement between witnesses',
     agreementNote: 'How often two witnesses carry the same reading. Evidence for a stemma, which remains the editor\u2019s argument.',
@@ -2023,7 +2024,7 @@ const STRINGS = {
     lexConcordance: 'Concordanza', lexCloud: 'Nuvola', lexPick: 'Scegli una parola per vederla in contesto.',
     lexLanguage: 'Lingua', lexAllLangs: 'tutte', lexStoplist: 'Stopword',
     lexStopNone: 'nessuna', lexHideStop: 'nascondi le stopword', lexWord: 'parola', lexLang: 'lingua',
-    lexAbs: 'assoluta', lexRel: 'per 1000', lexStopCol: 'stop', lexStopNote: 'Frequenze e nuvola tolgono le stopword scelte; la concordanza tiene ogni parola.',
+    lexAbs: 'assoluta', lexRel: 'per 1000', lexStats: 'Statistica lessicale', lexStopCol: 'stop', lexStopNote: 'Frequenze e nuvola tolgono le stopword scelte; la concordanza tiene ogni parola.',
     genesisNote: 'Le campagne correttorie dichiarate dall\u2019edizione, nel suo ordine, con le operazioni di scrittura attribuite a ciascuna. Ogni operazione rimanda al punto in cui è avvenuta.',
     agreement: 'Accordi fra testimoni',
     agreementNote: 'Quante volte due testimoni portano la stessa lezione. Materiale per lo stemma, che resta argomento dell\u2019editore.',
@@ -3402,9 +3403,12 @@ function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
 
 
 
-function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
+function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
+  views = { freq: true, conc: true, cloud: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
+  const chosen = ['freq', 'conc', 'cloud'].filter((v) => views[v]);
+  const first = chosen[0] || 'freq';
 
   const langFilter = multi
     ? `<label class="lx-ctl">${T.lexLanguage} <select class="lx-langsel"><option value="">${T.lexAllLangs}</option>`
@@ -3426,16 +3430,17 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) 
     + `<input class="lx-search" type="search" placeholder="${T.lexSearch}" aria-label="${T.lexSearch}">`
     + langFilter + stopSel
     + `<label class="lx-ctl"><input type="checkbox" class="lx-hidestop"> ${T.lexHideStop}</label>`
-    + `<span class="lx-views" role="group">`
-    + `<button data-view="freq" class="active">${T.lexFrequencies}</button>`
-    + `<button data-view="conc">${T.lexConcordance}</button>`
-    + `<button data-view="cloud">${T.lexCloud}</button></span></div>`
-    + `<section class="lx-view lx-freq"><table class="lx-table"><thead><tr>`
+    + (chosen.length > 1 ? `<span class="lx-views" role="group">`
+      + (views.freq ? `<button data-view="freq"${first === 'freq' ? ' class="active"' : ''}>${T.lexFrequencies}</button>` : '')
+      + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')
+      + (views.cloud ? `<button data-view="cloud"${first === 'cloud' ? ' class="active"' : ''}>${T.lexCloud}</button>` : '')
+      + `</span>` : '') + `</div>`
+    + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
     + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
     + `<th class="lx-num">${T.lexAbs}</th><th class="lx-num">${T.lexRel}</th>`
-    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>`
-    + `<section class="lx-view lx-conc" hidden><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>`
-    + `<section class="lx-view lx-cloud" hidden></section>`
+    + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody></tbody></table></section>` : '')
+    + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
+    + (views.cloud ? `<section class="lx-view lx-cloud"${first === 'cloud' ? '' : ' hidden'}></section>` : '')
     + `</main>`;
 
   const conc = {};
@@ -3472,7 +3477,7 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) 
   }
   function render(){
     var rows=FREQ.filter(visible);
-    tbody.innerHTML=rows.slice(0,1500).map(function(f){
+    if(tbody)tbody.innerHTML=rows.slice(0,1500).map(function(f){
       return '<tr data-form="'+esc(f.form)+'"'+(isStop(f)?' class="is-stop"':'')+'>'
         +'<td class="lx-w">'+esc(f.form)+'</td>'
         +(MULTI?'<td class="lx-lang">'+esc(f.lang||'')+'</td>':'')
@@ -3485,7 +3490,7 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) 
     var top=content.slice(0,90);
     var cmax=top.length?top[0].count:1, cmin=top.length?top[top.length-1].count:1;
     var span=(Math.log(cmax)-Math.log(cmin))||1;
-    cloud.innerHTML=top.map(function(f){
+    if(cloud)cloud.innerHTML=top.map(function(f){
       var sz=14+Math.round((Math.log(f.count)-Math.log(cmin))/span*34);
       return '<span class="lx-cloud-w" data-form="'+esc(f.form)+'" style="font-size:'+sz+'px" title="'+f.count+' ('+f.rel.toFixed(2)+'\\u2030)">'+esc(f.form)+'</span>';
     }).join(' ');
@@ -3496,8 +3501,9 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) 
   }
   main.querySelectorAll('.lx-views button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
   function concord(form){
-    var occ=CONC[form.toLowerCase()]||[];
     var out=main.querySelector('.lx-conc-out');
+    if(!out)return;
+    var occ=CONC[form.toLowerCase()]||[];
     out.innerHTML=occ.length?'<table class="lx-kwic"><tbody>'+occ.map(function(o){
       return '<tr><td class="lx-b">'+esc(o.b)+'</td><td class="lx-k"><a href="'+o.href+'">'+esc(o.k)+'</a></td><td class="lx-a">'+esc(o.a)+'</td></tr>';
     }).join('')+'</tbody></table>':'<p class="occ">\\u2014</p>';
@@ -3507,7 +3513,7 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages }) 
     if(flip){var row=flip.closest('[data-form]');var form=row.getAttribute('data-form');
       var f=FREQ.find(function(x){return x.form===form;});manual[form]=!isStop(f);render();e.stopPropagation();return;}
     var w=e.target.closest('[data-form]');
-    if(w){search.value=w.getAttribute('data-form');concord(w.getAttribute('data-form'));show('conc');}
+    if(w){search.value=w.getAttribute('data-form');concord(w.getAttribute('data-form'));if(main.querySelector('.lx-conc'))show('conc');}
   });
   var timer;
   search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q&&CONC[q])concord(q);},120);});
@@ -3580,8 +3586,11 @@ function normalizeManifest(raw = {}) {
     genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
       ? raw.genre : null,
     version: raw.version != null && String(raw.version).trim() ? String(raw.version).trim() : null,
+    apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : null,
     pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
       persons: true, places: true, orgs: true, ...(raw.pieces || {}) },
+    // the lexicon views are opt-in, each on its own; the old pieces.lexicon
+    // switches all three on
     align: raw.align && typeof raw.align === 'object' ? {
       elements: Array.isArray(raw.align.elements) ? raw.align.elements.map(String) : ['l'],
       strip: raw.align.strip ? String(raw.align.strip) : null,
@@ -3649,9 +3658,25 @@ const WORLD = [[[-59.57,-80.04],[-59.87,-80.55],[-60.16,-81.0],[-62.26,-80.86],[
 function pressMapPage({ geoPlaces, pageFor, t, T, lang, theme, parent, pages }) {
     const lats = geoPlaces.map((p) => p.geo.lat);
     const lons = geoPlaces.map((p) => p.geo.lon);
-    const pad = 1.5;
-    const minLat = Math.min(...lats) - pad, maxLat = Math.max(...lats) + pad;
-    const minLon = Math.min(...lons) - pad, maxLon = Math.max(...lons) + pad;
+    // the window widens until some coastline enters it: a single city in a
+    // 3-degree box is a dot in the blue, which orients nobody. The sketch
+    // must stand on its own where no script (and no tile) ever runs
+    let pad = 1.5;
+    let minLat, maxLat, minLon, maxLon;
+    const someLand = () => WORLD.some((ring) => {
+      let minx = 999, maxx = -999, miny = 999, maxy = -999;
+      for (const [x, y] of ring) {
+        if (x < minx) minx = x; if (x > maxx) maxx = x;
+        if (y < miny) miny = y; if (y > maxy) maxy = y;
+      }
+      return !(maxx < minLon || minx > maxLon || maxy < minLat || miny > maxLat);
+    });
+    do {
+      minLat = Math.min(...lats) - pad; maxLat = Math.max(...lats) + pad;
+      minLon = Math.min(...lons) - pad * 1.4; maxLon = Math.max(...lons) + pad * 1.4;
+      if (someLand() || pad >= 40) break;
+      pad *= 2;
+    } while (true);
     const W = 720, H = 440;
     const px = (lon) => ((lon - minLon) / (maxLon - minLon)) * (W - 40) + 20;
     const py = (lat) => H - (((lat - minLat) / (maxLat - minLat)) * (H - 40) + 20);
@@ -4429,7 +4454,16 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
   // no lemmas, no page: forms alone are never passed off as an index of lemmas
   const hasLemmas = !!(model.lemmas && model.lemmas.entries.length)
     && manifest.pieces.lemmas !== false;
-  const hasLexicon = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexicon === true;
+  // each lexicon view is its own choice; the old pieces.lexicon turns on all
+  const lexAll = manifest.pieces.lexicon === true;
+  const lexViews = {
+    freq: lexAll || manifest.pieces.lexFreq === true,
+    conc: lexAll || manifest.pieces.lexConc === true,
+    cloud: lexAll || manifest.pieces.lexCloud === true,
+  };
+  const hasLexicon = !!(model.lexicon && model.lexicon.total)
+    && (lexViews.freq || lexViews.conc || lexViews.cloud);
+  const hasLexStats = !!(model.lexicon && model.lexicon.total) && manifest.pieces.lexStats === true;
   const exports_ = manifest.exports
     ? buildExports(model, { sourceXML, only: manifest.exports === true ? null : manifest.exports })
     : {};
@@ -4590,6 +4624,11 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
     about += `<dt>${T.edition}</dt><dd>${escapeHTML(e.text || e.n)}${e.text && e.n ? ` (${escapeHTML(e.n)})` : ''}</dd>`;
   }
   if (resp) about += `<dt>${T.responsibility}</dt><dd>${escapeHTML(resp)}</dd>`;
+  if (hasLexStats) {
+    const L = model.lexicon;
+    about += `<dt>${T.lexStats}</dt><dd>${L.total} ${T.lexTokens} · ${L.distinct} ${T.lexForms}`
+      + ` · ${T.lexTTR} ${L.ttr}</dd>`;
+  }
   if (model.meta.licence) {
     const l = model.meta.licence;
     const lt = safeURL(l.target);
@@ -4987,7 +5026,7 @@ function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages 
 
   /* ---- lexicon.html: frequencies, concordance, cloud, chosen by the editor ---- */
   if (hasLexicon && wanted.has('lexicon')) {
-    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages });
+    out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages, views: lexViews });
   }
 
   /* ---- data.html: the edition as downloadable data ---- */
@@ -5309,7 +5348,7 @@ const colName = (i) => {
  * @param {{sheet?: string, widths?: number[]}} opts
  * @returns {Uint8Array} the .xlsx file
  */
-function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null, choices2 = null } = {}) {
+function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null, choices2 = null, howto = null } = {}) {
   const all = [header, ...rows];
   const body = all.map((row, r) => {
     const cells = row.map((v, c) => {
@@ -5332,6 +5371,7 @@ function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null
       + `<Default Extension="xml" ContentType="application/xml"/>`
       + `<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>`
       + `<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`
+      + (howto ? `<Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>` : '')
       + `</Types>`,
     '_rels/.rels':
       `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
@@ -5342,16 +5382,20 @@ function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null
       `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
       + `<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"`
       + ` xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`
-      + `<sheets><sheet name="${esc(sheet)}" sheetId="1" r:id="rId1"/></sheets></workbook>`,
+      + `<sheets>`
+      + (howto ? `<sheet name="READ ME FIRST" sheetId="1" r:id="rId2"/>` : '')
+      + `<sheet name="${esc(sheet)}" sheetId="${howto ? 2 : 1}" r:id="rId1"/>`
+      + `</sheets></workbook>`,
     'xl/_rels/workbook.xml.rels':
       `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
       + `<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">`
       + `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>`
+      + (howto ? `<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/>` : '')
       + `</Relationships>`,
     'xl/worksheets/sheet1.xml':
       `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
       + `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">`
-      + `<sheetViews><sheetView workbookViewId="0" tabSelected="1">`
+      + `<sheetViews><sheetView workbookViewId="0"${howto ? '' : ' tabSelected="1"'}>`
       + `<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>`
       + `</sheetView></sheetViews>`
       + cols
@@ -5370,7 +5414,90 @@ function buildXLSX(header, rows, { sheet = 'Review', widths = [], choices = null
         })() : '')
       + `</worksheet>`,
   };
+  if (howto) {
+    // the instructions live inside the file the editor opens: one line each,
+    // in a sheet of their own, so the data sheet stays clean
+    const hrows = howto.map((line, r) =>
+      `<row r="${r + 1}"><c r="A${r + 1}" t="inlineStr"><is><t xml:space="preserve">${esc(line)}</t></is></c></row>`).join('');
+    files['xl/worksheets/sheet2.xml'] =
+      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
+      + `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">`
+      + `<sheetViews><sheetView workbookViewId="0" tabSelected="1"/></sheetViews>`
+      + `<cols><col min="1" max="1" width="110" customWidth="1"/></cols>`
+      + `<sheetData>${hrows}</sheetData></worksheet>`;
+  }
   return buildZip(files);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reading back what the editor saved. Excel rewrites the file in its  */
+/* own dialect: numbers as <v>, strings via sharedStrings. A reader    */
+/* that only knew our inlineStr came back empty from a resaved file.   */
+
+const unesc = (s) => String(s).replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+
+const colIndex = (ref) => {
+  let n = 0;
+  for (const ch of ref) {
+    if (ch >= 'A' && ch <= 'Z') n = n * 26 + (ch.charCodeAt(0) - 64);
+    else break;
+  }
+  return n - 1;
+};
+
+/** All the <t> runs of one shared-string item, joined (rich text splits them). */
+function sharedStrings(parts) {
+  const xml = parts.get('xl/sharedStrings.xml');
+  if (!xml) return [];
+  const out = [];
+  for (const si of xml.match(/<si>[\s\S]*?<\/si>/g) || []) {
+    out.push((si.match(/<t[^>]*>([\s\S]*?)<\/t>/g) || [])
+      .map((t) => unesc(t.replace(/^<t[^>]*>/, '').replace(/<\/t>$/, ''))).join(''));
+  }
+  return out;
+}
+
+/** One worksheet part -> rows as arrays, columns in their true positions. */
+function sheetRows(parts, path) {
+  const xml = parts.get(path);
+  if (!xml) return [];
+  const shared = sharedStrings(parts);
+  const rows = [];
+  for (const rowXml of xml.match(/<row[\s\S]*?<\/row>/g) || []) {
+    const row = [];
+    for (const cell of rowXml.match(/<c [^>]*(?:\/>|>[\s\S]*?<\/c>)/g) || []) {
+      const ref = (cell.match(/r="([A-Z]+)\d+"/) || [])[1];
+      if (!ref) continue;
+      const type = (cell.match(/t="(\w+)"/) || [])[1] || '';
+      let value = '';
+      if (type === 'inlineStr') {
+        value = (cell.match(/<t[^>]*>([\s\S]*?)<\/t>/g) || [])
+          .map((t) => unesc(t.replace(/^<t[^>]*>/, '').replace(/<\/t>$/, ''))).join('');
+      } else {
+        const v = (cell.match(/<v>([\s\S]*?)<\/v>/) || [])[1];
+        if (v === undefined) value = '';
+        else if (type === 's') value = shared[Number(v)] ?? '';
+        else value = unesc(v);
+      }
+      row[colIndex(ref)] = value;
+    }
+    // normalize sparse rows: holes become empty strings
+    for (let i = 0; i < row.length; i++) if (row[i] === undefined) row[i] = '';
+    rows.push(row);
+  }
+  return rows;
+}
+
+/** Find the data sheet by its header, wherever the spreadsheet put it. */
+function reviewRows(parts, headerHints) {
+  for (const path of [...parts.keys()].filter((p) => /^xl\/worksheets\/sheet\d+\.xml$/.test(p)).sort()) {
+    const rows = sheetRows(parts, path);
+    if (!rows.length) continue;
+    const head = (rows[0] || []).map((c) => String(c).trim().toLowerCase());
+    if (headerHints.some((h) => head.includes(h))) return rows;
+  }
+  return [];
 }
 
 // ---- embedded base data and assets ----
@@ -5513,7 +5640,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
-   attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, applyReview,
+   attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, reviewRows, applyReview,
    harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
@@ -5564,6 +5691,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   }
 
   let lastFiles = [];
+  let currentStep = 'edition'; // survives panel redraws: UDPipe must not send you back to page one
+  let nlpLang = ''; // the editor's word on the language; empty = trust the markup
+  let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
   async function doPress(fileList) {
     lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
@@ -5682,14 +5812,11 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (reviewSheet) {
       try {
         const parts = readZip(reviewSheet);
-        const sheet = parts.get('xl/worksheets/sheet1.xml') || '';
-        const rows = [];
-        for (const rowXml of sheet.match(/<row[\s\S]*?<\/row>/g) || []) {
-          const cells = [...rowXml.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)]
-            .map((m) => m[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
-          rows.push(cells);
-        }
-        const head = rows.shift() || [];
+        // Excel resaves in its own dialect (sharedStrings, numeric cells):
+        // the reader understands both ours and Excel's, and finds the data
+        // sheet by its header wherever the spreadsheet put it
+        const rows = reviewRows(parts, ['form', 'label', 'key']);
+        const head = (rows.shift() || []).map((c) => String(c).trim());
         if (head.indexOf('label') >= 0 && head.indexOf('type') >= 0) {
           // the names sheet: what the editor confirmed becomes the registries
           const iL = head.indexOf('label'), iT = head.indexOf('type'), iK = head.indexOf('kind'),
@@ -5772,6 +5899,15 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       }
     }
 
+    // machine lemmas accepted without review: the editor chose speed, the
+    // edition says so (they stay "suggested", and the page marks them)
+    const prevLemmaTypes = S && S.lemmaTypes;
+    if (!lemmasJson && !reviewSheet && lemmaAuto && prevLemmaTypes) {
+      attachLemmas(model, { generator: 'UDPipe (accepted without review)', types: prevLemmaTypes });
+      notes.push('Machine lemmas accepted without review, as chosen: ' + prevLemmaTypes.length
+        + ' forms, recorded as suggestions.');
+    }
+
     const analysis = analyze(roots.map((r) => r.root || r), map);
     const teiNames = parsed.map((p) => p.name);
 
@@ -5786,6 +5922,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       slug: teiNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
       ui: seedUI(model, droppedManifest, droppedExtra),
       files: null,
+      lemmaTypes: prevLemmaTypes || null,
     };
 
     compose();
@@ -5812,8 +5949,13 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         places: !(raw.pieces && raw.pieces.places === false),
         orgs: !(raw.pieces && raw.pieces.orgs === false),
         lexicon: !!(raw.pieces && raw.pieces.lexicon === true),
+        lexStats: !!(raw.pieces && (raw.pieces.lexStats === true || raw.pieces.lexicon === true)),
+        lexFreq: !!(raw.pieces && (raw.pieces.lexFreq === true || raw.pieces.lexicon === true)),
+        lexConc: !!(raw.pieces && (raw.pieces.lexConc === true || raw.pieces.lexicon === true)),
+        lexCloud: !!(raw.pieces && (raw.pieces.lexCloud === true || raw.pieces.lexicon === true)),
       },
       genre: typeof raw.genre === 'string' ? raw.genre : '',
+      apparatusKind: raw.apparatusKind === 'critical' || raw.apparatusKind === 'genetic' ? raw.apparatusKind : '',
       version: typeof raw.version === 'string' ? raw.version
         : (raw.version != null ? String(raw.version) : ''),
       // pages: id -> {on, label}; filled after the first pressing, when the
@@ -5853,21 +5995,30 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   const UDMODEL = { la: 'latin-ittb-ud-2.12-230717', it: 'italian-isdt-ud-2.12-230717',
     en: 'english-ewt-ud-2.12-230717', de: 'german-hdt-ud-2.12-230717',
     fr: 'french-gsd-ud-2.12-230717', grc: 'ancient_greek-perseus-ud-2.12-230717' };
-
-  async function lemmatize() {
-    const btn = document.getElementById('c-lemmatize');
-    const tokens = collectTokens(S.model);
-    if (!tokens.length) { alert('This edition has no running words to lemmatize.'); return; }
+  const UDNAMES = { la: 'Latin', it: 'italiano', en: 'English', de: 'Deutsch',
+    fr: 'fran\u00e7ais', grc: 'ancient Greek' };
+  // the editor's word beats the markup: an edition without xml:lang (or with
+  // the wrong one) can still be analyzed in the language its editor names
+  function nlpGroups(tokens) {
+    if (nlpLang) return new Map([[nlpLang, tokens.map((t) => t.form)]]);
     const byLang = new Map();
     for (const t of tokens) {
       const l = normLang(t.lang) || 'la';
       if (!byLang.has(l)) byLang.set(l, []);
       byLang.get(l).push(t.form);
     }
+    return byLang;
+  }
+
+  async function lemmatize() {
+    const btn = document.getElementById('c-lemmatize');
+    const tokens = collectTokens(S.model);
+    if (!tokens.length) { alert('This edition has no running words to lemmatize.'); return; }
+    const byLang = nlpGroups(tokens);
     const langs = [...byLang.keys()].filter((l) => UDMODEL[l]);
     if (!langs.length) {
-      alert('No language service is known for this edition (' + [...byLang.keys()].join(', ')
-        + '). You can still add a reviewed lemmas.json by hand.');
+      alert('No language service matches (' + [...byLang.keys()].join(', ')
+        + '). Choose the language of the text above, or add a reviewed lemmas.json by hand.');
       return;
     }
     if (!confirm('The text of this edition (' + tokens.length + ' words, '
@@ -5911,6 +6062,18 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     const xlsx = buildXLSX(header, rows, {
       sheet: 'Lemmas', widths: [16, 6, 9, 16, 12, 8, 26],
       choices: { col: 4, options: ['confirmed', 'rejected', 'suggested'] },
+      howto: [
+        'WHAT THIS IS \u2014 every distinct word of your text, with the dictionary form a language service proposed.',
+        '',
+        'WHAT TO DO:',
+        '1. Look at the "lemma" column. If the dictionary form is right, you can leave the row alone.',
+        '2. If it is wrong, write the correct form over it: an edited lemma counts as confirmed.',
+        '3. In the "status" column, pick: confirmed (it is right), rejected (this word must not be lemmatized).',
+        '4. Rows marked "review" are the ones the service itself doubted (a homograph, e.g. porta NOUN / portare VERB): the "alternatives" column shows the options. Those deserve your eye first; they are at the top.',
+        '5. Save the file, go back to the press, and drop it in the "Words" step (or together with your XML files).',
+        '',
+        'You do not have to finish: only confirmed and rejected rows count, everything else stays a suggestion.',
+      ],
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
@@ -5967,6 +6130,17 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       sheet: 'Names', widths: [18, 8, 10, 12, 52, 9, 9, 24, 1],
       choices: { col: 3, options: ['confirmed', 'rejected', 'suggested'] },
       choices2: { col: 1, options: ['person', 'place', 'org'] },
+      howto: [
+        'WHAT THIS IS \u2014 the names of your edition: persons, places, organisations.',
+        '',
+        'THE "kind" COLUMN TELLS YOU WHAT EACH ROW IS:',
+        '\u2022 marked \u2014 a name your files already declare. Set status to confirmed to put it in the indices; for a place, fill lat and lon to put it on the map. If an authority is proposed (wikidata:Q\u2026), the "context" column describes who or what it is: keep it or delete it.',
+        '\u2022 unmarked \u2014 one more occurrence of a declared name, found as plain text. The "context" column shows the passage: confirm only if, THERE, the name really is that person or place (Roma the city, not Roma a surname).',
+        '\u2022 candidate \u2014 a proper noun the grammar found, not yet an entity. Read the context, choose its type (person / place / org) in the "type" column, and confirm; or ignore it.',
+        '',
+        'Then save, go back to the press, and drop this file in the "Names" step (or together with your XML files).',
+        'Only confirmed rows enter the edition. Nothing is looked up while your edition is read.',
+      ],
     });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([xlsx],
@@ -5982,14 +6156,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     const btn = document.getElementById('c-candidates');
     const tokens = collectTokens(S.model);
     if (!tokens.length) { alert('This edition has no running words.'); return; }
-    const byLang = new Map();
-    for (const t of tokens) {
-      const l = normLang(t.lang) || 'la';
-      if (!byLang.has(l)) byLang.set(l, []);
-      byLang.get(l).push(t.form);
-    }
+    const byLang = nlpGroups(tokens);
     const langs = [...byLang.keys()].filter((l) => UDMODEL[l]);
-    if (!langs.length) { alert('No language service is known for this edition (' + [...byLang.keys()].join(', ') + ').'); return; }
+    if (!langs.length) { alert('No language service matches. Choose the language of the text in the Words step.'); return; }
     if (!confirm('The text of this edition (' + tokens.length + ' words) will be sent to UDPipe, '
       + 'at lindat.mff.cuni.cz, to find the proper nouns. They come back untyped: you say '
       + 'which are persons, places or organisations, one occurrence at a time. Proceed?')) return;
@@ -6095,11 +6264,14 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (ui.theme) m.theme = ui.theme;
     if (ui.genre) m.genre = ui.genre;
     if (ui.version) m.version = ui.version;
+    if (ui.apparatusKind) m.apparatusKind = ui.apparatusKind;
     const off = {};
     for (const k of ['apparatus', 'entities', 'choice', 'map', 'lemmas', 'persons', 'places', 'orgs']) {
       if (ui.pieces[k] === false) off[k] = false;
     }
-    if (ui.pieces.lexicon) off.lexicon = true; // off by default, so record when on
+    for (const k of ['lexStats', 'lexFreq', 'lexConc', 'lexCloud']) {
+      if (ui.pieces[k]) off[k] = true; // off by default, so record when on
+    }
     if (Object.keys(off).length) m.pieces = off;
     if (ui.extra.length) {
       m.extra = ui.extra.map((e) => ({ id: e.id, label: e.label, file: 'pages/' + e.id + '.md' }));
@@ -6338,34 +6510,78 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         + 'the title stays: it is the way into the documents.</p></fieldset>';
     }
 
-    // 1. the interactive layers of the text
+    // 1. the interactive layers of the text, each explained where it is chosen
     html += '<fieldset data-step="pieces"><legend>Pieces</legend>'
-      + '<label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
-      + '> apparatus popups</label> '
-      + '<label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
-      + '> entity cards</label> '
-      + '<label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
-      + '> reading/diplomatic toggle</label> '
-      + '<label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
-      + '> data files (model, CSV, source)</label>'
       + '<p class="note">Switching a piece off disables its interactive layer, '
-      + 'never the base rendering: nothing becomes invisible.</p></fieldset>';
+      + 'never the base rendering: nothing becomes invisible.</p>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-apparatus"' + (ui.pieces.apparatus ? ' checked' : '')
+      + '> <b>apparatus</b></label>'
+      + '<span class="note">If your files record variant readings (app, rdg, lem), every word that varies '
+      + 'becomes clickable: a small window shows what each witness reads. Off: the text stays, the windows go.</span>'
+      + '<div class="frow"><label for="c-appkind">kind of apparatus</label><select id="c-appkind">'
+      + '<option value=""' + (!ui.apparatusKind ? ' selected' : '') + '>from the markup</option>'
+      + '<option value="critical"' + (ui.apparatusKind === 'critical' ? ' selected' : '') + '>critical: variants between witnesses</option>'
+      + '<option value="genetic"' + (ui.apparatusKind === 'genetic' ? ' selected' : '') + '>genetic: the strata of one manuscript in time</option>'
+      + '</select></div>'
+      + '<span class="note">Declaring it names it for the reader on the edition page; a genetic edition '
+      + 'also gets its Genesis page and hand colours when the markup records them (listChange, handNote).</span></div>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-entities"' + (ui.pieces.entities ? ' checked' : '')
+      + '> <b>entity cards</b></label>'
+      + '<span class="note">If your files mark names (persName, placeName, orgName), each becomes clickable: '
+      + 'a card says who or what it is, lists its occurrences, links its identifiers. The indices are the same '
+      + 'names in one page; you choose them in the Names step.</span></div>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-choice"' + (ui.pieces.choice ? ' checked' : '')
+      + '> <b>reading / diplomatic toggle</b></label>'
+      + '<span class="note">If your files encode both the abbreviated and the expanded form (choice, am/ex, '
+      + 'orig/reg), the reader can switch between the diplomatic text and the reading text.</span></div>'
+      + '<div class="piece-block"><label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
+      + '> <b>data files</b></label>'
+      + '<span class="note">The edition ships its own data for anyone to reuse: the model (JSON), the '
+      + 'registers (CSV), and your XML sources in data/source. The edition is the repository.</span></div>'
+      + '</fieldset>';
 
     // 2. words: lemmas and the lexicon, with their own review round trip
+    const langOpts = '<option value=""' + (!nlpLang ? ' selected' : '') + '>from the markup (xml:lang)</option>'
+      + Object.keys(UDMODEL).map((l) => '<option value="' + l + '"' + (nlpLang === l ? ' selected' : '') + '>'
+        + (UDNAMES[l] || l) + '</option>').join('');
     html += '<fieldset class="flow" data-step="words"><legend>Words: lemmas and lexicon</legend>'
+      + '<p class="note"><b>What you can add here.</b> An index of dictionary forms (every word of the '
+      + 'text grouped under its lemma: porta, porte \u2192 porta, with concordances), and the lexicon '
+      + 'pages. If your files already declare the lemmas (w/@lemma), the index appears by itself and '
+      + 'there is nothing to do. If not, follow the numbered path below.</p>'
       + '<label><input type="checkbox" id="c-lemmas"' + (ui.pieces.lemmas ? ' checked' : '')
-      + '> index of lemmas, where the edition declares them</label> '
-      + '<label><input type="checkbox" id="c-lexicon"' + (ui.pieces.lexicon ? ' checked' : '')
-      + '> lexicon page (frequencies, concordance, cloud)</label>'
-      + '<p><button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
-      + '<span class="note">Your text does not say the dictionary form of each word. I can ask a '
-      + 'language service (UDPipe, at the Charles University in Prague): <b>the text of your edition '
-      + 'will be sent to that service.</b> Nothing is decided without you.</span></p>'
-      + (S.lemmaTypes ? '<p><button type="button" id="c-lemma-sheet">Download the review sheet</button>'
-        + '<span class="note">' + S.lemmaTypes.length + ' forms proposed. Correct what is wrong, choose '
-        + 'confirmed or rejected, save.</span></p>' : '')
-      + '<div class="dropmini" id="drop-lemmas"><span class="note">Drop the corrected lemma sheet here '
-      + '(or with the files).</span></div>'
+      + '> index of dictionary forms</label> '
+      + '<label><input type="checkbox" id="c-lexstats"' + (ui.pieces.lexStats ? ' checked' : '')
+      + '> statistics on the edition page (words, forms, type-token ratio)</label> '
+      + '<label><input type="checkbox" id="c-lexfreq"' + (ui.pieces.lexFreq ? ' checked' : '')
+      + '> word frequencies</label> '
+      + '<label><input type="checkbox" id="c-lexconc"' + (ui.pieces.lexConc ? ' checked' : '')
+      + '> concordance</label> '
+      + '<label><input type="checkbox" id="c-lexcloud"' + (ui.pieces.lexCloud ? ' checked' : '')
+      + '> word cloud</label>'
+      + '<div class="piece-block"><b>1 \u00b7 Say the language of the text.</b>'
+      + '<div class="frow"><label for="c-nlplang">language</label>'
+      + '<select id="c-nlplang">' + langOpts + '</select></div>'
+      + '<span class="note">If your files declare it (xml:lang) you can leave "from the markup". '
+      + 'If they do not, or declare it wrong, your word wins: the analysis runs in the language '
+      + 'you choose here.</span></div>'
+      + '<div class="piece-block"><b>2 \u00b7 Ask the language service.</b><br>'
+      + '<button type="button" id="c-lemmatize">Suggest the dictionary forms</button>'
+      + '<span class="note">This is linguistic analysis (NLP), done by UDPipe at the Charles '
+      + 'University in Prague: <b>the text of your edition is sent to that service.</b> The pipeline '
+      + 'is: the text is split into words, each word is tagged with its part of speech, and only '
+      + 'then a dictionary form is proposed (the lemma depends on the part of speech: porta the '
+      + 'noun \u2192 porta, porta the verb \u2192 portare). Nothing is decided here.</span></div>'
+      + '<div class="piece-block"><b>3 \u00b7 Decide what to trust.</b>'
+      + (S.lemmaTypes ? '<br><button type="button" id="c-lemma-sheet">Download the review sheet ('
+        + S.lemmaTypes.length + ' forms)</button>'
+        + '<span class="note">The file opens on a READ ME FIRST sheet that walks you through it. '
+        + 'Correct, confirm or reject, save, and drop the file below.</span>' : '')
+      + '<label style="display:block;margin-top:.5em"><input type="checkbox" id="c-lemma-auto"'
+      + (lemmaAuto ? ' checked' : '') + '> or proceed without review: use the proposals as they are. '
+      + 'The edition will say so (every form stays marked as a machine suggestion)</label></div>'
+      + '<div class="dropmini" id="drop-lemmas"><span class="note">4 \u00b7 Drop the corrected sheet '
+      + 'here (or with the files).</span></div>'
       + '</fieldset>';
 
     // 3. names: the indices and the map, with their own review round trip
@@ -6429,6 +6645,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     let stepAt = 0;
     const showStep = (id) => {
       stepAt = Math.max(0, order.indexOf(id));
+      currentStep = order[stepAt];
       composeBox.querySelectorAll('fieldset[data-step]').forEach((fs) => {
         fs.style.display = fs.getAttribute('data-step') === id ? '' : 'none';
       });
@@ -6437,15 +6654,25 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       });
       const back = composeBox.querySelector('.step-back'), fwd = composeBox.querySelector('.step-fwd');
       if (back) back.disabled = stepAt === 0;
-      if (fwd) fwd.disabled = stepAt === order.length - 1;
+      if (fwd) {
+        // on the last step the way forward IS the download: nobody should
+        // have to guess that the button lives further down the page
+        const last = stepAt === order.length - 1;
+        fwd.disabled = false;
+        fwd.textContent = last ? 'Download the pressed edition \u2913' : 'next \u203a';
+        fwd.classList.toggle('step-download', last);
+      }
     };
     composeBox.querySelectorAll('.stepnav button').forEach((b) => {
       b.addEventListener('click', () => showStep(b.getAttribute('data-goto')));
     });
     const backBtn = composeBox.querySelector('.step-back'), fwdBtn = composeBox.querySelector('.step-fwd');
     if (backBtn) backBtn.addEventListener('click', () => showStep(order[Math.max(0, stepAt - 1)]));
-    if (fwdBtn) fwdBtn.addEventListener('click', () => showStep(order[Math.min(order.length - 1, stepAt + 1)]));
-    showStep('edition');
+    if (fwdBtn) fwdBtn.addEventListener('click', () => {
+      if (stepAt === order.length - 1) { downloadBtn.click(); return; }
+      showStep(order[Math.min(order.length - 1, stepAt + 1)]);
+    });
+    showStep(order.includes(currentStep) ? currentStep : 'edition');
     wirePanel();
   }
 
@@ -6470,10 +6697,19 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-persons', (el) => { ui.pieces.persons = el.checked; });
     bind('c-places', (el) => { ui.pieces.places = el.checked; });
     bind('c-orgs', (el) => { ui.pieces.orgs = el.checked; });
-    bind('c-lexicon', (el) => { ui.pieces.lexicon = el.checked; });
+    bind('c-lexstats', (el) => { ui.pieces.lexStats = el.checked; });
+    bind('c-lexfreq', (el) => { ui.pieces.lexFreq = el.checked; });
+    bind('c-lexconc', (el) => { ui.pieces.lexConc = el.checked; });
+    bind('c-lexcloud', (el) => { ui.pieces.lexCloud = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
     bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-version', (el) => { ui.version = el.value.trim(); });
+    bind('c-appkind', (el) => { ui.apparatusKind = el.value; });
+    bind('c-nlplang', (el) => { nlpLang = el.value; });
+    bind('c-lemma-auto', (el) => {
+      lemmaAuto = el.checked;
+      if (lemmaAuto && S.lemmaTypes && lastFiles.length) press(lastFiles);
+    });
     const lemBtn = document.getElementById('c-lemmatize');
     if (lemBtn) lemBtn.addEventListener('click', lemmatize);
     const sheetBtn = document.getElementById('c-lemma-sheet');
