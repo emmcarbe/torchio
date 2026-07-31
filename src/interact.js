@@ -475,12 +475,17 @@ export function buildInteractJS(t) {
     var dense=notes.length>12;
     body.classList.toggle('notes-dense',dense);
     if(dense){
+      // the renderer emits a mark and its note together: pair them by
+      // document order, so a mark is never left without its note (C74)
+      var marks=[].slice.call(document.querySelectorAll('main.torchio .t-note-mark'))
+        .filter(function(m){return !m.closest('.header-full')&&!m.closest('.t-teiHeader');});
       notes.forEach(function(n,i){
         if(n.dataset.npi)return;
         n.dataset.npi=String(i);
         var res=anchorOf(n);
-        if(res){res.el.setAttribute('data-notepop',String(i));
-          res.el.removeAttribute('aria-hidden');makeTrigger(res.el,null);}
+        var el=(res&&res.el)||marks[i];
+        if(el){el.setAttribute('data-notepop',String(i));
+          el.removeAttribute('aria-hidden');makeTrigger(el,null);}
       });
     }
     if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){

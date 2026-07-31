@@ -392,6 +392,20 @@
       map: 'appears when places carry coordinates, from the TEI or from a reviewed reconcile.json',
     };
 
+    html += '<fieldset><legend>What this edition is</legend>'
+      + '<div class="frow"><label>Kind</label><select id="c-genre">'
+      + '<option value="">from the markup</option>'
+      + '<option value="edition">critical edition</option>'
+      + '<option value="archive">archive of many texts</option>'
+      + '<option value="correspondence">correspondence</option>'
+      + '<option value="tradition">tradition of witnesses</option>'
+      + '</select></div>'
+      + '<p class="note">A <b>critical edition</b> presses one text with its apparatus and its witnesses. '
+      + 'An <b>archive</b> presses many texts as a register with author and date, each with its own page. '
+      + 'A <b>correspondence</b> is an archive whose register wears sender, recipient and date. '
+      + 'A <b>tradition</b> presses the witnesses side by side, with the apparatus apart. '
+      + 'Left to the markup, the shape is derived from what the files declare.</p>'
+      + '</fieldset>';
     html += '<fieldset><legend>Pages</legend>';
     for (const id of Object.keys(ui.pages)) {
       const p = ui.pages[id];

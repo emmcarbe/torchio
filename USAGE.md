@@ -179,6 +179,12 @@ optional:
       "parent": { "href": "../", "label": "Home" }
     }
 
+- `genre`: what kind of thing this edition is, which decides the shape of
+  the register and the names of the pages. `edition` (one text with its
+  apparatus and its witnesses), `archive` (many texts, a register with author
+  and date, a page each), `correspondence` (an archive whose register wears
+  sender, recipient and date), `tradition` (witnesses side by side, apparatus
+  apart). Omitted, the shape is derived from what the files declare.
 - `pieces`: what belongs to this edition, each on by default and switched
   off explicitly: `apparatus`, `entities`, `choice`, `map`, `lemmas`.
   `"pieces": { "map": false, "lemmas": false }` presses neither page, even

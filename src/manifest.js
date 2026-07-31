@@ -51,6 +51,10 @@ export function normalizeManifest(raw = {}) {
       : {},
     extra: [],
     pages: null,
+    // what kind of thing this edition is: it decides which columns the
+    // register wears and what the pages are called. Declared, never guessed
+    genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
+      ? raw.genre : null,
     pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true, ...(raw.pieces || {}) },
     align: raw.align && typeof raw.align === 'object' ? {
       elements: Array.isArray(raw.align.elements) ? raw.align.elements.map(String) : ['l'],
