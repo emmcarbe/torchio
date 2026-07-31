@@ -391,15 +391,14 @@
       front: 'appears when the TEI has front matter',
       back: 'appears when the TEI has back matter',
       indices: 'appears when a registry entry is referenced from the text',
-      lemmas: 'appears when lemmas exist. Either the edition declares them (w/@lemma), or you run '
-        + 'node tools/lemmatize.js: it proposes them, you review them in a CSV, and the decisions live '
-        + 'in lemmas.json. Note that the lemmatizer sends the text to an external service (UDPipe) '
-        + 'unless you pass an already annotated CoNLL-U file with --conllu. The press itself, here, '
-        + 'sends nothing anywhere.',
-      map: 'appears when places carry coordinates. Either the TEI declares them (geo), or you run '
-        + 'node tools/reconcile.js on the edition: it proposes them from a local GeoNames gazetteer, '
-        + 'you confirm or reject each one in reconcile.json, and your decisions survive every pressing. '
-        + 'Nothing is looked up while the site is read.',
+      lemmas: 'An index of words appears when your edition says, for each word, the dictionary form '
+        + 'it belongs to. If your files do not say it, you can add a file of forms you have checked '
+        + 'yourself (lemmas.json) by dropping it in with the others. Not every tradition groups words '
+        + 'under a dictionary form, and an edition that does not is not missing anything.',
+      map: 'A map appears when your places have coordinates. If your files already give them, '
+        + 'there is nothing to do. If they do not, you can add a file of coordinates you have '
+        + 'checked yourself (reconcile.json) by dropping it in with the others: the map is drawn '
+        + 'from what you confirmed, and nobody is looked up while your edition is being read.',
     };
 
     html += '<fieldset><legend>What this edition is</legend>'
