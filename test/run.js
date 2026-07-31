@@ -899,6 +899,24 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     'anchors and canonical places survive into the page, where the reader-side wiring finds them');
 }
 
+// ---- the genetic apparatus: time as the primary dimension ----
+{
+  const { readFileSync } = await import('node:fs');
+  const { pressSite: pressG } = await import('../src/site.js');
+  const model = buildModel(parseXML(readFileSync('test/fixtures/genetic.xml', 'utf-8')),
+    buildClassMap(null, data));
+  const G = model.genetic;
+  ok(G && G.strata.length >= 2 && G.operations.length === 3,
+    'campaigns declared in listChange become strata, with the writing operations attributed to them');
+  const c2 = G.strata.find((s) => s.id === 'c2');
+  ok(c2.when === '1947' && c2.operations === 2,
+    'a stratum keeps the date the edition gave it, and counts what belongs to it');
+  const site = pressG(model, { title: 'genesis' });
+  ok('genesis.html' in site && /first campaign/.test(site['genesis.html'])
+    && !('genesis.html' in pressG(buildModel(parseXML(readFileSync('test/fixtures/apparatus-methods.xml', 'utf-8')), buildClassMap(null, data)), {})),
+    'the page exists where the edition declares a genesis, and nowhere else');
+}
+
 // ---- hostile fixtures: editorial data must never become executable code ----
 {
   const { readFileSync } = await import('node:fs');

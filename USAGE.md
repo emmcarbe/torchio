@@ -67,6 +67,7 @@ that is a gap of the tool, to be filed in
 |---|---|
 | `app` / `lem` / `rdg`, `listWit` (also in the corpus header of a collection) | critical apparatus (popup on the lemma), witnesses table with full descriptions, `apparatus.csv` |
 | an `app` that points instead of containing: two anchors (`@from`/`@to` as `#ids`) or a canonical place (`@loc`) | the apparatus reaches the text it belongs to: the span between the anchors, or the passage the place names, becomes the clickable one (the three methods of chapter 12) |
+| campaigns of correction in `listChange`, hands in `handNotes`, and writing operations that name them (`@change`, `@hand`) | the genetic apparatus: strata in the edition's own order, each with its operations, each operation linked to the place in the text where it happened |
 | `@source` and `@resp` on a reading | the authority of a conjecture: a reading with no witness is attributed to its source or to whoever proposed it |
 | adjacent `app` segments with `@from`/`@to` | separators between segments, computed from the declared token positions |
 | `choice` (`orig`/`reg`, `abbr`/`expan`, `sic`/`corr`), `am`/`ex` even without a `choice` wrapper, `add`/`del` | reading / diplomatic toggle; every pair opens on click showing both levels |

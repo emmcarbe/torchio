@@ -25,6 +25,7 @@ import { chrome, jsonForScript, registerJS } from './page-shell.js';
 import { pressMapPage } from './map-page.js';
 import { pressLemmaPage } from './lemma-page.js';
 import { pressRegister } from './register-page.js';
+import { pressGenesisPage } from './genesis-page.js';
 
 function docFileName(id, taken) {
   let base = 'doc-' + String(id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -144,6 +145,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ...(frontNode ? [['front', frontLabel]] : []),
     ['text', isCollection ? T.texts : T.text],
     ...(hasAppDocs ? [['apparatus', T.apparatus]] : []),
+    ...(model.genetic ? [['genesis', T.genesis]] : []),
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasIndices ? [['indices', T.indices]] : []),
     ...(hasLemmas ? [['lemmas', T.lemmas]] : []),
@@ -151,7 +153,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
-  const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, back: !!backNode,
+  const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, genesis: !!model.genetic, back: !!backNode,
     indices: hasIndices, lemmas: hasLemmas, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
@@ -621,6 +623,11 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
     idx += '</main>';
     out['indices.html'] = chrome({ title: t, sub: T.indices.toLowerCase(), active: 'indices.html', pages, body: idx, t: T, lang, theme, parent, parent });
+  }
+
+  /* ---- genesis.html: the strata of the writing ---- */
+  if (model.genetic && wanted.has('genesis')) {
+    out['genesis.html'] = pressGenesisPage({ model, pageFor, t, T, lang, theme, parent, pages });
   }
 
   /* ---- lemmas.html: concordances and frequencies, only where lemmas exist ---- */

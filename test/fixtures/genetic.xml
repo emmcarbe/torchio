@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<teiHeader><fileDesc><titleStmt><title>Stratigraphy</title></titleStmt>
+<publicationStmt><p>Test fixture.</p></publicationStmt><sourceDesc><p>An autograph with two campaigns.</p></sourceDesc></fileDesc>
+<profileDesc><handNotes><handNote xml:id="h1">the author, in ink</handNote><handNote xml:id="h2">the author, in pencil</handNote></handNotes></profileDesc>
+<revisionDesc><listChange>
+  <change xml:id="c1" when="1943">first campaign, on the typescript</change>
+  <change xml:id="c2" when="1947">second campaign, before publication</change>
+</listChange></revisionDesc></teiHeader>
+<text><body><p>
+  La sera <subst change="#c1" hand="#h1"><del>cadeva</del><add>scendeva</add></subst> sul paese,
+  e <add change="#c2" hand="#h2" place="above">lentamente</add> il vento
+  <del change="#c2" hand="#h2">forte</del> si placava.
+</p></body></text>
+</TEI>

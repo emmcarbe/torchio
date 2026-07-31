@@ -185,6 +185,43 @@ export function buildModel(docs, classMap) {
   }
   model.apparatus = [...appByType.values()];
 
+  // the genetic apparatus: here the primary dimension is not the witness but
+  // time. Campaigns of correction are declared in listChange; each writing
+  // operation says which campaign and which hand it belongs to (@change,
+  // @hand), and the stratigraphy is the order the edition declares (D7)
+  {
+    const GENETIC = new Set(['add', 'del', 'subst', 'restore', 'retrace', 'mod',
+      'addSpan', 'delSpan', 'transpose', 'metamark']);
+    const ops = [];
+    for (const doc of model.documents) {
+      for (const n of walkModel(doc.tree)) {
+        if (!GENETIC.has(n.element)) continue;
+        const layer = (n.atts.change || '').replace(/^#/, '') || null;
+        const hand = (n.atts.hand || '').replace(/^#/, '') || null;
+        if (!layer && !hand) continue;
+        ops.push({
+          id: n.id, doc: doc.id, element: n.element, layer, hand,
+          place: n.atts.place || null, seq: n.atts.seq || null,
+          text: textOfModel(n).trim().replace(/\s+/g, ' ').slice(0, 160),
+        });
+      }
+    }
+    if (ops.length) {
+      const strata = model.registries.layers.map((l) => ({
+        id: l.id, label: l.label, order: l.order,
+        when: l.atts && (l.atts.when || l.atts.notBefore) || null,
+        operations: ops.filter((o) => o.layer === l.id).length,
+      }));
+      for (const h of model.registries.hands) {
+        if (!strata.some((x) => x.id === h.id) && ops.some((o) => o.hand === h.id)) {
+          strata.push({ id: h.id, label: h.label, order: strata.length, hand: true,
+            operations: ops.filter((o) => o.hand === h.id).length });
+        }
+      }
+      model.genetic = { strata, operations: ops };
+    }
+  }
+
   // agreement between witnesses: how often two of them carry the same
   // reading. The stemma is the editor's argument, never derived; this is
   // the evidence an editor weighs while building it (D6)

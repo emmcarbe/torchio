@@ -94,5 +94,7 @@ editorial genre.
 
 | 2026-07-31 | C70 | the philologist's reading | extension | the evidence for a stemma, which the model already held without showing it: how often two witnesses carry the same reading, counted from the apparatus and shown on the edition page. The stemma itself is never derived, because it is the editor's argument; what the press can do is lay out the agreements it is built from |
 
-As of 31 July 2026: 70 corrections applied (45 assignments, 17 extensions, 8
+| 2026-07-31 | C71 | the philologist's reading | extension | the three methods of chapter 12 belong to the recensio: they represent variance between witnesses. The genetic apparatus is another thing, and its primary dimension is time. Campaigns declared in `listChange` and hands in `handNotes` become strata, in the order the edition gives them; every writing operation (`add`, `del`, `subst`, `restore`, `retrace`, `transpose`, `metamark`) is attributed to its campaign and its hand, and links to the place where it happened. The registries the model had been building and never showing now carry a page of their own |
+
+As of 31 July 2026: 71 corrections applied (45 assignments, 18 extensions, 8
 structural changes), 1 open.
