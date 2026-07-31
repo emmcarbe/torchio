@@ -15,7 +15,7 @@ import { chrome, jsonForScript } from './page-shell.js';
 import { STOPWORDS, STOPWORD_NAMES } from './lemmas.js';
 
 export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
-  active = 'lexicon.html', subnav = '', views = { freq: true, conc: true } }) {
+  active = 'lexicon.html', subnav = '', collated = false, views = { freq: true, conc: true } }) {
   const L = model.lexicon;
   const multi = (L.languages || []).length > 1;
   const chosen = ['freq', 'conc'].filter((v) => views[v]);
@@ -27,8 +27,12 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   // stream below, so a selected document filters exactly its tokens
   const docIdx = new Map((model.documents || []).map((d, i) => [d.id, i]));
   const DOCS = (model.documents || []).map((d) => (d.card && d.card.title) || d.id);
+  // a collated tradition (witnesses of one text) never offers "all documents":
+  // merging the 54 witnesses is a blur, not a lexicon. A corpus of different
+  // texts (letters, an archive) keeps it, where the whole is meaningful
   const docSelHTML = DOCS.length > 1
-    ? `<label class="lx-ctl">${T.lexDocument} <select class="lx-docsel"><option value="">${T.lexWholeEdition}</option>`
+    ? `<label class="lx-ctl">${T.lexDocument} <select class="lx-docsel">`
+      + (collated ? '' : `<option value="">${T.lexWholeEdition}</option>`)
       + DOCS.map((label, i) => `<option value="${i}"${i === 0 ? ' selected' : ''}>${escapeHTML(label)}</option>`).join('')
       + `</select></label>`
     : '';

@@ -744,7 +744,8 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     // sub-menu, so the reader moves among them without a click into emptiness
     if (hasLexicon) {
       out['lexicon.html'] = pressLexiconPage({ model, pageFor, t, T, lang, theme,
-        parent, active: labFirst, subnav: labSubnav('lexicon.html'), pages, views: lexViews });
+        parent, active: labFirst, subnav: labSubnav('lexicon.html'), pages, views: lexViews,
+        collated: (model.registries.witnesses || []).length > 1 });
     }
     if (hasMap) {
       out['map.html'] = pressMapPage({ geoPlaces, pageFor, t, T, lang, theme,

@@ -27,6 +27,12 @@ const BLOCKS = new Set([
   'sourceDoc', 'surface', 'surfaceGrp', 'zone', 'line',
 ]);
 
+/** Facsimile image regions: surfaces, zones and graphics pointing at page
+ *  images. Torchio does not render facsimiles yet, so one that carries no text
+ *  is not shown as an empty bordered box (renderBase returns it as nothing). A
+ *  documentary surface holds lines of text and is unaffected. */
+const FACSIMILE_ELEMENTS = new Set(['facsimile', 'surface', 'surfaceGrp', 'zone', 'graphic']);
+
 /** Escapes for both text and attribute contexts: quotes included, because
  *  a `&quot;` in a TEI attribute would otherwise close the HTML attribute
  *  and inject markup. Entities render identically as text. */
@@ -86,6 +92,12 @@ export function safeURL(value) {
 }
 
 export function renderBase(node, hooks) {
+  // a facsimile image region (surface / zone / graphic under <facsimile>) carries
+  // no text, only pointers to images Torchio does not render yet: as an empty
+  // bordered box it is noise. Such an element with no text content renders as
+  // nothing, until facsimiles are supported. A documentary surface, which holds
+  // lines of text, is not empty and keeps its rendering (C80)
+  if (FACSIMILE_ELEMENTS.has(node.element) && !textOfModel(node).trim()) return '';
   // a node from a non-TEI namespace is preserved, never interpreted: it keeps
   // its qualified name and namespace so nothing is lost and nothing is
   // falsified, and a later plugin (SVG, MathML) can find it (C87)
