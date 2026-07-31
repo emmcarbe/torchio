@@ -7,9 +7,12 @@ multi-page sites with reading text, critical apparatus, indices, maps and
 data exports, published from a git repository (GitHub Pages or any static
 host), with no server and no database.
 
-Demo editions: <https://emmcarbe.github.io/torchio-demos/> (kept in their
-own repository, [emmcarbe/torchio-demos](https://github.com/emmcarbe/torchio-demos),
-so that materials with limited rights stay apart from the engine)
+Project home: <https://emmcarbe.github.io/torchio/>, where the press runs in
+the browser and wishes can be filed.
+
+Demo editions: <https://emmcarbe.github.io/torchio-demos/>, kept in their own
+repository, [emmcarbe/torchio-demos](https://github.com/emmcarbe/torchio-demos),
+so that materials with limited rights stay apart from the engine.
 
 Status: prototype under development. How to use it: [USAGE.md](USAGE.md).
 The principles, the method and the origin of the project are in
