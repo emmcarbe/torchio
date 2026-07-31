@@ -46,8 +46,9 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
       + (views.conc ? `<button data-view="conc"${first === 'conc' ? ' class="active"' : ''}>${T.lexConcordance}</button>` : '')
       + `</span>` : '') + `</div>`
     + (views.freq ? `<section class="lx-view lx-freq"${first === 'freq' ? '' : ' hidden'}><table class="lx-table"><thead><tr>`
-    + `<th>${T.lexWord}</th>${multi ? `<th>${T.lexLang}</th>` : ''}`
-    + `<th class="lx-num">${T.lexAbs}</th><th class="lx-num">${T.lexRel}</th>`
+    + `<th class="lx-sort" data-sort="form">${T.lexWord} <span class="lx-arr"></span></th>${multi ? `<th>${T.lexLang}</th>` : ''}`
+    + `<th class="lx-num lx-sort" data-sort="count">${T.lexAbs} <span class="lx-arr"></span></th>`
+    + `<th class="lx-num lx-sort" data-sort="rel">${T.lexRel} <span class="lx-arr"></span></th>`
     + `<th class="lx-num">${T.lexStopCol}</th></tr></thead><tbody>${
       // the rows live in the markup: a page whose content exists only inside a
       // script is a page that says nothing when the script does not run, and
@@ -62,27 +63,37 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
         + `</tr>`).join('')
     }</tbody></table>${L.frequencies.length > 1500
       ? `<p class="occ">${L.frequencies.length - 1500} ${T.lexMoreForms || 'more forms in the data export'}</p>` : ''}</section>` : '')
-    + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}><p class="occ">${T.lexPick}</p><div class="lx-conc-out"></div></section>` : '')
+    + (views.conc ? `<section class="lx-view lx-conc"${first === 'conc' ? '' : ' hidden'}>`
+      + `<nav class="lx-alpha alpha" aria-label="A-Z"></nav><div class="lx-conc-out"></div></section>` : '')
     + `</main>`;
 
-  // the concordance of every form of a long text is megabytes: a page that
-  // cannot be opened preserves nothing. The forms a reader reaches from this
-  // page carry their contexts; the whole concordance is in the data export
-  const CONC_FORMS = 400, CONC_OCC = 12;
-  const conc = {};
-  const wanted = new Set(L.frequencies.slice(0, CONC_FORMS).map((f) => f.form));
-  for (const [form, occ] of Object.entries(L.concordance)) {
-    if (!wanted.has(form)) continue;
-    conc[form] = occ.slice(0, CONC_OCC)
-      .map((o) => ({ b: o.before, k: o.form, a: o.after, href: `${pageFor(o.anchor)}#${o.anchor}` }));
-  }
+  // the concordance is computed in the browser over the WHOLE token stream, so
+  // every form is findable — a hapax as much as a frequent word — and the text
+  // is never cut to a top-N. To keep it compact the stream is dictionary-coded:
+  // each token is [formIndex, hrefIndex, docIndex], and forms, hrefs (anchors
+  // deduplicated, since many tokens share a line) and docs are listed once
+  const formIdx = new Map(); const formList = [];
+  const hrefIdx = new Map(); const hrefs = [];
+  const docIdx = new Map();
+  const stream = (model.tokens || []).map((tok) => {
+    let fi = formIdx.get(tok.form);
+    if (fi === undefined) { fi = formList.length; formList.push(tok.form); formIdx.set(tok.form, fi); }
+    let hi = hrefIdx.get(tok.anchor);
+    if (hi === undefined) { hi = hrefs.length; hrefs.push(`${pageFor(tok.anchor)}#${tok.anchor}`); hrefIdx.set(tok.anchor, hi); }
+    let di = docIdx.get(tok.docId);
+    if (di === undefined) { di = docIdx.size; docIdx.set(tok.docId, di); }
+    return [fi, hi, di];
+  });
 
   const script = `
 (function(){
   var FREQ=${jsonForScript(L.frequencies)};
-  var CONC=${jsonForScript(conc)};
+  var STREAM=${jsonForScript(stream)};
+  var FORMS=${jsonForScript(formList)};
+  var HREFS=${jsonForScript(hrefs)};
   var STOP=${jsonForScript(STOPWORDS)};
   var MULTI=${multi ? 'true' : 'false'};
+  var KWIC=6, MAXROWS=300;
   var main=document.querySelector('main.lexicon');
   var tbody=main.querySelector('.lx-freq tbody');
   var search=main.querySelector('.lx-search');
@@ -90,6 +101,7 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   var stopsel=main.querySelector('.lx-stopsel');
   var hidestop=main.querySelector('.lx-hidestop');
   var manual={}; // words the reader flipped by hand: form -> true(stop)/false(kept)
+  var sortKey='count', sortDir=-1; // default: most frequent first
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function isStop(f){
     if(f.form in manual)return manual[f.form];
@@ -98,13 +110,22 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   }
   function visible(f){
     var q=search.value.trim().toLowerCase();
-    if(q&&f.form.indexOf(q)===-1)return false;
+    if(q&&f.form.toLowerCase().indexOf(q)===-1)return false;
     if(langsel&&langsel.value&&f.lang!==langsel.value)return false;
     if(hidestop.checked&&isStop(f))return false;
     return true;
   }
+  function sortRows(rows){return rows.slice().sort(function(a,b){
+    if(sortKey==='form'){var x=a.form.toLowerCase(),y=b.form.toLowerCase();return x<y?-sortDir:x>y?sortDir:0;}
+    return (a[sortKey]-b[sortKey])*sortDir||a.form.localeCompare(b.form);
+  });}
+  function arrows(){main.querySelectorAll('.lx-sort').forEach(function(th){
+    var k=th.getAttribute('data-sort');
+    th.querySelector('.lx-arr').textContent=k===sortKey?(sortDir<0?'\\u25BC':'\\u25B2'):'';
+    th.classList.toggle('on',k===sortKey);
+  });}
   function render(){
-    var rows=FREQ.filter(visible);
+    var rows=sortRows(FREQ.filter(visible));
     if(tbody)tbody.innerHTML=rows.slice(0,1500).map(function(f){
       return '<tr data-form="'+esc(f.form)+'"'+(isStop(f)?' class="is-stop"':'')+'>'
         +'<td class="lx-w">'+esc(f.form)+'</td>'
@@ -114,33 +135,66 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
         +'<td class="lx-num"><button class="lx-flip" title="'+(isStop(f)?'\\u2212':'+')+'">'+(isStop(f)?'\\u25CF':'\\u25CB')+'</button></td>'
         +'</tr>';
     }).join('');
+    arrows();
+  }
+  // the concordance over the WHOLE stream: every form, every occurrence, the
+  // before/after taken from the adjacent tokens of the same document
+  function kwic(word){
+    var w=word.toLowerCase(), rows=[], total=0;
+    for(var i=0;i<STREAM.length;i++){
+      if(FORMS[STREAM[i][0]].toLowerCase()!==w)continue;
+      total++;
+      if(rows.length>=MAXROWS)continue;
+      var d=STREAM[i][2],b=[],a=[];
+      for(var j=i-1;j>=0&&b.length<KWIC&&STREAM[j][2]===d;j--)b.unshift(FORMS[STREAM[j][0]]);
+      for(var k=i+1;k<STREAM.length&&a.length<KWIC&&STREAM[k][2]===d;k++)a.push(FORMS[STREAM[k][0]]);
+      rows.push({b:b.join(' '),k:FORMS[STREAM[i][0]],a:a.join(' '),href:HREFS[STREAM[i][1]]});
+    }
+    return {rows:rows,total:total};
+  }
+  function concord(form){
+    var out=main.querySelector('.lx-conc-out'); if(!out)return;
+    var r=kwic(form);
+    if(!r.total){out.innerHTML='<p class="occ">'+esc(form)+' \\u2014</p>';return;}
+    var head='<p class="occ"><b>'+esc(form)+'</b> \\u00b7 '+r.total
+      +(r.total>r.rows.length?' ('+r.rows.length+' shown)':'')+'</p>';
+    out.innerHTML=head+'<table class="lx-kwic"><tbody>'+r.rows.map(function(o){
+      return '<tr><td class="lx-b">'+esc(o.b)+'</td><td class="lx-k"><a href="'+o.href+'">'+esc(o.k)+'</a></td><td class="lx-a">'+esc(o.a)+'</td></tr>';
+    }).join('')+'</tbody></table>';
   }
   function show(v){
     main.querySelectorAll('.lx-view').forEach(function(s){s.hidden=!s.classList.contains('lx-'+v);});
     main.querySelectorAll('.lx-views button').forEach(function(b){b.classList.toggle('active',b.dataset.view===v);});
   }
   main.querySelectorAll('.lx-views button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
-  function concord(form){
-    var out=main.querySelector('.lx-conc-out');
-    if(!out)return;
-    var occ=CONC[form.toLowerCase()]||[];
-    out.innerHTML=occ.length?'<table class="lx-kwic"><tbody>'+occ.map(function(o){
-      return '<tr><td class="lx-b">'+esc(o.b)+'</td><td class="lx-k"><a href="'+o.href+'">'+esc(o.k)+'</a></td><td class="lx-a">'+esc(o.a)+'</td></tr>';
-    }).join('')+'</tbody></table>':'<p class="occ">\\u2014</p>';
-  }
+  main.querySelectorAll('.lx-sort').forEach(function(th){th.addEventListener('click',function(){
+    var k=th.getAttribute('data-sort');
+    if(k===sortKey)sortDir=-sortDir; else {sortKey=k;sortDir=(k==='form')?1:-1;}
+    render();
+  });});
   main.addEventListener('click',function(e){
     var flip=e.target.closest('.lx-flip');
     if(flip){var row=flip.closest('[data-form]');var form=row.getAttribute('data-form');
       var f=FREQ.find(function(x){return x.form===form;});manual[form]=!isStop(f);render();e.stopPropagation();return;}
     var w=e.target.closest('[data-form]');
-    if(w){search.value=w.getAttribute('data-form');concord(w.getAttribute('data-form'));if(main.querySelector('.lx-conc'))show('conc');}
+    if(w){concord(w.getAttribute('data-form'));if(main.querySelector('.lx-conc'))show('conc');}
   });
+  // a red alphabet in the concordance: pick a letter, see the first form under it
+  var alpha=main.querySelector('.lx-alpha');
+  if(alpha){
+    var firstOf={};
+    FREQ.forEach(function(f){var L=(f.form[0]||'').toUpperCase();if(L&&!(L in firstOf))firstOf[L]=f.form;});
+    alpha.innerHTML=Object.keys(firstOf).sort().map(function(L){return '<a href="#" data-letter="'+esc(L)+'">'+esc(L)+'</a>';}).join('');
+    alpha.addEventListener('click',function(e){var a=e.target.closest('[data-letter]');if(a){e.preventDefault();concord(firstOf[a.getAttribute('data-letter')]);}});
+  }
   var timer;
-  search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q&&CONC[q])concord(q);},120);});
+  search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){render();var q=search.value.trim().toLowerCase();if(q)concord(q);},150);});
   if(langsel)langsel.addEventListener('change',render);
   stopsel.addEventListener('change',render);
   hidestop.addEventListener('change',render);
   render();
+  // the concordance is not empty on arrival: the first content word is shown
+  (function(){var f=FREQ.filter(function(x){return !isStop(x);})[0]||FREQ[0];if(f)concord(f.form);})();
 })();`;
 
   return chrome({ title: t, sub: T.lexicon.toLowerCase(), active, pages,

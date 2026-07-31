@@ -410,6 +410,10 @@ export const STOPWORD_NAMES = {
 export function attachLexicon(model, { stopwords = null, kwic = 6 } = {}) {
   const tokens = collectTokens(model);
   if (!tokens.length) { model.lexicon = null; return null; }
+  // the whole token stream, so the concordance can be computed over the entire
+  // text and every form is findable, hapax included: the Odyssey is not cut to
+  // a top-N. Set here too, not only in attachLemmas, for a lexicon without lemmas
+  if (!model.tokens) model.tokens = tokens;
   const langs = [...new Set(tokens.map((t) => normLang(t.lang)).filter(Boolean))];
   const stop = new Set();
   for (const l of langs.length ? langs : ['']) {

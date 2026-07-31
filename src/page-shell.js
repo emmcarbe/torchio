@@ -181,6 +181,10 @@ ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
 .lx-table td{padding:4px 10px 4px 0;border-bottom:1px solid var(--faint)}
 .lx-table .lx-num{text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap}
 .lx-table .lx-w{cursor:pointer}
+.lx-sort{cursor:pointer;user-select:none}
+.lx-sort:hover,.lx-sort.on{color:var(--accent)}
+.lx-arr{color:var(--accent);font-size:8px}
+.lx-alpha{margin:0 0 1em}
 .lx-table .lx-rel{color:var(--soft)}
 .lx-table tr.is-stop .lx-w{color:var(--soft)}
 .lx-lang{font-family:var(--mono);font-size:10px;color:var(--soft)}
