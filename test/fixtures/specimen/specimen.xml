@@ -45,7 +45,15 @@
     <revisionDesc>
       <change when="2026-07-30">Specimen creato per la pubblicazione di Torchio.</change>
     </revisionDesc>
-  </teiHeader>
+  <profileDesc><handNotes>
+<handNote xml:id="mano-prima">la prima stesura, a penna</handNote>
+<handNote xml:id="mano-seconda">le correzioni, a matita</handNote>
+</handNotes></profileDesc>
+<revisionDesc><listChange>
+<change xml:id="stesura" when="1826">prima stesura</change>
+<change xml:id="revisione" when="1828">campagna correttoria, prima della stampa</change>
+</listChange></revisionDesc>
+</teiHeader>
   <text>
     <body>
       <div type="specimen">
@@ -62,7 +70,11 @@
           <l>mentre a <del hand="#m1">salvar</del><add hand="#m2" place="above">redimer</add> cercava a sé la vita,</l>
           <l>e il ritorno a' compagni.</l>
         </lg>
-        <p>Nel testo in prosa lo specimen mostra anche la
+        <p>Una pagina d'autore, per mostrare la stratigrafia: la sera
+<subst change="#stesura" hand="#mano-prima"><del>cadeva</del><add>scendeva</add></subst>
+sul paese, e <add change="#revisione" hand="#mano-seconda" place="above">lentamente</add>
+il vento <del change="#revisione" hand="#mano-seconda">forte</del> si placava.</p>
+<p>Nel testo in prosa lo specimen mostra anche la
           <choice><abbr>sig.ra</abbr><expan>signora</expan></choice> abbreviazione
           col suo scioglimento, un passo
           <unclear>di lettura incerta</unclear>, una parola

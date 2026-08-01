@@ -94,6 +94,18 @@ const lockup = (await readFile(join(ROOT, 'docs', 'torchio-lockup.svg'), 'utf-8'
 
 const harness = await readFile(join(ROOT, 'tools', 'press-page.js'), 'utf-8');
 
+// the colophon of an edition pressed in the browser: the same three facts the
+// command line stamps (version, commit, date). Without them the page fell back
+// to a version string written years before, so a browser-pressed edition
+// declared an engine it was not made by
+const pkgVersion = JSON.parse(await readFile(join(ROOT, 'package.json'), 'utf-8')).version;
+let buildCommit = '';
+try {
+  const { execSync } = await import('node:child_process');
+  buildCommit = execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim();
+} catch { /* not a git checkout: the version and the date still speak */ }
+const buildDate = new Date().toISOString().slice(0, 10);
+
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -229,6 +241,8 @@ ${scriptSafe(engine)}
 
 // ---- embedded base data and assets ----
 const TORCHIO_BASE_DATA = { p5: ${scriptSafe(p5.trim())}, sections: ${scriptSafe(sections.trim())} };
+const TORCHIO_BUILD = ${JSON.stringify({ version: pkgVersion, commit: buildCommit, date: buildDate })};
+setColophon('v' + TORCHIO_BUILD.version + (TORCHIO_BUILD.commit ? ' \u00b7 ' + TORCHIO_BUILD.commit : '') + ' \u00b7 ' + TORCHIO_BUILD.date);
 const TORCHIO_LEAFLET_B64 = ${JSON.stringify(leaflet)};
 /* ==== torchio harness ==== */
 ${scriptSafe(harness)}

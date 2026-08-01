@@ -481,13 +481,25 @@ console.log('path A — the press in the browser');
   const engineText = page.slice(start, end);
   const sandbox = new Function(
     engineText
-    + '\nreturn { buildClassMap, buildModel, pressSite, buildZip, TORCHIO_BASE_DATA };')();
+    + '\nreturn { buildClassMap, buildModel, pressSite, buildZip, TORCHIO_BASE_DATA, TORCHIO_BUILD };')();
   ok(Object.keys(sandbox.TORCHIO_BASE_DATA.p5.elements).length > 500,
     'base data embedded in the page');
 
-  const specimenXML = await readFile(new URL('../demo-src/specimen/specimen.xml', import.meta.url), 'utf-8');
+  const specimenXML = await readFile(new URL('./fixtures/specimen/specimen.xml', import.meta.url), 'utf-8');
   const specimenManifest = JSON.parse(
-    await readFile(new URL('../demo-src/specimen/torchio.json', import.meta.url), 'utf-8'));
+    await readFile(new URL('./fixtures/specimen/torchio.json', import.meta.url), 'utf-8'));
+
+  // the browser stamps its own colophon at build time, the way the command
+  // line stamps it at press time. Both must say the same engine: the modular
+  // side is given the same stamp, so the comparison below is about the pages
+  // and not about which of the two knows its own version
+  const pkgV = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf-8')).version;
+  ok(sandbox.TORCHIO_BUILD && sandbox.TORCHIO_BUILD.version === pkgV,
+    `the browser bundle declares the engine's own version (${pkgV})`);
+  const { setColophon: setCol } = await import('../src/page-shell.js');
+  setCol('v' + sandbox.TORCHIO_BUILD.version
+    + (sandbox.TORCHIO_BUILD.commit ? ' \u00b7 ' + sandbox.TORCHIO_BUILD.commit : '')
+    + ' \u00b7 ' + sandbox.TORCHIO_BUILD.date);
 
   const modularMap = buildClassMap(null, data);
   const modularModel = buildModel(parseXML(specimenXML), modularMap);
@@ -938,6 +950,35 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
         && !/ on\w+\s*=\s*"/i.test(page)
         && !/javascript:/i.test(page);
       ok(clean, `editorial data stays data, never code: ${file.split('/').pop()} in ${name}`);
+    }
+  }
+
+  // the same invariant for the manifest: an edition may rename the interface
+  // in its own tradition's words, and those words are editorial data too.
+  // They reach HTML text, HTML attributes and aria labels, so a hostile
+  // manifest is as much a fixture as a hostile TEI file
+  {
+    const plain = '<?xml version="1.0" encoding="UTF-8"?>'
+      + '<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>'
+      + '<titleStmt><title>t</title></titleStmt><publicationStmt><p>t</p></publicationStmt>'
+      + '<sourceDesc><p>t</p></sourceDesc></fileDesc></teiHeader>'
+      + '<text><body><p>Text.</p></body></text></TEI>';
+    const model = buildModel(parseXML(plain), buildClassMap(null, data));
+    const site = press(model, { title: 'hostile manifest', manifest: { labels: {
+      reading: '<img src=x onerror="alert(1)">',
+      mapAria: '" autofocus onfocus="alert(1)',
+      skip: '</a><script>alert(1)</script>',
+      text: '" onmouseover="alert(2)',
+      publishedWith: '<script>alert(3)</script>',
+      version: 'x" onload="alert(4)',
+    } } });
+    for (const [name, page] of Object.entries(site)) {
+      if (!name.endsWith('.html')) continue;
+      const scripts = [...page.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]);
+      const clean = scripts.every((code) => !/<\/script/i.test(code))
+        && !/<[a-z]+[^>]*\son\w+\s*=/i.test(page)
+        && !/javascript:/i.test(page);
+      ok(clean, `a hostile manifest label stays data, never code: ${name}`);
     }
   }
 }

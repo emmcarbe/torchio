@@ -55,8 +55,16 @@ function chunkLabel(div, i, T) {
 export function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages = [] } = {}) {
   const manifest = normalizeManifest(rawManifest || {});
   const lang = resolveLang(manifest.lang, model);
-  // the edition's tradition may name things its own way (principle 1)
-  const T = { ...i18n(lang), ...manifest.labels };
+  // the edition's tradition may name things its own way (principle 1). Those
+  // names are editorial data, so they are escaped once here, at the seam
+  // where they enter, rather than at each of the places that print them: a
+  // label reaches HTML text and HTML attributes in dozens of templates, and
+  // a rule that has to be remembered dozens of times is not a rule. The
+  // interactive layer escapes at its own runtime, so it receives them raw
+  // (RAW_T) and would otherwise escape them twice.
+  const RAW_T = { ...i18n(lang), ...manifest.labels };
+  const T = Object.fromEntries(Object.entries(RAW_T)
+    .map(([k, v]) => [k, typeof v === 'string' ? escapeHTML(v) : v]));
   const theme = manifest.theme || 'savi';
   const parent = manifest.parent;
   const isCollection = model.documents.length > 1;
@@ -472,7 +480,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
       out[files[i]] = chrome({
         title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
         body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${readingAids}${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
-        script: buildInteractJS(T) + readingAidsJS(), t: T, lang, theme, parent,
+        script: buildInteractJS(RAW_T) + readingAidsJS(), t: T, lang, theme, parent,
       });
     });
     if (frontOnOwnPage) {
@@ -513,7 +521,7 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     out['text.html'] = chrome({
       title: t, sub: resp, active: 'text.html', pages, bodyClass: offClasses,
       body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${readingAids}${reading}</main>`,
-      script: buildInteractJS(T) + readingAidsJS(), t: T, lang, theme, parent,
+      script: buildInteractJS(RAW_T) + readingAidsJS(), t: T, lang, theme, parent,
     });
     if (frontOnOwnPage) {
       out['front.html'] = chrome({

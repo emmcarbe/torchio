@@ -28,6 +28,31 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
+/**
+ * What the press has to say about this impression, kept rather than printed
+ * as it happens: a file it could not read, an inclusion it could not resolve,
+ * a page it was promised and did not find. Two levels, and the difference is
+ * whether the edition published is the edition meant: a WARNING is something
+ * the editor should know, an ERROR is something the reader would not see.
+ * Errors stop the press unless --lenient is given, because publishing part of
+ * an edition without saying so is the worst thing this tool could do.
+ */
+const REPORT = [];
+const note = (level, what, detail) => REPORT.push({ level, what, detail });
+const lenient = process.argv.includes('--lenient');
+
+function sayReport() {
+  const errors = REPORT.filter((r) => r.level === 'error');
+  const warnings = REPORT.filter((r) => r.level === 'warning');
+  if (!REPORT.length) return errors;
+  console.error('');
+  console.error(`report: ${errors.length} error(s), ${warnings.length} warning(s)`);
+  for (const r of REPORT) {
+    console.error(`  ${r.level === 'error' ? 'ERROR  ' : 'warning'} ${r.what}${r.detail ? ': ' + r.detail : ''}`);
+  }
+  return errors;
+}
+
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const site = process.argv.includes('--site');
 /** A path an edition points to must stay inside the edition: an include or
@@ -91,7 +116,7 @@ if (inputStat.isDirectory()) {
       const src = await readText(join(input, n));
       const r = parseXML(src);
       if (isODD(r)) {
-        if (odd) { if (!oddFile || n !== basename(oddFile)) console.error(`second ODD ignored: ${n}`); continue; }
+        if (odd) { if (!oddFile || n !== basename(oddFile)) note('warning', 'a second ODD was ignored', n); continue; }
         odd = parseODD(r);
         oddFile = n;
         continue;
@@ -100,7 +125,7 @@ if (inputStat.isDirectory()) {
       await resolveIncludes(r, (href) => readText(within(input, href)));
       roots.push({ id: n.replace(/\.xml$/i, '').replace(/[/\\]/g, '-'), root: r });
     } catch (err) {
-      console.error(`skipped ${n}: ${err.message}`);
+      note('error', `a file could not be read, and its text is not in the edition (${n})`, err.message);
     }
   }
   console.error(`directory input: ${roots.length} TEI documents`);
@@ -125,7 +150,7 @@ if (inputStat.isDirectory()) {
   const { resolved, unresolved } = await resolveIncludes(root, (href) =>
     readText(within(dirname(input), href)));
   if (resolved) console.error(`xinclude: ${resolved} resolved`);
-  for (const u of unresolved) console.error(`xinclude unresolved: ${u.href} (${u.reason})`);
+  for (const u of unresolved) note('error', `an inclusion did not resolve, so its text is missing (${u.href})`, u.reason);
   roots = [root];
 }
 if (oddFile) {
@@ -204,7 +229,7 @@ if (manifest && Array.isArray(manifest.extra)) {
       const html = e.file.endsWith('.html') ? raw : markdown(raw);
       extraPages.push({ id: e.id, label: e.label || e.id, html });
     } catch (err) {
-      console.error(`extra page skipped (${e.file}): ${err.message}`);
+      note('error', `a page the manifest promises is missing (${e.file})`, err.message);
     }
   }
 }
@@ -275,7 +300,7 @@ if (site) {
     await writeFile(join(srcDir, 'index.json'),
       JSON.stringify({ files: copied.sort(), count: copied.length }, null, 1));
     console.error(`sources: ${copied.length} files copied to data/source/`);
-  } catch (err) { console.error(`sources not copied: ${err.message}`); }
+  } catch (err) { note('warning', 'the sources were not copied', err.message); }
   console.error(`pressed site: ${out}/ (${Object.keys(files).length} files)`);
 } else {
   out = output || basename(input).replace(/\.xml$/i, '') + '.html';
@@ -286,3 +311,13 @@ console.error(`  title: ${model.meta.title || '(none)'}`);
 console.error(`  elements: ${report.distinctElements} distinct, fallbacks: ${report.fallback.length ? report.fallback.join(', ') : 'none'}`);
 console.error(`  registries: ${Object.entries(model.registries).map(([k, v]) => `${k}:${v.length}`).join(' ')}`);
 console.error(`  apparatus registers: ${model.apparatus.length}`);
+
+// what the press has to say, and what it does about it. An edition published
+// with a hole in it, and nothing said, is worse than an edition not published
+const errors = sayReport();
+if (errors.length && !lenient) {
+  console.error('');
+  console.error('not published: the edition above is incomplete. Fix what is listed,');
+  console.error('or press again with --lenient to publish it as it is, knowingly.');
+  process.exit(1);
+}

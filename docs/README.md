@@ -9,11 +9,6 @@ This folder is the project's GitHub Pages site
   "Locate ancient places" button fetches on demand (built by
   `node tools/build-pleiades-browser.js`, data from
   [Pleiades](https://pleiades.stoa.org/), CC BY).
-- **`specimen/`**: the Specimen, a micro-edition constructed for
-  demonstration purposes (imaginary witnesses, didactic variants, declared
-  as such on the title page); base text: the opening of the Odyssey in
-  Ippolito Pindemonte's translation (public domain); CC0 encoding. Pressed
-  from `demo-src/specimen/`.
 - `index.html`, the two SVG lockups.
 
 The demonstration editions pressed from real scholarly materials live in
