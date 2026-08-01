@@ -35,6 +35,13 @@ represents Torchio itself and always resolves to the most recent.
 
 Machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
+The code is archived in two places and for two reasons: Zenodo keeps the
+release, its files frozen and citable; [Software Heritage](https://archive.softwareheritage.org/browse/snapshot/e669f6863ec01e2366bcc1383b738b91d2324fe3/)
+keeps the history, which is where the corrections register and the record of
+what changed actually live.
+
+    swh:1:snp:e669f6863ec01e2366bcc1383b738b91d2324fe3
+
 ## Design constraints
 
 1. Every well-formed TEI document is always displayed in full. Unknown or
