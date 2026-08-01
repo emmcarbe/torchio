@@ -1,55 +1,31 @@
-# Demos
+# Project site
 
-Demonstration editions generated with Torchio from the sources in
-`demo-src/`. To regenerate, for example:
-`node tools/press.js --site demo-src/odissea/odissea.xml docs/odissea`
-and `node tools/press.js --site demo-src/vangogh docs/vangogh`.
+This folder is the project's GitHub Pages site
+(<https://emmcarbe.github.io/torchio/>). It contains:
 
-## Materials and rights
-
-- **Odyssey** (`demo-src/odissea/`): Homer, *Odyssey*, Greek text from the
-  [Perseus Digital Library](https://github.com/PerseusDL/canonical-greekLit)
-  (`tlg0012.tlg002.perseus-grc2`), CC BY-SA 4.0. The derived demo is
-  distributed under the same licence.
-- **Van Gogh letters** (`demo-src/vangogh/`): 30 letters from
-  [Vincent van Gogh, The Letters](https://vangoghletters.org/) (Van Gogh
-  Museum and Huygens ING, ed. Leo Jansen, Hans Luijten and Nienke Bakker),
-  TEI files from the [eeditiones/vangogh](https://github.com/eeditiones/vangogh)
-  repository, CC BY-NC-SA 4.0. The derived demo is distributed under the
-  same licence, for non-commercial use only.
-- **Bellum Alexandrinum** (`demo-src/bellum/`): critical edition by Cynthia
-  Damon et al., [Digital Latin Library](https://github.com/digitallatin/caesar-balex),
-  CC BY-SA 4.0; the files are declared by their authors a beta version
-  pending peer review by the Society for Classical Studies. Temporary test
-  sample. The derived demo is distributed under the same licence (CC BY-SA
-  4.0).
-- **Romualdus Salernitanus, Chronicon** (`demo-src/romualdo/`): digital
-  scholarly edition by Paolo Monella, ALIM Project, from the
-  [paolomonella/romualdus](https://github.com/paolomonella/romualdus)
-  repository, GPL 3.0. Offered by the editor as a test case. The derived
-  demo is distributed under the same licence.
-- **Ursus Beneventanus, Adbreviatio artis grammaticae** (`demo-src/orso/`):
-  digital scholarly edition (section *De nomine*, Codex Casanatensis 1086)
-  by Paolo Monella, ALIM Project, from the
-  [paolomonella/ursus](https://github.com/paolomonella/ursus) repository,
-  GPL 2.0. Offered by the editor as a test case. The derived demo is
-  distributed under the same licence.
-- **The Canterbury Tales, General Prologue** (`demo-src/canterbury/`):
-  transcripts of all 54 witnesses and the full collation from the
-  [Canterbury Tales Project](https://talesofcanterbury.org/GP/), ed. Peter
-  Robinson. Materials under copyright; pressed and republished here by
-  invitation of the editor as a test case. This is a temporary demo and it
-  will be removed.
-- **Specimen** (`demo-src/specimen/`): a micro-edition constructed for
+- **`press/`**: the in-browser press, a single self-contained page built by
+  `node tools/build-browser.js` from the same engine modules the CLI uses.
+  `pleiades.json` beside it is the compact ancient-world gazetteer the
+  "Locate ancient places" button fetches on demand (built by
+  `node tools/build-pleiades-browser.js`, data from
+  [Pleiades](https://pleiades.stoa.org/), CC BY).
+- **`specimen/`**: the Specimen, a micro-edition constructed for
   demonstration purposes (imaginary witnesses, didactic variants, declared
   as such on the title page); base text: the opening of the Odyssey in
-  Ippolito Pindemonte's translation (public domain); CC0 encoding.
-- Geographic lookups use data derived from
-  [GeoNames](https://www.geonames.org/) (CC BY 4.0); map coastlines from
-  [Natural Earth](https://www.naturalearthdata.com/) (public domain). The
-  map page uses [Leaflet](https://leafletjs.com/) (BSD-2, bundled) and tiles
-  © OpenStreetMap contributors (ODbL), loaded from the OSM servers when the
-  page is viewed.
+  Ippolito Pindemonte's translation (public domain); CC0 encoding. Pressed
+  from `demo-src/specimen/`.
+- `index.html`, the two SVG lockups.
 
-Torchio's code remains MIT; the licences above concern the contents of the
-demos.
+The demonstration editions pressed from real scholarly materials live in
+their own repository, [emmcarbe/torchio-demos](https://github.com/emmcarbe/torchio-demos),
+so that materials with limited rights stay apart from the engine; their
+sources, licences and credits are recorded there.
+
+Maps in pressed sites use [Leaflet](https://leafletjs.com/) (BSD-2, bundled)
+and tiles © OpenStreetMap contributors (ODbL), loaded from the OSM servers
+when a map page is viewed; geographic lookups use data derived from
+[GeoNames](https://www.geonames.org/) (CC BY 4.0) and
+[Pleiades](https://pleiades.stoa.org/) (CC BY); map coastlines from
+[Natural Earth](https://www.naturalearthdata.com/) (public domain).
+
+Torchio's code remains MIT; the licences above concern data and contents.

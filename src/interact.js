@@ -58,8 +58,9 @@ body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
 .torchio-pop .popband .bw:hover{text-decoration:underline}
 
-/* dense notes: marks only, notes open on click */
-body.notes-dense main.torchio .t-note{display:none!important}
+/* dense notes: those the margins cannot hold collapse to their marks and open
+   on click; the ones placed in a margin (.placed) stay visible */
+body.notes-dense main.torchio .t-note:not(.placed){display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
 [data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
@@ -270,7 +271,7 @@ export function buildInteractJS(t) {
     if(app)return [app];
     var t=n.dataset.target;
     if(t){
-      var els=t.split(/\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
+      var els=t.split(/\\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
       if(els.length)return els;
     }
     var m=n.previousElementSibling;
@@ -331,7 +332,7 @@ export function buildInteractJS(t) {
               if(el){
                 var cl=el.cloneNode(true);
                 cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
-                txt=cl.textContent.replace(/\s+/g,' ').trim();
+                txt=cl.textContent.replace(/\\s+/g,' ').trim();
               }
               openPop('<span class="k">'+esc(sig)+'</span>'
                 +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
@@ -359,7 +360,7 @@ export function buildInteractJS(t) {
       });
       var extra='';
       app.querySelectorAll('.t-note').forEach(function(nn){
-        extra+='<div class="meta">'+esc(nn.textContent.replace(/\s+/g,' ').trim())+'</div>';
+        extra+='<div class="meta">'+esc(nn.textContent.replace(/\\s+/g,' ').trim())+'</div>';
       });
       openPop('<span class="k">'+esc(T.apparatus.toLowerCase())+''+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
       ev.stopPropagation();return;
@@ -400,7 +401,7 @@ export function buildInteractJS(t) {
       var lab=(op.dataset.change||'').replace(/^#/,''), hd=(op.dataset.hand||'').replace(/^#/,'');
       var strat=lab?document.querySelector('[data-el="change"][id$="'+lab+'"]'):null;
       openPop('<span class="k">'+esc(op.dataset.el)+'</span>'
-        +'<div class="notebody">'+esc(op.textContent.replace(/\s+/g,' ').trim().slice(0,140))+'</div>'
+        +'<div class="notebody">'+esc(op.textContent.replace(/\\s+/g,' ').trim().slice(0,140))+'</div>'
         +'<div class="meta">'+(lab?esc(lab):'')+(hd?' · '+esc(hd):'')
         +' <a href="genesis.html">'+esc(T.genesis)+'</a></div>',op);
       ev.stopPropagation();return;
@@ -485,7 +486,7 @@ export function buildInteractJS(t) {
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
       var t=n.dataset.target;
       if(t){
-        var id=t.split(/\s+/)[0].replace(/^#/,'');
+        var id=t.split(/\\s+/)[0].replace(/^#/,'');
         var el=document.getElementById(id);
         if(el)return {el:el,kind:'target'};
       }
@@ -521,7 +522,7 @@ export function buildInteractJS(t) {
            its mark goes to the passage, not to the place it was written */
         var tg=n.dataset.target;
         if(tg&&mk){
-          var id=tg.split(/\s+/)[0].replace(/^#/,'');
+          var id=tg.split(/\\s+/)[0].replace(/^#/,'');
           var dest=document.getElementById(id);
           if(dest&&!dest.contains(mk)){
             if(dest.nextSibling)dest.parentNode.insertBefore(mk,dest.nextSibling);
@@ -535,17 +536,32 @@ export function buildInteractJS(t) {
         if(el&&el!==mk){el.setAttribute('data-notepop',String(i));makeTrigger(el,null);}
       });
     }
-    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+    var old=document.getElementById('note-leaders'); if(old)old.remove();
+    /* the notes go into BOTH margins: each takes the side that carries it
+       closest to its mark, so a long text with many notes fills the two
+       gutters instead of collapsing to popups. The economy rule is applied
+       per note, not to the whole page: only a note that neither side can hold
+       near its anchor (its stack would push it past MAXDRIFT) collapses to its
+       mark and opens on click. The two columns keep their own running bottom */
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var remPx=parseFloat(getComputedStyle(document.documentElement).fontSize)||16;
+    var noteW=14*remPx;
+    /* margins carry the notes only when a gutter can actually hold one. The
+       page is centred, so both gutters are the same width; too narrow, or
+       notes off, and every note collapses to its mark. This is the real cause
+       of notes landing on the text: a margin too thin for what it was asked to
+       hold. Measured, not guessed at a fixed breakpoint */
+    if(mr.left<noteW+26||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
     }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
+    var colR=main.clientWidth+26;   // right column: the note extends into the right gutter
+    var colL=-(noteW+26);           // left column: the note sits in the left gutter
+    var GAP=10, MAXDRIFT=340;
     var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
-    var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
       var res=anchorOf(n);
@@ -554,28 +570,45 @@ export function buildInteractJS(t) {
       if(a){
         var r=a.getBoundingClientRect();
         var ay=(r.width||r.height)?r.top-mr.top:null;
-        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
-        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
+        // the anchor's own position is the truth: the note is hidden inline
+        // when dense, so its flow position is meaningless. Align to the mark
+        // (or the standoff target) wherever it sits on the page
+        if(ay!==null){y=ay;}
         else{a=null;}
       }
       return {n:n,a:a,kind:kind,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
+    var botL=0, botR=0, maxBottom=0;
     items.forEach(function(it){
       var n=it.n;
+      var topR=Math.max(it.y,botR+GAP), topL=Math.max(it.y,botL+GAP);
+      // the right margin is primary; the left takes the overflow only when the
+      // right is backed up (it would push the note more than a line below its
+      // mark) and the left carries it closer. So a lightly annotated text keeps
+      // one margin, and a dense one like this grammar spreads over both
+      var side=(topR-it.y<=26)?'R':(topL<topR?'L':'R');
+      var top=side==='L'?topL:topR;
+      if(top-it.y>MAXDRIFT){ n.classList.remove('placed'); n.style.cssText=''; return; }
       n.classList.add('placed');
-      var top=Math.max(it.y,lastBottom+10);
-      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
-      lastBottom=top+n.offsetHeight;
+      var left=side==='L'?colL:colR;
+      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+left+'px;top:'+top+'px;border-left:0;padding-left:0';
+      var h=n.offsetHeight;
+      if(side==='L')botL=top+h; else botR=top+h;
+      if(top+h>maxBottom)maxBottom=top+h;
       if(it.a){
         var ar=it.a.getBoundingClientRect();
         if(ar.width||ar.height){
-          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
-          var x2=colLeft-8, y2=top+8;
-          // a thread only when short and meaningful; never across the page
-          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
+          var y1=ar.top-mr.top+ar.height*0.5, y2=top+8, x1,x2,cx1,cx2;
+          if(side==='L'){ x1=ar.left-mr.left-2; x2=left+noteW+8; cx1=x1-24; cx2=x2+24; }
+          else { x1=ar.right-mr.left+2; x2=left-8; cx1=x1+24; cx2=x2-24; }
+          // a thread where the eye needs it: the note is pushed below its mark
+          // by the stack, so a short faint curve reconnects them. Where the
+          // note sits at its mark's height (drift near zero) the alignment is
+          // the connection and a line would only clutter; never across the page
+          if(Math.abs(y2-y1)>14&&Math.abs(y2-y1)<200){
             var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
+            p.setAttribute('d','M'+x1+' '+y1+' C '+cx1+' '+y1+', '+cx2+' '+y2+', '+x2+' '+y2);
             p.setAttribute('fill','none');
             p.setAttribute('stroke','var(--faint)');
             p.setAttribute('stroke-width','1');
@@ -593,7 +626,7 @@ export function buildInteractJS(t) {
         }
       }
     });
-    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
+    if(maxBottom)main.style.minHeight=(maxBottom+32)+'px';
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();

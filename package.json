@@ -1,6 +1,6 @@
 {
   "name": "torchio",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "description": "Presses TEI P5 files into static digital scholarly editions: multipage sites published from a git repository, no server, no database",
   "type": "module",
   "license": "MIT",

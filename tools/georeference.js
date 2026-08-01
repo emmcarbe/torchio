@@ -31,6 +31,22 @@ try {
   process.exit(1);
 }
 
+// Pleiades for the ancient world (optional): built by tools/build-pleiades.js
+let pleiades = null;
+try {
+  pleiades = JSON.parse(await readFile(
+    new URL('../data-local/pleiades-gazetteer.json', import.meta.url), 'utf-8'));
+} catch { /* no Pleiades: GeoNames only */ }
+
+// terminus ante quem: a text written no later than this year cannot name a
+// place in the Americas. Declared in the edition's torchio.json ("notAfter"),
+// it prunes New World homonyms (Carthage, Illinois). Absent: no period filter.
+let notAfter = null;
+try {
+  const cfg = JSON.parse(await readFile(join(dirname(input), 'torchio.json'), 'utf-8'));
+  if (Number.isFinite(cfg.notAfter)) notAfter = cfg.notAfter;
+} catch { /* no config, or no notAfter */ }
+
 const xml = await readFile(input, 'utf-8');
 const root = parseXML(xml);
 await resolveIncludes(root, (href) => readFile(join(dirname(input), href), 'utf-8'));
@@ -40,12 +56,13 @@ const model = buildModel(root, buildClassMap(null, data));
 let previous = {};
 try { previous = JSON.parse(await readFile(outPath, 'utf-8')).places || {}; } catch {}
 
-const { places, stats } = georeference(model, gazetteer, previous);
+const { places, stats } = georeference(model, gazetteer, previous, pleiades, notAfter);
 await writeFile(outPath, JSON.stringify({
-  source: 'GeoNames cities1000 (CC BY 4.0), via torchio build-gazetteer',
-  howto: 'review each place: set status to "confirmed" (correcting lat/lon if needed), or "rejected"; fill in coordinates for status "missing". Your edits survive re-runs.',
+  source: 'GeoNames cities1000 (CC BY 4.0) + Pleiades (CC BY), via torchio',
+  howto: 'every coordinate is a SUGGESTION, and the machine can pick the wrong place (a Troia in Egypt, not Homer\'s): review each, set status to "confirmed" (correcting lat/lon), or "rejected"; fill in coordinates for "missing". Each carries its source (geonames / pleiades). Your edits survive re-runs.',
   places,
 }, null, 1));
+console.error(`georeferenced: ${stats.found} found, ${stats.missing} missing, ${stats.kept} kept (GeoNames + ${pleiades ? 'Pleiades' : 'no Pleiades'})`);
 
 console.error(`georef: ${outPath}`);
 console.error(`  suggested from gazetteer: ${stats.found}`);

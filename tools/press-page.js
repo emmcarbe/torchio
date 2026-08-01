@@ -32,6 +32,12 @@
 
   // everything the last pressing established
   let S = null;
+  // images the editor drops for the simple pages. Kept out of S so they survive
+  // a re-press (S is rebuilt each press): name -> Uint8Array. Written verbatim
+  // into the archive's images/ folder and inlined into the preview.
+  const droppedImages = new Map();
+  const IMG_RE = /\.(png|jpe?g|gif|webp|svg|avif)$/i;
+  let pleiadesIndex = null; // the compact Pleiades index, fetched once beside the page
   // S = { model, analysis, sourceXML, notes, unresolved, odd, oddInfo,
   //       droppedManifest, droppedExtra, slug, ui, files }
 
@@ -71,7 +77,7 @@
   let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
   let entitiesAuto = false; // accept machine entity proposals without review (declared in the edition)
   async function doPress(fileList) {
-    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
+    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name) && !IMG_RE.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
     // whole archive belongs in the repository that presses itself. Warn
     // rather than freeze, and let the editor go on if they mean to
@@ -96,6 +102,9 @@
       // a reviewed lemma sheet comes back as .xlsx: read it here, so the
       // editor never touches the JSON
       if (/\.xlsx$/i.test(f.name)) { reviewSheet = new Uint8Array(await f.arrayBuffer()); continue; }
+      // an image is bytes, never text: capture it for the images/ folder, so
+      // dropping the whole edition folder (XML and images together) just works
+      if (IMG_RE.test(f.name)) { droppedImages.set(f.name.split('/').pop(), new Uint8Array(await f.arrayBuffer())); continue; }
       texts.set(f.name, await f.text());
     }
 
@@ -366,7 +375,6 @@
         lexFreq: !!(raw.pieces && (raw.pieces.lexFreq === true || raw.pieces.lexicon === true)),
         lexConc: !!(raw.pieces && (raw.pieces.lexConc === true || raw.pieces.lexicon === true)),
       },
-      genre: typeof raw.genre === 'string' ? raw.genre : '',
       apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : '',
       version: typeof raw.version === 'string' ? raw.version
         : (raw.version != null ? String(raw.version) : ''),
@@ -529,7 +537,8 @@
       rows.push([w.label, w.type, 'marked', 'suggested',
         a ? (a.description || '') : '',
         a && a.lat != null ? a.lat : '', a && a.lon != null ? a.lon : '',
-        a ? 'wikidata:' + a.qid + (a.viaf ? ' viaf:' + a.viaf : '') : '', '']);
+        a ? (a.qid ? 'wikidata:' + a.qid + (a.viaf ? ' viaf:' + a.viaf : '')
+          : (a.source === 'pleiades' && a.pleiades ? 'pleiades:' + a.pleiades : '')) : '', '']);
     }
     // one row per bare occurrence, with its own context, so Roma the city and
     // Roma the surname are judged apart. Candidates arrive the same way, with
@@ -667,6 +676,41 @@
     }
   }
 
+  // Pleiades locates the places OFFLINE: the compact index rides beside this
+  // page (pleiades.json), fetched once. A match is a coordinate suggestion
+  // carrying its source, never confirmed unseen: the machine can pick the wrong
+  // Troia, so the editor confirms in the sheet like every other proposal. It
+  // feeds the same authoritySuggestions the Wikidata search fills
+  async function locatePleiades() {
+    const btn = document.getElementById('c-pleiades');
+    const places = entityLabels().filter((w) => w.marked && w.type === 'place');
+    if (!places.length) { alert('No marked places to locate. Pleiades gives coordinates for places (a placeName the markup declares).'); return; }
+    btn.disabled = true; btn.textContent = 'loading Pleiades…';
+    try {
+      if (!pleiadesIndex) pleiadesIndex = await (await fetch('pleiades.json')).json();
+    } catch (err) {
+      alert('The Pleiades index could not be loaded (' + err.message + '). It rides beside this page as '
+        + 'pleiades.json; the command-line georeference carries the full gazetteer.');
+      btn.disabled = false; btn.textContent = 'Locate ancient places (Pleiades)';
+      return;
+    }
+    const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const sug = S.authoritySuggestions || new Map();
+    let found = 0;
+    for (const w of places) {
+      const hit = pleiadesIndex[norm(w.label)];
+      if (!hit) continue;
+      const a = sug.get(w.label) || { type: 'place' };
+      a.lat = hit[0]; a.lon = hit[1]; a.source = 'pleiades'; a.pleiades = hit[2] || 0;
+      sug.set(w.label, a);
+      found++;
+    }
+    S.authoritySuggestions = sug;
+    btn.disabled = false; btn.textContent = 'Locate ancient places (Pleiades)';
+    alert(found + ' of ' + places.length + ' places located in Pleiades (the ancient world). Download the '
+      + 'names sheet to confirm each: a place the machine can misplace stays a suggestion until you do.');
+  }
+
   function buildManifest() {
     const ui = S.ui;
     const m = {};
@@ -674,7 +718,6 @@
     if (ui.subtitle.trim()) m.subtitle = ui.subtitle.trim();
     if (ui.lang) m.lang = ui.lang;
     if (ui.theme) m.theme = ui.theme;
-    if (ui.genre) m.genre = ui.genre;
     if (ui.version) m.version = ui.version;
     if (ui.apparatusKind) m.apparatusKind = ui.apparatusKind;
     const off = {};
@@ -837,8 +880,9 @@
       + '<option value="en"' + (ui.lang === 'en' ? ' selected' : '') + '>English</option>'
       + '</select></div>'
       + '<div class="frow"><label for="c-theme">Theme</label><select id="c-theme">'
-      + ['', 'savi', 'pergamena', 'moderno'].map((t) =>
-        '<option value="' + t + '"' + (ui.theme === t ? ' selected' : '') + '>'
+      // savi IS the default: one entry, not a "savi (default)" beside a "savi"
+      + ['', 'pergamena', 'moderno'].map((t) =>
+        '<option value="' + t + '"' + (ui.theme === t || (t === '' && ui.theme === 'savi') ? ' selected' : '') + '>'
         + (t || 'savi (default)') + '</option>').join('')
       + '</select></div>'
       + '<div class="frow"><label for="c-version">Version</label>'
@@ -865,20 +909,6 @@
         + 'from what you confirmed, and nobody is looked up while your edition is being read.',
     };
 
-    html += '<fieldset data-step="edition"><legend>What this edition is</legend>'
-      + '<div class="frow"><label>Kind</label><select id="c-genre">'
-      + '<option value="">from the markup</option>'
-      + '<option value="edition">critical edition</option>'
-      + '<option value="archive">archive of many texts</option>'
-      + '<option value="correspondence">correspondence</option>'
-      + '<option value="tradition">tradition of witnesses</option>'
-      + '</select></div>'
-      + '<p class="note">A <b>critical edition</b> presses one text with its apparatus and its witnesses. '
-      + 'An <b>archive</b> presses many texts as a register with author and date, each with its own page. '
-      + 'A <b>correspondence</b> is an archive whose register wears sender, recipient and date. '
-      + 'A <b>tradition</b> presses the witnesses side by side, with the apparatus apart. '
-      + 'Left to the markup, the shape is derived from what the files declare.</p>'
-      + '</fieldset>';
     html += '<fieldset data-step="pages"><legend>Pages</legend>';
     // the section pages of a long text are the divisions the markup declares:
     // shown as one summary line, not one checkbox each
@@ -915,8 +945,22 @@
     }
     html += '<p><button type="button" id="c-addpage">Add a simple page</button> '
       + '<span class="note">your own prose (an introduction, credits, a bibliography), '
-      + 'written in Markdown, part of the site navigation</span></p>'
-      + '</fieldset>';
+      + 'written in Markdown, part of the site navigation</span></p>';
+    html += '<div class="frow" style="align-items:flex-start"><label for="drop-images">Images</label>'
+      + '<div style="flex:1">'
+      + '<div class="dropmini" id="drop-images"><span class="note">Drop images here (png, jpg, gif, webp, svg). '
+      + 'Each travels in the edition’s <code>images/</code> folder; in a page write '
+      + '<code>![caption](images/NAME)</code> to place it. An external image URL is never loaded, only linked.</span></div>'
+      + ([...droppedImages.keys()].length
+        ? '<table class="wit-table" style="margin:.5em 0 0">'
+          + [...droppedImages.keys()].map((n) =>
+            '<tr><td><code>images/' + esc(n) + '</code></td>'
+            + '<td style="text-align:right"><button type="button" class="rmimg" data-rmimg="'
+            + esc(n) + '">remove</button></td></tr>').join('')
+          + '</table>'
+        : '')
+      + '</div></div>';
+    html += '</fieldset>';
 
     // the register's columns, for collections: chosen among the fields the
     // headers populate; the engine's default follows the majority (a
@@ -1048,6 +1092,15 @@
           + (S.authoritySuggestions ? ' <b>' + S.authoritySuggestions.size + ' proposals ready.</b>' : '')
           + '</span></p>'
         : '')
+      + (markedCount
+        ? '<p><button type="button" id="c-pleiades">Locate ancient places (Pleiades)</button>'
+          + '<span class="note">The places of an ancient or medieval text, matched <b>offline</b> against '
+          + 'Pleiades (the gazetteer of the ancient world), fetched once beside this page. Each match is a '
+          + 'coordinate <b>suggestion</b> carrying its source, for you to confirm: the machine can still pick '
+          + 'the wrong Troia. GeoNames, far larger, is the command-line route; here Pleiades covers the '
+          + 'ancient world and Wikidata the rest.'
+          + '</span></p>'
+        : '')
       + '<p><button type="button" id="c-entities-sheet">Download the names sheet</button>'
       + '<span class="note">Everything above lands in one spreadsheet: the declared names, the '
       + 'unmarked occurrences with their context, the candidates, the authority proposals. Confirm, '
@@ -1055,15 +1108,15 @@
       + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
       + '(or with the files).</span></div>'
       + '<p class="note"><b>The map needs coordinates.</b> A place appears on the map only when it '
-      + 'carries a latitude and a longitude. For places the proper source is GeoNames: the '
-      + 'repository georeferences against the gazetteer (the georeference step), the editor confirms, '
-      + 'and coordinates the TEI already declares always win. Here in the browser, where the whole '
-      + 'gazetteer is too large to carry, the Wikidata search proposes coordinates instead, or you '
-      + 'fill the lat and lon columns in the sheet by hand. A place without coordinates stays in the '
-      + 'index, off the map.</p>'
+      + 'carries a latitude and a longitude, and coordinates the TEI already declares always win. '
+      + 'For the ancient world, Pleiades locates the places here offline; Wikidata proposes coordinates '
+      + 'for the rest, over the network. GeoNames, the fuller modern gazetteer, is too large to carry '
+      + 'in a page: it is the command-line route (the georeference step). Every proposal is a suggestion '
+      + 'to confirm, or you fill the lat and lon columns in the sheet by hand. A place without '
+      + 'coordinates stays in the index, off the map.</p>'
       + '<label class="checkrow" style="margin-top:.6em"><input type="checkbox" id="c-entities-auto"'
       + (entitiesAuto ? ' checked' : '') + '>or proceed without review: use the proposals as they are, '
-      + 'with the coordinates Wikidata proposed. The edition will say so (every name stays marked as a '
+      + 'with the coordinates the gazetteers proposed. The edition will say so (every name stays marked as a '
       + 'machine suggestion)</label>'
       + '</fieldset>';
 
@@ -1076,7 +1129,12 @@
       + '<div class="frow"><label for="pe-label">Title of the page</label>'
       + '<input id="pe-label" type="text"></div>'
       + '<div class="frow"><label for="pe-md">Text (Markdown)</label>'
-      + '<textarea id="pe-md" rows="10" placeholder="# Heading&#10;&#10;Plain paragraphs, *emphasis*, [links](https://…), lists."></textarea></div>'
+      + '<textarea id="pe-md" rows="10" placeholder="# Heading&#10;&#10;Plain paragraphs, *emphasis* or _emphasis_, [links](https://…), lists."></textarea></div>'
+      + '<p class="note" style="margin:-.4em 0 .8em">Markdown marks headings (#), '
+      + '<b>*emphasis*</b>, lists, quotes, tables and code. If you are not comfortable '
+      + 'with it, write in an online editor such as <a href="https://dillinger.io/" '
+      + 'target="_blank" rel="noopener">Dillinger</a> and paste the result here. '
+      + 'Images must be local: an external image is turned into a link, never loaded.</p>'
       + '<p><button type="button" id="pe-save">Save the page</button> '
       + '<button type="button" id="pe-cancel">Cancel</button></p>'
       + '</div>';
@@ -1144,7 +1202,6 @@
     bind('c-lexfreq', (el) => { ui.pieces.lexFreq = el.checked; });
     bind('c-lexconc', (el) => { ui.pieces.lexConc = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
-    bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-version', (el) => { ui.version = el.value.trim(); });
     bind('c-appkind', (el) => { ui.apparatusKind = el.value; });
     bind('c-nlplang', (el) => { nlpLang = el.value; });
@@ -1166,6 +1223,8 @@
     if (candBtn) candBtn.addEventListener('click', findCandidates);
     const authBtn = document.getElementById('c-authorities');
     if (authBtn) authBtn.addEventListener('click', searchAuthorities);
+    const pleBtn = document.getElementById('c-pleiades');
+    if (pleBtn) pleBtn.addEventListener('click', locatePleiades);
     // each review has its own dropzone: drop the corrected sheet, it is
     // pressed together with the files already loaded
     for (const id of ['drop-lemmas', 'drop-names']) {
@@ -1177,6 +1236,24 @@
         ev.preventDefault(); zone.classList.remove('over');
         if (ev.dataTransfer.files.length) press([...lastFiles, ...ev.dataTransfer.files]);
       });
+    }
+    // images have their own dropzone: read as bytes (never f.text(), which would
+    // corrupt them) and kept in droppedImages, not re-pressed through the pipeline
+    const imgZone = document.getElementById('drop-images');
+    if (imgZone) {
+      imgZone.addEventListener('dragover', (ev) => { ev.preventDefault(); imgZone.classList.add('over'); });
+      imgZone.addEventListener('dragleave', () => imgZone.classList.remove('over'));
+      imgZone.addEventListener('drop', async (ev) => {
+        ev.preventDefault(); imgZone.classList.remove('over');
+        let added = 0;
+        for (const f of ev.dataTransfer.files) {
+          if (IMG_RE.test(f.name)) { droppedImages.set(f.name.split('/').pop(), new Uint8Array(await f.arrayBuffer())); added++; }
+        }
+        if (added) { compose(); renderPanel(); }
+      });
+    }
+    for (const btn of composeBox.querySelectorAll('[data-rmimg]')) {
+      btn.addEventListener('click', () => { droppedImages.delete(btn.dataset.rmimg); compose(); renderPanel(); });
     }
     // the order of the pages is the order of the menu: it is dragged here
     // and travels in the manifest, so the site keeps it
@@ -1307,6 +1384,17 @@
     return URL.createObjectURL(new Blob([bytes], { type }));
   }
 
+  const IMG_MIME = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg',
+    gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', avif: 'image/avif' };
+  function imageDataURI(name, bytes) {
+    const ext = (name.split('.').pop() || '').toLowerCase();
+    let bin = ''; // chunked, so a large image does not overflow the call stack
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return 'data:' + (IMG_MIME[ext] || 'application/octet-stream') + ';base64,' + btoa(bin);
+  }
+
   function previewHTML(name) {
     let html = S.files[name];
     if (name === 'map.html') {
@@ -1316,6 +1404,14 @@
           'href="' + blobURL('assets/leaflet/leaflet.css', 'text/css') + '"')
         .replace('src="assets/leaflet/leaflet.js"',
           'src="' + blobURL('assets/leaflet/leaflet.js', 'text/javascript') + '"');
+    }
+    // the archive carries images/ next to the pages; the preview has no folder,
+    // so a dropped image is inlined as a data-URI to render it faithfully
+    if (droppedImages.size) {
+      html = html.replace(/(<img\b[^>]*\bsrc=")(?:\.\/)?images\/([^"]+)(")/gi, (m, pre, name, post) => {
+        const bytes = droppedImages.get(name);
+        return bytes ? pre + imageDataURI(name, bytes) + post : m;
+      });
     }
     return html.replace('</body>', NAV_SNIPPET + '</body>');
   }
@@ -1375,6 +1471,8 @@
         entries[name] = bytes;
       }
     }
+    // the edition's own images, into images/ next to the pages, as raw bytes
+    for (const [name, bytes] of droppedImages) entries['images/' + name] = bytes;
     const zip = buildZip(entries);
     const url = URL.createObjectURL(new Blob([zip], { type: 'application/zip' }));
     const a = document.createElement('a');

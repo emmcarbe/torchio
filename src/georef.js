@@ -57,7 +57,25 @@ export function harvestPlaces(model) {
  * @param previous  a previously written georef.places object; editor
  *                  decisions (confirmed / rejected / edited coords) survive.
  */
-export function georeference(model, gazetteer, previous = {}) {
+/**
+ * The Americas, across the Atlantic gap: longitude between -170 and -34. The
+ * Old World's westernmost inhabited land (the Azores, Cape Verde) sits around
+ * -31, so -34 separates the two hemispheres cleanly.
+ */
+function inTheAmericas(lon) { return lon > -170 && lon < -34; }
+
+/**
+ * A place a text written no later than `notAfter` cannot name. A pre-Columbian
+ * edition cannot refer to a place in the Americas: drop those candidates, so a
+ * "Carthage, Illinois" never even surfaces as an alternative to Carthago. A
+ * heuristic on the edition's terminus ante quem, not a universal truth.
+ */
+function pruneByPeriod(hits, notAfter) {
+  if (notAfter == null || notAfter >= 1492) return hits;
+  return hits.filter(([, , lon]) => !inTheAmericas(lon));
+}
+
+export function georeference(model, gazetteer, previous = {}, pleiades = null, notAfter = null) {
   const places = {};
   let found = 0, missing = 0, kept = 0;
   for (const h of harvestPlaces(model)) {
@@ -67,14 +85,30 @@ export function georeference(model, gazetteer, previous = {}) {
       kept++;
       continue;
     }
-    const hits = gazetteer[h.key] || [];
-    if (hits.length) {
-      const [name, lat, lon, country, pop, id] = hits[0];
+    // Pleiades wins when it has the place: a toponym that is in Pleiades is an
+    // ancient place, so for a classical or medieval text it is the right
+    // reading, over a modern homonym (Carthage, Illinois; Troy, New York).
+    // GeoNames covers everything Pleiades does not (the modern world). Both
+    // sources stay visible as alternatives, and every hit is only a
+    // SUGGESTION carrying its source: the machine can still pick the wrong
+    // Troia (Egypt, not Homer's), so the editor confirms.
+    const pleHits = pruneByPeriod((pleiades && pleiades[h.key]) || [], notAfter);
+    const geoHits = pruneByPeriod(gazetteer[h.key] || [], notAfter);
+    const src = pleHits.length ? 'pleiades' : 'geonames';
+    const primary = pleHits.length ? pleHits : geoHits;
+    const other = pleHits.length ? geoHits : pleHits;
+    const otherSrc = pleHits.length ? 'geonames' : 'pleiades';
+    if (primary.length) {
+      const [name, lat, lon, country, pop, id] = primary[0];
+      const alt = (source) => ([n2, la, lo, c2, p2, i2]) =>
+        ({ name: n2, lat: la, lon: lo, country: c2, population: p2, source, [source]: i2 });
       places[h.key] = {
         label: h.label, status: 'suggested',
-        lat, lon, country, geonames: id, source: 'geonames',
-        alternatives: hits.slice(1, 5).map(([n2, la, lo, c2, p2, i2]) =>
-          ({ name: n2, lat: la, lon: lo, country: c2, population: p2, geonames: i2 })),
+        lat, lon, country, [src]: id, source: src,
+        alternatives: [
+          ...primary.slice(1, 4).map(alt(src)),
+          ...other.slice(0, 2).map(alt(otherSrc)),
+        ],
       };
       found++;
     } else {

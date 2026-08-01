@@ -33,6 +33,17 @@ const BLOCKS = new Set([
  *  documentary surface holds lines of text and is unaffected. */
 const FACSIMILE_ELEMENTS = new Set(['facsimile', 'surface', 'surfaceGrp', 'zone', 'graphic']);
 
+/**
+ * An address an editor typed into running prose (the text of a note, a
+ * witness description) is an address: it becomes a link that opens in its
+ * own tab. The input is already escaped; the pattern stops before closing
+ * punctuation, so a citation ending in a full stop does not swallow it.
+ */
+export function linkifyText(escaped) {
+  return escaped.replace(/(https?:\/\/[^\s<"]*[^\s<".,;:)\]])/g,
+    (u) => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+}
+
 /** Escapes for both text and attribute contexts: quotes included, because
  *  a `&quot;` in a TEI attribute would otherwise close the HTML attribute
  *  and inject markup. Entities render identically as text. */
@@ -126,7 +137,13 @@ export function renderBase(node, hooks) {
   }
   if (node.element === 'note') {
     // anchor marker in the text, tied to the floated margin note
-    const inner = node.children.map((c) => typeof c === 'string' ? escapeHTML(c) : renderBase(c, hooks)).join('');
+    const inner = node.children.map((c) => typeof c === 'string'
+      // an address an editor typed into the prose of a note is an address:
+      // it becomes a link, opening in its own tab, the way the witness
+      // register already treats one. Only the text the source wrote is
+      // touched; markup that already declares a pointer goes its own way
+      ? linkifyText(escapeHTML(c))
+      : renderBase(c, hooks)).join('');
     let nd = '';
     for (const a of DATA_ATTS) {
       if (node.atts[a] != null) nd += ` data-${a}="${escapeHTML(node.atts[a])}"`;
@@ -182,6 +199,23 @@ export function renderBase(node, hooks) {
     prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
   const after = hooks && hooks.after ? hooks.after(node) : '';
+  // a pointer is a pointer: `ref` and `ptr` whose target is an external
+  // address become real links, opening in their own tab. A `ptr` carries no
+  // text of its own, so the address itself is what the reader clicks; a
+  // `ref` keeps the words the edition chose. An internal target (#id) is
+  // left to the interactive layer, and a target the safety rules refuse is
+  // left as plain text rather than turned into a link nobody vetted
+  if ((node.element === 'ref' || node.element === 'ptr')) {
+    const t = node.atts.target || node.atts.ref || '';
+    if (/^https?:\/\//.test(t)) {
+      const href = safeURL(t);
+      if (href) {
+        const label = inner.trim() || escapeHTML(t.replace(/^https?:\/\//, ''));
+        return `<a${id} class="${cls} ent-ext" href="${escapeHTML(href)}"`
+          + ` target="_blank" rel="noopener"${data}>${label}</a>${after}`;
+      }
+    }
+  }
   // a mention whose @ref is an external authority URI (VIAF, Wikidata,
   // GeoNames...) is a real link: it opens in its own tab, markup decides
   if (tag === 'span' && MENTION_ELEMENTS.has(node.element)) {
@@ -327,6 +361,11 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
 .t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
+/* an apparatus entry in running prose is part of the sentence: it holds a
+   note, so the HTML element must be a div (a span may not contain one), but
+   it reads inline. Its note is either placed in a margin (absolute) or
+   collapsed to its mark, so it never breaks the line either */
+.t-app{display:inline}
 .t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
 .t-app .t-note{display:none}
 @media(min-width:1180px){.t-app .t-note{display:block}}

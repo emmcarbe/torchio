@@ -66,14 +66,11 @@ A first survey, to be deepened and corrected. It records architectural
 positions, one representative each, not every existing tool.
 
 - **[EVT](https://evt.labcd.unipi.it/)** is the most widely used tool in Italy and among the best known
-  internationally, and it is the reference for the bond between text and image:
-  hotspots derived from `zone` and `@facs`, a magnifying lens, synchronised
+  internationally, and the reference for the bond between text and image:
+  hotspots derived from `zone` and `@facs`, a magnifying lens, synchronized
   views, IIIF, three levels of transcription, a witness view, internal search.
-  Those are the functions this project does not have. The difference in
-  position is elsewhere: EVT is a viewer that runs on a framework (AngularJS
-  for EVT 2, Angular for **[EVT 3](https://github.com/evt-project/evt-viewer-angular)**, in pre-release), so the life of the
-  edition is tied to the life of that framework; here the edition is a site
-  that needs nothing in order to be read.
+  It is a mature, full-featured viewer, and the text-image binding at its
+  centre is exactly what this project does not yet do.
 - **[CETEIcean](https://github.com/TEIC/CETEIcean)** (TEI-C) renders every TEI element as a custom element in the
   browser, without conversion: guaranteed rendering, and nothing is lost because
   nothing is transformed. It renders `graphic`, which this project does not yet
@@ -88,17 +85,45 @@ positions, one representative each, not every existing tool.
   to model classes rather than to individual elements, so an edition
   inherits without declaring anything; coverage of the whole P5 is asserted
   by the test suite rather than promised; and there is no runtime, since the
-  static route of TEI Publisher still requires a running instance to
+  static route of TEI Publisher (a static generator has existed since 2022, and
+  version 10 makes it central) still requires a running instance to
   generate it.
 - **[TEI Boilerplate](https://github.com/TEI-Boilerplate/TEI-Boilerplate)** (John Walsh) makes a TEI file render itself in the
   browser, through an XSLT stylesheet linked from the document itself: no
   build, no server. It is the earliest statement of the self-rendering
   document, and a direct ancestor of this project's in-browser route.
 - **[dse-static-cookiecutter](https://github.com/acdh-oeaw/dse-static-cookiecutter)** (ACDH-CH, Vienna) is the project closest to
-  this one: XSLT plus GitHub Actions plus Pages, with indices and maps, used
-  for dozens of editions. It requires a developer's toolchain, though; the
-  interface comes from templates to be adapted, and there is no reusable
-  data model.
+  this one: XSLT plus GitHub Actions plus Pages, with indices, maps and
+  faceted search (Typesense), used for dozens of editions, and now argued
+  in print (Andorfer 2026). It requires a developer's toolchain, though;
+  rendering is assigned per element in XSLT partials; the interface comes
+  from templates to be adapted, and there is no reusable data model.
+- **The [Endings Project](https://endings.uvic.ca/)** (University of Victoria) is the
+  prior statement of the static-longevity principle this project builds on:
+  formal principles for digital longevity (data, products, processing,
+  documentation, release management) and the reconstruction of complex
+  database-driven projects as fully static sites (Holmes and Takeda 2023).
+  Its **[staticSearch](https://endings.uvic.ca/staticSearch/docs/)** solves
+  serverless full-text search: indices built at build time, queried
+  client-side. Endings staticizes individual projects with a bespoke
+  toolchain; it does not offer a generic TEI engine or a data model, which
+  is where this project differs.
+- **[TAPAS](https://tapasproject.org/)** (Northeastern; Flanders and Hamlin
+  2013) addressed the same constituency, editors with TEI and no
+  infrastructure, with the opposite architecture: a centralized hosted
+  service. Its platform was retired in January 2025 with the end of life of
+  the software stack beneath it, and a rebuild is under way: a data point,
+  from a project of long standing, on where the maintenance burden of a
+  service settles.
+- **Minimal computing** (Risam and Gil 2022; the Ed. and Wax generators of
+  the minicomp group) is the theoretical frame of the no-server position:
+  constraint as method, maintenance as the measure. Its edition tooling is
+  not TEI-native (Markdown sources), which is the gap this project sits in.
+- **[LEAF](https://www.leaf-vre.org/)** (LEAF-Writer, the LEAF Commons
+  tool suite) serves the low-infrastructure constituency from the editing
+  side: in-browser TEI and entity annotation without local installation.
+  It is an authoring environment, not a publisher of editions; the two
+  concerns meet but do not overlap.
 
 ## The wager
 
@@ -147,19 +172,32 @@ result, and nobody has measured it either way.
 2. **Nothing is lost a second time.** Transcription is necessarily
    selective: where to stop is the editor's decision, taken while encoding
    (Pierazzo 2011). The press does not get to lower that threshold again.
-   Whatever the edition chose to record must survive into the pages, because
-   every sign there represents a decision already taken. Unknown constructs fall back on a guaranteed base
-   rendering, and yet they are not discarded. On an invalid document the
-   engine degrades, it does not break: validation belongs to the CI of the
-   edition's repository (CI, continuous integration: the automated checks
-   a repository runs at every change).
+   Whatever the edition chose to record must survive, because every sign
+   represents a decision already taken. Today this holds verifiably for
+   the **model**: what the source records enters the data model and the
+   exports. On the **page** it holds as conservation, not always as
+   interpretation: an unknown construct falls back on a guaranteed base
+   rendering, visible and never discarded, but a construct the engine does
+   not yet interpret shows less than the markup knows (the register files
+   each such case). On an invalid document the engine degrades, it does
+   not break: validation belongs to the CI of the edition's repository
+   (CI, continuous integration: the automated checks a repository runs at
+   every change).
 3. **Behaviour lives on classes, not on tags.** The TEI has more than 500
-   elements but organizes them into a few dozen model classes. Rendering
-   rules are written per class; elements inherit. The map is generated from
-   the official [`p5subset`](https://tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml) (P5 4.12.0: 588 elements, 127 model classes, 86
-   attribute classes, 35 datatypes) and full coverage is an automated test,
-   re-runnable at every TEI release. Never example-driven development:
-   examples are test cases, not the specification.
+   elements but organizes them into a few dozen model classes. The map is
+   generated from the official [`p5subset`](https://tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml) (P5 4.12.0: 588 elements, 127 model
+   classes, 86 attribute classes, 35 datatypes) and full coverage is an
+   automated test, re-runnable at every TEI release. Stated honestly, in
+   two tenses: what class membership decides today is assignment, which
+   section of the page a construct belongs to and which family of handling
+   it receives, so an element the engine has never seen, or a custom
+   element declared `memberOf` a class, is placed like its class instead
+   of being dropped. Per-class rendering rules, where the class rather
+   than the element carries the full visual behaviour, exist today for a
+   minority of sections; extending them across the map is open work, and
+   the claim will change tense only when the code has. Never
+   example-driven development: examples are test cases, not the
+   specification.
 4. **The ODD decides, not the tool.** The edition's ODD customization is its
    configuration: the modules included, the elements excluded, and above all
    the custom elements, which, once declared `memberOf` a TEI class, inherit
@@ -167,14 +205,21 @@ result, and nobody has measured it either way.
    syntactic one can be decided mechanically; the semantic one (an extension
    is legitimate only for phenomena P5 does not cover) requires judgement,
    and the tool must flag it.
-5. **The edition is the model.** The engine turns the TEI into a documented
-   data model (documents, entity registries, witnesses, hands, layers, typed
+5. **The edition is the model.** The engine turns the TEI into a data model
+   (documents, entity registries, witnesses, hands, layers, typed
    apparatuses); every page and every export (XML, CSV, JSON) is a
-   projection of the model. Same XML, same model, byte for byte.
+   projection of the model. Same XML, same model, byte for byte. The
+   model's written documentation is a declared debt: today it is specified
+   by the code and the exports, not by a document.
 6. **No backend.** The repository is the edition: git for versions, CI for
    validation, static hosting for publication, an archive with a DOI for
-   preservation. The same code runs in the browser and in Node. Whoever
-   publishes can of course clone.
+   preservation, and, since GitHub is a commercial platform, archival in
+   Software Heritage with the SWHID beside the DOI. The same code runs in
+   the browser and in Node. Whoever publishes can of course clone. The
+   static-longevity position is not new and is not claimed as new: it is
+   the Endings Project's (Holmes and Takeda 2023), stated as principles
+   since 2016; what this project adds is the generic engine and the data
+   model behind the static site.
 7. **The markup decides existence; the manifest decides the optional
    settings.** Pages and functions exist if the markup substantiates them
    (an edition without an apparatus has no apparatus button; a registry
@@ -225,15 +270,25 @@ result, and nobody has measured it either way.
 The classes-to-behaviours table was written starting from the Guidelines and
 the `p5subset`, never from examples.
 
-Examples were collected to form a kind of **contrast corpus**: from the
-Catalogue of Digital Editions, 95 TEI editions with downloadable XML still
-online were filtered; six cases were downloaded and analysed in full
+Three different things have been called the contrast corpus, and they are
+kept apart here. The **sampling frame** is the list of editions filtered
+from the catalogues: 95 from the Catalogue of Digital Editions in July
+2026, now 1156 from both catalogues together (`corpus-frame.csv`), of
+which only 124 appear in both. The frame has not been pressed: it names
+the candidates for the measurement the wager calls for. The **analysed
+cases** are the six editions actually downloaded and read in full, and
+only two of them (the Faust-Edition and the Thun correspondence) come from
+that frame; the other four were taken where they were available, so the
+two sets overlap rather than nest. The **contrastive examples** are the
+fixtures of the possible (editorial) worlds, which are constructed, not
+edited. What follows concerns the analysed cases: six editions downloaded
+and analysed in full
 ([Faust-Edition](https://faustedition.net/), [Shelley-Godwin
 Archive](http://shelleygodwinarchive.org/), the [Thun
 correspondence](https://thun-korrespondenz.acdh.oeaw.ac.at/), [Italian
 ELTeC](https://github.com/COST-ELTeC/ELTeC-ita), [Italian
 DraCor](https://dracor.org/ita), the Digital Latin Library's [Bellum
-Alexandrinum](https://github.com/digitallatin/caesar-balex): 7,692 files,
+Alexandrinum](https://github.com/digitallatin/caesar-balex): 8,292 XML files (recounted 1 August 2026),
 228 distinct elements).
 
 The contrast produced thirteen corrections to the specification, among them:
@@ -281,23 +336,29 @@ model, the entities and the apparatus; reconciliation of places against a
 GeoNames gazetteer with the editor in the loop; canonical alignment across
 the documents of a collection, with the classical apparatus band derived
 under the edited text; the same press as a single self-contained page in
-the browser. The test suite counts 174 assertions.
-Eight demonstration editions with rights verified or granted: the Odyssey (Perseus),
+the browser. The test suite counts 180 assertions.
+Nine demonstration editions with rights verified or granted: the Odyssey (Perseus),
 thirty Van Gogh letters (Van Gogh Museum and Huygens ING), the Bellum
 Alexandrinum (Digital Latin Library, with a three-register critical
 apparatus), two editions by Paolo Monella offered by their editor as test
 cases (the Chronicon of Romualdus Salernitanus and the graphematic
 transcription of Ursus Beneventanus, with its table of signs), the General
 Prologue of the Canterbury Tales (54 witnesses and the full collation,
-offered by Peter Robinson as a temporary test case), texts from the
-Eurasian Latin Archive (University of Siena) and a constructed
-Specimen for teaching purposes.
+offered by Peter Robinson as a temporary test case), a volume of the
+Frankenstein notebooks (Shelley-Godwin Archive, a documentary transcription
+with hands and writing operations), texts from the Eurasian Latin Archive
+(University of Siena) and a constructed Specimen for teaching purposes.
 
 ## Agenda
 
-1. **The in-browser configurator**: drop your TEI files, choose pages, theme
-   and pieces with immediate preview, download the ready repository. No
-   upload to any server.
+The day-to-day development agenda, with its open debts, lives in
+[ROADMAP.md](ROADMAP.md). The longer arcs:
+
+1. **The in-browser configurator**: published (the press at
+   <https://emmcarbe.github.io/torchio/press/>): drop your TEI files, choose
+   pages, theme and pieces with immediate preview, download the ready
+   repository. No upload to any server. What remains of it is refinement,
+   recorded in the roadmap.
 2. **The plugin API** as web components of fruition (from Del Grosso), with
    the manifest declaring them.
 3. **The apparatus DSL** (Euporia line): the apparatus written in the
@@ -353,22 +414,22 @@ Fixed the same evening:
 **Second round, the same night**, with the repository cloned and run. It
 confirmed the first finding and added three that are as much editorial as
 technical: the TEI structure was leaving as undifferentiated `div`s, so a
-heading was a heading only by the look of it (C54); the brackets of an
+heading was a heading only by the look of it (C55); the brackets of an
 integration and the mark of a lacuna were drawn by the stylesheet, so they
-disappeared from copied text and from screen readers (C55); and URLs taken
-from the edition reached `href` unchecked (C56). The first two are the ones
+disappeared from copied text and from screen readers (C56); and URLs taken
+from the edition reached `href` unchecked (C57). The first two are the ones
 that matter here: the layer that survives longest is the markup of the page
 itself, and it was the one not being used.
 
 **Third round**, the deepest, went through the TEI conformance of the
 apparatus and found what matters most to an edition: a conjecture has no
 witness, and its authority (`@source`, `@resp`) was being dropped, so 373
-attributed readings of the Bellum Alexandrinum arrived anonymous (C57);
+attributed readings of the Bellum Alexandrinum arrived anonymous (C58);
 readings grouped in `rdgGrp`, and readings in an `app` with no `lem`, were
 not shown at all, which is the first principle broken on known elements
-rather than unknown ones (C58). It also caught the register's own
+rather than unknown ones (C59). It also caught the register's own
 bookkeeping: two rows shared a number and the totals no longer matched the
-table (C62). Fixed, with the numbering now derived from the table.
+table (C63). Fixed, with the numbering now derived from the table.
 
 What the audits raise and remains open: the XML parser is deliberately
 minimal and its supported profile should be stated rather than implied;
@@ -391,17 +452,38 @@ licence CC BY 3.0 / BSD-2). Demos: Odyssey from the [Perseus Digital Library](ht
 via [e-editiones](https://github.com/eeditiones/vangogh) (CC BY-NC-SA 4.0). Geographic lookups on data derived from
 [GeoNames](https://www.geonames.org/) (CC BY 4.0); map coastlines from [Natural Earth](https://www.naturalearthdata.com/) (public domain); the
 map page uses [Leaflet](https://leafletjs.com/) (BSD-2, bundled) and tiles © OpenStreetMap
-contributors (ODbL). The contrast corpus is not included in the repository:
-the list of the 95 editions and the method are described above and
-reproducible.
+contributors (ODbL). The contrast corpus is declared as a dataset:
+[`corpus.csv`](corpus.csv) lists the 95 editions with their catalogue
+fields, extracted on 29 July 2026 from digEds_cat, the data of the
+*Catalogue of Digital Editions* (Greta Franzini et al., CC BY-SA; filters:
+XML-TEI transcription yes/partly, XML available to download yes/partly,
+currently available). The editions' own files are not redistributed here:
+each stays under its own rights, at its own address.
 
 ## References
 
+- Andorfer, Peter. 2026. "Digitale Editionen als statische Webseiten. Zur
+  nachhaltigen Publikation TEI-XML-basierter Editionen mit dem
+  dse-static-cookiecutter." *Zeitschrift für digitale Geisteswissenschaften*.
+  https://zfdg.de/2026_003.
 - Bauman, Syd. 2011. "Interchange vs. Interoperability." *Proceedings of
   Balisage: The Markup Conference* 7. https://doi.org/10.4242/BalisageVol7.Bauman01.
+- Cummings, James. 2019. "A World of Difference: Myths and Misconceptions
+  about the TEI." *Digital Scholarship in the Humanities* 34 (Supplement 1):
+  i58-i79. https://doi.org/10.1093/llc/fqy071.
+- Flanders, Julia, and Scott Hamlin. 2013. "TAPAS: Building a TEI Publishing
+  and Repository Service." *Journal of the Text Encoding Initiative* 5.
+  https://doi.org/10.4000/jtei.788.
+- Holmes, Martin, and Joseph Takeda. 2023. "From Tamagotchis to Pet Rocks:
+  On Learning to Love Simplicity through the Endings Principles." *Digital
+  Humanities Quarterly* 17 (1).
+  http://www.digitalhumanities.org/dhq/vol/17/1/000668/000668.html.
 - Pierazzo, Elena. 2011. "A Rationale of Digital Documentary Editions."
   *Literary and Linguistic Computing* 26 (4): 463-77.
   https://doi.org/10.1093/llc/fqr033.
+- Risam, Roopika, and Alex Gil. 2022. "Introduction: The Questions of
+  Minimal Computing." *Digital Humanities Quarterly* 16 (2).
+  http://www.digitalhumanities.org/dhq/vol/16/2/000646/000646.html.
 - Turska, Magdalena, James Cummings, and Sebastian Rahtz. 2016. "Challenging
   the Myth of Presentation in Digital Editions." *Journal of the Text
   Encoding Initiative* 9. https://doi.org/10.4000/jtei.1453.

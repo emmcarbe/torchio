@@ -1,5 +1,5 @@
 /**
- * Torchio laboratory — the editorial worlds, run as tests.
+ * Torchio laboratory — the possible (editorial) worlds, run as tests.
  *
  * A world is a coherent editorial theory delimited by examples. Each example
  * is a legitimate TEI fragment and a check on the model Torchio builds from it.
@@ -111,7 +111,7 @@ async function main() {
 
   let P = 0; let O = 0; let U = 0;
   const debts = [];
-  console.log(`\nTorchio laboratory — ${worlds.length} editorial world(s)\n`);
+  console.log(`\nTorchio laboratory — ${worlds.length} possible (editorial) world(s)\n`);
   for (const mod of worlds) {
     const r = await runWorld(mod);
     console.log(`▶ ${r.meta.title}  (${r.meta.id})`);
@@ -168,10 +168,10 @@ async function main2() {
   if (ex) {
     console.log(`▶ The TEI Guidelines' own examples`);
     console.log(`  source: ${ex.source}`);
-    console.log(`  ${ex.total} pressed · ${ex.completed} completed · ${ex.conserved} conserve their text`
+    console.log(`  ${ex.total} pressed · ${ex.completed} completed · ${ex.conserved} keep at least half their text`
       + ` · ${ex.failed.length} did not build · ${ex.inferred} drew an inference`);
     console.log(ex.inferred === 0
-      ? `  no over-reading: the engine adds no inference to the canon's own examples\n`
+      ? `  none fired the engine's one declared inference rule (hand from handShift)\n`
       : `  ${ex.inferred} example(s) drew an inference: check they are not over-readings\n`);
   }
 }

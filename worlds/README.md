@@ -1,4 +1,4 @@
-# Editorial worlds
+# Possible (editorial) worlds
 
 Torchio does not hold one universal interpretation of TEI. The same markup can
 belong to different editorial traditions and mean different things in each. A
@@ -7,13 +7,13 @@ another, an editorial integration in a third. No engine can read that from the
 element name.
 
 So instead of a table `element → meaning`, this directory holds a set of
-**editorial worlds**, each a coherent theory of what a tradition treats as
+**possible (editorial) worlds**, each a coherent theory of what a tradition treats as
 significant and how it reads the markup, delimited not by abstract rules but by
 **examples and counter-examples**.
 
 Three things, kept distinct:
 
-- **The editorial world** (`*.world.js`): the claims a tradition makes, the TEI
+- **The possible (editorial) world** (`*.world.js`): the claims a tradition makes, the TEI
   signals that express them, and — decisively — the inferences it forbids.
 - **The contrastive corpus**: for each world, positive examples (this is the
   phenomenon), contrastive examples (this looks similar but is *not* it), and

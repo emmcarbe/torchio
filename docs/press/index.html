@@ -46,6 +46,8 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .flow legend{color:var(--accent,#b01e28)}
 .dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
+.rmimg{background:none;border:0;color:#b01e28;cursor:pointer;font-size:12px;padding:0}
+.rmimg:hover{text-decoration:underline}
 .stepmove{display:flex;justify-content:space-between;margin:1.2em 0}
 .stepmove button{font-family:var(--mono,monospace);font-size:12px;padding:8px 16px;border:1px solid #ccc;border-radius:2px;background:#fff;cursor:pointer}
 .stepmove button.step-download{background:#b01e28;color:#fff;border-color:#b01e28}
@@ -685,7 +687,34 @@ function buildExports(model, { sourceXML = null, only = null } = {}) {
   const want = (k) => !only || only[k] !== false;
   const files = {};
   if (want('model')) {
-    const json = modelJSON(model);
+    // a large archive cannot be serialized whole: past a certain size the
+    // engine that runs this refuses to build the string at all (a few hundred
+    // megabytes), and the failure arrives as an error about a string length,
+    // long before the size check below could speak. So the attempt is made and
+    // its failure is a fact like any other: the model is then split per
+    // document, which is the same shape the size rule produces
+    let json = null;
+    try { json = modelJSON(model); }
+    catch (err) { json = null; }
+    if (json === null) {
+      if (model.documents && model.documents.length > 1) {
+        // the box keeps the archive's own level (what belongs to the whole:
+        // its identity, its shared registries) and points at one file per
+        // document. Both levels survive: the archive is not reduced to a list
+        // of links, and a document is not flattened into the archive
+        const index = { split: true, reason: 'the whole model is too large to serialize in one piece',
+          meta: model.meta, generator: model.generator, collection: model.collection,
+          registries: model.registries, documents: [] };
+        for (const d of model.documents) {
+          const one = JSON.stringify({ meta: model.meta, generator: model.generator,
+            documents: [d] }, null, 1);
+          const name = `data/model/${String(d.id).replace(/[^\w.-]/g, '_')}.json`;
+          files[name] = one;
+          index.documents.push({ id: d.id, file: name.replace('data/', ''), bytes: one.length });
+        }
+        files['data/model.json'] = JSON.stringify(index, null, 1);
+      }
+    } else {
     // a file the repository cannot carry is not published: GitHub refuses any
     // blob over 100 MB, so an edition that emits one cannot be pushed at all,
     // and the Data page would promise a download that answers 404. The model
@@ -694,7 +723,8 @@ function buildExports(model, { sourceXML = null, only = null } = {}) {
     if (json.length <= MAX) files['data/model.json'] = json;
     else if (model.documents && model.documents.length > 1) {
       const index = { split: true, reason: 'the whole model exceeds what a repository can carry',
-        bytes: json.length, documents: [] };
+        bytes: json.length, meta: model.meta, generator: model.generator,
+        collection: model.collection, registries: model.registries, documents: [] };
       for (const d of model.documents) {
         const one = JSON.stringify({ meta: model.meta, generator: model.generator,
           documents: [d] }, null, 1);
@@ -703,6 +733,7 @@ function buildExports(model, { sourceXML = null, only = null } = {}) {
         index.documents.push({ id: d.id, file: name.replace('data/', ''), bytes: one.length });
       }
       files['data/model.json'] = JSON.stringify(index, null, 1);
+    }
     }
   }
   const reg = model.registries;
@@ -721,7 +752,28 @@ function buildExports(model, { sourceXML = null, only = null } = {}) {
     files['data/concordance.csv'] = concordanceCSV(model);
   }
   if (want('tokens') && model.tokens && model.tokens.length) {
-    files['data/tokens.csv'] = tokensCSV(model, model.tokens);
+    // the same rule as the model: an archive's whole token stream may exceed
+    // what one string can hold. Then it travels per document, with an index
+    // that says where each part is, so both levels stay legible
+    try {
+      files['data/tokens.csv'] = tokensCSV(model, model.tokens);
+    } catch (err) {
+      const byDoc = new Map();
+      for (const t of model.tokens) {
+        const d = t.docId || 'doc';
+        if (!byDoc.has(d)) byDoc.set(d, []);
+        byDoc.get(d).push(t);
+      }
+      const idx = [['document', 'file', 'tokens']];
+      for (const [d, toks] of byDoc) {
+        const name = `data/tokens/${String(d).replace(/[^\w.-]/g, '_')}.csv`;
+        try {
+          files[name] = tokensCSV(model, toks);
+          idx.push([d, name.replace('data/', ''), String(toks.length)]);
+        } catch (e2) { idx.push([d, '', 'too large to write']); }
+      }
+      files['data/tokens.csv'] = csv(idx);
+    }
   }
   if (want('source') && sourceXML) files['data/source.xml'] = sourceXML;
   return files;
@@ -1502,8 +1554,9 @@ body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
 .torchio-pop .popband .bw:hover{text-decoration:underline}
 
-/* dense notes: marks only, notes open on click */
-body.notes-dense main.torchio .t-note{display:none!important}
+/* dense notes: those the margins cannot hold collapse to their marks and open
+   on click; the ones placed in a margin (.placed) stay visible */
+body.notes-dense main.torchio .t-note:not(.placed){display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
 [data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
@@ -1714,7 +1767,7 @@ function buildInteractJS(t) {
     if(app)return [app];
     var t=n.dataset.target;
     if(t){
-      var els=t.split(/\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
+      var els=t.split(/\\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
       if(els.length)return els;
     }
     var m=n.previousElementSibling;
@@ -1775,7 +1828,7 @@ function buildInteractJS(t) {
               if(el){
                 var cl=el.cloneNode(true);
                 cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
-                txt=cl.textContent.replace(/\s+/g,' ').trim();
+                txt=cl.textContent.replace(/\\s+/g,' ').trim();
               }
               openPop('<span class="k">'+esc(sig)+'</span>'
                 +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
@@ -1803,7 +1856,7 @@ function buildInteractJS(t) {
       });
       var extra='';
       app.querySelectorAll('.t-note').forEach(function(nn){
-        extra+='<div class="meta">'+esc(nn.textContent.replace(/\s+/g,' ').trim())+'</div>';
+        extra+='<div class="meta">'+esc(nn.textContent.replace(/\\s+/g,' ').trim())+'</div>';
       });
       openPop('<span class="k">'+esc(T.apparatus.toLowerCase())+''+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
       ev.stopPropagation();return;
@@ -1844,7 +1897,7 @@ function buildInteractJS(t) {
       var lab=(op.dataset.change||'').replace(/^#/,''), hd=(op.dataset.hand||'').replace(/^#/,'');
       var strat=lab?document.querySelector('[data-el="change"][id$="'+lab+'"]'):null;
       openPop('<span class="k">'+esc(op.dataset.el)+'</span>'
-        +'<div class="notebody">'+esc(op.textContent.replace(/\s+/g,' ').trim().slice(0,140))+'</div>'
+        +'<div class="notebody">'+esc(op.textContent.replace(/\\s+/g,' ').trim().slice(0,140))+'</div>'
         +'<div class="meta">'+(lab?esc(lab):'')+(hd?' · '+esc(hd):'')
         +' <a href="genesis.html">'+esc(T.genesis)+'</a></div>',op);
       ev.stopPropagation();return;
@@ -1929,7 +1982,7 @@ function buildInteractJS(t) {
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
       var t=n.dataset.target;
       if(t){
-        var id=t.split(/\s+/)[0].replace(/^#/,'');
+        var id=t.split(/\\s+/)[0].replace(/^#/,'');
         var el=document.getElementById(id);
         if(el)return {el:el,kind:'target'};
       }
@@ -1965,7 +2018,7 @@ function buildInteractJS(t) {
            its mark goes to the passage, not to the place it was written */
         var tg=n.dataset.target;
         if(tg&&mk){
-          var id=tg.split(/\s+/)[0].replace(/^#/,'');
+          var id=tg.split(/\\s+/)[0].replace(/^#/,'');
           var dest=document.getElementById(id);
           if(dest&&!dest.contains(mk)){
             if(dest.nextSibling)dest.parentNode.insertBefore(mk,dest.nextSibling);
@@ -1979,17 +2032,32 @@ function buildInteractJS(t) {
         if(el&&el!==mk){el.setAttribute('data-notepop',String(i));makeTrigger(el,null);}
       });
     }
-    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+    var old=document.getElementById('note-leaders'); if(old)old.remove();
+    /* the notes go into BOTH margins: each takes the side that carries it
+       closest to its mark, so a long text with many notes fills the two
+       gutters instead of collapsing to popups. The economy rule is applied
+       per note, not to the whole page: only a note that neither side can hold
+       near its anchor (its stack would push it past MAXDRIFT) collapses to its
+       mark and opens on click. The two columns keep their own running bottom */
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var remPx=parseFloat(getComputedStyle(document.documentElement).fontSize)||16;
+    var noteW=14*remPx;
+    /* margins carry the notes only when a gutter can actually hold one. The
+       page is centred, so both gutters are the same width; too narrow, or
+       notes off, and every note collapses to its mark. This is the real cause
+       of notes landing on the text: a margin too thin for what it was asked to
+       hold. Measured, not guessed at a fixed breakpoint */
+    if(mr.left<noteW+26||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
     }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
+    var colR=main.clientWidth+26;   // right column: the note extends into the right gutter
+    var colL=-(noteW+26);           // left column: the note sits in the left gutter
+    var GAP=10, MAXDRIFT=340;
     var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
-    var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
       var res=anchorOf(n);
@@ -1998,28 +2066,45 @@ function buildInteractJS(t) {
       if(a){
         var r=a.getBoundingClientRect();
         var ay=(r.width||r.height)?r.top-mr.top:null;
-        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
-        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
+        // the anchor's own position is the truth: the note is hidden inline
+        // when dense, so its flow position is meaningless. Align to the mark
+        // (or the standoff target) wherever it sits on the page
+        if(ay!==null){y=ay;}
         else{a=null;}
       }
       return {n:n,a:a,kind:kind,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
+    var botL=0, botR=0, maxBottom=0;
     items.forEach(function(it){
       var n=it.n;
+      var topR=Math.max(it.y,botR+GAP), topL=Math.max(it.y,botL+GAP);
+      // the right margin is primary; the left takes the overflow only when the
+      // right is backed up (it would push the note more than a line below its
+      // mark) and the left carries it closer. So a lightly annotated text keeps
+      // one margin, and a dense one like this grammar spreads over both
+      var side=(topR-it.y<=26)?'R':(topL<topR?'L':'R');
+      var top=side==='L'?topL:topR;
+      if(top-it.y>MAXDRIFT){ n.classList.remove('placed'); n.style.cssText=''; return; }
       n.classList.add('placed');
-      var top=Math.max(it.y,lastBottom+10);
-      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
-      lastBottom=top+n.offsetHeight;
+      var left=side==='L'?colL:colR;
+      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+left+'px;top:'+top+'px;border-left:0;padding-left:0';
+      var h=n.offsetHeight;
+      if(side==='L')botL=top+h; else botR=top+h;
+      if(top+h>maxBottom)maxBottom=top+h;
       if(it.a){
         var ar=it.a.getBoundingClientRect();
         if(ar.width||ar.height){
-          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
-          var x2=colLeft-8, y2=top+8;
-          // a thread only when short and meaningful; never across the page
-          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
+          var y1=ar.top-mr.top+ar.height*0.5, y2=top+8, x1,x2,cx1,cx2;
+          if(side==='L'){ x1=ar.left-mr.left-2; x2=left+noteW+8; cx1=x1-24; cx2=x2+24; }
+          else { x1=ar.right-mr.left+2; x2=left-8; cx1=x1+24; cx2=x2-24; }
+          // a thread where the eye needs it: the note is pushed below its mark
+          // by the stack, so a short faint curve reconnects them. Where the
+          // note sits at its mark's height (drift near zero) the alignment is
+          // the connection and a line would only clutter; never across the page
+          if(Math.abs(y2-y1)>14&&Math.abs(y2-y1)<200){
             var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
+            p.setAttribute('d','M'+x1+' '+y1+' C '+cx1+' '+y1+', '+cx2+' '+y2+', '+x2+' '+y2);
             p.setAttribute('fill','none');
             p.setAttribute('stroke','var(--faint)');
             p.setAttribute('stroke-width','1');
@@ -2037,7 +2122,7 @@ function buildInteractJS(t) {
         }
       }
     });
-    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
+    if(maxBottom)main.style.minHeight=(maxBottom+32)+'px';
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
@@ -2420,6 +2505,17 @@ const BLOCKS = new Set([
  *  documentary surface holds lines of text and is unaffected. */
 const FACSIMILE_ELEMENTS = new Set(['facsimile', 'surface', 'surfaceGrp', 'zone', 'graphic']);
 
+/**
+ * An address an editor typed into running prose (the text of a note, a
+ * witness description) is an address: it becomes a link that opens in its
+ * own tab. The input is already escaped; the pattern stops before closing
+ * punctuation, so a citation ending in a full stop does not swallow it.
+ */
+function linkifyText(escaped) {
+  return escaped.replace(/(https?:\/\/[^\s<"]*[^\s<".,;:)\]])/g,
+    (u) => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+}
+
 /** Escapes for both text and attribute contexts: quotes included, because
  *  a `&quot;` in a TEI attribute would otherwise close the HTML attribute
  *  and inject markup. Entities render identically as text. */
@@ -2513,7 +2609,13 @@ function renderBase(node, hooks) {
   }
   if (node.element === 'note') {
     // anchor marker in the text, tied to the floated margin note
-    const inner = node.children.map((c) => typeof c === 'string' ? escapeHTML(c) : renderBase(c, hooks)).join('');
+    const inner = node.children.map((c) => typeof c === 'string'
+      // an address an editor typed into the prose of a note is an address:
+      // it becomes a link, opening in its own tab, the way the witness
+      // register already treats one. Only the text the source wrote is
+      // touched; markup that already declares a pointer goes its own way
+      ? linkifyText(escapeHTML(c))
+      : renderBase(c, hooks)).join('');
     let nd = '';
     for (const a of DATA_ATTS) {
       if (node.atts[a] != null) nd += ` data-${a}="${escapeHTML(node.atts[a])}"`;
@@ -2569,6 +2671,23 @@ function renderBase(node, hooks) {
     prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
   const after = hooks && hooks.after ? hooks.after(node) : '';
+  // a pointer is a pointer: `ref` and `ptr` whose target is an external
+  // address become real links, opening in their own tab. A `ptr` carries no
+  // text of its own, so the address itself is what the reader clicks; a
+  // `ref` keeps the words the edition chose. An internal target (#id) is
+  // left to the interactive layer, and a target the safety rules refuse is
+  // left as plain text rather than turned into a link nobody vetted
+  if ((node.element === 'ref' || node.element === 'ptr')) {
+    const t = node.atts.target || node.atts.ref || '';
+    if (/^https?:\/\//.test(t)) {
+      const href = safeURL(t);
+      if (href) {
+        const label = inner.trim() || escapeHTML(t.replace(/^https?:\/\//, ''));
+        return `<a${id} class="${cls} ent-ext" href="${escapeHTML(href)}"`
+          + ` target="_blank" rel="noopener"${data}>${label}</a>${after}`;
+      }
+    }
+  }
   // a mention whose @ref is an external authority URI (VIAF, Wikidata,
   // GeoNames...) is a real link: it opens in its own tab, markup decides
   if (tag === 'span' && MENTION_ELEMENTS.has(node.element)) {
@@ -2714,6 +2833,11 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
 .t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
+/* an apparatus entry in running prose is part of the sentence: it holds a
+   note, so the HTML element must be a div (a span may not contain one), but
+   it reads inline. Its note is either placed in a margin (absolute) or
+   collapsed to its mark, so it never breaks the line either */
+.t-app{display:inline}
 .t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
 .t-app .t-note{display:none}
 @media(min-width:1180px){.t-app .t-note{display:block}}
@@ -2924,6 +3048,11 @@ header.torchio .tt{min-width:14rem}
 .occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
 .occ a{color:var(--accent);margin-right:.5em}
 h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.md-code{background:var(--wash,#f6f5f2);border:1px solid var(--hair);border-radius:3px;
+  padding:.7em 1em;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5}
+.md-code code{background:none;padding:0}
+main img{max-width:100%;height:auto}
+main hr{border:0;border-top:1px solid var(--hair);margin:1.8em 0}
 .skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
   padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
 .skip:focus{left:0}
@@ -3170,7 +3299,25 @@ function harvestPlaces(model) {
  * @param previous  a previously written georef.places object; editor
  *                  decisions (confirmed / rejected / edited coords) survive.
  */
-function georeference(model, gazetteer, previous = {}) {
+/**
+ * The Americas, across the Atlantic gap: longitude between -170 and -34. The
+ * Old World's westernmost inhabited land (the Azores, Cape Verde) sits around
+ * -31, so -34 separates the two hemispheres cleanly.
+ */
+function inTheAmericas(lon) { return lon > -170 && lon < -34; }
+
+/**
+ * A place a text written no later than `notAfter` cannot name. A pre-Columbian
+ * edition cannot refer to a place in the Americas: drop those candidates, so a
+ * "Carthage, Illinois" never even surfaces as an alternative to Carthago. A
+ * heuristic on the edition's terminus ante quem, not a universal truth.
+ */
+function pruneByPeriod(hits, notAfter) {
+  if (notAfter == null || notAfter >= 1492) return hits;
+  return hits.filter(([, , lon]) => !inTheAmericas(lon));
+}
+
+function georeference(model, gazetteer, previous = {}, pleiades = null, notAfter = null) {
   const places = {};
   let found = 0, missing = 0, kept = 0;
   for (const h of harvestPlaces(model)) {
@@ -3180,14 +3327,30 @@ function georeference(model, gazetteer, previous = {}) {
       kept++;
       continue;
     }
-    const hits = gazetteer[h.key] || [];
-    if (hits.length) {
-      const [name, lat, lon, country, pop, id] = hits[0];
+    // Pleiades wins when it has the place: a toponym that is in Pleiades is an
+    // ancient place, so for a classical or medieval text it is the right
+    // reading, over a modern homonym (Carthage, Illinois; Troy, New York).
+    // GeoNames covers everything Pleiades does not (the modern world). Both
+    // sources stay visible as alternatives, and every hit is only a
+    // SUGGESTION carrying its source: the machine can still pick the wrong
+    // Troia (Egypt, not Homer's), so the editor confirms.
+    const pleHits = pruneByPeriod((pleiades && pleiades[h.key]) || [], notAfter);
+    const geoHits = pruneByPeriod(gazetteer[h.key] || [], notAfter);
+    const src = pleHits.length ? 'pleiades' : 'geonames';
+    const primary = pleHits.length ? pleHits : geoHits;
+    const other = pleHits.length ? geoHits : pleHits;
+    const otherSrc = pleHits.length ? 'geonames' : 'pleiades';
+    if (primary.length) {
+      const [name, lat, lon, country, pop, id] = primary[0];
+      const alt = (source) => ([n2, la, lo, c2, p2, i2]) =>
+        ({ name: n2, lat: la, lon: lo, country: c2, population: p2, source, [source]: i2 });
       places[h.key] = {
         label: h.label, status: 'suggested',
-        lat, lon, country, geonames: id, source: 'geonames',
-        alternatives: hits.slice(1, 5).map(([n2, la, lo, c2, p2, i2]) =>
-          ({ name: n2, lat: la, lon: lo, country: c2, population: p2, geonames: i2 })),
+        lat, lon, country, [src]: id, source: src,
+        alternatives: [
+          ...primary.slice(1, 4).map(alt(src)),
+          ...other.slice(0, 2).map(alt(otherSrc)),
+        ],
       };
       found++;
     } else {
@@ -4061,8 +4224,11 @@ function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pages,
 
 // every page the engine knows how to make: a manifest that names its pages
 // must not silently drop the apparatus of a critical edition (C84)
-const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas',
-  'lexicon', 'apparatus', 'genesis', 'map', 'data'];
+// 'lab' is the id under which the analytical section (indices, lexicon,
+// lemmas, map) is requested: without it here, an edition that declares its
+// pages would silently lose all four
+const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'lab', 'indices',
+  'lemmas', 'lexicon', 'apparatus', 'genesis', 'map', 'data'];
 const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 function normalizeManifest(raw = {}) {
@@ -4087,10 +4253,10 @@ function normalizeManifest(raw = {}) {
       : {},
     extra: [],
     pages: null,
-    // what kind of thing this edition is: it decides which columns the
-    // register wears and what the pages are called. Declared, never guessed
-    genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
-      ? raw.genre : null,
+    // genre was validated here and read by nothing: a field that does
+    // nothing must not look like a setting. Removed (C90) until the
+    // two-axis edition profile, derived from the markup and confirmed by
+    // the editor, exists
     version: raw.version != null && String(raw.version).trim() ? String(raw.version).trim() : null,
     apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : null,
     pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
@@ -4273,22 +4439,48 @@ window.addEventListener('resize',function(){map.invalidateSize();fit();});
 // ---- src/md.js ----
 /**
  * Minimal Markdown for the editor's simple pages: headings, paragraphs,
- * emphasis, links, lists, blockquotes, inline code. Nothing more on purpose:
- * a simple page is prose, not an application. Input is escaped first; the
- * only HTML that comes out is the HTML we make.
+ * emphasis (both * and _), links, images, lists, blockquotes, tables, fenced
+ * code, horizontal rules, inline code. Prose, not an application, but enough
+ * that pasting a real Markdown file renders as written. Input is escaped
+ * first; the only HTML that comes out is the HTML we make.
  */
 
 
 
+const okURL = (href) => {
+  const u = safeURL(href);
+  return u && /^(https?:|\/|#|\.)/.test(u) ? escapeHTML(u) : null;
+};
+
+// A self-contained edition cannot fetch an external image: only a path that
+// travels with the edition (a relative path into its own folder) is drawn.
+// An external image URL becomes a link instead, never a silent load.
+const localImg = (href) => {
+  if (/^([a-z][a-z0-9+.-]*:)?\/\//i.test(href) || /^[a-z][a-z0-9+.-]*:/i.test(href)) return null;
+  const u = safeURL(href);
+  return u && !u.startsWith('/') ? escapeHTML(u) : null;
+};
+
 function inline(s) {
   return s
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, text, href) => {
-      const u = safeURL(href);
-      return u && /^(https?:|\/|#|\.)/.test(u) ? `<a href="${escapeHTML(u)}">${text}</a>` : m;
+    .replace(/`([^`]+)`/g, (m, c) => `<code>${c}</code>`)
+    // images before links: ![alt](url), but only local images are drawn
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt, href) => {
+      const local = localImg(href);
+      if (local) return `<img src="${local}" alt="${alt}" loading="lazy">`;
+      const u = okURL(href);
+      return u ? `<a href="${u}">${alt || u}</a>` : m;
     })
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, text, href) => {
+      const u = okURL(href);
+      return u ? `<a href="${u}">${text}</a>` : m;
+    })
+    // strong before emphasis; both asterisk and underscore
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    // underscore emphasis only at word boundaries, so snake_case is left alone
+    .replace(/(^|[^\w*`])_([^_]+)_(?![\w])/g, '$1<em>$2</em>');
 }
 
 function markdown(src) {
@@ -4297,6 +4489,7 @@ function markdown(src) {
   let list = null; // 'ul' | 'ol'
   let para = [];
   let table = null; // rows of cells
+  let code = null;  // collected lines while inside a ``` fence
 
   const flushPara = () => {
     if (para.length) { out.push(`<p>${inline(para.join(' '))}</p>`); para = []; }
@@ -4318,12 +4511,17 @@ function markdown(src) {
   };
 
   for (const raw of lines) {
+    // fenced code: everything between ``` lines is literal (already escaped)
+    if (code !== null) {
+      if (/^\s*```/.test(raw)) { out.push(`<pre class="md-code"><code>${code.join('\n')}</code></pre>`); code = null; }
+      else code.push(raw);
+      continue;
+    }
+    if (/^\s*```/.test(raw)) { flushPara(); flushList(); flushTable(); code = []; continue; }
+
     const line = raw.trimEnd();
-    const h = line.match(/^(#{1,3})\s+(.*)$/);
-    const ul = line.match(/^[-*]\s+(.*)$/);
-    const ol = line.match(/^\d+\.\s+(.*)$/);
-    const bq = line.match(/^>\s?(.*)$/);
     if (!line.trim()) { flushPara(); flushList(); flushTable(); continue; }
+
     const tr = line.match(/^\|(.+)\|$/);
     if (tr) {
       flushPara(); flushList();
@@ -4332,9 +4530,19 @@ function markdown(src) {
       continue;
     }
     flushTable();
+
+    const h = line.match(/^(#{1,6})\s+(.*)$/);
+    const ul = line.match(/^[-*]\s+(.*)$/);
+    const ol = line.match(/^\d+\.\s+(.*)$/);
+    const bq = line.match(/^>\s?(.*)$/);
+    const hr = /^([-*_])\1{2,}$/.test(line.replace(/\s+/g, ''));
     if (h) {
       flushPara(); flushList();
-      out.push(`<h${h[1].length + 1} class="sec">${inline(h[2])}</h${h[1].length + 1}>`);
+      const lvl = Math.min(h[1].length + 1, 6);
+      out.push(`<h${lvl} class="sec">${inline(h[2])}</h${lvl}>`);
+    } else if (hr) {
+      flushPara(); flushList();
+      out.push('<hr>');
     } else if (ul || ol) {
       flushPara();
       const kind = ul ? 'ul' : 'ol';
@@ -4348,6 +4556,7 @@ function markdown(src) {
       para.push(line.trim());
     }
   }
+  if (code !== null) out.push(`<pre class="md-code"><code>${code.join('\n')}</code></pre>`);
   flushPara(); flushList(); flushTable();
   return out.join('\n');
 }
@@ -6240,6 +6449,12 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
 
   // everything the last pressing established
   let S = null;
+  // images the editor drops for the simple pages. Kept out of S so they survive
+  // a re-press (S is rebuilt each press): name -> Uint8Array. Written verbatim
+  // into the archive's images/ folder and inlined into the preview.
+  const droppedImages = new Map();
+  const IMG_RE = /\.(png|jpe?g|gif|webp|svg|avif)$/i;
+  let pleiadesIndex = null; // the compact Pleiades index, fetched once beside the page
   // S = { model, analysis, sourceXML, notes, unresolved, odd, oddInfo,
   //       droppedManifest, droppedExtra, slug, ui, files }
 
@@ -6279,7 +6494,7 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
   let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
   let entitiesAuto = false; // accept machine entity proposals without review (declared in the edition)
   async function doPress(fileList) {
-    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name));
+    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name) && !IMG_RE.test(f.name));
     // the browser presses in memory: fine for composing and trying, but a
     // whole archive belongs in the repository that presses itself. Warn
     // rather than freeze, and let the editor go on if they mean to
@@ -6304,6 +6519,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       // a reviewed lemma sheet comes back as .xlsx: read it here, so the
       // editor never touches the JSON
       if (/\.xlsx$/i.test(f.name)) { reviewSheet = new Uint8Array(await f.arrayBuffer()); continue; }
+      // an image is bytes, never text: capture it for the images/ folder, so
+      // dropping the whole edition folder (XML and images together) just works
+      if (IMG_RE.test(f.name)) { droppedImages.set(f.name.split('/').pop(), new Uint8Array(await f.arrayBuffer())); continue; }
       texts.set(f.name, await f.text());
     }
 
@@ -6574,7 +6792,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         lexFreq: !!(raw.pieces && (raw.pieces.lexFreq === true || raw.pieces.lexicon === true)),
         lexConc: !!(raw.pieces && (raw.pieces.lexConc === true || raw.pieces.lexicon === true)),
       },
-      genre: typeof raw.genre === 'string' ? raw.genre : '',
       apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : '',
       version: typeof raw.version === 'string' ? raw.version
         : (raw.version != null ? String(raw.version) : ''),
@@ -6737,7 +6954,8 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       rows.push([w.label, w.type, 'marked', 'suggested',
         a ? (a.description || '') : '',
         a && a.lat != null ? a.lat : '', a && a.lon != null ? a.lon : '',
-        a ? 'wikidata:' + a.qid + (a.viaf ? ' viaf:' + a.viaf : '') : '', '']);
+        a ? (a.qid ? 'wikidata:' + a.qid + (a.viaf ? ' viaf:' + a.viaf : '')
+          : (a.source === 'pleiades' && a.pleiades ? 'pleiades:' + a.pleiades : '')) : '', '']);
     }
     // one row per bare occurrence, with its own context, so Roma the city and
     // Roma the surname are judged apart. Candidates arrive the same way, with
@@ -6875,6 +7093,41 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     }
   }
 
+  // Pleiades locates the places OFFLINE: the compact index rides beside this
+  // page (pleiades.json), fetched once. A match is a coordinate suggestion
+  // carrying its source, never confirmed unseen: the machine can pick the wrong
+  // Troia, so the editor confirms in the sheet like every other proposal. It
+  // feeds the same authoritySuggestions the Wikidata search fills
+  async function locatePleiades() {
+    const btn = document.getElementById('c-pleiades');
+    const places = entityLabels().filter((w) => w.marked && w.type === 'place');
+    if (!places.length) { alert('No marked places to locate. Pleiades gives coordinates for places (a placeName the markup declares).'); return; }
+    btn.disabled = true; btn.textContent = 'loading Pleiades…';
+    try {
+      if (!pleiadesIndex) pleiadesIndex = await (await fetch('pleiades.json')).json();
+    } catch (err) {
+      alert('The Pleiades index could not be loaded (' + err.message + '). It rides beside this page as '
+        + 'pleiades.json; the command-line georeference carries the full gazetteer.');
+      btn.disabled = false; btn.textContent = 'Locate ancient places (Pleiades)';
+      return;
+    }
+    const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const sug = S.authoritySuggestions || new Map();
+    let found = 0;
+    for (const w of places) {
+      const hit = pleiadesIndex[norm(w.label)];
+      if (!hit) continue;
+      const a = sug.get(w.label) || { type: 'place' };
+      a.lat = hit[0]; a.lon = hit[1]; a.source = 'pleiades'; a.pleiades = hit[2] || 0;
+      sug.set(w.label, a);
+      found++;
+    }
+    S.authoritySuggestions = sug;
+    btn.disabled = false; btn.textContent = 'Locate ancient places (Pleiades)';
+    alert(found + ' of ' + places.length + ' places located in Pleiades (the ancient world). Download the '
+      + 'names sheet to confirm each: a place the machine can misplace stays a suggestion until you do.');
+  }
+
   function buildManifest() {
     const ui = S.ui;
     const m = {};
@@ -6882,7 +7135,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (ui.subtitle.trim()) m.subtitle = ui.subtitle.trim();
     if (ui.lang) m.lang = ui.lang;
     if (ui.theme) m.theme = ui.theme;
-    if (ui.genre) m.genre = ui.genre;
     if (ui.version) m.version = ui.version;
     if (ui.apparatusKind) m.apparatusKind = ui.apparatusKind;
     const off = {};
@@ -7045,8 +7297,9 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '<option value="en"' + (ui.lang === 'en' ? ' selected' : '') + '>English</option>'
       + '</select></div>'
       + '<div class="frow"><label for="c-theme">Theme</label><select id="c-theme">'
-      + ['', 'savi', 'pergamena', 'moderno'].map((t) =>
-        '<option value="' + t + '"' + (ui.theme === t ? ' selected' : '') + '>'
+      // savi IS the default: one entry, not a "savi (default)" beside a "savi"
+      + ['', 'pergamena', 'moderno'].map((t) =>
+        '<option value="' + t + '"' + (ui.theme === t || (t === '' && ui.theme === 'savi') ? ' selected' : '') + '>'
         + (t || 'savi (default)') + '</option>').join('')
       + '</select></div>'
       + '<div class="frow"><label for="c-version">Version</label>'
@@ -7073,20 +7326,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         + 'from what you confirmed, and nobody is looked up while your edition is being read.',
     };
 
-    html += '<fieldset data-step="edition"><legend>What this edition is</legend>'
-      + '<div class="frow"><label>Kind</label><select id="c-genre">'
-      + '<option value="">from the markup</option>'
-      + '<option value="edition">critical edition</option>'
-      + '<option value="archive">archive of many texts</option>'
-      + '<option value="correspondence">correspondence</option>'
-      + '<option value="tradition">tradition of witnesses</option>'
-      + '</select></div>'
-      + '<p class="note">A <b>critical edition</b> presses one text with its apparatus and its witnesses. '
-      + 'An <b>archive</b> presses many texts as a register with author and date, each with its own page. '
-      + 'A <b>correspondence</b> is an archive whose register wears sender, recipient and date. '
-      + 'A <b>tradition</b> presses the witnesses side by side, with the apparatus apart. '
-      + 'Left to the markup, the shape is derived from what the files declare.</p>'
-      + '</fieldset>';
     html += '<fieldset data-step="pages"><legend>Pages</legend>';
     // the section pages of a long text are the divisions the markup declares:
     // shown as one summary line, not one checkbox each
@@ -7123,8 +7362,22 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     }
     html += '<p><button type="button" id="c-addpage">Add a simple page</button> '
       + '<span class="note">your own prose (an introduction, credits, a bibliography), '
-      + 'written in Markdown, part of the site navigation</span></p>'
-      + '</fieldset>';
+      + 'written in Markdown, part of the site navigation</span></p>';
+    html += '<div class="frow" style="align-items:flex-start"><label for="drop-images">Images</label>'
+      + '<div style="flex:1">'
+      + '<div class="dropmini" id="drop-images"><span class="note">Drop images here (png, jpg, gif, webp, svg). '
+      + 'Each travels in the edition’s <code>images/</code> folder; in a page write '
+      + '<code>![caption](images/NAME)</code> to place it. An external image URL is never loaded, only linked.</span></div>'
+      + ([...droppedImages.keys()].length
+        ? '<table class="wit-table" style="margin:.5em 0 0">'
+          + [...droppedImages.keys()].map((n) =>
+            '<tr><td><code>images/' + esc(n) + '</code></td>'
+            + '<td style="text-align:right"><button type="button" class="rmimg" data-rmimg="'
+            + esc(n) + '">remove</button></td></tr>').join('')
+          + '</table>'
+        : '')
+      + '</div></div>';
+    html += '</fieldset>';
 
     // the register's columns, for collections: chosen among the fields the
     // headers populate; the engine's default follows the majority (a
@@ -7256,6 +7509,15 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
           + (S.authoritySuggestions ? ' <b>' + S.authoritySuggestions.size + ' proposals ready.</b>' : '')
           + '</span></p>'
         : '')
+      + (markedCount
+        ? '<p><button type="button" id="c-pleiades">Locate ancient places (Pleiades)</button>'
+          + '<span class="note">The places of an ancient or medieval text, matched <b>offline</b> against '
+          + 'Pleiades (the gazetteer of the ancient world), fetched once beside this page. Each match is a '
+          + 'coordinate <b>suggestion</b> carrying its source, for you to confirm: the machine can still pick '
+          + 'the wrong Troia. GeoNames, far larger, is the command-line route; here Pleiades covers the '
+          + 'ancient world and Wikidata the rest.'
+          + '</span></p>'
+        : '')
       + '<p><button type="button" id="c-entities-sheet">Download the names sheet</button>'
       + '<span class="note">Everything above lands in one spreadsheet: the declared names, the '
       + 'unmarked occurrences with their context, the candidates, the authority proposals. Confirm, '
@@ -7263,15 +7525,15 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
       + '(or with the files).</span></div>'
       + '<p class="note"><b>The map needs coordinates.</b> A place appears on the map only when it '
-      + 'carries a latitude and a longitude. For places the proper source is GeoNames: the '
-      + 'repository georeferences against the gazetteer (the georeference step), the editor confirms, '
-      + 'and coordinates the TEI already declares always win. Here in the browser, where the whole '
-      + 'gazetteer is too large to carry, the Wikidata search proposes coordinates instead, or you '
-      + 'fill the lat and lon columns in the sheet by hand. A place without coordinates stays in the '
-      + 'index, off the map.</p>'
+      + 'carries a latitude and a longitude, and coordinates the TEI already declares always win. '
+      + 'For the ancient world, Pleiades locates the places here offline; Wikidata proposes coordinates '
+      + 'for the rest, over the network. GeoNames, the fuller modern gazetteer, is too large to carry '
+      + 'in a page: it is the command-line route (the georeference step). Every proposal is a suggestion '
+      + 'to confirm, or you fill the lat and lon columns in the sheet by hand. A place without '
+      + 'coordinates stays in the index, off the map.</p>'
       + '<label class="checkrow" style="margin-top:.6em"><input type="checkbox" id="c-entities-auto"'
       + (entitiesAuto ? ' checked' : '') + '>or proceed without review: use the proposals as they are, '
-      + 'with the coordinates Wikidata proposed. The edition will say so (every name stays marked as a '
+      + 'with the coordinates the gazetteers proposed. The edition will say so (every name stays marked as a '
       + 'machine suggestion)</label>'
       + '</fieldset>';
 
@@ -7284,7 +7546,12 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
       + '<div class="frow"><label for="pe-label">Title of the page</label>'
       + '<input id="pe-label" type="text"></div>'
       + '<div class="frow"><label for="pe-md">Text (Markdown)</label>'
-      + '<textarea id="pe-md" rows="10" placeholder="# Heading&#10;&#10;Plain paragraphs, *emphasis*, [links](https://…), lists."></textarea></div>'
+      + '<textarea id="pe-md" rows="10" placeholder="# Heading&#10;&#10;Plain paragraphs, *emphasis* or _emphasis_, [links](https://…), lists."></textarea></div>'
+      + '<p class="note" style="margin:-.4em 0 .8em">Markdown marks headings (#), '
+      + '<b>*emphasis*</b>, lists, quotes, tables and code. If you are not comfortable '
+      + 'with it, write in an online editor such as <a href="https://dillinger.io/" '
+      + 'target="_blank" rel="noopener">Dillinger</a> and paste the result here. '
+      + 'Images must be local: an external image is turned into a link, never loaded.</p>'
       + '<p><button type="button" id="pe-save">Save the page</button> '
       + '<button type="button" id="pe-cancel">Cancel</button></p>'
       + '</div>';
@@ -7352,7 +7619,6 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     bind('c-lexfreq', (el) => { ui.pieces.lexFreq = el.checked; });
     bind('c-lexconc', (el) => { ui.pieces.lexConc = el.checked; });
     bind('c-lemmas', (el) => { ui.pieces.lemmas = el.checked; });
-    bind('c-genre', (el) => { ui.genre = el.value; });
     bind('c-version', (el) => { ui.version = el.value.trim(); });
     bind('c-appkind', (el) => { ui.apparatusKind = el.value; });
     bind('c-nlplang', (el) => { nlpLang = el.value; });
@@ -7374,6 +7640,8 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     if (candBtn) candBtn.addEventListener('click', findCandidates);
     const authBtn = document.getElementById('c-authorities');
     if (authBtn) authBtn.addEventListener('click', searchAuthorities);
+    const pleBtn = document.getElementById('c-pleiades');
+    if (pleBtn) pleBtn.addEventListener('click', locatePleiades);
     // each review has its own dropzone: drop the corrected sheet, it is
     // pressed together with the files already loaded
     for (const id of ['drop-lemmas', 'drop-names']) {
@@ -7385,6 +7653,24 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         ev.preventDefault(); zone.classList.remove('over');
         if (ev.dataTransfer.files.length) press([...lastFiles, ...ev.dataTransfer.files]);
       });
+    }
+    // images have their own dropzone: read as bytes (never f.text(), which would
+    // corrupt them) and kept in droppedImages, not re-pressed through the pipeline
+    const imgZone = document.getElementById('drop-images');
+    if (imgZone) {
+      imgZone.addEventListener('dragover', (ev) => { ev.preventDefault(); imgZone.classList.add('over'); });
+      imgZone.addEventListener('dragleave', () => imgZone.classList.remove('over'));
+      imgZone.addEventListener('drop', async (ev) => {
+        ev.preventDefault(); imgZone.classList.remove('over');
+        let added = 0;
+        for (const f of ev.dataTransfer.files) {
+          if (IMG_RE.test(f.name)) { droppedImages.set(f.name.split('/').pop(), new Uint8Array(await f.arrayBuffer())); added++; }
+        }
+        if (added) { compose(); renderPanel(); }
+      });
+    }
+    for (const btn of composeBox.querySelectorAll('[data-rmimg]')) {
+      btn.addEventListener('click', () => { droppedImages.delete(btn.dataset.rmimg); compose(); renderPanel(); });
     }
     // the order of the pages is the order of the menu: it is dragged here
     // and travels in the manifest, so the site keeps it
@@ -7515,6 +7801,17 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
     return URL.createObjectURL(new Blob([bytes], { type }));
   }
 
+  const IMG_MIME = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg',
+    gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', avif: 'image/avif' };
+  function imageDataURI(name, bytes) {
+    const ext = (name.split('.').pop() || '').toLowerCase();
+    let bin = ''; // chunked, so a large image does not overflow the call stack
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return 'data:' + (IMG_MIME[ext] || 'application/octet-stream') + ';base64,' + btoa(bin);
+  }
+
   function previewHTML(name) {
     let html = S.files[name];
     if (name === 'map.html') {
@@ -7524,6 +7821,14 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
           'href="' + blobURL('assets/leaflet/leaflet.css', 'text/css') + '"')
         .replace('src="assets/leaflet/leaflet.js"',
           'src="' + blobURL('assets/leaflet/leaflet.js', 'text/javascript') + '"');
+    }
+    // the archive carries images/ next to the pages; the preview has no folder,
+    // so a dropped image is inlined as a data-URI to render it faithfully
+    if (droppedImages.size) {
+      html = html.replace(/(<img\b[^>]*\bsrc=")(?:\.\/)?images\/([^"]+)(")/gi, (m, pre, name, post) => {
+        const bytes = droppedImages.get(name);
+        return bytes ? pre + imageDataURI(name, bytes) + post : m;
+      });
     }
     return html.replace('</body>', NAV_SNIPPET + '</body>');
   }
@@ -7583,6 +7888,8 @@ const TORCHIO_LEAFLET_B64 = {"assets/leaflet/leaflet.js":"LyogQHByZXNlcnZlCiAqIE
         entries[name] = bytes;
       }
     }
+    // the edition's own images, into images/ next to the pages, as raw bytes
+    for (const [name, bytes] of droppedImages) entries['images/' + name] = bytes;
     const zip = buildZip(entries);
     const url = URL.createObjectURL(new Blob([zip], { type: 'application/zip' }));
     const a = document.createElement('a');

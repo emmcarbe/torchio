@@ -27,7 +27,7 @@ complete conservative representation      (nothing the edition recorded is lost)
       ↓
 standard behaviours                        (assigned by model class)
       ↓
-declared specialist interpretations        (the chosen editorial world, marked)
+declared specialist interpretations        (the chosen possible world, marked)
       ↓
 publication
 ```
@@ -50,7 +50,7 @@ what the engine derives, and reports what it did. Nothing tradition-bound and
 nothing inferential enters the core disguised as universal. The core is the
 part meant to still be readable, and still honest, in ten years.
 
-**Torchio laboratory** is where editorial worlds, NLP, IIIF, ontologies,
+**Torchio laboratory** is where possible (editorial) worlds, NLP, IIIF, ontologies,
 visualizations and frankly eccentric ideas are tried. The laboratory may guess,
 may propose, may be wrong; it is where the interpretation lives. Its one
 obligation to the core is the discipline of principle 9: whatever it derives is
@@ -85,19 +85,19 @@ agent-generated renderers a contrastive test corpus gains value, not loses it:
 an agent can produce ten renderers, but a verifiable authority is still needed
 to say which of them falsifies the text.
 
-1. **The contrast corpus** — real editions and reduced cases, [`worlds/`](worlds/).
+1. **The contrastive examples** — constructed positive and negative cases, [`worlds/`](worlds/). Distinct from the sampling frame of real editions (`corpus-frame.csv`) and from the editions actually analysed: see the Method in PRINCIPLES.
 2. **A taxonomy of failures** — see below; every failure filed under one cause.
-3. **The executable editorial worlds** — few, well delimited, [`worlds/`](worlds/).
+3. **The executable possible (editorial) worlds** — few, well delimited, [`worlds/`](worlds/).
 4. **A contrastive philological test suite** — the worlds, run as tests.
 5. **A capability report** — per press, what was conserved / rendered / interpreted / inferred.
-6. **The provenance model** — source and interpretation always kept apart (principle 9, C85).
+6. **The provenance model** — source and interpretation kept apart (principle 9; the open cases are named in ROADMAP.md).
 7. **A small static engine** — `src/`, which demonstrates the results concretely.
 
-## Editorial worlds
+## Possible (editorial) worlds
 
 The same markup means different things in different traditions; no engine reads
 that from an element name. So instead of one table `element → meaning`, the
-laboratory holds a set of **editorial worlds**, each a coherent theory
+laboratory holds a set of **possible (editorial) worlds**, each a coherent theory
 delimited not by abstract rules but by examples and counter-examples. Full
 account and rationale in [`worlds/README.md`](worlds/README.md).
 
@@ -243,9 +243,17 @@ across the boundary.
 
 ## Status
 
-Laboratory opened alongside the beta. The worlds harness runs; two worlds are
-written (`genetic-substitution`, `add-plural-worlds`: 18 assertions held, one
-gap, no over-readings); the exempla harness is proven offline and waits only on
-the p5subset; the stratified measurement is designed and not yet taken. When it
-is taken, the figures and the decision go into [PRINCIPLES.md](PRINCIPLES.md)
-beside the wager, whichever way they fall.
+Laboratory opened alongside the beta. The worlds harness runs; five worlds
+are written (`genetic-substitution`, `add-plural-worlds`,
+`mention-reference`, `canonical-reference`, `entity-typologies`: 39
+assertions held, one named gap — the substitution not yet reified as a
+single act — and no over-readings). The exempla harness has run against the
+p5subset: all 1981 extracted Guidelines examples press to completion, and
+1673 of the 1710 that carry text keep at least half of it (the harness's
+declared threshold, not exact conservation: an example whose text is
+partly editorial apparatus legitimately renders shorter). None fired the
+engine's one declared inference rule, which is the hand derived from a
+handShift: this is a narrow claim about that channel, not a proof that the
+model never asserts more than an example attests. The stratified measurement over the contrast corpus is designed and
+not yet taken. When it is taken, the figures and the decision go into
+[PRINCIPLES.md](PRINCIPLES.md) beside the wager, whichever way they fall.

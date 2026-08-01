@@ -109,6 +109,11 @@ header.torchio .tt{min-width:14rem}
 .occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
 .occ a{color:var(--accent);margin-right:.5em}
 h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.md-code{background:var(--wash,#f6f5f2);border:1px solid var(--hair);border-radius:3px;
+  padding:.7em 1em;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5}
+.md-code code{background:none;padding:0}
+main img{max-width:100%;height:auto}
+main hr{border:0;border-top:1px solid var(--hair);margin:1.8em 0}
 .skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
   padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
 .skip:focus{left:0}

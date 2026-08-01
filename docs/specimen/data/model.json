@@ -972,6 +972,48 @@
   "name": "torchio",
   "tei": "P5 Version 4.12.0. Last updated on\n        28th July 2026, revision 113e933e2"
  },
+ "genetic": {
+  "strata": [
+   {
+    "id": "m1",
+    "label": "Mano principale, immaginaria.",
+    "order": 1,
+    "hand": true,
+    "operations": 1
+   },
+   {
+    "id": "m2",
+    "label": "Mano di revisione, immaginaria.",
+    "order": 2,
+    "hand": true,
+    "operations": 1
+   }
+  ],
+  "operations": [
+   {
+    "id": "specimen:0.1.0.0.1.6.0",
+    "doc": "specimen",
+    "element": "del",
+    "layer": null,
+    "hand": "m1",
+    "handInferred": false,
+    "place": null,
+    "seq": null,
+    "text": "salvar"
+   },
+   {
+    "id": "specimen:0.1.0.0.1.6.1",
+    "doc": "specimen",
+    "element": "add",
+    "layer": null,
+    "hand": "m2",
+    "handInferred": false,
+    "place": "above",
+    "seq": null,
+    "text": "redimer"
+   }
+  ]
+ },
  "agreement": {
   "witnesses": [
    {
@@ -1000,5 +1042,1340 @@
    }
   ]
  },
- "lemmas": null
+ "lemmas": null,
+ "lexicon": {
+  "total": 90,
+  "distinct": 77,
+  "ttr": 0.8556,
+  "frequencies": [
+   {
+    "form": "a",
+    "count": 4,
+    "lang": "it",
+    "rel": 44.444,
+    "stop": true
+   },
+   {
+    "form": "che",
+    "count": 4,
+    "lang": "it",
+    "rel": 44.444,
+    "stop": true
+   },
+   {
+    "form": "di",
+    "count": 3,
+    "lang": "it",
+    "rel": 33.333,
+    "stop": true
+   },
+   {
+    "form": "e",
+    "count": 3,
+    "lang": "it",
+    "rel": 33.333,
+    "stop": true
+   },
+   {
+    "form": "il",
+    "count": 3,
+    "lang": "it",
+    "rel": 33.333,
+    "stop": true
+   },
+   {
+    "form": "la",
+    "count": 2,
+    "lang": "it",
+    "rel": 22.222,
+    "stop": true
+   },
+   {
+    "form": "abbreviazione",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "affanni",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "al",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "alla",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "anche",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "apparato",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "cercava",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "città",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "col",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "come",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "compagni",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "con",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "conobbe",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "cor",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "d",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "del",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "delle",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "dentro",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "dimmi",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "dimostrativo",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "errò",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "genti",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "gittate",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "ilïòn",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "in",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "incerta",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "indol",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "ingegno",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "integrata",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "itaca",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "l",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "l'incipit",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "le",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "lettura",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "lo",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "mappa",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "mare",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "mentre",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "molte",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "molti",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "molto",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "mostra",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "multiforme",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "musa",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "nel",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "nome",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "odisseo",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "parola",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "passo",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "poich'ebbe",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "prosa",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "punta",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "quell'uom",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "redimer",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "registro",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "ritorno",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "sacre",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "scioglimento",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "sé",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "signora",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "sofferse",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "sovr'esso",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "specimen",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "suo",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "terra",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "testo",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "torri",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "un",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "una",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": true
+   },
+   {
+    "form": "vide",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   },
+   {
+    "form": "vita",
+    "count": 1,
+    "lang": "it",
+    "rel": 11.111,
+    "stop": false
+   }
+  ],
+  "concordance": {
+   "l'incipit": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.0",
+     "before": "",
+     "after": "con apparato dimostrativo Musa quell'uom di",
+     "form": "L'incipit"
+    }
+   ],
+   "con": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.0",
+     "before": "L'incipit",
+     "after": "apparato dimostrativo Musa quell'uom di multiforme",
+     "form": "con"
+    }
+   ],
+   "apparato": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.0",
+     "before": "L'incipit con",
+     "after": "dimostrativo Musa quell'uom di multiforme ingegno",
+     "form": "apparato"
+    }
+   ],
+   "dimostrativo": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.0",
+     "before": "L'incipit con apparato",
+     "after": "Musa quell'uom di multiforme ingegno dimmi",
+     "form": "dimostrativo"
+    }
+   ],
+   "musa": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.0.0",
+     "before": "L'incipit con apparato dimostrativo",
+     "after": "quell'uom di multiforme ingegno dimmi che",
+     "form": "Musa"
+    }
+   ],
+   "quell'uom": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.0",
+     "before": "L'incipit con apparato dimostrativo Musa",
+     "after": "di multiforme ingegno dimmi che molto",
+     "form": "quell'uom"
+    }
+   ],
+   "di": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.0",
+     "before": "L'incipit con apparato dimostrativo Musa quell'uom",
+     "after": "multiforme ingegno dimmi che molto errò",
+     "form": "di"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.1",
+     "before": "abbreviazione col suo scioglimento un passo",
+     "after": "lettura incerta una parola integrata e",
+     "form": "di"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "una parola integrata e il nome",
+     "after": "Odisseo che punta al registro come",
+     "form": "di"
+    }
+   ],
+   "multiforme": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.0.1.0",
+     "before": "con apparato dimostrativo Musa quell'uom di",
+     "after": "ingegno dimmi che molto errò poich'ebbe",
+     "form": "multiforme"
+    }
+   ],
+   "ingegno": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.0",
+     "before": "apparato dimostrativo Musa quell'uom di multiforme",
+     "after": "dimmi che molto errò poich'ebbe a",
+     "form": "ingegno"
+    }
+   ],
+   "dimmi": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "dimostrativo Musa quell'uom di multiforme ingegno",
+     "after": "che molto errò poich'ebbe a terra",
+     "form": "dimmi"
+    }
+   ],
+   "che": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "Musa quell'uom di multiforme ingegno dimmi",
+     "after": "molto errò poich'ebbe a terra gittate",
+     "form": "che"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "gittate d Ilïòn le sacre torri",
+     "after": "città vide molte e delle genti",
+     "form": "che"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4",
+     "before": "e delle genti l indol conobbe",
+     "after": "sovr'esso il mare molti dentro del",
+     "form": "che"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "integrata e il nome di Odisseo",
+     "after": "punta al registro come Itaca alla",
+     "form": "che"
+    }
+   ],
+   "molto": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "quell'uom di multiforme ingegno dimmi che",
+     "after": "errò poich'ebbe a terra gittate d",
+     "form": "molto"
+    }
+   ],
+   "errò": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "di multiforme ingegno dimmi che molto",
+     "after": "poich'ebbe a terra gittate d Ilïòn",
+     "form": "errò"
+    }
+   ],
+   "poich'ebbe": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "multiforme ingegno dimmi che molto errò",
+     "after": "a terra gittate d Ilïòn le",
+     "form": "poich'ebbe"
+    }
+   ],
+   "a": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "ingegno dimmi che molto errò poich'ebbe",
+     "after": "terra gittate d Ilïòn le sacre",
+     "form": "a"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "dentro del cor sofferse affanni mentre",
+     "after": "redimer cercava a sé la vita",
+     "form": "a"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "sofferse affanni mentre a redimer cercava",
+     "after": "sé la vita e il ritorno",
+     "form": "a"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.7",
+     "before": "sé la vita e il ritorno",
+     "after": "compagni Nel testo in prosa lo",
+     "form": "a"
+    }
+   ],
+   "terra": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.1",
+     "before": "dimmi che molto errò poich'ebbe a",
+     "after": "gittate d Ilïòn le sacre torri",
+     "form": "terra"
+    }
+   ],
+   "gittate": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.2",
+     "before": "che molto errò poich'ebbe a terra",
+     "after": "d Ilïòn le sacre torri che",
+     "form": "gittate"
+    }
+   ],
+   "d": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.2",
+     "before": "molto errò poich'ebbe a terra gittate",
+     "after": "Ilïòn le sacre torri che città",
+     "form": "d"
+    }
+   ],
+   "ilïòn": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.2.0",
+     "before": "errò poich'ebbe a terra gittate d",
+     "after": "le sacre torri che città vide",
+     "form": "Ilïòn"
+    }
+   ],
+   "le": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.2",
+     "before": "poich'ebbe a terra gittate d Ilïòn",
+     "after": "sacre torri che città vide molte",
+     "form": "le"
+    }
+   ],
+   "sacre": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.2",
+     "before": "a terra gittate d Ilïòn le",
+     "after": "torri che città vide molte e",
+     "form": "sacre"
+    }
+   ],
+   "torri": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.2",
+     "before": "terra gittate d Ilïòn le sacre",
+     "after": "che città vide molte e delle",
+     "form": "torri"
+    }
+   ],
+   "città": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "d Ilïòn le sacre torri che",
+     "after": "vide molte e delle genti l",
+     "form": "città"
+    }
+   ],
+   "vide": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "Ilïòn le sacre torri che città",
+     "after": "molte e delle genti l indol",
+     "form": "vide"
+    }
+   ],
+   "molte": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "le sacre torri che città vide",
+     "after": "e delle genti l indol conobbe",
+     "form": "molte"
+    }
+   ],
+   "e": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "sacre torri che città vide molte",
+     "after": "delle genti l indol conobbe che",
+     "form": "e"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.7",
+     "before": "redimer cercava a sé la vita",
+     "after": "il ritorno a compagni Nel testo",
+     "form": "e"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "di lettura incerta una parola integrata",
+     "after": "il nome di Odisseo che punta",
+     "form": "e"
+    }
+   ],
+   "delle": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "torri che città vide molte e",
+     "after": "genti l indol conobbe che sovr'esso",
+     "form": "delle"
+    }
+   ],
+   "genti": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.3",
+     "before": "che città vide molte e delle",
+     "after": "l indol conobbe che sovr'esso il",
+     "form": "genti"
+    }
+   ],
+   "l": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4",
+     "before": "città vide molte e delle genti",
+     "after": "indol conobbe che sovr'esso il mare",
+     "form": "l"
+    }
+   ],
+   "indol": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4.0.0",
+     "before": "vide molte e delle genti l",
+     "after": "conobbe che sovr'esso il mare molti",
+     "form": "indol"
+    }
+   ],
+   "conobbe": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4",
+     "before": "molte e delle genti l indol",
+     "after": "che sovr'esso il mare molti dentro",
+     "form": "conobbe"
+    }
+   ],
+   "sovr'esso": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4",
+     "before": "delle genti l indol conobbe che",
+     "after": "il mare molti dentro del cor",
+     "form": "sovr'esso"
+    }
+   ],
+   "il": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4",
+     "before": "genti l indol conobbe che sovr'esso",
+     "after": "mare molti dentro del cor sofferse",
+     "form": "il"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.7",
+     "before": "cercava a sé la vita e",
+     "after": "ritorno a compagni Nel testo in",
+     "form": "il"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "lettura incerta una parola integrata e",
+     "after": "nome di Odisseo che punta al",
+     "form": "il"
+    }
+   ],
+   "mare": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.4",
+     "before": "l indol conobbe che sovr'esso il",
+     "after": "molti dentro del cor sofferse affanni",
+     "form": "mare"
+    }
+   ],
+   "molti": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.5",
+     "before": "indol conobbe che sovr'esso il mare",
+     "after": "dentro del cor sofferse affanni mentre",
+     "form": "molti"
+    }
+   ],
+   "dentro": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.5",
+     "before": "conobbe che sovr'esso il mare molti",
+     "after": "del cor sofferse affanni mentre a",
+     "form": "dentro"
+    }
+   ],
+   "del": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.5",
+     "before": "che sovr'esso il mare molti dentro",
+     "after": "cor sofferse affanni mentre a redimer",
+     "form": "del"
+    }
+   ],
+   "cor": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.5",
+     "before": "sovr'esso il mare molti dentro del",
+     "after": "sofferse affanni mentre a redimer cercava",
+     "form": "cor"
+    }
+   ],
+   "sofferse": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.5",
+     "before": "il mare molti dentro del cor",
+     "after": "affanni mentre a redimer cercava a",
+     "form": "sofferse"
+    }
+   ],
+   "affanni": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.5",
+     "before": "mare molti dentro del cor sofferse",
+     "after": "mentre a redimer cercava a sé",
+     "form": "affanni"
+    }
+   ],
+   "mentre": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "molti dentro del cor sofferse affanni",
+     "after": "a redimer cercava a sé la",
+     "form": "mentre"
+    }
+   ],
+   "redimer": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6.1",
+     "before": "del cor sofferse affanni mentre a",
+     "after": "cercava a sé la vita e",
+     "form": "redimer"
+    }
+   ],
+   "cercava": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "cor sofferse affanni mentre a redimer",
+     "after": "a sé la vita e il",
+     "form": "cercava"
+    }
+   ],
+   "sé": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "affanni mentre a redimer cercava a",
+     "after": "la vita e il ritorno a",
+     "form": "sé"
+    }
+   ],
+   "la": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "mentre a redimer cercava a sé",
+     "after": "vita e il ritorno a compagni",
+     "form": "la"
+    },
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "in prosa lo specimen mostra anche",
+     "after": "signora abbreviazione col suo scioglimento un",
+     "form": "la"
+    }
+   ],
+   "vita": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.6",
+     "before": "a redimer cercava a sé la",
+     "after": "e il ritorno a compagni Nel",
+     "form": "vita"
+    }
+   ],
+   "ritorno": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.7",
+     "before": "a sé la vita e il",
+     "after": "a compagni Nel testo in prosa",
+     "form": "ritorno"
+    }
+   ],
+   "compagni": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.1.7",
+     "before": "la vita e il ritorno a",
+     "after": "Nel testo in prosa lo specimen",
+     "form": "compagni"
+    }
+   ],
+   "nel": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "vita e il ritorno a compagni",
+     "after": "testo in prosa lo specimen mostra",
+     "form": "Nel"
+    }
+   ],
+   "testo": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "e il ritorno a compagni Nel",
+     "after": "in prosa lo specimen mostra anche",
+     "form": "testo"
+    }
+   ],
+   "in": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "il ritorno a compagni Nel testo",
+     "after": "prosa lo specimen mostra anche la",
+     "form": "in"
+    }
+   ],
+   "prosa": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "ritorno a compagni Nel testo in",
+     "after": "lo specimen mostra anche la signora",
+     "form": "prosa"
+    }
+   ],
+   "lo": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "a compagni Nel testo in prosa",
+     "after": "specimen mostra anche la signora abbreviazione",
+     "form": "lo"
+    }
+   ],
+   "specimen": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "compagni Nel testo in prosa lo",
+     "after": "mostra anche la signora abbreviazione col",
+     "form": "specimen"
+    }
+   ],
+   "mostra": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "Nel testo in prosa lo specimen",
+     "after": "anche la signora abbreviazione col suo",
+     "form": "mostra"
+    }
+   ],
+   "anche": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "testo in prosa lo specimen mostra",
+     "after": "la signora abbreviazione col suo scioglimento",
+     "form": "anche"
+    }
+   ],
+   "signora": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.0.1",
+     "before": "prosa lo specimen mostra anche la",
+     "after": "abbreviazione col suo scioglimento un passo",
+     "form": "signora"
+    }
+   ],
+   "abbreviazione": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "lo specimen mostra anche la signora",
+     "after": "col suo scioglimento un passo di",
+     "form": "abbreviazione"
+    }
+   ],
+   "col": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "specimen mostra anche la signora abbreviazione",
+     "after": "suo scioglimento un passo di lettura",
+     "form": "col"
+    }
+   ],
+   "suo": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "mostra anche la signora abbreviazione col",
+     "after": "scioglimento un passo di lettura incerta",
+     "form": "suo"
+    }
+   ],
+   "scioglimento": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "anche la signora abbreviazione col suo",
+     "after": "un passo di lettura incerta una",
+     "form": "scioglimento"
+    }
+   ],
+   "un": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "la signora abbreviazione col suo scioglimento",
+     "after": "passo di lettura incerta una parola",
+     "form": "un"
+    }
+   ],
+   "passo": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "signora abbreviazione col suo scioglimento un",
+     "after": "di lettura incerta una parola integrata",
+     "form": "passo"
+    }
+   ],
+   "lettura": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.1",
+     "before": "col suo scioglimento un passo di",
+     "after": "incerta una parola integrata e il",
+     "form": "lettura"
+    }
+   ],
+   "incerta": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.1",
+     "before": "suo scioglimento un passo di lettura",
+     "after": "una parola integrata e il nome",
+     "form": "incerta"
+    }
+   ],
+   "una": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "scioglimento un passo di lettura incerta",
+     "after": "parola integrata e il nome di",
+     "form": "una"
+    }
+   ],
+   "parola": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "un passo di lettura incerta una",
+     "after": "integrata e il nome di Odisseo",
+     "form": "parola"
+    }
+   ],
+   "integrata": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.2",
+     "before": "passo di lettura incerta una parola",
+     "after": "e il nome di Odisseo che",
+     "form": "integrata"
+    }
+   ],
+   "nome": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "incerta una parola integrata e il",
+     "after": "di Odisseo che punta al registro",
+     "form": "nome"
+    }
+   ],
+   "odisseo": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.3",
+     "before": "parola integrata e il nome di",
+     "after": "che punta al registro come Itaca",
+     "form": "Odisseo"
+    }
+   ],
+   "punta": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "e il nome di Odisseo che",
+     "after": "al registro come Itaca alla mappa",
+     "form": "punta"
+    }
+   ],
+   "al": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "il nome di Odisseo che punta",
+     "after": "registro come Itaca alla mappa",
+     "form": "al"
+    }
+   ],
+   "registro": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "nome di Odisseo che punta al",
+     "after": "come Itaca alla mappa",
+     "form": "registro"
+    }
+   ],
+   "come": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "di Odisseo che punta al registro",
+     "after": "Itaca alla mappa",
+     "form": "come"
+    }
+   ],
+   "itaca": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2.4",
+     "before": "Odisseo che punta al registro come",
+     "after": "alla mappa",
+     "form": "Itaca"
+    }
+   ],
+   "alla": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "che punta al registro come Itaca",
+     "after": "mappa",
+     "form": "alla"
+    }
+   ],
+   "mappa": [
+    {
+     "docId": "specimen",
+     "anchor": "specimen:0.1.0.0.2",
+     "before": "punta al registro come Itaca alla",
+     "after": "",
+     "form": "mappa"
+    }
+   ]
+  },
+  "languages": [
+   "it"
+  ]
+ }
 }

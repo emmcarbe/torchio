@@ -142,6 +142,8 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .flow legend{color:var(--accent,#b01e28)}
 .dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
+.rmimg{background:none;border:0;color:#b01e28;cursor:pointer;font-size:12px;padding:0}
+.rmimg:hover{text-decoration:underline}
 .stepmove{display:flex;justify-content:space-between;margin:1.2em 0}
 .stepmove button{font-family:var(--mono,monospace);font-size:12px;padding:8px 16px;border:1px solid #ccc;border-radius:2px;background:#fff;cursor:pointer}
 .stepmove button.step-download{background:#b01e28;color:#fff;border-color:#b01e28}
@@ -238,3 +240,15 @@ ${scriptSafe(harness)}
 await mkdir(dirname(out), { recursive: true });
 await writeFile(out, page);
 console.error(`built: ${out} (${(page.length / 1024).toFixed(0)} KB, ${modules.length} modules)`);
+
+// the compact Pleiades index rides NEXT TO the wizard, not inside it (1.2MB is
+// too much to inline): the Pleiades button fetches it on demand. GeoNames, far
+// larger, stays the command-line route. Absent, the button says so and the
+// editor uses the command line or Wikidata
+try {
+  const ple = await readFile(join(ROOT, 'data-assets', 'pleiades-browser.json'));
+  await writeFile(join(dirname(out), 'pleiades.json'), ple);
+  console.error(`  + pleiades.json (${(ple.length / 1024 / 1024).toFixed(1)} MB, ancient places, fetched on demand)`);
+} catch {
+  console.error('  (no data-assets/pleiades-browser.json: run node tools/build-pleiades-browser.js to enable the Pleiades button)');
+}

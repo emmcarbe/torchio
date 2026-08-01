@@ -1,0 +1,35 @@
+{
+  "title": "Torchio: a press for static digital scholarly editions",
+  "description": "Torchio presses TEI P5 files into static digital scholarly editions: multipage sites published from a git repository, with no server and no database. Behaviour is assigned to TEI model classes rather than to individual element names, so an edition that declares its own elements in an ODD inherits their rendering. The engine keeps a register of the corrections real editions have demanded of it, with a stated condition of falsification, and declares its contrast corpus as a dataset (corpus.csv).",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Carbé, Emmanuela",
+      "affiliation": "Ca' Foscari University of Venice, Venice Centre for Digital and Public Humanities",
+      "orcid": "0000-0003-4347-011X"
+    }
+  ],
+  "keywords": [
+    "TEI",
+    "digital scholarly edition",
+    "critical apparatus",
+    "static site",
+    "minimal computing",
+    "digital humanities",
+    "philology"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/emmcarbe/torchio",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://emmcarbe.github.io/torchio/",
+      "relation": "isDescribedBy",
+      "scheme": "url"
+    }
+  ],
+  "version": "0.2.0-beta.2"
+}

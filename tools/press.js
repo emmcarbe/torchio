@@ -17,6 +17,7 @@ import { pressPage } from '../src/render.js';
 import { pressSite } from '../src/site.js';
 import { analyze } from '../src/analyze.js';
 import { applyReconciliation } from '../src/reconcile.js';
+import { applyGeoref } from '../src/georef.js';
 import { attachLemmas, attachLexicon } from '../src/lemmas.js';
 
 // a tool an editor runs from the terminal must fail with a sentence, not a
@@ -62,7 +63,29 @@ const inputStat = await stat(input);
 let roots = [];
 let xml = null;
 if (inputStat.isDirectory()) {
-  const names = (await readdir(input)).filter((n) => /\.(xml|odd)$/i.test(n)).sort();
+  // the TEI files of the folder. A real edition often keeps its parts in
+  // sibling folders (editions/, indices/, meta/), and they are one edition:
+  // when the surface holds no TEI, go down and gather what is below, so the
+  // texts and the registries that belong together arrive together. Names stay
+  // relative to the input, so two files with the same basename do not collide
+  const gather = async (dir, rel = '', depth = 0) => {
+    if (depth > 4) return [];
+    const out = [];
+    for (const e of await readdir(dir, { withFileTypes: true })) {
+      if (e.name.startsWith('.') || e.name === 'node_modules') continue;
+      const r = rel ? `${rel}/${e.name}` : e.name;
+      if (e.isDirectory()) out.push(...await gather(join(dir, e.name), r, depth + 1));
+      else if (/\.(xml|odd)$/i.test(e.name)) out.push(r);
+    }
+    return out;
+  };
+  let names = (await readdir(input)).filter((n) => /\.(xml|odd)$/i.test(n)).sort();
+  if (!names.length) {
+    names = (await gather(input)).sort();
+    if (names.length) {
+      console.error(`no TEI at the top level: gathered ${names.length} files from the folders below`);
+    }
+  }
   for (const n of names) {
     try {
       const src = await readText(join(input, n));
@@ -75,12 +98,19 @@ if (inputStat.isDirectory()) {
       }
       if (!inTEINamespace(r)) continue;
       await resolveIncludes(r, (href) => readText(within(input, href)));
-      roots.push({ id: n.replace(/\.xml$/i, ''), root: r });
+      roots.push({ id: n.replace(/\.xml$/i, '').replace(/[/\\]/g, '-'), root: r });
     } catch (err) {
       console.error(`skipped ${n}: ${err.message}`);
     }
   }
   console.error(`directory input: ${roots.length} TEI documents`);
+  // a folder whose TEI lives in subfolders (editions/, indices/, meta/) is a
+  // common shape for a real edition, and the press reads one directory: say
+  // so, instead of failing later with an error about an absent document
+  if (!roots.length) {
+    console.error(`not pressed: no TEI document in ${input}, at any level.`);
+    process.exit(1);
+  }
 } else {
   try { xml = await readText(input); }
   catch (err) { console.error(`not pressed: ${err.message}`); process.exit(1); }
@@ -139,6 +169,15 @@ try {
   console.error('reconcile: reconcile.json applied');
 } catch { /* nothing reconciled */ }
 
+// georeferencing (georef.json next to the manifest): the coordinates a
+// gazetteer proposed, each a suggestion carrying its source, drawn on the map
+// as unconfirmed until the editor confirms. Coordinates the TEI declares win
+try {
+  const gr = JSON.parse(await readFile(join(dirname(manifestPath), 'georef.json'), 'utf-8'));
+  applyGeoref(model, gr.places);
+  console.error('georef: georef.json applied');
+} catch { /* nothing georeferenced */ }
+
 // lemmas: from the markup (w/@lemma), or from a reviewed lemmas.json
 let lemmasJson = null;
 try {
@@ -184,6 +223,19 @@ if (site) {
     await cp(new URL('../data-assets/leaflet', import.meta.url),
       join(out, 'assets', 'leaflet'), { recursive: true });
     console.error('assets: leaflet copied');
+  }
+
+  // the edition's own images/ folder, for the simple pages: copied verbatim to
+  // the site root, next to the pages, so a page's ![x](images/f1r.jpg) resolves.
+  // Gated on the folder existing, not on a map (unlike leaflet). Looked for both
+  // next to the sources and next to the manifest, the two plausible roots
+  for (const dir of [...new Set([join(baseDir, 'images'), join(dirname(manifestPath), 'images')])]) {
+    try {
+      if ((await stat(dir)).isDirectory()) {
+        await cp(dir, join(out, 'images'), { recursive: true, dereference: false });
+        console.error('assets: images/ copied from ' + dir);
+      }
+    } catch { /* no images folder at this root */ }
   }
 
   // the sources travel with the edition: every TEI file that went into it,

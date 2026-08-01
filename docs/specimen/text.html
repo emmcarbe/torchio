@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Specimen</title>
 <style>:root{--ground:#FFFFFF;--paper:#FFFFFF;--ink:#1B1B1B;--soft:#6A6A66;--hair:#E5E2D9;--faint:#CFCCC2;--accent:#B01E28;--accent-soft:#9a5a52;--link:#B01E28;--reading:"EB Garamond",Iowan Old Style,Palatino,"Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--serif:var(--reading);--measure:44rem}
 
@@ -48,6 +48,7 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 /* the class carries the behaviour: anything the ODD declares a member of
    model.pPart.transcriptional is struck through like del, named or not */
 .s-3-editoriale>[data-el="del"],.s-3-editoriale.t-del,.t-del{text-decoration:line-through;color:var(--soft)}
+.t-metamark{color:var(--soft);font-size:.78em;cursor:help;border-bottom:1px dotted var(--hair)}
 .t-add{vertical-align:super;font-size:.82em}
 .t-unclear{background:#F5F4EF}
 .t-sign{color:var(--soft)}
@@ -60,6 +61,11 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
 .t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
+/* an apparatus entry in running prose is part of the sentence: it holds a
+   note, so the HTML element must be a div (a span may not contain one), but
+   it reads inline. Its note is either placed in a margin (absolute) or
+   collapsed to its mark, so it never breaks the line either */
+.t-app{display:inline}
 .t-teiHeader .t-note-mark,.header-full .t-note-mark,.t-app .t-note-mark{display:none}
 .t-app .t-note{display:none}
 @media(min-width:1180px){.t-app .t-note{display:block}}
@@ -76,7 +82,14 @@ body.notes-off .t-note-mark{opacity:.25}
   .t-note.placed{font-size:.78em;line-height:1.4}
 }
 
-.t-app:has([data-el="lem"]) .t-rdg{display:none}
+.t-app.app-has-lem .t-rdg{display:none}
+/* an app without a lem privileges nothing: the first reading stands in the
+   text (the others are in the apparatus), never all of them concatenated */
+.t-app.app-no-lem>[data-el="rdg"]~[data-el="rdg"],
+.t-app.app-no-lem>[data-el="rdgGrp"]~[data-el="rdgGrp"]{display:none}
+/* an app that points to the text (double-end-point, location-referenced)
+   carries no text of its own: the passage is already in the base text */
+.t-app.app-pointing{display:none}
 .t-lem{border-bottom:1px dotted var(--accent-soft)}
 .t-app[data-type="lac"] [data-el="lem"]{font-family:var(--mono);font-size:.62em;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
@@ -126,6 +139,8 @@ body.app-off .t-lem{border-bottom:none;cursor:inherit}
 /* a verse followed by its apparatus band opens the scheme on click */
 body.has-band [data-el="l"]{cursor:pointer}
 body.has-align [data-el="l"]{cursor:pointer}
+[data-change],[data-hand]{cursor:pointer}
+.t-add[data-change],.t-add[data-hand]{border-bottom:1px dotted var(--accent-soft)}
 .wv{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 .app-anchored{border-bottom:1px dotted var(--accent-soft);cursor:pointer}
 body.app-off .app-anchored{border-bottom:none;cursor:inherit}
@@ -137,10 +152,11 @@ body.app-off.has-band [data-el="l"]{cursor:inherit}
 .torchio-pop .popband .bw{color:var(--accent);cursor:pointer}
 .torchio-pop .popband .bw:hover{text-decoration:underline}
 
-/* dense notes: marks only, notes open on click */
-body.notes-dense main.torchio .t-note{display:none!important}
+/* dense notes: those the margins cannot hold collapse to their marks and open
+   on click; the ones placed in a margin (.placed) stay visible */
+body.notes-dense main.torchio .t-note:not(.placed){display:none!important}
 body.notes-dense .t-note-mark{color:var(--accent);cursor:pointer;font-size:.85em;font-weight:700;line-height:0;padding:.3em .3em;margin:-.3em -.1em}
-body.notes-dense [data-notepop]{cursor:pointer}
+[data-notepop]{cursor:pointer}
 body.notes-dense.notes-off .t-note-mark{cursor:default}
 
 /* transcription levels: reading is the default */
@@ -164,6 +180,10 @@ body.mode-read .t-add{vertical-align:baseline;font-size:inherit}
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
 .torchio-nav a.up{color:var(--accent-soft)}
+.torchio-subnav{display:flex;gap:20px;flex-wrap:wrap;max-width:var(--measure);margin:0 auto 1.2em;padding:10px 20px 12px;border-bottom:1px solid var(--hair)}
+.torchio-subnav a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--soft);text-transform:uppercase}
+.torchio-subnav a.on{color:var(--accent)}
+.torchio-subnav a:hover{color:var(--ink);text-decoration:none}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
@@ -185,6 +205,11 @@ header.torchio .tt{min-width:14rem}
 .occ{font-family:var(--mono);font-size:10.5px;color:var(--soft)}
 .occ a{color:var(--accent);margin-right:.5em}
 h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
+.md-code{background:var(--wash,#f6f5f2);border:1px solid var(--hair);border-radius:3px;
+  padding:.7em 1em;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5}
+.md-code code{background:none;padding:0}
+main img{max-width:100%;height:auto}
+main hr{border:0;border-top:1px solid var(--hair);margin:1.8em 0}
 .skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
   padding:8px 14px;font-family:var(--mono);font-size:11px;z-index:100}
 .skip:focus{left:0}
@@ -280,6 +305,53 @@ h2.sec{font-size:20px;font-weight:600;margin:1.6em 0 .4em}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
 ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+.idx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink);min-width:16rem;margin:.6em 0 .2em}
+.alpha{font-family:var(--mono);font-size:11px;letter-spacing:.12em;margin:.3em 0 .6em}
+.alpha a{color:var(--accent);text-decoration:none;padding:0 .18em}
+.alpha a:hover{text-decoration:underline}
+.idx-up{font-size:.7em;color:var(--soft);text-decoration:none;margin-left:.5em}
+.idx-up:hover{color:var(--accent)}
+.totop{position:fixed;right:22px;bottom:22px;width:34px;height:34px;line-height:32px;text-align:center;
+  border:1px solid var(--hair);border-radius:2px;background:var(--paper);color:var(--accent);
+  text-decoration:none;font-size:16px}
+.totop:hover{border-color:var(--accent)}
+.t-line{display:block}
+.t-zone{display:block;margin:0 0 .2em}
+.t-surface{display:block;margin:1.6em 0;padding:1.2em 1.4em;border:1px solid var(--hair);border-radius:2px}
+.t-surface .t-surface{border:none;margin:0;padding:0}
+.lx-bar-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:1em 0;
+  padding-bottom:.8em;border-bottom:1px solid var(--hair)}
+.lx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink);min-width:14rem}
+.lx-ctl{font-family:var(--mono);font-size:11px;color:var(--soft);display:inline-flex;gap:.4em;align-items:center}
+.lx-ctl select{font-family:var(--mono);font-size:12px;padding:4px 6px;border:1px solid var(--hair);
+  border-radius:2px;background:var(--paper);color:var(--ink)}
+.lx-views{margin-left:auto;display:inline-flex;border:1px solid var(--hair);border-radius:2px;overflow:hidden}
+.lx-views button{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--soft);background:none;border:none;cursor:pointer;padding:7px 13px}
+.lx-views button.active{background:var(--accent);color:#fff}
+.lx-table{width:100%;border-collapse:collapse}
+.lx-table th{text-align:left;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);padding:6px 10px 6px 0;border-bottom:1px solid var(--hair)}
+.lx-table td{padding:4px 10px 4px 0;border-bottom:1px solid var(--faint)}
+.lx-table .lx-num{text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap}
+.lx-table .lx-w{cursor:pointer}
+.lx-sort{cursor:pointer;user-select:none}
+.lx-sort:hover,.lx-sort.on{color:var(--accent)}
+.lx-arr{color:var(--accent);font-size:8px}
+.lx-alpha{margin:0 0 1em}
+.lx-table .lx-rel{color:var(--soft)}
+.lx-table tr.is-stop .lx-w{color:var(--soft)}
+.lx-lang{font-family:var(--mono);font-size:10px;color:var(--soft)}
+.lx-flip{font-size:11px;line-height:1;color:var(--accent);background:none;border:none;cursor:pointer;padding:2px 4px}
+.lx-kwic{width:100%;border-collapse:collapse;font-size:14px}
+.lx-kwic td{padding:3px 8px;vertical-align:baseline}
+.lx-kwic .lx-b{text-align:right;color:var(--soft);width:42%}
+.lx-kwic .lx-k{text-align:center;font-weight:600;color:var(--accent);white-space:nowrap}
+.lx-kwic .lx-k a{color:inherit}
+.lx-kwic .lx-a{color:var(--soft);width:42%}
+.lx-kwic tr:hover td{background:rgba(176,30,40,.04)}
 ol.toc li{margin:.3em 0;break-inside:avoid}
 .idx-toc{font-family:var(--mono);font-size:12px;margin:.6em 0 1.2em;
   padding-bottom:.8em;border-bottom:1px solid var(--hair)}
@@ -301,9 +373,28 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 <a class="skip" href="#main">Vai al contenuto</a>
 <header class="torchio">
 <div class="tt"><h1>Specimen</h1><p class="sub">Omero, nella traduzione di Ippolito Pindemonte (1822)</p></div>
-<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="indices.html">Indici</a><a href="map.html">Mappa</a><a href="data.html">Dati</a></nav>
+<nav class="torchio-nav"><a href="../" class="up">Home</a><a href="index.html">Edizione</a><a href="text.html" class="on">Testo</a><a href="genesis.html">Genesi</a><a href="indices.html">Lab</a><a href="data.html">Dati</a></nav>
 </header>
-<div class="torchio-bar"><div class="inner"><span class="modes" role="group" aria-label="Testo"><button data-mode="read" class="active" aria-pressed="true">Interpretativa</button><button data-mode="dipl" aria-pressed="false">Diplomatica</button></span><button class="sw" data-sw="app" aria-pressed="true">Apparato</button><button class="sw" data-sw="notes" aria-pressed="true">Note</button><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><div id="specimen:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
+
+<div class="torchio-bar"><div class="inner"><span class="modes" role="group" aria-label="Testo"><button data-mode="read" class="active" aria-pressed="true">Interpretativa</button><button data-mode="dipl" aria-pressed="false">Diplomatica</button></span><button class="sw" data-sw="app" aria-pressed="true">Apparato</button><button class="sw" data-sw="notes" aria-pressed="true">Note</button><button class="sw off" data-sw="header" aria-pressed="false">Scheda del file</button></div></div><main id="main" class="torchio"><style>
+.legend{margin:.8em 0;font-size:13px;color:var(--soft)}
+.legend summary{cursor:pointer;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.legend ul{list-style:none;padding:.6em 0 0;margin:0;display:flex;flex-wrap:wrap;gap:.5em 1.8em}
+.leg-sample{display:inline-block;min-width:2.2em;text-align:center}
+.leg-app{border-bottom:1px dashed var(--accent)}
+.hand-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:.8em 0}
+.hand-lab{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+.hand-btn{font-size:12px;border:1px solid var(--hair);border-radius:2px;background:var(--paper);color:var(--ink);cursor:pointer;padding:4px 10px;display:inline-flex;align-items:center;gap:6px}
+.hand-btn.on{border-color:var(--accent)}
+.hand-dot{display:inline-block;width:9px;height:9px;border-radius:50%}
+body[data-hand-only] #main{color:#b9b3a6}
+body[data-hand-only] #main [data-hand]{opacity:.3}
+body[data-hand-only="#m1"] #main{color:var(--ink)}
+[data-hand="#m1"]{background:#1a5fb41f;box-shadow:inset 0 -2px #1a5fb499}
+body[data-hand-only="#m1"] #main [data-hand="#m1"],body[data-hand-only="#m1"] #main [data-hand="#m1"] *{opacity:1;color:var(--ink)}
+[data-hand="#m2"]{background:#26652c1f;box-shadow:inset 0 -2px #26652c99}
+body[data-hand-only="#m2"] #main [data-hand="#m2"],body[data-hand-only="#m2"] #main [data-hand="#m2"] *{opacity:1;color:var(--ink)}
+</style><div class="hand-bar"><span class="hand-lab">Mani</span><button type="button" class="hand-btn" data-hand-pick="#m1"><span class="hand-dot" style="background:#1a5fb4"></span>Mano principale, immaginaria. <span class="occ">(mano principale)</span></button><button type="button" class="hand-btn" data-hand-pick="#m2"><span class="hand-dot" style="background:#26652c"></span>Mano di revisione, immaginaria.</button><button type="button" class="hand-btn" data-hand-pick="">tutte</button></div><details class="legend"><summary>Legenda</summary><ul><li><span class="leg-sample"><span class="t-del">parola</span></span> cancellato dalla mano che scrive</li><li><span class="leg-sample"><span class="t-add">parola</span></span> aggiunto sopra la riga</li><li><span class="leg-sample"><span class="t-unclear">parola</span></span> lettura incerta</li><li><span class="leg-sample"><span class="t-sign">[</span>parola<span class="t-sign">]</span></span> integrazione dell'editore</li><li><span class="leg-sample"><span class="leg-app">parola</span></span> varianti: clic per l'apparato</li><li><span class="leg-sample"><sup>1</sup></span> richiamo di nota</li><li><span class="leg-sample"><span class="hand-dot" style="background:#1a5fb4"></span></span> la mano di Mano principale, immaginaria.</li><li><span class="leg-sample"><span class="hand-dot" style="background:#26652c"></span></span> la mano di Mano di revisione, immaginaria.</li></ul></details><div id="specimen:0.0" class="t-teiHeader s-7-header" data-el="teiHeader">
     <div id="specimen:0.0.0" class="t-fileDesc s-7-header" data-el="fileDesc">
       <span id="specimen:0.0.0.0" class="t-titleStmt s-7-header" data-el="titleStmt">
         <span id="specimen:0.0.0.0.0" class="t-title s-1-inline" data-el="title">Specimen</span>
@@ -326,39 +417,39 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         </div>
       </div>
     </div>
-    <span id="specimen:0.0.1" class="t-profileDesc s-7-header" data-el="profileDesc">
+    <div id="specimen:0.0.1" class="t-profileDesc s-7-header" data-el="profileDesc">
       <span id="specimen:0.0.1.0" class="t-langUsage s-7-header" data-el="langUsage"><span id="specimen:0.0.1.0.0" class="t-language s-7-header" data-el="language">italiano</span></span>
-      <span id="specimen:0.0.1.1" class="t-particDesc s-7-header" data-el="particDesc">
+      <div id="specimen:0.0.1.1" class="t-particDesc s-7-header" data-el="particDesc">
         <div id="specimen:0.0.1.1.0" class="t-listPerson s-1-liste" data-el="listPerson">
           <div id="odisseo" class="t-person s-2-entita" data-el="person"><span id="specimen:0.0.1.1.0.0.0" class="t-persName s-2-entita" data-el="persName">Odisseo</span></div>
           <div id="musa" class="t-person s-2-entita" data-el="person"><span id="specimen:0.0.1.1.0.1.0" class="t-persName s-2-entita" data-el="persName">La Musa</span></div>
         </div>
-      </span>
-      <span id="specimen:0.0.1.2" class="t-settingDesc s-7-header" data-el="settingDesc">
+      </div>
+      <div id="specimen:0.0.1.2" class="t-settingDesc s-7-header" data-el="settingDesc">
         <div id="specimen:0.0.1.2.0" class="t-listPlace s-1-liste" data-el="listPlace">
           <div id="troia" class="t-place s-2-entita" data-el="place"><span id="specimen:0.0.1.2.0.0.0" class="t-placeName s-2-entita" data-el="placeName">Troia</span><span id="specimen:0.0.1.2.0.0.1" class="t-location s-2-entita" data-el="location"><span id="specimen:0.0.1.2.0.0.1.0" class="t-geo s-1-inline" data-el="geo">39.9570 26.2390</span></span></div>
           <div id="itaca" class="t-place s-2-entita" data-el="place"><span id="specimen:0.0.1.2.0.1.0" class="t-placeName s-2-entita" data-el="placeName">Itaca</span><span id="specimen:0.0.1.2.0.1.1" class="t-location s-2-entita" data-el="location"><span id="specimen:0.0.1.2.0.1.1.0" class="t-geo s-1-inline" data-el="geo">38.4381 20.6903</span></span></div>
         </div>
-      </span>
+      </div>
       <span id="specimen:0.0.1.3" class="t-handNotes s-7-header" data-el="handNotes">
         <span id="m1" class="t-handNote s-7-header" data-el="handNote">Mano principale, immaginaria.</span>
         <span id="m2" class="t-handNote s-7-header" data-el="handNote">Mano di revisione, immaginaria.</span>
       </span>
-    </span>
-    <span id="specimen:0.0.2" class="t-revisionDesc s-7-header" data-el="revisionDesc">
+    </div>
+    <div id="specimen:0.0.2" class="t-revisionDesc s-7-header" data-el="revisionDesc">
       <div id="specimen:0.0.2.0" class="t-change s-7-header" data-el="change" data-when="2026-07-30">Specimen creato per la pubblicazione di Torchio.</div>
-    </span>
+    </div>
   </div><div id="specimen:0.1.0" class="t-body s-1-struttura" data-el="body">
       <div id="specimen:0.1.0.0" class="t-div s-1-struttura" data-el="div" data-type="specimen">
         <h2 id="specimen:0.1.0.0.0" class="t-head s-1-struttura" data-el="head">L&#39;incipit, con apparato dimostrativo</h2>
         <div id="specimen:0.1.0.0.1" class="t-lg s-1-struttura" data-el="lg">
-          <div id="specimen:0.1.0.0.1.0" class="t-l s-1-versi" data-el="l"><span id="specimen:0.1.0.0.1.0.0" class="t-persName s-2-entita" data-el="persName" data-ref="#musa">Musa</span>, quell&#39;uom di
-            <span id="specimen:0.1.0.0.1.0.1" class="t-app s-4-apparato" data-el="app"><span id="specimen:0.1.0.0.1.0.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#A #C">multiforme</span><span id="specimen:0.1.0.0.1.0.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#B">moltiforme</span></span>
+          <div id="specimen:0.1.0.0.1.0" class="t-l s-1-versi" data-el="l"><span id="specimen:0.1.0.0.1.0.0" class="t-persName s-2-entita" title="ref: #musa" data-el="persName" data-ref="#musa">Musa</span>, quell&#39;uom di
+            <span id="specimen:0.1.0.0.1.0.1" class="t-app s-4-apparato app-has-lem" data-el="app"><span id="specimen:0.1.0.0.1.0.1.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#A #C">multiforme</span><span id="specimen:0.1.0.0.1.0.1.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#B">moltiforme</span></span>
             ingegno</div>
           <div id="specimen:0.1.0.0.1.1" class="t-l s-1-versi" data-el="l">dimmi, che molto errò, poich&#39;ebbe a terra</div>
-          <div id="specimen:0.1.0.0.1.2" class="t-l s-1-versi" data-el="l">gittate d&#39;<span id="specimen:0.1.0.0.1.2.0" class="t-placeName s-2-entita" data-el="placeName" data-ref="#troia">Ilïòn</span> le sacre torri;</div>
+          <div id="specimen:0.1.0.0.1.2" class="t-l s-1-versi" data-el="l">gittate d&#39;<span id="specimen:0.1.0.0.1.2.0" class="t-placeName s-2-entita" title="ref: #troia" data-el="placeName" data-ref="#troia">Ilïòn</span> le sacre torri;</div>
           <div id="specimen:0.1.0.0.1.3" class="t-l s-1-versi" data-el="l">che città vide molte, e delle genti</div>
-          <div id="specimen:0.1.0.0.1.4" class="t-l s-1-versi" data-el="l">l&#39;<span id="specimen:0.1.0.0.1.4.0" class="t-app s-4-apparato" data-el="app"><span id="specimen:0.1.0.0.1.4.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#A">indol</span><span id="specimen:0.1.0.0.1.4.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#B #C" data-type="ortografica">indole</span></span> conobbe; che sovr&#39;esso il mare</div>
+          <div id="specimen:0.1.0.0.1.4" class="t-l s-1-versi" data-el="l">l&#39;<span id="specimen:0.1.0.0.1.4.0" class="t-app s-4-apparato app-has-lem" data-el="app"><span id="specimen:0.1.0.0.1.4.0.0" class="t-lem s-4-apparato" data-el="lem" data-wit="#A">indol</span><span id="specimen:0.1.0.0.1.4.0.1" class="t-rdg s-4-apparato" data-el="rdg" data-wit="#B #C" data-type="ortografica">indole</span></span> conobbe; che sovr&#39;esso il mare</div>
           <div id="specimen:0.1.0.0.1.5" class="t-l s-1-versi" data-el="l">molti dentro del cor sofferse affanni,</div>
           <div id="specimen:0.1.0.0.1.6" class="t-l s-1-versi" data-el="l">mentre a <span id="specimen:0.1.0.0.1.6.0" class="t-del s-3-trascrizionale" data-el="del" data-hand="#m1">salvar</span><span id="specimen:0.1.0.0.1.6.1" class="t-add s-3-trascrizionale" data-el="add" data-place="above" data-hand="#m2">redimer</span> cercava a sé la vita,</div>
           <div id="specimen:0.1.0.0.1.7" class="t-l s-1-versi" data-el="l">e il ritorno a&#39; compagni.</div>
@@ -367,15 +458,16 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
           <span id="specimen:0.1.0.0.2.0" class="t-choice s-3-editoriale" data-el="choice"><span id="specimen:0.1.0.0.2.0.0" class="t-abbr s-3-editoriale" data-el="abbr">sig.ra</span><span id="specimen:0.1.0.0.2.0.1" class="t-expan s-3-editoriale" data-el="expan">signora</span></span> abbreviazione
           col suo scioglimento, un passo
           <span id="specimen:0.1.0.0.2.1" class="t-unclear s-3-editoriale" data-el="unclear">di lettura incerta</span>, una parola
-          <span id="specimen:0.1.0.0.2.2" class="t-supplied s-3-editoriale" data-el="supplied"><span class="t-sign">[</span>integrata<span class="t-sign">]</span></span>, e il nome di
-          <span id="specimen:0.1.0.0.2.3" class="t-persName s-2-entita" data-el="persName" data-ref="#odisseo">Odisseo</span> che punta al registro,
-          come <span id="specimen:0.1.0.0.2.4" class="t-placeName s-2-entita" data-el="placeName" data-ref="#itaca">Itaca</span> alla mappa.
+          <span id="specimen:0.1.0.0.2.2" class="t-supplied s-3-editoriale" data-el="supplied" data-reason="damage"><span class="t-sign">[</span>integrata<span class="t-sign">]</span></span>, e il nome di
+          <span id="specimen:0.1.0.0.2.3" class="t-persName s-2-entita" title="ref: #odisseo" data-el="persName" data-ref="#odisseo">Odisseo</span> che punta al registro,
+          come <span id="specimen:0.1.0.0.2.4" class="t-placeName s-2-entita" title="ref: #itaca" data-el="placeName" data-ref="#itaca">Itaca</span> alla mappa.
           <span class="t-note-mark" aria-hidden="true">°</span><div id="specimen:0.1.0.0.2.5" class="t-note s-1-note" data-el="note" data-type="editorial">Le note editoriali si mostrano così.</div></div>
       </div>
     </div></main>
-<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0.1.0 · 7f689ea · 2026-07-31</footer>
+<footer class="torchio">Pubblicato con <span class="press">Torchio</span> v0.2.0-beta.2 · 370db8e · 2026-08-01</footer>
 <script>
 (function(){
+  var T={"edition":"Edizione","text":"Testo","indices":"Indici","data":"Dati","archive":"Archivio","dsa":"archivio digitale","texts":"Testi","reading":"Interpretativa","diplomatic":"Diplomatica","apparatus":"Apparato","aboutFile":"Scheda del file","notes":"Note","dse":"edizione scientifica digitale","responsibility":"Responsabilità","licence":"Licenza","witnesses":"Testimoni","apparatusRegisters":"Apparati","revisions":"Storia delle revisioni","generator":"Generatore","people":"Persone","places":"Luoghi","orgs":"Organizzazioni","occurrenceOne":"occorrenza","occurrenceMany":"occorrenze","entries":"voci","skip":"Vai al contenuto","publishedWith":"Pubblicato con","map":"Mappa","lab":"Lab","labAnalyses":"Analisi","labIntro":"Lo strato analitico, tenuto distinto dall'edizione: gli indici, l'analisi quantitativa, i lemmi, la mappa — derivati dal testo, non attestati da esso. Scegli sopra.","labLexDesc":"Frequenze, concordanza (KWIC) e il conteggio di token / type / TTR.","labMapDesc":"I luoghi che portano coordinate.","mapAria":"Mappa dei luoghi dell'edizione","mapNote":"Schizzo posizionale. Punti pieni: coordinate dichiarate nel TEI o confermate dall’editore. Punti vuoti: suggerimenti del gazetteer in attesa di revisione. Ogni luogo rimanda a OpenStreetMap. Coste: Natural Earth (pubblico dominio).","front":"Pagine iniziali","back":"Pagine finali","lacking":"manca in","editedText":"testo critico","genesis":"Genesi","hand":"mano","version":"versione","legend":"Legenda","legWord":"parola","legDel":"cancellato dalla mano che scrive","legAdd":"aggiunto sopra la riga","legUnclear":"lettura incerta","legSupplied":"integrazione dell'editore","legGap":"perduto o illeggibile","legPb":"cambio di pagina della fonte","legMetamark":"segno della mano sul testo (^ = inserire qui; passa il mouse su un segno per leggere cosa fa)","legApp":"varianti: clic per l'apparato","legNote":"richiamo di nota","legHands":"Mani","legAllHands":"tutte","legHand":"la mano di","idxSearch":"cerca un nome…","backToTop":"torna su","apparatusCritical":"critico: varianti tra testimoni","apparatusGenetic":"genetico: gli strati di un manoscritto nel tempo","apparatusBoth":"critico e genetico: testimoni da collazionare, strati al loro interno","legMajor":"mano principale","lexicon":"Lessico","lexTokens":"parole","lexForms":"forme distinte","lexTTR":"type-token ratio","lexSearch":"cerca una parola…","lexFrequencies":"Frequenze","lexConcordance":"Concordanza","lexPick":"Scegli una parola per vederla in contesto.","lexLanguage":"Lingua","lexAllLangs":"tutte","lexStoplist":"Stopword","lexDocument":"Documento","lexWholeEdition":"tutti i documenti","lexStopNone":"nessuna","lexHideStop":"nascondi le stopword","lexWord":"parola","lexLang":"lingua","descrFrequencies":"Ogni forma attestata con il suo conteggio, la quota per mille e se la lista di stopword scelta la copre.","descrConcordance":"Ogni occorrenza di ogni forma, con le parole intorno e il rimando al punto del testo.","descrLemmaConcordance":"Le stesse occorrenze raggruppate sotto la forma di dizionario, dove l'edizione ha i lemmi.","lexAbs":"assoluta","lexRel":"per 1000","lexStats":"Statistica lessicale","lexStopCol":"stop","lexStopNote":"Le frequenze tolgono le stopword scelte; la concordanza tiene ogni parola.","genesisNote":"Le campagne correttorie dichiarate dall’edizione, nel suo ordine, con le operazioni di scrittura attribuite a ciascuna. Ogni operazione rimanda al punto in cui è avvenuta.","agreement":"Accordi fra testimoni","agreementNote":"Quante volte due testimoni portano la stessa lezione. Materiale per lo stemma, che resta argomento dell’editore.","openPage":"apri la pagina","sectionsN":"sezioni","sectionOne":"Sezione","contents":"Indice delle sezioni","bookLabel":"Libro","register":"Registro","documentsN":"documenti","dateCol":"Data","fromCol":"Mittente","toCol":"Destinatario","authorCol":"Autore","placeCol":"Luogo","titleCol":"Titolo","idnoCol":"Segn.","filter":"Filtra…","prev":"‹ precedente","next":"successivo ›","fullHeader":"L'intestazione completa (teiHeader)","fullHeaderNote":"Tutto ciò che il file dichiara, reso così com'è.","reuse":"Riuso secondo la licenza dell'edizione (vedi la pagina Edizione).","appEntry":"voce di apparato","descrModel":"il modello dell'edizione: documenti, registri, apparati (JSON)","descrEntities":"persone, luoghi e organizzazioni con conteggio delle occorrenze e coordinate","descrApparatus":"ogni lezione di apparato con i suoi testimoni, una riga per lezione","descrSource":"il file TEI sorgente, senza modifiche","lemmas":"Lemmi","lemmaCoverage":"Copertura","tokensWord":"token","languagesLabel":"Lingue","yearsLabel":"Anni","contributorsLabel":"Contributori","interventionsWord":"interventi","licenceVariesNote":"ogni documento dichiara la propria licenza, mostrata sulla sua pagina","lemmaFromMarkup":"dal markup (w/@lemma)","lemmaFromFile":"da lemmas.json","lemmaPending":"voci in attesa di revisione dell'editore","formsLabel":"forme","moreOccurrences":"altre occorrenze non mostrate qui","descrLemmas":"ogni lemma con le sue forme e i conteggi, una riga per forma","descrTokens":"il flusso dei token del testo di lettura: posizione, lingua, forma, lemma, ancora"};
   var body=document.body; body.classList.add('mode-read');
   if(document.querySelector('.app-band'))body.classList.add('has-band');
   if(window.TORCHIO_ALIGN)body.classList.add('has-align');
@@ -517,7 +609,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         +'<span class="'+(r.dataset.el==='lem'?'is-lem':'')+'">'+esc(rr.textContent.trim()||'(om.)')+'</span></div>';
     });
     if(!rows)return false;
-    openPop('<span class="k">'+'Apparato'.toLowerCase()+'</span>'+rows,el);
+    openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'+rows,el);
     return true;
   }
   if(document.readyState==='complete'){wireWords();wirePointing();}
@@ -557,7 +649,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     if(app)return [app];
     var t=n.dataset.target;
     if(t){
-      var els=t.split(/s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
+      var els=t.split(/\s+/).map(function(x){return document.getElementById(x.replace(/^#/,''));}).filter(Boolean);
       if(els.length)return els;
     }
     var m=n.previousElementSibling;
@@ -571,7 +663,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
   }
   function showZone(n){clearZone();zoneOf(n).forEach(function(e){e.classList.add('note-hi');hiZone.push(e);});}
   document.querySelectorAll('.t-app [data-el="lem"]').forEach(function(el){
-    makeTrigger(el,'voce di apparato: '+el.textContent.trim());
+    makeTrigger(el,''+esc(T.appEntry)+': '+el.textContent.trim());
   });
   document.querySelectorAll('[data-ref],[data-key]').forEach(function(el){
     if(el.classList.contains('ent-ext'))return; /* external links stay links */
@@ -618,11 +710,11 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
               if(el){
                 var cl=el.cloneNode(true);
                 cl.querySelectorAll('[data-el="abbr"],[data-el="orig"],[data-el="sic"],[data-el="am"],.t-note,.t-note-mark,.app-band').forEach(function(x){x.remove();});
-                txt=cl.textContent.replace(/s+/g,' ').trim();
+                txt=cl.textContent.replace(/\s+/g,' ').trim();
               }
               openPop('<span class="k">'+esc(sig)+'</span>'
                 +'<div class="notebody">'+(txt?esc(txt):'…')+'</div>'
-                +'<div class="meta"><a href="'+tgt+'">apri la pagina</a></div>',bw);
+                +'<div class="meta"><a href="'+tgt+'">'+esc(T.openPage)+'</a></div>',bw);
             })['catch'](function(){location.href=tgt;});
           }catch(e){location.href=tgt;}
         });
@@ -646,14 +738,14 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       });
       var extra='';
       app.querySelectorAll('.t-note').forEach(function(nn){
-        extra+='<div class="meta">'+esc(nn.textContent.replace(/s+/g,' ').trim())+'</div>';
+        extra+='<div class="meta">'+esc(nn.textContent.replace(/\s+/g,' ').trim())+'</div>';
       });
-      openPop('<span class="k">apparato'+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
+      openPop('<span class="k">'+esc(T.apparatus.toLowerCase())+''+(app.dataset.type?' · '+esc(app.dataset.type):'')+'</span>'+rows+extra,app);
       ev.stopPropagation();return;
     }
     var ch=ev.target.closest&&ev.target.closest('.t-choice');
     if(ch&&!ch.closest('.t-app')){
-      var kinds={abbr:'Diplomatica',orig:'Diplomatica',sic:'Diplomatica',expan:'Interpretativa',reg:'Interpretativa',corr:'Interpretativa'};
+      var kinds={abbr:esc(T.diplomatic),orig:esc(T.diplomatic),sic:esc(T.diplomatic),expan:esc(T.reading),reg:esc(T.reading),corr:esc(T.reading)};
       var rows='';
       [].slice.call(ch.children).forEach(function(c){
         var k=c.dataset&&c.dataset.el; if(!kinds[k])return;
@@ -674,10 +766,22 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       var meta=[];
       if(key&&ent.textContent.trim()!==key)meta.push(esc(ent.textContent.trim()));
       if(ref)meta.push(esc(ref));
-      meta.push(all.length+' '+(all.length===1?'occorrenza':'occorrenze'));
+      meta.push(all.length+' '+(all.length===1?esc(T.occurrenceOne):esc(T.occurrenceMany)));
       openPop('<span class="k">'+esc(ent.dataset.el)+'</span>'
         +'<div>'+esc(head)+'</div>'
         +'<div class="meta">'+meta.join(' · ')+'</div>',ent);
+      ev.stopPropagation();return;
+    }
+    /* a writing operation belongs to a campaign and a hand: clicking it says
+       which, and links to the stratum it belongs to */
+    var op=ev.target.closest&&ev.target.closest('[data-change],[data-hand]');
+    if(op&&/^(add|del|subst|restore|retrace|mod|transpose|metamark)$/.test(op.dataset.el||'')){
+      var lab=(op.dataset.change||'').replace(/^#/,''), hd=(op.dataset.hand||'').replace(/^#/,'');
+      var strat=lab?document.querySelector('[data-el="change"][id$="'+lab+'"]'):null;
+      openPop('<span class="k">'+esc(op.dataset.el)+'</span>'
+        +'<div class="notebody">'+esc(op.textContent.replace(/\s+/g,' ').trim().slice(0,140))+'</div>'
+        +'<div class="meta">'+(lab?esc(lab):'')+(hd?' · '+esc(hd):'')
+        +' <a href="genesis.html">'+esc(T.genesis)+'</a></div>',op);
       ev.stopPropagation();return;
     }
     var anc=ev.target.closest&&ev.target.closest('[data-appref]');
@@ -685,7 +789,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     var wv=ev.target.closest&&ev.target.closest('.wv');
     if(wv&&wv._be&&!body.classList.contains('app-off')){
       var wband=wv._be.closest('.app-band');
-      openPop('<span class="k">'+'Apparato'.toLowerCase()+'</span>'
+      openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+((wband&&wband.getAttribute('data-ent'))||'')+'">'+wv._be.outerHTML+'</div>',wv);
       ev.stopPropagation();return;
     }
@@ -693,7 +797,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     if(npFirst){
       var nnF=document.querySelector('.t-note[data-npi="'+npFirst.getAttribute('data-notepop')+'"]');
       if(nnF&&!body.classList.contains('notes-off')){
-        openPop('<span class="k">'+'Note'.toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
+        openPop('<span class="k">'+esc(T.notes).toLowerCase()+'</span><div class="notebody">'+nnF.innerHTML+'</div>',npFirst);
         showZone(nnF);
         ev.stopPropagation();return;
       }
@@ -716,9 +820,9 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
           var el=doc.getElementById(id);
           var sec=el&&el.closest?el.closest('.vmap')||el:el;
           if(!sec)return;
-          openPop('<span class="k">'+'Apparato'.toLowerCase()+'</span>'
+          openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'
             +'<div class="popband" data-ent="'+esc(key)+'">'+sec.innerHTML+'</div>'
-            +'<div class="meta"><a href="'+tgt+'">apri la pagina</a></div>',lw);
+            +'<div class="meta"><a href="'+tgt+'">'+esc(T.openPage)+'</a></div>',lw);
         })['catch'](function(){});
       });
       ev.stopPropagation();return;
@@ -727,7 +831,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     if(lv&&lv.nextElementSibling&&lv.nextElementSibling.classList
        &&lv.nextElementSibling.classList.contains('app-band')){
       var bd=lv.nextElementSibling;
-      openPop('<span class="k">'+'Apparato'.toLowerCase()+'</span>'
+      openPop('<span class="k">'+esc(T.apparatus).toLowerCase()+'</span>'
         +'<div class="popband" data-ent="'+(bd.getAttribute('data-ent')||'')+'">'+bd.innerHTML+'</div>',lv);
       ev.stopPropagation();return;
     }
@@ -735,7 +839,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     if(np&&!body.classList.contains('notes-off')){
       var nn=document.querySelector('.t-note[data-npi="'+np.getAttribute('data-notepop')+'"]');
       if(nn){
-        openPop('<span class="k">'+'Note'.toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
+        openPop('<span class="k">'+esc(T.notes).toLowerCase()+'</span><div class="notebody">'+nn.innerHTML+'</div>',np);
         showZone(nn);
         ev.stopPropagation();return;
       }
@@ -749,13 +853,18 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     var old=document.getElementById('note-leaders'); if(old)old.remove();
     var main=document.querySelector('main.torchio'); if(!main)return;
     var notes=[].slice.call(document.querySelectorAll('main.torchio .t-note'))
-      .filter(function(n){return !n.closest('.header-full')&&!n.closest('.t-teiHeader');});
+      .filter(function(n){
+        /* a header note is metadata, except a standoff note with a target:
+           that one belongs to the passage it names, wherever it was written */
+        var inHeader=n.closest('.header-full')||n.closest('.t-teiHeader');
+        return !inHeader||!!n.dataset.target;
+      });
     function anchorOf(n){
       var app=n.closest('.t-app');
       if(app){return {el:app.querySelector('[data-el="lem"]')||app,kind:'app'};}
       var t=n.dataset.target;
       if(t){
-        var id=t.split(/s+/)[0].replace(/^#/,'');
+        var id=t.split(/\s+/)[0].replace(/^#/,'');
         var el=document.getElementById(id);
         if(el)return {el:el,kind:'target'};
       }
@@ -768,26 +877,69 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
        they collapse to their marks and open on click, like the apparatus */
     var dense=notes.length>12;
     body.classList.toggle('notes-dense',dense);
-    if(dense){
+    /* pairing runs ALWAYS: a mark must answer a click whatever the density
+       or the width of the window; density only decides whether the notes
+       collapse to their marks or sit in the margin */
+    {
+      // the renderer emits a mark and its note together: pair them by
+      // document order, so a mark is never left without its note (C74)
+      var marks=[].slice.call(document.querySelectorAll('main.torchio .t-note-mark'))
+        .filter(function(m){return !m.closest('.header-full')&&!m.closest('.t-teiHeader');});
+      /* a mark whose note the press does not show (a note of the header, or
+         one filtered out) is not a mark: it is a leftover, and it goes */
+      if(marks.length>notes.length){
+        marks.slice(notes.length).forEach(function(m){m.remove();});
+        marks=marks.slice(0,notes.length);
+      }
       notes.forEach(function(n,i){
         if(n.dataset.npi)return;
         n.dataset.npi=String(i);
         var res=anchorOf(n);
-        if(res){res.el.setAttribute('data-notepop',String(i));
-          res.el.removeAttribute('aria-hidden');makeTrigger(res.el,null);}
+        var mk=marks[i];
+        /* a standoff note is written apart and declares where it belongs:
+           its mark goes to the passage, not to the place it was written */
+        var tg=n.dataset.target;
+        if(tg&&mk){
+          var id=tg.split(/\s+/)[0].replace(/^#/,'');
+          var dest=document.getElementById(id);
+          if(dest&&!dest.contains(mk)){
+            if(dest.nextSibling)dest.parentNode.insertBefore(mk,dest.nextSibling);
+            else dest.parentNode.appendChild(mk);
+          }
+        }
+        /* both answer the click: the mark, and the anchored passage */
+        if(mk){mk.setAttribute('data-notepop',String(i));
+          mk.removeAttribute('aria-hidden');makeTrigger(mk,null);}
+        var el=res&&res.el;
+        if(el&&el!==mk){el.setAttribute('data-notepop',String(i));makeTrigger(el,null);}
       });
     }
-    if(window.innerWidth<1180||body.classList.contains('notes-off')||dense){
+    var old=document.getElementById('note-leaders'); if(old)old.remove();
+    /* the notes go into BOTH margins: each takes the side that carries it
+       closest to its mark, so a long text with many notes fills the two
+       gutters instead of collapsing to popups. The economy rule is applied
+       per note, not to the whole page: only a note that neither side can hold
+       near its anchor (its stack would push it past MAXDRIFT) collapses to its
+       mark and opens on click. The two columns keep their own running bottom */
+    main.style.position='relative';
+    var mr=main.getBoundingClientRect();
+    var remPx=parseFloat(getComputedStyle(document.documentElement).fontSize)||16;
+    var noteW=14*remPx;
+    /* margins carry the notes only when a gutter can actually hold one. The
+       page is centred, so both gutters are the same width; too narrow, or
+       notes off, and every note collapses to its mark. This is the real cause
+       of notes landing on the text: a margin too thin for what it was asked to
+       hold. Measured, not guessed at a fixed breakpoint */
+    if(mr.left<noteW+26||body.classList.contains('notes-off')){
       notes.forEach(function(n){n.classList.remove('placed');n.style.cssText='';});
       return;
     }
-    main.style.position='relative';
-    var mr=main.getBoundingClientRect();
-    var colLeft=main.clientWidth+26;
+    var colR=main.clientWidth+26;   // right column: the note extends into the right gutter
+    var colL=-(noteW+26);           // left column: the note sits in the left gutter
+    var GAP=10, MAXDRIFT=340;
     var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.id='note-leaders';
     svg.style.cssText='position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none;overflow:visible;z-index:1';
-    var lastBottom=0;
     var items=notes.map(function(n){
       var flowY=n.getBoundingClientRect().top-mr.top;
       var res=anchorOf(n);
@@ -796,28 +948,45 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
       if(a){
         var r=a.getBoundingClientRect();
         var ay=(r.width||r.height)?r.top-mr.top:null;
-        if(ay!==null&&(kind!=='mark'||ay<flowY-40)){y=ay;}
-        else if(kind==='mark'){/* adjacent: keep flow position, no line */}
+        // the anchor's own position is the truth: the note is hidden inline
+        // when dense, so its flow position is meaningless. Align to the mark
+        // (or the standoff target) wherever it sits on the page
+        if(ay!==null){y=ay;}
         else{a=null;}
       }
       return {n:n,a:a,kind:kind,y:y};
     });
     items.sort(function(p,q){return p.y-q.y;});
+    var botL=0, botR=0, maxBottom=0;
     items.forEach(function(it){
       var n=it.n;
+      var topR=Math.max(it.y,botR+GAP), topL=Math.max(it.y,botL+GAP);
+      // the right margin is primary; the left takes the overflow only when the
+      // right is backed up (it would push the note more than a line below its
+      // mark) and the left carries it closer. So a lightly annotated text keeps
+      // one margin, and a dense one like this grammar spreads over both
+      var side=(topR-it.y<=26)?'R':(topL<topR?'L':'R');
+      var top=side==='L'?topL:topR;
+      if(top-it.y>MAXDRIFT){ n.classList.remove('placed'); n.style.cssText=''; return; }
       n.classList.add('placed');
-      var top=Math.max(it.y,lastBottom+10);
-      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+colLeft+'px;top:'+top+'px;border-left:0;padding-left:0';
-      lastBottom=top+n.offsetHeight;
+      var left=side==='L'?colL:colR;
+      n.style.cssText='position:absolute;float:none;width:14rem;margin:0;left:'+left+'px;top:'+top+'px;border-left:0;padding-left:0';
+      var h=n.offsetHeight;
+      if(side==='L')botL=top+h; else botR=top+h;
+      if(top+h>maxBottom)maxBottom=top+h;
       if(it.a){
         var ar=it.a.getBoundingClientRect();
         if(ar.width||ar.height){
-          var x1=ar.right-mr.left+2, y1=ar.top-mr.top+ar.height*0.5;
-          var x2=colLeft-8, y2=top+8;
-          // a thread only when short and meaningful; never across the page
-          if((it.kind==='app'||it.kind==='target')&&Math.abs(y2-y1)<160){
+          var y1=ar.top-mr.top+ar.height*0.5, y2=top+8, x1,x2,cx1,cx2;
+          if(side==='L'){ x1=ar.left-mr.left-2; x2=left+noteW+8; cx1=x1-24; cx2=x2+24; }
+          else { x1=ar.right-mr.left+2; x2=left-8; cx1=x1+24; cx2=x2-24; }
+          // a thread where the eye needs it: the note is pushed below its mark
+          // by the stack, so a short faint curve reconnects them. Where the
+          // note sits at its mark's height (drift near zero) the alignment is
+          // the connection and a line would only clutter; never across the page
+          if(Math.abs(y2-y1)>14&&Math.abs(y2-y1)<200){
             var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-            p.setAttribute('d','M'+x1+' '+y1+' C '+(x1+24)+' '+y1+', '+(x2-24)+' '+y2+', '+x2+' '+y2);
+            p.setAttribute('d','M'+x1+' '+y1+' C '+cx1+' '+y1+', '+cx2+' '+y2+', '+x2+' '+y2);
             p.setAttribute('fill','none');
             p.setAttribute('stroke','var(--faint)');
             p.setAttribute('stroke-width','1');
@@ -835,7 +1004,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
         }
       }
     });
-    if(items.length){main.style.minHeight=(lastBottom+32)+'px';}
+    if(maxBottom)main.style.minHeight=(maxBottom+32)+'px';
     main.appendChild(svg);
   }
   if(document.readyState==='complete')leaders();
@@ -860,6 +1029,16 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
     });
   }
 })();
-</script>
+
+(function(){
+  document.querySelectorAll('.hand-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var h=b.getAttribute('data-hand-pick');
+      if(h){document.body.setAttribute('data-hand-only',h);}
+      else{document.body.removeAttribute('data-hand-only');}
+      document.querySelectorAll('.hand-btn').forEach(function(x){x.classList.toggle('on',x===b&&!!h);});
+    });
+  });
+})();</script>
 </body>
 </html>

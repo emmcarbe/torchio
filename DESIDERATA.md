@@ -2,14 +2,18 @@
 
 # Desiderata
 
-Wishes, requests and ideas for Torchio, from anyone. To add yours: edit this
-file on GitHub (the pencil icon, or the link on the demo site). If you are
-logged in, GitHub will automatically fork the repository and open a pull
-request with your addition; once merged, your entry appears here. One line
-per wish, newest first:
+Wishes, requests and ideas for Torchio, from anyone, in any language.
 
-`- YYYY-MM-DD, your name or handle: your wish, in any language.`
+The way in is the repository's
+[Discussions](https://github.com/emmcarbe/torchio/discussions): open one,
+no fork or pull request needed. The Discussions are the letterbox, this
+file is the record: a wish worth keeping is transcribed below with its
+date and author, because platform data does not travel into the archived
+releases and this file does. A wish that becomes work enters
+[ROADMAP.md](ROADMAP.md); one that becomes code is recorded in
+[CORRECTIONS.md](CORRECTIONS.md).
 
-## Wishes
+## The record
 
-<!-- add yours below this line -->
+<!-- transcribed from Discussions: - YYYY-MM-DD, name or handle: the wish -->
+

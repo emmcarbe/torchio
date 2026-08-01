@@ -119,7 +119,34 @@ export function buildExports(model, { sourceXML = null, only = null } = {}) {
   const want = (k) => !only || only[k] !== false;
   const files = {};
   if (want('model')) {
-    const json = modelJSON(model);
+    // a large archive cannot be serialized whole: past a certain size the
+    // engine that runs this refuses to build the string at all (a few hundred
+    // megabytes), and the failure arrives as an error about a string length,
+    // long before the size check below could speak. So the attempt is made and
+    // its failure is a fact like any other: the model is then split per
+    // document, which is the same shape the size rule produces
+    let json = null;
+    try { json = modelJSON(model); }
+    catch (err) { json = null; }
+    if (json === null) {
+      if (model.documents && model.documents.length > 1) {
+        // the box keeps the archive's own level (what belongs to the whole:
+        // its identity, its shared registries) and points at one file per
+        // document. Both levels survive: the archive is not reduced to a list
+        // of links, and a document is not flattened into the archive
+        const index = { split: true, reason: 'the whole model is too large to serialize in one piece',
+          meta: model.meta, generator: model.generator, collection: model.collection,
+          registries: model.registries, documents: [] };
+        for (const d of model.documents) {
+          const one = JSON.stringify({ meta: model.meta, generator: model.generator,
+            documents: [d] }, null, 1);
+          const name = `data/model/${String(d.id).replace(/[^\w.-]/g, '_')}.json`;
+          files[name] = one;
+          index.documents.push({ id: d.id, file: name.replace('data/', ''), bytes: one.length });
+        }
+        files['data/model.json'] = JSON.stringify(index, null, 1);
+      }
+    } else {
     // a file the repository cannot carry is not published: GitHub refuses any
     // blob over 100 MB, so an edition that emits one cannot be pushed at all,
     // and the Data page would promise a download that answers 404. The model
@@ -128,7 +155,8 @@ export function buildExports(model, { sourceXML = null, only = null } = {}) {
     if (json.length <= MAX) files['data/model.json'] = json;
     else if (model.documents && model.documents.length > 1) {
       const index = { split: true, reason: 'the whole model exceeds what a repository can carry',
-        bytes: json.length, documents: [] };
+        bytes: json.length, meta: model.meta, generator: model.generator,
+        collection: model.collection, registries: model.registries, documents: [] };
       for (const d of model.documents) {
         const one = JSON.stringify({ meta: model.meta, generator: model.generator,
           documents: [d] }, null, 1);
@@ -137,6 +165,7 @@ export function buildExports(model, { sourceXML = null, only = null } = {}) {
         index.documents.push({ id: d.id, file: name.replace('data/', ''), bytes: one.length });
       }
       files['data/model.json'] = JSON.stringify(index, null, 1);
+    }
     }
   }
   const reg = model.registries;
@@ -155,7 +184,28 @@ export function buildExports(model, { sourceXML = null, only = null } = {}) {
     files['data/concordance.csv'] = concordanceCSV(model);
   }
   if (want('tokens') && model.tokens && model.tokens.length) {
-    files['data/tokens.csv'] = tokensCSV(model, model.tokens);
+    // the same rule as the model: an archive's whole token stream may exceed
+    // what one string can hold. Then it travels per document, with an index
+    // that says where each part is, so both levels stay legible
+    try {
+      files['data/tokens.csv'] = tokensCSV(model, model.tokens);
+    } catch (err) {
+      const byDoc = new Map();
+      for (const t of model.tokens) {
+        const d = t.docId || 'doc';
+        if (!byDoc.has(d)) byDoc.set(d, []);
+        byDoc.get(d).push(t);
+      }
+      const idx = [['document', 'file', 'tokens']];
+      for (const [d, toks] of byDoc) {
+        const name = `data/tokens/${String(d).replace(/[^\w.-]/g, '_')}.csv`;
+        try {
+          files[name] = tokensCSV(model, toks);
+          idx.push([d, name.replace('data/', ''), String(toks.length)]);
+        } catch (e2) { idx.push([d, '', 'too large to write']); }
+      }
+      files['data/tokens.csv'] = csv(idx);
+    }
   }
   if (want('source') && sourceXML) files['data/source.xml'] = sourceXML;
   return files;

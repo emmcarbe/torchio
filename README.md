@@ -18,9 +18,12 @@ so that materials with limited rights stay apart from the engine.
 
 Status: prototype under development. How to use it: [USAGE.md](USAGE.md).
 The principles, the method and the origin of the project are in
-[PRINCIPLES.md](PRINCIPLES.md); corrections required by real editions are
-recorded in [CORRECTIONS.md](CORRECTIONS.md); wishes go in
-[DESIDERATA.md](DESIDERATA.md).
+[PRINCIPLES.md](PRINCIPLES.md); the experimental setup (worlds, exempla,
+the taxonomy of failures) in [LABORATORY.md](LABORATORY.md); corrections
+required by real editions are recorded in [CORRECTIONS.md](CORRECTIONS.md);
+the development agenda in [ROADMAP.md](ROADMAP.md); how archives,
+collections and editions inside editions are handled in
+[COMPLEX.md](COMPLEX.md); wishes go in [DESIDERATA.md](DESIDERATA.md).
 
 ## Design constraints
 
@@ -31,10 +34,12 @@ recorded in [CORRECTIONS.md](CORRECTIONS.md); wishes go in
    (currently 588 elements, 127 model classes); coverage of the whole P5
    element set is checked by the test suite at every TEI release.
 3. The edition's ODD customization is the configuration. Custom elements
-   declared `memberOf` a TEI class inherit its behaviour. Following the
-   Guidelines' conformance chapter, extensions concern phenomena P5 does not
-   already cover.
-4. The engine produces a documented data model (JSON); pages and exports
+   declared `memberOf` a TEI class inherit its behaviour. This project also
+   holds, as its own design maxim rather than as a rule of the Guidelines,
+   that an extension should concern phenomena P5 does not already cover.
+4. The engine produces a data model (JSON), documented by the code and the
+   exports rather than by a written specification, which is a declared debt;
+   pages and exports
    (XML, CSV, JSON) are generated from the model, not from ad hoc
    transformations of the XML.
 5. No runtime services. The same code runs in the browser and in Node;
@@ -49,15 +54,20 @@ recorded in [CORRECTIONS.md](CORRECTIONS.md); wishes go in
 
 ## Layout
 
-- `src/xml.js` — XML parser (no dependencies; validation belongs to the edition's CI)
-- `src/classes.js`, `data/p5-classes.json` — element → class → behaviour resolution, with ODD overlay
-- `src/odd.js` — ODD reader
-- `src/model.js` — the edition model: documents, cards, registries, apparatus
-- `src/render.js`, `src/site.js`, `src/themes.js` — base rendering, site pages, themes
-- `src/interact.js` — reader-side functions (apparatus, entity cards, transcription levels)
-- `src/reconcile.js` — entity reconciliation (GeoNames gazetteer; authority identifiers)
-- `tools/` — press CLI, gazetteer builder, reconciliation
-- `docs/`, `demo-src/` — demonstration editions, with rights in `docs/README.md`
+- `src/xml.js`: XML parser (no dependencies; validation belongs to the edition's CI)
+- `src/classes.js`, `data/p5-classes.json`: element to class to behaviour resolution, with ODD overlay (`src/odd.js` reads the ODD)
+- `src/model.js`: the edition model (documents, cards, registries, apparatus); `src/analyze.js` the coverage report
+- `src/render.js`, `src/site.js`, `src/page-shell.js`, `src/themes.js`: base rendering, site pages, page chrome, themes; page builders in `src/*-page.js` (register, lexicon, lemmas, map, genesis)
+- `src/interact.js`: reader-side functions (apparatus, entity cards, transcription levels, margin notes)
+- `src/reconcile.js`, `src/georef.js`: entity reconciliation and georeferencing (GeoNames and Pleiades gazetteers; authority identifiers; every coordinate a suggestion the editor confirms)
+- `src/lemmas.js`, `src/exports.js`, `src/md.js`, `src/zip.js`: lemma layer, data exports, Markdown for the editor's pages, the archive writer
+- `tools/`: the press CLI (`press.js`), the browser press builder (`build-browser.js`), gazetteer builders, georeferencing, lemmatization (UDPipe), the Guidelines-examples harness (`exempla.js`)
+- `worlds/`: the possible (editorial) worlds, contrastive corpora run as tests (see [LABORATORY.md](LABORATORY.md))
+- `docs/`: the project site (the in-browser press and the Specimen edition; see `docs/README.md`)
+
+Demonstration editions live in their own repository,
+[emmcarbe/torchio-demos](https://github.com/emmcarbe/torchio-demos), with
+their rights recorded there.
 
 ## Development
 

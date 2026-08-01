@@ -1,0 +1,96 @@
+id,Edition name,URL,Historical Period,Language,Writing support,Account of textual variance,Value of witnesses,Text-Image Linking,Images,Indices,Linked Open Data,API,Source Text Translation,XML-TEI Transcription,XML(-TEI) available to download,RIDE review,Sahle Catalog
+2,The Thomas Gray Archive,http://www.thomasgray.org/,Early Modern,ENG; LAT; GRE,Manuscript,yes,yes,no,yes,yes,no,no,no,yes,yes,no,yes
+4,Saint Patrick's Confessio,http://www.confessio.ie/#,Antiquity,LAT,Manuscript; Print,partly,partly,no,yes,no,no,no,ENG; GER; GLA; ITA; POR,yes,yes,no,yes
+9,"Bérardier de Bataut, Essai sur le récit, Entretiens sur la manière de raconter",http://www.berardier.org/,Early Modern,FRE,Print,no,no,no,no,no,no,no,no,yes,yes,no,yes
+10,Codex Sinaiticus,http://codexsinaiticus.org/en/,Antiquity,GRC,Codex,not provided,yes,yes,yes,no,no,no,partly,yes,yes,http://ride.i-d-e.de/issues/issue-1/codex-sinaiticus/,yes
+14,Becerro Galicano of San Millán de la Cogolla,http://www.ehu.es/galicano/?l=en,Middle Ages,LAT,Codex; Cartulary,not provided,yes,no,yes,yes,no,no,no,yes,yes,http://ride.i-d-e.de/issues/issue-2/becerro-galicano/,yes
+24,Inscriptions of the Northern Black Sea (IOSPE),http://iospe.kcl.ac.uk/corpus/index.html,Antiquity,GRC; LAT,Tablets; Prism; Cylinder; Rock face; Stele; Wall; Threshold slab,not provided,yes,no,yes,yes,no,no,ENG,yes,yes,no,yes
+31,Jonathan Swift Archive,http://jonathanswiftarchive.org.uk/index.html,Early Modern,ENG,Early printed edition,partly,partly,no,no,yes,no,no,no,yes,yes,no,no
+32,The St Gall Priscian Glosses,http://www.stgallpriscian.ie,Middle Ages,LAT,Manuscript,not provided,yes,no,yes,no,no,no,not provided,partly,yes,no,yes
+33,Nietzsche Source,http://www.nietzschesource.org/,Long Nineteenth Century; Modern,GER,Manuscript; Book; Letter,yes,yes,no,no,no,no,no,not provided,yes,yes,http://ride.i-d-e.de/issues/issue-1/nietzschesource/,yes
+41,Corpus of the Inscriptions of Campā (CIC),http://isaw.nyu.edu/publications/inscriptions/campa/,Middle Ages,SAN; VIE,Inscription,not provided,yes,no,yes,yes,no,no,not provided,yes,yes,no,no
+44,De Trein der Traagheid,http://edities.kantl.be/daisne/,Modern,DUT,Printed book,yes,yes,no,partly,no,no,no,no,yes,yes,no,yes
+46,Folger Shakespeare Editions,http://www.folgerdigitaltexts.org/,Middle Ages,ENG,Manuscript,not provided,yes,no,no,yes,no,yes,no,yes,yes,no,no
+50,Henrik Ibsens Skrifter,http://www.ibsen.uio.no/forside.xhtml,Long Nineteenth Century,NOR,Manuscript; Letter; Book,not provided,yes,no,no,yes,no,no,not provided,yes,yes,no,yes
+53,Queste del Saint Graal,http://txm.bfm-corpus.org/?command=documentation&path=/GRAAL,Middle Ages,FRM,Manuscript,yes,yes,no,yes,yes,no,no,FRE,yes,yes,no,yes
+59,The Proceedings of the Old Bailey,http://www.oldbaileyonline.org/,Early Modern; Long Nineteenth Century,ENG,Manuscript,not provided,not provided,no,yes,no,no,yes,not provided,partly,yes,no,yes
+62,William Godwin's Diary,http://godwindiary.bodleian.ox.ac.uk/index2.html,Long Nineteenth Century,ENG,Manuscript,not provided,yes,no,yes,yes,no,no,not provided,yes,yes,http://ride.i-d-e.de/issues/issue-3/godwin/,yes
+69,The Journals of the Lewis and Clark Expedition,http://lewisandclarkjournals.unl.edu,Long Nineteenth Century,ENG,Journal,not provided,not provided,no,yes,yes,no,no,not provided,yes,yes,no,yes
+89,Carl-Maria-von-Weber-Gesamtausgabe,http://www.weber-gesamtausgabe.de/en/Index,Long Nineteenth Century,GER,Manuscript; Letter; Diary; Draft; Journal,yes,yes,no,yes,yes,no,yes,not provided,yes,yes,no,yes
+92,Inscriptions of Aphrodisias Project,http://insaph.kcl.ac.uk/index.html,Antiquity,GRC,Tablet; Prism; Cylinder; Rock face; Stele; Wall; Threshold slab,partly,yes,no,yes,yes,yes,no,no,yes,yes,no,yes
+108,The Walt Whitman Archive,http://www.whitmanarchive.org/,Long Nineteenth Century,ENG,Manuscript,not provided,not provided,no,yes,no,no,no,not provided,yes,yes,no,yes
+126,The Newton Project,http://www.newtonproject.sussex.ac.uk/prism.php?id=1,Early Modern,LAT,Manuscript,yes,yes,no,no,yes,no,no,no,yes,yes,no,no
+191,Virginie Loveling’s Diary,http://edities.kantl.be/loveling/,Modern,DUT,Manuscript,yes,yes,no,no,no,no,no,no,yes,yes,no,yes
+192,William Golder Electronic Edition,http://nzetc.victoria.ac.nz/tm/scholarly/tei-corpus-golder.html,Long Nineteenth Century,ENG,Manuscript,not provided,not provided,no,no,yes,no,no,no,yes,yes,no,no
+207,Les Cours d’Antoine Desgodets,http://www.desgodets.net,Early Modern,FRE,Manuscript,yes,partly,yes,yes,yes,no,no,no,yes,yes,no,no
+208,Digitale Edition und Kommentierung der Tagebücher des Fürsten Christian II. von Anhalt-Bernburg,http://diglib.hab.de/wdb.php?dir=edoc/ed000228&lang=en,Early Modern,GER,Manuscript; Notebook,yes,yes,no,yes,no,no,no,no,yes,yes,no,yes
+216,Faust Edition,http://beta.faustedition.net/,Early Modern; Long Nineteenth Century,GER,Manuscript,yes,yes,no,yes,no,no,no,no,yes,yes,no,yes
+217,Theodor Fontane: Notizbücher,https://fontane-nb.dariah.eu/index.html,Long Nineteenth Century,GER,Notebook,yes,yes,no,yes,no,no,yes,no,yes,yes,no,yes
+218,Johann Christian Senckenberg: Digital Edition of the Diaries,http://senckenberg.ub.uni-frankfurt.de/s/startpage,Early Modern,GER; LAT,Diary,yes,yes,no,yes,no,yes,no,no,yes,yes,no,no
+225,Schopenhauer’s Library: Annotations and marks in his Spanish books,http://www.schopenhauer.uni.wroc.pl/,Long Nineteenth Century,SPA,Book,no,no,no,yes,no,no,no,no,yes,yes,no,no
+227,The Fleischmann Diaries,http://fleischmanndiaries.ucc.ie/,Modern,ENG,Diary,yes,yes,no,yes,yes,no,no,no,yes,yes,http://ride.i-d-e.de/issues/issue-2/fleischmann-diaries/,yes
+228,Deutsches Textarchiv (DTA),http://www.deutschestextarchiv.de/,Long Nineteenth Century,GER,Book,yes,yes,no,yes,no,yes,yes,no,yes,yes,no,no
+229,Project Tarsian: First Corinthians in Vaticanus Arabicus 13,http://tarsian.vital-it.ch/,Middle Ages,ARA,Manuscript,yes,yes,no,yes,no,no,no,FRE,yes,yes,no,no
+231,Bibliotheca Iuris Antiqui (BIA),http://www.ittig.cnr.it,Antiquity,LAT; GRC; ITA; NDS; FRE; SPA; ENG,Print edition,no,partly,no,no,yes,no,yes,no,yes,yes,no,no
+232,The Wandering Jew's Chronicle,http://wjc.bodleian.ox.ac.uk,Early Modern; Long Nineteenth Century,ENG,Printed broadside ballad; Printed chapbook,yes,yes,no,yes,no,no,no,no,yes,yes,no,no
+234,"Teutsche Academie der Bau-, Bild- und Mahlerey-Künste, Joachim von Sandrart, Nürnberg 1675/1679/1680: Wissenschaftlich kommentierte Online-Edition",http://ta.sandrart.net/de/,Early Modern,GER,Book,yes,yes,yes,yes,yes,no,yes,FRE; ITA,yes,yes,no,yes
+235,ABaC:us - Austrian Baroque Corpus,https://acdh.oeaw.ac.at/abacus/,Early Modern,GER,Printed book,yes,yes,no,yes,yes,no,yes,no,yes,yes,no,no
+240,Briefwechsel Sauer-Seuffert,http://sauer-seuffert.onb.ac.at/,Long Nineteenth Century; Modern,GER,Letter,yes,yes,no,yes,yes,yes,no,no,yes,yes,no,no
+242,William F. Cody Archive,http://codyarchive.org/,Long Nineteenth Century; Modern,ENG; GER,Letter; Book; Newspaper; Photograph; Scrapbook,yes,yes,no,partly,yes,yes,yes,ENG,yes,yes,no,no
+243,Johannes Tinctoris: Complete Theoretical Works,http://earlymusictheory.org/Tinctoris/,Middle Ages; Early Modern,LAT,Manuscript,yes,yes,no,partly,no,no,no,ENG,yes,yes,no,no
+248,Briefe und Texte aus dem Intellektuellen Berlin um 1800,http://www.berliner-intellektuelle.eu/,Long Nineteenth Century,GER; FRE; LAT,Letter; Manuscript; Lecture; Report; Dissertation; Review,yes,yes,yes,yes,yes,no,no,no,yes,yes,no,no
+251,edition humboldt digital,https://edition-humboldt.de/,Early Modern; Long Nineteenth Century,GER; FRE; ENG,Diary; Notebook; Letter; Manuscript; Print,yes,yes,no,yes,yes,yes,yes,partly,yes,yes,10.18716/ride.a.13.4,yes
+253,Digitale Edition der Briefe Erdmuthe Benignas von Reuß-Ebersdorf (1670-1732),http://erdmuthe.thulb.uni-jena.de,Early Modern,GER,Letter; manuscript,yes,yes,no,yes,yes,yes,no,no,yes,yes,no,no
+256,Ödön von Horváth: Historisch-kritische Ausgabe – Digitale Edition,http://gams.uni-graz.at/horvath-edition,Modern,GER,Manuscript; Typescript,yes,partly,no,no,no,no,no,no,yes,yes,no,no
+258,Beethovens Werkstatt,http://beethovens-werkstatt.de/,Early Modern; Long Nineteenth Century,GER,Manuscript; Music score; Sketchbook,yes,yes,yes,yes,no,no,no,no,yes,yes,no,no
+261,En el ojo del huracán. Cartas de ultramar a España 1823,http://www.cartas-de-ultramar.net/,Long Nineteenth Century,SPA; CAT,Letter,yes,yes,no,no,yes,no,no,no,yes,yes,no,no
+290,DER STURM. Digitale Quellenedition zur Geschichte der internationalen Avantgarde,https://sturm-edition.de,Long Nineteenth Century; Modern,GER,Letter; Newspaper; Book; Catalogue,yes,yes,no,yes,yes,yes,yes,no,yes,yes,no,no
+297,P.S. Post Scriptum: A Digital Archive of Ordinary Writing,http://ps.clul.ul.pt/,Early Modern,PRT; SPA,Letter,yes,yes,no,yes,yes,no,no,no,yes,yes,no,no
+298,Jean Paul – Sämtliche Briefe digital,https://www.jeanpaul-edition.de/,Long Nineteenth Century,GER,Letter; Print,partly,partly,no,no,yes,yes,no,no,yes,yes,no,yes
+299,Armer Heinrich Digital,http://digi.ub.uni-heidelberg.de/ahd/,Middle Ages,GMH,Manuscript,yes,yes,no,yes,no,no,no,GER,yes,yes,no,no
+302,travel!digital,https://traveldigital.acdh.oeaw.ac.at/,Long Nineteenth Century,GER,Printed book,yes,yes,no,yes,yes,yes,yes,no,yes,yes,no,no
+303,"Mächtekongresse 1818–1822. Digitale Edition der Dokumente zu den Kongressen von Aachen (1818), Troppau (1820), Laibach (1821) und Verona (1822)",https://maechtekongresse.acdh.oeaw.ac.at/,Long Nineteenth Century,FRA; ENG; GER,Manuscript; printed additional sources,yes,yes,no,no,yes,yes,yes,no,yes,yes,no,no
+304,Tagebücher von Andreas Okopenko. Digitale Edition,https://edition.onb.ac.at/okopenko,Modern,GER,Diary,yes,yes,no,yes,yes,yes,no,no,yes,yes,https://ride.i-d-e.de/issues/issue-17/okopenko/,yes
+305,Ulrich Richental die Chronik des Konzils von Konstanz,https://edition.mgh.de/001/,Middle Ages,GMH,Manuscript,partly,yes,no,no,yes,no,no,no,yes,yes,no,no
+309,Grundtvigs Vaerker (The complete works of N.F.S. Grundtvig),http://grundtvigsvaerker.dk,Long Nineteenth Century,DAN,Book; Articles,no,yes,no,yes,yes,no,no,no,yes,partly,no,no
+310,Die Korrespondenz von Leo von Thun-Hohenstein,https://thun-korrespondenz.acdh.oeaw.ac.at/,Long Nineteenth Century,GER,Letter,yes,yes,no,no,yes,no,yes,no,yes,yes,no,no
+311,Inscriptions of Greek Cyrenaica - Greek Verse Inscriptions of Cyrenaica,https://igcyr.unibo.it,Antiquity,GRC,Bronze; ceramics; clay; lead; limestone; marble; pebbles; plaster; rock; sandstone; stone; terracotta; tufa; ware,yes,yes,no,yes,yes,yes,no,ENG; ITA; FRA; ARA,yes,yes,no,yes
+313,Samuel Hahnemann - Digitale kritische Edition - Krankenjournal DF5,https://www.hahnemann-edition.de/index.html,Long Nineteenth Century,FRE; GER,Diary,yes,yes,yes,yes,no,no,no,no,yes,yes,no,no
+314,Arthur Schnitzler – Briefwechsel mit Autorinnen und Autoren,https://schnitzler-briefe.acdh.oeaw.ac.at,Long Nineteenth Century; Modern,GER,Letter,yes,yes,no,yes,yes,yes,yes,no,yes,yes,no,yes
+316,Protokolle des Bayerischen Staatsrats,https://www.bayerischer-staatsrat.de,Long Nineteenth Century,GER,Minutes,partly,no,no,yes,yes,no,no,no,yes,yes,no,yes
+317,The glosses to the first book of the Etymologiae of Isidore of Seville: a digital scholarly edition,https://db.innovatingknowledge.nl/edition,Middle Ages,LAT,Manuscript,yes,yes,no,no,no,no,no,no,yes,yes,no,yes
+319,Alexander von Humboldt: Sämtliche Schriften digital,https://humboldt.unibe.ch/text,Long Nineteenth Century,GER; FRE; LAT; ENG; SPA; POR; HEB; SWE; DAN; DUT; HUN; RUS; ITA; POL,Print,yes,yes,no,partly,yes,no,no,no,yes,yes,no,yes
+320,Mystische Bücher in der Bibliothek der Kartause Erfurt. Digitale Edition,https://making-mysticism.org/edition/1.0/html/,Middle Ages,LAT,Codex,yes,yes,yes,yes,yes,no,no,GER,yes,yes,no,yes
+321,Peter Handke: Notizbücher. Digitale Edition,http://edition.onb.ac.at/handke-notizbuecher,Contemporary,GER,Notebook,yes,yes,yes,yes,yes,yes,yes,GER,yes,yes,no,yes
+322,Gottfried Semper. Critical and Commented Edition,https://semper-edition.ch/,Long Nineteenth Century,GER,Paper,yes,yes,yes,yes,yes,yes,yes,no,yes,yes,no,yes
+325,Arthur Schnitzler – Chronik. Eine digitale Ressource zu den einzelnen Tagen seines Lebens,https://schnitzler-chronik.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,Letter; diary entry; list,yes,yes,no,no,no,yes,no,no,yes,yes,no,no
+326,Clara Katharina Pollaczek: Arthur Schnitzler und ich. Digitale Ausgabe,https://pollaczek.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,Letter; diary entry; note,yes,yes,no,yes,yes,yes,no,no,yes,yes,no,no
+327,Aufenthaltsorte von Arthur Schnitzler (1879–1931),https://schnitzler-orte.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,List; diary entry,yes,yes,no,no,no,no,no,no,yes,yes,no,no
+328,Arthur Schnitzler: Lektüren. Digitale Edition der Leseliste von Arthur Schnitzler,https://schnitzler-lektueren.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,List; diary entry,no,yes,no,no,yes,yes,no,no,yes,yes,no,no
+329,Arthur Schnitzler: Tagebuch. Digitale Edition,https://schnitzler-tagebuch.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,Diary entry,no,yes,no,yes,yes,yes,no,no,yes,yes,no,yes
+331,Personen der Moderne Basis,https://pmb.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,not provided,yes,not provided,no,no,yes,yes,yes,no,yes,yes,no,no
+332,"Hermann Bahr – Arthur Schnitzler: Briefwechsel, Aufzeichnungen, Dokumente (1891–1931)",https://schnitzler-bahr.acdh.oeaw.ac.at/,Long Nineteenth Century; Modern,GER,Letter; note; diary entry,partly,yes,no,no,yes,yes,no,no,yes,yes,no,yes
+333,Inscriptions of Roman Tripolitania (2021),https://irt2021.inslib.kcl.ac.uk/,Antiquity,LAT; GRC,Wall; monument; block,yes,yes,no,partly,yes,yes,no,ENG; FRE; DEU; ARA; ITA,yes,yes,no,no
+334,"SAWS Kekaumenos, Consilia et Narrationes",https://ancientwisdoms.ac.uk/library/kekaumenos-consilia-et-narrationes/index.html,Middle Ages,GRC,Manuscript,yes,yes,no,no,yes,yes,no,ENG; ITA; DEU; RUS; SPA,yes,yes,no,no
+335,SAWS Dynamic Library,https://ancientwisdoms.ac.uk/library/,Antiquity; Middle Ages,ARA; GRC; LAT; SPA,Manuscript,yes,yes,no,no,yes,yes,no,ENG,yes,yes,no,no
+336,Die Urkunden und Akten des Klosters und des Oberamts Königsfelden,https://www.koenigsfelden.uzh.ch,Middle Ages,GER,Charter; manuscript,yes,yes,no,yes,yes,no,yes,no,yes,yes,no,no
+338,Auden Musulin Papers: A Digital Edition of W. H. Auden's Letters to Stella Musulin,https://amp.acdh.oeaw.ac.at,Modern; Contemporary,ENG; GER,Letter; typescript; card; photograph,yes,yes,no,yes,yes,yes,no,no,yes,yes,no,yes
+339,Patristic Text Archive (PTA),https://pta.bbaw.de,Antiquity,GRC; LAT; SYC; XCL,Manuscript; print,yes,yes,no,partly,yes,yes,yes,GER,yes,yes,no,no
+340,Open Arabic Periodical Editions (OpenArabicPE),https://openarabicpe.github.io/,Long Nineteenth Century; Modern,ARA,Newspaper; journal; magazine,yes,not provided,no,yes,no,yes,no,no,yes,yes,no,no
+341,Korespondencja Jana Lechonia i Kazimierza Wierzyńskiego. Naukowa Edycja Cyfrowa,https://tei.nplp.pl/categories/korespondencja-jana-lechonia-i-kazimierza-wierzynskiego,Modern; Contemporary,POL; ENG,Letter; postcard,yes,partly,no,partly,yes,yes,yes,no,yes,yes,no,no
+342,Korespondencja Mieczysława Grydzewskiego i Kazimierza i Haliny Wierzyńskich. Naukowa Edycja Cyfrowa,https://tei.nplp.pl/categories/korespondencja-mieczyslawa-grydzewskiego-i-kazimierza-i-haliny-wierzynski,Modern; Contemporary,POL; ENG,Letter; postcard,yes,partly,no,partly,yes,yes,yes,no,yes,yes,no,no
+343,Die Ministerratsprotokolle Österreichs und der österreichisch-ungarischen Monarchie 1848–1918 – Digitale Edition,https://mrp.oeaw.ac.at,Long Nineteenth Century,GER,Minute; record,yes,yes,no,partly,yes,yes,yes,no,yes,yes,no,yes
+344,Digital Scholarly Edition of Habsburg-Ottoman Diplomatic Sources 1500–1918,https://qhod.net/,Early Modern;Long Nineteenth Century,GER; LAT; OTA,Letter; record; note; material artifact; miscellaneous Ottoman source genres,yes,yes,no,yes,no,yes,no,ENG,yes,yes,no,yes
+345,Familiensache? Die Korrespondenz der Kaiserin Eleonora Magdalena (1655–1720),https://kaiserin-eleonora.oeaw.ac.at/,Early Modern,GER,Letter,yes,,yes,yes,yes,yes,yes,no,yes,yes,no,no
+347,Renan Source,http://www.renansource.org,Long Nineteenth Century,FRE,Letter; manuscript,yes,yes,yes,yes,yes,no,no,no,partly,partly,no,no
+348,The Mary Hamilton Papers (c. 1740 – c. 1850),https://www.digitalcollections.manchester.ac.uk/collections/maryhamilton/,Early Modern; Long Nineteenth Century,ENG; FRE,Letter; journal; note; diary; manuscript,yes,yes,no,yes,yes,no,no,no,yes,partly,no,yes
+349,Bullinger Digital,https://www.bullinger-digital.ch,Early Modern,GER;LAT,Letter,yes,partly,no,yes,yes,yes,yes,no,yes,yes,no,https://digitale-edition.de/e820
+350,Akademieprotokolle,https://akademieprotokolle.acdh.oeaw.ac.at/,Long Nineteenth Century,GER,protocol,yes,yes,no,yes,yes,no,no,no,yes,yes,no,no
+351,Hanslick Online,https://hanslick.acdh.oeaw.ac.at/,Long Nineteenth century,GER,Print,yes,yes,no,yes,yes,no,no,no,yes,yes,no,https://digitale-edition.de/e825
+352,Staribacher  – Tagebücher,https://staribacher.acdh.oeaw.ac.at,Modern,GER,typescript,no,yes,no,yes,yes,yes,yes,no,yes,yes,no,https://digitale-edition.de/e613
+353,Cultiver dans l'Antiquité,https://agriculture-antiquite.huma-num.fr/,Antiquity [700 BC - 500 AD],FRE; ENG,_No response_,partly,,no,partly,yes,yes,yes,FRE,yes,yes,_No response_,_No response_
+354,Arnold Schönberg: Briefwechsel mit den Verlagen Universal-Edition und Dreililien,https://www.schoenberg-ue.at,Long Nineteenth Century Modern,GER,letter,yes,yes,no,yes,yes,no,yes,no,yes,yes,no,no
+355,Arnold Schönberg: Briefwechsel mit den Verlagen C. F. Peters und C. F. Peters Corporation,https://www.schoenberg-peters.at,Long Nineteenth Century Modern,GER,letter,yes,yes,no,yes,yes,no,yes,no,yes,yes,no,no
+356,Industriegeschichte privat: Die Familie Engels in Briefen (1791–1858),https://familie-engels-briefe.de,Long Nineteenth Century [1789 - 1914],GER,Letter,yes,,no,yes,yes,yes,no,no,yes,partly,_No response_,_No response_
+357,Digitale Edition der Korrespondenzen von Hans Georg und Hermann Nägeli,https://naegeli-briefe.ch,Long Nineteenth Century,GER,Manuscript; Letter,no,yes,no,yes,yes,yes,no,no,yes,yes,no,yes
+359,Künstlike Werltspröke und Eyn schön rimbökelin (WSRB). Digitale Edition mittelniederdeutscher Spruchsammlungen des 16. Jahrhunderts,https://purl.uni-rostock.de/wsrb/edition,Middle Ages; Early Modern,GER,Print,yes,yes,partly,yes,yes,no,no,yes,yes,yes,no,yes

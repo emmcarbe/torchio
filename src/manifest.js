@@ -28,8 +28,11 @@ import { isTheme } from './themes.js';
 
 // every page the engine knows how to make: a manifest that names its pages
 // must not silently drop the apparatus of a critical edition (C84)
-const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'indices', 'lemmas',
-  'lexicon', 'apparatus', 'genesis', 'map', 'data'];
+// 'lab' is the id under which the analytical section (indices, lexicon,
+// lemmas, map) is requested: without it here, an edition that declares its
+// pages would silently lose all four
+const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'lab', 'indices',
+  'lemmas', 'lexicon', 'apparatus', 'genesis', 'map', 'data'];
 const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 export function normalizeManifest(raw = {}) {
@@ -54,10 +57,10 @@ export function normalizeManifest(raw = {}) {
       : {},
     extra: [],
     pages: null,
-    // what kind of thing this edition is: it decides which columns the
-    // register wears and what the pages are called. Declared, never guessed
-    genre: ['edition', 'archive', 'correspondence', 'tradition'].includes(raw.genre)
-      ? raw.genre : null,
+    // genre was validated here and read by nothing: a field that does
+    // nothing must not look like a setting. Removed (C90) until the
+    // two-axis edition profile, derived from the markup and confirmed by
+    // the editor, exists
     version: raw.version != null && String(raw.version).trim() ? String(raw.version).trim() : null,
     apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : null,
     pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
