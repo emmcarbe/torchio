@@ -18,6 +18,14 @@ authors:
 version: 0.2.0-beta.2
 date-released: 2026-08-01
 license: MIT
+doi: "10.5281/zenodo.21740661"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21740662"
+    description: "The DOI of version 0.2.0-beta.2"
+  - type: doi
+    value: "10.5281/zenodo.21740661"
+    description: "The DOI representing all versions"
 repository-code: "https://github.com/emmcarbe/torchio"
 url: "https://github.com/emmcarbe/torchio"
 keywords:

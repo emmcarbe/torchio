@@ -17,9 +17,9 @@ with an explicit reason.
 
 ### Release and archiving
 
-- Enable the Zenodo integration.
-- Tag and release `0.2.0-beta.2`.
-- Add the concept DOI to the README.
+- Enable the Zenodo integration. Done, 1 August 2026.
+- Tag and release `0.2.0-beta.2`. Done, 1 August 2026.
+- Add the concept DOI to the README. Done: `10.5281/zenodo.21740661`.
 - Archive the repository in Software Heritage.
 - Display the SWHID in the colophon alongside the commit identifier.
 - Generate a "How to cite" block in every pressed site, including author,

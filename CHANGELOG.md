@@ -5,7 +5,8 @@ Releases, newest first. The fine grain is in
 
 ## 0.2.0-beta.2 (2026-08-01)
 
-First release deposited for a DOI. The test suite passes 186 assertions.
+First release deposited for a DOI: <https://doi.org/10.5281/zenodo.21740662>.
+The test suite passes 186 assertions.
 
 Engine:
 - Margin notes fill both margins, each note taking the side that carries it

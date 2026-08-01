@@ -1,5 +1,7 @@
 <img src="docs/torchio-lockup.svg" alt="Torchio" width="400">
 
+[![DOI](https://zenodo.org/badge/1317201627.svg)](https://doi.org/10.5281/zenodo.21740661)
+
 # Torchio
 
 Torchio turns XML-TEI P5 encoded texts into static digital scholarly editions:
@@ -22,6 +24,16 @@ required by real editions are recorded in [CORRECTIONS.md](CORRECTIONS.md);
 the development agenda in [ROADMAP.md](ROADMAP.md); how archives,
 collections and editions inside editions are handled in
 [COMPLEX.md](COMPLEX.md); wishes go in [DESIDERATA.md](DESIDERATA.md).
+
+## How to cite
+
+Cite the version you used. Every release has its own DOI; the one above
+represents Torchio itself and always resolves to the most recent.
+
+> Carbé, Emmanuela. *Torchio: a press for static digital scholarly editions*.
+> Version 0.2.0-beta.2, 2026. https://doi.org/10.5281/zenodo.21740662
+
+Machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
 ## Design constraints
 
