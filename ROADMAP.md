@@ -57,7 +57,10 @@ used to build it.
 Treat every imported edition as untrusted input.
 
 - Disable unsafe external entity resolution.
-- Constrain XInclude and filesystem access.
+- Constrain XInclude and filesystem access. Done for the command line: a
+  reference outside the edition is refused by where the file really is, so a
+  link cannot lead out, and raw HTML pages require an explicit choice. The
+  browser press does neither yet.
 - Limit document expansion and recursion depth.
 - Test malformed and adversarial XML.
 - Prevent imported paths from escaping the permitted source directories.

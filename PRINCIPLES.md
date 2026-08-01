@@ -50,9 +50,11 @@ principles, contest them, improve them.
    the figures here come from the structured data of the latter (commit
    `7ddf229`, 29 May 2026): of 358 recorded editions, 242 declare a TEI
    transcription, and of those only 104 publish the source XML. Three TEI
-   editions out of five do not provide their source. Of the 104, 95 are
-   still reachable: those are the ones a tool can actually be tested
-   against, and they are the contrast corpus described in the Method. The
+   editions out of five do not provide their source. Of the 104, 95 were
+   recorded as still available: those are the ones a tool can be tested
+   against, and they are the sampling frame described in the Method, not a
+   corpus already gathered (whether each is reachable today has not been
+   checked one by one). The
    census has since been recounted from the catalogue's CSV and the figures
    hold. The sustainability problem is in any case familiar to everyone
    working in this field.
@@ -462,8 +464,8 @@ own rights, at its own address.
   Turco, Marco Callieri, Matteo Dellepiane, and Roberto Scopigno. 2019.
   *Publishing (and Forgetting) the Small or Medium-Sized Scholarly Edition
   or Cultural Heritage Collection as Linked Open Data: Using Zenodo and
-  GitHub to Publish the Visionary Cross Project*. Slides.
-  https://doi.org/10.5281/zenodo.3338457.
+  GitHub to Publish the Visionary Cross Project*. Slides presented at Digital
+  Humanities 2019, Utrecht. https://doi.org/10.5281/zenodo.3338457.
 - Pierazzo, Elena. 2011. "A Rationale of Digital Documentary Editions."
   *Literary and Linguistic Computing* 26 (4): 463-477.
   https://doi.org/10.1093/llc/fqr033.

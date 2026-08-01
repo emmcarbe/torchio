@@ -7,6 +7,7 @@
  */
 import { readText } from '../src/decode.js';
 import { readFile, writeFile, mkdir, stat, readdir, cp } from 'node:fs/promises';
+import { realpathSync } from 'node:fs';
 import { dirname, join, basename, resolve, sep } from 'node:path';
 import { parseXML, inTEINamespace } from '../src/xml.js';
 import { resolveIncludes } from '../src/xinclude.js';
@@ -49,6 +50,7 @@ const USED = new Set();
 const used = (path) => { if (path) USED.add(resolve(path)); };
 const note = (level, what, detail) => REPORT.push({ level, what, detail });
 const lenient = process.argv.includes('--lenient');
+const allowRawHTML = process.argv.includes('--allow-raw-html');
 
 function sayReport() {
   const errors = REPORT.filter((r) => r.level === 'error');
@@ -72,6 +74,19 @@ function within(root, href) {
   const abs = resolve(base, href);
   if (abs !== base && !abs.startsWith(base + sep)) {
     throw new Error(`path outside the edition refused: ${href}`);
+  }
+  // resolving the written path is not enough: a link inside the edition may
+  // point out of it, and then the path looks contained while the file is not.
+  // What is compared is where the file really is
+  try {
+    const realBase = realpathSync(base);
+    const realAbs = realpathSync(abs);
+    if (realAbs !== realBase && !realAbs.startsWith(realBase + sep)) {
+      throw new Error(`a link leads outside the edition, refused: ${href}`);
+    }
+  } catch (err) {
+    // a path that does not exist yet is not a way out: only a real link is
+    if (err && err.code !== 'ENOENT') throw err;
   }
   return abs;
 }
@@ -242,7 +257,20 @@ if (manifest && Array.isArray(manifest.extra)) {
     if (!e || !e.id || !e.file) continue;
     try {
       const raw = await readFile(within(dirname(manifestPath), e.file), 'utf-8');
-      const html = e.file.endsWith('.html') ? raw : markdown(raw);
+      // an .html page is inserted as it is, so it can carry scripts: that is
+      // trust, not a format. Markdown is the ordinary way to write a page,
+      // and raw HTML has to be asked for, once, in the open
+      let html;
+      if (e.file.endsWith('.html')) {
+        if (!allowRawHTML) {
+          note('error', `a page is raw HTML and raw HTML was not allowed (${e.file})`,
+            'it can carry scripts: press again with --allow-raw-html if the file is yours, or write the page in Markdown');
+          continue;
+        }
+        html = raw;
+        note('warning', `a page is raw HTML and is published as it is (${e.file})`,
+          'nothing in it has been checked');
+      } else html = markdown(raw);
       extraPages.push({ id: e.id, label: e.label || e.id, html });
     } catch (err) {
       note('error', `a page the manifest promises is missing (${e.file})`, err.message);

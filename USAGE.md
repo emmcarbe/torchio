@@ -68,6 +68,15 @@ republished, because the edition does not own it.
 To publish no sources at all, which is a rights decision and not a technical
 one, set `"exports": { "source": false }` in the manifest.
 
+## Pages written in HTML
+
+A page listed in the manifest is normally written in Markdown, and the press
+builds the HTML itself. A page that is already `.html` is inserted exactly as
+it stands, so it can carry scripts: that is a question of trust, not of
+format. The press refuses it unless you say `--allow-raw-html`, and when you
+do, the report says that the page is published unchecked. Use it for pages
+you wrote yourself; do not use it for a file you were sent.
+
 ## In the browser, without installing anything
 
 The same engine runs in a single self-contained page:

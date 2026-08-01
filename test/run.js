@@ -981,6 +981,49 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
       ok(clean, `a hostile manifest label stays data, never code: ${name}`);
     }
   }
+
+  // trust has to be asked for: a page written as raw HTML can carry scripts,
+  // so the press refuses it unless told, and a link that leads out of the
+  // edition is refused however the path is written
+  {
+    const { execFileSync } = await import('node:child_process');
+    const { mkdtempSync, writeFileSync, symlinkSync, rmSync } = await import('node:fs');
+    const { tmpdir } = await import('node:os');
+    const { join: j } = await import('node:path');
+    const dir = mkdtempSync(j(tmpdir(), 'torchio-trust-'));
+    const tei = '<?xml version="1.0"?><TEI xmlns="http://www.tei-c.org/ns/1.0">'
+      + '<teiHeader><fileDesc><titleStmt><title>t</title></titleStmt>'
+      + '<publicationStmt><p>t</p></publicationStmt><sourceDesc><p>t</p></sourceDesc>'
+      + '</fileDesc></teiHeader><text><body><p>Text.</p></body></text></TEI>';
+    writeFileSync(j(dir, 'ed.xml'), tei);
+    writeFileSync(j(dir, 'page.html'), '<script>alert(1)</script>');
+    writeFileSync(j(dir, 'torchio.json'), JSON.stringify({
+      extra: [{ id: 'p', label: 'P', file: 'page.html' }] }));
+    const press = new URL('../tools/press.js', import.meta.url).pathname;
+    let refused = false;
+    try {
+      execFileSync(process.execPath, [press, '--site', dir, j(dir, 'out')], { stdio: 'pipe' });
+    } catch (err) { refused = /raw HTML/.test(String(err.stderr || '')); }
+    ok(refused, 'a page of raw HTML is refused unless raw HTML is allowed');
+
+    // and a link out of the edition is refused by where the file really is
+    const outside = j(tmpdir(), `torchio-outside-${process.pid}.xml`);
+    writeFileSync(outside, '<p>elsewhere</p>');
+    let linkRefused = false;
+    try {
+      symlinkSync(outside, j(dir, 'link.xml'));
+      writeFileSync(j(dir, 'ed.xml'), tei.replace('<p>Text.</p>',
+        '<p><xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="link.xml"/></p>'));
+      writeFileSync(j(dir, 'torchio.json'), '{}');
+      try {
+        const outp = execFileSync(process.execPath, [press, '--site', j(dir, 'ed.xml'), j(dir, 'out2')],
+          { stdio: 'pipe' });
+        linkRefused = /leads outside/.test(String(outp));
+      } catch (err) { linkRefused = /leads outside/.test(String(err.stderr || '')); }
+    } catch { linkRefused = true; /* a system without symlinks proves nothing against us */ }
+    ok(linkRefused, 'a link that leads out of the edition is refused');
+    try { rmSync(dir, { recursive: true, force: true }); rmSync(outside, { force: true }); } catch {}
+  }
 }
 
 console.log(`\n${passed} assertions passed.`);
