@@ -5,6 +5,10 @@
 # what the current release is and compares. If they differ it opens an issue:
 # it never regenerates anything by itself, because a new edition of the
 # Guidelines is a fact the maintainer reads, not a patch a robot applies.
+#
+# The body of that issue is written by .github/tei-watch-body.js rather than
+# by a heredoc here: prose with backticks and shell expansions inside a YAML
+# block is how this file stopped being readable.
 
 name: TEI release watch
 
@@ -23,9 +27,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Ask what we build from, and what the Consortium publishes
         id: v
         run: node tools/tei-version.js >> "$GITHUB_OUTPUT"
+
+      - name: Write the issue body
+        if: steps.v.outputs.remote != '' && steps.v.outputs.remote != steps.v.outputs.local
+        env:
+          LOCAL: ${{ steps.v.outputs.local }}
+          REMOTE: ${{ steps.v.outputs.remote }}
+        run: node .github/tei-watch-body.js > issue-body.md
 
       - name: Open an issue when the two differ
         if: steps.v.outputs.remote != '' && steps.v.outputs.remote != steps.v.outputs.local
@@ -35,30 +50,9 @@ jobs:
           REMOTE: ${{ steps.v.outputs.remote }}
         run: |
           title="TEI P5 $REMOTE is out (this repository is built from $LOCAL)"
-          # one issue per release, never a new one every morning
-          if gh issue list --state all --limit 100 --json title --jq '.[].title' \
-              | grep -Fqx "$title"; then
-            echo "already reported"; exit 0
+          if gh issue list --state all --limit 100 --json title --jq '.[].title' | grep -Fqx "$title"; then
+            echo "already reported"
+            exit 0
           fi
-          gh label create tei --description "the Guidelines moved" --color 0E8A16 2>/dev/null || true
-          gh issue create --title "$title" --label "tei" --body "$(cat <<EOF
-The TEI Consortium has released **P5 $REMOTE**. \`data/p5-classes.json\` in this
-repository is derived from **P5 $LOCAL**.
-
-Nothing has been changed automatically: a new edition of the Guidelines is read,
-not merged. What to look at, in order:
-
-1. The release notes, for elements added, renamed or deprecated, and for changes
-   to the model and attribute classes. New classes matter more than new elements:
-   an element inherits, a class decides.
-2. Regenerate the class map from the released p5subset (\`tools/generate-classes.py\`),
-   pinned to $REMOTE, and read the diff. An element that changes class changes
-   behaviour without a line of code being touched.
-3. Run \`npm test\`: the coverage assertion fails when an element resolves to no
-   section, which is how a new module announces itself.
-4. Press the demo editions and compare. If nothing moves, say so in
-   \`CORRECTIONS.md\`: a release that changes nothing is a result too.
-
-Opened by \`.github/workflows/tei-watch.yml\`.
-EOF
-)"
+          gh label create tei --description "the Guidelines moved" --color 0E8A16 || true
+          gh issue create --title "$title" --label tei --body-file issue-body.md

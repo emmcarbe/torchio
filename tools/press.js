@@ -38,6 +38,15 @@ process.on('unhandledRejection', (err) => {
  * an edition without saying so is the worst thing this tool could do.
  */
 const REPORT = [];
+/**
+ * The files this impression was actually made from: the TEI read, the ones
+ * an inclusion pulled in, the ODD, the manifest, the sidecars applied. Only
+ * these travel with the edition. Walking the folder instead would publish
+ * whatever happened to be beside it, which for an edition under rights, or
+ * for working notes, is a decision nobody took.
+ */
+const USED = new Set();
+const used = (path) => { if (path) USED.add(resolve(path)); };
 const note = (level, what, detail) => REPORT.push({ level, what, detail });
 const lenient = process.argv.includes('--lenient');
 
@@ -81,6 +90,7 @@ let oddFile = null;
 if (oddArg) {
   oddFile = oddArg.slice('--odd='.length);
   odd = parseODD(await readFile(oddFile, 'utf-8'));
+  used(oddFile);
 }
 
 // input: one TEI file, a teiCorpus, or a whole directory of TEI files
@@ -114,15 +124,17 @@ if (inputStat.isDirectory()) {
   for (const n of names) {
     try {
       const src = await readText(join(input, n));
+      used(join(input, n));
       const r = parseXML(src);
       if (isODD(r)) {
         if (odd) { if (!oddFile || n !== basename(oddFile)) note('warning', 'a second ODD was ignored', n); continue; }
         odd = parseODD(r);
         oddFile = n;
+        used(join(input, n));
         continue;
       }
       if (!inTEINamespace(r)) continue;
-      await resolveIncludes(r, (href) => readText(within(input, href)));
+      await resolveIncludes(r, (href) => { const t = within(input, href); used(t); return readText(t); });
       roots.push({ id: n.replace(/\.xml$/i, '').replace(/[/\\]/g, '-'), root: r });
     } catch (err) {
       note('error', `a file could not be read, and its text is not in the edition (${n})`, err.message);
@@ -137,7 +149,7 @@ if (inputStat.isDirectory()) {
     process.exit(1);
   }
 } else {
-  try { xml = await readText(input); }
+  try { xml = await readText(input); used(input); }
   catch (err) { console.error(`not pressed: ${err.message}`); process.exit(1); }
   const root = parseXML(xml);
   if (isODD(root)) {
@@ -184,12 +196,14 @@ const manifestPath = manifestArg
 let manifest = null;
 try {
   manifest = JSON.parse(await readFile(manifestPath, 'utf-8'));
+  used(manifestPath);
   console.error(`manifest: ${manifestPath}`);
 } catch { /* level zero: no manifest, everything derived */ }
 
 // entity reconciliation (reconcile.json next to the manifest, or the input)
 try {
   const rec = JSON.parse(await readFile(join(dirname(manifestPath), 'reconcile.json'), 'utf-8'));
+  used(join(dirname(manifestPath), 'reconcile.json'));
   applyReconciliation(model, rec.entities);
   console.error('reconcile: reconcile.json applied');
 } catch { /* nothing reconciled */ }
@@ -199,6 +213,7 @@ try {
 // as unconfirmed until the editor confirms. Coordinates the TEI declares win
 try {
   const gr = JSON.parse(await readFile(join(dirname(manifestPath), 'georef.json'), 'utf-8'));
+  used(join(dirname(manifestPath), 'georef.json'));
   applyGeoref(model, gr.places);
   console.error('georef: georef.json applied');
 } catch { /* nothing georeferenced */ }
@@ -207,6 +222,7 @@ try {
 let lemmasJson = null;
 try {
   lemmasJson = JSON.parse(await readFile(join(dirname(manifestPath), 'lemmas.json'), 'utf-8'));
+  used(join(dirname(manifestPath), 'lemmas.json'));
 } catch { /* no file: the markup alone decides */ }
 const lemmas = attachLemmas(model, lemmasJson);
 attachLexicon(model);
@@ -275,30 +291,26 @@ if (site) {
     const srcDir = join(out, 'data', 'source');
     await mkdir(srcDir, { recursive: true });
     const base = (await stat(input)).isDirectory() ? input : dirname(input);
-    // never copy the pressed output into its own sources: pressing next to
-    // the input must not nest site/data/source/site/... at every run
-    const outAbs = resolve(out);
+    const baseAbs = resolve(base);
     const copied = [];
-    const walkDir = async (dir, rel = '') => {
-      for (const e of await readdir(dir, { withFileTypes: true })) {
-        if (e.name.startsWith('.')) continue;
-        const from = join(dir, e.name), r = rel ? `${rel}/${e.name}` : e.name;
-        if (e.isDirectory()) {
-          if (resolve(from) === outAbs) continue;
-          await walkDir(from, r); continue;
-        }
-        if (!/\.(xml|odd|rng|json)$/i.test(e.name)) continue;
-        await mkdir(dirname(join(srcDir, r)), { recursive: true });
-        await cp(from, join(srcDir, r));
-        copied.push(r);
-      }
-    };
-    await walkDir(base);
-    // always the same place and the same rule, whatever the size: the
-    // sources of an edition are part of the edition. index.json lists them,
-    // so a reader with a thousand files takes the archive instead of the list
-    await writeFile(join(srcDir, 'index.json'),
-      JSON.stringify({ files: copied.sort(), count: copied.length }, null, 1));
+    // only what this impression was made from, and only from within the
+    // edition's own folder: a file read from elsewhere is named in the index
+    // but not republished, since the edition does not own it
+    const outside = [];
+    for (const abs of [...USED].sort()) {
+      if (!abs.startsWith(baseAbs + sep)) { outside.push(abs); continue; }
+      const rel = abs.slice(baseAbs.length + 1);
+      try {
+        await mkdir(dirname(join(srcDir, rel)), { recursive: true });
+        await cp(abs, join(srcDir, rel));
+        copied.push(rel);
+      } catch (err) { note('warning', `a source file could not be copied (${rel})`, err.message); }
+    }
+    await writeFile(join(srcDir, 'index.json'), JSON.stringify({
+      note: 'the files this impression was made from, and only those',
+      files: copied.sort(), count: copied.length,
+      readFromOutsideTheEdition: outside.map((p) => basename(p)),
+    }, null, 1));
     console.error(`sources: ${copied.length} files copied to data/source/`);
   } catch (err) { note('warning', 'the sources were not copied', err.message); }
   console.error(`pressed site: ${out}/ (${Object.keys(files).length} files)`);
