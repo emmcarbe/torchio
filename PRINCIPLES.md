@@ -254,7 +254,9 @@ across the documents of a collection, with the classical apparatus band
 derived under the edited text; the same press as a single self-contained page
 in the browser, which locates ancient places offline against a compact
 Pleiades index. An edition whose parts live in sibling folders is gathered as
-one. The test suite counts 180 assertions.
+one. The test suite is run at every change, and the assertions it counts are
+recorded with each release in [CHANGELOG.md](CHANGELOG.md): a number that
+moves several times a day does not belong in a document meant to be cited.
 
 Nine demonstration editions with rights verified or granted: the Odyssey
 (Perseus), thirty Van Gogh letters (Van Gogh Museum and Huygens ING), the

@@ -123,8 +123,10 @@ wager in `PRINCIPLES.md`.
 
 ### Integrity reporting
 
-Add an integrity block to the press report. Dangling pointers must be counted
-and identified, including:
+The press now reports what it could not do and stops on anything that would
+publish an incomplete edition, unless `--lenient` is given. What remains is
+the integrity block proper: dangling pointers counted and identified,
+including:
 
 - undeclared witness sigla;
 - references to missing identifiers;
@@ -227,10 +229,13 @@ A 100 MB archive cannot currently be pressed.
 
 The browser press and the CLI have diverged:
 
-- the CLI applies `georef.json`;
-- the CLI stamps the colophon;
-- the browser does neither;
-- the manifest schema is defined separately in three places.
+- the CLI applies `georef.json`, the browser does not;
+- the manifest schema is defined separately in three places;
+- the report and the strict behaviour exist only in the CLI: the browser
+  presses to explore, but it should still say what it skipped.
+
+The colophon no longer diverges: the browser bundle carries its own build
+and stamps it, and the suite asserts that both declare the same engine.
 
 ### Tokenization
 

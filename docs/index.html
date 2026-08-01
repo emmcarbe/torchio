@@ -13,24 +13,33 @@ a:hover{text-decoration:underline}
 ul{padding-left:1.1em}
 li{margin:.5em 0}
 .lockup{max-width:420px;width:100%;height:auto;margin:0 0 1.4rem}
-.claim{font-style:italic;color:#6A6A66;margin:-.6rem 0 1.4rem}
 .note{font-size:14px;color:#6A6A66;margin-top:2.5rem;border-top:1px solid #E5E2D9;padding-top:12px}
 </style>
 </head>
 <body>
 <img class="lockup" src="torchio-lockup.svg" alt="Torchio">
-<p class="claim">Model for the edition, not for the viewer.</p>
 <p>Torchio presses XML-TEI P5 encoded texts into static digital scholarly
 editions: multi-page sites with reading text, critical apparatus, indices,
 maps and data exports, published from a git repository, with no server and
 no database. It is a prototype under development, and an experiment: how
 much of the editorial behaviour of real TEI can be recovered without
 configuration, and without inventing what the source does not say.</p>
-<h2>The press, in the browser</h2>
-<p><a href="press/">Press an edition here</a>: choose the files of a TEI P5
+<h2>Three ways to press an edition</h2>
+<ul>
+<li><b><a href="press/">In the browser</a></b>: choose the files of a TEI P5
 edition (the ODD too, if you have one) and it is pressed into a static site
 on your machine. Compose it in the panel, add your own pages in Markdown,
-download the result. Nothing is uploaded anywhere, and nothing is kept.</p>
+download the result. Nothing is uploaded anywhere, and nothing is kept.</li>
+<li><b>From the command line</b>: <code>node tools/press.js --site
+edition.xml out/</code>, on a file or on a whole folder. This is the fuller
+route: it applies the reconciliation and georeferencing files, stamps the
+colophon, carries the sources, and reports what it could not do. See
+<a href="https://github.com/emmcarbe/torchio/blob/main/USAGE.md">USAGE</a>.</li>
+<li><b>The repository presses itself</b>: put the TEI in a repository with a
+small workflow, and every push presses the edition again and publishes it on
+GitHub Pages. The edition is then a git repository with a history, which is
+the form this project argues for.</li>
+</ul>
 <h2>Editions to look at</h2>
 <ul>
 <li><a href="https://emmcarbe.github.io/torchio-demos/">The demonstration
@@ -65,5 +74,8 @@ No fork or pull request needed.</p>
 of the materials in the demonstration editions are recorded
 <a href="https://github.com/emmcarbe/torchio-demos#materials-and-rights">in
 their own repository</a>.</p>
+<p class="note" style="border:0;margin-top:.6rem;padding-top:0">Torchio,
+version 0.2.0-beta.2, August 2026.
+<a href="https://github.com/emmcarbe/torchio/blob/main/CHANGELOG.md">See the changelog</a>.</p>
 </body>
 </html>

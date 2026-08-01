@@ -110,3 +110,7 @@ markup substantiates and shapes the site accordingly. What it derives today:
    type exists.
 4. Read the register: the columns the press chose tell you what shape it
    thought the publication had.
+5. Read the report at the end. In a publication of many parts it is the only
+   way to know that every part arrived: a file that could not be read or an
+   inclusion that did not resolve now stops the press rather than leaving a
+   hole nobody sees.

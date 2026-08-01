@@ -32,6 +32,42 @@ page exists.
 Without `--site`, a single standalone HTML page is produced instead of a
 multi-page site.
 
+If the folder holds no TEI at its own level, the press looks in the folders
+below it: an edition whose parts live in `editions/`, `indices/` and `meta/`
+is one edition, and its texts and registries arrive together.
+
+## What the press tells you when something is wrong
+
+At the end of a pressing the press says what it could not do, and it
+distinguishes two things: a **warning** is something you should know, an
+**ERROR** is something a reader would not see, because the edition published
+would be missing a piece of itself. A file that could not be read, an
+inclusion that did not resolve, a page the manifest promises and the press
+cannot find: these stop it.
+
+    report: 1 error(s), 0 warning(s)
+      ERROR   an inclusion did not resolve, so its text is missing (chapter3.xml)
+
+    not published: the edition above is incomplete. Fix what is listed,
+    or press again with --lenient to publish it as it is, knowingly.
+
+`--lenient` presses anyway. Use it while you are exploring; do not use it to
+publish, unless you have read the report and mean it.
+
+## Which files travel with the edition
+
+The site carries the sources it was made from, so a reader can take the TEI
+away: `data/source/`, listed in `data/source/index.json`. Only the files
+this pressing actually read are published, that is the TEI it opened, what
+an inclusion pulled in, the ODD, the manifest and any sidecar applied
+(`reconcile.json`, `georef.json`, `lemmas.json`). Working notes, drafts and
+other files that happen to sit in the same folder are not published, and a
+file read from outside the edition's folder is named in the index but not
+republished, because the edition does not own it.
+
+To publish no sources at all, which is a rights decision and not a technical
+one, set `"exports": { "source": false }` in the manifest.
+
 ## In the browser, without installing anything
 
 The same engine runs in a single self-contained page:
