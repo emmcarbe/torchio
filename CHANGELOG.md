@@ -1,8 +1,7 @@
 # Changelog
 
 Releases, newest first. The fine grain is in
-[CORRECTIONS.md](CORRECTIONS.md): every entry there names the edition that
-demanded it.
+[CORRECTIONS.md](CORRECTIONS.md).
 
 ## 0.2.0-beta.2 (2026-08-01)
 
@@ -26,7 +25,7 @@ Engine:
 - The dead `genre` manifest field is removed (C90).
 
 Found by pressing real editions never seen before (the first of the contrast
-corpus) and by a day of specialist review:
+corpus) and by a day review:
 - Every popup in every pressed edition was quoting text with the letter "s"
   removed: six regular expressions lost a backslash on their way through the
   template that builds the interactive layer (C99).
@@ -50,10 +49,8 @@ Record:
 - The corrections register was verified against the code: six early entries
   counted as applied were not in the engine and are now open, two partly
   (C2, C3, C5, C7, C8, C9, C10, C11); totals recomputed from the table.
-- Principles 2, 3, 5 and 6 rewritten in the tense that is true today;
-  the survey extended (Endings Project and staticSearch, TAPAS, minimal
-  computing, the 2026 literature on static editions); the contrast corpus
-  declared as a dataset (`corpus.csv`, 95 editions).
+- Principles 2, 3, 5 and 6 rewritten;
+  the survey extended; the contrast corpus declared as a dataset (`corpus.csv`, 95 editions).
 - `CITATION.cff`, `.zenodo.json`, this changelog, and [COMPLEX.md](COMPLEX.md)
   on archives, collections and editions inside editions.
 - The sampling frame rebuilt from both catalogues of the field
@@ -63,8 +60,8 @@ Record:
 
 ## 0.2.0-beta.1 (2026-07-31)
 
-The state after the first machine audits: the possible (editorial) worlds
+The state after the first machine audits: the "possible (editorial) worlds"
 harness (five worlds, the 1981 Guidelines examples pressed), the Lab
 section (lexicon, concordance, frequencies, indices, map), per-document
 lexicon for collections, the two-register apparatus fixes, and the first
-82 corrections. Not deposited.
+82 corrections.
