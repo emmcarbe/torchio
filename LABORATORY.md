@@ -4,10 +4,9 @@
 
 Companion to [PRINCIPLES.md](PRINCIPLES.md). The principles describe a small,
 conservative engine. This document opens the space beside it where the engine
-is put to the test and where riskier ideas are tried, and it draws the line
-between the two so the line is never crossed by accident.
+is put to the test and where riskier ideas are tried.
 
-## The principle, named
+## The principle
 
 > **Model for the edition, not for the viewer.**
 >
@@ -37,9 +36,6 @@ When the engine does not know how to treat a structure, it must say:
 > This structure is conserved, but not interpreted. You need not change the
 > source. You may add an editorial behaviour.
 
-and never:
-
-> Change the TEI like this, or the function will not appear.
 
 ## Two spaces
 
@@ -52,42 +48,36 @@ part meant to still be readable, and still honest, in ten years.
 
 **Torchio laboratory** is where possible (editorial) worlds, NLP, IIIF, ontologies,
 visualizations and frankly eccentric ideas are tried. The laboratory may guess,
-may propose, may be wrong; it is where the interpretation lives. Its one
-obligation to the core is the discipline of principle 9: whatever it derives is
+may propose, may be wrong. Its one obligation to the core is the discipline of principle 9: whatever it derives is
 marked as derived, carries its provenance, and never re-enters the source. A
 result graduates from laboratory to core only when it can be stated without a
 guess.
 
-The boundary, in one line: **the core may not lie about the document; the
-laboratory may not pretend its guesses are the document.**
+## The question
 
-## The question, not the promise
-
-Torchio does not promise to publish every TEI. Cheap agent-generated code can
+Torchio cannot promise to publish every TEI. Cheap agent-generated code can
 already produce, for one edition, a bespoke transformation, a static site, a
 component, a pipeline; the market value of a generic "load TEI, get a site" is
 falling. What does not age is the empirical question already stated in the
-[wager](PRINCIPLES.md#the-wager), after Bauman (2011):
+[wager](PRINCIPLES.md#the-wager):
 
 > How much of the editorial behaviour of heterogeneous, real TEI corpora can be
 > recovered **without configuration** — using TEI model classes, documentary
 > structure and contrastive examples — **without introducing false inferences?**
 
-The answer is not known. It can be measured. It can fail. Either way it produces
-reusable data. Torchio is the instrument that runs the experiment, not the
-product the experiment sells.
+The answer is not known, but it can be measured. Either way it produces
+reusable data.
 
 ## Seven durable objects
 
 If in three years the renderer is replaced entirely, these seven remain useful.
-They, not the generated site, are the scientific output. In a world of
-agent-generated renderers a contrastive test corpus gains value, not loses it:
+They are the scientific output. In a world of agent-generated renderers a contrastive test corpus gains value:
 an agent can produce ten renderers, but a verifiable authority is still needed
 to say which of them falsifies the text.
 
 1. **The contrastive examples** — constructed positive and negative cases, [`worlds/`](worlds/). Distinct from the sampling frame of real editions (`corpus-frame.csv`) and from the editions actually analysed: see the Method in PRINCIPLES.
 2. **A taxonomy of failures** — see below; every failure filed under one cause.
-3. **The executable possible (editorial) worlds** — few, well delimited, [`worlds/`](worlds/).
+3. **The executable possible (editorial) worlds**, [`worlds/`](worlds/).
 4. **A contrastive philological test suite** — the worlds, run as tests.
 5. **A capability report** — per press, what was conserved / rendered / interpreted / inferred.
 6. **The provenance model** — source and interpretation kept apart (principle 9; the open cases are named in ROADMAP.md).
@@ -127,19 +117,18 @@ node worlds/run.js            # all worlds
 node worlds/run.js genetic    # worlds whose id contains "genetic"
 ```
 
-A failed assertion is a debt with a name, not a broken build. Two kinds, and
-the distinction is the whole point:
+Two different kinds of failed assertion:
 
-- an **over-reading** — the engine infers more than the source attests. This is
+- an **over-reading**: the engine infers more than the source attests. This is
   what makes a page lie. It is reported first and it is the one that must stop
   the automatism.
-- a **gap** — the engine under-models; an honest shortfall, filed and waited on.
+- a **gap**: the engine under-models; an honest shortfall, filed and waited on.
 
 The first world, `genetic-substitution`, currently holds 11 assertions with one
 named gap (a `<subst>` is not yet reified as a single act) and no over-readings.
 The gap is a debt; the absence of over-readings is the property that matters.
 
-## The Guidelines' own examples, as tests
+## The Guidelines' own examples as tests
 
 The hand-written worlds cover the traditions with judgement; beneath them
 belongs a systematic layer with no judgement at all: **every example the TEI
@@ -190,8 +179,8 @@ is heterogeneous in ways no tool resolves."
 
 ## The deciding measurement
 
-Not all 95 editions at once. A **stratified sample**, one of each editorial
-kind, is enough to decide whether to continue:
+A **stratified sample**, one of each editorial
+kind, to decide whether to continue:
 
 critical edition · documentary · genetic · correspondence · manuscript with
 facsimile · linguistic corpus · dictionary · drama · project with local
