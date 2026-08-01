@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Torchio · demos</title>
+<title>Torchio</title>
 <style>
 body{background:#fff;color:#1B1B1B;font-family:"EB Garamond",Palatino,Georgia,serif;
   max-width:44rem;margin:2.5rem auto;padding:0 1.25rem;line-height:1.55;font-size:18px}
@@ -13,29 +13,59 @@ a:hover{text-decoration:underline}
 ul{padding-left:1.1em}
 li{margin:.5em 0}
 .lockup{max-width:420px;width:100%;height:auto;margin:0 0 1.4rem}
+.claim{font-style:italic;color:#6A6A66;margin:-.6rem 0 1.4rem}
 .note{font-size:14px;color:#6A6A66;margin-top:2.5rem;border-top:1px solid #E5E2D9;padding-top:12px}
 </style>
 </head>
 <body>
 <img class="lockup" src="torchio-lockup.svg" alt="Torchio">
-<p>This is a demo site for an experiment in progress. Information is
-available in the <a href="https://github.com/emmcarbe/torchio#readme">README</a>,
-and the project principles are
-<a href="https://github.com/emmcarbe/torchio/blob/main/PRINCIPLES.md">here</a>.</p>
-<h2>Try Torchio yourself</h2>
-<p><a href="press/">The press, in the browser</a>: choose the files of a
-TEI P5 edition (the ODD too, if you have one) and it is pressed into a
-static site on your machine. Compose it in the panel, add your own pages
-in Markdown, download the result. Nothing is uploaded anywhere.</p>
-<h2>Demo editions</h2>
-<p>The demonstration editions live in their own repository:
-<a href="https://emmcarbe.github.io/torchio-demos/">emmcarbe.github.io/torchio-demos</a>.</p>
+<p class="claim">Model for the edition, not for the viewer.</p>
+<p>Torchio presses XML-TEI P5 encoded texts into static digital scholarly
+editions: multi-page sites with reading text, critical apparatus, indices,
+maps and data exports, published from a git repository, with no server and
+no database. It is a prototype under development, and an experiment: how
+much of the editorial behaviour of real TEI can be recovered without
+configuration, and without inventing what the source does not say.</p>
+<h2>The press, in the browser</h2>
+<p><a href="press/">Press an edition here</a>: choose the files of a TEI P5
+edition (the ODD too, if you have one) and it is pressed into a static site
+on your machine. Compose it in the panel, add your own pages in Markdown,
+download the result. Nothing is uploaded anywhere, and nothing is kept.</p>
+<h2>Editions to look at</h2>
+<ul>
+<li><a href="https://emmcarbe.github.io/torchio-demos/">The demonstration
+editions</a>: nine editions pressed with Torchio, in their own repository,
+so that materials with limited rights stay apart from the engine. Among
+them a critical edition with a three-register apparatus, a collated
+tradition of fifty-four witnesses, a graphematic transcription, a
+documentary transcription with hands and writing operations, and a
+correspondence.</li>
+<li><a href="specimen/">The Specimen</a>: a micro-edition built for
+demonstration, with imaginary witnesses and didactic variants, declared as
+such on its title page. CC0, so anyone may take it apart.</li>
+</ul>
+<h2>How the project works</h2>
+<ul>
+<li><a href="https://github.com/emmcarbe/torchio#readme">README</a>: what it
+is, how to run it, what it depends on (nothing).</li>
+<li><a href="https://github.com/emmcarbe/torchio/blob/main/PRINCIPLES.md">Principles</a>:
+the method, the wager the project is testing, the survey of what already
+exists, and the audits.</li>
+<li><a href="https://github.com/emmcarbe/torchio/blob/main/CORRECTIONS.md">Corrections</a>:
+every correction a real edition has demanded of the engine, dated and
+attributed. The open ones are there too.</li>
+<li><a href="https://github.com/emmcarbe/torchio/blob/main/ROADMAP.md">Roadmap</a>:
+what is urgent, what is possible, and the research directions.</li>
+</ul>
 <h2>Desiderata</h2>
-<p>Wishes, requests and ideas, from anyone, in any language: open a thread in the
-<a href="https://github.com/emmcarbe/torchio/discussions">Discussions</a>.
+<p>Wishes, requests and ideas, from anyone, in any language: open a thread in
+the <a href="https://github.com/emmcarbe/torchio/discussions">Discussions</a>.
 No fork or pull request needed.</p>
-<p class="note">Rights of the demo materials:
-<a href="https://github.com/emmcarbe/torchio-demos#materials-and-rights">attributions</a>,
-in the demos' own repository.</p>
+<p class="note">Torchio is designed and maintained by
+<a href="https://www.unive.it/persone/emmanuela.carbe">Emmanuela Carbé</a>
+(Ca' Foscari University of Venice, DSU-VeDPH). The engine is MIT; the rights
+of the materials in the demonstration editions are recorded
+<a href="https://github.com/emmcarbe/torchio-demos#materials-and-rights">in
+their own repository</a>.</p>
 </body>
 </html>
