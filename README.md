@@ -2,8 +2,6 @@
 
 # Torchio
 
-*Model for the edition, not for the viewer.*
-
 Torchio turns XML-TEI P5 encoded texts into static digital scholarly editions:
 multi-page sites with reading text, critical apparatus, indices, maps and
 data exports, published from a git repository (GitHub Pages or any static
@@ -39,17 +37,16 @@ collections and editions inside editions are handled in
    that an extension should concern phenomena P5 does not already cover.
 4. The engine produces a data model (JSON), documented by the code and the
    exports rather than by a written specification, which is a declared debt;
-   pages and exports
-   (XML, CSV, JSON) are generated from the model, not from ad hoc
-   transformations of the XML.
-5. No runtime services. The same code runs in the browser and in Node;
+   pages and exports (XML, CSV, JSON) are generated from the model, not
+   from ad hoc transformations of the XML.
+6. No runtime services. The same code runs in the browser and in Node;
    hosting, versioning and CI (continuous integration, the automated checks
    a repository runs at every change) belong to the edition's repository.
-6. The markup decides which pages and functions exist; the optional manifest
+7. The markup decides which pages and functions exist; the optional manifest
    (`torchio.json`) decides their presence, order and labels.
-7. Generated pages meet WCAG AA contrast (asserted per theme in the test
+8. Generated pages meet WCAG AA contrast (asserted per theme in the test
    suite) and are keyboard-accessible.
-8. Interface language: English or Italian, set in the manifest or derived
+9. Interface language: English or Italian, set in the manifest or derived
    from the edition's `langUsage`.
 
 ## Layout
@@ -64,10 +61,6 @@ collections and editions inside editions are handled in
 - `tools/`: the press CLI (`press.js`), the browser press builder (`build-browser.js`), gazetteer builders, georeferencing, lemmatization (UDPipe), the Guidelines-examples harness (`exempla.js`)
 - `worlds/`: the possible (editorial) worlds, contrastive corpora run as tests (see [LABORATORY.md](LABORATORY.md))
 - `docs/`: the project site (the in-browser press and the Specimen edition; see `docs/README.md`)
-
-Demonstration editions live in their own repository,
-[emmcarbe/torchio-demos](https://github.com/emmcarbe/torchio-demos), with
-their rights recorded there.
 
 ## Development
 
