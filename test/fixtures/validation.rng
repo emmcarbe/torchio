@@ -1,0 +1,6 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:tei="http://www.tei-c.org/ns/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start><ref name="tei"/></start>
+  <define name="tei"><element name="tei:TEI"><ref name="text"/></element></define>
+  <define name="text"><element name="tei:text"><element name="tei:body"><element name="tei:p"><text/></element></element></element></define>
+</grammar>

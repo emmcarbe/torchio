@@ -3,6 +3,28 @@
 Releases, newest first. The fine grain is in
 [CORRECTIONS.md](CORRECTIONS.md).
 
+## Unreleased
+
+Corrections following a third audit, of the repository and of the pressed
+editions (2 August 2026). The suite passes 203 assertions.
+
+- The file's own history is no longer published as the history of the text: a
+  `change` in `revisionDesc` became a stratum of writing, and the Ursus came
+  out with 66 campaigns, ELA with 126 and the Odyssey with 5, none of which
+  exist (C117).
+- A genetic operation now requires a declared hand or campaign, and only a
+  `subst` binds a deletion to an addition (C118).
+- The possible worlds can fail: a gap or an over-reading stops the build in
+  release mode, and the Guidelines' examples are part of the gate (C119).
+- The edition's ODD now decides behaviour and not only class membership, in a
+  cascade that says which rule decided each node; a tenth demonstration
+  edition exists to show it (C120).
+- Apparatus, standoff and documentary views, place identity and authority
+  identifiers, and the generated pages themselves (broken anchors, duplicate
+  identifiers, overflow on a narrow screen) are corrected (C121 to C123).
+- Nested corpora are expanded recursively, which closes an entry that was
+  recorded open the day before (C93).
+
 ## 0.2.0-beta.2 (2026-08-01)
 
 First release deposited for a DOI: <https://doi.org/10.5281/zenodo.21740662>.

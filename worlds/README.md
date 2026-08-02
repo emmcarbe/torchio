@@ -48,6 +48,7 @@ Every example is a test. Run:
 
 ```
 node worlds/run.js
+node worlds/run.js --strict   # non-zero exit if a debt remains
 ```
 
 Each example builds a Torchio model from its source and asserts what the model

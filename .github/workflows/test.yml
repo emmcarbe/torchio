@@ -10,4 +10,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: install schema validator
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
       - run: npm test
+      - name: press demonstration editions
+        uses: actions/checkout@v4
+        with:
+          repository: emmcarbe/torchio-demos
+          path: torchio-demos
+      - name: press and check demos
+        run: |
+          set -eu
+          for source in torchio-demos/sources/*; do
+            test -d "$source" || continue
+            name="$(basename "$source")"
+            node tools/press.js --site "$source" "$RUNNER_TEMP/torchio-$name"
+            node tools/check-site.js "$RUNNER_TEMP/torchio-$name"
+          done

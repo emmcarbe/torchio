@@ -9,9 +9,12 @@
 
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 import { parseXML, walk, local, textOf, decodeEntities, inTEINamespace } from '../src/xml.js';
 import { loadBaseData, buildClassMap } from '../src/classes.js';
 import { parseODD } from '../src/odd.js';
+import { validateODD } from '../src/validate.js';
+import { validateFiles } from '../tools/schema-validate.js';
 import { analyze } from '../src/analyze.js';
 import { resolveIncludes } from '../src/xinclude.js';
 import { buildModel, walkModel, textOfModel } from '../src/model.js';
@@ -50,6 +53,9 @@ const data = await loadBaseData();
   ok(map.resolve('persName').section === '2-entita', 'persName -> 2-entita');
   ok(map.resolve('app').section === '4-apparato', 'app -> 4-apparato');
   ok(map.resolve('del').section === '3-trascrizionale', 'del -> 3-trascrizionale');
+  ok(map.resolve('p').defaultBehaviour === 'paragraph'
+    && map.resolve('add').defaultBehaviour === 'inline',
+    'TEI All fallback assigns conservative rendering contracts from elements and classes');
   ok(map.resolve('titlePage').section === '1-paratesti', 'titlePage -> 1-paratesti (correction C4)');
   ok(map.resolve('boiadibuio').section === 'base', 'unknown element -> base, never fails');
 
@@ -71,6 +77,8 @@ console.log('odd.js — the ODD decides');
   ok(odd.deletedElements.has('table') && odd.deletedElements.has('said'),
     'deletions read (mode="delete" and @except)');
   ok(odd.customElements.some((e) => e.ident === 'salvataggio'), 'custom element read');
+  ok(odd.processingModels.get('salvataggio')?.[0]?.behaviour === 'inline',
+    'ODD processing model read: behaviour is configuration, not a tag switch');
 
   const map = buildClassMap(odd, data);
   ok(map.resolve('salvataggio').section === '3-trascrizionale',
@@ -78,6 +86,69 @@ console.log('odd.js — the ODD decides');
   ok(map.resolve('softwareName').section === '2-entita',
     'legitimate extension inherits: softwareName -> 2-entita');
   ok(map.resolve('persName').section === '2-entita', 'P5 elements still resolve under ODD');
+  const custom = buildModel(parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:x="http://example.org/ns"><text><body><p>
+      <x:salvataggio when="2026-08-02">bozza</x:salvataggio>
+      <x:softwareName ref="https://example.org/editor">Editor</x:softwareName>
+    </p></body></text></TEI>`), map);
+  const save = [...walkModel(custom.documents[0].tree)].find((n) => n.element === 'salvataggio');
+  const rendered = renderBase(save);
+  ok(save.processing?.behaviour === 'inline' && save.processing.source === 'odd'
+    && rendered.includes('data-odd-behaviour="inline"')
+    && rendered.includes('data-behaviour-source="odd"')
+    && rendered.includes('autosave-event') && rendered.includes('font-style:italic'),
+    'ODD behaviour, cssClass, and outputRendition reach the rendered custom element');
+  const software = [...walkModel(custom.documents[0].tree)].find((n) => n.element === 'softwareName');
+  ok(software.processing?.behaviour === 'link'
+    && renderBase(software).includes('href="https://example.org/editor"'),
+    'ODD predicate and param select a web model and supply its link URI');
+  const plain = buildModel(parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0"><text><body>
+    <p>base <add>addition</add></p></body></text></TEI>`), buildClassMap(null, data));
+  const plainAdd = [...walkModel(plain.documents[0].tree)].find((n) => n.element === 'add');
+  ok(plainAdd.processing?.source === 'tei-all' && plainAdd.processing.behaviour === 'inline',
+    'without an ODD, the same resolver falls through to the TEI All class contract');
+  ok(renderBase(plainAdd).includes('data-behaviour-source="tei-all"')
+    && !renderBase(plainAdd).includes('data-odd-behaviour'),
+    'rendered behaviour provenance distinguishes TEI All fallback from edition ODD');
+
+  const advancedOdd = parseODD(`<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <schemaSpec ident="advanced"><elementSpec ident="marker" mode="add"
+      ns="http://example.org/advanced"><classes><memberOf key="model.pPart.editorial"/></classes>
+      <modelSequence><model predicate="@n" behaviour="inline"><param name="content" value="@n"/></model><model cssClass="sequence-step" behaviour="inline"/></modelSequence>
+    </elementSpec><elementSpec ident="contextual" mode="add" ns="http://example.org/advanced">
+      <model predicate="ancestor::p[@type='special']" behaviour="inline"/></elementSpec></schemaSpec>
+    </TEI>`);
+  const advancedMap = buildClassMap(advancedOdd, data);
+  const advanced = buildModel(parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:a="http://example.org/advanced"><text><body><p type="special">
+      <a:marker n="1">one</a:marker><a:contextual>two</a:contextual></p></body></text></TEI>`), advancedMap);
+  const advancedNodes = [...walkModel(advanced.documents[0].tree)];
+  const marker = advancedNodes.find((n) => n.element === 'marker');
+  const contextual = advancedNodes.find((n) => n.element === 'contextual');
+  ok(marker.processing?.sequence?.length === 2
+    && renderBase(marker).includes('data-behaviour-sequence="inline inline"')
+    && renderBase(marker).includes('>1</span>')
+    && contextual.processing?.source === 'odd',
+    'ODD modelSequence and contextual XPath predicates are applied as one unit');
+
+  const validation = validateODD([{ id: 'advanced', root: advanced.documents[0].sourceRoot || parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0"><text><body><p/></body></text></TEI>`) }], advancedOdd, data);
+  ok(validation.valid && validation.warnings.some((item) => item.code === 'ODD-CONTENT-MODEL-UNVALIDATED'),
+    'ODD validation distinguishes covered declarations from unvalidated content constraints');
+  const invalid = validateODD([{ id: 'bad', root: parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0"><text><body><table/><unknown/></body></text></TEI>`) }], odd, data);
+  ok(!invalid.valid && invalid.errors.some((item) => item.code === 'ODD-DELETED-ELEMENT')
+    && invalid.errors.some((item) => item.code === 'ODD-UNKNOWN-TEI-ELEMENT'),
+    'ODD validation catches deleted and undeclared TEI elements');
+  const fixtureDir = fileURLToPath(new URL('./fixtures/', import.meta.url));
+  const externalValid = await validateFiles([`${fixtureDir}validation-valid.xml`], {
+    rng: `${fixtureDir}validation.rng`, schematron: `${fixtureDir}validation.sch`,
+  });
+  const externalInvalid = await validateFiles([`${fixtureDir}validation-invalid.xml`], {
+    rng: `${fixtureDir}validation.rng`, schematron: `${fixtureDir}validation.sch`,
+  });
+  ok(externalValid.errors.length === 0 && externalValid.results.length === 2,
+    'external Relax NG and Schematron accept a valid TEI');
+  ok(externalInvalid.errors.length === 1 && externalInvalid.errors[0].kind === 'Schematron',
+    'external Schematron rejects an invalid TEI while Relax NG accepts its structure');
 }
 
 console.log('analyze.js');
@@ -197,6 +268,17 @@ console.log('site.js — the edition is a site, not a page');
     'text.html: header present in the DOM but hidden (the toolbar toggle has something to show)');
   ok(files['indices.html'].includes('Kurtz') && files['indices.html'].includes('text.html#'),
     'indices.html: entities with links into the text');
+  ok(files['text.html'].includes('@media(max-width:540px)')
+    && files['text.html'].includes('.torchio-nav{width:100%;margin-left:0'),
+    'the shared page shell wraps its navigation in a mobile viewport');
+  const streamed = new Map();
+  const streamResult = pressSite(model, {
+    collect: false,
+    onFile: (name, content) => streamed.set(name, content),
+  });
+  ok(streamResult.streamed && streamed.size === Object.keys(files).length
+    && [...streamed].every(([name, content]) => files[name] === content),
+    'streaming site output is complete and byte-identical to collected output');
   const plain = buildModel(parseXML('<TEI xmlns="http://www.tei-c.org/ns/1.0"><text><body><p>solo testo</p></body></text></TEI>'), map);
   ok(!('indices.html' in pressSite(plain)), 'indices page only when registries are populated');
 }
@@ -469,7 +551,7 @@ console.log('path A — the press in the browser');
   const { tmpdir } = await import('node:os');
   const { join } = await import('node:path');
   const built = join(tmpdir(), `torchio-press-test-${process.pid}.html`);
-  execFileSync(process.execPath, [new URL('../tools/build-browser.js', import.meta.url).pathname, built]);
+  execFileSync(process.execPath, [fileURLToPath(new URL('../tools/build-browser.js', import.meta.url)), built]);
   const page = await readFile(built, 'utf-8');
   ok(page.includes('<title>Torchio · the press</title>'), 'the page is built');
   ok(!page.includes("from 'node:"), 'no Node import survives in the page');
@@ -557,14 +639,16 @@ console.log('odd — recognized on its own, wired to the press');
   await cp(new URL('./fixtures/custom.odd.xml', import.meta.url), join(dir, 'schema.odd.xml'));
   const out = join(dir, 'pressed');
   const run = spawnSync(process.execPath,
-    [new URL('../tools/press.js', import.meta.url).pathname, '--site', dir, out],
+    [fileURLToPath(new URL('../tools/press.js', import.meta.url)), '--site', dir, out],
     { encoding: 'utf-8' });
   ok(run.status === 0 && run.stderr.includes('odd: schema.odd.xml'),
     'directory input: the ODD alongside is recognized and reported');
   const html = await readFile(join(out, 'text.html'), 'utf-8')
     .catch(() => readFile(join(out, 'doc-doc.html'), 'utf-8'));
   ok(html.includes('data-el="salvataggio"') && html.includes('s-3-trascrizionale'),
-    'custom element inherits its behaviour in the pressed page (memberOf, zero code)');
+    'custom element inherits its section from memberOf in the pressed page');
+  ok(html.includes('data-odd-behaviour="inline"') && html.includes('autosave-event'),
+    'custom element receives its visual behaviour from the ODD processing model');
   ok(!html.includes('data-el="salvataggio"') || !/data-el="salvataggio"[^>]*class="[^"]*s-base/.test(html),
     'custom element does not degrade to base when the ODD travels along');
   await rm(dir, { recursive: true, force: true });
@@ -755,6 +839,17 @@ console.log('standoff notes follow their targets; long indices open with their o
     'a standoff note is pressed on the page of its target, ready for the margin machinery');
   ok(!site['text.html'].includes('Adnotationes'),
     'the contents page no longer promises the endnotes chapter');
+  ok(site['text-1.html'].includes('id="top"'),
+    'every pressed page supplies the target used by back-to-top controls');
+
+  const { attachLemmas } = await import('../src/lemmas.js');
+  const withLemma = buildModel(parseXML(NOTED.replace('Adnotationes critice',
+    '<w lemma="adnotatio">Adnotationes</w> <w lemma="criticus">critice</w>')), map);
+  attachLemmas(withLemma, null);
+  const lemmaSite = pressSite(withLemma, {});
+  ok(!lemmaSite['lemmas.html'].includes('Adnotationes')
+    && !lemmaSite['lemmas.html'].includes('href="null#'),
+    'a heading removed with an empty relocated-notes chunk cannot create a false lemma link');
 
   // the index of the indices: two sections and many entries open with anchors
   let people = '';
@@ -907,7 +1002,7 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
   const site = pressM(model, { title: 'methods' });
   const page = site['text.html'];
   ok(/data-from="#a1"/.test(page) && /data-loc="3"/.test(page)
-    && /id="a1"/.test(page) && /data-el="l" data-n="3"/.test(page),
+    && /id="a1"/.test(page) && /data-el="l"[^>]*data-n="3"/.test(page),
     'anchors and canonical places survive into the page, where the reader-side wiring finds them');
 }
 
@@ -927,6 +1022,16 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
   ok('genesis.html' in site && /first campaign/.test(site['genesis.html'])
     && !('genesis.html' in pressG(buildModel(parseXML(readFileSync('test/fixtures/apparatus-methods.xml', 'utf-8')), buildClassMap(null, data)), {})),
     'the page exists where the edition declares a genesis, and nowhere else');
+  const handOnly = buildModel(parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>Hands</title></titleStmt>
+    <publicationStmt><p/></publicationStmt><sourceDesc><p/></sourceDesc></fileDesc>
+    <profileDesc><handNotes><handNote xml:id="h1">First hand</handNote></handNotes></profileDesc>
+    </teiHeader><text><body><p>word <del hand="#h1">cancelled</del></p></body></text></TEI>`),
+  buildClassMap(null, data));
+  const handPage = pressG(handOnly, { title: 'hands' })['genesis.html'];
+  ok(handPage.includes('A hand is not presented as a chronological layer')
+    && !handPage.includes('campaigns of correction the edition declares'),
+    'grouping by hand is never described as a declared chronological campaign');
 }
 
 // ---- hostile fixtures: editorial data must never become executable code ----
@@ -999,7 +1104,7 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     writeFileSync(j(dir, 'page.html'), '<script>alert(1)</script>');
     writeFileSync(j(dir, 'torchio.json'), JSON.stringify({
       extra: [{ id: 'p', label: 'P', file: 'page.html' }] }));
-    const press = new URL('../tools/press.js', import.meta.url).pathname;
+    const press = fileURLToPath(new URL('../tools/press.js', import.meta.url));
     let refused = false;
     try {
       execFileSync(process.execPath, [press, '--site', dir, j(dir, 'out')], { stdio: 'pipe' });

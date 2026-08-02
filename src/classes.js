@@ -59,6 +59,10 @@ export function buildClassMap(odd = null, data = { p5: P5, sections: SECTIONS })
         : spec.memberOf;
       elements.set(spec.ident, { module: spec.module || (prev && prev.module) || 'custom', memberOf });
     }
+    for (const [ident, models] of odd.processingModels || []) {
+      const prev = elements.get(ident) || { module: 'custom', memberOf: [] };
+      elements.set(ident, { ...prev, models });
+    }
   }
 
   const closureCache = new Map();
@@ -89,7 +93,8 @@ export function buildClassMap(odd = null, data = { p5: P5, sections: SECTIONS })
     let result;
     const info = elements.get(name);
     if (!info) {
-      result = { element: name, module: null, classes: new Set(), section: 'base', via: 'fallback' };
+      result = { element: name, module: null, classes: new Set(), section: 'base', via: 'fallback',
+        models: [], defaultBehaviour: null, defaultBehaviourVia: null };
     } else {
       const cls = closure(info.memberOf);
       let section = null;
@@ -106,7 +111,17 @@ export function buildClassMap(odd = null, data = { p5: P5, sections: SECTIONS })
         via = `module:${info.module}`;
       }
       if (!section) { section = 'base'; via = 'fallback'; }
-      result = { element: name, module: info.module, classes: cls, section, via };
+      let defaultBehaviour = sections.behaviourByElement?.[name] || null;
+      let defaultBehaviourVia = defaultBehaviour ? 'element' : null;
+      if (!defaultBehaviour) for (const [cname, behaviour] of sections.behaviourByClass || []) {
+        if (cls.has(cname)) {
+          defaultBehaviour = behaviour;
+          defaultBehaviourVia = `class:${cname}`;
+          break;
+        }
+      }
+      result = { element: name, module: info.module, classes: cls, section, via,
+        models: info.models || [], defaultBehaviour, defaultBehaviourVia };
     }
     resolveCache.set(name, result);
     return result;

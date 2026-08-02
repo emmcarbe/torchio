@@ -90,11 +90,12 @@ export function pressLexiconPage({ model, pageFor, t, T, lang, theme, parent, pa
   // deduplicated, since many tokens share a line) and docs are listed once
   const formIdx = new Map(); const formList = []; const formLangList = [];
   const hrefIdx = new Map(); const hrefs = [];
-  const stream = (model.tokens || []).map((tok) => {
+  const stream = (model.tokens || []).map((tok) => ({ tok, page: pageFor(tok.anchor) }))
+    .filter(({ page }) => page).map(({ tok, page }) => {
     let fi = formIdx.get(tok.form);
     if (fi === undefined) { fi = formList.length; formList.push(tok.form); formLangList.push(tok.lang || ''); formIdx.set(tok.form, fi); }
     let hi = hrefIdx.get(tok.anchor);
-    if (hi === undefined) { hi = hrefs.length; hrefs.push(`${pageFor(tok.anchor)}#${tok.anchor}`); hrefIdx.set(tok.anchor, hi); }
+    if (hi === undefined) { hi = hrefs.length; hrefs.push(`${page}#${tok.anchor}`); hrefIdx.set(tok.anchor, hi); }
     let di = docIdx.get(tok.docId);
     if (di === undefined) { di = DOCS.length; DOCS.push(tok.docId); docIdx.set(tok.docId, di); }
     return [fi, hi, di];

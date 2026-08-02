@@ -403,7 +403,7 @@ export function buildInteractJS(t) {
       openPop('<span class="k">'+esc(op.dataset.el)+'</span>'
         +'<div class="notebody">'+esc(op.textContent.replace(/\\s+/g,' ').trim().slice(0,140))+'</div>'
         +'<div class="meta">'+(lab?esc(lab):'')+(hd?' · '+esc(hd):'')
-        +' <a href="genesis.html">'+esc(T.genesis)+'</a></div>',op);
+        +(document.querySelector('a[href="genesis.html"]') ? ' <a href="genesis.html">'+esc(T.genesis)+'</a>' : '')+'</div>',op);
       ev.stopPropagation();return;
     }
     var anc=ev.target.closest&&ev.target.closest('[data-appref]');

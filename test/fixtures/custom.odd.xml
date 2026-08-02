@@ -30,6 +30,10 @@
             <memberOf key="att.global"/>
             <memberOf key="att.datable.w3c"/>
           </classes>
+          <model predicate="@when" behaviour="inline" cssClass="autosave-event">
+            <outputRendition>font-style: italic; font-weight: bold;</outputRendition>
+          </model>
+          <model behaviour="block" cssClass="autosave-undated"/>
         </elementSpec>
         <elementSpec ident="softwareName" mode="add" ns="http://example.org/ns">
           <desc>The name of a piece of software as an entity of the edition
@@ -37,6 +41,13 @@
           <classes>
             <memberOf key="model.nameLike"/>
           </classes>
+          <modelGrp output="web">
+            <model predicate="@ref" behaviour="link">
+              <param name="uri" value="@ref"/>
+              <param name="content" value="."/>
+            </model>
+            <model behaviour="inline"/>
+          </modelGrp>
         </elementSpec>
         <elementSpec ident="table" mode="delete"/>
       </schemaSpec>

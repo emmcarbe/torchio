@@ -14,6 +14,17 @@ import { chrome } from './page-shell.js';
 export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, pages, active = 'lemmas.html', subnav = '' }) {
     const L = model.lemmas;
     const KWIC_MAX = 30;
+    const entries = L.entries.map((entry) => {
+      const occurrences = entry.occurrences.map((occurrence) => ({
+        ...occurrence,
+        page: pageFor(occurrence.anchor),
+      })).filter((occurrence) => occurrence.page);
+      const counts = new Map();
+      for (const occurrence of occurrences) {
+        counts.set(occurrence.form, (counts.get(occurrence.form) || 0) + 1);
+      }
+      return { ...entry, occurrences, count: occurrences.length, forms: [...counts] };
+    }).filter((entry) => entry.occurrences.length);
     const prov = [];
     if (L.provenance.markup) prov.push(`${L.provenance.markup} ${T.lemmaFromMarkup}`);
     if (L.provenance.file) {
@@ -31,9 +42,9 @@ export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, page
       + `<p class="lem-note">${T.lemmaCoverage}: ${coverage} ${T.tokensWord} · ${prov.join(' · ')}`
       + (pendingN ? ` · ${pendingN} ${T.lemmaPending}` : '') + '</p>'
       + `<input class="reg-filter lem-filter" type="search" placeholder="${T.filter}"`
-      + ` aria-label="${T.filter}"/> <span class="reg-count">${L.entries.length}</span>`;
+      + ` aria-label="${T.filter}"/> <span class="reg-count">${entries.length}</span>`;
     let currentLang = null;
-    for (const e of L.entries) {
+    for (const e of entries) {
       if (multilingual && e.lang !== currentLang) {
         currentLang = e.lang;
         lem += `<h2 class="sec">${escapeHTML(e.lang || '?')}</h2>`;
@@ -46,7 +57,7 @@ export function pressLemmaPage({ model, pageFor, t, T, lang, theme, parent, page
         + '<table class="wit-table kwic">';
       for (const o of e.occurrences.slice(0, KWIC_MAX)) {
         lem += `<tr><td class="kb">${escapeHTML(o.before)}</td>`
-          + `<td class="kf"><a href="${pageFor(o.anchor)}#${escapeHTML(o.anchor)}">${escapeHTML(o.form)}</a></td>`
+          + `<td class="kf"><a href="${o.page}#${escapeHTML(o.anchor)}">${escapeHTML(o.form)}</a></td>`
           + `<td class="ka">${escapeHTML(o.after)}</td></tr>`;
       }
       lem += '</table>';

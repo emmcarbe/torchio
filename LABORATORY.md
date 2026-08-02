@@ -115,7 +115,11 @@ Run them:
 ```
 node worlds/run.js            # all worlds
 node worlds/run.js genetic    # worlds whose id contains "genetic"
+node worlds/run.js --strict   # fail when any gap or over-reading remains
 ```
+
+`npm test` runs this laboratory in strict mode after the core suite and the
+regression worlds in `test/worlds.js`.
 
 Two different kinds of failed assertion:
 

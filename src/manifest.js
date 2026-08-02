@@ -32,7 +32,7 @@ import { isTheme } from './themes.js';
 // lemmas, map) is requested: without it here, an edition that declares its
 // pages would silently lose all four
 const KNOWN_PAGES = ['index', 'front', 'text', 'back', 'lab', 'indices',
-  'lemmas', 'lexicon', 'apparatus', 'genesis', 'map', 'data'];
+  'lemmas', 'lexicon', 'apparatus', 'facsimile', 'genesis', 'map', 'data'];
 const REGISTER_COLUMNS = ['date', 'title', 'from', 'to', 'author', 'place', 'idno'];
 
 export function normalizeManifest(raw = {}) {
@@ -63,7 +63,7 @@ export function normalizeManifest(raw = {}) {
     // the editor, exists
     version: raw.version != null && String(raw.version).trim() ? String(raw.version).trim() : null,
     apparatusKind: ['critical', 'genetic', 'both'].includes(raw.apparatusKind) ? raw.apparatusKind : null,
-    pieces: { apparatus: true, entities: true, choice: true, map: true, lemmas: true,
+    pieces: { apparatus: true, facsimile: true, entities: true, choice: true, map: true, lemmas: true,
       persons: true, places: true, orgs: true, ...(raw.pieces || {}) },
     // the lexicon views are opt-in, each on its own; the old pieces.lexicon
     // switches all three on

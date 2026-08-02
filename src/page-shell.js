@@ -79,7 +79,7 @@ export function chrome({ title, sub, active, pages, body, script = '', bodyClass
 <title>${escapeHTML(title)}</title>
 <style>${themeCSS(theme)}${structuralCSS}
 ${interactCSS}
-.torchio-nav{display:flex;gap:22px;margin-left:auto}
+.torchio-nav{display:flex;flex-wrap:wrap;gap:22px;margin-left:auto;min-width:0}
 .torchio-nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   color:var(--soft);text-transform:uppercase}
 .torchio-nav a.on{color:var(--accent)}
@@ -91,6 +91,13 @@ ${interactCSS}
 .torchio-nav a:hover{color:var(--ink);text-decoration:none}
 header.torchio{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline}
 header.torchio .tt{min-width:14rem}
+@media(max-width:540px){
+  header.torchio{align-items:flex-start}
+  header.torchio .tt{min-width:0;width:100%}
+  .torchio-nav{width:100%;margin-left:0;gap:8px 20px}
+  .torchio-subnav{gap:8px 18px}
+  ol.toc{columns:1}
+}
 .about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
   text-transform:uppercase;color:var(--soft);margin-top:1.2em}
 .about dd{margin:0.3em 0 0}
@@ -222,7 +229,7 @@ details.lemma summary{cursor:pointer;list-style-position:outside}
 .kwic .ka{color:var(--soft);width:40%}
 </style>
 </head>
-<body${bodyClass ? ` class="${bodyClass}"` : ''}>
+<body id="top"${bodyClass ? ` class="${bodyClass}"` : ''}>
 <a class="skip" href="#main">${t.skip}</a>
 <header class="torchio">
 <div class="tt"><h1>${escapeHTML(title)}</h1>${sub ? `<p class="sub">${escapeHTML(sub)}</p>` : ''}</div>

@@ -46,15 +46,25 @@ what changed actually live.
 
 1. Every well-formed TEI document is always displayed in full. Unknown or
    custom constructs receive a base rendering.
-2. Rendering behaviour is assigned to TEI model classes, not to individual
-   elements. The class data is generated from the official `p5subset`
+2. TEI model classes assign a construct to a handling family and page section;
+   they do not by themselves determine every visual detail. The class data is generated from the official `p5subset`
    (currently 588 elements, 127 model classes); coverage of the whole P5
    element set is checked by the test suite at every TEI release.
 3. The edition's ODD customization is the configuration. Custom elements
-   declared `memberOf` a TEI class inherit its behaviour. This project also
+   declared `memberOf` a TEI class inherit its handling family. Exact visual
+   behaviour can be declared with the supported TEI Processing Model subset
+   (`model`, web `modelGrp`, `behaviour`, common predicates, parameters,
+   `cssClass`, and `outputRendition`); unsupported sequences are reported. This project also
    holds, as its own design maxim rather than as a rule of the Guidelines,
    that an extension should concern phenomena P5 does not already cover.
-4. The engine produces a data model (JSON), documented by the code and the
+4. Rendering resolution is explicit and records its provenance: a matching
+   processing model in the edition ODD wins; otherwise Torchio uses a small,
+   conservative contract attached to a TEI All element or model class; if no
+   safe contract exists, it preserves the construct through structural base
+   rendering. TEI All supplies the vocabulary and class graph, not a canonical
+   visualization profile: the fallback contracts are Torchio's and never
+   override an edition ODD.
+5. The engine produces a data model (JSON), documented by the code and the
    exports rather than by a written specification, which is a declared debt;
    pages and exports (XML, CSV, JSON) are generated from the model, not
    from ad hoc transformations of the XML.
@@ -71,7 +81,7 @@ what changed actually live.
 ## Layout
 
 - `src/xml.js`: XML parser (no dependencies; validation belongs to the edition's CI)
-- `src/classes.js`, `data/p5-classes.json`: element to class to behaviour resolution, with ODD overlay (`src/odd.js` reads the ODD)
+- `src/classes.js`, `data/p5-classes.json`: element to class to handling-family resolution, with ODD overlay (`src/odd.js` reads processing rules from the ODD)
 - `src/model.js`: the edition model (documents, cards, registries, apparatus); `src/analyze.js` the coverage report
 - `src/render.js`, `src/site.js`, `src/page-shell.js`, `src/themes.js`: base rendering, site pages, page chrome, themes; page builders in `src/*-page.js` (register, lexicon, lemmas, map, genesis)
 - `src/interact.js`: reader-side functions (apparatus, entity cards, transcription levels, margin notes)

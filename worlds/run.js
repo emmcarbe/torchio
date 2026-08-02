@@ -9,8 +9,8 @@
  * An assertion that fails is not a broken build. It is a debt with a name:
  * either the engine infers more than the source attests (an over-reading, the
  * worse fault), or it does not yet model enough (an under-reading, an honest
- * gap). Both are reported; neither aborts. The exit code is 0 by design: this
- * is a measurement, read the ledger.
+ * gap). Both are reported. Measurement mode exits zero; `--strict` makes any
+ * debt fail, so release automation cannot mistake a ledger with debts for green.
  *
  *   node worlds/run.js            all worlds
  *   node worlds/run.js genetic    worlds whose id contains "genetic"
@@ -98,7 +98,7 @@ async function runWorld(mod) {
 }
 
 async function main() {
-  const filter = process.argv[2] || '';
+  const filter = process.argv.slice(2).find((arg) => !arg.startsWith('--')) || '';
   const files = (await readdir(HERE)).filter((f) => f.endsWith('.world.js'));
   const worlds = [];
   for (const f of files) {
@@ -127,6 +127,7 @@ async function main() {
       + `These are the faults that make a page lie, and they come first.`
     : `\nNo over-readings: where the engine falls short it under-models, it does not misread.`);
   console.log('');
+  return { held: P, over: O, under: U };
 }
 
 /** The TEI Guidelines' own examples, pressed as the systematic base beneath the
@@ -163,7 +164,7 @@ async function pressExempla() {
 }
 
 async function main2() {
-  await main();
+  const result = await main();
   const ex = await pressExempla();
   if (ex) {
     console.log(`▶ The TEI Guidelines' own examples`);
@@ -174,6 +175,7 @@ async function main2() {
       ? `  none fired the engine's one declared inference rule (hand from handShift)\n`
       : `  ${ex.inferred} example(s) drew an inference: check they are not over-readings\n`);
   }
+  if (process.argv.includes('--strict') && (result.over || result.under)) process.exitCode = 1;
 }
 
-main2().catch((e) => { console.error(e); process.exit(0); });
+main2().catch((e) => { console.error(e); process.exit(1); });

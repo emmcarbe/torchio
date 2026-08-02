@@ -52,7 +52,9 @@ function chunkLabel(div, i, T) {
   return `${T.sectionOne} ${i + 1}`;
 }
 
-export function pressSite(model, { title, manifest: rawManifest, sourceXML, extraPages = [] } = {}) {
+export function pressSite(model, {
+  title, manifest: rawManifest, sourceXML, extraPages = [], onFile = null, collect = true,
+} = {}) {
   const manifest = normalizeManifest(rawManifest || {});
   const lang = resolveLang(manifest.lang, model);
   // the edition's tradition may name things its own way (principle 1). Those
@@ -190,20 +192,24 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     return ok && hasAb;
   };
   const hasAppDocs = isCollection && model.documents.some(isApparatusDoc);
+  const hasAppPage = hasAppDocs || model.apparatus.some((r) => r.entries.length);
+  const hasFacsimile = model.facsimiles?.some((f) => f.url || ['surface', 'zone', 'graphic'].includes(f.element))
+    && manifest.pieces.facsimile !== false;
 
   // The markup decides existence; the manifest decides presence, order, labels.
   const DEFAULT = [
     ['index', model.collection ? T.archive : T.edition],
     ...(frontNode ? [['front', frontLabel]] : []),
     ['text', isCollection ? T.texts : T.text],
-    ...(hasAppDocs ? [['apparatus', T.apparatus]] : []),
+    ...(hasAppPage ? [['apparatus', T.apparatus]] : []),
+    ...(hasFacsimile ? [['facsimile', 'Facsimiles']] : []),
     ...(model.genetic ? [['genesis', T.genesis]] : []),
     ...(backNode ? [['back', backLabel]] : []),
     ...(hasLab ? [['lab', T.lab]] : []),
     ...(hasData ? [['data', T.data]] : []),
     ...extraPages.map((e) => [e.id, e.label]),
   ];
-  const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppDocs, genesis: !!model.genetic, back: !!backNode,
+  const EXISTS = { index: true, front: !!frontNode, text: true, apparatus: hasAppPage, facsimile: !!hasFacsimile, genesis: !!model.genetic, back: !!backNode,
     indices: hasIndices, lemmas: hasLemmas, lab: hasLab, lexicon: hasLexicon, map: hasMap, data: hasData };
   for (const e of extraPages) EXISTS[e.id] = true;
   let pageList = DEFAULT;
@@ -216,7 +222,26 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
   const pages = pageList.map(([id, label]) => [id === 'lab' && labFirst ? labFirst : `${id}.html`, label]);
   const wanted = new Set(pageList.map(([id]) => id));
 
-  const out = {};
+  // In streaming mode pages are handed to the caller as soon as each
+  // assignment completes. The proxy keeps only filenames, so a large site
+  // does not retain every rendered HTML string until the end of the press.
+  const streamedNames = new Set();
+  const out = collect ? {} : new Proxy({}, {
+    set(_target, key, value) {
+      streamedNames.add(String(key));
+      onFile(String(key), value);
+      return true;
+    },
+    get(_target, key) {
+      return typeof key === 'string' && streamedNames.has(key) ? true : undefined;
+    },
+    has(_target, key) { return streamedNames.has(String(key)); },
+    ownKeys() { return [...streamedNames]; },
+    getOwnPropertyDescriptor(_target, key) {
+      return streamedNames.has(String(key))
+        ? { enumerable: true, configurable: true, value: true, writable: false } : undefined;
+    },
+  });
 
   // canonical entities (manifest "align"): the same key, derived from @n,
   // identifies one passage across the documents of a collection
@@ -267,7 +292,10 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     if (frontNode && wanted.has('front')) for (const n of walkModel(frontNode)) idPage.set(n.id, 'front.html');
     if (backNode && wanted.has('back')) for (const n of walkModel(backNode)) idPage.set(n.id, 'back.html');
   }
-  const pageFor = (id) => idPage.get(id) || 'text.html';
+  // In a paginated text, a chunk can disappear after its notes have been
+  // relocated. Returning null for such unpublished nodes prevents index and
+  // concordance links from claiming that an anchor still exists.
+  const pageFor = (id) => idPage.get(id) || (chunks ? null : 'text.html');
 
   /* ---- index.html: the header as a page ---- */
   if (wanted.has('index')) {
@@ -467,6 +495,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     });
     chunks.forEach((d, i) => {
       for (const n of walkModel(d)) idPage.set(n.id, files[i]);
+      for (const note of keptNotes[i]) {
+        for (const n of walkModel(note)) idPage.set(n.id, files[i]);
+      }
     });
     chunks.forEach((d, i) => {
       const nav = `<nav class="prevnext" aria-label="${T.contents}">`
@@ -503,9 +534,15 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     const frontOnOwnPage = !!frontNode && wanted.has('front');
     const backOnOwnPage = !!backNode && wanted.has('back');
     let reading = '';
-    for (const child of model.documents[0].tree.children) {
+    const rootChildren = model.documents[0].tree.children;
+    const hasTextView = rootChildren.some((c) => typeof c !== 'string' && c.element === 'text');
+    for (const child of rootChildren) {
       if (typeof child === 'string') continue;
       if (child.element === 'teiHeader') { reading += renderBase(child); continue; }
+      // standOff is data about the text, not running text. sourceDoc and text
+      // are alternative views; until the view switch exists, prefer text.
+      if (child.element === 'standOff') continue;
+      if (child.element === 'sourceDoc' && hasTextView) continue;
       if (child.element === 'text') {
         for (const c of child.children) {
           if (typeof c === 'string') continue;
@@ -664,6 +701,46 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     }
   }
 
+  /* ---- apparatus.html: a readable projection of every apparatus register ---- */
+  if (hasAppPage && wanted.has('apparatus') && !out['apparatus.html']) {
+    let body = `<main id="main" class="torchio">`;
+    for (const register of model.apparatus) {
+      body += `<h2 class="sec">${escapeHTML(register.type)}</h2><table class="idx-table">`;
+      for (const entry of register.entries) {
+        const lemma = entry.lemma || entry.loc || entry.n || '';
+        const readings = entry.readings.map((r) => {
+          const witnesses = (r.witnesses || []).join(' ');
+          const value = r.lacuna ? '[lacuna]' : r.text;
+          const meta = [r.type, r.cert && `cert. ${r.cert}`, r.resp?.join(' '), r.sources?.join(' ')].filter(Boolean).join(' · ');
+          return `<div class="apparatus-reading">${escapeHTML(value || '')}${witnesses ? ` <span class="sigla">${escapeHTML(witnesses)}</span>` : ''}${meta ? ` <small>${escapeHTML(meta)}</small>` : ''}</div>`;
+        }).join('<br>');
+        const meta = [entry.n && `n. ${entry.n}`, entry.loc && `loc. ${entry.loc}`, entry.method,
+          entry.from && `from ${entry.from}`, entry.to && `to ${entry.to}`].filter(Boolean).join(' · ');
+        body += `<tr id="app-${escapeHTML(entry.id)}"><th scope="row"><a href="text.html#${escapeHTML(entry.anchor)}">${escapeHTML(lemma)}</a>${meta ? `<small>${escapeHTML(meta)}</small>` : ''}</th><td>${readings}</td></tr>`;
+      }
+      body += `</table>`;
+    }
+    body += `</main>`;
+    out['apparatus.html'] = chrome({ title: t, sub: T.apparatus.toLowerCase(),
+      active: 'apparatus.html', pages, body, t: T, lang, theme, parent });
+  }
+
+  if (hasFacsimile && wanted.has('facsimile')) {
+    let body = `<main id="main" class="torchio"><h2 class="sec">Facsimiles</h2><div class="facsimile-register">`;
+    let facsimileIndex = 0;
+    for (const item of model.facsimiles.filter((item) => item.element !== 'facsimile')) {
+      const url = item.url && safeURL(item.url);
+      const coords = [item.ulx, item.uly, item.lrx, item.lry].every(Boolean)
+        ? ` (${[item.ulx, item.uly, item.lrx, item.lry].join(', ')})` : '';
+      body += `<figure id="fac-${facsimileIndex++}" data-facsimile-element="${escapeHTML(item.element)}"${coords ? ` data-coords="${escapeHTML(coords.slice(2, -1))}"` : ''}>`;
+      if (url) body += `<img src="${escapeHTML(url)}" alt="${escapeHTML(item.label)}">`;
+      else if (url === null && item.element === 'graphic') body += `<figcaption>${escapeHTML(item.label)}</figcaption>`;
+      body += `<figcaption><strong>${escapeHTML(item.label)}</strong>${coords}${item.corresp ? ` · <a href="text.html#${escapeHTML(item.corresp.replace(/^#/, ''))}">${escapeHTML(item.corresp)}</a>` : ''}${url ? ` · <a href="${escapeHTML(url)}">source</a>` : ''}</figcaption></figure>`;
+    }
+    body += `</div></main>`;
+    out['facsimile.html'] = chrome({ title: t, sub: 'facsimiles', active: 'facsimile.html', pages, body, t: T, lang, theme, parent });
+  }
+
   /* ---- indices.html: the registries as pages ---- */
   if (hasIndices && wanted.has('lab')) {
     let idx = '<main id="main" class="torchio">';
@@ -706,8 +783,9 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
         const anchor = !seenLetters.has(initial) && initial
           ? ` id="idx-${secIdx}-${escapeHTML(initial)}"` : '';
         if (initial) seenLetters.add(initial);
-        const occ = e.occurrences.slice(0, 12)
-          .map((id, i) => `<a href="${pageFor(id)}#${escapeHTML(id)}">${i + 1}</a>`).join('');
+        const occ = e.occurrences.map((id) => [id, pageFor(id)]).filter(([, page]) => page)
+          .slice(0, 12).map(([id, page], i) =>
+            `<a href="${page}#${escapeHTML(id)}">${i + 1}</a>`).join('');
         rows += `<tr${anchor} data-label="${escapeHTML(e.label.toLocaleLowerCase())}"><td>${escapeHTML(e.label)}</td><td class="occ">${e.occurrences.length} occ. ${occ}</td></tr>`;
       }
       if (sorted.length > 15 && seenLetters.size > 3) {
@@ -795,5 +873,5 @@ export function pressSite(model, { title, manifest: rawManifest, sourceXML, extr
     });
   }
 
-  return out;
+  return collect ? out : { streamed: true, files: [...streamedNames] };
 }

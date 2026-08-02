@@ -13,19 +13,26 @@ import { chrome } from './page-shell.js';
 
 export function pressGenesisPage({ model, pageFor, t, T, lang, theme, parent, pages }) {
   const G = model.genetic;
-  let g = `<main id="main" class="torchio"><p class="occ">${T.genesisNote}</p>`;
+  const hasHands = G.strata.some((stratum) => stratum.hand);
+  const hasCampaigns = G.strata.some((stratum) => !stratum.hand && !stratum.unassigned);
+  const note = hasHands && hasCampaigns ? T.genesisMixedNote
+    : hasHands ? T.genesisHandsNote
+      : hasCampaigns ? T.genesisNote : T.genesisUnassignedNote;
+  let g = `<main id="main" class="torchio"><p class="occ">${note}</p>`;
   for (const s of G.strata) {
-    const ops = G.operations.filter((o) => o.layer === s.id || (s.hand && o.hand === s.id));
-    if (!ops.length) continue;
+    const ops = G.operations.filter((o) => o.layer === s.id || (s.hand && o.hand === s.id)
+      || (s.unassigned && !o.layer && !o.hand));
     g += `<section class="stratum"><h2 class="sec">${escapeHTML(s.label || s.id)}`
       + `${s.when ? ` <span class="occ">${escapeHTML(s.when)}</span>` : ''}`
       + `${s.hand ? ` <span class="occ">${escapeHTML(T.hand)}</span>` : ''}</h2>`
-      + `<table class="wit-table">`;
+      + (ops.length ? `<table class="wit-table">` : `<p class="occ">0 ${T.operations}</p>`);
     for (const o of ops) {
+      const page = pageFor(o.id);
       g += `<tr><td class="sigla">${escapeHTML(o.element)}${o.place ? ` ${escapeHTML(o.place)}` : ''}</td>`
-        + `<td><a href="${pageFor(o.id)}#${escapeHTML(o.id)}">${escapeHTML(o.text || '\u2014')}</a></td></tr>`;
+        + `<td>${page ? `<a href="${page}#${escapeHTML(o.id)}">${escapeHTML(o.text || '\u2014')}</a>`
+          : escapeHTML(o.text || '\u2014')}</td></tr>`;
     }
-    g += `</table></section>`;
+    g += `${ops.length ? '</table>' : ''}</section>`;
   }
   g += '</main>';
   return chrome({ title: t, sub: T.genesis.toLowerCase(), active: 'genesis.html', pages,

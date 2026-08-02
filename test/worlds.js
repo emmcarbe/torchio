@@ -36,6 +36,8 @@ const tei = (body, attrs = '') =>
 function reads(html) {
   let s = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
   s = s.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<details[\s\S]*?<\/details>/g, '');
+  // `hidden` is semantic HTML, not merely a visual CSS convention.
+  s = s.replace(/<([a-z]+)\b[^>]*\bhidden\b[^>]*>[\s\S]*?<\/\1>/gi, '');
   // what the base stylesheet hides from the reading text
   s = s.replace(/<[^>]*class="[^"]*t-teiHeader[^"]*"[\s\S]*?<\/div>/g, '');
   s = s.replace(/<span[^>]*class="[^"]*app-pointing[^"]*"[\s\S]*?<\/span>/g, '');
@@ -355,5 +357,5 @@ console.log(`\n${held} of ${WORLDS.length} possible worlds hold.`);
 if (broke.length) {
   console.log(`${broke.length} do not. Each is a debt with a name, not a surprise.`);
 }
-// a failing world is a fact to read, not a build to break
-process.exit(0);
+// A conformance failure must be visible to CI and release automation.
+process.exitCode = broke.length ? 1 : 0;

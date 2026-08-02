@@ -198,9 +198,21 @@ explicitly:
 
     node tools/press.js --site edition.xml out --odd=schema.odd.xml
 
+The resolution order is: a matching processing rule from the edition ODD;
+then a conservative Torchio rendering contract attached to the element or
+its TEI All model classes; then lossless structural base rendering. TEI All
+defines elements and classes, not their one correct visualization. Generated
+HTML records the chosen `data-behaviour` and its `data-behaviour-source`
+(`odd` or `tei-all`) so this distinction can be inspected.
+
 Custom elements declared `memberOf` a TEI class in the ODD inherit that
-class's behaviour with zero code; deleted elements and modules narrow the
-schema, never the rendering (nothing becomes invisible).
+class's handling family and page section with zero code. Exact visual
+behaviour is declared by the ODD Processing Model. Torchio currently executes
+`model` and web `modelGrp` rules with `behaviour`, common attribute/child/
+parent/ancestor predicates, `param`, `cssClass`, `useSourceRendition`, and
+safe CSS from `outputRendition`. `modelSequence` is not yet executed and is
+reported as a warning. Deleted elements and modules narrow the schema, never
+the base rendering (nothing becomes invisible by accident).
 
 ## The manifest (optional)
 
@@ -335,3 +347,19 @@ static hosting works the same way: the output is plain files.
 ## Tests
 
     npm test
+### Validare l'ODD
+
+Con `--validate-odd` la press confronta i documenti con gli elementi, moduli,
+classi e modelli dichiarati dall'ODD. Gli errori sono bloccanti; il contenuto
+dei modelli TEI resta esplicitamente segnalato come non validato da questa
+press senza dipendenze RNG/Schematron. `--strict-odd` è un alias pensato per la
+CI. `--memory` stampa il consumo heap nelle fasi di parsing, modello e sito.
+
+La validazione reale usa `xmllint` quando vengono forniti gli schemi:
+
+    node tools/press.js --site --rng=edition.rng --schematron=edition.sch --strict-schema sources/ out/
+
+`--stream` scrive ogni file appena viene prodotto e non conserva in memoria
+l'intero sito HTML. È la modalità raccomandata per corpus grandi; la modalità
+predefinita resta quella collettiva per garantire la parità byte-per-byte del
+browser press.

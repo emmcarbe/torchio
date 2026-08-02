@@ -22,26 +22,28 @@ export function buildModel(docs, classMap) {
   let list = (Array.isArray(docs) ? docs : [docs]).map((d, i) =>
     d.root ? d : { id: null, root: d, index: i });
 
-  // a teiCorpus root is a collection: its TEI children become documents
+  // A teiCorpus is recursive. Every nested TEI remains a document; otherwise
+  // a legitimate corpus inside a corpus silently disappears.
   const expanded = [];
-  for (const item of list) {
+  const expand = (item) => {
     const rootName = item.root.name.replace(/^.*:/, '');
     if (rootName === 'teiCorpus') {
-      let i = 0;
       for (const child of item.root.children) {
         if (typeof child === 'string') continue;
         const childName = child.name.replace(/^.*:/, '');
         if (childName === 'TEI') {
           expanded.push({ id: child.attrs?.['xml:id'] || null, root: child, index: expanded.length });
+        } else if (childName === 'teiCorpus') {
+          expand({ id: child.attrs?.['xml:id'] || null, root: child, index: expanded.length });
         } else if (childName === 'teiHeader') {
           expanded.push({ id: '__corpusHeader', root: child, index: -1, corpusHeader: true });
         }
-        i++;
       }
     } else {
       expanded.push({ ...item, index: expanded.length });
     }
-  }
+  };
+  for (const item of list) expand(item);
   list = expanded;
 
   const model = {
@@ -49,6 +51,7 @@ export function buildModel(docs, classMap) {
     documents: [],
     registries: { people: [], places: [], orgs: [], witnesses: [], hands: [], layers: [] },
     apparatus: [],
+    facsimiles: [],
     generator: { name: 'torchio', tei: classMap.teiVersion },
   };
 
@@ -199,6 +202,7 @@ export function buildModel(docs, classMap) {
     for (const node of walkModel(doc.tree)) {
       collectRegistries(node, model.registries, scope);
       collectApparatus(node, appByType);
+      collectFacsimile(node, model.facsimiles);
     }
   }
   model.apparatus = [...appByType.values()];
@@ -212,40 +216,78 @@ export function buildModel(docs, classMap) {
       'addSpan', 'delSpan', 'transpose', 'metamark']);
     const ops = [];
     for (const doc of model.documents) {
-      // documentary editions do not repeat @hand on every operation: a
-      // handShift declares the hand in force until the next one (C72)
-      let current = null;
-      for (const n of walkModel(doc.tree)) {
-        if (n.element === 'handShift') {
-          current = (n.atts.new || '').replace(/^#/, '') || null;
-          continue;
-        }
-        if (!GENETIC.has(n.element)) continue;
-        const layer = (n.atts.change || '').replace(/^#/, '') || null;
-        const attestedHand = (n.atts.hand || '').replace(/^#/, '');
-        const hand = attestedHand || current;
+      // A hand declared on an operation governs its nested operations, while a
+      // handShift governs following document order. These are different kinds
+      // of scope and must not overwrite one another.
+      const visit = (parent, activeHand = null, inheritedHand = null) => {
+        let current = activeHand;
+        for (const n of parent.children) {
+          if (typeof n === 'string') continue;
+          if (n.element === 'handShift') {
+            current = (n.atts.new || '').replace(/^#/, '') || null;
+            continue;
+          }
+          const isOperation = GENETIC.has(n.element);
+          const layer = isOperation ? (n.atts.change || '').replace(/^#/, '') || null : null;
+          const attestedHand = isOperation ? (n.atts.hand || '').replace(/^#/, '') : '';
+          const hand = isOperation ? (attestedHand || inheritedHand || current) : inheritedHand;
+          const parentSubstitutionIsAttributed = parent.element === 'subst'
+            && !!((parent.atts.change || '').replace(/^#/, '') || (parent.atts.hand || '').replace(/^#/, ''));
+          // A bare operation is preserved in the tree but does not become a
+          // genetic assertion. A dangling @hand still is a declared signal.
+          // If subst itself is attributed, its del/add are constituents and
+          // are not counted again as independent operations.
+          const recordOperation = isOperation && !!(layer || hand)
+            && !parentSubstitutionIsAttributed;
+          if (recordOperation) {
         // the hand in force reaches the operation even where the markup left
         // it to the handShift, but INFERENCE IS NOT ATTESTATION (C85): the
         // deduced hand never enters n.atts, where it would look identical to a
         // hand the source declares. It lives apart, and every consumer that
         // shows it says it is inferred
-        if (!attestedHand && current) {
-          n.inferred = { ...(n.inferred || {}), hand: '#' + current, handRule: 'handShift' };
+            if (!attestedHand && hand) {
+              n.inferred = { ...(n.inferred || {}), hand: '#' + hand,
+                handRule: inheritedHand ? 'ancestor' : 'handShift' };
+            }
+            ops.push({
+              id: n.id, doc: doc.id, element: n.element, layer, hand,
+              handInferred: !attestedHand && !!hand,
+              place: n.atts.place || null, seq: n.atts.seq || null,
+              text: textOfModel(n).trim().replace(/\s+/g, ' ').slice(0, 160),
+            });
+          }
+          current = visit(n, current, isOperation ? hand : inheritedHand);
         }
-        if (!layer && !hand) continue;
-        ops.push({
-          id: n.id, doc: doc.id, element: n.element, layer, hand,
-          handInferred: !attestedHand && !!current,
-          place: n.atts.place || null, seq: n.atts.seq || null,
-          text: textOfModel(n).trim().replace(/\s+/g, ' ').slice(0, 160),
-        });
-      }
+        return current;
+      };
+      visit(doc.tree);
     }
-    if (ops.length) {
+    const referencedLayers = new Set(ops.map((o) => o.layer).filter(Boolean));
+    model.registries.layers = model.registries.layers
+      .filter((layer) => layer.context !== 'revision' || referencedLayers.has(layer.id));
+    if (ops.length || model.registries.layers.length) {
+      const substitutions = [];
+      for (const doc of model.documents) {
+        for (const n of walkModel(doc.tree)) {
+          if (n.element !== 'subst') continue;
+          const deleted = n.children.find((c) => typeof c !== 'string' && c.element === 'del');
+          const added = n.children.find((c) => typeof c !== 'string' && c.element === 'add');
+          if (!deleted || !added) continue;
+          const inherited = (n.atts.hand || '').replace(/^#/, '') || null;
+          const deletedHand = (deleted.atts.hand || '').replace(/^#/, '') || inherited;
+          const addedHand = (added.atts.hand || '').replace(/^#/, '') || inherited;
+          substitutions.push({ id: n.id, doc: doc.id, deleted: deleted.id, added: added.id,
+            hand: deletedHand && deletedHand === addedHand ? deletedHand : null,
+            hands: [...new Set([deletedHand, addedHand].filter(Boolean))],
+            handConflict: !!(deletedHand && addedHand && deletedHand !== addedHand) });
+        }
+      }
       // a change in revisionDesc that names an editor is the file's own
       // history, not a campaign of the author: only strata with operations
       // attributed to them are strata (C73)
-      const strata = model.registries.layers.map((l) => ({
+      const strata = model.registries.layers
+        .filter((l) => l.context !== 'revision' || ops.some((o) => o.layer === l.id))
+        .map((l) => ({
         id: l.id, label: l.label, order: l.order,
         when: l.atts && (l.atts.when || l.atts.notBefore) || null,
         operations: ops.filter((o) => o.layer === l.id).length,
@@ -256,8 +298,18 @@ export function buildModel(docs, classMap) {
             operations: ops.filter((o) => o.hand === h.id).length });
         }
       }
-      const kept = strata.filter((x) => x.operations > 0);
-      if (kept.length) model.genetic = { strata: kept, operations: ops };
+      for (const hand of new Set(ops.map((o) => o.hand).filter(Boolean))) {
+        if (!strata.some((x) => x.id === hand)) {
+          strata.push({ id: hand, label: `Unresolved hand: ${hand}`, order: strata.length,
+            hand: true, unresolved: true, operations: ops.filter((o) => o.hand === hand).length });
+        }
+      }
+      const unassigned = ops.filter((o) => !o.layer && !o.hand);
+      if (unassigned.length) {
+        strata.push({ id: '__unassigned', label: 'Unassigned operations',
+          order: strata.length, unresolved: true, unassigned: true, operations: unassigned.length });
+      }
+      model.genetic = { strata, operations: ops, substitutions };
     }
   }
 
@@ -299,6 +351,14 @@ export function buildModel(docs, classMap) {
   // @key too declares identity: TEI's canonical-name key ("Figueredo,
   // Thomas de") groups mentions the same way, label = the canonical form
   const byUri = new Map();
+  const authorityKey = (value) => String(value || '').trim().toLowerCase()
+    .replace(/^https?:\/\/(?:www\.)?/, '').replace(/\/$/, '');
+  const authorityEntries = new Map();
+  for (const regKey of ['people', 'places', 'orgs']) {
+    for (const entry of model.registries[regKey]) {
+      for (const ident of entry.identifiers || []) authorityEntries.set(authorityKey(ident), entry);
+    }
+  }
   const addIdentity = (regKey, id, label, node, external) => {
     let e = byUri.get(id);
     if (!e) {
@@ -322,6 +382,8 @@ export function buildModel(docs, classMap) {
           if (entry) { entry.occurrences.push(node.id); continue; }
           const reg = mentionRegistryOf(node);
           if (/^https?:\/\//.test(t) && reg) {
+            const declared = authorityEntries.get(authorityKey(t));
+            if (declared) { declared.occurrences.push(node.id); continue; }
             addIdentity(reg, t,
               textOfModel(node).trim().replace(/\s+/g, ' ') || t, node, true);
           }
@@ -355,7 +417,177 @@ function nsOf(node, nsCtx) {
   return nsCtx[''] || null;
 }
 
-function convert(node, docId, path, classMap, nsCtx = { xml: 'http://www.w3.org/XML/1998/namespace' }) {
+function hasElement(node, wanted, deep = false) {
+  for (const child of node.children) {
+    if (typeof child === 'string') continue;
+    if (local(child.name) === wanted) return true;
+    if (deep && hasElement(child, wanted, true)) return true;
+  }
+  return false;
+}
+
+function stripOuter(value) {
+  let s = value.trim();
+  while (s.startsWith('(') && s.endsWith(')')) {
+    let depth = 0; let quoted = null; let closesAt = -1;
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if (quoted) { if (ch === quoted && s[i - 1] !== '\\') quoted = null; continue; }
+      if (ch === '"' || ch === "'") { quoted = ch; continue; }
+      if (ch === '(') depth++;
+      if (ch === ')' && --depth === 0) { closesAt = i; break; }
+    }
+    if (closesAt !== s.length - 1) break;
+    s = s.slice(1, -1).trim();
+  }
+  return s;
+}
+
+function splitTopLevel(value, operator) {
+  const parts = []; let start = 0; let depth = 0; let quoted = null;
+  for (let i = 0; i <= value.length - operator.length; i++) {
+    const ch = value[i];
+    if (quoted) { if (ch === quoted && value[i - 1] !== '\\') quoted = null; continue; }
+    if (ch === '"' || ch === "'") { quoted = ch; continue; }
+    if (ch === '(' || ch === '[') { depth++; continue; }
+    if (ch === ')' || ch === ']') { depth--; continue; }
+    if (depth === 0 && value.slice(i, i + operator.length) === operator
+        && (i === 0 || /\s/.test(value[i - 1]))
+        && (i + operator.length === value.length || /\s/.test(value[i + operator.length]))) {
+      parts.push(value.slice(start, i).trim());
+      start = i + operator.length;
+      i = start - 1;
+    }
+  }
+  if (parts.length) parts.push(value.slice(start).trim());
+  return parts;
+}
+
+function childMatches(node, expression) {
+  const match = String(expression).trim().match(/^([\w.-]+)(?:\[(?:@([\w:.-]+)\s*=\s*(['"])(.*?)\3|(\d+))\])?$/);
+  if (!match) return false;
+  const [, name, attr, , expected, position] = match;
+  const children = node.children.filter((c) => typeof c !== 'string' && local(c.name) === name);
+  if (position) return !!children[Number(position) - 1];
+  return children.some((c) => !attr || c.attrs[attr] === expected);
+}
+
+function axisMatches(item, expression) {
+  const match = String(expression).trim().match(/^([\w.-]+)(?:\[@([\w:.-]+)\s*=\s*(['"])(.*?)\3\])?$/);
+  if (!match) return false;
+  const [, name, attr, , expected] = match;
+  const element = typeof item === 'string' ? item : item.name;
+  if (local(element) !== name) return false;
+  return !attr || (typeof item !== 'string' && item.attrs?.[attr] === expected);
+}
+
+function pathValue(node, expression, ancestry) {
+  const path = String(expression).trim();
+  if (path === '.') return [node];
+  const attr = path.match(/^@([\w:.-]+)$/);
+  if (attr) return node.attrs[attr[1]] == null ? [] : [node.attrs[attr[1]]];
+  const self = path.match(/^self::([\w.-]+)$/);
+  if (self) return local(node.name) === self[1] ? [node] : [];
+  const parent = path.match(/^parent::(.+)$/);
+  if (parent) return ancestry.length && axisMatches(ancestry[ancestry.length - 1], parent[1]) ? [true] : [];
+  const ancestor = path.match(/^ancestor::(.+)$/);
+  if (ancestor) return ancestry.some((item) => axisMatches(item, ancestor[1])) ? [true] : [];
+  const descendant = path.match(/^(?:\.\/\/|descendant::)([\w.-]+)(?:\/@([\w:.-]+))?$/);
+  if (descendant) {
+    const values = [];
+    for (const child of walk(node)) {
+      if (child === node || local(child.name) !== descendant[1]) continue;
+      if (descendant[2]) {
+        if (child.attrs[descendant[2]] != null) values.push(child.attrs[descendant[2]]);
+      } else values.push(child);
+    }
+    return values;
+  }
+  const childAttr = path.match(/^([\w.-]+)\/@([\w:.-]+)$/);
+  if (childAttr) return node.children
+    .filter((c) => typeof c !== 'string' && local(c.name) === childAttr[1]
+      && c.attrs[childAttr[2]] != null)
+    .map((c) => c.attrs[childAttr[2]]);
+  return childMatches(node, path) ? [true] : [];
+}
+
+/** A deliberately small XPath predicate evaluator for the ODD Processing
+ * Model. Unknown expressions do not match: silently applying a rule in the
+ * wrong context would be worse than the base rendering. */
+function processingPredicate(expr, node, ancestry) {
+  if (!expr) return true;
+  const source = String(expr).trim();
+  const boolean = (value) => {
+    const s = stripOuter(value);
+    const ors = splitTopLevel(s, 'or');
+    if (ors.length > 1) return ors.some(boolean);
+    const ands = splitTopLevel(s, 'and');
+    if (ands.length > 1) return ands.every(boolean);
+    const neg = s.match(/^not\((.*)\)$/s);
+    if (neg) return !boolean(neg[1]);
+    const exists = s.match(/^(exists|empty)\((.*)\)$/s);
+    if (exists) return exists[1] === 'exists'
+      ? pathValue(node, exists[2], ancestry).length > 0
+      : pathValue(node, exists[2], ancestry).length === 0;
+    const contains = s.match(/^(contains|starts-with|ends-with)\((@?[\w:.-]+)\s*,\s*(['"])(.*?)\3\)$/);
+    if (contains) {
+      const value = pathValue(node, contains[2], ancestry)[0];
+      if (value == null) return false;
+      return contains[1] === 'contains' ? String(value).includes(contains[4])
+        : contains[1] === 'starts-with' ? String(value).startsWith(contains[4])
+          : String(value).endsWith(contains[4]);
+    }
+    const attrValue = s.match(/^(@?[\w:./-]+)\s*(=|eq|!=|ne)\s*(?:\(([^)]*)\)|(['"])(.*?)\5)$/);
+    if (attrValue) {
+      const actual = pathValue(node, attrValue[1], ancestry).map(String);
+      const expected = (attrValue[3] || attrValue[5] || '').split(/\s*,\s*/)
+        .map((v) => v.replace(/^(['"])(.*)\1$/, '$2'));
+      const equal = actual.some((v) => expected.includes(v));
+      return attrValue[2] === '!=' || attrValue[2] === 'ne' ? !equal : equal;
+    }
+    const attr = s.match(/^@([\w:.-]+)$/);
+    if (attr) return node.attrs[attr[1]] != null && node.attrs[attr[1]] !== '';
+    if (s === 'text()') return node.children.some((c) => typeof c === 'string' && c.trim());
+    if (s === '.') return textOfModel(node).trim().length > 0;
+    if (/^(?:[\w.-]+|(?:child|descendant)::[\w.-]+|\.\/\/)/.test(s)) {
+      return pathValue(node, s, ancestry).length > 0;
+    }
+    return false;
+  };
+  return boolean(source);
+}
+
+function processingFor(resolution, node, ancestry) {
+  for (const model of resolution.models || []) {
+    if (model.output && !/^(web|html|screen)$/i.test(model.output)) continue;
+    if (model.sequence) {
+      if (!processingPredicate(model.predicate, node, ancestry)) continue;
+      if (model.sequence.some((part) => !processingPredicate(part.predicate, node, ancestry))) continue;
+      const parts = model.sequence;
+      const merged = parts.reduce((out, part) => ({
+        ...out,
+        ...part,
+        behaviour: out.behaviour || part.behaviour,
+        cssClass: [out.cssClass, part.cssClass].filter(Boolean).join(' ') || null,
+        outputRendition: [out.outputRendition, part.outputRendition].filter(Boolean).join('; '),
+        params: { ...(out.params || {}), ...(part.params || {}) },
+        useSourceRendition: out.useSourceRendition || part.useSourceRendition,
+      }), { ...model, sequence: parts });
+      return { ...merged, source: 'odd' };
+    }
+    if (processingPredicate(model.predicate, node, ancestry)) return { ...model, source: 'odd' };
+  }
+  if (resolution.defaultBehaviour) return {
+    behaviour: resolution.defaultBehaviour,
+    source: 'tei-all',
+    via: resolution.defaultBehaviourVia,
+    params: {},
+  };
+  return null;
+}
+
+function convert(node, docId, path, classMap,
+    nsCtx = { xml: 'http://www.w3.org/XML/1998/namespace' }, sourceContext = {}, ancestry = []) {
   // extend the namespace scope with this node's own xmlns declarations
   let ns = nsCtx;
   for (const a in node.attrs) {
@@ -370,7 +602,10 @@ function convert(node, docId, path, classMap, nsCtx = { xml: 'http://www.w3.org/
   // as a TEI element with that local name (C87). No namespace, or the TEI
   // namespace, is TEI as before
   const r = classMap.resolve(element);
-  const foreign = uri != null && uri !== TEI_NS && r.via === 'fallback';
+  // A foreign namespace is structural only when the ODD has not declared the
+  // local name. Declared extension elements keep their ODD processing model.
+  const declared = classMap.elements?.has(element);
+  const foreign = uri != null && uri !== TEI_NS && !declared;
   const out = {
     id: node.attrs['xml:id'] || `${docId}:${path}`, // D1
     element,                                        // D2
@@ -378,6 +613,15 @@ function convert(node, docId, path, classMap, nsCtx = { xml: 'http://www.w3.org/
     atts: { ...node.attrs },                        // D3
     children: [],
   };
+  const nextContext = {
+    creation: sourceContext.creation || element === 'creation',
+    revision: sourceContext.revision || element === 'revisionDesc',
+  };
+  if (element === 'change') {
+    out.context = nextContext.creation ? 'campaign' : (nextContext.revision ? 'revision' : 'declared');
+  }
+  const processing = processingFor(r, node, ancestry);
+  if (processing && !foreign) out.processing = processing;
   if (foreign) { out.foreign = true; out.qname = node.name; out.ns = uri; }
   let i = 0;
   const wordInternal = WORD_INTERNAL.has(element);
@@ -395,7 +639,8 @@ function convert(node, docId, path, classMap, nsCtx = { xml: 'http://www.w3.org/
       } else {
         out.children.push(child);
       }
-    } else out.children.push(convert(child, docId, `${path}.${i++}`, classMap, ns));
+    } else out.children.push(convert(child, docId, `${path}.${i++}`, classMap, ns, nextContext,
+      [...ancestry, { name: element, attrs: { ...node.attrs } }]));
   }
   return out;
 }
@@ -612,8 +857,18 @@ function collectRegistries(node, reg, idMap) {
     atts: node.atts,
     occurrences: [],
   };
+  if (node.element === 'change') entry.context = node.context;
   if (key === 'places') {
-    const geo = findFirst(node, 'geo');
+    const findOwnGeo = (parent) => {
+      for (const child of parent.children) {
+        if (typeof child === 'string' || child.element === 'place') continue;
+        if (child.element === 'geo') return child;
+        const nested = findOwnGeo(child);
+        if (nested) return nested;
+      }
+      return null;
+    };
+    const geo = findOwnGeo(node);
     if (geo) {
       const [lat, lon] = textOfModel(geo).trim().split(/[\s,]+/).map(Number);
       if (Number.isFinite(lat) && Number.isFinite(lon)) entry.geo = { lat, lon };
@@ -625,6 +880,17 @@ function collectRegistries(node, reg, idMap) {
   }
   if (key === 'hands') entry.scope = node.atts.scope || null;
   if (key === 'layers') entry.order = reg.layers.length;
+  const identifiers = [];
+  for (const n of walkModel(node)) {
+    if (n.element !== 'idno') continue;
+    const value = textOfModel(n).trim();
+    if (!value) continue;
+    identifiers.push(value);
+    if (/^viaf$/i.test(n.atts.type || '') && /^\d+$/.test(value)) {
+      identifiers.push(`viaf.org/viaf/${value}`);
+    }
+  }
+  if (identifiers.length) entry.identifiers = identifiers;
   reg[key].push(entry);
   if (node.atts['xml:id']) idMap.set(node.atts['xml:id'], entry);
 }
@@ -663,6 +929,13 @@ function textOfReading(node) {
   for (const c of node.children) {
     if (typeof c === 'string') { out += c; continue; }
     if (c.element === 'wit' || c.element === 'witDetail') continue;
+    if (c.element === 'app') {
+      const candidates = [...walkModel(c)]
+        .filter((n) => n !== c && (n.element === 'lem' || n.element === 'rdg'));
+      const chosen = candidates.find((n) => n.element === 'lem') || candidates[0];
+      if (chosen) out += textOfReading(chosen);
+      continue;
+    }
     out += textOfReading(c);
   }
   return out;
@@ -694,6 +967,8 @@ function collectApparatus(node, appByType) {
         cert: child.atts.cert || null,
         type: child.atts.type || null,
         isLemma: child.element === 'lem',
+        lacuna: [...walkModel(child)].some((n) =>
+          n.element === 'lacunaStart' || n.element === 'lacunaEnd' || n.element === 'lacuna'),
       };
       readings.push(reading);
       if (child.element === 'lem') lemma = reading.text;
@@ -708,5 +983,22 @@ function collectApparatus(node, appByType) {
   appByType.get(type).entries.push({
     id: node.id, anchor: node.id, lemma, readings, method, loc,
     n: node.atts.n || null, from, to,
+  });
+}
+
+function collectFacsimile(node, facsimiles) {
+  if (!['facsimile', 'surface', 'surfaceGrp', 'zone', 'graphic'].includes(node.element)) return;
+  const url = node.atts.url || node.atts.facs || node.atts.target || null;
+  facsimiles.push({
+    id: node.id,
+    element: node.element,
+    label: node.atts.n || node.atts['xml:id'] || node.element,
+    url,
+    ulx: node.atts.ulx || null,
+    uly: node.atts.uly || null,
+    lrx: node.atts.lrx || null,
+    lry: node.atts.lry || null,
+    corresp: node.atts.corresp || null,
+    source: node.atts.source || null,
   });
 }

@@ -7,7 +7,7 @@
  */
 import { readText } from '../src/decode.js';
 import { readFile, writeFile, mkdir, stat, readdir, cp } from 'node:fs/promises';
-import { realpathSync } from 'node:fs';
+import { realpathSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, basename, resolve, sep } from 'node:path';
 import { parseXML, inTEINamespace } from '../src/xml.js';
 import { resolveIncludes } from '../src/xinclude.js';
@@ -20,6 +20,8 @@ import { analyze } from '../src/analyze.js';
 import { applyReconciliation } from '../src/reconcile.js';
 import { applyGeoref } from '../src/georef.js';
 import { attachLemmas, attachLexicon } from '../src/lemmas.js';
+import { validateODD, formatValidationIssue } from '../src/validate.js';
+import { validateFiles } from './schema-validate.js';
 
 // a tool an editor runs from the terminal must fail with a sentence, not a
 // stack trace: a malformed file, a wrong encoding, a missing input are things
@@ -51,6 +53,13 @@ const used = (path) => { if (path) USED.add(resolve(path)); };
 const note = (level, what, detail) => REPORT.push({ level, what, detail });
 const lenient = process.argv.includes('--lenient');
 const allowRawHTML = process.argv.includes('--allow-raw-html');
+const validateOdd = process.argv.includes('--validate-odd') || process.argv.includes('--strict-odd');
+const rngArg = process.argv.find((a) => a.startsWith('--rng='));
+const schematronArg = process.argv.find((a) => a.startsWith('--schematron='));
+const strictSchema = process.argv.includes('--strict-schema') || !!rngArg || !!schematronArg;
+const memoryReport = process.argv.includes('--memory');
+const memoryMB = () => Math.round(process.memoryUsage().heapUsed / 1024 / 1024);
+const memoryStart = memoryMB();
 
 function sayReport() {
   const errors = REPORT.filter((r) => r.level === 'error');
@@ -111,6 +120,7 @@ if (oddArg) {
 // input: one TEI file, a teiCorpus, or a whole directory of TEI files
 const inputStat = await stat(input);
 let roots = [];
+const sourceFiles = [];
 let xml = null;
 if (inputStat.isDirectory()) {
   // the TEI files of the folder. A real edition often keeps its parts in
@@ -140,6 +150,7 @@ if (inputStat.isDirectory()) {
     try {
       const src = await readText(join(input, n));
       used(join(input, n));
+      sourceFiles.push(join(input, n));
       const r = parseXML(src);
       if (isODD(r)) {
         if (odd) { if (!oddFile || n !== basename(oddFile)) note('warning', 'a second ODD was ignored', n); continue; }
@@ -167,6 +178,7 @@ if (inputStat.isDirectory()) {
   try { xml = await readText(input); used(input); }
   catch (err) { console.error(`not pressed: ${err.message}`); process.exit(1); }
   const root = parseXML(xml);
+  sourceFiles.push(input);
   if (isODD(root)) {
     console.error('the input is an ODD: a schema, not an edition (pass it with --odd= next to a TEI input)');
     process.exit(1);
@@ -180,8 +192,29 @@ if (inputStat.isDirectory()) {
   for (const u of unresolved) note('error', `an inclusion did not resolve, so its text is missing (${u.href})`, u.reason);
   roots = [root];
 }
+if (rngArg || schematronArg) {
+  const schemaReport = await validateFiles(sourceFiles.filter((file) => /\.(xml|tei)$/i.test(file)), {
+    rng: rngArg?.slice(6), schematron: schematronArg?.slice(13),
+  });
+  for (const row of schemaReport.results) {
+    if (row.valid) console.error(`schema: ${row.kind} valid (${row.file})`);
+    else note('error', `${row.kind} validation failed (${row.file})`, row.detail);
+  }
+  for (const error of schemaReport.errors) if (!error.detail) note('error', 'schema validation', error.file);
+  if (!schemaReport.results.length && schemaReport.errors.length) {
+    for (const error of schemaReport.errors) note('error', 'schema validation', error.detail);
+  }
+  console.error(`schema validation: ${schemaReport.errors.length} error(s)`);
+  if (schemaReport.errors.length && strictSchema && !lenient) {
+    sayReport();
+    process.exit(1);
+  }
+}
 if (oddFile) {
   console.error(`odd: ${oddFile} (${odd.customElements.length} custom elements, ${odd.deletedElements.size} deleted)`);
+  for (const warning of odd.warnings || []) {
+    note('warning', 'an ODD processing instruction was not applied', warning);
+  }
 } else {
   console.error('odd: none, read against the whole of P5 (tei_all)');
 }
@@ -202,6 +235,14 @@ try {
 const data = await loadBaseData();
 const map = buildClassMap(odd, data);
 const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, map);
+const memoryModel = memoryMB();
+
+if (odd && validateOdd) {
+  const validation = validateODD(roots, odd, data);
+  for (const item of validation.errors) note('error', 'ODD validation', formatValidationIssue(item));
+  for (const item of validation.warnings) note('warning', 'ODD validation', formatValidationIssue(item));
+  console.error(`odd validation: ${validation.errors.length} error(s), ${validation.warnings.length} warning(s)`);
+}
 
 const baseDir = inputStat.isDirectory() ? input : dirname(input);
 const manifestArg = process.argv.find((a) => a.startsWith('--manifest='));
@@ -282,12 +323,24 @@ let out;
 if (site) {
   out = output || basename(input).replace(/\.xml$/i, '');
   await mkdir(out, { recursive: true });
-  const files = pressSite(model, { manifest, sourceXML: xml, extraPages });
-  for (const [name, content] of Object.entries(files)) {
+  const streamed = process.argv.includes('--stream');
+  const streamedFiles = [];
+  const files = pressSite(model, {
+    manifest, sourceXML: xml, extraPages,
+    collect: !streamed,
+    onFile: streamed ? (name, content) => {
+      const target = join(out, name);
+      mkdirSync(dirname(target), { recursive: true });
+      writeFileSync(target, content);
+      streamedFiles.push(name);
+    } : null,
+  });
+  if (!streamed) for (const [name, content] of Object.entries(files)) {
     await mkdir(dirname(join(out, name)), { recursive: true });
     await writeFile(join(out, name), content);
   }
-  if ('map.html' in files) {
+  const fileNames = streamed ? streamedFiles : Object.keys(files);
+  if (fileNames.includes('map.html')) {
 
     await cp(new URL('../data-assets/leaflet', import.meta.url),
       join(out, 'assets', 'leaflet'), { recursive: true });
@@ -341,7 +394,8 @@ if (site) {
     }, null, 1));
     console.error(`sources: ${copied.length} files copied to data/source/`);
   } catch (err) { note('warning', 'the sources were not copied', err.message); }
-  console.error(`pressed site: ${out}/ (${Object.keys(files).length} files)`);
+  console.error(`pressed site: ${out}/ (${fileNames.length} files${streamed ? ', streamed' : ''})`);
+  if (memoryReport) console.error(`memory: start ${memoryStart} MB, model ${memoryModel} MB, site ${memoryMB()} MB`);
 } else {
   out = output || basename(input).replace(/\.xml$/i, '') + '.html';
   await writeFile(out, pressPage(model));
@@ -349,6 +403,11 @@ if (site) {
 }
 console.error(`  title: ${model.meta.title || '(none)'}`);
 console.error(`  elements: ${report.distinctElements} distinct, fallbacks: ${report.fallback.length ? report.fallback.join(', ') : 'none'}`);
+if (report.fallbackDetails?.length) {
+  for (const item of report.fallbackDetails) {
+    console.error(`  fallback: <${item.element}> in ${item.doc} @ ${item.path}`);
+  }
+}
 console.error(`  registries: ${Object.entries(model.registries).map(([k, v]) => `${k}:${v.length}`).join(' ')}`);
 console.error(`  apparatus registers: ${model.apparatus.length}`);
 

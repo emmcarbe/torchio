@@ -57,6 +57,16 @@ function htmlTagFor(node) {
   const blockChild = (n) => n.children.some((c) => typeof c !== 'string'
     && (BLOCKS.has(c.element) || c.element === 'note' || c.element === 'list'
       || c.element === 'table' || blockChild(c)));
+  const behaviour = node.processing && node.processing.behaviour;
+  const byBehaviour = {
+    inline: 'span', text: 'span', block: 'div', body: 'div', document: 'article',
+    heading: 'h2', section: 'section', listItem: 'li', table: 'table', row: 'tr',
+    note: 'aside', figure: 'figure',
+  };
+  if (behaviour === 'paragraph') return blockChild(node) ? 'div' : 'p';
+  if (behaviour === 'list') return /^(ordered|numbered)$/i.test(node.atts.type || '') ? 'ol' : 'ul';
+  if (behaviour === 'cell') return (node.atts.role || '') === 'label' ? 'th' : 'td';
+  if (byBehaviour[behaviour]) return byBehaviour[behaviour];
   switch (el) {
     case 'head': return 'h2';
     case 'list': return /^(ordered|numbered)$/i.test(node.atts.type || '') ? 'ol' : 'ul';
@@ -102,7 +112,86 @@ export function safeURL(value) {
   return v;                                             // bare relative name
 }
 
+function safeStyle(value) {
+  if (!value || /url\s*\(|expression\s*\(|@import|-moz-binding|behavior\s*:/i.test(value)) return '';
+  const allowed = new Set(['color', 'background-color', 'font-style', 'font-weight',
+    'font-size', 'font-family', 'text-align', 'text-decoration', 'text-transform',
+    'letter-spacing', 'line-height', 'margin', 'margin-left', 'margin-right',
+    'margin-top', 'margin-bottom', 'padding', 'padding-left', 'padding-right',
+    'padding-top', 'padding-bottom', 'border', 'border-top', 'border-bottom',
+    'border-left', 'border-right', 'display', 'vertical-align', 'white-space']);
+  const declarations = [];
+  for (const declaration of String(value).split(';')) {
+    const i = declaration.indexOf(':');
+    if (i < 1) continue;
+    const property = declaration.slice(0, i).trim().toLowerCase();
+    const val = declaration.slice(i + 1).trim();
+    if (allowed.has(property) && val && !/[<>]/.test(val)) declarations.push(`${property}:${val}`);
+  }
+  return declarations.join(';');
+}
+
+function processingParam(node, name) {
+  const expression = node.processing && node.processing.params && node.processing.params[name];
+  if (expression == null || expression === '.') return null;
+  const attr = String(expression).match(/^@([\w:.-]+)$/);
+  if (attr) return node.atts[attr[1]] || '';
+  const literal = String(expression).match(/^(['"])(.*)\1$/s);
+  if (literal) return literal[2];
+  const childMatch = String(expression).match(/^([\w.-]+)(?:\[(?:@([\w:.-]+)\s*=\s*(['"])(.*?)\3|(\d+))\])?$/);
+  const child = childMatch
+    ? node.children.filter((c) => typeof c !== 'string' && c.element === childMatch[1])
+      .filter((c) => !childMatch[2] || c.atts[childMatch[2]] === childMatch[4])
+      [childMatch[5] ? Number(childMatch[5]) - 1 : 0]
+    : node.children.find((c) => typeof c !== 'string' && c.element === expression);
+  return child ? textOfModel(child) : String(expression);
+}
+
+function processingChildExpressionMatches(child, expression) {
+  const match = String(expression || '').match(/^([\w.-]+)(?:\[(?:@([\w:.-]+)\s*=\s*(['"])(.*?)\3|(\d+))\])?$/);
+  if (!match || child.element !== match[1]) return false;
+  if (match[2]) return child.atts[match[2]] === match[4];
+  return true;
+}
+
+function processingData(node, behaviour) {
+  if (!behaviour) return '';
+  const source = node.processing && node.processing.source;
+  let data = ` data-behaviour="${escapeHTML(behaviour)}"`;
+  if (source) data += ` data-behaviour-source="${escapeHTML(source)}"`;
+  const sequence = node.processing && node.processing.sequence;
+  if (sequence) data += ` data-behaviour-sequence="${escapeHTML(sequence.map((part) => part.behaviour).filter(Boolean).join(' '))}"`;
+  const content = node.processing && node.processing.params && node.processing.params.content;
+  if (content) data += ` data-processing-content="${escapeHTML(content)}"`;
+  // Kept for compatibility with existing themes that target edition ODD rules.
+  if (source === 'odd') data += ` data-odd-behaviour="${escapeHTML(behaviour)}"`;
+  return data;
+}
+
 export function renderBase(node, hooks) {
+  const oddBehaviour = node.processing && node.processing.behaviour;
+  if (oddBehaviour === 'omit') return '';
+  if (oddBehaviour === 'break') {
+    return `<br id="${escapeHTML(node.id)}" class="t-${escapeHTML(node.element)} odd-break"`
+      + ` data-el="${escapeHTML(node.element)}"${processingData(node, 'break')}>`;
+  }
+  if (oddBehaviour === 'graphic') {
+    const raw = processingParam(node, 'url') || node.atts.url || node.atts.target || '';
+    const href = safeURL(raw);
+    const label = escapeHTML(raw || textOfModel(node).trim() || node.element);
+    return `<figure id="${escapeHTML(node.id)}" class="t-${escapeHTML(node.element)} odd-graphic"`
+      + ` data-el="${escapeHTML(node.element)}"${processingData(node, 'graphic')}>`
+      + `${href ? `<img src="${escapeHTML(href)}" alt="${escapeHTML(textOfModel(node).trim())}">` : label}</figure>`;
+  }
+  // Until a facsimile viewer exists, an image declaration must still be
+  // visible and actionable. A URL is editorial evidence, not empty markup.
+  if (node.element === 'graphic' && node.atts.url) {
+    const raw = String(node.atts.url);
+    const href = safeURL(raw);
+    const label = escapeHTML(raw);
+    return `<span id="${escapeHTML(node.id)}" class="t-graphic s-${node.section}" data-el="graphic"`
+      + ` data-url="${label}">${href ? `<a href="${escapeHTML(href)}">${label}</a>` : label}</span>`;
+  }
   // a facsimile image region (surface / zone / graphic under <facsimile>) carries
   // no text, only pointers to images Torchio does not render yet: as an empty
   // bordered box it is noise. Such an element with no text content renders as
@@ -162,12 +251,23 @@ export function renderBase(node, hooks) {
   }
   const tag = htmlTagFor(node);
   let cls = `t-${node.element} s-${node.section}`;
+  if (node.processing && node.processing.cssClass) {
+    const extra = String(node.processing.cssClass).split(/\s+/)
+      .filter((c) => /^[a-zA-Z_][\w-]*$/.test(c));
+    if (extra.length) cls += ' ' + extra.join(' ');
+  }
   // verse numbering: mark every fifth line so the theme can show its number
   if (node.element === 'l' && /^\d+$/.test(node.atts.n || '') && Number(node.atts.n) % 5 === 0) {
     cls += ' ln5';
   }
   const id = ` id="${escapeHTML(node.id)}"`;
   let data = ` data-el="${escapeHTML(node.element)}"`;
+  data += processingData(node, oddBehaviour);
+  const oddStyle = safeStyle([
+    node.processing && node.processing.outputRendition,
+    node.processing && node.processing.useSourceRendition ? node.atts.style : '',
+  ].filter(Boolean).join(';'));
+  if (oddStyle) data += ` style="${escapeHTML(oddStyle)}"`;
   // the language the edition declares is not decoration: it governs
   // hyphenation, quotation marks, the voice of a screen reader and the
   // direction of the script. It must survive into the page as a real
@@ -188,17 +288,43 @@ export function renderBase(node, hooks) {
   }
   let inner = '';
   let prevApp = null;
-  for (const child of node.children) {
+  const appHasLemma = node.element === 'app'
+    && node.children.some((c) => typeof c !== 'string' && c.element === 'lem');
+  let appAlternative = 0;
+  let unclearAlternative = 0;
+  const oddAlternate = oddBehaviour === 'alternate'
+    ? processingParam(node, 'default') : null;
+  const processingContent = processingParam(node, 'content');
+  const children = processingContent == null ? node.children : [processingContent];
+  for (const child of children) {
     if (typeof child !== 'string' && child.element === 'app'
         && prevApp && Number(child.atts.from) > Number(prevApp.atts.to)) {
       // segment apparatus (C27): disjoint declared token ranges imply a
       // separator between adjacent app elements
       inner += ' ';
     }
-    inner += typeof child === 'string' ? escapeHTML(child) : renderBase(child, hooks);
+    if (typeof child === 'string') {
+      inner += escapeHTML(child);
+    } else {
+      let rendered = renderBase(child, hooks);
+      const hideAppAlternative = node.element === 'app' && !appHasLemma
+        && (child.element === 'rdg' || child.element === 'rdgGrp') && appAlternative++ > 0;
+      const hideUnclearAlternative = node.element === 'choice' && child.element === 'unclear'
+        && unclearAlternative++ > 0;
+      const hideODDAlternative = oddAlternate && !processingChildExpressionMatches(child, oddAlternate);
+      if (hideAppAlternative || hideUnclearAlternative || hideODDAlternative) {
+        rendered = rendered.replace(/^<([a-z][a-z0-9]*)/i, '<$1 hidden aria-hidden="true"');
+      }
+      inner += rendered;
+    }
     prevApp = (typeof child !== 'string' && child.element === 'app') ? child : null;
   }
   const after = hooks && hooks.after ? hooks.after(node) : '';
+  if (oddBehaviour === 'link') {
+    const raw = processingParam(node, 'uri') || node.atts.target || node.atts.ref || '';
+    const href = safeURL(raw);
+    if (href) return `<a${id} class="${cls}" href="${escapeHTML(href)}"${data}>${inner}</a>${after}`;
+  }
   // a pointer is a pointer: `ref` and `ptr` whose target is an external
   // address become real links, opening in their own tab. A `ptr` carries no
   // text of its own, so the address itself is what the reader clicks; a
@@ -249,7 +375,7 @@ export function renderBase(node, hooks) {
   // and no guessing. An app that points (@from/@to, @loc) has its text in the
   // base text already: rendering it inline would print the lemma twice
   if (node.element === 'app') {
-    const hasLem = node.children.some((c) => typeof c !== 'string' && c.element === 'lem');
+    const hasLem = appHasLemma;
     const points = node.atts.loc != null
       || (node.atts.from != null && /^#/.test(String(node.atts.from)));
     const appCls = cls + (hasLem ? ' app-has-lem' : ' app-no-lem')

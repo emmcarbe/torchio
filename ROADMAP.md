@@ -140,7 +140,6 @@ The status "Pressed" must never be readable as equivalent to "valid".
 
 ### Declared pages
 
-- `KNOWN_PAGES` does not include `apparatus`, `genesis`, or `lexicon`.
 - `manifest.warnings` is collected but never displayed.
 
 ### Witness data
@@ -199,13 +198,18 @@ German, it proposed towns for common words (`C104`).
 
 ### Classes and rendering
 
-Sections are assigned but barely consumed. Rendering is still keyed to the
-element name in most places. A custom element declared as a member of a class
-therefore inherits its section, but not its visual behaviour. One of two
-changes is required:
+Class membership assigns a handling family and section, not an exact visual
+behaviour. The claim has been narrowed accordingly. A first web subset of the
+TEI Processing Model now executes explicit `model`/`modelGrp` rules,
+`behaviour`, common predicates, parameters, `cssClass`, and safe
+`outputRendition`, with browser/CLI equivalence tests. The resolver now applies
+edition ODD rules first, conservative Torchio contracts over TEI All elements
+and classes second, and lossless structural rendering last. TEI All itself is
+not described as a rendering profile. Still open:
 
-- sections must become a rendering contract, supported by automated tests; or
-- the claim concerning class-inherited behaviour must be narrowed further.
+- `modelSequence` and arbitrary XPath predicates;
+- wider behaviour and parameter coverage;
+- replacing the remaining element-name dispatch with explicit contracts.
 
 ### Memory
 
@@ -360,7 +364,6 @@ interpretative decisions.
 
 - Add CI that re-presses the demos and fails when the committed output
   differs from the generated output.
-- Make `npm test` run the possible editorial worlds.
 - Derive the number of open corrections from execution rather than updating
   it manually.
 - Test browser and CLI equivalence.

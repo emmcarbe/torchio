@@ -5,10 +5,14 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "node test/run.js",
-    "worlds": "node test/worlds.js",
+    "test": "npm run test:core && npm run test:worlds",
+    "test:core": "node test/run.js",
+    "test:worlds": "node test/worlds.js && node worlds/run.js --strict",
+    "worlds": "npm run test:worlds",
     "tei-version": "node tools/tei-version.js",
-    "build": "node tools/build-browser.js"
+    "build": "node tools/build-browser.js",
+    "check-site": "node tools/check-site.js",
+    "validate-schema": "node tools/schema-validate.js"
   },
   "engines": {
     "node": ">=18"

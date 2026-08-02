@@ -13,7 +13,7 @@
  * Everything happens in the page: no upload, no server, no dependencies.
  */
 
-/* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD,
+/* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD, validateODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
    attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, reviewRows, applyReview,
    harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
@@ -172,6 +172,11 @@
 
     const map = buildClassMap(odd, TORCHIO_BASE_DATA);
     const model = buildModel(roots.length === 1 && !roots[0].root ? roots[0] : roots, map);
+    const oddValidation = odd ? validateODD(roots, odd, TORCHIO_BASE_DATA) : null;
+    if (oddValidation) {
+      for (const item of oddValidation.errors) notes.push('ODD error: ' + formatValidationIssue(item));
+      for (const item of oddValidation.warnings) notes.push('ODD warning: ' + formatValidationIssue(item));
+    }
 
     // a manifest that travelled along seeds the panel; the panel owns it from here
     let droppedManifest = null;
@@ -340,6 +345,7 @@
       notes,
       unresolved,
       oddInfo,
+      oddValidation,
       droppedManifest,
       slug: teiNames[0].replace(/\.(xml|tei)$/i, '').split('/').pop() || 'edition',
       ui: seedUI(model, droppedManifest, droppedExtra),
@@ -815,6 +821,9 @@
       ['documents', String(S.model.documents ? S.model.documents.length : 1)],
       ['elements', S.analysis.distinctElements + ' distinct'],
       ['fallbacks', S.analysis.fallback.length ? S.analysis.fallback.join(', ') : 'none'],
+      ['fallback diagnostics', S.analysis.fallbackDetails?.length
+        ? S.analysis.fallbackDetails.map((x) => '<' + x.element + '> ' + x.doc + ' @ ' + x.path).join(' · ')
+        : 'none'],
       ['odd', S.oddInfo
         ? S.oddInfo.file + ': ' + S.oddInfo.custom + ' custom elements, ' + S.oddInfo.deleted + ' deleted'
         : 'none: read against the whole of P5 (tei_all)'],
