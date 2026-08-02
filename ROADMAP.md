@@ -129,6 +129,34 @@ including:
 
 The status "Pressed" must never be readable as equivalent to "valid".
 
+### Next, from the third audit
+
+In the order its author put them:
+
+1. Exclude the ODD from the files the schema gate validates: in a directory
+   it is picked up like any other `.xml`, and validated as if it were an
+   edition.
+2. Make validation namespace-aware to the end: custom elements are
+   recognised, but `moduleRef/@include`, namespaces and `elementSpec` in
+   change or replace mode need testing against real institutional ODDs.
+3. Separate the levels of memory. `--stream` avoids holding the pages, but
+   the model and the corpus-wide exports still sit in memory. A large corpus
+   needs parsing document by document, temporary registries, exports per
+   document, and a second pass for the global indices alone.
+4. Complete the apparatus links, above all `from`/`to`, `target`, standoff
+   and multi-document corpora: an entry should always lead to the right
+   document and the right anchor, never assume `text.html`.
+5. Add snapshots of the demonstration editions: not only that the press
+   finishes, but that the output does not change by accident.
+6. Generate the RNG and Schematron from the ODD, with the official TEI
+   toolchain, instead of requiring schemas already generated. This is what
+   would make the system self-sufficient.
+7. Test the interface for real: keyboard, focus, screen reader, facsimiles,
+   mobile. The current checks on the HTML do not replace a browser.
+8. Define what a public release is: a versioned schema for `model.json`,
+   a compatibility policy for the manifest, and a clear line between beta
+   and stable.
+
 ## Open defects: engine
 
 ### Input handling
