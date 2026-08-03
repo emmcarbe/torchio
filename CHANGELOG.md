@@ -24,6 +24,11 @@ editions (2 August 2026). The suite passes 203 assertions.
   identifiers, overflow on a narrow screen) are corrected (C121 to C123).
 - Nested corpora are expanded recursively, which closes an entry that was
   recorded open the day before (C93).
+- The DOI and archival badges are drawn in the repository instead of being
+  fetched from Zenodo and Software Heritage, both of which had stopped
+  serving them to an automated request, so the two marks of permanence were
+  showing as broken images on the front page and on the published site
+  (C124).
 
 ## 0.2.0-beta.2 (2026-08-01)
 

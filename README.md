@@ -1,6 +1,6 @@
 <img src="docs/torchio-lockup.svg" alt="Torchio" width="400">
 
-[![DOI](https://zenodo.org/badge/1317201627.svg)](https://doi.org/10.5281/zenodo.21740661)
+[![DOI 10.5281/zenodo.21740661](docs/doi.svg)](https://doi.org/10.5281/zenodo.21740661)
 
 # Torchio
 

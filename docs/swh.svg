@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 20" width="176" height="20"
+     role="img" aria-label="Archived in Software Heritage">
+  <!--
+    Drawn here rather than fetched from archive.softwareheritage.org, whose
+    badge endpoint now answers an automated request with an anti-bot page
+    instead of an image, so the badge broke wherever it was shown.
+
+    The archival itself is real and is stated in words next to this badge,
+    with the SWHID, which is the part that can be verified. A badge only
+    points; the identifier is the evidence.
+  -->
+  <title>Archived in Software Heritage</title>
+  <rect width="176" height="20" rx="3" fill="#6A6A66"/>
+  <path d="M3 0 h59 v20 H3 a3 3 0 0 1 -3 -3 V3 a3 3 0 0 1 3 -3 z" fill="#1B1B1B"/>
+  <rect x="0.5" y="0.5" width="175" height="19" rx="3" fill="none"
+        stroke="#6A6A66" stroke-width="1"/>
+  <g fill="#FFFFFF" text-anchor="middle"
+     font-family="EB Garamond, Iowan Old Style, Palatino, Georgia, serif"
+     font-size="11">
+    <text x="31" y="14.2" textLength="44" lengthAdjust="spacingAndGlyphs">archived</text>
+    <text x="119" y="14.2" textLength="98" lengthAdjust="spacingAndGlyphs">Software Heritage</text>
+  </g>
+</svg>
