@@ -131,7 +131,7 @@ The status "Pressed" must never be readable as equivalent to "valid".
 
 ### Next, from the third audit
 
-In the order its author put them:
+In the order given:
 
 1. Exclude the ODD from the files the schema gate validates: in a directory
    it is picked up like any other `.xml`, and validated as if it were an
@@ -149,26 +149,34 @@ In the order its author put them:
 5. Add snapshots of the demonstration editions: not only that the press
    finishes, but that the output does not change by accident.
 6. Generate the RNG and Schematron from the ODD, with the official TEI
-   toolchain, instead of requiring schemas already generated. This is what
-   would make the system self-sufficient.
-7. Test the interface for real: keyboard, focus, screen reader, facsimiles,
-   mobile. The current checks on the HTML do not replace a browser.
-8. Define what a public release is: a versioned schema for `model.json`,
-   a compatibility policy for the manifest, and a clear line between beta
-   and stable.
+   toolchain, instead of requiring schemas that have already been
+   generated. Required for the system to be self-sufficient.
+7. Test the interface in a browser: keyboard, focus, screen reader,
+   facsimiles, mobile. The current checks parse the generated HTML and do
+   not exercise it.
+8. Define what a public release is: a versioned schema for `model.json`, a
+   compatibility policy for the manifest, and an explicit distinction
+   between beta and stable.
 
 ## Open defects: engine
 
 ### Input handling
 
 - A non-UTF-8 file must stop the press instead of silently replacing
-  characters.
-- Excessive recursion depth must fail with the relevant file named.
-- A truncated review sheet must not cause the browser to hang.
+  characters. `src/decode.js` already reads the declared encoding; what is
+  missing is the check that the decoded text contains no replacement
+  character, and the error naming the file.
+- Excessive recursion depth must fail with the relevant file named. A depth
+  counter in the parser, with the current file carried in the error.
+- A truncated review sheet must not cause the browser to hang. The inflate
+  loop needs a bound on iterations and on output size, and must reject a
+  stream that ends early rather than waiting for more.
 
 ### Declared pages
 
-- `manifest.warnings` is collected but never displayed.
+- `manifest.warnings` is collected but never displayed. The press now has a
+  report (C112) and `odd.warnings` already reaches it; the manifest warnings
+  need the same call.
 
 ### Witness data
 
@@ -177,15 +185,36 @@ In the order its author put them:
 - The hierarchy of `listWit` is flattened.
 - Declared sigla are not used in the interface.
 
+The first two are computed in the same pass: exclude the edited text from
+the witness set, and count a pair as agreeing only where both witnesses
+carry text, which requires the lacuna work of C8. The third means keeping
+the nesting of `listWit` in the model instead of collecting the leaves. The
+fourth is a lookup: print the declared siglum where the `xml:id` is printed
+now. Until the first two are done the table should not be shown, since a
+number that counts an edition against itself is worse than no number.
+
 ### Apparatus
 
 Apparatus notes do not enter the model or the exports.
+
+The note is read when the entry is rendered and then dropped. It should be
+attached to the entry in the model, with the reading it comments on, so that
+it survives into the exports and the popup can show which reading it
+belongs to.
 
 ### Genetic layer
 
 - Inferred hands are recorded as though they had been declared in the source.
 - Nested operations inherit the wrong hand.
 - Operations without a declared hand are dropped.
+
+The first is the rule of C85: a hand deduced from `handShift` belongs in
+`node.inferred` and never in the attributes, and the page must mark it as
+deduced. The second is a scoping error, the enclosing hand being applied to
+children that declare their own. The third changed with C118, which requires
+a declared hand or campaign before an operation exists: what remains is to
+report the operations refused for that reason instead of passing over
+them.
 
 ### Open rows in the corrections register
 
@@ -219,10 +248,24 @@ therefore displays shelf marks instead of meaningful session information
 
 Both cases are described in [COMPLEX.md](COMPLEX.md).
 
+For the first, an archive of editions needs a level between the collection
+and the document: an item that carries its own header, its own editor and
+its own apparatus, and whose registries are its own rather than the
+archive's. The two-axis profile designed in place of `genre` is where that
+distinction belongs. For the second, read `meeting` as a source of the
+register's columns when it is present, as the title is read now.
+
 ### Gazetteer matching
 
 Gazetteer matching has no concept of language. When applied to early modern
 German, it proposed towns for common words (`C104`).
+
+Two guards, neither of which requires a model. Match only strings the markup
+has already marked as places, rather than any word in the text; and, where
+the text is not marked, refuse candidates that are ordinary words of the
+document's declared language, using a stopword and common-word list per
+language. The review sheet should also carry the strength of each match, so
+that a weak proposal can be seen as weak.
 
 ### Classes and rendering
 
@@ -250,6 +293,15 @@ source data in memory. The main causes are:
 
 A 100 MB archive cannot currently be pressed.
 
+The third is addressed by `--stream`, which writes each page as it is built.
+The other two need the document-by-document pass described in the third
+audit: parse a document, build its part of the model, write its pages and
+its exports, discard the tree, and keep only what the global indices need. A
+second pass over those accumulated registries produces the indices, the map
+and the concordance. The node-to-page map can be written per document, since
+a reference outside the current document can be resolved in the second
+pass.
+
 ### Browser and CLI divergence
 
 The browser press and the CLI have diverged:
@@ -258,6 +310,12 @@ The browser press and the CLI have diverged:
 - the manifest schema is defined separately in three places;
 - the report and the strict behaviour exist only in the CLI: the browser
   presses to explore, but it should still say what it skipped.
+
+The three have one cause: the two presses share the engine and not the
+layers around it. The manifest schema should be defined once in `src/` and
+imported by both; the report is already a module and needs a display in the
+browser panel; `georef.json` needs the same drop handling the other sidecar
+files have.
 
 The colophon no longer diverges: the browser bundle carries its own build
 and stamps it, and the suite asserts that both declare the same engine.
@@ -269,6 +327,13 @@ Open tokenization problems include:
 - Latin enclitics;
 - ornate capitals that split words;
 - editorial notes attached to tokens.
+
+The second and third are decisions about what counts as text before
+tokenizing: a decorated initial is one word with its remainder, and an
+editorial note is not part of the word it sits next to. Both belong to the
+projection policy of the derived layer below, which is where the question of
+what the text is gets answered once. The first needs a language-specific
+rule, applied only where the document declares Latin.
 
 ### NLP workflow
 
@@ -287,17 +352,34 @@ The redesign is specified in the section on the derived layer below.
 Logical CSS properties are required before an Arabic edition can be used
 adequately.
 
+A mechanical substitution across the stylesheet: `margin-inline`,
+`padding-inline`, `inset-inline`, `border-inline`, `text-align: start` and
+`end`. The two-margin note layout needs more, since it measures the left and
+right sides of the page and would place notes on the wrong side.
+
 ### Output
 
-- The output directory is never cleaned.
-- `data/source/` copies every neighbouring `.json` file.
+- The output directory is never cleaned. A page removed from an edition stays
+  published. The press knows every file it wrote; what is missing is the
+  comparison with what is already in the directory, and the removal, which
+  should be reported and should refuse to touch anything it did not write.
+- `data/source/` copies every neighbouring `.json` file. Corrected for the
+  command line by C113, which publishes only the files the impression
+  actually read. The browser press does not do this yet.
 
 ## Accessibility and conformance
 
 - Provide keyboard access to every family of interactive components.
+  `makeTrigger` already exists and is called in some places and not others:
+  the six families that lack it are the words covered by apparatus, the
+  verse, the diplomatic and interpretative pairs, the genetic operations,
+  the sortable columns of the register, and the lexicon.
 - Define accessible semantics for `del` and `ins`.
 - Restore folio numbers to the accessibility tree.
-- Ensure that the apparatus remains visible below 1,180 pixels.
+- Ensure that the apparatus remains visible below 1,180 pixels. Below that
+  width the margin disappears and the notes go with it; they should collapse
+  to their marks and open on demand, as they already do when a margin is too
+  crowded.
 - Implement correct focus management for popups and dialogs.
 - Test composed contrast tokens.
 - Prepare an AgID accessibility statement.
@@ -397,10 +479,44 @@ interpretative decisions.
 - Test browser and CLI equivalence.
 - Run schema and migration tests against previous manifest versions.
 
+### The printed edition
+
+Requested by Maurizio Lana on 3 August 2026, after reading the pressed
+editions: a printed form of the edition, with the text above, the
+philological notes below it, and the front matter of a book. Recorded in the
+contributions table in [PRINCIPLES.md](PRINCIPLES.md).
+
+A print is a projection of the model, like the site and the exports. If
+producing one requires changes to the encoding, the defect is in the model
+and belongs in the corrections register.
+
+Current state: nothing is written for paper. An edition printed from the
+browser carries the interface, the margins and the apparatus marks into the
+page.
+
+Three routes. The first two can coexist.
+
+1. **A print stylesheet inside the edition**, using `@media print` and
+   `@page`: title page, frontispiece, running heads, page numbers,
+   interface suppressed. No dependency, and it travels with the edition. It
+   cannot place a note at the foot of the page the note belongs to: CSS
+   defines footnotes for paged media and no browser implements them. Notes
+   go at the end of the section, and the page says so.
+
+2. **A paginating library inside the edition**, Paged.js or equivalent,
+   which implements that part of the specification in the browser and gives
+   footnotes and page furniture. Not adopted: a pressed edition does not
+   depend on external code. Possible as a separate tool, outside the
+   edition.
+
+3. **An export to LaTeX with `reledmac`**, the standard package for
+   typesetting critical editions: apparatus registers at the foot of the
+   page, line numbering, sigla. Produced as a file to be compiled
+   elsewhere, and adds nothing to the published site. This is the route
+   that matches the request.
+
 ### Additional output formats
 
-- Print output.
-- ePub output.
 - Intake for TEI P4 and older P5 versions.
 
 ### Community files
@@ -495,3 +611,14 @@ structured outputs, detection of inconsistencies, and transformation of
 decisions already made.
 
 It must not exercise philological authority.
+
+## Discarded
+
+Items removed from the agenda, with the reason, as required by the rule
+stated at the top of this file.
+
+- **ePub output** (discarded 4 August 2026). An ePub reflows and has no
+  fixed page, so it cannot carry an apparatus at the foot of the page it
+  belongs to, which is what the printed form is for. It would be a third
+  rendering to maintain, and no one has asked for it. The printed edition
+  above covers the need it was standing in for.

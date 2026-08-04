@@ -1,16 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 20" width="188" height="20"
      role="img" aria-label="DOI 10.5281/zenodo.21740661">
   <!--
-    The DOI badge lives in this repository rather than being fetched from
-    Zenodo. Zenodo's badge endpoint rate-limits GitHub's image proxy, which
-    then serves a 502, and the badge on the front page breaks: the citation
-    of a permanent identifier was the one thing on the page that depended on
-    a service answering in that instant.
+    Drawn here rather than fetched from zenodo.org/badge, which rate-limits
+    GitHub's image proxy: the proxy then returns 502 and the badge does not
+    render.
 
-    The identifier drawn here is the concept DOI, which stands for every
-    version and never changes, so a static file is not a shortcut: it is the
-    accurate form. The version DOI belongs in CITATION.cff and in the
-    citation block of the README, where it changes with each release.
+    The identifier is the concept DOI, which covers all versions and does
+    not change. The version DOI is in CITATION.cff and in the citation block
+    of the README.
   -->
   <title>DOI 10.5281/zenodo.21740661</title>
   <rect width="188" height="20" rx="3" fill="#6A6A66"/>

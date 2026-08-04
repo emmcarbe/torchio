@@ -8,27 +8,25 @@ Releases, newest first. The fine grain is in
 Corrections following a third audit, of the repository and of the pressed
 editions (2 August 2026). The suite passes 203 assertions.
 
-- The file's own history is no longer published as the history of the text: a
-  `change` in `revisionDesc` became a stratum of writing, and the Ursus came
-  out with 66 campaigns, ELA with 126 and the Odyssey with 5, none of which
-  exist (C117).
+- A `change` declared in `revisionDesc` is no longer read as a stratum of
+  writing. It recorded 66 campaigns for the Ursus, 126 for ELA and 5 for the
+  Odyssey, none of which exist in those editions (C117).
 - A genetic operation now requires a declared hand or campaign, and only a
   `subst` binds a deletion to an addition (C118).
-- The possible worlds can fail: a gap or an over-reading stops the build in
-  release mode, and the Guidelines' examples are part of the gate (C119).
-- The edition's ODD now decides behaviour and not only class membership, in a
-  cascade that says which rule decided each node; a tenth demonstration
-  edition exists to show it (C120).
+- The possible worlds can now fail the build: in release mode a gap or an
+  over-reading stops it, and the Guidelines' examples are included in the
+  check (C119).
+- The edition's ODD now determines behaviour as well as class membership,
+  through a cascade that records which rule applied to each node. A tenth
+  demonstration edition, `odd-contract`, exercises it (C120).
 - Apparatus, standoff and documentary views, place identity and authority
   identifiers, and the generated pages themselves (broken anchors, duplicate
   identifiers, overflow on a narrow screen) are corrected (C121 to C123).
-- Nested corpora are expanded recursively, which closes an entry that was
-  recorded open the day before (C93).
-- The DOI and archival badges are drawn in the repository instead of being
-  fetched from Zenodo and Software Heritage, both of which had stopped
-  serving them to an automated request, so the two marks of permanence were
-  showing as broken images on the front page and on the published site
-  (C124).
+- Nested corpora are expanded recursively (C93, recorded open on 1 August).
+- The DOI and archival badges are files in the repository. They were fetched
+  from Zenodo and Software Heritage, neither of which serves them to an
+  automated request any longer, so both rendered as broken images on the
+  README and on the published site (C124).
 
 ## 0.2.0-beta.2 (2026-08-01)
 

@@ -2,12 +2,10 @@
      role="img" aria-label="Archived in Software Heritage">
   <!--
     Drawn here rather than fetched from archive.softwareheritage.org, whose
-    badge endpoint now answers an automated request with an anti-bot page
-    instead of an image, so the badge broke wherever it was shown.
+    badge endpoint returns an anti-bot page to an automated request instead
+    of an image.
 
-    The archival itself is real and is stated in words next to this badge,
-    with the SWHID, which is the part that can be verified. A badge only
-    points; the identifier is the evidence.
+    The SWHID is in the README.
   -->
   <title>Archived in Software Heritage</title>
   <rect width="176" height="20" rx="3" fill="#6A6A66"/>
