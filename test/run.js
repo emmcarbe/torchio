@@ -1165,6 +1165,24 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     'a name built from adjacent parts keeps a space (Anna Bianchi, not AnnaBianchi)');
 }
 
+// a turn spoken by a group resolves to the group's name, not its raw id (C130)
+{
+  const map = buildClassMap(null, data);
+  const GRP = `<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>T</title></titleStmt>
+    <publicationStmt><p>p</p></publicationStmt>
+    <sourceDesc><particDesc><listPerson>
+      <personGrp xml:id="pub"><name>il pubblico</name></personGrp>
+    </listPerson></particDesc></sourceDesc></fileDesc></teiHeader>
+    <text><body><u who="#pub">Applausi.</u></body></text></TEI>`;
+  const model = buildModel(parseXML(GRP), map);
+  setRenderContext({ speakers: speakerMap(model) });
+  const html = renderBase(model.documents[0].tree);
+  ok(/<span class="t-speaker"[^>]*>il pubblico<\/span>/.test(html),
+    'a personGrp speaker is named by its <name>, not by its xml:id');
+  setRenderContext({});
+}
+
 // the header names each responsible person once, spaced, never doubled: an
 // author who is also editor of her own edition (C125)
 {

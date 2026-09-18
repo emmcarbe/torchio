@@ -96,7 +96,7 @@ header.torchio .tt{min-width:14rem}
   header.torchio .tt{min-width:0;width:100%}
   .torchio-nav{width:100%;margin-left:0;gap:8px 20px}
   .torchio-subnav{gap:8px 18px}
-  ol.toc{columns:1}
+  ol.toc.toc-cols{columns:1}
 }
 .about dt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
   text-transform:uppercase;color:var(--soft);margin-top:1.2em}
@@ -164,7 +164,8 @@ ${headerLabelCSS()}
 :target{background:rgba(176,30,40,.10);border-radius:2px}
 .prevnext{display:flex;justify-content:space-between;gap:1em;margin:1.2em 0;
   font-family:var(--mono);font-size:11px}
-ol.toc{columns:2;column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+ol.toc{column-gap:2.5em;padding-left:1.4em;margin:1em 0}
+ol.toc.toc-cols{columns:2}
 .idx-search{font-family:var(--mono);font-size:13px;padding:7px 11px;border:1px solid var(--hair);
   border-radius:2px;background:var(--paper);color:var(--ink);min-width:16rem;margin:.6em 0 .2em}
 .alpha{font-family:var(--mono);font-size:11px;letter-spacing:.12em;margin:.3em 0 .6em}

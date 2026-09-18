@@ -48,6 +48,11 @@ function chunkLabel(div, i, T) {
     t = t.replace(/\s+/g, ' ').trim();
     if (t) return t.slice(0, 60);
   }
+  // no heading: the division's declared kind names it (the editor's own word,
+  // @subtype or @type), so a tape reads "Tape 01", a letter "Letter 3", rather
+  // than a flat "Section". A <head> remains the way to give it a full title
+  const kind = (div.atts.subtype || div.atts.type || '').trim();
+  if (n && kind) return `${kind.charAt(0).toUpperCase()}${kind.slice(1)} ${n}`;
   if (n) return `${T.sectionOne} ${n}`;
   return `${T.sectionOne} ${i + 1}`;
 }
@@ -492,11 +497,13 @@ export function pressSite(model, {
     const keptNotes = notesFor.filter((_, i) => keep[i]);
 
     const files = chunks.map((d, i) => `text-${d.atts.n && /^[\w.-]+$/.test(d.atts.n) ? d.atts.n : i + 1}.html`);
-    // contents page
-    let toc = `<main id="main" class="torchio"><ol class="toc">`;
+    // contents page. Two columns only when the list is long enough to warrant
+    // them; a short contents reads as a single column, not 1 | 2-3 (C130)
+    const tocClass = chunks.length > 8 ? 'toc toc-cols' : 'toc';
+    let toc = `<main id="main" class="torchio"><ol class="${tocClass}">`;
     chunks.forEach((d, i) => { toc += `<li><a href="${files[i]}">${escapeHTML(chunkLabel(d, i, T))}</a></li>`; });
     toc += '</ol>';
-    if (!frontOnOwnPage && frontNode) toc = `<main id="main" class="torchio">${renderBase(frontNode)}` + '<ol class="toc">' + chunks.map((d, i) => `<li><a href="${files[i]}">${escapeHTML(chunkLabel(d, i, T))}</a></li>`).join('') + '</ol>';
+    if (!frontOnOwnPage && frontNode) toc = `<main id="main" class="torchio">${renderBase(frontNode)}` + `<ol class="${tocClass}">` + chunks.map((d, i) => `<li><a href="${files[i]}">${escapeHTML(chunkLabel(d, i, T))}</a></li>`).join('') + '</ol>';
     if (!backOnOwnPage && backNode) toc += renderBase(backNode);
     toc += '</main>';
     out['text.html'] = chrome({

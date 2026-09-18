@@ -117,6 +117,22 @@ export function speakerMap(model) {
   for (const p of (model && model.registries && model.registries.people) || []) {
     if (p && p.id) m.set(String(p.id), p.label || String(p.id));
   }
+  // a turn's @who may point to a <personGrp> (a chorus, the audience, an
+  // unnamed group), which is not an entity register: resolve its label from
+  // its own name so the speaker is shown, not its raw id
+  const trees = [...((model && model.documents) || []).map((d) => d.tree)];
+  if (model && model.corpusHeaderTree) trees.push(model.corpusHeaderTree);
+  for (const tree of trees) {
+    for (const node of walkModel(tree)) {
+      if (node.element !== 'personGrp') continue;
+      const id = node.atts['xml:id'];
+      if (!id || m.has(id)) continue;
+      const named = node.children.find((c) => typeof c !== 'string'
+        && (c.element === 'name' || c.element === 'persName' || c.element === 'label'));
+      const label = (named ? textOfModel(named) : textOfModel(node)).trim().replace(/\s+/g, ' ');
+      m.set(String(id), label || String(id));
+    }
+  }
   return m;
 }
 /** The attested time of an element, in seconds, when it aligns to a declared
