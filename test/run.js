@@ -17,8 +17,8 @@ import { validateODD } from '../src/validate.js';
 import { validateFiles } from '../tools/schema-validate.js';
 import { analyze } from '../src/analyze.js';
 import { resolveIncludes } from '../src/xinclude.js';
-import { buildModel, walkModel, textOfModel } from '../src/model.js';
-import { renderBase, pressPage } from '../src/render.js';
+import { buildModel, walkModel, textOfModel, parseDurationSeconds } from '../src/model.js';
+import { renderBase, pressPage, setRenderContext, speakerMap } from '../src/render.js';
 
 let passed = 0;
 function ok(cond, label) {
@@ -1129,6 +1129,107 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     ok(linkRefused, 'a link that leads out of the edition is refused');
     try { rmSync(dir, { recursive: true, force: true }); rmSync(outside, { force: true }); } catch {}
   }
+}
+
+// transcriptions of speech (TEI ch. 8): the spoken layer is distinct, the
+// speaker is named, and the reader chooses the notation (C88)
+{
+  const map = buildClassMap(null, data);
+  const SPOKEN = `<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>Spoken</title></titleStmt>
+    <publicationStmt><p>p</p></publicationStmt>
+    <sourceDesc><particDesc><listPerson>
+      <person xml:id="s1"><persName><forename>Anna</forename><surname>Bianchi</surname></persName></person>
+    </listPerson></particDesc></sourceDesc></fileDesc></teiHeader>
+    <text><body>
+      <u who="#s1" xml:id="u1">Allora<pause type="short"/>guardate<vocal><desc>laughs</desc></vocal>
+        <incident><desc>phone rings</desc></incident><shift new="loud"/>bene</u>
+    </body></text></TEI>`;
+  const model = buildModel(parseXML(SPOKEN), map);
+  const u = [...walkModel(model.documents[0].tree)].find((n) => n.element === 'u');
+  ok(u && u.section === '8-parlato', 'an utterance is spoken (8-parlato), not standoff (C88)');
+  const html = pressPage(model, {});
+  ok(/class="t-u [^"]*s-8-parlato"[^>]*>\s*<span class="t-speaker"[^>]*>Anna Bianchi<\/span>/.test(html),
+    'the utterance opens with its speaker, resolved from @who to the register name');
+  ok(html.includes('<span class="spk-sober">·</span><span class="spk-jeff">(.)</span>'),
+    'a pause carries both notations, the reader chooses');
+  ok(/t-incident[^>]*>\s*<span class="spk-sober">\(phone rings\)<\/span>/.test(html),
+    'an incident is a distinct gloss, never swallowed into the running prose');
+  ok(html.includes('<span class="spk-sober">(laughs)</span><span class="spk-jeff">((laughs))</span>'),
+    'a vocal gesture is glossed in both notations');
+  ok(/data-el="shift"[^>]*data-new="loud"/.test(html), 'a voice shift is marked, with its new state');
+  ok(/data-spk="jefferson"/.test(html), 'the notation toggle is offered when the text is spoken');
+  // structured names get their space back: <forename><surname> is not one word
+  const people = model.registries.people;
+  ok(people[0] && people[0].label === 'Anna Bianchi',
+    'a name built from adjacent parts keeps a space (Anna Bianchi, not AnnaBianchi)');
+}
+
+// the header names each responsible person once, spaced, never doubled: an
+// author who is also editor of her own edition (C125)
+{
+  const map = buildClassMap(null, data);
+  const RESP = `<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>T</title>
+      <author><persName><surname>Rossi</surname><forename>Giulia</forename></persName></author>
+      <respStmt><resp>edition</resp><persName>Rossi Giulia</persName></respStmt>
+    </titleStmt><publicationStmt><p>p</p></publicationStmt>
+    <sourceDesc><p>s</p></sourceDesc></fileDesc></teiHeader>
+    <text><body><p>t</p></body></text></TEI>`;
+  const model = buildModel(parseXML(RESP), map);
+  ok(model.meta.responsibility.some((r) => r.name === 'Rossi Giulia')
+    && !model.meta.responsibility.some((r) => /RossiGiulia/.test(r.name)),
+    'a structured author name keeps its space in the responsibility line');
+  const html = pressPage(model, {});
+  const sub = (html.match(/<p class="sub">([^<]*)/) || [])[1] || '';
+  ok((sub.match(/Rossi Giulia/g) || []).length === 1,
+    'the same person, author and editor, is named once in the header, not twice');
+}
+
+// temporal information (TEI ch. 8): durations and a resolved timeline, for any
+// edition, so attested time is used where declared and estimated only elsewhere (C126)
+{
+  const map = buildClassMap(null, data);
+  ok(parseDurationSeconds({ atts: { dur: 'PT0.5S' } }) === 0.5, 'ISO duration PT0.5S -> 0.5s');
+  ok(parseDurationSeconds({ atts: { 'dur-iso': 'PT1M30S' } }) === 90, 'ISO duration PT1M30S -> 90s');
+  ok(parseDurationSeconds({ atts: { dur: '2.5' } }) === 2.5, 'a bare duration is seconds');
+  ok(parseDurationSeconds({ atts: {} }) === null, 'no duration -> null (degrades, never guesses)');
+  const TL = `<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>T</title></titleStmt>
+    <publicationStmt><p>p</p></publicationStmt><sourceDesc><recordingStmt><recording>
+      <timeline unit="s" origin="#t0"><when xml:id="t0"/><when xml:id="t1" interval="2" since="#t0"/>
+        <when xml:id="t2" absolute="00:00:05"/></timeline>
+    </recording></recordingStmt></sourceDesc></fileDesc></teiHeader>
+    <text><body><u who="#x" start="#t1">alpha <pause dur="PT0.5S"/> beta</u><anchor synch="#t2"/></body></text></TEI>`;
+  const model = buildModel(parseXML(TL), map);
+  ok(model.timeline.get('t0') === 0, 'the origin is time zero');
+  ok(model.timeline.get('t1') === 2, 'a when at interval 2 from the origin resolves to 2s');
+  ok(model.timeline.get('t2') === 5, 'a when at absolute 00:00:05 resolves to 5s');
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline });
+  const html = renderBase(model.documents[0].tree);
+  ok(/data-el="u"[^>]*data-t="2"/.test(html), 'an utterance with @start carries its attested time');
+  ok(/data-el="pause"[^>]*data-dur="0.5"/.test(html), 'a pause with @dur carries its duration');
+  ok(/data-t="5"/.test(html), 'an anchor with @synch to a when carries the attested time');
+  setRenderContext({});
+}
+
+// a mention by canonical name joins the person the register declares, it does
+// not double it: @key="Johann Goethe" and <person xml:id="goethe"> are one (C129)
+{
+  const map = buildClassMap(null, data);
+  const DBL = `<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>T</title></titleStmt>
+    <publicationStmt><p>p</p></publicationStmt><sourceDesc><p>s</p></sourceDesc></fileDesc>
+    <profileDesc><particDesc><listPerson>
+      <person xml:id="goethe"><persName>Johann Goethe</persName></person>
+    </listPerson></particDesc></profileDesc></teiHeader>
+    <text><body><p><persName key="Johann Goethe">G.</persName> e
+      <persName ref="#goethe">Goethe</persName> e <persName key="johann  goethe">G.</persName></p></body></text></TEI>`;
+  const model = buildModel(parseXML(DBL), map);
+  ok(model.registries.people.length === 1,
+    'a @key that names a declared person makes one index entry, not two (C129)');
+  ok(model.registries.people[0].occurrences.length === 3,
+    'mentions by id and by canonical key (any spacing/case) all attach to the one person');
 }
 
 console.log(`\n${passed} assertions passed.`);

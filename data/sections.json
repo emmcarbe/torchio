@@ -2,7 +2,8 @@
   "comment": "Class -> behaviour-section assignment. Mirrors the specification table (vault: Specifica — classi TEI verso comportamento). Resolution: byElement (explicit overrides, kept minimal) -> byClass in order, first match wins -> byModule -> 'base'.",
   "byElement": {
     "app": "4-apparato",
-    "witDetail": "4-apparato"
+    "witDetail": "4-apparato",
+    "u": "8-parlato"
   },
   "byClass": [
     ["model.divLike", "1-struttura"],

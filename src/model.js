@@ -359,6 +359,20 @@ export function buildModel(docs, classMap) {
       for (const ident of entry.identifiers || []) authorityEntries.set(authorityKey(ident), entry);
     }
   }
+  // a mention may identify a declared entity by its canonical name rather than
+  // by its xml:id: @key="Johann Goethe" against <person xml:id="goethe">
+  // <persName>Johann Goethe</persName>. Without this the mention would spawn a
+  // parallel keyed entity and every such name would appear twice in the index
+  // (the register entry and its keyed shadow). Match an unresolved key against
+  // the label (and any declared key) of what the register already holds (C129)
+  const normKey = (s) => String(s || '').trim().replace(/\s+/g, ' ').toLowerCase();
+  const declaredByLabel = new Map();
+  for (const regKey of ['people', 'places', 'orgs']) {
+    for (const entry of model.registries[regKey]) {
+      if (entry.label) declaredByLabel.set(normKey(entry.label), entry);
+      if (entry.atts && entry.atts.key) declaredByLabel.set(normKey(entry.atts.key), entry);
+    }
+  }
   const addIdentity = (regKey, id, label, node, external) => {
     let e = byUri.get(id);
     if (!e) {
@@ -386,13 +400,17 @@ export function buildModel(docs, classMap) {
             if (declared) { declared.occurrences.push(node.id); continue; }
             addIdentity(reg, t,
               textOfModel(node).trim().replace(/\s+/g, ' ') || t, node, true);
+            continue;
           }
+          // a non-pointer ref that names a declared entity joins it, never doubles it
+          const named = declaredByLabel.get(normKey(t));
+          if (named) named.occurrences.push(node.id);
         }
       }
       if (node.atts.key) {
         const k = node.atts.key.trim();
         if (!k) continue;
-        const entry = resolveId(k, doc.id);
+        const entry = resolveId(k, doc.id) || declaredByLabel.get(normKey(k));
         if (entry) entry.occurrences.push(node.id);
         else {
           const reg = mentionRegistryOf(node);
@@ -402,7 +420,88 @@ export function buildModel(docs, classMap) {
     }
   }
 
+  // temporal information (TEI ch. 8): a <timeline> declares <when> points and
+  // the text aligns to them (@start/@end/@synch/@when). Resolved once here,
+  // for any edition, into a map of when-id -> seconds from the timeline's
+  // origin, so a later piece (Andamento) can show attested time where it is
+  // declared and estimate only where it is not. No timeline: an empty map,
+  // and everything downstream degrades to estimate.
+  model.timeline = buildTimeline(model.documents, model.corpusHeaderTree);
+
   return model;
+}
+
+/** Seconds encoded in an @unit, defaulting to seconds. */
+const TIME_UNIT = { s: 1, sec: 1, second: 1, seconds: 1, ms: 0.001, millisecond: 0.001,
+  milliseconds: 0.001, min: 60, minute: 60, minutes: 60, h: 3600, hour: 3600, hours: 3600,
+  d: 86400, day: 86400 };
+
+/** A clock or dateTime value to seconds: HH:MM:SS(.fff), MM:SS(.fff), an ISO
+ *  dateTime's time part, or a bare number of seconds. Null when unreadable. */
+export function parseClockSeconds(raw) {
+  if (raw == null) return null;
+  const s = String(raw).trim();
+  let m = s.match(/(?:^|T)(\d{1,2}):(\d{2}):(\d{2}(?:\.\d+)?)/);
+  if (m) return (+m[1]) * 3600 + (+m[2]) * 60 + parseFloat(m[3]);
+  m = s.match(/^(\d{1,2}):(\d{2}(?:\.\d+)?)$/);
+  if (m) return (+m[1]) * 60 + parseFloat(m[2]);
+  if (/^-?\d+(\.\d+)?$/.test(s)) return parseFloat(s);
+  return null;
+}
+
+/** An ISO 8601 duration (PnDTnHnMnS) or a bare number of seconds, to seconds.
+ *  Reads @dur-iso first, then @dur. Null when absent or unreadable. */
+export function parseDurationSeconds(node) {
+  const raw = (node && node.atts && (node.atts['dur-iso'] || node.atts.dur));
+  if (raw == null || raw === '') return null;
+  const s = String(raw).trim();
+  const m = s.match(/^P(?:(\d+(?:\.\d+)?)D)?(?:T(?:(\d+(?:\.\d+)?)H)?(?:(\d+(?:\.\d+)?)M)?(?:(\d+(?:\.\d+)?)S)?)?$/);
+  if (m && (m[1] || m[2] || m[3] || m[4])) {
+    return (+(m[1] || 0)) * 86400 + (+(m[2] || 0)) * 3600 + (+(m[3] || 0)) * 60 + (+(m[4] || 0));
+  }
+  if (/^\d+(\.\d+)?$/.test(s)) return parseFloat(s);
+  return null;
+}
+
+/** Resolve every <timeline> in the edition to a map: when-id -> seconds from
+ *  that timeline's @origin. Absolute times are read as clock/seconds; a when
+ *  without @absolute takes its own @interval (from @since, or the previous
+ *  when), else the timeline's default @interval, else the previous time. */
+export function buildTimeline(documents, corpusHeaderTree) {
+  const out = new Map();
+  const trees = [...(documents || []).map((d) => d.tree)];
+  if (corpusHeaderTree) trees.push(corpusHeaderTree);
+  for (const tree of trees) {
+    for (const tl of walkModel(tree)) {
+      if (tl.element !== 'timeline') continue;
+      const unit = TIME_UNIT[String(tl.atts.unit || 's').toLowerCase()] || 1;
+      const defInterval = tl.atts.interval != null ? parseFloat(tl.atts.interval) : null;
+      const originId = String(tl.atts.origin || '').replace(/^#/, '');
+      const whens = tl.children.filter((c) => typeof c !== 'string' && c.element === 'when');
+      const local = new Map();
+      let prevId = null, prevTime = null;
+      for (const w of whens) {
+        const id = w.atts['xml:id'];
+        let time = null;
+        if (w.atts.absolute != null) {
+          time = parseClockSeconds(w.atts.absolute);
+        } else {
+          const iv = w.atts.interval != null ? parseFloat(w.atts.interval) : defInterval;
+          const sinceId = String(w.atts.since || '').replace(/^#/, '') || prevId;
+          const base = sinceId != null && local.has(sinceId) ? local.get(sinceId)
+            : (prevTime != null ? prevTime : 0);
+          time = iv != null && base != null ? base + iv * unit : (prevTime != null ? prevTime : 0);
+        }
+        if (id) local.set(id, time);
+        prevId = id; prevTime = time;
+      }
+      // normalize so the declared origin is zero (else the first when is zero)
+      const originTime = originId && local.has(originId) ? local.get(originId)
+        : (whens.length && local.has(whens[0].atts['xml:id']) ? local.get(whens[0].atts['xml:id']) : 0);
+      for (const [id, t] of local) out.set(id, t == null ? null : t - (originTime || 0));
+    }
+  }
+  return out;
 }
 
 /* ---------------------------------------------------------------- */
@@ -692,7 +791,9 @@ function extractMeta(header, root = null) {
   meta.responsibility = [];
   if (titleStmt) for (const n of walkModel(titleStmt)) {
     if (n.element === 'author' || n.element === 'editor') {
-      meta.responsibility.push({ role: n.element, name: textOfModel(n).trim().replace(/\s+/g, ' ') });
+      // the name keeps the space the source left out between its parts
+      const nameNode = findFirst(n, 'persName') || findFirst(n, 'name') || findFirst(n, 'orgName') || n;
+      meta.responsibility.push({ role: n.element, name: nameText(nameNode) });
     }
     if (n.element === 'respStmt') {
       // a respStmt may name more than one person: all of them are responsible
@@ -700,7 +801,7 @@ function extractMeta(header, root = null) {
       const names = [];
       for (const c of walkModel(n)) {
         if (c.element === 'name' || c.element === 'persName' || c.element === 'orgName') {
-          names.push(textOfModel(c).trim().replace(/\s+/g, ' '));
+          names.push(nameText(c));
         }
       }
       meta.responsibility.push({
@@ -912,10 +1013,28 @@ function pointersText(node) {
   return out;
 }
 
+/** The text of a name, inserting a space between two adjacent name-part
+ *  elements that the source wrote with none — <forename>Anna</forename>
+ *  <surname>Bianchi</surname> is "Anna Bianchi", not "AnnaBianchi" — while
+ *  leaving a flat persName and any punctuation the source typed untouched. */
+function nameText(node) {
+  let out = '';
+  let prevEl = false;
+  for (const c of node.children) {
+    if (typeof c === 'string') { out += c; prevEl = false; }
+    else {
+      if (prevEl && out && !/\s$/.test(out)) out += ' ';
+      out += textOfModel(c);
+      prevEl = true;
+    }
+  }
+  return out.replace(/\s+/g, ' ').trim();
+}
+
 function registryLabel(node) {
   for (const el of ['persName', 'placeName', 'orgName', 'name', 'label']) {
     const n = findFirst(node, el);
-    if (n) return textOfModel(n).trim().replace(/\s+/g, ' ');
+    if (n) return nameText(n);
   }
   // no truncation: the model is lossless, compactness belongs to the pages
   return pointersText(node).trim().replace(/\s+/g, ' ');

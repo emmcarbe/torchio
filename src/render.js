@@ -7,7 +7,7 @@
  * rung 1 of the four-rung ladder: whatever happens, this renders.
  */
 
-import { walkModel, textOfModel } from './model.js';
+import { walkModel, textOfModel, parseDurationSeconds } from './model.js';
 import { interactCSS, buildInteractJS, toolbarHTML } from './interact.js';
 import { i18n, resolveLang } from './i18n.js';
 import { themeCSS } from './themes.js';
@@ -21,6 +21,9 @@ const BLOCKS = new Set([
   'listWit', 'witness', 'listPerson', 'person', 'listPlace', 'place',
   'listOrg', 'org', 'listChange', 'change', 'listBibl', 'bibl', 'note',
   'teiHeader', 'fileDesc', 'sourceDesc', 'msDesc', 'figure', 'group', 'floatingText',
+  // transcriptions of speech (TEI ch. 8): an utterance is a turn, a block of
+  // its own, opened by its speaker — never a phrase inside the running text
+  'u',
   // documentary transcription (sourceDoc): a line of the page is a line on
   // screen, never joined into prose. A word split across lines stays split,
   // as it is in the notebook (C80)
@@ -94,6 +97,80 @@ function htmlTagFor(node) {
 export const escapeHTML = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+/**
+ * Transcriptions of speech (TEI ch. 8). The paralinguistic layer — pauses,
+ * vocal gestures, non-verbal incidents, voice shifts — is a distinct layer,
+ * never swallowed into the running text (the fault a spoken edition
+ * surfaced: an <incident> read as prose). Two reading notations coexist and
+ * the reader chooses them from the toolbar: a sober editorial one (the
+ * default) and the Jefferson conversation-analysis marks.
+ * Both are emitted as real, selectable text; a body class shows one at a
+ * time. A speaker label is resolved from @who against the person registry,
+ * passed in through the render context (renderBase itself stays context-free
+ * on the tree; the who→name table is data, set once per page).
+ */
+let RENDER_CTX = { speakers: null, timeline: null };
+export function setRenderContext(ctx) { RENDER_CTX = { speakers: null, timeline: null, ...(ctx || {}) }; }
+export function speakerMap(model) {
+  const m = new Map();
+  for (const p of (model && model.registries && model.registries.people) || []) {
+    if (p && p.id) m.set(String(p.id), p.label || String(p.id));
+  }
+  return m;
+}
+/** The attested time of an element, in seconds, when it aligns to a declared
+ *  timeline point through @start, @synch or @when. Null when nothing aligns. */
+function attestedTime(node) {
+  const tl = RENDER_CTX.timeline;
+  if (!tl || !tl.size) return null;
+  for (const a of ['start', 'synch', 'when']) {
+    const v = node.atts[a];
+    if (v) {
+      const id = String(v).split(/\s+/)[0].replace(/^#/, '');
+      if (tl.has(id)) { const t = tl.get(id); if (t != null) return t; }
+    }
+  }
+  return null;
+}
+/** The timing a beat carries into the page: a declared duration (data-dur, in
+ *  seconds) and an attested start on the timeline (data-t). Emitted for any
+ *  element that has them, so a later piece uses attested time where it exists
+ *  and estimates only where it does not. */
+function timingAttrs(node) {
+  let s = '';
+  const dur = parseDurationSeconds(node);
+  if (dur != null) s += ` data-dur="${escapeHTML(String(dur))}"`;
+  const t = attestedTime(node);
+  if (t != null) s += ` data-t="${escapeHTML(String(t))}"`;
+  return s;
+}
+function speakerLabel(who) {
+  const id = String(who || '').split(/\s+/)[0].replace(/^#/, '');
+  if (!id) return '';
+  return (RENDER_CTX.speakers && RENDER_CTX.speakers.get(id)) || id;
+}
+/** A pause's two notations: sober dots that grow with the pause, and the
+ *  Jefferson bracket — a micro-pause (.) or a timed (n.n) when @dur gives it. */
+function pauseSigns(node) {
+  const type = (node.atts.type || '').toLowerCase();
+  const dur = node.atts.dur || '';
+  let sober = '·';
+  if (type === 'long') sober = '(…)';
+  else if (type === 'medium') sober = '··';
+  let jeff = '(.)';
+  const secs = dur.match(/^P?T?(\d+(?:\.\d+)?)S$/i) || dur.match(/^(\d+(?:\.\d+)?)$/);
+  if (secs) jeff = `(${Number(secs[1]).toFixed(1)})`;
+  else if (type === 'long') jeff = '(..)';
+  return { sober, jeff };
+}
+/** The gloss of a vocal gesture or an incident: the <desc> it carries, or
+ *  failing that its @type — the words the edition itself chose. */
+function vocalGloss(node) {
+  const desc = node.children.find((c) => typeof c !== 'string' && c.element === 'desc');
+  const g = (desc ? textOfModel(desc) : (node.atts.type || node.element)).trim().replace(/\s+/g, ' ');
+  return g || node.element;
+}
 
 /** A URL that comes from the edition may point out, never run code:
  *  relative paths, fragments, http(s) and mailto survive; anything else
@@ -249,6 +326,30 @@ export function renderBase(node, hooks) {
         [node.atts.quantity, node.atts.unit].filter(Boolean).join(' ') || node.atts.extent,
         textOfModel(node).trim()].filter(Boolean).join(', '))}">[…]</span>`;
   }
+  // transcriptions of speech (TEI ch. 8): the paralinguistic layer is shown
+  // as a distinct sign, in both reading notations, never merged into the prose
+  if (node.element === 'pause') {
+    const { sober, jeff } = pauseSigns(node);
+    const title = ['pause', node.atts.type, node.atts.dur].filter(Boolean).join(' · ');
+    return `<span id="${escapeHTML(node.id)}" class="t-pause s-${node.section}" data-el="pause"`
+      + `${node.atts.type ? ` data-type="${escapeHTML(node.atts.type)}"` : ''}${timingAttrs(node)}`
+      + ` title="${escapeHTML(title)}">`
+      + `<span class="spk-sober">${sober}</span><span class="spk-jeff">${jeff}</span></span>`;
+  }
+  if (node.element === 'vocal' || node.element === 'incident' || node.element === 'kinesic') {
+    const g = escapeHTML(vocalGloss(node));
+    const title = escapeHTML([node.element, node.atts.type, node.atts.who].filter(Boolean).join(' · '));
+    return `<span id="${escapeHTML(node.id)}" class="t-${node.element} s-${node.section}"`
+      + ` data-el="${node.element}"${timingAttrs(node)} title="${title}">`
+      + `<span class="spk-sober">(${g})</span><span class="spk-jeff">((${g}))</span></span>`;
+  }
+  if (node.element === 'shift') {
+    const bits = [];
+    for (const a of ['feature', 'new']) if (node.atts[a]) bits.push(`${a}: ${node.atts[a]}`);
+    return `<span id="${escapeHTML(node.id)}" class="t-shift s-${node.section}" data-el="shift"`
+      + `${node.atts.new ? ` data-new="${escapeHTML(node.atts.new)}"` : ''}${timingAttrs(node)}`
+      + ` title="${escapeHTML('voice ' + (bits.join(', ') || 'shift'))}"></span>`;
+  }
   const tag = htmlTagFor(node);
   let cls = `t-${node.element} s-${node.section}`;
   if (node.processing && node.processing.cssClass) {
@@ -280,6 +381,9 @@ export function renderBase(node, hooks) {
   for (const a of DATA_ATTS) {
     if (node.atts[a] != null) data += ` data-${a}="${escapeHTML(node.atts[a])}"`;
   }
+  // declared timing travels into the page: a duration and an attested point on
+  // the timeline, resolved once in the model, for any element that carries them
+  data += timingAttrs(node);
   // an inferred value (the hand a handShift puts in force where the markup is
   // silent) is emitted as its own attribute and flagged: the page can act on
   // it, and a reader or a machine can tell it from what the source declares
@@ -400,6 +504,17 @@ export function renderBase(node, hooks) {
     return `<${tag}${id} class="${cls}"${data}>`
       + `<span class="t-sign">[</span>${inner}<span class="t-sign">]</span></${tag}>${after}`;
   }
+  // an utterance opens with its speaker, resolved from @who to the canonical
+  // name in the person registry (an unresolved @who keeps its raw id rather
+  // than vanishing). Without @who the turn is still a block, only anonymous
+  if (node.element === 'u') {
+    const who = node.atts.who;
+    const label = who ? speakerLabel(who) : '';
+    const sp = label
+      ? `<span class="t-speaker" data-who="${escapeHTML(String(who).split(/\s+/)[0].replace(/^#/, ''))}">${escapeHTML(label)}</span> `
+      : '';
+    return `<${tag}${id} class="${cls}"${data}>${sp}${inner}</${tag}>${after}`;
+  }
   return `<${tag}${id} class="${cls}"${data}>${inner}</${tag}>${after}`;
 }
 
@@ -484,6 +599,24 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-pb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
   color:var(--accent);vertical-align:super;margin:0 .18em;user-select:none}
 
+/* transcriptions of speech (TEI ch. 8): the spoken layer, distinct and never
+   merged into prose. An utterance is a block opened by its speaker; the
+   paralinguistic marks stand out from the words */
+.t-u{display:block;margin:.55em 0}
+.t-u .t-speaker{font-family:var(--mono);font-size:.7em;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--accent);user-select:none}
+.t-pause,.t-vocal,.t-incident,.t-kinesic{color:var(--soft)}
+.t-pause{font-family:var(--mono);font-size:.9em;margin:0 .1em}
+.t-vocal,.t-incident,.t-kinesic{font-style:italic;font-size:.85em;margin:0 .12em}
+.t-shift{display:inline-block;width:0;border-left:2px solid var(--accent-soft);
+  height:.72em;margin:0 .2em;vertical-align:-.04em}
+/* two reading notations, the reader chooses (toolbar): sober editorial signs
+   are the default; Jefferson conversation-analysis marks on demand. Both are
+   real text in the page; a body class shows one at a time */
+.spk-jeff{display:none}
+body.spk-jefferson .spk-sober{display:none}
+body.spk-jefferson .spk-jeff{display:inline}
+
 .t-note{font-size:.85em;color:var(--soft);border-left:2px solid var(--hair);
   padding-left:.7em;margin:.5em 0}
 .t-note-mark{color:var(--faint);font-size:.55em;vertical-align:super;user-select:none}
@@ -539,15 +672,23 @@ export const baseCSS = themeCSS('savi') + structuralCSS;
 export function pressPage(model, { title } = {}) {
   const T = i18n(resolveLang(null, model));
   const t = title || model.meta.title || 'Untitled edition';
+  // the speaker table and the timeline are set before rendering: @who resolves
+  // to the register, and @start/@synch resolve to attested seconds
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline });
   const body = model.documents.map((d) => renderBase(d.tree)).join('\n');
-  const resp = (model.meta.responsibility || [])
-    .map((r) => r.name).filter(Boolean).join(' · ');
+  // one name, once: the same person named as author and again in a respStmt
+  // (author and editor of her own edition) is not printed twice in the header
+  const resp = [...new Set((model.meta.responsibility || [])
+    .flatMap((r) => String(r.name).split(', ')).map((s) => s.trim()).filter(Boolean))].join(' · ');
   let hasChoice = false;
   let hasApparatus = model.apparatus.length > 0;
+  let hasSpoken = false;
   for (const doc of model.documents) {
     for (const n of walkModel(doc.tree)) {
       if (n.element === 'choice') hasChoice = true;
-      if (hasChoice && hasApparatus) break;
+      if (n.element === 'u' || n.element === 'pause' || n.element === 'vocal'
+        || n.element === 'incident' || n.element === 'kinesic' || n.element === 'shift') hasSpoken = true;
+      if (hasChoice && hasApparatus && hasSpoken) break;
     }
   }
   return `<!DOCTYPE html>
@@ -564,7 +705,7 @@ ${interactCSS}</style>
 <h1>${escapeHTML(t)}</h1>
 <p class="sub">${T.dse}${resp ? ' · ' + escapeHTML(resp) : ''}</p>
 </header>
-${toolbarHTML({ hasChoice, hasApparatus, t: T })}
+${toolbarHTML({ hasChoice, hasApparatus, hasSpoken, t: T })}
 <a class="skip" href="#main">${T.skip}</a>
 <main id="main" class="torchio">
 ${body}

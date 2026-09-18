@@ -11,6 +11,8 @@ const STRINGS = {
     edition: 'Edition', text: 'Text', indices: 'Indices', data: 'Data',
     archive: 'Archive', dsa: 'digital archive', texts: 'Texts',
     reading: 'Reading', diplomatic: 'Diplomatic', apparatus: 'Apparatus',
+    spoken: 'Speech', spokenReading: 'Reading', spokenJefferson: 'Jefferson',
+    spokenPace: 'Pace', revealAll: 'Show all', paceEstimated: 'estimated time',
     aboutFile: 'About this file', notes: 'Notes',
     dse: 'digital scholarly edition',
     responsibility: 'Responsibility', licence: 'Licence', witnesses: 'Witnesses',
@@ -84,6 +86,8 @@ const STRINGS = {
     // the canonical pair of the Italian tradition (diplomatica /
     // interpretativa), not a calque of the English "reading text"
     reading: 'Interpretativa', diplomatic: 'Diplomatica', apparatus: 'Apparato',
+    spoken: 'Parlato', spokenReading: 'Lettura', spokenJefferson: 'Jefferson',
+    spokenPace: 'Andamento', revealAll: 'Mostra tutto', paceEstimated: 'tempo stimato',
     aboutFile: 'Scheda del file', notes: 'Note',
     dse: 'edizione scientifica digitale',
     responsibility: 'Responsabilità', licence: 'Licenza', witnesses: 'Testimoni',

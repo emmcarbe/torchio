@@ -12,6 +12,30 @@
  */
 
 export const interactCSS = `
+/* Andamento — the derived tempo reading. Words fade in as they are "spoken";
+   a floating control bar plays, restarts or reveals all at once; the clock is
+   marked estimated (an approximate reconstruction, not the recording's time).
+   A word outside Andamento carries no styling: .beat only bites under the mode */
+body.spk-andamento .beat{opacity:.22;transition:opacity .22s ease}
+body.spk-andamento .beat.on{opacity:1}
+body.spk-andamento .beat.now{background:color-mix(in srgb,var(--accent) 22%,transparent);border-radius:3px}
+@media(prefers-reduced-motion:reduce){body.spk-andamento .beat{transition:none}}
+.andamento-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;
+  display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:92vw;
+  background:var(--ink);color:var(--ground);
+  padding:7px 12px;border-radius:22px;font-family:var(--mono);font-size:12px;
+  box-shadow:0 6px 22px rgba(0,0,0,.28)}
+.andamento-bar button{background:none;border:0;color:var(--ground);font-size:13px;
+  cursor:pointer;padding:3px 8px;letter-spacing:.06em;text-transform:none}
+.andamento-bar button:hover{opacity:.75}
+.andamento-clock{margin:0 4px;opacity:.85;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.andamento-seek{-webkit-appearance:none;appearance:none;height:4px;width:min(42vw,240px);
+  background:rgba(255,255,255,.28);border-radius:3px;cursor:pointer;margin:0 6px}
+.andamento-seek::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;
+  border-radius:50%;background:var(--ground);border:2px solid var(--accent);cursor:pointer}
+.andamento-seek::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--ground);
+  border:2px solid var(--accent);cursor:pointer}
+@media(prefers-reduced-motion:reduce){.andamento-bar{transition:none}}
 .torchio-bar{position:sticky;top:0;z-index:40;background:var(--ground);
   border-bottom:1px solid var(--hair);font-family:var(--mono)}
 .torchio-bar .inner{max-width:var(--measure);margin:0 auto;padding:8px 20px;
@@ -635,6 +659,135 @@ export function buildInteractJS(t) {
 
   document.addEventListener('keydown',function(ev){if(ev.key==='Escape')closePop();});
 
+  /* Andamento: a derived reading of the tempo. The recording's real timing is
+     not encoded (no duration on the pauses, no timeline), so words are
+     revealed at an estimated pace and pauses held by their declared type; the
+     clock is marked estimated. Where a real duration is ever encoded on a
+     beat (data-dur, in seconds), it is preferred over the estimate. */
+  var andamento=(function(){
+    var main=document.getElementById('main');
+    var built=false, beats=[], idx=0, timer=null, playing=false, ctrl=null, clock=null;
+    // the clock is attested where the timeline gives a real time, estimated in
+    // between: attestedBase is the last real time (seconds), estMs the estimate
+    // accumulated since, lastAnchor the element that last set the real time
+    var attestedBase=null, estMs=0, lastAnchor=null;
+    var speed=1.5, nowEl=null; var SPEEDS=[1,1.5,2,3]; var seekBar=null, wasPlaying=false;
+    function build(){
+      if(built||!main)return; built=true;
+      var walker=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null);
+      var texts=[], n;
+      while(n=walker.nextNode()){
+        if(!n.nodeValue.trim())continue;
+        if(n.parentNode.closest('.torchio-bar,.t-note,.t-teiHeader,.t-pause,.t-vocal,.t-incident,.t-kinesic,.t-shift,.t-speaker'))continue;
+        texts.push(n);
+      }
+      texts.forEach(function(t){
+        var frag=document.createDocumentFragment();
+        t.nodeValue.split(/(\\s+)/).forEach(function(part){
+          if(!part)return;
+          if(/^\\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
+          var s=document.createElement('span'); s.className='beat beat-w'; s.textContent=part; frag.appendChild(s);
+        });
+        if(t.parentNode)t.parentNode.replaceChild(frag,t);
+      });
+      beats=[].slice.call(main.querySelectorAll('.beat-w,.t-pause,.t-vocal,.t-incident,.t-kinesic,.t-shift,.t-speaker,[data-t]'));
+      // a beat inherits the attested time of the nearest element that carries one
+      beats.forEach(function(b){
+        b.classList.add('beat');
+        var a=b.closest('[data-t]');
+        b.__anchor=a; b.__t=a?parseFloat(a.getAttribute('data-t')):NaN;
+      });
+    }
+    function dur(b){
+      var d=b.getAttribute&&b.getAttribute('data-dur');
+      if(d&&!isNaN(parseFloat(d)))return parseFloat(d)*1000;      // attested duration, preferred
+      if(!b.textContent&&b.hasAttribute&&b.hasAttribute('data-t'))return 0; // a bare timeline anchor
+      if(b.classList.contains('beat-w'))return Math.max(180,55*b.textContent.length);
+      if(b.classList.contains('t-pause')){var ty=b.getAttribute('data-type');return ty==='long'?1500:ty==='medium'?700:300;}
+      if(b.classList.contains('t-vocal')||b.classList.contains('t-incident')||b.classList.contains('t-kinesic'))return 600;
+      return 200;
+    }
+    function reduceMotion(){return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
+    function clearNow(){if(nowEl){nowEl.classList.remove('now');nowEl=null;}}
+    function pad(x){x=String(x);return x.length<2?'0'+x:x;}
+    function fmt(ms,attested){var s=Math.max(0,Math.floor(ms/1000));return (attested?'':'≈ ')+pad(Math.floor(s/60))+':'+pad(s%60);}
+    function resetClock(){attestedBase=null;estMs=0;lastAnchor=null;if(clock)clock.textContent='≈ 00:00';}
+    function setPlay(){var pb=ctrl&&ctrl.querySelector('[data-a="play"]');if(pb)pb.textContent=playing?'❚❚':'▶';}
+    function ui(){
+      if(ctrl)return;
+      ctrl=document.createElement('div'); ctrl.className='andamento-bar'; ctrl.setAttribute('role','group');
+      ctrl.innerHTML='<button data-a="play" aria-label="play">▶</button>'
+        +'<button data-a="restart" aria-label="restart">↺</button>'
+        +'<button data-a="speed" aria-label="speed">'+speed+'×</button>'
+        +'<input class="andamento-seek" type="range" min="0" max="'+beats.length+'" value="0" step="1" aria-label="progress">'
+        +'<span class="andamento-clock" title="'+esc(T.paceEstimated||'estimated time')+'">≈ 00:00</span>'
+        +'<button data-a="all">'+esc(T.revealAll||'Show all')+'</button>';
+      document.body.appendChild(ctrl); clock=ctrl.querySelector('.andamento-clock');
+      seekBar=ctrl.querySelector('.andamento-seek');
+      ctrl.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;
+        if(b.dataset.a==='play')toggle();
+        else if(b.dataset.a==='restart')restart();
+        else if(b.dataset.a==='speed'){speed=SPEEDS[(SPEEDS.indexOf(speed)+1)%SPEEDS.length];b.textContent=speed+'×';}
+        else if(b.dataset.a==='all')revealAll();});
+      // the scrubber: grab it to move the reading to any point, forward or back
+      seekBar.addEventListener('pointerdown',function(){wasPlaying=playing;playing=false;clearTimeout(timer);setPlay();});
+      seekBar.addEventListener('input',function(){seek(parseInt(seekBar.value,10)||0);});
+      seekBar.addEventListener('change',function(){if(wasPlaying){playing=true;setPlay();step();}});
+      seekBar.addEventListener('keydown',function(){wasPlaying=playing;});
+    }
+    // move the reading to beat n: reveal up to it, replay the clock (attested
+    // where declared, estimate elsewhere) and put the highlight there
+    function seek(n){
+      clearTimeout(timer);
+      n=Math.max(0,Math.min(beats.length,n));
+      attestedBase=null; estMs=0; lastAnchor=null; clearNow();
+      for(var i=0;i<beats.length;i++){
+        var b=beats[i];
+        if(i<n){
+          b.classList.add('on');
+          if(b.__anchor&&b.__anchor!==lastAnchor&&!isNaN(b.__t)){lastAnchor=b.__anchor;attestedBase=b.__t;estMs=0;}
+          else{estMs+=dur(b);}
+          if(i===n-1&&b.textContent){b.classList.add('now');nowEl=b;}
+        } else b.classList.remove('on');
+      }
+      idx=n;
+      if(clock){var base=attestedBase!=null?attestedBase*1000:0;clock.textContent=fmt(base+estMs,attestedBase!=null&&estMs===0);}
+      if(seekBar&&document.activeElement!==seekBar)seekBar.value=n;
+      if(nowEl){try{nowEl.scrollIntoView({block:'nearest',behavior:'auto'});}catch(e){}}
+    }
+    function step(){
+      if(idx>=beats.length){playing=false;setPlay();return;}
+      if(seekBar)seekBar.value=idx+1;
+      var b=beats[idx++]; b.classList.add('on');
+      // a moving highlight marks the word being "spoken" now: the clear signal
+      // that the reading is advancing, and where it is
+      if(nowEl)nowEl.classList.remove('now');
+      if(b.textContent){b.classList.add('now');nowEl=b;}
+      try{b.scrollIntoView({block:'nearest',behavior:reduceMotion()?'auto':'smooth'});}catch(e){}
+      // reaching a new element with an attested time snaps the clock to it (the
+      // real time of the recording); between two such points the clock advances
+      // by estimate and shows the ≈ sign
+      if(b.__anchor&&b.__anchor!==lastAnchor&&!isNaN(b.__t)){lastAnchor=b.__anchor;attestedBase=b.__t;estMs=0;}
+      else{estMs+=dur(b);}
+      if(clock){var base=attestedBase!=null?attestedBase*1000:0;clock.textContent=fmt(base+estMs,attestedBase!=null&&estMs===0);}
+      // the estimated content time drives the clock; playback speed only changes
+      // how fast it is replayed, not the timeline it reconstructs
+      timer=setTimeout(step,Math.max(45,dur(b)/speed));
+    }
+    function toggle(){if(playing){playing=false;clearTimeout(timer);}else{playing=true;step();}setPlay();}
+    function restart(){clearTimeout(timer);clearNow();beats.forEach(function(b){b.classList.remove('on');});idx=0;resetClock();if(seekBar)seekBar.value=0;playing=true;setPlay();step();}
+    function revealAll(){clearTimeout(timer);playing=false;clearNow();beats.forEach(function(b){b.classList.add('on');});idx=beats.length;if(seekBar)seekBar.value=beats.length;setPlay();}
+    function enter(){
+      build(); ui(); ctrl.style.display='flex';
+      clearNow(); beats.forEach(function(b){b.classList.remove('on');}); idx=0; resetClock(); if(seekBar)seekBar.value=0;
+      // reduced motion: do not start moving text on its own; reveal it all and
+      // let the reader press play if they choose
+      if(reduceMotion()){revealAll();}else{playing=true;setPlay();step();}
+    }
+    function leave(){clearTimeout(timer);playing=false;clearNow();if(ctrl)ctrl.style.display='none';if(built)beats.forEach(function(b){b.classList.add('on');});}
+    return {enter:enter,leave:leave};
+  })();
+
   var bar=document.querySelector('.torchio-bar');
   if(bar){
     bar.addEventListener('click',function(ev){
@@ -643,6 +796,13 @@ export function buildInteractJS(t) {
         body.classList.toggle('mode-dipl',b.dataset.mode==='dipl');
         body.classList.toggle('mode-read',b.dataset.mode==='read');
         bar.querySelectorAll('[data-mode]').forEach(function(x){x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});
+      }
+      if(b.dataset.spk){
+        var mode=b.dataset.spk;
+        body.classList.toggle('spk-jefferson',mode==='jefferson');
+        body.classList.toggle('spk-andamento',mode==='pace');
+        bar.querySelectorAll('[data-spk]').forEach(function(x){x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});
+        if(mode==='pace')andamento.enter(); else andamento.leave();
       }
       if(b.dataset.sw==='app'){body.classList.toggle('app-off');b.classList.toggle('off');closePop();}
       if(b.dataset.sw==='header'){body.classList.toggle('show-header');b.classList.toggle('off');}
@@ -655,13 +815,19 @@ export function buildInteractJS(t) {
 }
 
 /** The sticky toolbar markup; controls appear only when the markup warrants them. */
-export function toolbarHTML({ hasChoice, hasApparatus, hasNotes, t } = {}) {
+export function toolbarHTML({ hasChoice, hasApparatus, hasNotes, hasSpoken, t } = {}) {
   const modes = hasChoice
     ? `<span class="modes" role="group" aria-label="${t.text}"><button data-mode="read" class="active" aria-pressed="true">${t.reading}</button><button data-mode="dipl" aria-pressed="false">${t.diplomatic}</button></span>`
     : '';
+  // a spoken edition reads three ways: plain reading (default), the Jefferson
+  // conversation-analysis notation, or Andamento — a derived reconstruction of
+  // the tempo, words revealed at an estimated pace, pauses held by their type
+  const spoken = hasSpoken
+    ? `<span class="modes" role="group" aria-label="${t.spoken || 'Speech'}"><button data-spk="reading" class="active" aria-pressed="true">${t.spokenReading || 'Reading'}</button><button data-spk="jefferson" aria-pressed="false">${t.spokenJefferson || 'Jefferson'}</button><button data-spk="pace" aria-pressed="false">${t.spokenPace || 'Pace'}</button></span>`
+    : '';
   const app = hasApparatus ? `<button class="sw" data-sw="app" aria-pressed="true">${t.apparatus}</button>` : '';
   const notes = hasNotes ? `<button class="sw" data-sw="notes" aria-pressed="true">${t.notes}</button>` : '';
-  return `<div class="torchio-bar"><div class="inner">${modes}${app}${notes}<button class="sw off" data-sw="header" aria-pressed="false">${t.aboutFile}</button></div></div>`;
+  return `<div class="torchio-bar"><div class="inner">${modes}${spoken}${app}${notes}<button class="sw off" data-sw="header" aria-pressed="false">${t.aboutFile}</button></div></div>`;
 }
 
 /**

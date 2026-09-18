@@ -14,7 +14,7 @@
  */
 
 import { walkModel, textOfModel } from './model.js';
-import { renderBase, structuralCSS, escapeHTML, safeURL } from './render.js';
+import { renderBase, structuralCSS, escapeHTML, safeURL, setRenderContext, speakerMap } from './render.js';
 import { interactCSS, buildInteractJS, toolbarHTML, readingAidsHTML, readingAidsJS } from './interact.js';
 import { normalizeManifest } from './manifest.js';
 import { buildExports } from './exports.js';
@@ -102,7 +102,10 @@ export function pressSite(model, {
   setTextLang((model.meta.languages && model.meta.languages[0]) || null);
   setEditionVersion(manifest.version || (model.meta.edition && model.meta.edition.n) || null);
   const t = manifest.title || title || model.meta.title || 'Untitled edition';
-  const resp = (model.meta.responsibility || []).map((r) => r.name).filter(Boolean).join(' · ');
+  // one name, once: the same person as author and again in a respStmt is not
+  // printed twice in the header (an author who is also editor of her edition)
+  const resp = [...new Set((model.meta.responsibility || [])
+    .flatMap((r) => String(r.name).split(', ')).map((s) => s.trim()).filter(Boolean))].join(' · ');
   const reg = model.registries;
   const hasOcc = (entries) => entries.some((e) => e.occurrences && e.occurrences.length);
   // each index is the editor's own choice: persons, places, organisations
@@ -421,12 +424,19 @@ export function pressSite(model, {
   const readingAids = readingAidsHTML({ present: presentSigns, hands: handList, t: T, majorHand });
 
   let hasNotes = false;
+  let hasSpoken = false;
   for (const doc of model.documents) {
     for (const n of walkModel(doc.tree)) {
-      if (n.element === 'note') { hasNotes = true; break; }
+      if (n.element === 'note') hasNotes = true;
+      if (n.element === 'u' || n.element === 'pause' || n.element === 'vocal'
+        || n.element === 'incident' || n.element === 'kinesic' || n.element === 'shift') hasSpoken = true;
+      if (hasNotes && hasSpoken) break;
     }
-    if (hasNotes) break;
+    if (hasNotes && hasSpoken) break;
   }
+  // the speaker table and the timeline are set before any reading text is
+  // rendered: @who resolves to the register, @start/@synch to attested seconds
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline });
   let text = '';
   for (const doc of model.documents) {
     for (const child of doc.tree.children) {
@@ -510,7 +520,7 @@ export function pressSite(model, {
         : '';
       out[files[i]] = chrome({
         title: `${escapeHTML(chunkLabel(d, i, T))} · ${t}`, sub: t, active: 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${readingAids}${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, hasSpoken, t: T })}<main id="main" class="torchio">${readingAids}${nav}${header ? renderBase(header) : ''}${renderBase(d)}${relocated}${nav}</main>`,
         script: buildInteractJS(RAW_T) + readingAidsJS(), t: T, lang, theme, parent,
       });
     });
@@ -557,7 +567,7 @@ export function pressSite(model, {
     }
     out['text.html'] = chrome({
       title: t, sub: resp, active: 'text.html', pages, bodyClass: offClasses,
-      body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${readingAids}${reading}</main>`,
+      body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, hasSpoken, t: T })}<main id="main" class="torchio">${readingAids}${reading}</main>`,
       script: buildInteractJS(RAW_T) + readingAidsJS(), t: T, lang, theme, parent,
     });
     if (frontOnOwnPage) {
@@ -695,7 +705,7 @@ export function pressSite(model, {
         : '';
       out[docFiles.get(d.id)] = chrome({
         title: c.title || d.id, sub: t, active: isAppDoc ? 'apparatus.html' : 'text.html', pages, bodyClass: offClasses,
-        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
+        body: `${toolbarHTML({ hasChoice, hasApparatus, hasNotes, hasSpoken, t: T })}<main id="main" class="torchio">${nav}${docText}${nav}</main>`,
         script: alignCfg + buildInteractJS(T), t: T, lang, theme, parent,
       });
     }
