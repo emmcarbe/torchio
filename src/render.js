@@ -110,8 +110,18 @@ export const escapeHTML = (s) =>
  * passed in through the render context (renderBase itself stays context-free
  * on the tree; the who→name table is data, set once per page).
  */
-let RENDER_CTX = { speakers: null, timeline: null };
-export function setRenderContext(ctx) { RENDER_CTX = { speakers: null, timeline: null, ...(ctx || {}) }; }
+let RENDER_CTX = { speakers: null, timeline: null, inlineAna: null };
+export function setRenderContext(ctx) {
+  RENDER_CTX = { speakers: null, timeline: null, inlineAna: null, ...(ctx || {}) };
+  // the manifest may name @ana values whose vocal events read as speech
+  // (semi-lexical fillers) rather than as bracketed markers; hold them as a
+  // Set of bare tokens (no leading #) for a cheap per-node test
+  if (RENDER_CTX.inlineAna && !(RENDER_CTX.inlineAna instanceof Set)) {
+    RENDER_CTX.inlineAna = new Set(
+      (Array.isArray(RENDER_CTX.inlineAna) ? RENDER_CTX.inlineAna : [])
+        .map((s) => String(s).replace(/^#/, '')).filter(Boolean));
+  }
+}
 export function speakerMap(model) {
   const m = new Map();
   for (const p of (model && model.registries && model.registries.people) || []) {
@@ -355,6 +365,18 @@ export function renderBase(node, hooks) {
   if (node.element === 'vocal' || node.element === 'incident' || node.element === 'kinesic') {
     const g = escapeHTML(vocalGloss(node));
     const title = escapeHTML([node.element, node.atts.type, node.atts.who].filter(Boolean).join(' · '));
+    // a vocal event the edition has analysed as a lexicalized phenomenon
+    // (@ana names the class; the manifest lists which classes read as
+    // speech — semi-lexical fillers: ehm, mah) belongs in the verbal flow
+    // as its transcribed text, not as a bracketed paralinguistic marker
+    const ana = String(node.atts.ana || '').split(/\s+/)
+      .map((t) => t.replace(/^#/, '')).filter(Boolean);
+    const inline = RENDER_CTX.inlineAna && ana.some((t) => RENDER_CTX.inlineAna.has(t));
+    if (inline) {
+      return `<span id="${escapeHTML(node.id)}" class="t-${node.element} t-vocal-inline s-${node.section}"`
+        + ` data-el="${node.element}" data-ana="${escapeHTML(ana.join(' '))}"${timingAttrs(node)}`
+        + ` title="${title}">${g}</span>`;
+    }
     return `<span id="${escapeHTML(node.id)}" class="t-${node.element} s-${node.section}"`
       + ` data-el="${node.element}"${timingAttrs(node)} title="${title}">`
       + `<span class="spk-sober">(${g})</span><span class="spk-jeff">((${g}))</span></span>`;
@@ -624,6 +646,13 @@ body.show-header .t-teiHeader{display:block;border:1px solid var(--hair);
 .t-pause,.t-vocal,.t-incident,.t-kinesic{color:var(--soft)}
 .t-pause{font-family:var(--mono);font-size:.9em;margin:0 .1em}
 .t-vocal,.t-incident,.t-kinesic{font-style:italic;font-size:.85em;margin:0 .12em}
+/* a vocal event analysed as a lexicalized phenomenon (a semi-lexical filler,
+   named by @ana and listed in the manifest) reads as speech, in the running
+   line: not italic, not shrunk, not bracketed. A hairline dotted underline
+   keeps it recognizable as transcribed non-lexical material without leaving
+   the flow. The reading-notation toggle does not touch it: it is text */
+.t-vocal-inline{font-style:normal;font-size:inherit;color:inherit;margin:0;
+  border-bottom:1px dotted var(--hair);cursor:help}
 .t-shift{display:inline-block;width:0;border-left:2px solid var(--accent-soft);
   height:.72em;margin:0 .2em;vertical-align:-.04em}
 /* two reading notations, the reader chooses (toolbar): sober editorial signs

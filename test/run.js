@@ -1165,6 +1165,50 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     'a name built from adjacent parts keeps a space (Anna Bianchi, not AnnaBianchi)');
 }
 
+// a vocal event the edition analysed as a lexicalized phenomenon (@ana, listed
+// in the manifest) reads inline as speech; a plain vocal stays a bracketed
+// marker. The distinction is in the markup (@ana), the manifest names which
+// analysis reads as speech (C131, requested by Valentina Montagner)
+{
+  const map = buildClassMap(null, data);
+  const FILL = `<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader><fileDesc><titleStmt><title>Fillers</title></titleStmt>
+    <publicationStmt><p>p</p></publicationStmt>
+    <sourceDesc><particDesc><listPerson>
+      <person xml:id="s1"><persName><forename>Anna</forename><surname>Bianchi</surname></persName></person>
+    </listPerson></particDesc></sourceDesc></fileDesc>
+    <encodingDesc><classDecl><taxonomy>
+      <category xml:id="filler"><catDesc>Semi-lexical fillers</catDesc></category>
+    </taxonomy></classDecl></encodingDesc></teiHeader>
+    <text><body>
+      <u who="#s1" xml:id="u1">Allora <vocal ana="#filler"><desc>ehm</desc></vocal> guardate
+        <vocal><desc>laughs</desc></vocal> bene</u>
+    </body></text></TEI>`;
+  const model = buildModel(parseXML(FILL), map);
+  const u = [...walkModel(model.documents[0].tree)].find((n) => n.element === 'u');
+
+  // without the manifest opt-in, every vocal is a bracketed marker (default)
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline });
+  const off = renderBase(u);
+  ok(off.includes('<span class="spk-sober">(ehm)</span>'),
+    'a filler is bracketed like any vocal until the manifest names its @ana');
+  ok(!/t-vocal-inline/.test(off), 'no inline rendering without the manifest opt-in');
+
+  // the manifest names #filler: that vocal now reads inline, as its text
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline,
+    inlineAna: ['#filler'] });
+  const on = renderBase(u);
+  ok(/<span[^>]*class="t-vocal t-vocal-inline[^"]*"[^>]*data-ana="filler"[^>]*>ehm<\/span>/.test(on),
+    'a vocal whose @ana the manifest lists reads inline, as its transcribed text');
+  ok(!/spk-sober">\(ehm\)/.test(on), 'the inline filler is not also bracketed');
+  ok(on.includes('<span class="spk-sober">(laughs)</span><span class="spk-jeff">((laughs))</span>'),
+    'a vocal without a listed @ana stays a bracketed marker (laughs)');
+  // the leading # is optional in the manifest; a bare token matches too
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline,
+    inlineAna: ['filler'] });
+  ok(/t-vocal-inline/.test(renderBase(u)), 'the manifest @ana token matches with or without a leading #');
+}
+
 // a turn spoken by a group resolves to the group's name, not its raw id (C130)
 {
   const map = buildClassMap(null, data);

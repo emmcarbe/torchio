@@ -57,6 +57,13 @@ export function normalizeManifest(raw = {}) {
       : {},
     extra: [],
     pages: null,
+    // transcriptions of speech: the @ana values whose vocal/incident events are
+    // lexicalized and belong in the verbal flow (semi-lexical fillers: ehm, mah)
+    // rather than shown as a bracketed paralinguistic marker. The markup makes
+    // the distinction (@ana); the manifest says which analysis reads as speech
+    spoken: (raw.spoken && typeof raw.spoken === 'object' && Array.isArray(raw.spoken.inlineAna))
+      ? { inlineAna: raw.spoken.inlineAna.map((s) => String(s).replace(/^#/, '')).filter(Boolean) }
+      : { inlineAna: [] },
     // genre was validated here and read by nothing: a field that does
     // nothing must not look like a setting. Removed (C90) until the
     // two-axis edition profile, derived from the markup and confirmed by

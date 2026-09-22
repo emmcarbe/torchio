@@ -441,7 +441,8 @@ export function pressSite(model, {
   }
   // the speaker table and the timeline are set before any reading text is
   // rendered: @who resolves to the register, @start/@synch to attested seconds
-  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline });
+  setRenderContext({ speakers: speakerMap(model), timeline: model.timeline,
+    inlineAna: (manifest.spoken && manifest.spoken.inlineAna) || [] });
   let text = '';
   for (const doc of model.documents) {
     for (const child of doc.tree.children) {
