@@ -17,8 +17,12 @@
  *
  * Tokenization is Intl.Segmenter (native Unicode, zero dependencies) over
  * the reading layer of the body: lem in app, reg/expan/corr in choice, add
- * kept, del/notes/header excluded. Segmentation follows the platform's ICU:
- * the suite asserts determinism within a build, not across engines.
+ * kept, del/notes/header excluded. The platform's ICU segments, and Torchio
+ * then applies the one Unicode rule engines were found to disagree on (UAX
+ * #29, WB6/WB7: a full stop, colon or apostrophe between two letters does not
+ * break a word). Node's ICU kept "U.S.A" whole, Chromium's split it, so the
+ * same edition counted a different number of words in the terminal and in
+ * the browser. Tokens are now the same in every engine.
  */
 
 import { walkModel, textOfModel } from './model.js';
@@ -63,12 +67,11 @@ function collectFrom(node, docId, anchor, out, segFor, lang) {
   const here = node.id || anchor;
   for (const child of node.children) {
     if (typeof child === 'string') {
-      for (const s of segFor(lang).segment(child)) {
-        if (!s.isWordLike) continue;
+      for (const form of wordsOf(segFor(lang), child)) {
         // a token without a single letter (page numbers, years) is not a
         // word: it stays in the text, never in the lemma index
-        if (!/\p{L}/u.test(s.segment)) continue;
-        out.push({ form: s.segment, docId, lang, anchor: here, lemma: null, provenance: null });
+        if (!/\p{L}/u.test(form)) continue;
+        out.push({ form, docId, lang, anchor: here, lemma: null, provenance: null });
       }
     } else {
       collectFrom(child, docId, here, out, segFor, lang);
@@ -89,6 +92,30 @@ function bodies(model) {
     }
   }
   return found;
+}
+
+// the separators Unicode keeps inside a word when a letter stands on both
+// sides (UAX #29 MidLetter, MidNumLet, Single_Quote)
+const WORD_JOINERS = new Set(['.', ':', "'", '\u2019', '\u00B7', '\u2027', '\u05F4',
+  '\uFE13', '\uFE52', '\uFE55', '\uFF07', '\uFF0E', '\uFF1A']);
+
+/** The words of a text, identical in every engine: the platform segments,
+ *  then a letter + one joiner + letter is kept together wherever the
+ *  platform split it. */
+export function wordsOf(segmenter, text) {
+  const segs = [...segmenter.segment(text)];
+  const out = [];
+  for (let i = 0; i < segs.length; i++) {
+    if (!segs[i].isWordLike) continue;
+    let w = segs[i].segment;
+    while (i + 2 < segs.length && !segs[i + 1].isWordLike && WORD_JOINERS.has(segs[i + 1].segment)
+      && segs[i + 2].isWordLike && /\p{L}$/u.test(w) && /^\p{L}/u.test(segs[i + 2].segment)) {
+      w += segs[i + 1].segment + segs[i + 2].segment;
+      i += 2;
+    }
+    out.push(w);
+  }
+  return out;
 }
 
 export function collectTokens(model) {

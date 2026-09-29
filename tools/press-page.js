@@ -16,7 +16,7 @@
 /* global parseXML, inTEINamespace, resolveIncludes, parseODD, isODD, validateODD,
    buildClassMap, buildModel, pressSite, analyze, applyReconciliation,
    attachLemmas, attachLexicon, collectTokens, normLang, conlluTypes, typesFromVotes, buildXLSX, readZip, reviewRows, applyReview,
-   harvest, applyReconciliation, expandMentions, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
+   harvest, applyReconciliation, canonicalKey, expandMentions, applyReviewSheets, reportLemmaSheets, documentId, listBareOccurrences, markdown, buildZip, i18n, resolveLang,
    TORCHIO_BASE_DATA, TORCHIO_LEAFLET_B64 */
 
 (function () {
@@ -56,6 +56,21 @@
       .replace(/"/g, '&quot;');
   }
 
+  // what a dropped sheet actually did, shown where it was dropped: the only
+  // confirmation used to be a small grey line at the top of the report, out of
+  // sight while the editor works in the panel below
+  function isEmptyPage(e) {
+    if (!e) return false;
+    const text = e.md !== null ? String(e.md || '') : String(e.html || '').replace(/<[^>]*>/g, '');
+    return !text.trim();
+  }
+
+  function sheetStatusHTML(kind) {
+    const list = (S && S.sheetStatus && S.sheetStatus[kind]) || [];
+    return list.map((st) => '<p class="' + (st.ok ? 'sheet-ok' : 'warn') + '">'
+      + (st.ok ? '\u2713 ' : '\u26a0 ') + esc(st.text) + '</p>').join('');
+  }
+
   function fail(message) {
     report.hidden = false;
     composeBox.hidden = true;
@@ -65,19 +80,33 @@
 
   async function press(fileList) {
     try {
-      await doPress(fileList);
+      // a sheet, a page, a manifest dropped onto an edition already open JOINS
+      // it: pressing it alone threw "No XML file" and closed the edition, so a
+      // reviewed sheet dropped on its own never seemed to load. Files carrying
+      // a TEI document start a new edition, as before
+      const incoming = [...fileList];
+      const hasTEI = incoming.some((f) => /\.(xml|tei)$/i.test(f.name));
+      let files = incoming;
+      if (!hasTEI && S && lastFiles.size) {
+        const merged = new Map(lastFiles);
+        for (const f of incoming) merged.set(f.name, f);
+        files = [...merged.values()];
+      }
+      await doPress(files);
     } catch (err) {
       fail(err && err.message ? err.message : String(err));
     }
   }
 
-  let lastFiles = [];
+  // every file of the edition being composed, by name, sheets included: a
+  // second sheet dropped later must not make the first one vanish
+  let lastFiles = new Map();
   let currentStep = 'edition'; // survives panel redraws: UDPipe must not send you back to page one
   let nlpLang = ''; // the editor's word on the language; empty = trust the markup
   let lemmaAuto = false; // accept machine lemmas without review (declared in the edition)
   let entitiesAuto = false; // accept machine entity proposals without review (declared in the edition)
   async function doPress(fileList) {
-    lastFiles = [...fileList].filter((f) => !/\.xlsx$/i.test(f.name) && !IMG_RE.test(f.name));
+    lastFiles = new Map([...fileList].filter((f) => !IMG_RE.test(f.name)).map((f) => [f.name, f]));
     // the browser presses in memory: fine for composing and trying, but a
     // whole archive belongs in the repository that presses itself. Warn
     // rather than freeze, and let the editor go on if they mean to
@@ -97,11 +126,12 @@
       }
     }
     const texts = new Map();
-    let reviewSheet = null;
+    // reviewed sheets come back as .xlsx, one for the lemmas and one for the
+    // names, read here so the editor never touches the JSON. ALL of them: a
+    // single slot made the second sheet silently replace the first
+    const reviewSheets = [];
     for (const f of fileList) {
-      // a reviewed lemma sheet comes back as .xlsx: read it here, so the
-      // editor never touches the JSON
-      if (/\.xlsx$/i.test(f.name)) { reviewSheet = new Uint8Array(await f.arrayBuffer()); continue; }
+      if (/\.xlsx$/i.test(f.name)) { reviewSheets.push({ name: f.name.split('/').pop(), bytes: new Uint8Array(await f.arrayBuffer()) }); continue; }
       // an image is bytes, never text: capture it for the images/ folder, so
       // dropping the whole edition folder (XML and images together) just works
       if (IMG_RE.test(f.name)) { droppedImages.set(f.name.split('/').pop(), new Uint8Array(await f.arrayBuffer())); continue; }
@@ -136,7 +166,7 @@
           odd = parseODD(root);
           oddInfo = { file: n, custom: odd.customElements.length, deleted: odd.deletedElements.size };
         } else {
-          parsed.push({ id: n.replace(/\.(xml|tei)$/i, ''), name: n, root });
+          parsed.push({ id: documentId(n), name: n, root });
         }
       } catch (err) {
         notes.push('Skipped ' + n + ': ' + err.message);
@@ -160,14 +190,15 @@
       if (!inTEINamespace(parsed[0].root)) {
         notes.push('The root element is not in the TEI namespace; pressed anyway (nothing is invisible).');
       }
-      roots = [parsed[0].root];
+      // named by its file, as the command line names it
+      roots = [{ id: parsed[0].id, root: parsed[0].root }];
     } else {
       roots = parsed
         .filter((p) => inTEINamespace(p.root))
         .filter((p) => !included.has(p.name))
         .map((p) => ({ id: p.id, root: p.root }));
       if (!roots.length) throw new Error('No TEI document among the chosen files.');
-      if (roots.length === 1) roots = [roots[0].root];
+      // one TEI left once the included ones are set apart: still named by its file
     }
 
     const map = buildClassMap(odd, TORCHIO_BASE_DATA);
@@ -197,83 +228,16 @@
       try { lemmasJson = JSON.parse(texts.get('lemmas.json')); }
       catch (err) { notes.push('lemmas.json ignored: ' + err.message); }
     }
-    // the reviewed spreadsheet becomes the lemma decisions, merged over any
-    // lemmas.json already present
-    if (reviewSheet) {
-      try {
-        const parts = readZip(reviewSheet);
-        // Excel resaves in its own dialect (sharedStrings, numeric cells):
-        // the reader understands both ours and Excel's, and finds the data
-        // sheet by its header wherever the spreadsheet put it
-        const rows = reviewRows(parts, ['form', 'label', 'key']);
-        const head = (rows.shift() || []).map((c) => String(c).trim());
-        if (head.indexOf('label') >= 0 && head.indexOf('type') >= 0) {
-          // the names sheet: what the editor confirmed becomes the registries
-          const iL = head.indexOf('label'), iT = head.indexOf('type'), iK = head.indexOf('kind'),
-            iS = head.indexOf('status'), iLa = head.indexOf('lat'),
-            iLo = head.indexOf('lon'), iA = head.indexOf('authority'), iO = head.indexOf('occId');
-          const entities = { person: {}, place: {}, org: {} };
-          const confirmedOcc = new Map(); // occId -> the editor's type
-          const sheetLabels = new Map(); // label -> {type,label}: the exact proposal set
-          const nk = (s) => String(s).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
-          const parseAuth = (rec, v) => {
-            for (const part of String(v).split(/[\s;]+/)) {
-              const m = part.match(/^(wikidata|viaf|gnd|isil):(.+)$/i);
-              if (m) rec[m[1].toLowerCase()] = m[2];
-              else if (/^Q\d+$/i.test(part)) rec.wikidata = part;
-              else if (/^\d+$/.test(part)) rec.viaf = part;
-            }
-          };
-          for (const r of rows) {
-            const type = r[iT], label = r[iL], status = iS >= 0 ? (r[iS] || 'suggested') : 'suggested';
-            if (!label) continue;
-            const kind = iK >= 0 ? r[iK] : 'marked';
-            if (!sheetLabels.has(label)) sheetLabels.set(label, { type: type || '', label });
-            if (kind === 'unmarked' || kind === 'candidate') {
-              // an occurrence judged in place: confirmed here means "yes, and
-              // it is a person / place / org", the type from this very row
-              if (status === 'confirmed' && iO >= 0 && r[iO] && entities[type]) {
-                confirmedOcc.set(r[iO], type);
-                // a confirmed candidate needs its entity to exist
-                if (!entities[type][nk(label)]) {
-                  entities[type][nk(label)] = { label, status: 'confirmed', source: 'editor' };
-                }
-              }
-              continue;
-            }
-            if (!entities[type]) continue;
-            const rec = { label, status, source: 'editor' };
-            // an empty lat/lon cell is not a coordinate: Number('') is 0, which
-            // would plant the place at 0,0 (the Gulf of Guinea) and drag the
-            // whole map onto empty ocean. A blank cell means "no coordinate"
-            const latRaw = String(r[iLa] == null ? '' : r[iLa]).trim();
-            const lonRaw = String(r[iLo] == null ? '' : r[iLo]).trim();
-            const lat = Number(latRaw), lon = Number(lonRaw);
-            if (latRaw !== '' && lonRaw !== '' && Number.isFinite(lat) && Number.isFinite(lon)) { rec.lat = lat; rec.lon = lon; }
-            if (iA >= 0 && r[iA]) parseAuth(rec, r[iA]);
-            entities[type][nk(label)] = rec;
-          }
-          applyReconciliation(model, entities);
-          const grown = confirmedOcc.size
-            ? expandMentions(model, confirmedOcc, { labels: [...sheetLabels.values()] }) : 0;
-          const kept = Object.values(entities).reduce((n, o) =>
-            n + Object.values(o).filter((r) => r.status === 'confirmed').length, 0);
-          notes.push('Reviewed names sheet applied (' + kept + ' entities, ' + grown + ' further occurrences confirmed).');
-        } else {
-          const iF = head.indexOf('form'), iLa = head.indexOf('lang'),
-            iLe = head.indexOf('lemma'), iS = head.indexOf('status');
-          const reviewed = rows.filter((r) => r[iF]).map((r) => ({
-            form: r[iF], lang: iLa >= 0 ? r[iLa] : undefined,
-            lemma: r[iLe], status: iS >= 0 ? r[iS] : undefined,
-          }));
-          const base = lemmasJson || { types: reviewed.map((r) => ({ form: r.form, lang: r.lang, lemma: r.lemma, status: 'suggested' })) };
-          lemmasJson = applyReview(base, reviewed);
-          notes.push('Reviewed lemma sheet applied (' + reviewed.length + ' forms).');
-        }
-      } catch (err) { notes.push('The review sheet could not be read: ' + err.message); }
-    }
+    // the reviewed spreadsheets, read by the same engine module the command
+    // line uses (src/sheets.js): one reading, so the edition made here can be
+    // remade from the terminal with the same files
+    const sheetResult = applyReviewSheets(model, reviewSheets, lemmasJson);
+    lemmasJson = sheetResult.lemmasJson;
     attachLemmas(model, lemmasJson);
     attachLexicon(model);
+    reportLemmaSheets(model, sheetResult);
+    notes.push(...sheetResult.notes);
+    const sheetStatus = sheetResult.status;
 
     // extra pages declared by a dropped manifest, resolved among the files
     const droppedExtra = [];
@@ -297,7 +261,7 @@
     // machine lemmas accepted without review: the editor chose speed, the
     // edition says so (they stay "suggested", and the page marks them)
     const prevLemmaTypes = S && S.lemmaTypes;
-    if (!lemmasJson && !reviewSheet && lemmaAuto && prevLemmaTypes) {
+    if (!lemmasJson && !reviewSheets.length && lemmaAuto && prevLemmaTypes) {
       attachLemmas(model, { generator: 'UDPipe (accepted without review)', types: prevLemmaTypes });
       notes.push('Machine lemmas accepted without review, as chosen: ' + prevLemmaTypes.length
         + ' forms, recorded as suggestions.');
@@ -351,6 +315,7 @@
       ui: seedUI(model, droppedManifest, droppedExtra),
       files: null,
       lemmaTypes: prevLemmaTypes || null,
+      sheetStatus,
     };
 
     compose();
@@ -367,6 +332,11 @@
       lang: raw.lang === 'it' || raw.lang === 'en' ? raw.lang : '',
       theme: typeof raw.theme === 'string' ? raw.theme : '',
       exports: raw.exports !== false,
+      // the finer choice a manifest can make: {"source": false} keeps the TEI
+      // out of the published site. Reducing exports to a yes/no dropped it, and
+      // the zip carried data/source.xml the manifest had withheld
+      exportsSource: !(raw.exports && typeof raw.exports === 'object' && raw.exports.source === false),
+      exportsDetail: raw.exports && typeof raw.exports === 'object' ? { ...raw.exports } : null,
       pieces: {
         apparatus: !(raw.pieces && raw.pieces.apparatus === false),
         entities: !(raw.pieces && raw.pieces.entities === false),
@@ -748,6 +718,11 @@
     }
     if (ui.registerColumns) m.register = { columns: ui.registerColumns };
     if (!ui.exports) m.exports = false;
+    else if (!ui.exportsSource) m.exports = { ...(ui.exportsDetail || {}), source: false };
+    else if (ui.exportsDetail) {
+      const rest = { ...ui.exportsDetail }; delete rest.source;
+      if (Object.keys(rest).length) m.exports = rest;
+    }
     return m;
   }
 
@@ -842,6 +817,12 @@
       html += '<p class="warn">xinclude unresolved: ' + esc(u.href) + ' (' + esc(u.reason) + ')</p>';
     }
     for (const n of S.notes) html += '<p class="note">' + esc(n) + '</p>';
+    // a page added in the panel with no text shows empty on the site: say so
+    for (const e of S.ui.extra) {
+      const text = e.md !== null ? String(e.md || '') : String(e.html || '').replace(/<[^>]*>/g, '');
+      if (!text.trim()) html += '<p class="warn">The page \u00ab' + esc(e.label) + '\u00bb has no text yet: '
+        + 'it appears in the menu but shows empty. Write it in the page editor (Pages, edit).</p>';
+    }
     report.innerHTML = html;
     report.hidden = false;
   }
@@ -935,6 +916,8 @@
         + (ui.extra.some((e) => e.id === id)
           ? ' <button type="button" data-editpage="' + esc(id) + '">edit</button>'
             + ' <button type="button" data-removepage="' + esc(id) + '">remove</button>'
+            + (isEmptyPage(ui.extra.find((e) => e.id === id))
+              ? ' <span class="warn">empty: write its text with edit</span>' : '')
           : '')
         + '</div>';
     }
@@ -1021,7 +1004,13 @@
       + '<div class="piece-block"><label><input type="checkbox" id="c-exports"' + (ui.exports ? ' checked' : '')
       + '> <b>data files</b></label>'
       + '<span class="note">The edition ships its own data for anyone to reuse: the model (JSON), the '
-      + 'registers (CSV), and your XML sources in data/source. The edition is the repository.</span></div>'
+      + 'registers (CSV), and your XML sources in data/source. The edition is the repository.</span>'
+      + '<label style="display:block;margin-top:.4em"><input type="checkbox" id="c-exports-source"'
+      + (ui.exportsSource ? ' checked' : '') + (ui.exports ? '' : ' disabled')
+      + '> publish the TEI source (data/source.xml)</label>'
+      + (ui.exportsSource ? '' : '<span class="note"><b>The TEI source is not published</b>: '
+        + 'the site and the zip leave it out (for a restricted edition).</span>')
+      + '</div>'
       + '</fieldset>';
 
     // 2. words: lemmas and the lexicon, with their own review round trip
@@ -1063,7 +1052,7 @@
       + (lemmaAuto ? ' checked' : '') + '> or proceed without review: use the proposals as they are. '
       + 'The edition will say so (every form stays marked as a machine suggestion)</label></div>'
       + '<div class="dropmini" id="drop-lemmas"><span class="note">4 \u00b7 Drop the corrected sheet '
-      + 'here (or with the files).</span></div>'
+      + 'here (or with the files).</span>' + sheetStatusHTML('lemmas') + '</div>'
       + '</fieldset>';
 
     // 3. names: the indices and the map, with their own review round trip
@@ -1115,7 +1104,7 @@
       + 'unmarked occurrences with their context, the candidates, the authority proposals. Confirm, '
       + 'set the types, fill coordinates, save.</span></p>'
       + '<div class="dropmini" id="drop-names"><span class="note">Drop the corrected names sheet here '
-      + '(or with the files).</span></div>'
+      + '(or with the files).</span>' + sheetStatusHTML('names') + '</div>'
       + '<p class="note"><b>The map needs coordinates.</b> A place appears on the map only when it '
       + 'carries a latitude and a longitude, and coordinates the TEI already declares always win. '
       + 'For the ancient world, Pleiades locates the places here offline; Wikidata proposes coordinates '
@@ -1243,7 +1232,7 @@
       zone.addEventListener('dragleave', () => zone.classList.remove('over'));
       zone.addEventListener('drop', (ev) => {
         ev.preventDefault(); zone.classList.remove('over');
-        if (ev.dataTransfer.files.length) press([...lastFiles, ...ev.dataTransfer.files]);
+        if (ev.dataTransfer.files.length) press([...ev.dataTransfer.files]);
       });
     }
     // images have their own dropzone: read as bytes (never f.text(), which would
@@ -1287,7 +1276,8 @@
     }
     bind('c-entities', (el) => { ui.pieces.entities = el.checked; });
     bind('c-choice', (el) => { ui.pieces.choice = el.checked; });
-    bind('c-exports', (el) => { ui.exports = el.checked; });
+    bind('c-exports', (el) => { ui.exports = el.checked; renderPanelSoon(); });
+    bind('c-exports-source', (el) => { ui.exportsSource = el.checked; renderPanelSoon(); });
 
     for (const box of composeBox.querySelectorAll('[data-page]')) {
       box.addEventListener('input', () => {

@@ -33,6 +33,19 @@ export function normalizeKey(s) {
     .toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
+/** The identity of a name across every place it is written: case,
+ *  diacritics AND punctuation ignored. A names sheet that comes back from a
+ *  spreadsheet, a reconcile.json written by hand and the register all spell
+ *  "Musée d'Orsay", "Jean-Paul Sartre", "Università di Padova" a
+ *  little differently (an apostrophe dropped, an accent stripped): matching on
+ *  anything stricter made a second entry for the same entity, and the index
+ *  of names showed it twice (C129) */
+export function canonicalKey(s) {
+  // letters and digits only: "d'Orsay", "d Orsay" and "dOrsay", "Jean-Paul"
+  // and "Jean Paul" are one name, however a spreadsheet or a hand wrote it
+  return normalizeKey(String(s == null ? '' : s)).replace(/[^\p{L}\p{N}]/gu, '');
+}
+
 function registryFor(model, type) {
   return { place: model.registries.places, person: model.registries.people, org: model.registries.orgs }[type];
 }
@@ -166,16 +179,25 @@ export function applyReconciliation(model, entities) {
     const registry = registryFor(model, type);
     if (!registry) continue;
     const byKey = new Map(registry.map((e) => [normalizeKey(e.label), e]));
+    // the same entity, whatever spelling of its name the caller keyed it by
+    const byCanon = new Map();
+    for (const e of registry) {
+      const c = canonicalKey(e.label);
+      if (c && !byCanon.has(c)) byCanon.set(c, e);
+    }
     const hByKey = new Map((harvested[type] || []).map((h) => [h.key, h]));
     for (const [key, r] of Object.entries(entities[type])) {
       if (!r || r.status === 'rejected' || r.status === 'missing') continue;
       const provenance = r.status === 'confirmed' ? (r.source || 'editor') : (r.source || 'suggested');
-      let entry = byKey.get(key);
+      let entry = byKey.get(key)
+        || byCanon.get(canonicalKey(r.label || key))
+        || byCanon.get(canonicalKey(key));
       if (!entry) {
         entry = { id: `${type}:${key}`, label: r.label || key, atts: {},
                   occurrences: hByKey.get(key)?.occurrences || [] };
         registry.push(entry);
         byKey.set(key, entry);
+        byCanon.set(canonicalKey(entry.label), entry);
       }
       if (type === 'place') {
         if (!entry.geo && r.lat != null && r.lon != null) {

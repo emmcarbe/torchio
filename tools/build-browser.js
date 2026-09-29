@@ -154,6 +154,8 @@ legend{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
 .flow legend{color:var(--accent,#b01e28)}
 .dropmini{border:1.5px dashed #ccc;border-radius:3px;padding:10px 14px;margin-top:.6em;text-align:center}
 .dropmini.over{border-color:#b01e28;background:rgba(176,30,40,.04)}
+.dropmini .sheet-ok,.dropmini .warn{text-align:left;margin:.5em 0 0;font-size:.92em}
+.sheet-ok{color:#1F6B3A}
 .rmimg{background:none;border:0;color:#b01e28;cursor:pointer;font-size:12px;padding:0}
 .rmimg:hover{text-decoration:underline}
 .stepmove{display:flex;justify-content:space-between;margin:1.2em 0}

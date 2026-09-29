@@ -17,8 +17,11 @@ import { validateODD } from '../src/validate.js';
 import { validateFiles } from '../tools/schema-validate.js';
 import { analyze } from '../src/analyze.js';
 import { resolveIncludes } from '../src/xinclude.js';
-import { buildModel, walkModel, textOfModel, parseDurationSeconds } from '../src/model.js';
+import { buildModel, walkModel, textOfModel, parseDurationSeconds, documentId } from '../src/model.js';
 import { renderBase, pressPage, setRenderContext, speakerMap } from '../src/render.js';
+import { applyReconciliation, canonicalKey } from '../src/reconcile.js';
+import { applyReview, attachLemmas, wordsOf } from '../src/lemmas.js';
+import { pressSite } from '../src/site.js';
 
 let passed = 0;
 function ok(cond, label) {
@@ -1292,6 +1295,84 @@ console.log('lemma review — errors exist, so reviewing must be cheap');
     'a @key that names a declared person makes one index entry, not two (C129)');
   ok(model.registries.people[0].occurrences.length === 3,
     'mentions by id and by canonical key (any spacing/case) all attach to the one person');
+}
+
+// a names sheet keyed by a spelling that differs only in punctuation or
+// accents joins the declared entity instead of doubling it (C129)
+{
+  const map = buildClassMap(null, data);
+  const XML = `<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc>
+    <titleStmt><title>T</title></titleStmt><publicationStmt><p>p</p></publicationStmt>
+    <sourceDesc><listPerson><person xml:id="jps"><persName>Jean-Paul Sartre</persName></person></listPerson>
+    <listPlace><place xml:id="mo"><placeName>Musée d'Orsay</placeName></place></listPlace>
+    <listOrg><org xml:id="up"><orgName>Università di Padova</orgName></org></listOrg></sourceDesc>
+    </fileDesc></teiHeader><text><body><p><persName ref="#jps">Sartre</persName> al
+    <placeName ref="#mo">Musée d'Orsay</placeName>, <orgName ref="#up">Padova</orgName>.</p></body></text></TEI>`;
+  const model = buildModel(parseXML(XML), map);
+  const size = () => model.registries.people.length + model.registries.places.length + model.registries.orgs.length;
+  const before = size();
+  // the keys a spreadsheet produces: apostrophe, hyphen and accent handled differently
+  applyReconciliation(model, {
+    person: { 'jeanpaul sartre': { label: 'Jean-Paul Sartre', status: 'confirmed', source: 'editor' } },
+    place: { 'musee dorsay': { label: "Musée d'Orsay", status: 'confirmed', source: 'editor', lat: 48.86, lon: 2.33 } },
+    org: { 'universita di padova': { label: 'Università di Padova', status: 'confirmed', source: 'editor', wikidata: 'Q193510' } },
+  });
+  ok(size() === before, 'a reviewed name spelled with other punctuation or accents does not double the entry (C129)');
+  ok(model.registries.places[0].geo && model.registries.places[0].geo.lat === 48.86,
+    'the reviewed data lands on the declared entity (coordinates attached)');
+  ok(canonicalKey("Musée d'Orsay") === canonicalKey('musee dorsay') && canonicalKey('Jean-Paul') === canonicalKey('jean paul'),
+    'the canonical key ignores case, accents and punctuation');
+}
+
+// a reviewed lemma sheet is a { json, decided } result: the lemmas are its json
+{
+  const map = buildClassMap(null, data);
+  const model = buildModel(parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="it"><teiHeader><fileDesc>
+    <titleStmt><title>T</title></titleStmt><publicationStmt><p>p</p></publicationStmt><sourceDesc><p>s</p></sourceDesc>
+    </fileDesc></teiHeader><text><body><p>Le statue e i vetri.</p></body></text></TEI>`), map);
+  const reviewed = [{ form: 'statue', lang: 'it', lemma: 'statua', status: 'confirmed' },
+    { form: 'vetri', lang: 'it', lemma: 'vetro', status: 'confirmed' }];
+  const res = applyReview({ types: reviewed.map((r) => ({ ...r, status: 'suggested' })) }, reviewed);
+  ok(res && res.json && Array.isArray(res.json.types) && res.decided === 2,
+    'applyReview returns { json, decided }, the decisions counted');
+  attachLemmas(model, res.json);
+  ok(model.lemmas && model.lemmas.lemmatized === 2, 'the reviewed forms lemmatize the text when the json is passed on');
+}
+
+// interface labels are escaped once: an apostrophe never prints as &#39;
+{
+  const map = buildClassMap(null, data);
+  const model = buildModel(parseXML(`<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="it"><teiHeader><fileDesc>
+    <titleStmt><title>T</title></titleStmt><publicationStmt><p>p</p></publicationStmt><sourceDesc><p>s</p></sourceDesc>
+    </fileDesc></teiHeader><text><body><p>testo</p></body></text></TEI>`), map);
+  const files = pressSite(model, { manifest: { lang: 'it' }, sourceXML: '<TEI/>' });
+  const bad = Object.entries(files).filter(([n, c]) => n.endsWith('.html') && /&amp;(#\d+|amp|lt|gt|quot);/.test(c)).map(([n]) => n);
+  ok(files['data.html'] && files['data.html'].includes("dell&#39;edizione") && !bad.length,
+    'no page escapes a label twice (data.html reads "il modello dell\'edizione")' + (bad.length ? ' — ' + bad.join(', ') : ''));
+}
+
+// the words of a text are the same in every engine: a segmenter that splits
+// "U.S.A" and "centimetro.Poi" (as Chromium's ICU does) is rejoined to the
+// Unicode rule Node's ICU applies
+{
+  const splitting = { segment: (t) => {
+    const out = []; const re = /(\p{L}+|\p{N}+(?:[.,]\p{N}+)*)|([^\p{L}\p{N}])/gu; let m;
+    while ((m = re.exec(t))) out.push({ segment: m[0], isWordLike: !!m[1] });
+    return out;
+  } };
+  const native = new Intl.Segmenter('it', { granularity: 'word' });
+  const text = "centimetro.Poi · U.S.A. · ore:minuti · dell'Orto · 1.5 · fine.";
+  ok(wordsOf(splitting, text).join('|') === wordsOf(native, text).join('|'),
+    'a splitting segmenter and the native one give the same words');
+  ok(wordsOf(splitting, text).includes('U.S.A') && wordsOf(splitting, text).includes("dell'Orto")
+    && wordsOf(splitting, 'fine. Poi').join('|') === 'fine|Poi',
+    'a letter-joiner-letter stays one word; a full stop followed by a space still ends one');
+}
+
+// a document is named by its file, whichever way it is pressed
+{
+  ok(documentId('tesi.xml') === 'tesi' && documentId('sub/a.xml') === 'sub-a' && documentId('x.TEI') === 'x',
+    'the document id is the file name, the folder kept, the extension dropped');
 }
 
 console.log(`\n${passed} assertions passed.`);

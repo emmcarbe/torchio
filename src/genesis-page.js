@@ -24,7 +24,7 @@ export function pressGenesisPage({ model, pageFor, t, T, lang, theme, parent, pa
       || (s.unassigned && !o.layer && !o.hand));
     g += `<section class="stratum"><h2 class="sec">${escapeHTML(s.label || s.id)}`
       + `${s.when ? ` <span class="occ">${escapeHTML(s.when)}</span>` : ''}`
-      + `${s.hand ? ` <span class="occ">${escapeHTML(T.hand)}</span>` : ''}</h2>`
+      + `${s.hand ? ` <span class="occ">${T.hand}</span>` : ''}</h2>`
       + (ops.length ? `<table class="wit-table">` : `<p class="occ">0 ${T.operations}</p>`);
     for (const o of ops) {
       const page = pageFor(o.id);

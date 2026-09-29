@@ -644,8 +644,8 @@ export function pressSite(model, {
               const rt = cleanText(r).trim();
               const shown = isEdited ? wits.filter((w) => w !== edited) : wits;
               v += `<div class="vmap-rdg${isEdited ? ' vmap-edited' : ''}">`
-                + `${isLac ? `<span class="vmap-lem">${escapeHTML(T.lacking)}</span>` : escapeHTML(rt || '(om.)')}`
-                + `${isEdited ? ` <span class="vmap-mark">${escapeHTML(T.editedText)}</span>` : ''}`
+                + `${isLac ? `<span class="vmap-lem">${T.lacking}</span>` : escapeHTML(rt || '(om.)')}`
+                + `${isEdited ? ` <span class="vmap-mark">${T.editedText}</span>` : ''}`
                 + ` <span class="vmap-wit">${shown.map((w) => `<span class="bw" data-sig="${escapeHTML(w)}">${escapeHTML(w)}</span>`).join(' ')}</span>`
                 + `${shown.length ? ` <span class="vmap-count">(${shown.length})</span>` : ''}</div>`;
             }
@@ -874,7 +874,9 @@ export function pressSite(model, {
     for (const [path, content] of Object.entries(exports_)) {
       const kb = new TextEncoder().encode(content).length / 1024;
       dataPage += `<tr><td class="sigla"><a href="${path}">${escapeHTML(path.replace('data/', ''))}</a></td>`
-        + `<td>${escapeHTML(DESCR[path] || '')}</td>`
+        // T is escaped once, where the labels enter: escaping it again printed
+        // "dell&#39;edizione" on the page
+        + `<td>${DESCR[path] || ''}</td>`
         + `<td class="occ">${kb < 1024 ? kb.toFixed(1) + ' KB' : (kb / 1024).toFixed(1) + ' MB'}</td></tr>`;
     }
     dataPage += `</table><p class="occ">${T.reuse}</p></main>`;

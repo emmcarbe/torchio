@@ -20,6 +20,8 @@ import { analyze } from '../src/analyze.js';
 import { applyReconciliation } from '../src/reconcile.js';
 import { applyGeoref } from '../src/georef.js';
 import { attachLemmas, attachLexicon } from '../src/lemmas.js';
+import { applyReviewSheets, reportLemmaSheets } from '../src/sheets.js';
+import { documentId } from '../src/model.js';
 import { validateODD, formatValidationIssue } from '../src/validate.js';
 import { validateFiles } from './schema-validate.js';
 
@@ -161,7 +163,7 @@ if (inputStat.isDirectory()) {
       }
       if (!inTEINamespace(r)) continue;
       await resolveIncludes(r, (href) => { const t = within(input, href); used(t); return readText(t); });
-      roots.push({ id: n.replace(/\.xml$/i, '').replace(/[/\\]/g, '-'), root: r });
+      roots.push({ id: documentId(n), root: r });
     } catch (err) {
       note('error', `a file could not be read, and its text is not in the edition (${n})`, err.message);
     }
@@ -190,7 +192,12 @@ if (inputStat.isDirectory()) {
     readText(within(dirname(input), href)));
   if (resolved) console.error(`xinclude: ${resolved} resolved`);
   for (const u of unresolved) note('error', `an inclusion did not resolve, so its text is missing (${u.href})`, u.reason);
-  roots = [root];
+  // the same id the directory input and the browser press give: the file's
+  // name. A single file pressed as a file was "doc0", as a folder "tesi", in
+  // the browser "doc0": every anchor of the edition changed with the way it
+  // was pressed, and a passage cited from one impression did not resolve in
+  // another
+  roots = [{ id: documentId(basename(input)), root }];
 }
 if (rngArg || schematronArg) {
   const schemaReport = await validateFiles(sourceFiles.filter((file) => /\.(xml|tei)$/i.test(file)), {
@@ -230,6 +237,10 @@ try {
   } catch { /* pressed outside a checkout */ }
   const { setColophon } = await import('../src/page-shell.js');
   setColophon(`v${pkg.version}${commit ? ` · ${commit}` : ''} · ${new Date().toISOString().slice(0, 10)}`);
+  // say which engine is pressing, and from where: a terminal that runs an old
+  // copy of Torchio looks like a different edition, and the editor should see
+  // it here, not discover it later on the page
+  console.error(`engine: Torchio v${pkg.version}${commit ? ` (${commit})` : ''} from ${new URL('..', import.meta.url).pathname}`);
 } catch { /* the footer keeps its default */ }
 
 const data = await loadBaseData();
@@ -255,6 +266,7 @@ try {
   used(manifestPath);
   console.error(`manifest: ${manifestPath}`);
 } catch { /* level zero: no manifest, everything derived */ }
+console.error(`theme: ${manifest && manifest.theme ? `${manifest.theme} (asked by torchio.json)` : 'savi (the default: white ground, the same as the browser press)'}`);
 
 // entity reconciliation (reconcile.json next to the manifest, or the input)
 try {
@@ -280,8 +292,30 @@ try {
   lemmasJson = JSON.parse(await readFile(join(dirname(manifestPath), 'lemmas.json'), 'utf-8'));
   used(join(dirname(manifestPath), 'lemmas.json'));
 } catch { /* no file: the markup alone decides */ }
+
+// the reviewed spreadsheets (the names sheet, the lemma sheet) the browser
+// press hands out and takes back: read here the same way, by the same engine
+// module, so an edition revised in the browser presses identically from the
+// terminal. Any .xlsx next to the manifest or the input; a sheet is
+// recognised by its header, never by its file name
+const reviewSheets = [];
+for (const dir of [...new Set([dirname(manifestPath), baseDir])]) {
+  let names = [];
+  try { names = (await readdir(dir)).filter((n) => /\.xlsx$/i.test(n) && !n.startsWith('~$')).sort(); }
+  catch { /* no such folder */ }
+  for (const n of names) {
+    const path = join(dir, n);
+    if (reviewSheets.some((r) => r.path === path)) continue;
+    reviewSheets.push({ name: n, path, bytes: new Uint8Array(await readFile(path)) });
+    used(path);
+  }
+}
+const sheetResult = applyReviewSheets(model, reviewSheets, lemmasJson);
+lemmasJson = sheetResult.lemmasJson;
 const lemmas = attachLemmas(model, lemmasJson);
 attachLexicon(model);
+reportLemmaSheets(model, sheetResult);
+for (const n of sheetResult.notes) console.error('sheets: ' + n);
 if (lemmas) {
   console.error(`lemmas: ${lemmas.entries.length} lemmas, ${lemmas.lemmatized}/${lemmas.tokens} tokens`
     + (lemmas.provenance.markup ? ` (markup: ${lemmas.provenance.markup})` : '')
@@ -312,6 +346,11 @@ if (manifest && Array.isArray(manifest.extra)) {
         note('warning', `a page is raw HTML and is published as it is (${e.file})`,
           'nothing in it has been checked');
       } else html = markdown(raw);
+      // the same warning the browser press gives: a page in the menu that
+      // shows nothing is almost always a file saved empty or not saved at all
+      if (!String(raw).replace(/<[^>]*>/g, '').trim()) {
+        note('warning', `a page is empty (${e.file})`, 'it appears in the menu but shows nothing: write its text');
+      }
       extraPages.push({ id: e.id, label: e.label || e.id, html });
     } catch (err) {
       note('error', `a page the manifest promises is missing (${e.file})`, err.message);

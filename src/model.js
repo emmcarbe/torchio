@@ -1121,3 +1121,12 @@ function collectFacsimile(node, facsimiles) {
     source: node.atts.source || null,
   });
 }
+
+/** A document's id is its file's name, the same in every press (browser,
+ *  terminal on a folder, terminal on a file): the anchors of an edition must
+ *  not depend on how it was pressed. */
+export function documentId(fileName) {
+  // the path is kept (sub/a.xml -> sub-a): two files of one name in two
+  // folders stay two documents, as the directory press always named them
+  return String(fileName).replace(/\.(xml|tei)$/i, '').replace(/[/\\]/g, '-');
+}
